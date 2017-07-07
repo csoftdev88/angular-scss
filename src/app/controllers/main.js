@@ -275,7 +275,7 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
       //check if user is logged in and then get campaigns
       function onAuthorized(){
         if(Settings.UI.campaigns && Settings.UI.campaigns.display){
-          var loggedIn = $scope.auth.isLoggedIn();
+          var loggedIn = $scope.auth && $scope.auth.isLoggedIn();
           if(!$rootScope.thirdparty && _.isEmpty(activeThirdParty)){
             locationService.getLocations().then(function(locations){
               campaignsService.setCampaigns($scope.auth, loggedIn, locations);

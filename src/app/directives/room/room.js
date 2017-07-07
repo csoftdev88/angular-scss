@@ -419,7 +419,7 @@ angular.module('mobiusApp.directives.room', [])
 
 
       scope.setRoomsSorting = function() {
-        return scope.auth.isLoggedIn() ? ['-highlighted']: ['-memberOnly', '-highlighted'];
+        return scope.auth && scope.auth.isLoggedIn() ? ['-highlighted']: ['-memberOnly', '-highlighted'];
       };
 
       scope.selectProduct = function(product) {

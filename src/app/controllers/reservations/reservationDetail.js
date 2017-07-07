@@ -129,7 +129,7 @@
           $scope.voucher.verifying = true;
           if($scope.voucher.code){
             //Validate voucher which returns an addon
-            reservationService.addAddon($stateParams.reservationCode, null, $scope.auth.isLoggedIn() ? null : $scope.reservation.email, $scope.voucher.code).then(function() {
+            reservationService.addAddon($stateParams.reservationCode, null, $scope.auth && $scope.auth.isLoggedIn() ? null : $scope.reservation.email, $scope.voucher.code).then(function() {
               $q.all([
                 // Available addons
                 reservationService.getAvailableAddons($scope.auth, {
@@ -238,7 +238,7 @@
         // Getting available addons and reservation addons
         var availablePoints;
 
-        if ($scope.auth.isLoggedIn() && user.getUser().loyalties) {
+        if ($scope.auth && $scope.auth.isLoggedIn() && user.getUser().loyalties) {
           availablePoints = user.getUser().loyalties.amount || 0;
         } else {
           availablePoints = 0;
@@ -353,7 +353,7 @@
         // NOTE: This will enable editing
         reservation: reservation.reservationCode,
         // Removing email param when user is logged in
-        email: $scope.auth.isLoggedIn() ? null : reservation.email
+        email: $scope.auth && $scope.auth.isLoggedIn() ? null : reservation.email
       };
 
       propertyService.getPropertyDetails(reservation.property.code)
@@ -387,7 +387,7 @@
       }
 
       modalService.openCancelReservationDialog($stateParams.reservationCode).then(function() {
-        var reservationPromise = reservationService.cancelReservation($stateParams.reservationCode, $scope.auth.isLoggedIn() ? null : $scope.reservation.email)
+        var reservationPromise = reservationService.cancelReservation($stateParams.reservationCode, $scope.auth && $scope.auth.isLoggedIn() ? null : $scope.reservation.email)
           .then(function() {
             // Reservation is removed, notifying user
             //TODO: move to locales
@@ -404,7 +404,7 @@
             // Tracking refund
             dataLayerService.trackReservationRefund($stateParams.reservationCode);
 
-            if ($scope.auth.isLoggedIn()) {
+            if ($scope.auth && $scope.auth.isLoggedIn()) {
               $state.go('reservations');
             } else {
               console.log('take anonymous user to home');
@@ -490,7 +490,7 @@
         var addAddonPromise = reservationService.addAddon(
           $stateParams.reservationCode,
           addon,
-          $scope.auth.isLoggedIn() ? null : $scope.reservation.email).then(function() {
+          $scope.auth && $scope.auth.isLoggedIn() ? null : $scope.reservation.email).then(function() {
 
           //Infiniti Tracking purchase
           var infinitiTrackingProducts = [];
@@ -512,7 +512,7 @@
           };
 
           //Getting anon user details
-          if (!$scope.auth.isLoggedIn()) {
+          if ($scope.auth && !$scope.auth.isLoggedIn()) {
 
             var reservationParams = {
               email: $scope.reservation.email
@@ -543,14 +543,14 @@
                       'secondPhoneNumber': anonUserData.tel2
                     };
 
-                    infinitiEcommerceService.trackPurchase($scope.auth.isLoggedIn(), infinitiTrackingData);
+                    infinitiEcommerceService.trackPurchase($scope.auth && $scope.auth.isLoggedIn(), infinitiTrackingData);
 
                   });
                 });
               });
             });
           } else {
-            infinitiEcommerceService.trackPurchase($scope.auth.isLoggedIn(), infinitiTrackingData);
+            infinitiEcommerceService.trackPurchase($scope.auth && $scope.auth.isLoggedIn(), infinitiTrackingData);
           }
 
           // Removing from available addons
@@ -571,7 +571,7 @@
           }
 
           // Updating user loyalties once payment was done using the points
-          if (addon.pointsRequired && $scope.auth.isLoggedIn()) {
+          if (addon.pointsRequired && $scope.auth && $scope.auth.isLoggedIn()) {
             user.loadLoyalties();
           }
         });

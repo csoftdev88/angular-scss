@@ -13,7 +13,7 @@ angular
     breadcrumbsService.addBreadCrumb('Rewards');
 
     function onAuthorized() {
-      if (!$scope.auth.isLoggedIn()) {
+      if ($scope.auth && !$scope.auth.isLoggedIn()) {
         $state.go('home');
       } else {
         init();

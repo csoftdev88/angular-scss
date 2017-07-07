@@ -57,7 +57,7 @@ angular
     // Returns true when user is not logged-in and modifying the
     // reservation based on his email and reservation code
     $scope.isModifyingAsAnonymous = function(){
-      return !$scope.auth.isLoggedIn() && $stateParams.email && $stateParams.reservation;
+      return $scope.auth && !$scope.auth.isLoggedIn() && $stateParams.email && $stateParams.reservation;
     };
 
     function cancelReservationUpdate(redirectTo, reservationCode, showModal){
