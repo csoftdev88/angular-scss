@@ -7,6 +7,9 @@ angular.module('mobiusApp.filters.trustAsHtml', [])
 
 .filter('trustAsHtml' , function($sce) {
   return function (text) {
-    return $sce.trustAsHtml(text);
+    if (typeof text === "string") {
+      return $sce.trustAsHtml(text);
+    }
+    return text;
   };
 });
