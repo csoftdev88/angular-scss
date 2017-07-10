@@ -5,6 +5,18 @@ floating-bar {
   background: @c-booking-widget;
   button-submit {
     padding: 0;
+    &:before {
+      .fa;
+      content: @fa-var-chevron-right;
+      position: absolute;
+      right: 90px;
+      top: 50%;
+      color: #fff;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      font-size: 13px;
+    }
   }
   .viewport-mobile & {
     background: @c-booking-widget-active;
