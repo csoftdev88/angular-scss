@@ -76,6 +76,13 @@
         color: gray !important;
       }
       // Highlighting today's day
+      &:not(.date-range-start) {
+        &.ui-datepicker-today a {
+          margin: 0 10px;
+          border: solid 1px #fff;
+          border-radius: 50%;
+        }
+      }
       &.ui-datepicker-today a {
         font-family:@ff-bold;
         color: @c-white;
