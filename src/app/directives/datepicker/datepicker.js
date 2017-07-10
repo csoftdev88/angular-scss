@@ -58,12 +58,12 @@
         var isStartDateSelected;
         var counterDatesRules;
 
-        if (hasCounter) {
-          counterPluralizationRules = scope.$eval(attrs.counterPluralization) || {};
-        }
-        if (counterHasDates) {
-          counterDatesRules = scope.$eval(attrs.counterDates) || {};
-        }
+var config = Settings.UI.datepicker;      if(hasCounter){
+        counterPluralizationRules = scope.$eval(attrs.counterPluralization) || {};
+      }
+      if(counterHasDates){
+        counterDatesRules = scope.$eval(attrs.counterDates) || {};
+      }
 
         scope.lengthOfStay = 1;
         scope.availabilityOverviewEnabled = Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && ((scope.barData && scope.barData.property && scope.barData.property.code) || singleProperty);
@@ -302,7 +302,7 @@
           var diff = getDaysBetween(startDate, endDate);
           if (diff) {
             //scope.inputText = window.moment(startDate).format('Do of MMM') + ' (' + $filter('pluralization')(diff, counterPluralizationRules) + ')';
-            scope.inputText = window.moment(startDate).format('MMM Do') + ' - ' + window.moment(endDate).format('MMM Do');
+            scope.inputText = window.moment(startDate).format(config.dateFormat) + ' - ' + window.moment(endDate).format(config.dateFormat);
           } else {
             scope.inputText = '';
           }
