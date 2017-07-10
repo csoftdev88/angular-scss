@@ -56,6 +56,9 @@ angular.module('mobiusApp.directives.datepicker', [])
       var isStartDateSelected;
       var counterDatesRules;
 
+
+      var config = Settings.UI.datepicker;
+
       if(hasCounter){
         counterPluralizationRules = scope.$eval(attrs.counterPluralization) || {};
       }
@@ -302,7 +305,7 @@ angular.module('mobiusApp.directives.datepicker', [])
         var diff = getDaysBetween(startDate, endDate);
         if(diff) {
           //scope.inputText = window.moment(startDate).format('Do of MMM') + ' (' + $filter('pluralization')(diff, counterPluralizationRules) + ')';
-          scope.inputText = window.moment(startDate).format('MMM Do') + ' - ' + window.moment(endDate).format('MMM Do');
+          scope.inputText = window.moment(startDate).format(config.dateFormat) + ' - ' + window.moment(endDate).format(config.dateFormat);
         } else {
           scope.inputText = '';
         }
