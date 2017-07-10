@@ -371,7 +371,8 @@ angular.module('mobiusApp.config', [])
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
     'datepicker': {
-      'showToday': false
+      'showToday': false,
+      'dateFormat': 'MMM Do'
     },
     'infoBar': {
       'showForSingleBookings': false

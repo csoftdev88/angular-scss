@@ -3,6 +3,21 @@
 //////////////////////
 floating-bar {
   background: @c-booking-widget;
+  button-submit {
+    padding: 0;
+    &:before {
+      .fa;
+      content: @fa-var-chevron-right;
+      position: absolute;
+      right: 90px;
+      top: 50%;
+      color: #fff;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      font-size: 13px;
+    }
+  }
   .viewport-mobile & {
     background: @c-booking-widget-active;
   }
@@ -25,6 +40,11 @@ floating-bar {
     padding-left:60px;
     li {
       &.floating-bar--tab-booking {
+        border-top: solid 2px black;
+        &::before {
+          margin-top: -2px;
+          border-top: solid 2px black;
+        }
         a {
           color: @c-black;
         }
@@ -54,7 +74,7 @@ floating-bar {
       a {
         font-size: 0.9em;
         line-height: 27px;
-        font-family: @ff-heading;
+        font-family: Arial;
         font-weight: normal !important;
         padding:4px 0 0;
         .viewport-mobile & {
