@@ -66,11 +66,14 @@
         border-left: 20px solid transparent;
         border-right: 20px solid transparent;
       }
-      &.ui-datepicker-unselectable > *[data-tooltip]:after {
-        display: none;
-      }
-      &.ui-datepicker-unselectable > *[data-tooltip]:before {
-        display: none;
+      &.ui-datepicker-unselectable {
+        & > *[data-tooltip]:after {
+          display: none;
+        }
+        & > *[data-tooltip]:before {
+          display: none;
+        }
+        color: gray !important;
       }
       // Highlighting today's day
       &.ui-datepicker-today a {
