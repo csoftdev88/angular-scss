@@ -25,6 +25,11 @@ floating-bar {
     padding-left:60px;
     li {
       &.floating-bar--tab-booking {
+        border-top: solid 2px black;
+        &::before {
+          margin-top: -2px;
+          border-top: solid 2px black;
+        }
         a {
           color: @c-black;
         }
