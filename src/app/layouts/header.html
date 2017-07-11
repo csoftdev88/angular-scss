@@ -166,29 +166,30 @@
           </div>
         </li>
 
-        <li has-dropdown="hover"
+        <li has-dropdown="click"
             ng-hide="config.generics.singleProperty || (!config.menu.showHotels && !config.menu.standalone && !isMobile) || (config.menu.standalone && !isMobile)"
             menu-content="hotels"
+            data-disable-title-click="true"
             data-title="_hotels_">
         </li>
 
         <li ng-show="config.generics.singleProperty && config.menu.showHotels && !config.menu.standalone && !isMobile">
-            <a
-            ui-sref="hotel({propertySlug: $root.propertySlug})"
-            ui-sref-opts="{reload: true}"
-            ng-class="{'is-active': $state.includes('hotel')}"
-            ng-click="retentionClick()">
+            <a ui-sref="hotel({propertySlug: $root.propertySlug})"
+               ui-sref-opts="{reload: true}"
+               ng-class="{'is-active': $state.includes('hotel')}"
+               ng-click="retentionClick()">
               _hotel_
             </a>
         </li>
 
-        <li has-dropdown="hover"
-            ng-if="(thirdparty ? thirdparty.config.menu.showHotDeals : config.menu.showHotDeals) && (!config.menu.standalone || isMobile)"
+        <li has-dropdown="click"
+            ng-show="(thirdparty ? thirdparty.config.menu.showHotDeals : config.menu.showHotDeals) && (!config.menu.standalone || isMobile)"
             menu-content="deals"
+            data-disable-title-click="true"
             data-title="_hot_deals_">
         </li>
 
-        <li has-dropdown="hover"
+        <li has-dropdown="click"
             ng-if="(thirdparty ? thirdparty.config.menu.showMeetingsBanquets : config.menu.showMeetingsBanquets) && (!config.menu.standalone || isMobile)">
           <a href=""
              ui-sref="staticContent({contentSlug: 'meetings-banquets', property: null})"
@@ -198,29 +199,32 @@
           </a>
         </li>
 
-        <li has-dropdown="hover"
+        <li has-dropdown="click"
             ng-show="(thirdparty ? thirdparty.config.menu.showOffers : config.menu.showOffers) && (!config.menu.standalone || isMobile)"
             menu-content="offers"
+            data-disable-title-click="true"
             data-title="_offers_deals_">
         </li>
 
-        <li has-dropdown="hover"
+        <li has-dropdown="click"
             ng-show="(thirdparty ? thirdparty.config.menu.showAbout : config.menu.showAbout) && (!config.menu.standalone || isMobile)"
             menu-content="about"
+            data-disable-title-click="true"
             data-title="_about_us_">
         </li>
 
-        <li has-dropdown="hover"
+        <li has-dropdown="true"
             ng-show="(thirdparty ? thirdparty.config.menu.showNews : config.menu.showNews) && (!config.menu.standalone || isMobile)"
             menu-content="news"
+            data-disable-title-click="true"
             data-title="_news_">
         </li>
 
         <li ng-show="config.menu.showContact && (!config.menu.standalone || isMobile)">
             <a ui-sref="contacts({property: null})"
-            ui-sref-opts="{reload: true}"
-            ng-class="{'is-active': $state.includes('contacts')}"
-            ng-click="retentionClick()">
+               ui-sref-opts="{reload: true}"
+               ng-class="{'is-active': $state.includes('contacts')}"
+               ng-click="retentionClick()">
               _contact_
             </a>
         </li>
