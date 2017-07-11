@@ -876,6 +876,7 @@ angular.module('mobiusApp.config', [])
           'alt': 'Worldhotels deluxe'
         }
       },
+      'tempMeandallFormHack': true,
       'hideHeroSlider': true,
       'hideBreadCrumbs': true,
       'displaySummary': false,
