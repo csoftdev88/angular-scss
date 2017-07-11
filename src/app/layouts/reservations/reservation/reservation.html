@@ -116,6 +116,7 @@
               <span ng-if="continueName === 'continue'">_continue_</span>
               <span ng-if="continueName === 'confirm'">_confirm_</span>
             </button-submit>
+            <button ng-if="bookingConfig.backButtonUnderContinue" class="back" ng-click="goBack()">_back_</button>
           </div>
         </div>
         <aside ng-if="!bookingConfig.detailsBeforeForm || isMobile"
@@ -132,7 +133,7 @@
 
       <div class="reservation-controls" grid-row>
         <span class="tooltiptext" ng-if="bookingConfig.ccvAsTooltip && isCurrentBookingStep('reservation.billing')">_cvv_modal_desc_</span>
-        <button ng-if="!bookingConfig.backButtonInForm" class="back" ng-click="goBack()">_back_</button>
+        <button ng-if="!bookingConfig.backButtonUnderContinue && !bookingConfig.backButtonInForm" class="back" ng-click="goBack()">_back_</button>
         <button ng-if="(bookingConfig.detailsBeforeForm && isMobile) || !bookingConfig.detailsBeforeForm" class="next" ng-click="continue()" ng-disabled="isContinueDisabled()">
           <span ng-if="continueName === 'continue'">_continue_</span>
           <span ng-if="continueName === 'confirm'">_confirm_</span>
