@@ -431,7 +431,7 @@
         "reset_password_error_code_twelve": "Leider ist der Link zum Zurücksetzen Ihres Passworts abgelaufen. Bitte fordern Sie einen neuen an.",
         "reset_password_error_code_thirteen": "Der Link wurde bereits zum Zurücksetzen Ihres Passworts verwendet. Bitte fordern Sie einen neuen an.",
         "reset_password_success": "Ihr Passwort wurde geändert und Sie können sich jetzt anmelden.",
-        "reset_password_error_code_thirtyfour": "Vielen Dank für Ihre Anfrage. Wenn Ihr Profil gefunden wird, erhalten Sie innerhalb der nächsten Stunden eine E-Mail mit einem Zurücksetzungscode.",
+        "reset_password_error_code_thirtyfour": "",
         "MODALS": "//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////",
         "badges_modal_title": "Meine Abzeichen",
         "rewards_modal_points_required": "Diese Prämie erfordert",
