@@ -152,7 +152,9 @@
 
         <form-element ng-if="profileTitles">
           <label for="profileTitle">_title_label_</label>
-          <select name="profileTitle" required chosen
+          <select name="profileTitle"
+                  required
+                  chosen
                   disable-search="true"
                   class="ProfileForm__input"
                   placeholder-text-single="_title_label_"
@@ -169,6 +171,7 @@
             name="profileFname"
             class="ProfileForm__input"
             ng-model="profileData.firstName"
+            ng-required="config.formRequirments.firstname"
             ng-class="{'ng-submitted': form.$submitted && form.profileFname.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
         </form-element>
@@ -181,6 +184,7 @@
             name="profileLname"
             class="ProfileForm__input"
             ng-model="profileData.lastName"
+            ng-required="config.formRequirments.lastname"
             ng-class="{'ng-submitted': form.$submitted && form.profileLname.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
         </form-element>
@@ -210,6 +214,7 @@
             id="profileAddress1"
             name="profileAddress1"
             ng-model="profileData.address1"
+            ng-required="config.formRequirments.address_one"
             ng-class="{'ng-submitted': form.$submitted && form.profileAddress1.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
         </form-element>
@@ -221,6 +226,7 @@
             id="profileZip"
             name="profileZip"
             ng-model="profileData.zip"
+            ng-required="config.formRequirments.postcode"
             ng-class="{'ng-submitted': form.$submitted && form.profileZip.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
         </form-element>
@@ -232,6 +238,7 @@
             id="profileAddress2"
             name="profileAddress2"
             ng-model="profileData.address2"
+            ng-required="config.formRequirments.address_two"
             ng-class="{'ng-submitted': form.$submitted && form.profileAddress2.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
         </form-element>
@@ -243,6 +250,7 @@
             id="profileCity"
             name="profileCity"
             ng-model="profileData.city"
+            ng-required="config.formRequirments.city"
             ng-class="{'ng-submitted': form.$submitted && form.profileCity.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
         </form-element>
@@ -254,16 +262,19 @@
             id="profileState"
             name="profileState"
             ng-model="profileData.state"
+            ng-required="config.formRequirments.state"
             ng-class="{'ng-submitted': form.$submitted && form.profileState.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
         </form-element>
 
         <form-element ng-if="profileCountries">
           <label for="profileCountry">_country_label_</label>
-          <select name="profileCountry" chosen
+          <select name="profileCountry"
+                  chosen
                   disable-search="true"
                   data-placeholder=""
                   ng-model="profileData.localeId"
+                  ng-required="config.formRequirments.country"
                   ng-options="country.id as country.name for country in profileCountries | orderBy:'name'">
           </select>
         </form-element>
@@ -275,14 +286,18 @@
             id="profileTel"
             name="profileTel"
             ng-model="profileData.tel1"
+            ng-required="config.formRequirments.phone"
             ng-class="{'ng-submitted': form.$submitted && form.profileTel.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
         </form-element>
 
         <form-element ng-if="profileContacts">
           <label for="profileContact">_prefered_contact_label_</label>
-          <select name="profileContact" required chosen
+          <select name="profileContact"
+                  required
+                  chosen
                   disable-search="true"
+                  ng-required="config.formRequirments.contactMethod"
                   placeholder-text-single="_prefered_contact_label_"
                   ng-model="profileData.preferredContactMethodCode"
                   ng-options="contact.id as contact.name for contact in profileContacts">

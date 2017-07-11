@@ -878,6 +878,17 @@ angular.module('mobiusApp.config', [])
           'alt': 'Worldhotels deluxe'
         }
       },
+      'formRequirments': {
+        'firstname': true,
+        'lastname': true,
+        'address_one': true,
+        'postcode': true,
+        'city': true,
+        'state': true,
+        'country': true,
+        'phone': true,
+        'contactMethod': false
+      },
       'tempMeandallFormHack': true,
       'hideHeroSlider': true,
       'hideBreadCrumbs': true,
