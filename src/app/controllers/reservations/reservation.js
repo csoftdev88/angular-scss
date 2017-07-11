@@ -102,7 +102,6 @@ angular.module('mobius.controllers.reservation', [])
     var roomsPromises = [];
     var rooms;
     $scope.allRooms = [];
-    console.log('on auth', $scope.allRooms);
 
     if (!$scope.isMultiRoomMode) {
       // Getting single room details
