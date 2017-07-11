@@ -482,7 +482,7 @@
     "offers_page_no_offers_desc": "Try selecting a hotel to see offers for that hotel or check back later",
     "hot_deals_page_description": "Looking for a last-minute deal? Check here regularly for limited time offers on accommodations at all of our locations, right across Germany! Scroll down to view our featured Hot Deals!",
     "profile_page_title": "Your Profile",
-    "profile_page_desc": "We will not share your details with any third parties. Please check our Privacy Policy for further details Check your <a ui-sref='reservations'>reservations</a>",
+    "profile_page_desc": "We will not share your details with any third parties. Please check our <a target='_blank' href='https://www.lindner.de/en/privacy-policy.html'>Privacy Policy</a>",
     "profile_page_password_title": "CHANGE YOUR PASSWORD",
     "profile_page_about_title": "ABOUT YOU",
     "profile_page_contact_title": "CONTACT INFORMATION",
