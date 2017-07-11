@@ -118,6 +118,9 @@ describe('mobius.controllers.reservations', function() {
     beforeEach(inject(function($controller, $rootScope, reservationService,
       propertyService, chainService, $q) {
       _scope = $rootScope.$new();
+      _scope.auth = {
+        isLoggedIn: function () { return true; }
+      };
 
       _scope.auth = {
         isLoggedIn: function () { return true; }
