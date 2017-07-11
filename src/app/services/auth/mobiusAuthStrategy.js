@@ -6,7 +6,6 @@
  *
  * @see Auth
  * @tenants Meandall, national
- * @version 1.0.0
  * @author Bryan Kneis
  */
 (function () {
