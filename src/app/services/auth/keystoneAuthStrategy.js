@@ -7,7 +7,6 @@
  *
  * @see AuthCtrl
  * @author Bryan Kneis
- * @version 1.0.0
  */
 (function () {
   'use strict';
