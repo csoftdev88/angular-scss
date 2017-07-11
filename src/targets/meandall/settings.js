@@ -1014,7 +1014,8 @@ angular.module('mobiusApp.config', [])
       //Display policies link at bottom of reservation overview
       'policiesLinkBottom': true,
       //display back button in form
-      'backButtonInForm': true,
+      'backButtonInForm': false,
+      'backButtonUnderContinue': true,
       //Display ccv info as a tooltip
       'ccvAsTooltip': true,
       //display advanced header
