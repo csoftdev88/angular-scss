@@ -296,7 +296,7 @@
                 <div class="points" ng-if="loyaltyProgramEnabled && config.viewsSettings.userProfile.hasLoyaltyInfo">
                   <span>{{user.getUser().loyalties.amount}} _points_</span>
                   <span class="vr" ng-if="user.getUser().loyalties.tier">|</span>
-                  <span ng-click="openTiersListDialog($event); retentionClick()">{{user.getUser().loyalties.tier}} _tier_</span>
+                  <span ng-click="openTiersListDialog($event); retentionClick()" ng-if="user.getUser().loyalties.tier">{{user.getUser().loyalties.tier}} _tier_</span>
                 </div>
               </div>
             </a>
