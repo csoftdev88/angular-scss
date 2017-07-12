@@ -533,7 +533,7 @@ angular.module('mobiusApp.directives.room', [])
               }]);
             });
           });*/
-          if(scope.config.rateInfoIsTabbed){
+          if (scope.config.rateInfoIsTabbed) {
             modalService.openProductDetailsDialog(scope.roomDetails, product, true);
           }
           else{
