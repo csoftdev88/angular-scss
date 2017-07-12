@@ -1,10 +1,16 @@
-'use strict';
 /*
  * This module controlls profile page
  */
-angular.module('mobius.controllers.profile', [])
+(function () {
+  'use strict';
 
-  .controller('ProfileCtrl', function($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user, $timeout, _, chainService, metaInformationService, $location, Settings, propertyService, scrollService){
+  angular
+    .module('mobius.controllers.profile', ['mobiusApp.utilities'])
+    .controller('ProfileCtrl', Profile);
+
+  function Profile($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user,
+                   $timeout, _, chainService, metaInformationService, $location, Settings, propertyService,
+                   scrollService, UrlService, $rootScope, $log) {
 
     //check if user is logged in
     function onAuthorized() {
@@ -12,7 +18,57 @@ angular.module('mobius.controllers.profile', [])
         $state.go('home');
       }
     }
+
     $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
+
+    // If we are using keystone, the alternative keystoneProfile layout will be used that contains
+    // the keystone-profile div. We now need to tell keystone to inject the profile page into it
+    if (Settings.authType === 'keystone' && window.KS) {
+      if (window.KS.$event) {
+        window.KS.$event.emit('parent.content.loaded');
+      }
+
+      var footertotop, scrolltop, difference;
+      /**
+       * Prevent the fixed position side nav going over the footer
+       */
+      $(window).scroll(function () {
+        // distance from top of footer to top of document
+        footertotop = ($('footer.main').first().position().top);
+        // distance user has scrolled from top, adjusted to take in height of sidebar (570 pixels inc. padding)
+        scrolltop = $(document).scrollTop() + 570;
+        // difference between the two
+        difference = scrolltop - footertotop;
+        // if user has scrolled further than footer,
+        // pull sidebar up using a negative margin
+        if (scrolltop > footertotop) {
+          $('div.options').first().css('margin-top',  0 - difference);
+        }
+        else  {
+          $('div.options').first().css('margin-top', 0);
+        }
+      });
+
+      /**
+       * We need to accept the language code from keystone, check if its our default, if not, then
+       * redirect the
+       */
+      var lang = UrlService.getParameter('lang');
+      // @todo safely change the application language code to en as this is the official i18n standard which
+      // keystone is expecting. So for now place a check to convert
+      if (lang && lang !== Settings.UI.languages.default.substring(0, 2)) {
+        window.location.href = '/' + lang.substring(0, 2) + '/profile';
+        $log.info('Setting the locale for keystone based off the URL param', lang.substring(0, 2));
+      }
+    }
+
+    // Hide the floating bar
+    // @todo Why does this need to be wrapped in a timeout ??
+    $timeout(function() {
+      $rootScope.$broadcast('floatingBarEvent', {
+        isCollapsed: true
+      });
+    }, 0);
 
     //Add breadcrumb
     breadcrumbsService.addBreadCrumb('Profile');
@@ -41,18 +97,18 @@ angular.module('mobius.controllers.profile', [])
       metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
 
       $timeout(function(){
-        scrollService.scrollTo('jsProfile');
+        scrollService.scrollTo('profile-page');
       }, 500);
 
     });
 
-		contentService.getTitles().then(function(data) {
-			$scope.profileTitles = data;
-		});
+    contentService.getTitles().then(function(data) {
+      $scope.profileTitles = data;
+    });
 
-		contentService.getContactMethods().then(function(data) {
-			$scope.profileContacts = data;
-		});
+    contentService.getContactMethods().then(function(data) {
+      $scope.profileContacts = data;
+    });
 
     contentService.getCountries().then(function(data) {
       $scope.profileCountries = data;
@@ -68,17 +124,17 @@ angular.module('mobius.controllers.profile', [])
       });
     }
 
-		$timeout(function(){
+    $timeout(function(){
       $scope.profileData = user.getUser();
       $scope.profileData.userCountry = contentService.getCountryByID($scope.profileData.localeCode, $scope.profileCountries);
     }, 2000);
 
-		$scope.update = function(form, profileData){
+    $scope.update = function(form, profileData){
       $scope.submitted = true;
       clearErrorMsg();
-		  if(form.$valid){
-				var data = _.omit(profileData, _.isNull);
-				data = _.omit(data, ['id','token','email', 'languageCode']);
+      if(form.$valid){
+        var data = _.omit(profileData, _.isNull);
+        data = _.omit(data, ['id','token','email', 'languageCode']);
 
         data.userCountry = contentService.getCountryByID(data.localeId, $scope.profileCountries);
 
@@ -87,21 +143,21 @@ angular.module('mobius.controllers.profile', [])
           data.localeCode = data.userCountry.code;
         }
 
-		    apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), data).then(function(){
-		      userObject = _.extend(userObject, data);
-		      $scope.success = true;
+        apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), data).then(function(){
+          userObject = _.extend(userObject, data);
+          $scope.success = true;
           if($scope.config.displaySummary){
             $scope.showSummary = true;
           }
-		    }, function(){
-		      $scope.error = true;
+        }, function(){
+          $scope.error = true;
           $scope.genericError = true;
-		    });
-		  }
-		  else{
-		    $scope.missingFieldsError = true;
-		  }
-		};
+        });
+      }
+      else{
+        $scope.missingFieldsError = true;
+      }
+    };
 
     $scope.savePassword = function(form, passwordData){
       form.$submitted = true;
@@ -128,16 +184,18 @@ angular.module('mobius.controllers.profile', [])
       }
     };
 
-	  function clearErrorMsg(){
-	    $scope.error = false;
-	    $scope.success = false;
+    function clearErrorMsg(){
+      $scope.error = false;
+      $scope.success = false;
       $scope.genericError = false;
       $scope.missingFieldsError = false;
       $scope.submitted = false;
-	  }
+    }
 
     $scope.scrollToForm = function(){
       scrollService.scrollTo('profile-form', 20);
     };
 
-  });
+  }
+
+}());

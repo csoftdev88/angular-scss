@@ -6,13 +6,19 @@ angular.module('mobiusApp.config', [])
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
   'defaultProductRateId': 1,
-  'authType': 'infiniti',
+  'authType': 'keystone',
   'loyaltyProgramEnabled': false,
   'newUrlStructure': true,
   'sandmanFrenchOverride': true,
   'inputValidationPattern':/^[\u0020-\u02AF\r\n]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
   'showEUCookieDisclaimer':true,
   'enableHotDeals':true,
+  'keystone': {
+    'development': 'http://localhost:8080/status.0.0.1.js',
+    'integration': 'https://scripts.infiniti.io/sandman/status.js',
+    'staging': 'https://scripts.infiniti.io/sandman/status.js',
+    'live': 'https://scripts.infiniti.io/sandman/status.js'
+  },
   'infiniti': {
     'enable': true,
     'local': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',

@@ -14,8 +14,7 @@ angular.module('mobius.controllers.rewards', [])
     function onAuthorized() {
       if ($scope.auth && !$scope.auth.isLoggedIn()) {
         $state.go('home');
-      }else{
-        // Init
+      } else {
         init();
       }
     }

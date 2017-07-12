@@ -529,6 +529,7 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.isValid = function() {
+    console.log('checking the validity', $scope.allRooms);
     if ($scope.allRooms && $scope.allRooms.length) {
       switch ($state.current.name) {
         case 'reservation.details':
