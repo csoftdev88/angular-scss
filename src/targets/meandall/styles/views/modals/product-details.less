@@ -7,8 +7,13 @@
         padding: 0;
       }
       &.terms-and-conditions {
-        li h3 {
-          border: none !important;
+        li {
+          h3 {
+            border: none !important;
+          }
+          p > p {
+            padding: 0;
+          }
         }
       }
       &.price-breakdown table {
@@ -41,11 +46,11 @@
       li {
         padding: 15px 0;
         border: 0px none !important;
-        width: 50%;
+        width: 33%;
         text-transform: uppercase;
-        &:nth-child(2) {
+        /*&:nth-child(2) {
           display: none;
-        }
+        }*/
         a {
           color: #636363;
           border-left: 1px solid @c-primary;
@@ -68,7 +73,7 @@
       border-top: 0 none;
     }
     button-close {
-      top: 20.5px;
+      top: 25.5px;
       right: 7.65px;
       line-height: 38px;
       &:before {
