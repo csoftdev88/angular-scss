@@ -183,7 +183,6 @@ main.reservation-page {
           display: none;
         }
         p.desc {
-          font-family: @ff-heading;
           color: @c-secondary;
           font-size: 24px;
           font-weight: normal;
@@ -199,7 +198,8 @@ main.reservation-page {
           font-weight: normal;
           em {
             font-size: @size--3;
-            font-family: @ff-default
+            font-family: @ff-default;
+            font-style: normal;
           }
         }
       }
@@ -214,8 +214,8 @@ main.reservation-page {
       }
       >h4 {
         padding: 15px 15px 0 15px;
-        font-family: @ff-heading;
         color: @c-secondary;
+        font-family: @ff-default;
         font-size: 24px;
         font-weight: normal;
         margin: 0;
@@ -462,9 +462,6 @@ main.reservation-page {
 //STYLES FOR RESERVATION DETAIL OVERVIEW
 reservation-finished,
 reservation-hotel-details {
-  h1, h2, h3, h4 {
-    font-family: Arial;
-  }
   .reservation-summary {
     background: @c-primary;
     color: @c-secondary;
