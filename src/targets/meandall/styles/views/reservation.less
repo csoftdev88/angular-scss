@@ -247,8 +247,9 @@ main.reservation-page {
     .back {
       font-size: @size--2;
       font-family: @ff-default;
-      color: @c-link;
-      margin: 0;
+      color: black;
+      display: block;
+      margin: 20px 0 0 0;
       padding: 0;
       height: 21px;
       line-height: 21px;
@@ -461,6 +462,9 @@ main.reservation-page {
 //STYLES FOR RESERVATION DETAIL OVERVIEW
 reservation-finished,
 reservation-hotel-details {
+  h1, h2, h3, h4 {
+    font-family: Arial;
+  }
   .reservation-summary {
     background: @c-primary;
     color: @c-secondary;
