@@ -23,7 +23,7 @@
     </a>
     <a class="brand" ng-if="config.generics.header && config.generics.header.logoText && config.generics.header.logoLink" ng-href="{{config.generics.header.logoLink}}" ng-class="{'initial-hidden': $root.hideHeaderLogo}" ng-click="retentionClick()">{{config.generics.header.logoText}}</a>
 
-    <a href class="menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown" ng-click="openMobileMenu(); retentionClick()"></a>
+    <a id="mobile-menu-opener" class="menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown" ng-click="openMobileMenu(); retentionClick()"></a>
 
     <div class="app-menu">
       <ul dropdown-group>
@@ -97,27 +97,58 @@
         <li has-dropdown="hover" ng-show="(thirdparty ? thirdparty.config.menu.showNews : config.menu.showNews) && (!config.menu.standalone || isMobile)" menu-content="news" data-title="_news_"></li>
 
         <li ng-show="config.menu.showContact && (!config.menu.standalone || isMobile)">
-            <a
-            ui-sref="contacts({property: null})"
+            <a ui-sref="contacts({property: null})"
             ui-sref-opts="{reload: true}"
             ng-class="{'is-active': $state.includes('contacts')}"
             ng-click="retentionClick()">_contact_</a>
         </li>
 
-        <li has-dropdown="click" currency-list ng-show="!$state.includes('reservation') && !$state.includes('reservationDetail') && !$state.includes('reservations')"></li>
-
-        <li ng-show="config.languages.headerAlignment === 'right' || isMobile" has-dropdown="click" language-list></li>
-
-        <a ng-if="config.generics.header && config.generics.header.mainMenuAsOverlay" href class="main-menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown" ng-click="toggleMenuOverlay(); retentionClick()"></a>
-
-        <li ng-show="!isUserLoggedIn()" profile>
-          <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}" ng-click="auth.login(); retentionClick()">_login_</a>
-        </li>
-        <li ng-show="isUserLoggedIn()" profile class="mobile-logout" ng-class="{'is-desktop': !config.menu.isLogoutInDropdown}">
-          <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}" ng-click="auth.logout(); retentionClick()">_logout_</a>
+        <li has-dropdown="click"
+            currency-list
+            ng-show="!$state.includes('reservation') && !$state.includes('reservationDetail') && !$state.includes('reservations')">
         </li>
 
-        <li has-dropdown="click" ng-show="isUserLoggedIn()" profile class="desktop-profile">
+        <li ng-show="config.languages.headerAlignment === 'right' || isMobile"
+            has-dropdown="click"
+            language-list>
+        </li>
+
+        <a ng-if="config.generics.header && config.generics.header.mainMenuAsOverlay"
+           href
+           class="main-menu-opener dropdown-toggle"
+           dropdown-toggle
+           data-toggle="dropdown"
+           ng-click="toggleMenuOverlay(); retentionClick()">
+        </a>
+
+        <li ng-if="!auth.isKeystone()"
+            ng-show="!isUserLoggedIn()"
+            profile>
+          <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}"
+             ng-click="auth.login(); retentionClick()">
+            _login_
+          </a>
+        </li>
+        <li ng-if="!auth.isKeystone()"
+            ng-show="isUserLoggedIn()"
+            profile
+            class="mobile-logout"
+            ng-class="{'is-desktop': !config.menu.isLogoutInDropdown}">
+          <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}"
+             ng-click="auth.logout(); retentionClick()">
+            _logout_
+          </a>
+        </li>
+
+        <li ng-if="auth.isKeystone()" ng-hide="isMobile && auth && auth.isLoggedIn()" ng-click="$event.stopPropagation()">
+          <div id="keystone-status"></div>
+        </li>
+
+        <li ng-if="!auth.isKeystone()"
+            has-dropdown="click"
+            ng-show="isUserLoggedIn()"
+            profile
+            class="desktop-profile">
           <div class="dropdown">
             <a href>
               <div class="profile">
@@ -125,11 +156,17 @@
                   <span>_user_profile_message_</span>
                 </div>
                 <div class="user">
-                  <img ng-if="config.viewsSettings.userProfile.hasAvatar" err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().avatarUrl}}">
-                  <div class="user-details" ng-class="{'has-points': loyaltyProgramEnabled && config.viewsSettings.userProfile.hasLoyaltyInfo}">
+                  <img ng-if="config.viewsSettings.userProfile.hasAvatar"
+                       err-source="/static/images/v4/img-profile.png"
+                       ng-src="{{user.getUser().avatarUrl}}">
+                  <div class="user-details"
+                       ng-class="{'has-points': loyaltyProgramEnabled && config.viewsSettings.userProfile.hasLoyaltyInfo}">
                     <span>{{user.getUser().firstName}}</span>
                     <span>{{user.getUser().lastName}}</span>
-                    <span class="points" ng-if="loyaltyProgramEnabled && config.viewsSettings.userProfile.displayPointsWithUsername">{{user.getUser().loyalties.amount}} _points_</span>
+                    <span class="points"
+                          ng-if="loyaltyProgramEnabled && config.viewsSettings.userProfile.displayPointsWithUsername">
+                      {{user.getUser().loyalties.amount}} _points_
+                    </span>
                   </div>
                 </div>
 

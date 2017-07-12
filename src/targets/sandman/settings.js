@@ -6,15 +6,22 @@ angular.module('mobiusApp.config', [])
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
   'defaultProductRateId': 1,
-  'authType': 'infiniti',
+  'authType': 'keystone',
   'loyaltyProgramEnabled': false,
   'newUrlStructure': true,
   'sandmanFrenchOverride': true,
   'inputValidationPattern':/^[\u0020-\u02AF\r\n]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
   'showEUCookieDisclaimer':true,
   'enableHotDeals':true,
+  'keystone': {
+    'development': 'http://localhost:8080/status.0.0.1.js',
+    'integration': 'https://scripts.infiniti.io/sandman/status.js',
+    'staging': 'https://scripts.infiniti.io/sandman/status.js',
+    'live': 'https://scripts.infiniti.io/sandman/status.js'
+  },
   'infiniti': {
     'enable': true,
+    'local': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
     'integration': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
     'staging': 'http://staging-infiniti-sandman.mobiusbookingengine.com/track/content/infiniti.js',
@@ -23,6 +30,7 @@ angular.module('mobiusApp.config', [])
   },
   'sentry': {
     'enable': true,
+    'local': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'development': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'integration': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'staging': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
@@ -34,6 +42,7 @@ angular.module('mobiusApp.config', [])
     'id': '',
     'bridge': '',
     'script': {
+      'local': '',
       'development': '',
       'integration': '',
       'staging': '',
@@ -45,6 +54,7 @@ angular.module('mobiusApp.config', [])
     'enable': false,
     'infinitiId': '',
     'endpoint': {
+      'local': '',
       'development': '',
       'integration': '',
       'staging': '',
@@ -53,6 +63,16 @@ angular.module('mobiusApp.config', [])
     }
   },
   'infinitiApeironTracking': {
+    'local': {
+      'enable':false,
+      'enableDuplication': false,
+      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
+      'id':'sandman-local',
+      'username': 'sandman',
+      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
+    },
     'development': {
       'enable':false,
       'enableDuplication': false,
@@ -136,6 +156,7 @@ angular.module('mobiusApp.config', [])
     'trackUsage': true,
     'languageInPath': true,
     'baseURL': {
+      'local': '//localhost:3010/api/4.0/',
       'development': '//integration-www-sandman.mobiusbookingengine.com/api/4.0/',
       'integration': '//integration-www-sandman.mobiusbookingengine.com/api/4.0/',
       'staging': '//staging-www-sandman.mobiusbookingengine.com/api/4.0/',
@@ -143,6 +164,16 @@ angular.module('mobiusApp.config', [])
       'live': 'https://www.sandmanhotels.com/api/4.0/'
     },
     'mobiusTracking': {
+      'local': {
+        'id': 'sandman-local',
+        'search': {
+          'enable': true
+        },
+        'purchase': {
+          'enable': true
+        },
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
+      },
       'development': {
         'id': 'sandman-development',
         'search': {
@@ -371,7 +402,8 @@ angular.module('mobiusApp.config', [])
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
     'datepicker': {
-      'showToday': false
+      'showToday': false,
+      'dateFormat': 'MMM Do'
     },
     'infoBar': {
       'showForSingleBookings': false

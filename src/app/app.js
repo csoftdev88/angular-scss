@@ -122,6 +122,7 @@ angular
     'mobiusApp.services.previousSearches',
     'mobiusApp.services.funnelRetention',
     'mobiusApp.services.roomUpgrades',
+    'mobiusApp.utilities',
 
     // Factories
     'mobiusApp.factories.template',
@@ -183,6 +184,7 @@ angular
     'mobiusApp.directives.evolutionInfinitiScript',
     'mobiusApp.directives.googleTagManagerScript',
     'mobiusApp.directives.infinitiScript',
+    'mobiusApp.directives.keystoneScript',
     'mobiusApp.directives.infinitiApeironScript',
     'mobiusApp.directives.rumScript',
     'mobiusApp.directives.scrollPosition',
@@ -481,6 +483,11 @@ angular
     }
   }
 
+  var profileLayout = 'layouts/profile/profile.html';
+  if (Settings.authType === 'keystone') {
+    profileLayout = 'layouts/profile/keystoneProfile.html';
+  }
+
   // Rewards page
   $stateProvider.state('rewards', {
     parent: 'root',
@@ -540,7 +547,7 @@ angular
   // Profile page
   .state('profile', {
     parent: 'root',
-    templateUrl: 'layouts/profile/profile.html',
+    templateUrl: profileLayout,
     url: '/profile',
     controller: 'ProfileCtrl',
     data: {
@@ -591,7 +598,8 @@ angular
   });
 })
 
-.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings, propertyService, track404sService, sessionDataService, infinitiApeironService, _) {
+.run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings,
+              propertyService, track404sService, sessionDataService, infinitiApeironService, _) {
 
   $rootScope.$on('$stateChangeStart', function(event, next) {
     if(next.name === 'unknown'){ //If the page we are navigating to is not recognised
@@ -649,6 +657,16 @@ angular
   var userLang = user.getUserLanguage();
   var appLang = stateService.getAppLanguageCode();
 
+  /**
+   * If keystone, set the locale when the app loads
+   */
+  if (Settings.authType === 'keystone' && window.KS) {
+    // @todo safely change the application language code to en as this is the official i18n standard which
+    // keystone is expecting. So for now place a check to convert
+    var lang = appLang.substring(0, 2);
+    window.KS.setLocale(lang);
+  }
+
   if (userLang && userLang !== appLang && Settings.UI.languages[userLang]) {
     var language_code = userLang;
     //Only make this change if the new language code isn't default
@@ -692,8 +710,11 @@ angular
   }
 })
 
-.controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService, scrollService, previousSearchesService, funnelRetentionService,
-  metaInformationService, Settings, notificationService, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService, bookingService, _, DynamicMessages) {
+.controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams,
+                                 stateService, scrollService, previousSearchesService, funnelRetentionService,
+                                 metaInformationService, Settings, notificationService, propertyService, channelService,
+                                 $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService,
+                                 bookingService, _, DynamicMessages, UrlService, $log) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -705,6 +726,21 @@ angular
     $scope: $scope,
     config: {}
   });
+
+  // If the URL contains show login, open the login modal for keystone
+  if ($scope.auth.isKeystone()) {
+    if (UrlService.getParameter('showLogin')) {
+      if (window.KS && window.KS.$me) {
+        $scope.auth.login();
+      } else {
+        // Provide this purely as a fall back
+        $log.warn('The keystone window object was not available');
+        $timeout(function () {
+          $scope.auth.login();
+        }, 100);
+      }
+    }
+  }
 
   $scope.uiConfig = Settings.UI;
   $scope.menuOverlayEnabled = $scope.uiConfig.generics.header && $scope.uiConfig.generics.header.mainMenuAsOverlay;
@@ -729,6 +765,16 @@ angular
   }
 
   $scope.$on('$stateChangeStart', function(e, toState, toParams) {
+
+    // Re inject keystone plugin when the header gets recompiled
+    if (Settings.authType === 'keystone' && window.KS && window.KS.$event) {
+      window.KS.$event.emit(window.KS.$event.const.PARENT_CONTENT_LOADED);
+      window.dispatchEvent(new CustomEvent('keystone.session.anonymous'));
+    }
+
+    /*if (Settings.authType === 'keystone' && !$scope.auth.isLoggedIn()) {
+      window.dispatchEvent(new CustomEvent('keystone.session.anonymous'));
+    }*/
 
     //If date is in past, remove from params and reload page
     if(toParams.dates)
@@ -757,7 +803,7 @@ angular
       console.log('to name', toState.name);
       // @todo work out why we need to perform check and sometime dont get a name
       //If user language is french and URL does not contain quebec, switch back to english
-      if (($scope.appLang === 'fr' || $scope.userLang === 'fr') && toParams.regionSlug !== 'quebec' && toState.name !== 'reservation') {
+      if (($scope.appLang === 'fr' || $scope.userLang === 'fr') && toParams.regionSlug !== 'quebec' && toState.name !== 'reservation' && toState.name !== 'profile') {
         if (toState.name && toState.name.indexOf('reservation') === -1) {
           user.storeUserLanguage('en-us');
           var nonFrenchUrl = $state.href(toState.name, toParams, {reload: true}).replace('/fr/','/');

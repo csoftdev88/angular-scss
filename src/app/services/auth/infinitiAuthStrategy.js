@@ -1,8 +1,11 @@
-'use strict';
+(function () {
+  'use strict';
 
-angular.module('mobiusApp.services.auth.infiniti', [])
+  angular
+    .module('mobiusApp.services.auth.infiniti', [])
+    .service( 'infinitiAuthStrategy', InfinitiAuthStrategy);
 
-  .service( 'infinitiAuthStrategy', function($timeout, $state, $window, userObject, cookieFactory) {
+  function InfinitiAuthStrategy($window, userObject, cookieFactory) {
 
     // SSO will expose mobius customer ID via this cookie
     var KEY_CUSTOMER_ID = 'MobiusID';
@@ -70,4 +73,6 @@ angular.module('mobiusApp.services.auth.infiniti', [])
       isLoggedIn: isLoggedIn
     };
 
-  });
+  }
+
+}());
