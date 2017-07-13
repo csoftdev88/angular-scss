@@ -18,12 +18,17 @@ module.exports = function(grunt) {
   require('time-grunt')(grunt);
 
   // Get grunt target
-  var target = grunt.option('tenant') || 'suttonLive';
+  var target = grunt.option('tenant');
   var env = grunt.option('environment');
 
   if (!env) {
     grunt.fail.fatal('Missing "environment" argument.');
   }
+
+  if (!target) {
+    grunt.fail.fatal('Missing "tenant" argument.');
+  }
+
   /**
   * Load in our build configuration file.
   */
