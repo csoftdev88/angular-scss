@@ -29,16 +29,16 @@ angular.module('mobius.controllers.reservations', [])
     metaInformationService.setMetaKeywords(chain.meta.keywords);
     metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
 
-    $timeout(function(){
+    $timeout(function() {
       scrollService.scrollTo('jsReservations');
     });
 
 
   });
 
-  function onAuthorized(isMobiusUser){
+  function onAuthorized() {
 
-    if(isMobiusUser || userObject.token){
+    if ($scope.auth && $scope.auth.isLoggedIn()) {
       var reservationsPromise = $q.all([
         reservationService.getAll(),
         reservationService.getCancelledReservations()

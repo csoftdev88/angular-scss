@@ -416,7 +416,7 @@ angular.module('mobiusApp.directives.room', [])
 
 
       scope.setRoomsSorting = function() {
-        return scope.auth.isLoggedIn() ? ['-highlighted']: ['-memberOnly', '-highlighted'];
+        return scope.auth && scope.auth.isLoggedIn() ? ['-highlighted']: ['-memberOnly', '-highlighted'];
       };
 
       scope.selectProduct = function(product) {
@@ -530,7 +530,7 @@ angular.module('mobiusApp.directives.room', [])
               }]);
             });
           });*/
-          if(scope.config.rateInfoIsTabbed){
+          if (scope.config.rateInfoIsTabbed) {
             modalService.openProductDetailsDialog(scope.roomDetails, product, true);
           }
           else{

@@ -11,11 +11,10 @@ angular.module('mobius.controllers.rewards', [])
     //$controller('MainCtrl', {$scope: $scope});
     breadcrumbsService.addBreadCrumb('Rewards');
 
-    function onAuthorized(isMobiusUser){
-      if(!isMobiusUser){
+    function onAuthorized() {
+      if ($scope.auth && !$scope.auth.isLoggedIn()) {
         $state.go('home');
-      }else{
-        // Init
+      } else {
         init();
       }
     }

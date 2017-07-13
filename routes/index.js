@@ -47,7 +47,7 @@ module.exports = function(app) {
       var settings = fs.readFileSync(settingsPath);
       settings = JSON.parse(settings);
 
-      
+
       //detect and return cloudflare country header
         var euCountries=["AL", "AD", "AT", "BY", "BE", "BA", "BG", "HR", "CY", "CZ", "DK", "EE", "FO", "FI", "FR", "DE", "GI", "GR", "HU", "IS", "IE", "IM", "IT", "RS", "LV", "LI", "LT", "LU", "MK", "MT", "MD", "MC", "ME", "NL", "NO", "PL", "PT", "RO", "RU", "SM", "RS", "SK", "SI", "ES", "SE", "CH", "UA", "GB", "VA", "RS"
 ];
@@ -60,7 +60,7 @@ module.exports = function(app) {
                         res.setHeader('CF-isEU',false);
                 }
         }
-      
+
       if(settings && settings.redirectCrawlers){
         var crawlers = ['Googlebot', 'Yahoo! Slurp', 'Bingbot', 'Baiduspider'];
         var userAgent = req.headers['user-agent'].toLowerCase();
@@ -195,6 +195,10 @@ module.exports = function(app) {
 
     app.route('/:url(static)/*').get(function(req, res) {
       res.status(404).end();
+    });
+
+    app.get('/loaderio-bf492b7122f780c0d5e1d0859adcd036.txt', function (req, res) {
+      res.send('loaderio-bf492b7122f780c0d5e1d0859adcd036');
     });
 
     //robots block crawling

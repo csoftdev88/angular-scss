@@ -1,9 +1,9 @@
 
-<div ng-if="!auth.isLoggedIn()" class="sign-up">
+<div ng-if="auth && !auth.isLoggedIn()" class="sign-up">
   <p><a href ng-click="auth.register()">_loyalty_progam_link_</a> _loyalty_progam_desc_</p>
 </div>
 
-<div ng-if="auth.isLoggedIn()">
+<div ng-if="auth && auth.isLoggedIn()">
   <article ng-show="displaySettings.profile" ng-click="goToPrestige()" class="account-profile">
     <img ng-src="{{user.getUser().avatarUrl}}" err-source="/static/images/v4/img-profile.png">
     <h4>{{user.getUser().firstName}} {{user.getUser().lastName}}</h4>

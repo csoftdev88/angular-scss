@@ -91,7 +91,7 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.$on('USER_LOGIN_EVENT', function() {
-    prefillUserDetails($scope.auth.isLoggedIn() ? user.getUser() : {
+    prefillUserDetails($scope.auth && $scope.auth.isLoggedIn() ? user.getUser() : {
       email: $stateParams.email
     }, true);
   });
@@ -479,7 +479,7 @@ angular.module('mobius.controllers.reservation', [])
     useGuestAddress: true
   };
 
-  if (!$scope.auth.isLoggedIn()) {
+  if ($scope.auth && !$scope.auth.isLoggedIn()) {
     $scope.billingDetails.paymentMethod = 'cc';
   }
 
@@ -511,7 +511,7 @@ angular.module('mobius.controllers.reservation', [])
           pointsRequired: $scope.getTotal('pointsRequired')
         };
 
-        if ($scope.auth.isLoggedIn()) {
+        if ($scope.auth && $scope.auth.isLoggedIn()) {
           if (user.getUser().loyalties) {
             $scope.pointsData.currentPoints = user.getUser().loyalties.amount || 0;
           }
@@ -529,6 +529,7 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.isValid = function() {
+    console.log('checking the validity', $scope.allRooms);
     if ($scope.allRooms && $scope.allRooms.length) {
       switch ($state.current.name) {
         case 'reservation.details':
@@ -536,7 +537,7 @@ angular.module('mobius.controllers.reservation', [])
         case 'reservation.billing':
           switch ($scope.billingDetails.paymentMethod) {
             case 'point':
-              if ($scope.auth.isLoggedIn() && $scope.getTotal('pointsRequired')) {
+              if ($scope.auth && $scope.auth.isLoggedIn() && $scope.getTotal('pointsRequired')) {
                 return user.getUser().loyalties.amount >= $scope.getTotal('pointsRequired');
               }
               break;
@@ -724,7 +725,7 @@ angular.module('mobius.controllers.reservation', [])
     }
 
     // Adding customerID when logged in
-    if ($scope.auth.isLoggedIn()) {
+    if ($scope.auth && $scope.auth.isLoggedIn()) {
       reservationData.customer = user.getUser().id;
     } else {
       // TODO: Anonymous reservation working but fails on getting
@@ -987,7 +988,7 @@ angular.module('mobius.controllers.reservation', [])
 
       // When booked as anonymous we are adding customer email to the next route
       // so booking data can be fetched from the API
-      if (!$scope.auth.isLoggedIn()) {
+      if ($scope.auth && !$scope.auth.isLoggedIn()) {
         reservationDetailsParams.email = reservationData.customerEmail;
       }
 
@@ -1143,7 +1144,7 @@ angular.module('mobius.controllers.reservation', [])
             'products': infinitiTrackingProducts
           };
 
-          if (!$scope.auth.isLoggedIn()) {
+          if ($scope.auth && !$scope.auth.isLoggedIn()) {
             infinitiTrackingData.customer = {
               'title': getUserTitle().name,
               'fName': $scope.userDetails.firstName,
@@ -1157,14 +1158,14 @@ angular.module('mobius.controllers.reservation', [])
               'secondPhoneNumber': $scope.additionalInfo.secondPhoneNumber
             };
           }
-          infinitiEcommerceService.trackPurchase($scope.auth.isLoggedIn(), infinitiTrackingData);
+          infinitiEcommerceService.trackPurchase($scope.auth && $scope.auth.isLoggedIn(), infinitiTrackingData);
 
           var env = document.querySelector('meta[name=environment]').getAttribute('content');
           if (Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] && Settings.infinitiApeironTracking[env].enable) {
             if($rootScope.campaign)
             {
               locationService.getLocations().then(function(locations){
-                if(locations && campaignsService.criteriaCheck($rootScope.campaign, $scope.auth.isLoggedIn(), $stateParams.dates, $stateParams.locationSlug, $stateParams.property, locations)){
+                if(locations && campaignsService.criteriaCheck($rootScope.campaign, $scope.auth && $scope.auth.isLoggedIn(), $stateParams.dates, $stateParams.locationSlug, $stateParams.property, locations)){
                   infinitiApeironService.trackCampaignPurchase($rootScope.campaign.code);
                   console.log('campaign purchase fulfilled');
                 }
@@ -1184,7 +1185,7 @@ angular.module('mobius.controllers.reservation', [])
 
 
       //creating anon user account
-      if (!$scope.auth.isLoggedIn()) {
+      if ($scope.auth && !$scope.auth.isLoggedIn()) {
 
         var anonUserData = {
           title: $scope.userDetails.title,

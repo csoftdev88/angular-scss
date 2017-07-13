@@ -106,7 +106,7 @@ main.reservation-page {
       height: 36px;
       line-height: 34px;
       border-color: @c-secondary;
-      font-size: 14px;
+      font-size: @size--5;
     }
     textarea {
       padding: 5px 8px;
@@ -138,6 +138,18 @@ main.reservation-page {
         }
       }
       .continue-btn {
+        &:before {
+          .fa;
+          content: @fa-var-chevron-right;
+          position: absolute;
+          left: 15px;
+          top: 70px;
+          color: #fff;
+          -webkit-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+          font-size: 13px;
+        }
         .viewport-mobile & {
           margin-top: 0;
           width: 100%;
@@ -171,7 +183,6 @@ main.reservation-page {
           display: none;
         }
         p.desc {
-          font-family: @ff-heading;
           color: @c-secondary;
           font-size: 24px;
           font-weight: normal;
@@ -187,7 +198,8 @@ main.reservation-page {
           font-weight: normal;
           em {
             font-size: @size--3;
-            font-family: @ff-default
+            font-family: @ff-default;
+            font-style: normal;
           }
         }
       }
@@ -202,8 +214,8 @@ main.reservation-page {
       }
       >h4 {
         padding: 15px 15px 0 15px;
-        font-family: @ff-heading;
         color: @c-secondary;
+        font-family: @ff-default;
         font-size: 24px;
         font-weight: normal;
         margin: 0;
@@ -235,8 +247,9 @@ main.reservation-page {
     .back {
       font-size: @size--2;
       font-family: @ff-default;
-      color: @c-link;
-      margin: 0;
+      color: black;
+      display: block;
+      margin: 20px 0 0 0;
       padding: 0;
       height: 21px;
       line-height: 21px;
@@ -484,13 +497,15 @@ reservation-hotel-details {
       }
     }
     figure {
-      button {
+      button,
+      button.disabled {
         height: 40px !important;
-        line-height: 44px !important;
-        opacity: 0.6;
-        &:hover {
-          opacity: 1
-        }
+        line-height: 40px !important;
+        opacity: 1;
+        background: #fff;
+        border: solid 2px #000;
+        color: black;
+        border-radius: 0;
       }
       .viewport-mobile & {
         display: none;
