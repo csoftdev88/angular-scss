@@ -180,6 +180,40 @@ module.exports = function(grunt) {
       }
     },
 
+    googlefonts: {
+      build: {
+        options: {
+          fontPath: '<%= config.compile %>/fonts/',
+          cssFile: 'fonts.css',
+          formats: {
+            eot: true,
+            woff: true,
+            svg: true
+          },
+          fonts: [
+            {
+              family: 'Open Sans',
+              styles: [
+                300, 400, 700
+              ]
+            },
+            {
+              family: 'Raleway',
+              styles: [
+                300, 400, 700
+              ]
+            },
+            {
+              family: 'Lato',
+              styles: [
+                300, 400, 700
+              ]
+            }
+          ]
+        }
+      }
+    },
+
     copy: {
       styles: {
         files: [{
@@ -396,6 +430,10 @@ module.exports = function(grunt) {
     'copy:imagestarget',
     'copy:fonts',
     'copy:404'
+  ]);
+
+  grunt.registerTask('fonts', [
+    'googlefonts'
   ]);
 
   //production tasks
