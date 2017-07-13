@@ -3,11 +3,14 @@
   "version": "4.13.01",
   "private": true,
   "scripts": {
-    "start": "node app.js",
     "server.sandman": "NODE_ENV=development node server.js --tenant=sandman --environment=integration",
     "server.sutton": "NODE_ENV=development node server.js --tenant=suttonLive --environment=integration",
-    "int.sandman": "grunt development --tenant=sandman --environment=integration",
-    "int.sutton": "grunt development --tenant=suttonLive --environment=integration"
+    "server.meandall": "NODE_ENV=development node server.js --tenant=meandall --environment=integration",
+    "server.stgiles": "NODE_ENV=development node server.js --tenant=stGiles --environment=integration",
+    "watch.sandman": "grunt development --tenant=sandman --environment=integration",
+    "watch.sutton": "grunt development --tenant=suttonLive --environment=integration",
+    "watch.meandall": "grunt development --tenant=meandall --environment=integration",
+    "watch.stGiles": "grunt development --tenant=stGiles --environment=integration"
   },
   "engines": {
     "node": "=0.10.22"
