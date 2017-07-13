@@ -270,9 +270,8 @@
           <div id="keystone-status"></div>
         </li>
 
-        <li ng-if="!auth.isKeystone()"
-            has-dropdown="click"
-            ng-show="isUserLoggedIn()"
+        <li has-dropdown="click"
+            ng-show="!auth.isKeystone() && isUserLoggedIn()"
             profile
             class="desktop-profile">
           <div class="dropdown">
