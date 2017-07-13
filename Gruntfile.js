@@ -97,8 +97,14 @@ module.exports = function(grunt) {
 
     less: {
       development: {
+        options: {
+          sourceMap: true,
+          sourceMapFileName: '<%= config.build %>/style.css.map',
+          sourceMapURL: '/static/targets/' + target + '/styles/style.css.map',
+          sourceMapBasepath: 'static',
+          sourceMapRootpath: '/'
+        },
         expand: true,
-        sourceMap: true,
         cwd: '<%= config.client %>/',
         src: 'targets/' + target + '/styles/style.less',
         dest: '<%= config.build %>/',
