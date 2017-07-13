@@ -27,7 +27,9 @@ angular.module('mobiusApp.services.modal', [])
     // Merge required and arbitrary options together
     angular.extend(modalOptions, options);
 
-    $modal.open(modalOptions).result.then(function(data) {
+    var modalInstance = $modal.open(modalOptions);
+
+    modalInstance.result.then(function(data) {
       queryService.removeParam(DIALOG_PARAM_NAME);
       $log.info('Dialog closed');
       q.resolve(data);
@@ -35,6 +37,13 @@ angular.module('mobiusApp.services.modal', [])
       queryService.removeParam(DIALOG_PARAM_NAME);
       $log.info('Dialog dismissed');
       q.reject(reason);
+    });
+
+    // After modal has been opened, attach event listener to dismiss it on overlay click
+    modalInstance.rendered.then(function () {
+      $('.modal-backdrop').first().on('click', function () {
+        modalInstance.close('');
+      });
     });
 
     queryService.setValue(DIALOG_PARAM_NAME, dialogName);

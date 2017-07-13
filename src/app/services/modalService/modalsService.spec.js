@@ -13,6 +13,9 @@ describe('mobiusApp.services.modal', function() {
           return {
             result: {
               then: function(){}
+            },
+            rendered: {
+              then: function () {}
             }
           };
         }
