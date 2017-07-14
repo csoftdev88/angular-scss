@@ -53,7 +53,6 @@
     "grunt-express": "~1.2.1",
     "grunt-githooks": "^0.6.0",
     "grunt-google-cdn": "~0.2.0",
-    "grunt-google-fonts": "^0.5.0",
     "grunt-html2js": "~0.3.2",
     "grunt-istanbul": "^0.7.2",
     "grunt-karma": "0.12.0",
