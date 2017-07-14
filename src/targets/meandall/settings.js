@@ -294,6 +294,11 @@ angular.module('mobiusApp.config', [])
       'showToday': true,
       'dateFormat': 'MMM DD YYYY'
     },
+    'buttonSubmit': {
+      'floatingBar': true,
+      'continueBtn': true,
+      'reservationData': true
+    },
     'generics': {
       'singleProperty': true,
       'defaultPropertyCode': 'DUSIMM',
