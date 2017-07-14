@@ -1,6 +1,7 @@
 //- DATEPICKER -//
 .ui-datepicker {
-  box-shadow: 0 0 1px #dadada;
+  box-shadow: 0 0 2em rgba(0,0,0,.5);
+  border: solid 3px white;
   background: @c-black;
   .viewport-mobile & {
     box-shadow:none;
@@ -13,7 +14,7 @@
       }
     }
     .ui-datepicker-title {
-      font-family:@ff-heading;
+      font-family: Arial;
       font-size: 1.3em;
       font-weight: normal;
     }
@@ -65,13 +66,23 @@
         border-left: 20px solid transparent;
         border-right: 20px solid transparent;
       }
-      &.ui-datepicker-unselectable>*[data-tooltip]:after {
-        background: #cb0338;
-      }
-      &.ui-datepicker-unselectable>*[data-tooltip]:before {
-        border-top-color: #cb0338;
+      &.ui-datepicker-unselectable {
+        & > *[data-tooltip]:after {
+          display: none;
+        }
+        & > *[data-tooltip]:before {
+          display: none;
+        }
+        color: gray !important;
       }
       // Highlighting today's day
+      &:not(.date-range-start) {
+        &.ui-datepicker-today a {
+          margin: 0 10px;
+          border: solid 1px #fff;
+          border-radius: 50%;
+        }
+      }
       &.ui-datepicker-today a {
         font-family:@ff-bold;
         color: @c-white;
@@ -225,11 +236,12 @@
   }
   .ui-datepicker-close {
     height: 35px !important;
-    line-height: 40px !important;
-    font-size:@size--1;
+    line-height: 35px !important;
+    font-size: @size--1;
     font-weight: normal;
     min-width: 95px !important;
-    border: solid 2px #ffffff !important;
+    color: #000 !important;
+    background: #fff !important;
     &:hover {
       background: lighten(@c-button, 15%);
     }

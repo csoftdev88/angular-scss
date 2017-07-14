@@ -1,29 +1,81 @@
-<cookie-law-banner ng-if="showEUCookieDisclaimer" message="_cookie_disclaimer_message_" accept-text="_continue_"></cookie-law-banner>
+<cookie-law-banner ng-if="showEUCookieDisclaimer"
+                   message="_cookie_disclaimer_message_"
+                   accept-text="_continue_">
+</cookie-law-banner>
+
 <slidedown-notifications ng-if="$root.campaign && $root.campaign.headerBar.display"></slidedown-notifications>
 
 <div id="main-header-inner">
-  <nav class="main-nav wrapper" dropdown ng-class="{'has-corp-logo': thirdparty.logo.images.uri}">
+  <nav class="main-nav wrapper"
+       dropdown
+       ng-class="{'has-corp-logo': thirdparty.logo.images.uri}">
 
-    <ul dropdown-group class="left" ng-show="config.languages.headerAlignment === 'left' && !isMobile && $state.$current.self.name.indexOf('reservation') === -1">
+    <ul dropdown-group
+        class="left"
+        ng-show="config.languages.headerAlignment === 'left' &&
+                !isMobile &&
+                $state.$current.self.name.indexOf('reservation') === -1">
       <li language-list></li>
     </ul>
 
-    <a href="tel:{{config.generics.header.telephone.split(' ').join('')}}" ng-if="config.generics.header && config.generics.header.telephone" class="header-telephone">Tel. {{config.generics.header.telephone}}</a>
-
-    <a class="brand" ng-if="!config.generics.header || (!config.generics.header.logoLink && !config.generics.header.logoText)" ui-sref="home({property:null})" ng-click="retentionClick()">
-      <img class="desktop-logo" src="/static/images/v4/logo.png" alt="Mobius logo">
-      <img class="mobile-logo" src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
-      <img class="corp-logo" ng-show="thirdparty" src="{{thirdparty.logo.images.uri}}" alt="{{thirdparty.logo.images.alt}}" height="20">
+    <a href="tel:{{config.generics.header.telephone.split(' ').join('')}}"
+       ng-if="config.generics.header && config.generics.header.telephone"
+       class="header-telephone">
+      Tel. {{ config.generics.header.telephone }}
     </a>
 
-    <a class="brand" ng-if="config.generics.header && config.generics.header.logoLink && !config.generics.header.logoText" ng-href="{{config.generics.header.logoLink}}" ng-click="retentionClick()">
-      <img class="desktop-logo" src="/static/images/v4/logo.png" alt="Mobius logo">
-      <img class="mobile-logo" src="/static/images/v4/logo-mobile.png" alt="Mobius logo">
-      <img class="corp-logo" ng-show="thirdparty" src="{{thirdparty.logo.images.uri}}" alt="{{thirdparty.logo.images.alt}}" height="20">
-    </a>
-    <a class="brand" ng-if="config.generics.header && config.generics.header.logoText && config.generics.header.logoLink" ng-href="{{config.generics.header.logoLink}}" ng-class="{'initial-hidden': $root.hideHeaderLogo}" ng-click="retentionClick()">{{config.generics.header.logoText}}</a>
+    <a class="brand"
+       ng-if="!config.generics.header || (!config.generics.header.logoLink && !config.generics.header.logoText)"
+       ui-sref="home({property:null})"
+       ng-click="retentionClick()">
 
-    <a href class="menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown" ng-click="openMobileMenu(); retentionClick()"></a>
+      <img class="desktop-logo"
+           src="/static/images/v4/logo.png"
+           alt="Mobius logo">
+      <img class="mobile-logo"
+           src="/static/images/v4/logo-mobile.png"
+           alt="Mobius logo">
+      <img class="corp-logo"
+           ng-show="thirdparty"
+           src="{{thirdparty.logo.images.uri}}"
+           alt="{{thirdparty.logo.images.alt}}"
+           height="20">
+
+    </a>
+
+    <a class="brand"
+       ng-if="config.generics.header && config.generics.header.logoLink && !config.generics.header.logoText"
+       ng-href="{{config.generics.header.logoLink}}"
+       ng-click="retentionClick()">
+
+      <img class="desktop-logo"
+           src="/static/images/v4/logo.png"
+           alt="Mobius logo">
+      <img class="mobile-logo"
+           src="/static/images/v4/logo-mobile.png"
+           alt="Mobius logo">
+      <img class="corp-logo"
+           ng-show="thirdparty"
+           src="{{thirdparty.logo.images.uri}}"
+           alt="{{thirdparty.logo.images.alt}}"
+           height="20">
+
+    </a>
+
+    <a class="brand"
+       ng-if="config.generics.header && config.generics.header.logoText && config.generics.header.logoLink"
+       ng-href="{{config.generics.header.logoLink}}"
+       ng-class="{'initial-hidden': $root.hideHeaderLogo}"
+       ng-click="retentionClick()">
+      {{ config.generics.header.logoText }}
+    </a>
+
+    <a id="mobile-menu-opener"
+       class="menu-opener dropdown-toggle"
+       dropdown-toggle
+       data-toggle="dropdown"
+       ng-click="openMobileMenu(); retentionClick()">
+    </a>
 
     <div class="app-menu">
       <ul dropdown-group>
@@ -35,20 +87,32 @@
           <span class="close"></span>
         </li>
 
-        <li has-dropdown="click" ng-show="isUserLoggedIn()" profile class="mobile-profile">
+        <li has-dropdown="click"
+            ng-show="isUserLoggedIn()"
+            profile
+            class="mobile-profile">
           <div class="dropdown">
             <a href>
               <div class="profile">
-                <img ng-if="config.viewsSettings.userProfile.hasAvatar" err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().avatarUrl}}">
+                <img ng-if="config.viewsSettings.userProfile.hasAvatar"
+                     err-source="/static/images/v4/img-profile.png"
+                     ng-src="{{user.getUser().avatarUrl}}">
                 <div class="message" ng-if="config.viewsSettings.userProfile.hasWelcomeMessage">
                   <span>_user_profile_message_</span>
                 </div>
                 <div class="user">
-                  <div class="name">{{user.getUser().firstName}} {{user.getUser().lastName}}</div>
+                  <div class="name">
+                    {{user.getUser().firstName}} {{user.getUser().lastName}}
+                  </div>
                   <div class="points" ng-if="loyaltyProgramEnabled">
-                    <span>{{user.getUser().loyalties.amount}} _points_</span>
+                    <span>
+                      {{user.getUser().loyalties.amount}} _points_
+                    </span>
                     <span class="vr" ng-if="user.getUser().loyalties.tier">|</span>
-                    <span ng-click="openTiersListDialog($event); retentionClick()" ng-if="user.getUser().loyalties.tier">{{user.getUser().loyalties.tier}} _tier_</span>
+                    <span ng-click="openTiersListDialog($event); retentionClick()"
+                          ng-if="user.getUser().loyalties.tier">
+                      {{ user.getUser().loyalties.tier }} _tier_
+                    </span>
                   </div>
                 </div>
               </div>
@@ -58,66 +122,158 @@
               <li>
                 <a ui-sref="reservations" ng-click="retentionClick()">_reservations_</a>
               </li>
+
               <li class="mobile-rewards" ng-if="loyaltyProgramEnabled && config.viewsSettings.userProfile.hasRewards">
-                <a href ui-sref="rewards" ng-click="retentionClick()">_rewards_</a>
+                <a href ui-sref="rewards" ng-click="retentionClick()">
+                  _rewards_
+                </a>
               </li>
+
               <li ng-if="config.viewsSettings.userProfile.hasPrestigeAccount">
-                <a ng-if="!config.viewsSettings.userProfile.prestigeIsInfiniti" ui-sref="prestige" ng-click="retentionClick()">_prestige_account_</a>
-                <a ng-if="config.viewsSettings.userProfile.prestigeIsInfiniti" href ng-href="{{config.viewsSettings.userProfile.infinitiPrestigeUrl}}" ng-click="retentionClick()">_prestige_account_</a>
+
+                <a ng-if="!config.viewsSettings.userProfile.prestigeIsInfiniti"
+                   ui-sref="prestige"
+                   ng-click="retentionClick()">
+                  _prestige_account_
+                </a>
+                <a ng-if="config.viewsSettings.userProfile.prestigeIsInfiniti"
+                   href
+                   ng-href="{{config.viewsSettings.userProfile.infinitiPrestigeUrl}}"
+                   ng-click="retentionClick()">
+                  _prestige_account_
+                </a>
+
               </li>
+
               <li>
-                <a ng-if="auth.isInfiniti()" href ng-click="auth.viewProfile(); retentionClick">_profile_</a>
-                <a ng-if="!auth.isInfiniti()" ui-sref="profile" ng-click="retentionClick()">_profile_</a>
+                <a ng-if="auth.isInfiniti()"
+                   href
+                   ng-click="auth.viewProfile(); retentionClick">
+                  _profile_
+                </a>
+                <a ng-if="!auth.isInfiniti()"
+                   ui-sref="profile"
+                   ng-click="retentionClick()">
+                  _profile_
+                </a>
+
               </li>
               <li>
                 <a href ng-click="auth.logout(); retentionClick()">_logout_</a>
               </li>
             </ul>
+
           </div>
         </li>
 
-        <li has-dropdown="hover" ng-hide="config.generics.singleProperty || (!config.menu.showHotels && !config.menu.standalone && !isMobile) || (config.menu.standalone && !isMobile)" menu-content="hotels" data-title="_hotels_"></li>
+        <li has-dropdown="click"
+            ng-hide="config.generics.singleProperty || (!config.menu.showHotels && !config.menu.standalone && !isMobile) || (config.menu.standalone && !isMobile)"
+            menu-content="hotels"
+            data-disable-title-click="true"
+            data-title="_hotels_">
+        </li>
 
         <li ng-show="config.generics.singleProperty && config.menu.showHotels && !config.menu.standalone && !isMobile">
-            <a
-            ui-sref="hotel({propertySlug: $root.propertySlug})"
-            ui-sref-opts="{reload: true}"
-            ng-class="{'is-active': $state.includes('hotel')}"
-            ng-click="retentionClick()">_hotel_</a>
+            <a ui-sref="hotel({propertySlug: $root.propertySlug})"
+               ui-sref-opts="{reload: true}"
+               ng-class="{'is-active': $state.includes('hotel')}"
+               ng-click="retentionClick()">
+              _hotel_
+            </a>
         </li>
 
-        <li has-dropdown="hover" ng-if="(thirdparty ? thirdparty.config.menu.showHotDeals : config.menu.showHotDeals) && (!config.menu.standalone || isMobile)" menu-content="deals" data-title="_hot_deals_"></li>
+        <li has-dropdown="click"
+            ng-show="(thirdparty ? thirdparty.config.menu.showHotDeals : config.menu.showHotDeals) && (!config.menu.standalone || isMobile)"
+            menu-content="deals"
+            data-disable-title-click="true"
+            data-title="_hot_deals_">
+        </li>
 
-        <li has-dropdown="hover" ng-if="(thirdparty ? thirdparty.config.menu.showMeetingsBanquets : config.menu.showMeetingsBanquets) && (!config.menu.standalone || isMobile)"><a href="" ui-sref="staticContent({contentSlug: 'meetings-banquets', property: null})" ui-sref-active="active" ng-click="retentionClick()">_meetings_banquets_</a></li>
+        <li has-dropdown="click"
+            ng-if="(thirdparty ? thirdparty.config.menu.showMeetingsBanquets : config.menu.showMeetingsBanquets) && (!config.menu.standalone || isMobile)">
+          <a href=""
+             ui-sref="staticContent({contentSlug: 'meetings-banquets', property: null})"
+             ui-sref-active="active"
+             ng-click="retentionClick()">
+            _meetings_banquets_
+          </a>
+        </li>
 
-        <li has-dropdown="hover" ng-show="(thirdparty ? thirdparty.config.menu.showOffers : config.menu.showOffers) && (!config.menu.standalone || isMobile)" menu-content="offers" data-title="_offers_deals_"></li>
+        <li has-dropdown="click"
+            ng-show="(thirdparty ? thirdparty.config.menu.showOffers : config.menu.showOffers) && (!config.menu.standalone || isMobile)"
+            menu-content="offers"
+            data-disable-title-click="true"
+            data-title="_offers_deals_">
+        </li>
 
-        <li has-dropdown="hover" ng-show="(thirdparty ? thirdparty.config.menu.showAbout : config.menu.showAbout) && (!config.menu.standalone || isMobile)" menu-content="about" data-title="_about_us_"></li>
+        <li has-dropdown="click"
+            ng-show="(thirdparty ? thirdparty.config.menu.showAbout : config.menu.showAbout) && (!config.menu.standalone || isMobile)"
+            menu-content="about"
+            data-disable-title-click="true"
+            data-title="_about_us_">
+        </li>
 
-        <li has-dropdown="hover" ng-show="(thirdparty ? thirdparty.config.menu.showNews : config.menu.showNews) && (!config.menu.standalone || isMobile)" menu-content="news" data-title="_news_"></li>
+        <li has-dropdown="true"
+            ng-show="(thirdparty ? thirdparty.config.menu.showNews : config.menu.showNews) && (!config.menu.standalone || isMobile)"
+            menu-content="news"
+            data-disable-title-click="true"
+            data-title="_news_">
+        </li>
 
         <li ng-show="config.menu.showContact && (!config.menu.standalone || isMobile)">
-            <a
-            ui-sref="contacts({property: null})"
-            ui-sref-opts="{reload: true}"
-            ng-class="{'is-active': $state.includes('contacts')}"
-            ng-click="retentionClick()">_contact_</a>
+            <a ui-sref="contacts({property: null})"
+               ui-sref-opts="{reload: true}"
+               ng-class="{'is-active': $state.includes('contacts')}"
+               ng-click="retentionClick()">
+              _contact_
+            </a>
         </li>
 
-        <li has-dropdown="click" currency-list ng-show="!$state.includes('reservation') && !$state.includes('reservationDetail') && !$state.includes('reservations')"></li>
-
-        <li ng-show="config.languages.headerAlignment === 'right' || isMobile" has-dropdown="click" language-list></li>
-
-        <a ng-if="config.generics.header && config.generics.header.mainMenuAsOverlay" href class="main-menu-opener dropdown-toggle" dropdown-toggle data-toggle="dropdown" ng-click="toggleMenuOverlay(); retentionClick()"></a>
-
-        <li ng-show="!isUserLoggedIn()" profile>
-          <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}" ng-click="auth.login(); retentionClick()">_login_</a>
-        </li>
-        <li ng-show="isUserLoggedIn()" profile class="mobile-logout" ng-class="{'is-desktop': !config.menu.isLogoutInDropdown}">
-          <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}" ng-click="auth.logout(); retentionClick()">_logout_</a>
+        <li has-dropdown="click"
+            currency-list
+            ng-show="!$state.includes('reservation') && !$state.includes('reservationDetail') && !$state.includes('reservations')">
         </li>
 
-        <li has-dropdown="click" ng-show="isUserLoggedIn()" profile class="desktop-profile">
+        <li ng-show="config.languages.headerAlignment === 'right' || isMobile"
+            has-dropdown="click"
+            language-list>
+        </li>
+
+        <a ng-if="config.generics.header && config.generics.header.mainMenuAsOverlay"
+           href
+           class="main-menu-opener dropdown-toggle"
+           dropdown-toggle
+           data-toggle="dropdown"
+           ng-click="toggleMenuOverlay(); retentionClick()">
+        </a>
+
+        <li ng-if="!auth.isKeystone()"
+            ng-show="!isUserLoggedIn()"
+            profile>
+          <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}"
+             ng-click="auth.login(); retentionClick()">
+            _login_
+          </a>
+        </li>
+        <li ng-if="!auth.isKeystone()"
+            ng-show="isUserLoggedIn()"
+            profile
+            class="mobile-logout"
+            ng-class="{'is-desktop': !config.menu.isLogoutInDropdown}">
+          <a ng-class="{'button button-login': !config.generics.header || !config.generics.header.loginAsLink}"
+             ng-click="auth.logout(); retentionClick()">
+            _logout_
+          </a>
+        </li>
+
+        <li ng-if="auth.isKeystone()" ng-hide="isMobile && auth && auth.isLoggedIn()" ng-click="$event.stopPropagation()">
+          <div id="keystone-status"></div>
+        </li>
+
+        <li has-dropdown="click"
+            ng-show="!auth.isKeystone() && isUserLoggedIn()"
+            profile
+            class="desktop-profile">
           <div class="dropdown">
             <a href>
               <div class="profile">
@@ -125,11 +281,17 @@
                   <span>_user_profile_message_</span>
                 </div>
                 <div class="user">
-                  <img ng-if="config.viewsSettings.userProfile.hasAvatar" err-source="/static/images/v4/img-profile.png" ng-src="{{user.getUser().avatarUrl}}">
-                  <div class="user-details" ng-class="{'has-points': loyaltyProgramEnabled && config.viewsSettings.userProfile.hasLoyaltyInfo}">
+                  <img ng-if="config.viewsSettings.userProfile.hasAvatar"
+                       err-source="/static/images/v4/img-profile.png"
+                       ng-src="{{user.getUser().avatarUrl}}">
+                  <div class="user-details"
+                       ng-class="{'has-points': loyaltyProgramEnabled && config.viewsSettings.userProfile.hasLoyaltyInfo}">
                     <span>{{user.getUser().firstName}}</span>
                     <span>{{user.getUser().lastName}}</span>
-                    <span class="points" ng-if="loyaltyProgramEnabled && config.viewsSettings.userProfile.displayPointsWithUsername">{{user.getUser().loyalties.amount}} _points_</span>
+                    <span class="points"
+                          ng-if="loyaltyProgramEnabled && config.viewsSettings.userProfile.displayPointsWithUsername">
+                      {{user.getUser().loyalties.amount}} _points_
+                    </span>
                   </div>
                 </div>
 

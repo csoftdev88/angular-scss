@@ -13,6 +13,7 @@
   "immed"    : true,
   "indent"   : 2,
   "latedef"  : "nofunc",
+  "validthis": true,
   "newcap"   : true,
   "noarg"    : true,
   "regexp"   : true,

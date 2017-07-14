@@ -29,14 +29,14 @@ angular.module('mobius.controllers.reservations', [])
     metaInformationService.setMetaKeywords(chain.meta.keywords);
     metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
 
-    $timeout(function(){
+    $timeout(function() {
       scrollService.scrollTo('jsReservations');
     });
 
 
   });
 
-  function onAuthorized(){
+  function onAuthorized() {
 
     if ($scope.auth && $scope.auth.isLoggedIn()) {
       var reservationsPromise = $q.all([

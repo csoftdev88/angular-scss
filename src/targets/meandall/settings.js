@@ -291,7 +291,8 @@ angular.module('mobiusApp.config', [])
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
     'datepicker': {
-      'showToday': true
+      'showToday': true,
+      'dateFormat': 'MMM DD YYYY'
     },
     'generics': {
       'singleProperty': true,
@@ -875,6 +876,18 @@ angular.module('mobiusApp.config', [])
           'alt': 'Worldhotels deluxe'
         }
       },
+      'formRequirments': {
+        'firstname': true,
+        'lastname': true,
+        'address_one': true,
+        'postcode': true,
+        'city': true,
+        'state': true,
+        'country': true,
+        'phone': true,
+        'contactMethod': false
+      },
+      'tempMeandallFormHack': true,
       'hideHeroSlider': true,
       'hideBreadCrumbs': true,
       'displaySummary': false,
@@ -1001,7 +1014,8 @@ angular.module('mobiusApp.config', [])
       //Display policies link at bottom of reservation overview
       'policiesLinkBottom': true,
       //display back button in form
-      'backButtonInForm': true,
+      'backButtonInForm': false,
+      'backButtonUnderContinue': true,
       //Display ccv info as a tooltip
       'ccvAsTooltip': true,
       //display advanced header
