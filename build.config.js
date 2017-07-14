@@ -100,6 +100,7 @@ module.exports = {
         'bower_components/jquery-ui/jquery-ui.min.js',
         'vendors/jquery-datepicker/index.js',
         'vendors/chosen/chosen.jquery.min.js',
+        'bower_components/raven-js/dist/raven.min.js',
         'bower_components/angular/angular.min.js',
         'bower_components/angular-resource/angular-resource.js',
         'bower_components/angular-touch/angular-touch.min.js',
