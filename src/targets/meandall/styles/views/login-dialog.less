@@ -44,19 +44,20 @@
       color: @c-primary !important;
     }
   }
-  .form-wrapper form {
-    background: @c-black;
-    fieldset {
-      padding: 0 30px;
-    }
-  }
   .form-wrapper {
     form {
+      background: @c-black;
+      fieldset {
+        padding: 0 30px;
+      }
+      &.reset-form fieldset {
+        margin-bottom: 50px;
+      }
       button-submit {
         position: relative;
-        left: 80px;
+        left: 60px;
         bottom: 30px;
-        width: 240px;
+        width: 280px;
         background: initial;
         border: solid 2px #ffffff;
       }

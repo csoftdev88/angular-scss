@@ -48,6 +48,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
       // Widget settings
       scope.settings = Settings.UI.bookingWidget;
+      scope.uiConfig = Settings.UI;
       scope.curDatePickerMonthDates = null;
       scope.canRemoveCodes = true;
 
