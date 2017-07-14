@@ -13,7 +13,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-localisation');
   grunt.loadNpmTasks('grunt-istanbul');
-  grunt.loadNpmTasks('grunt-google-fonts');
 
   // Time how long tasks take
   require('time-grunt')(grunt);
@@ -170,40 +169,6 @@ module.exports = function(grunt) {
       options: {
         dest: '<%= config.compile %>',
         assetsDirs: ['<%= config.compile %>']
-      }
-    },
-
-    googlefonts: {
-      build: {
-        options: {
-          fontPath: '<%= config.compile %>/fonts/',
-          cssFile: 'fonts.css',
-          formats: {
-            eot: true,
-            woff: true,
-            svg: true
-          },
-          fonts: [
-            {
-              family: 'Open Sans',
-              styles: [
-                300, 400, 700
-              ]
-            },
-            {
-              family: 'Raleway',
-              styles: [
-                300, 400, 700
-              ]
-            },
-            {
-              family: 'Lato',
-              styles: [
-                300, 400, 700
-              ]
-            }
-          ]
-        }
       }
     },
 
