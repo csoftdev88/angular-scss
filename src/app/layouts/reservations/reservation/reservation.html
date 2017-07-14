@@ -107,6 +107,9 @@
               </label>
             </div>
             <button-submit class="continue-btn" ng-click="continue()" ng-disabled="isContinueDisabled()">
+              <i class="fa fa-chevron-right"
+                 aria-hidden="true"
+                 ng-if="(continueName === 'continue') && uiConfig.buttonSubmit.continueBtn"></i>
               <span ng-if="continueName === 'continue'">_continue_</span>
               <span ng-if="continueName === 'confirm'">_confirm_</span>
             </button-submit>

@@ -295,7 +295,9 @@ angular.module('mobiusApp.config', [])
       'dateFormat': 'MMM DD YYYY'
     },
     'buttonSubmit': {
-      'floatingBar': true
+      'floatingBar': true,
+      'continueBtn': true,
+      'reservationData': true
     },
     'generics': {
       'singleProperty': true,
