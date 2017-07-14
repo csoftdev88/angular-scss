@@ -412,10 +412,6 @@ module.exports = function(grunt) {
     'copy:404'
   ]);
 
-  grunt.registerTask('fonts', [
-    'googlefonts'
-  ]);
-
   //production tasks
   grunt.registerTask('release', [
     'production'
