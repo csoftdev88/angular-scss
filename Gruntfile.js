@@ -180,15 +180,7 @@ module.exports = function(grunt) {
           cwd: '<%= config.build %>',
           src: ['**/*.css'],
           dest: '<%= config.compile %>'
-        }
-        // ,
-        // {
-        //   expand: true,
-        //   cwd: '<%= config.client %>',
-        //   src: ['**/*.less'],
-        //   dest: '<%= config.static =>'
-        // }
-        ]
+        }]
       },
       images: {
         files: [{
