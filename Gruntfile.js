@@ -362,7 +362,6 @@ module.exports = function(grunt) {
   //Prebuild
   grunt.registerTask('prebuild:development', [
     'jshint',
-    //'test',
     'localisation',
     'templateCache:development',
     'ngmin'
