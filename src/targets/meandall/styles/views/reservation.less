@@ -22,6 +22,12 @@ main.reservation-page {
         transform: initial;
       }
     }
+    // Fix for firefox, using left initial did not work as expected so I am explicitly setting it instead
+    label[for='country'] {
+      > span {
+        left: 10px;
+      }
+    }
     .viewport-mobile & {
       margin-top: 130px;
     }
@@ -138,18 +144,6 @@ main.reservation-page {
         }
       }
       .continue-btn {
-        &:before {
-          .fa;
-          content: @fa-var-chevron-right;
-          position: absolute;
-          left: 15px;
-          top: 70px;
-          color: #fff;
-          -webkit-transform: translateY(-50%);
-          -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
-          font-size: 13px;
-        }
         .viewport-mobile & {
           margin-top: 0;
           width: 100%;
@@ -299,6 +293,10 @@ main.reservation-page {
             }
             a {
               cursor: pointer;
+              color: #000;
+              &:hover {
+                text-decoration: underline;
+              }
             }
             span {
               .viewport-mobile & {

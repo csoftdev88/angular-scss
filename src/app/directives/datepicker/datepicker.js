@@ -191,8 +191,8 @@ angular.module('mobiusApp.directives.datepicker', [])
             }
           },
           onChangeMonthYear:function(y, m, i){
-            $timeout(function(){
-              if(scope.availabilityOverviewEnabled){
+            $timeout(function() {
+              if (scope.availabilityOverviewEnabled) {
                 getAvailability(y, m);
               }
               $rootScope.$broadcast('DATE_PICKER_MONTH_CHANGED', i);
