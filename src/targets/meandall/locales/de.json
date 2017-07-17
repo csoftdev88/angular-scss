@@ -458,7 +458,7 @@
         "modify_reservation_modal_abort_desc": "Ihre Änderungen werden nicht gespeichert werden, wenn Sie diese Seite verlassen. Um Ihre Buchung zu aktualisieren, müssen Sie den Reservierungsprozess abschließen.",
         "reservation_lookup_modal_error": "Leider können wir keine Reservierung zu diesen Daten finden. Bitte überprüfen Sie sie und versuchen Sie es erneut.",
         "reservation_lookup_modal_login": "Ihre Buchung wurde vorgenommen, als Sie angemeldet waren. Bitte melden Sie sich an, um sie anzuzeigen.",
-        "terms_modal_agree": "Bitte akzeptieren Sie die allgemeinen Geschäftsbedingungen,um diese Buchung abzuschließen",
+        "terms_modal_agree": "Bitte akzeptieren Sie die allgemeinen Geschäftsbedingungen, um diese Buchung abzuschließen",
         "cvv_modal_title": "CVV-Nummer",
         "cvv_modal_desc": "Die CVV-Nummer ('Card Verification Value') auf Ihrer Kreditkarte oder EC-Karte ist eine 3-stellige Nummer auf Kredit- und Debitkarten von VISA®, MasterCard® und Discover®. Auf Ihrer Kredit- oder Debitkarte von American Express® ist es ein 4-stelliger Zahlencode.",
         "cvv_modal_subdesc": "Er befindet sich auf dem Unterschriftenfeld auf der Rückseite von VISA®-, MasterCard®- und Discover®-Karten, und bei American Express®-Karten sind es die 4 Ziffern oberhalb der Kartennummer auf der Vorderseite der Karte.",
@@ -557,6 +557,7 @@
         "alt_products_extend_your_stay": "Verlängern Sie Ihren Aufenthalt um {{stayExtension}} Nächte und Sie können buchen",
         "faq": "Faq",
         "filter_dates": "Daten",
-        "rate_not_available": "Der Preis, den Sie suchen, ist an diesen Terminen nicht verfügbar. Bitte wählen Sie aus einer der unten angegebenen Preise."
+        "rate_not_available": "Der Preis, den Sie suchen, ist an diesen Terminen nicht verfügbar. Bitte wählen Sie aus einer der unten angegebenen Preise.",
+        "book_now_floating_bar": "Buche jetzt"
     }
 }
