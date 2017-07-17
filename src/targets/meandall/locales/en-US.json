@@ -557,6 +557,7 @@
     "blog": "Blog",
     "faq": "Faq",
     "filter_dates": "Dates",
-    "rate_not_available": "Sorry, the rate you are searching for is not available on these dates. Please select from one of the below rates."
+    "rate_not_available": "Sorry, the rate you are searching for is not available on these dates. Please select from one of the below rates.",
+    "book_now_floating_bar": "Book now"
   }
 }
