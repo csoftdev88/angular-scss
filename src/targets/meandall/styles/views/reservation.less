@@ -22,6 +22,12 @@ main.reservation-page {
         transform: initial;
       }
     }
+    // Fix for firefox, using left initial did not work as expected so I am explicitly setting it instead
+    label[for='country'] {
+      > span {
+        left: 10px;
+      }
+    }
     .viewport-mobile & {
       margin-top: 130px;
     }
@@ -287,6 +293,10 @@ main.reservation-page {
             }
             a {
               cursor: pointer;
+              color: #000;
+              &:hover {
+                text-decoration: underline;
+              }
             }
             span {
               .viewport-mobile & {
