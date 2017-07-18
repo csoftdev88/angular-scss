@@ -47,11 +47,8 @@ main.reservation-page {
       }
     }
     div[grid="7"] {
-      padding: 0px 40px 15px 10px;
+      padding: 0px 0 15px 0;
       box-sizing: border-box;
-      .viewport-mobile & {
-        padding-right: 10px;
-      }
     }
     aside[grid="5"] {
       font-size: @size--1;
@@ -215,9 +212,6 @@ main.reservation-page {
         margin: 0;
         line-height: 28px;
       }
-      .image-wrapper {
-        padding: 0 15px;
-      }
       .image-wrapper img {
         margin: 0;
         border-radius: 0px;
@@ -278,7 +272,7 @@ main.reservation-page {
       .charges {
         border: 0px none;
         border-radius: 0px;
-        padding: 0 15px;
+        padding: 0;
         display: block;
         td {
           font-weight: bold;
@@ -688,12 +682,14 @@ reservation-hotel-details {
       button {
         width: 49%;
         display: inline-block;
+        height: 40px;
+        line-height: 40px;
         &.button-gray {
           background: transparent;
           color: @c-primary;
           border: 2px solid @c-primary;
-          height: 40px;
-          line-height: 40px;
+          height: 38px; // Make 2px smaller to counter the border
+          line-height: 38px;
         }
       }
     }
