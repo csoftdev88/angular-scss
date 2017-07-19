@@ -199,6 +199,8 @@
           ng-if="uiConfig.reservations.tempHackGuestFormReorder"
           ng-class="{'ng-submitted': forms.details.$submitted}">
 
+      <p class="error" ng-if="requiredFieldsMissingError">_missing_fields_message_</p>
+
       <label for="title" class="input-left small">
         <select type="text"
                 id="title"
