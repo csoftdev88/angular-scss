@@ -875,6 +875,14 @@ angular
 
   });
 
+  function getStartDate(dates) {
+    return $window.moment(dates.substring(0, dates.indexOf('_'))).format(Settings.UI.datepicker.dateFormat);
+  }
+
+  function getEndDate(dates) {
+    return $window.moment(dates.substring(dates.indexOf('_') + 1, dates.length)).format(Settings.UI.datepicker.dateFormat);
+  }
+
   $scope.$on('$stateChangeSuccess', function() {
     //Sandman specific HACK to display french on quebec pages
     if (Settings.sandmanFrenchOverride) {
