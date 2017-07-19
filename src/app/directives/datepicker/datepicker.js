@@ -358,8 +358,8 @@ var config = Settings.UI.datepicker;      if(hasCounter){
           //dates
           if (counterHasDates && diff > 0 && !stateService.isMobile()) {
             var dateStr = '';
-            dateStr += counterDatesRules['0'].replace('{date}', window.moment(startDate).format('DD MMM YYYY'));
-            dateStr += ' | ' + counterDatesRules['1'].replace('{date}', window.moment(endDate).format('DD MMM YYYY')) + ' | ';
+            dateStr += counterDatesRules['0'].replace('{date}', window.moment(startDate).format(config.dateFormat));
+            dateStr += ' | ' + counterDatesRules['1'].replace('{date}', window.moment(endDate).format(config.dateFormat)) + ' | ';
             return dateStr + $filter('pluralization')(diff, counterPluralizationRules);
           }
           else {
