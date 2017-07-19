@@ -292,7 +292,7 @@ angular.module('mobiusApp.config', [])
     },
     'datepicker': {
       'showToday': true,
-      'dateFormat': 'MMM. DD. YYYY'
+      'dateFormat': 'DD. MMM YYYY'
     },
     'buttonSubmit': {
       'floatingBar': true,
