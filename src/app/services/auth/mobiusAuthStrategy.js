@@ -42,9 +42,9 @@
      */
     var doLogin = function (loginForm, loginData) {
       loginForm.$submitted = true;
+      var that = this;
       if (loginForm.$valid) {
         var headersObj = {};
-        var that = this;
         headersObj[KEY_CUSTOMER_ID] = undefined;
         apiService.setHeaders(headersObj);
         apiService.post(apiService.getFullURL('customers.login'), loginData)
@@ -64,6 +64,9 @@
             that.loginDialogError = true;
             that.incorrectEmailPasswordError = true;
           });
+      } else {
+        that.loginDialogError = true;
+        that.missingFieldsError = true;
       }
     };
 
