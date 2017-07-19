@@ -582,8 +582,9 @@ angular.module('mobius.controllers.reservation', [])
           $scope.invalidFormData.email = null;
         }
 
-        console.log('form data', $scope.invalidFormData, $scope.forms);
-        $scope.requiredFieldsMissingError = ($scope.forms.details.$error.required.length > 0);
+        $scope.requiredFieldsMissingError = ($scope.forms.details.$error &&
+                                             $scope.forms.details.required &&
+                                             $scope.forms.details.$error.required.length > 0);
 
         if ($scope.isValid()) {
           $state.go('reservation.billing');
