@@ -903,11 +903,11 @@ angular
   });
 
   function getStartDate(dates) {
-    return $window.moment(dates.substring(0, dates.indexOf('_'))).format(Settings.UI.generics.longDateFormat);
+    return $window.moment(dates.substring(0, dates.indexOf('_'))).format(Settings.UI.datepicker.dateFormat);
   }
 
   function getEndDate(dates) {
-    return $window.moment(dates.substring(dates.indexOf('_') + 1, dates.length)).format(Settings.UI.generics.longDateFormat);
+    return $window.moment(dates.substring(dates.indexOf('_') + 1, dates.length)).format(Settings.UI.datepicker.dateFormat);
   }
 
   $scope.$on('$stateChangeSuccess', function() {

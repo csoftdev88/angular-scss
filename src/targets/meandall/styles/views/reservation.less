@@ -2,6 +2,10 @@ main.reservation-page {
   background: @c-primary;
   color: @c-secondary;
   margin-bottom:0;
+  .error {
+    font-family: ArialNarrow;
+    margin-bottom: 10px;
+  }
   .terms-link {
     color: @c-black;
     text-decoration: underline;
@@ -13,7 +17,7 @@ main.reservation-page {
   }
   reservation-widget {
     box-shadow: none;
-    padding-top: 0;
+
     label {
       color: @c-secondary !important;
       > span {
@@ -56,6 +60,8 @@ main.reservation-page {
     }
     aside {
       box-sizing: border-box;
+      border: solid 2px black;
+      padding: 10px;
       &:before {
         display: none;
       }
@@ -224,8 +230,8 @@ main.reservation-page {
       }
       .tooltiptext {
         display: none;
-        color: @c-blue;
-        background: rgba(74, 122, 178, 0.25);
+        color: @c-black;
+        background: #ccc;
         font-size: 12px;
         padding: 10px 15px;
         margin: 0 10px;
