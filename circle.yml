@@ -34,7 +34,7 @@ general:
 
 test:
   override:
-    - grunt test  --environment=live
-    - grunt production --target=sutton --environment=live
-    - istanbul cover grunt test -- --environment=live
+    - grunt test  --environment=staging --tenant=suttonLive
+    - grunt production --tenant=suttonLive --environment=staging
+    - istanbul cover grunt test -- --environment=staging --tenant=suttonLive
     - codeclimate-test-reporter < ./coverage/lcov.info
