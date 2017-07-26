@@ -154,7 +154,8 @@
           $scope.genericError = true;
         });
       }
-      else{
+      else {
+        $scope.error = true;
         $scope.missingFieldsError = true;
       }
     };
