@@ -114,24 +114,9 @@ angular.module('mobius.controllers.hotel.details', [
       }, 0);
     } else {
       $timeout(function() {
-        $scope.currentOrder = $scope.sortingOptions[1];
+        $scope.currentOrder = $scope.sortingOptions[0];
       }, 0);
     }
-
-    /*<select
-      name="sorting"
-      ng-model="currentOrder"
-      disable-search="true"
-      chosen
-      ng-options="option.name for option in sortingOptions"
-      placeholder-text-single="_sorting_filter_placeholder_"
-      ng-change="orderSwitchChange(currentOrder)"
-      ng-init="initSortingOptions({
-        'priceLowToHigh': '_price_low_to_high_',
-        'priceHighToLow': '_price_high_to_low_',
-        'recommended': '_recommended_'
-      })">
-    </select>*/
 
     //save order switch value to cookies when changed
     $scope.orderSwitchChange = function(selected) {
