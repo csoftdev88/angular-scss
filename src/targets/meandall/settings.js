@@ -1197,6 +1197,7 @@ angular.module('mobiusApp.config', [])
         'hideHeroSlider': true,
         'hideBreadcrumbs': true,
         'defaultViewMode': 'compare',
+        'scrollToOffset': 10,
         'compareView':{
           'hideOnMobile':true,
           'headingTop':true,
