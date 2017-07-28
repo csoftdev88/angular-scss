@@ -99,6 +99,10 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function clearStoredUser() {
+      // Removing auth headers
+      var headers = {};
+      headers[HEADER_INFINITI_SSO] = undefined;
+      apiService.setHeaders(headers);
       $window.document.cookie = 'MobiusId=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
       $window.document.cookie = 'MobiusToken=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
       $window.document.cookie = 'CustomerID=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
@@ -275,10 +279,6 @@ angular.module('mobiusApp.services.user', [])
           $state.go('home', {}, {reload: true});
         });
 
-        // Removing auth headers
-        var headers = {};
-        headers[HEADER_INFINITI_SSO] = undefined;
-        apiService.setHeaders(headers);
         clearStoredUser();
 
         authPromise = $q.defer();
