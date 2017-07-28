@@ -906,7 +906,7 @@ angular.module('mobiusApp.config', [])
       'headerAlignment': 'right',
       'dropdown': false,
       'default': 'de',
-      'en-us': {
+      'en': {
         'shortName': 'EN',
         'name': 'English',
         'decimalSeparator': '.',
