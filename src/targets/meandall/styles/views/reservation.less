@@ -2,6 +2,10 @@ main.reservation-page {
   background: @c-primary;
   color: @c-secondary;
   margin-bottom:0;
+  .error {
+    font-family: ArialNarrow;
+    margin-bottom: 10px;
+  }
   .terms-link {
     color: @c-black;
     text-decoration: underline;
@@ -13,13 +17,18 @@ main.reservation-page {
   }
   reservation-widget {
     box-shadow: none;
-    padding-top: 0;
+
     label {
       color: @c-secondary !important;
       > span {
         left: initial;
-        opacity: 1;
         transform: initial;
+      }
+    }
+    // Fix for firefox, using left initial did not work as expected so I am explicitly setting it instead
+    label[for='country'] {
+      > span {
+        left: 10px;
       }
     }
     .viewport-mobile & {
@@ -41,11 +50,8 @@ main.reservation-page {
       }
     }
     div[grid="7"] {
-      padding: 0px 40px 15px 10px;
+      padding: 0px 0 15px 0;
       box-sizing: border-box;
-      .viewport-mobile & {
-        padding-right: 10px;
-      }
     }
     aside[grid="5"] {
       font-size: @size--1;
@@ -53,6 +59,8 @@ main.reservation-page {
     }
     aside {
       box-sizing: border-box;
+      border: solid 2px black;
+      padding: 10px;
       &:before {
         display: none;
       }
@@ -221,8 +229,8 @@ main.reservation-page {
       }
       .tooltiptext {
         display: none;
-        color: @c-blue;
-        background: rgba(74, 122, 178, 0.25);
+        color: @c-black;
+        background: #ccc;
         font-size: 12px;
         padding: 10px 15px;
         margin: 0 10px;
@@ -287,6 +295,10 @@ main.reservation-page {
             }
             a {
               cursor: pointer;
+              color: #000;
+              &:hover {
+                text-decoration: underline;
+              }
             }
             span {
               .viewport-mobile & {
@@ -675,12 +687,14 @@ reservation-hotel-details {
       button {
         width: 49%;
         display: inline-block;
+        height: 40px;
+        line-height: 40px;
         &.button-gray {
           background: transparent;
           color: @c-primary;
           border: 2px solid @c-primary;
-          height: 40px;
-          line-height: 40px;
+          height: 38px; // Make 2px smaller to counter the border
+          line-height: 38px;
         }
       }
     }
@@ -695,6 +709,9 @@ reservation-hotel-details {
       padding: 0 20px;
       box-sizing: border-box;
       color: @c-secondary;
+      a {
+        color: #000;
+      }
       .viewport-mobile & {
         width: 100%;
         float: none;
@@ -847,7 +864,7 @@ reservation-hotel-details {
             padding: 20px 0 10px 25px;
             text-align: left;
             .viewport-mobile & {
-              padding: 25px 0 0 25px;
+              padding: 0 0 0 25px;
             }
           }
           >p {

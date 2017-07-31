@@ -95,8 +95,12 @@ module.exports = {
     /* List of vendor files used in application */
     vendor_files: {
       js: [
+        // jquery is a dependency on a lot of other scripts, ensure it is always loaded first
+        'bower_components/jquery/dist/jquery.min.js',
+        'bower_components/jquery-ui/jquery-ui.min.js',
         'vendors/jquery-datepicker/index.js',
         'vendors/chosen/chosen.jquery.min.js',
+        'bower_components/raven-js/dist/raven.min.js',
         'bower_components/angular/angular.min.js',
         'bower_components/angular-resource/angular-resource.js',
         'bower_components/angular-touch/angular-touch.min.js',

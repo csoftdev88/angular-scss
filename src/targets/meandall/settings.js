@@ -292,7 +292,7 @@ angular.module('mobiusApp.config', [])
     },
     'datepicker': {
       'showToday': true,
-      'dateFormat': 'MMM DD YYYY'
+      'dateFormat': 'DD. MMM YYYY'
     },
     'buttonSubmit': {
       'floatingBar': true,
@@ -904,7 +904,7 @@ angular.module('mobiusApp.config', [])
       'headerAlignment': 'right',
       'dropdown': false,
       'default': 'de',
-      'en-us': {
+      'en': {
         'shortName': 'EN',
         'name': 'English',
         'decimalSeparator': '.',
@@ -1197,6 +1197,7 @@ angular.module('mobiusApp.config', [])
         'hideHeroSlider': true,
         'hideBreadcrumbs': true,
         'defaultViewMode': 'compare',
+        'scrollToOffset': 10,
         'compareView':{
           'hideOnMobile':true,
           'headingTop':true,
@@ -1328,7 +1329,7 @@ angular.module('mobiusApp.config', [])
 
     // Date formatting rules for reservations
     'checkInDateFormats': {
-      'defaultFormat': 'MMM YYYY',
+      'defaultFormat': 'MMM. YYYY',
       'rules': [
         {
           // It shows the day (day name) if the
