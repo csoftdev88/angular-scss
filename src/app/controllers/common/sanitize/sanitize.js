@@ -4,7 +4,7 @@
 */
 angular.module('mobius.controllers.common.sanitize', [])
 
-.controller( 'SanitizeCtrl', function($scope, $sce, $log) {
+.controller( 'SanitizeCtrl', function($scope, $sce) {
   $scope.sanitize = function(content){
     if (typeof content !== "string") {
       return '';
