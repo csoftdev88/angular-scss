@@ -904,7 +904,7 @@ angular.module('mobiusApp.config', [])
       'headerAlignment': 'right',
       'dropdown': false,
       'default': 'de',
-      'en-us': {
+      'en': {
         'shortName': 'EN',
         'name': 'English',
         'decimalSeparator': '.',
@@ -1197,6 +1197,7 @@ angular.module('mobiusApp.config', [])
         'hideHeroSlider': true,
         'hideBreadcrumbs': true,
         'defaultViewMode': 'compare',
+        'scrollToOffset': 10,
         'compareView':{
           'hideOnMobile':true,
           'headingTop':true,

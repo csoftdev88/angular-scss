@@ -74,6 +74,7 @@
     breadcrumbsService.addBreadCrumb('Profile');
 
     $scope.submitted = false;
+    $scope.profileData = {};
 
     //Config
     $scope.config = Settings.UI.profilePage;
@@ -130,8 +131,8 @@
     }, 2000);
 
     $scope.update = function(form, profileData){
-      $scope.submitted = true;
       clearErrorMsg();
+      $scope.submitted = true;
       if(form.$valid){
         var data = _.omit(profileData, _.isNull);
         data = _.omit(data, ['id','token','email', 'languageCode']);
@@ -155,8 +156,8 @@
         });
       }
       else {
-        $scope.error = true;
         $scope.missingFieldsError = true;
+        $scope.error = true;
       }
     };
 
