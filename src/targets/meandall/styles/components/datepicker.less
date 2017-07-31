@@ -56,6 +56,10 @@
         font-size: 18px;
         line-height: 1.67;
         text-align: center;
+        border: solid 2px transparent;
+      }
+      span {
+        //border: solid 2px transparent;
       }
       >*[data-tooltip]:after {
         background: #f4b458;
@@ -103,9 +107,11 @@
         span {
           color: @c-black !important;
           background: @c-datepicker-selected;
+          border: solid 2px transparent;
         }
         &:before {
           background: @c-white;
+          border: solid 2px transparent;
         }
         &:after {
           color: @c-secondary;
