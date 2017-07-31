@@ -74,7 +74,7 @@
     breadcrumbsService.addBreadCrumb('Profile');
 
     $scope.submitted = false;
-    $scope.profileDatae = {};
+    $scope.profileData = {};
 
     //Config
     $scope.config = Settings.UI.profilePage;
