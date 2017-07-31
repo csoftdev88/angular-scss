@@ -5,10 +5,9 @@
 
 angular.module('mobiusApp.filters.trustAsHtml', [])
 
-.filter('trustAsHtml' , function($sce, $log) {
+.filter('trustAsHtml' , function($sce) {
   return function (text) {
     if (typeof text !== 'string') {
-      $log.warn('Trust as html didnt get passed a string');
       return '';
     }
     return $sce.trustAsHtml(text);

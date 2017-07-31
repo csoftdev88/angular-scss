@@ -90,14 +90,6 @@
   <main>
   <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
   <tabset>
-    <tab heading="_rate_details_">
-      <section>
-        <article>
-          <p ng-bind-html="sanitize(data.product.description)"></p>
-        </article>
-      </section>
-    </tab>
-
     <tab heading="_price_breakdown_">
       <section class="price-breakdown">
         <article>
@@ -175,6 +167,15 @@
         </article>
       </section>
     </tab>
+
+    <tab heading="_rate_details_">
+      <section>
+        <article>
+          <p ng-bind-html="sanitize(data.product.description)"></p>
+        </article>
+      </section>
+    </tab>
+
 
     <tab heading="_policies_">
       <section class="terms-and-conditions">
