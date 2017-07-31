@@ -13,17 +13,23 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-localisation');
   grunt.loadNpmTasks('grunt-istanbul');
+  grunt.loadNpmTasks('grunt-githooks');
 
   // Time how long tasks take
   require('time-grunt')(grunt);
 
   // Get grunt target
-  var target = grunt.option('tenant') || 'suttonLive';
+  var target = grunt.option('tenant');
   var env = grunt.option('environment');
 
   if (!env) {
     grunt.fail.fatal('Missing "environment" argument.');
   }
+
+  if (!target) {
+    grunt.fail.fatal('Missing "tenant" argument.');
+  }
+
   /**
   * Load in our build configuration file.
   */
@@ -62,6 +68,13 @@ module.exports = function(grunt) {
           'targets/' + target + '/**/*.js'
         ],
         dest: '<%= config.build %>'
+      }
+    },
+
+    githooks: {
+      all: {
+        // Will run the jshint and test tasks at every push
+        'pre-push': 'jshint test'
       }
     },
 
@@ -349,7 +362,6 @@ module.exports = function(grunt) {
   //Prebuild
   grunt.registerTask('prebuild:development', [
     'jshint',
-    'test',
     'localisation',
     'templateCache:development',
     'ngmin'

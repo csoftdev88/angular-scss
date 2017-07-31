@@ -3,20 +3,9 @@
 //////////////////////
 floating-bar {
   background: @c-booking-widget;
+  border-top: solid 2px #000;
   button-submit {
     padding: 0;
-    &:before {
-      .fa;
-      content: @fa-var-chevron-right;
-      position: absolute;
-      right: 90px;
-      top: 50%;
-      color: #fff;
-      -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%);
-      font-size: 13px;
-    }
   }
   .viewport-mobile & {
     background: @c-booking-widget-active;
@@ -37,7 +26,10 @@ floating-bar {
   >ul {
     top: -@baseline;
     max-width: @grid-width;
-    padding-left:60px;
+    padding-left: 40px;
+    li a {
+      font-family: ArialNarrow !important;
+    }
     li {
       &.floating-bar--tab-booking {
         border-top: solid 2px black;
@@ -111,6 +103,9 @@ floating-bar {
         }
       }
       &.floating-bar--tab-advanced-booking {
+        &.is-active {
+          padding-bottom: 2px;
+        }
         .viewport-mobile & {
           background: @c-booking-widget;
         }
