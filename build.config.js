@@ -97,8 +97,7 @@ module.exports = {
       js: [
         // jquery is a dependency on a lot of other scripts, ensure it is always loaded first
         'bower_components/jquery/dist/jquery.min.js',
-        'bower_components/jquery-ui/jquery-ui.min.js',
-        'vendors/jquery-datepicker/index.js',
+        'node_modules/jquery-ui/dist/jquery-ui.js',
         'vendors/chosen/chosen.jquery.min.js',
         'bower_components/raven-js/dist/raven.min.js',
         'bower_components/angular/angular.min.js',

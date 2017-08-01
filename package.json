@@ -28,7 +28,8 @@
     "morgan": "~1.5.3",
     "prerender-node": "^2.0.0",
     "serve-favicon": "~2.2.0",
-    "yargs": "^3.27.0"
+    "yargs": "^3.27.0",
+    "jquery-ui": "git://github.com/2PVentures/jquery-ui#master"
   },
   "devDependencies": {
     "codeclimate-test-reporter": "^0.1.0",
