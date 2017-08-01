@@ -125,8 +125,6 @@ module.exports = {
         'bower_components/angular-markdown-directive/markdown.js',
         'bower_components/angular-tooltips/dist/angular-tooltips.min.js',
         'bower_components/angularUtils-pagination/dirPagination.js',
-        'vendors/jquery-ui/datepicker-translations/de.js',
-        'vendors/jquery-ui/datepicker-translations/fr.js',
         'bower_components/re-tree/re-tree.min.js',
         'bower_components/ng-device-detector/ng-device-detector.min.js',
         'bower_components/angular-vertilize/angular-vertilize.min.js',
