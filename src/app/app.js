@@ -705,8 +705,10 @@ angular
   }
 })
 
-.controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService, scrollService, previousSearchesService, funnelRetentionService,
-  metaInformationService, Settings, propertyService, channelService, $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService, bookingService, _) {
+.controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService,
+                                 scrollService, previousSearchesService, funnelRetentionService, metaInformationService,
+                                 Settings, propertyService, channelService, $window, breadcrumbsService, user,
+                                 cookieFactory, apiService, CookieLawService, bookingService, _, UrlService, $log) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -874,14 +876,6 @@ angular
     }
 
   });
-
-  function getStartDate(dates) {
-    return $window.moment(dates.substring(0, dates.indexOf('_'))).format(Settings.UI.datepicker.dateFormat);
-  }
-
-  function getEndDate(dates) {
-    return $window.moment(dates.substring(dates.indexOf('_') + 1, dates.length)).format(Settings.UI.datepicker.dateFormat);
-  }
 
   $scope.$on('$stateChangeSuccess', function() {
     //Sandman specific HACK to display french on quebec pages

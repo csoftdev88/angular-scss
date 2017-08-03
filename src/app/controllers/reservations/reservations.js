@@ -42,7 +42,7 @@
       $timeout(function () {
         scrollService.scrollTo('jsReservations');
       });
-    }
+    });
 
     function onAuthorized() {
 

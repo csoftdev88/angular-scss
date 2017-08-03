@@ -9,7 +9,7 @@
     .controller('PrestigeCtrl', Prestige);
 
   function Prestige($scope, breadcrumbsService, scrollService, $timeout, stateService, apiService, $window,
-                    $controller, $state, user) {
+                    $controller, $state, user, Settings) {
 
     $scope.dataLoaded = false;
 
