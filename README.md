@@ -1,75 +1,10 @@
-# mobius
+# Mobius web
 
 [![Code Climate](https://codeclimate.com/repos/55a13cd2e30ba0458a00384f/badges/fda5b4afe8ad006ed0fe/gpa.svg)](https://codeclimate.com/repos/55a13cd2e30ba0458a00384f/feed)
 [![Circle CI](https://circleci.com/gh/2PVentures/mobius-web/tree/master.svg?style=shield&circle-token=c747f87a995b02c9d999cee050e74265a98745e4)](https://circleci.com/gh/2PVentures/mobius-web/tree/master)
 [![Test Coverage](https://codeclimate.com/repos/55a13cd2e30ba0458a00384f/badges/fda5b4afe8ad006ed0fe/coverage.svg)](https://codeclimate.com/repos/55a13cd2e30ba0458a00384f/coverage)
 
-Rewrite of existing hotel booking engine into angular.js SPA..
-
-## Overall Directory Structure
-
-At a high level, the structure looks roughly like this:
-
-```
-mobius/
-  |- src/
-  |  |- app/
-  |  |  |- <app logic>
-  |  |  |- directives/
-  |  |  |  |- <reusable controls>
-  |  |  |- filters/
-  |  |  |  |- <reusable components>
-  |  |  |- layouts/
-  |  |  |  |- <application templates>
-  |  |  |- services/
-  |  |  |  |- <reusable components>
-  |  |  |- app.js
-  |  |  |- settings.js
-  |  |  |- index.html
-  |  |- font/
-  |  |  |- <core static files>
-  |  |- images/
-  |  |  |- <core icons, logos>
-  |  |- locales/
-  |  |  |- en_US.json
-  |  |- styles/
-  |  |  |- <core less files>
-  |  |-targets
-  |  |  |-suttonLive
-  |  |  |  |- <target specific files>
-  |- bower_components/
-  |- node_modules/
-  |- karma/
-  |- tests/
-  |  |- ...
-  |- .bowerrc
-  |- bower.json
-  |- build.config.js
-  |- Gruntfile.js
-  |- package.json
-```
-
-What follows is a brief description of each entry, but most directories contain
-their own `README.md` file with additional documentation, so browse around to
-learn more:
-
-- `src/` - our application sources. [Read more &raquo;](src/README.md)
-- `bower_components/` - third-party libraries used in front-end. [Bower](http://bower.io) will install
-  packages here. Anything added to this directory will need to be manually added
-  to `build.config.js` and `karma/karma-unit.js` to be picked up by the build
-  system.
-- `node_modules/` - third-party libraries used in build system. [NodeJS](http://nodejs.org/) will install
-  packages here.
-- `karma/` - test configuration.
-- `.bowerrc` - the Bower configuration file. This tells Bower to install
-  components into the `vendor/` directory.
-- `bower.json` - this is our project configuration for Bower and it contains the
-  list of Bower dependencies we need.
-- `build.config.js` - our customizable build settings; see "The Build System"
-  below.
-- `Gruntfile.js` - our build script; see "The Build System" below.
-- `package.json` - metadata about the app, used by NPM and our build script. Our
-  NPM dependencies are listed here.
+Front end application for mobius booking engine
 
 ## FAQ
 
@@ -120,13 +55,6 @@ changes:
   `.spec.js` changes, all JavaScript sources are linted, all unit tests are run, and the all source files are re-copied to `build/app`.
 * `watch:markup` - When any `*.html` file within `src/` changes, all templates are put into strings in a JavaScript file that will add the template to AngularJS's [`$templateCache`](http://docs.angularjs org/api/ng.$templateCache) so template files are part of the initial JavaScript payload and do not require any future XHR.  The template cache files are  `build/app/mobius-templates-*_*.js`.
 * `watch:jsunit` - When any `*.spec.js` file in `src/` changes, the test files are linted and the unit tests are executed.
-
-As covered in the previous section, `grunt watch` will execute a full build up-front and then run any of the aforementioned `watch:*` tasks as needed to ensure the fastest possible build. So whenever you're working on your project,
-start with:
-
-```sh
-$ grunt watch
-```
 
 ### Live Reload!
 
@@ -191,12 +119,6 @@ All settings can be categorised into the following categories:
 - Server
 - Build system
 
-### UI
-Front-end configuration is located in the following places:
-`src/targets/{tenant}/settings.js`
-`src/targets/{tenant}/styles`
-`src/targets/{tenant}/locales`
-
 #### `Settings.js` - main configuration file which contais customer related settings.
 Main sections are:
 - `API` - backend endpoints and their URL's. Make sure google analytics settings are turned off until the client codes are confirmed, this is especially true when creating a new target from an existing one.
@@ -220,35 +142,6 @@ All build related settings are located in the following files:
 `build.config.js`
 
 See The Build System.
-
-## Creating a new tenant from scratch
-All settings specific to a tenant is located in src/targets/{tenant}/ - a default setup is provided to get you started in src/targets/default/ - when creating a new tenant duplicate the default folder and rename it according to the tenant name, and update as follows:
-
-### Settings
-The main tenant settings file is located in src/targets/{tenant}/settings.js and is commented, many settings such as google analytics, google tag manager can be enabled/disabled depending on tenant needs, this should be evaluated at the start of the project. However some settings are required and must be set at the start of the project, request them to your project manager, those are:
-
-* defaultProductRateId
-* authType - "infiniti" or "mobius"
-* infiniti - if authType = infiniti this must be enabled and environment urls updated accordingly
-* infiniti e-commerce tracking - if authType = infiniti this must be enabled and environment urls updated accordingly
-* evolution infiniti script - if authType = infiniti this must be enabled and script updated accordingly
-* sentry - this should always be enabled and urls are not tenant specific so doesn't need to be updated
-* googleAnalytics - check if this should be enabled and get client ID
-* googleTagManager - check if this should be enabled and get client ID
-* chainCode - uppercase code for current tenant
-* Mobius-chainId
-* Mobius-channelId
-* baseURL - API base url with various environments
-* Mobius product search/purchase tracking - enable?
-* singleProperty - true if only one property
-* facebookAppId - required for facebook sharing
-
-### Locales
-Locales files located in src/targets/{tenant}/locales are processed by grunt/node when building the app into angular template files. These files and some of their settings need to match the "languages" settings in Settings file, you can check what values are required by a tenant by fetching the "generics/languages" endpoint of the current tenant API, then update the locales params such as "base_href", "language_code" accordingly
-
-### css
-Refer to comments in src/targets/default/styles/style.less
-
 
 ## prerender.io
 As mobius-web is an angular application, we rely on prerender.io to index pages for search engines.

@@ -23,6 +23,9 @@ A theme consists of:
  - Images, a folder for all the static images for the skin. This folder is
  copied into the built application's image folder and will override any image
  with the same name.
+ - redirects, a JSON file representing any url that should be redirected for the
+ tenant. These can be used to ensure links from external sites map to new content
+ for example.
 
 
 When adding a setting, please use the viewsSettings object for any config to
