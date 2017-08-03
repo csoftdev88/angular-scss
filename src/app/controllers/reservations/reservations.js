@@ -30,7 +30,7 @@
       $scope.chain.meta.microdata.og['og:title'] = 'Reservations: ' + $scope.chain.meta.microdata.og['og:title'];
       $scope.chain.meta.microdata.og['og:description'] = 'Reservations: ' + $scope.chain.meta.microdata.og['og:description'];
 
-      $timeout(function() {
+      $timeout(function () {
         scrollService.scrollTo('jsReservations');
       });
 
@@ -39,28 +39,30 @@
       metaInformationService.setMetaKeywords(chain.meta.keywords);
       metaInformationService.setOgGraph($scope.chain.meta.microdata.og);
 
-      $timeout(function(){
+      $timeout(function () {
         scrollService.scrollTo('jsReservations');
       });
+    }
 
-  function onAuthorized() {
+    function onAuthorized() {
 
-    if ($scope.auth && $scope.auth.isLoggedIn()) {
-      var reservationsPromise = $q.all([
-        reservationService.getAll(),
-        reservationService.getCancelledReservations()
-      ]).then(function(data){
-        // data[0] - all active reservations
-        // data[1] - cancelled reservations
-        processReservationsData(data[0], data[1]);
-      },
-      function(){
-        $state.go('error');
-      });
-      preloaderFactory(reservationsPromise);
-    } else {
-      // TODO: Check actions for anonymous user
-      $state.go('home');
+      if ($scope.auth && $scope.auth.isLoggedIn()) {
+        var reservationsPromise = $q.all([
+          reservationService.getAll(),
+          reservationService.getCancelledReservations()
+        ]).then(function (data) {
+            // data[0] - all active reservations
+            // data[1] - cancelled reservations
+            processReservationsData(data[0], data[1]);
+          },
+          function () {
+            $state.go('error');
+          });
+        preloaderFactory(reservationsPromise);
+      } else {
+        // TODO: Check actions for anonymous user
+        $state.go('home');
+      }
     }
 
     $controller('MainCtrl', {$scope: $scope});
@@ -141,6 +143,7 @@
         openDatePicker: true
       });
     };
+
   }
 
 }());
