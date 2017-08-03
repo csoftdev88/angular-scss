@@ -616,9 +616,12 @@ angular
       //Otherwise if page is recognised and the page is in the reservation flow or is /reservations, set the status code to 403
       $rootScope.prerenderStatusCode = '403';
     } else { //Otherwise set as 200 ok
+      $rootScope.canonicalTag = $location.protocol() + '://' + $location.url() + $location.path();
       $rootScope.prerenderStatusCode = '200';
     }
   });
+
+  $rootScope.canonical = $location.protocol() + ':' + $location.host() + $location.path();
 
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
     $state.fromState = fromState;
