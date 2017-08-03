@@ -228,11 +228,21 @@ angular
   growlProvider.globalPosition('top-center');
   //growlProvider.globalReversedOrder(true);
 
+  // Determine which layouts to used based on engine type
+  var aboutLayout = 'layouts/about/about.html';
+  var indexLayout = 'layouts/index.html';
+  var homeLayout = 'layouts/home/home.html';
+  if (Settings.engine === 'loyalty') {
+    aboutLayout = 'layouts/lbe/about/about.html';
+    indexLayout = 'layouts/lbe/index.html';
+    homeLayout = 'layouts/lbe/home/home.html';
+  }
+
   $stateProvider
   // Default application layout
     .state('root', {
     abstract: true,
-    templateUrl: 'layouts/index.html',
+    templateUrl: indexLayout,
     controller: 'MainCtrl',
     // NOTE: These params are used by booking widget
     // Can be placed into induvidual state later if needed
@@ -242,7 +252,7 @@ angular
   // Home page
   .state('home', {
     parent: 'root',
-    templateUrl: 'layouts/home/home.html',
+    templateUrl: homeLayout,
     url: '/'
   })
 
@@ -518,7 +528,7 @@ angular
   // About Us oage
   .state('aboutUs', {
     parent: 'root',
-    templateUrl: 'layouts/about/about.html',
+    templateUrl: aboutLayout,
     url: '/about/:code',
     controller: 'AboutUsCtrl'
   })
