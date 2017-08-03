@@ -146,12 +146,10 @@ angular.module('mobiusApp.services.user', [])
     function getUserCurrency() {
       if (Settings.authType === 'keystone') {
         if (keystoneIsAuthenticated()) {
-          return window.KS.$me.get().Currency || 'CAD';
-        } else {
-          return 'CAD';
+          return window.KS.$me.get().Currency || Settings.currencies.default.code;
         }
       }
-      return cookieFactory('MobiusCurrencyCode');
+      return cookieFactory('MobiusCurrencyCode') || Settings.currencies.default.code;
     }
 
     function loadProfile() {
