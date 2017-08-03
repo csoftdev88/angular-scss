@@ -764,6 +764,7 @@ angular
   $scope.appLang = stateService.getAppLanguageCode();
   $scope.scrollService = scrollService;
   $scope.floatingBarMobileTopRight = Settings.UI.bookingWidget.mobileTopRight;
+  $scope.loyaltyEngine = Settings.engine === 'loyalty';
 
   //If menu overlay is enabled, add the event handlers to open and close the menu
   if($scope.menuOverlayEnabled){

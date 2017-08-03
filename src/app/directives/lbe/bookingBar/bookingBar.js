@@ -66,6 +66,7 @@
         };
 
         var datePickerListener = $rootScope.$on('OPEN_DATE_PICKER', function () {
+          console.log('Open date picker');
           var rangeInput = angular.element('#booking-bar-dates');
           if (rangeInput.length) {
             rangeInput.focus();
