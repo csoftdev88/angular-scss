@@ -15,7 +15,7 @@
     .module('mobiusApp.services.auth.mobius', [])
     .service( 'mobiusAuthStrategy', MobiusAuthStrategy);
 
-  function MobiusAuthStrategy($rootScope, $q, $timeout, $state, user, apiService, userObject, $log) {
+  function MobiusAuthStrategy($rootScope, $q, $timeout, $state, user, apiService, userObject) {
 
     // The header's attributes name
     var AUTH_HEADER = 'mobius-authentication';
@@ -144,11 +144,11 @@
     };
 
     this.register = function () {
-      $log.warn('Register function is not supported by mobius auth');
+      $rootScope.showRegisterDialog = !$rootScope.showRegisterDialog;
     };
 
     this.viewProfile = function () {
-      $log.warn('ViewProfile function is not supported by mobius auth');
+      $state.go('profile');
     };
 
   }
