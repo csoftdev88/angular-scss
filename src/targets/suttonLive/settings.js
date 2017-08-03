@@ -443,7 +443,7 @@ angular.module('mobiusApp.config', [])
         'mobileHideRates': true,
         'displayAmenities': true,
         'displayRoomDetails': true,
-        'displayRoomSubtitle': false,
+        'displayRoomSubtitle': true,
         'roomDetailThumbnailSize':{
           'width': 150,
           'height': 150
