@@ -131,7 +131,7 @@
                         selectedOffer.title | mainHeaderStyle">
       </h1>
 
-      <highlight>
+      <highlight ng-if="isLoyalty">
         <div class="Offer__about">
           <h2 class="Highlight__title">
             _book_offer_to_receive_
@@ -139,7 +139,6 @@
           <span ng-bind-html="selectedOffer.subtitle | trustAsHtml"></span>
         </div>
         <div class="Offer__properties">
-          <members-rate size="small"></members-rate>
         </div>
       </highlight>
 
