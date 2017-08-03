@@ -21,9 +21,9 @@
                   currently-editing="_you_are_currently_editing_">
 </notification-bar>
 
-<sub-nav ng-if="viewSettings.showSubNav"
-         links="{{ viewSettings.subNavLinks }}">
-</sub-nav>
+<booking-bar size="full-width"
+             ng-if="config.displayBookingBar && !isMobile">
+</booking-bar>
 
 <div class="Home__hero--info show-desktop">
   <h1 class="About__hero--title">{{ roomDetails.name }}</h1>

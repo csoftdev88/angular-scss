@@ -30,9 +30,6 @@
     <p class="description" ng-bind-html="sanitize(roomDetails.description)"></p>
   </section>
 
-  <booking-bar size="large"
-               ng-if="config.displayBookingBar && !isMobile">
-  </booking-bar>
 
   <button ng-click="openBookingBar()"
           ng-if="isMobile"
