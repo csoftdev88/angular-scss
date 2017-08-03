@@ -30,6 +30,9 @@ angular.module('mobiusApp.dynamicMessages', [])
       'promo_code_applied':'Promo code applied successfully',
       'corp_code_applied':'Corp code applied successfully',
       'group_code_applied':'Group code applied successfully',
+      'promo_code': 'Promo code',
+      'corp_code': 'Corp code',
+      'group_code': 'Group code',
       'apply_code': 'Enter a code',
       'select_property': 'Find Your Hotel',
       'find_your_hotel': 'Find Your Hotel'
@@ -57,6 +60,9 @@ angular.module('mobiusApp.dynamicMessages', [])
       'promo_code_applied':'Promo code applied successfully',
       'corp_code_applied':'Corp code applied successfully',
       'group_code_applied':'Group code applied successfully',
+      'promo_code': 'Promo code',
+      'corp_code': 'Corp code',
+      'group_code': 'Group code',
       'apply_code': 'Enter a code',
       'select_property': 'Find Your Hotel',
       'find_your_hotel': 'Finden Sie Ihr Hotel'
@@ -84,6 +90,9 @@ angular.module('mobiusApp.dynamicMessages', [])
       'promo_code_applied':'Promo code applied successfully',
       'corp_code_applied':'Corp code applied successfully',
       'group_code_applied':'Group code applied successfully',
+      'promo_code': 'Code promo',
+      'corp_code': 'Corp code',
+      'group_code': 'Code groupe',
       'apply_code': 'Enter a code',
       'select_property': 'Find Your Hotel',
       'find_your_hotel': 'Trouver votre hôtel'

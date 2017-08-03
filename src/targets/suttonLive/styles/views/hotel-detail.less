@@ -66,9 +66,10 @@ hotel-detail {
     .rooms-list {
       list-item {
         .viewport-mobile & {
-          padding-right: 25px;
+          padding: 0 30px 10px 0;
           box-sizing: border-box;
-          border-bottom:0px none;
+          border-bottom: 1px solid #dedede;
+          margin-bottom: 20px;
         }
         .list-item-container {
           div.list-item-info {
@@ -84,15 +85,14 @@ hotel-detail {
                 float:left;
                 margin-left: 115px;
                 .not-available {
-                  padding:0;
+                  padding: 10px 0 0 0;
                 }
               }
             }
           }
           room-details {
             .viewport-mobile & {
-              padding-left:115px;
-              padding-top:5px;
+              display: none;
             }
             .our-rates {
               .viewport-mobile & {

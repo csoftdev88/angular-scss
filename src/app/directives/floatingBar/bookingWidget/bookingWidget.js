@@ -31,15 +31,15 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
       scope.codeTypes = [
         {
-          title: 'Corporate Code',
+          title: dynamicMessages.corp_code,
           param: 'corpCode'
         },
         {
-          title: 'Group Code',
+          title: dynamicMessages.group_code,
           param: 'groupCode'
         },
         {
-          title: 'Promo Code',
+          title: dynamicMessages.promo_code,
           param: 'promoCode'
         }
       ];
