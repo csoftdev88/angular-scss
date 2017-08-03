@@ -196,6 +196,18 @@ angular
     'mobiusApp.directives.slidedownNotifications',
     'mobiusApp.directives.inclusions',
     'mobiusApp.directives.sectionImage',
+    'mobiusApp.directives.lbe.recommendation',
+    'mobiusApp.directives.lbe.questionnaire',
+    'mobiusApp.directives.lbe.bookingBar',
+    'mobiusApp.directives.lbe.highlight',
+    'mobiusApp.directives.lbe.instagramFeed',
+    'mobiusApp.directives.lbe.offers',
+    'mobiusApp.directives.lbe.tagline',
+    'mobiusApp.directives.lbe.hotelIntro',
+    'mobiusApp.directives.lbe.subNav',
+    'mobiusApp.directives.lbe.tripAdviserQuote',
+    'mobiusApp.directives.lbe.membersRate',
+    'mobiusApp.directives.lbe.localAttractions',
 
     'internationalPhoneNumber',
 
