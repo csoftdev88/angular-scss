@@ -267,8 +267,8 @@
 
     <list-items class="grid-view other-rooms">
       <list-item ng-repeat="otherRoom in otherRooms | orderBy:'priceFrom'" ng-click="onClickOnAssociatedRoom(otherRoom)" class="with-special-hover">
-        <figure ng-show="otherRoom.images[0]">
-          <img ng-src="{{otherRoom.images[0].uri | cloudinaryImage : config.otherRooms.thumbnails.width : config.otherRooms.thumbnails.height : 'fill'}}"
+        <figure ng-show="otherRoom.image[0]">
+          <img ng-src="{{otherRoom.image[0].uri | cloudinaryImage : config.otherRooms.thumbnails.width : config.otherRooms.thumbnails.height : 'fill'}}"
             alt="{{otherRoom.name}}">
         </figure>
 

@@ -358,17 +358,22 @@ angular.module('mobiusApp.directives.room', [])
           return propertyService.getRooms(propertyCode)
             .then(function(hotelRooms){
 
+              console.log('property rooms', property.availability.rooms);
+              console.log('hotelrooms', hotelRooms);
+
               var availableRooms = [];
-              _.forEach((property.availability && property.availability.rooms) || [], function(availableRoom) {
-                var room = _.find(hotelRooms, {code: availableRoom.code});
-                if(room)
-                {
+              var propertyRooms = property.availability && property.availability.rooms || [];
+              _.each(hotelRooms, function (hotelRoom) {
+                var room = _.find(propertyRooms, { code: hotelRoom.code });
+                if (room) {
                   availableRooms.push(room);
                 }
               });
 
               //filter out duplicates
               availableRooms = _.uniq(availableRooms);
+
+              console.log('available rooms', availableRooms);
 
               //if using thumbnails
               if(scope.config.otherRooms.useThumbnails){
@@ -377,14 +382,19 @@ angular.module('mobiusApp.directives.room', [])
                 var data = scope.roomDetails;
 
                 var moreExpensiveRooms = availableRooms.filter(function(room) {return room.priceFrom > data.priceFrom;});
+                console.log('more expensive rooms', moreExpensiveRooms);
                 var cheaperOrEqualRooms = availableRooms.filter(function(room) {return room.priceFrom <= data.priceFrom && room.code !== roomCode;});
+                console.log('cheaper or equal', cheaperOrEqualRooms);
 
                 var sortedMoreExpensiveRooms = moreExpensiveRooms.sort(function(a, b) { return a.priceFrom - b.priceFrom;});
+                console.log('sorted more expensive rooms', sortedMoreExpensiveRooms);
 
                 // sortedCheaperRooms is sorted by price in descending order
                 var sortedCheaperOrEqualRooms = cheaperOrEqualRooms.sort(function(a, b) { return b.priceFrom - a.priceFrom;});
+                console.log('more cheaper or equal rooms', sortedCheaperOrEqualRooms);
 
                 scope.otherRooms = sortedMoreExpensiveRooms.concat(sortedCheaperOrEqualRooms).slice(0,3);
+                console.log('other rooms', scope.otherRooms);
               }
               else{
                 var numRooms = availableRooms.length;
