@@ -355,6 +355,10 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     'hotelIntro': {
 
     },
+    'datepicker': {
+      'showToday': false,
+      'dateFormat': 'DD. MMM YYYY'
+    },
     'questionnaire': {
 
     },
@@ -401,9 +405,6 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     },
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
-    },
-    'datepicker': {
-      'showToday': false
     },
     'generics': {
       'singleProperty': true,
