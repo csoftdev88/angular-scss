@@ -414,7 +414,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'applyChainClassToBody': true,
       'orderPropertiesByChain': true,
       'longDateFormat': 'Do MMM YYYY',
-      'redirectSinglePropertyHome': false,
+      'dontRedirectSinglePropertyHome': false,
       'header': {
         'logoLink': 'https://gooole.com',
         'logoText': 'St. Giles Hotels',

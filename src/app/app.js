@@ -730,7 +730,8 @@ angular
 .controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService,
                                  scrollService, previousSearchesService, funnelRetentionService, metaInformationService,
                                  Settings, propertyService, channelService, $window, breadcrumbsService, user,
-                                 cookieFactory, apiService, CookieLawService, bookingService, _, UrlService, $log) {
+                                 cookieFactory, apiService, CookieLawService, bookingService, _, UrlService, $log,
+                                 DynamicMessages, notificationService) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -765,6 +766,7 @@ angular
   $scope.scrollService = scrollService;
   $scope.floatingBarMobileTopRight = Settings.UI.bookingWidget.mobileTopRight;
   $scope.loyaltyEngine = Settings.engine === 'loyalty';
+  $scope.isSingleProperty = Settings.UI.generics.singleProperty;
 
   //If menu overlay is enabled, add the event handlers to open and close the menu
   if($scope.menuOverlayEnabled){
@@ -851,7 +853,10 @@ angular
     }
 
     //if single property redirect home state to hotel page
-    if (Settings.UI.generics.singleProperty && Settings.UI.generics.defaultPropertyCode && toState.name === 'home') {
+    if (Settings.UI.generics.singleProperty &&
+      !Settings.UI.generics.dontRedirectSinglePropertyHome &&
+      Settings.UI.generics.defaultPropertyCode &&
+      toState.name === 'home') {
       e.preventDefault();
       if (Settings.API.propertySlug) {
         $state.go('hotel', {
@@ -898,7 +903,36 @@ angular
       $scope.hideMenuOverlay();
     }
 
+    $scope.isMobile = stateService.isMobile();
+
+    if (Settings.UI.infoBar && Settings.UI.infoBar.showForSingleBookings) {
+      //Get our dynamic translations
+      var appLang = stateService.getAppLanguageCode();
+      if(toState.name !== 'reservation.details' && toParams.adults && toParams.dates && !toParams.rooms && !stateService.isMobile()) {
+        notificationService.show(
+          '<div class="singleroom-notification">' +
+          '<div class="details">' +
+          '<p>' + toParams.adults + ' ' + DynamicMessages[appLang].adults + '</p>' +
+          '<p>' + toParams.children + ' ' + DynamicMessages[appLang].children + '</p>' +
+          '</div>' +
+          '<div class="dates">' +
+          '<p>' + getStartDate(toParams.dates) + '</p>' +
+          '<p>' + getEndDate(toParams.dates) + '</p>' +
+          '</div>' +
+          '</div>'
+        );
+      }
+    }
+
   });
+
+  function getStartDate(dates) {
+    return $window.moment(dates.substring(0, dates.indexOf('_'))).format(Settings.UI.generics.longDateFormat);
+  }
+
+  function getEndDate(dates) {
+    return $window.moment(dates.substring(dates.indexOf('_') + 1, dates.length)).format(Settings.UI.generics.longDateFormat);
+  }
 
   $scope.$on('$stateChangeSuccess', function() {
     //Sandman specific HACK to display french on quebec pages
