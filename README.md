@@ -41,11 +41,13 @@ Running production with PM2, node server needs to be started on mobius-web folde
 ### The Build System
 
 The best way to learn about the build system is by familiarizing yourself with
-Grunt and then reading through the heavily documented build script,
+Grunt and then reading through the build script,
 `Gruntfile.js`.
 
+All configs used by the Gruntfile can be found in build.config.js
+
 The driver of the process is the `watch` multi-task, which watches for file
-changes using `grunt-contrib-watch` and executes one of nine tasks when a file
+changes using `grunt-contrib-watch` and executes one of many tasks when a file
 changes:
 
 * `watch:styles` - When any `*.less` file within `src/styles` changes, the
@@ -55,6 +57,18 @@ changes:
   `.spec.js` changes, all JavaScript sources are linted, all unit tests are run, and the all source files are re-copied to `build/app`.
 * `watch:markup` - When any `*.html` file within `src/` changes, all templates are put into strings in a JavaScript file that will add the template to AngularJS's [`$templateCache`](http://docs.angularjs org/api/ng.$templateCache) so template files are part of the initial JavaScript payload and do not require any future XHR.  The template cache files are  `build/app/mobius-templates-*_*.js`.
 * `watch:jsunit` - When any `*.spec.js` file in `src/` changes, the test files are linted and the unit tests are executed.
+
+Most of this is very standard with the exception of 2 things:
+  * localisation task - This is a custom localisation grunt task. It just uses
+   regex to match any text that is suffixed and prefixed with a _. For example
+   _title_. It then replaces this with the text in the locale json using the text
+   as a key. The locale is compiled X number of times, where X is each language
+   in the tenant's locale directory
+   * index task - This is a simple task that runs through the index file and
+   places some information about the environment and app it is building, such
+   as environment=production, tenant=sandman etc. These meta fields are then
+   read by a service so that you can lookup which settings to use when env
+   specific settings are provided.
 
 ### Live Reload!
 
@@ -135,13 +149,6 @@ All styles are located in `src/styles` folder in [less](http://lesscss.org/) or 
 ### Server
 `config/environments`
 `routes/index.js`
-
-### Build process
-All build related settings are located in the following files:
-`Gruntfile.js`
-`build.config.js`
-
-See The Build System.
 
 ## prerender.io
 As mobius-web is an angular application, we rely on prerender.io to index pages for search engines.
