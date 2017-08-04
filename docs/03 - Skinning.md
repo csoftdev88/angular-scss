@@ -1,4 +1,4 @@
-## 03 - Skinning ##
+# 03 - Skinning #
 
 In mobius web, the concept of skinning is creating a theme for a new tenant
 so that the build system can create a 'skin' for mobius web that it will use

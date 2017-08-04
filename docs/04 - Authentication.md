@@ -1,4 +1,4 @@
-## 04 - Authentication ##
+# 04 - Authentication #
 
 Mobius web interacts with 3 authentication systems, but only 1 may be used for a
 tenant.
