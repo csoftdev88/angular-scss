@@ -72,7 +72,7 @@
          ng-repeat-end>
     </div>
 
-    <div ng-if="loyaltyEngine" ng-include="'layouts/lbe/hotel-contact-info.html'"></div>
+    <contact-list ng-if="loyaltyEngine"></contact-list>
 
     <scroll-to-top class="back-to-top"
                    ng-click="scrollToTop()"

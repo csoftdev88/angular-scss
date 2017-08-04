@@ -343,6 +343,9 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     'currencyList': {
       'showFlags': true
     },
+    'contactList': {
+      'tel3': '1-212-685-1100 EXT 1308'
+    },
     'recommendation': {
       'avatarUrl': '/static/images/lbe/avatar@3x.png',
       'text': '20% off and a room upgrade, what more could I ask for!',

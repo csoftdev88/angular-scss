@@ -3,7 +3,8 @@
  *  Controller for hotel details page with a list of rooms
  */
 angular.module('mobius.controllers.hotel.details', [
-  'mobiusApp.filters.cloudinaryImage'
+  'mobiusApp.filters.cloudinaryImage',
+  'mobiusApp.directives.lbe.contactList'
 ])
 
 .controller('HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService, propertyService,

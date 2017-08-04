@@ -627,6 +627,9 @@
     "questionnaire_completed": "Thank you very much, you have answered all the questions",
     "featured_reward": "Featured reward",
     "menu_our_hotel": "Our Hotel",
-    "lowercase_or": "or"
+    "lowercase_or": "or",
+    "reservation_services": "Central Reservations",
+    "guest_services": "Guest Services / Concierge",
+    "email_us": "Email us"
   }
 }
