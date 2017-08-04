@@ -284,7 +284,7 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
         }
       }
 
-      if ($scope.uiConfig.homePage.showOffer) {
+      if ($scope.uiConfig.homePage && $scope.config.homePage.showOffer) {
         offers.getAvailableFeatured(1)
           .then(function (offers) {
             $scope.offers = offers;
