@@ -346,7 +346,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
 
         // Select today until tomorrow by default if configured
-        if (Settings.UI.datepicker && Settings.UI.datepicker.showToday) {
+        if (Settings.UI.datepicker && Settings.UI.datepicker.showToday && !bookingService.getParams().dates) {
           var startDate = new Date();
           var endDate = new Date();
           endDate.setDate(endDate.getDate() + 1);
