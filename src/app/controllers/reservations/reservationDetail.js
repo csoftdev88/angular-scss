@@ -395,10 +395,10 @@
             if ($scope.config.displayCancelConfirmedModal) {
               modalService.openReservationCancelConfirmedDialog($stateParams.reservationCode);
             } else if(DynamicMessages && DynamicMessages[appLang]) {
-              userMessagesService.addMessage(buildCancellationMessageHtml(), false, true, 'reservation-cancellation');
+              userMessagesService.addMessage(buildCancellationMessageHtml(), false, true, 'reservation-cancellation reservation-confirmation');
             } else {
               userMessagesService.addMessage('<div>Your Reservation <strong>' +
-                $stateParams.reservationCode + '</strong> was successfully cancelled.</div>', false, true, 'reservation-cancellation');
+                $stateParams.reservationCode + '</strong> was successfully cancelled.</div>', false, true, 'reservation-cancellation reservation-confirmation');
             }
 
             // Tracking refund
@@ -413,9 +413,10 @@
 
           }, function(error) {
             if (error && error.error && error.error.msg) {
-              userMessagesService.addMessage('<p>' + error.error.msg + '</p>');
+              userMessagesService.addMessage('<p>' + error.error.msg + '</p>', false, true, 'reservation-confirmation');
             } else {
-              userMessagesService.addMessage('<p>Unknown error</p>');
+              userMessagesService.addMessage('<p>Unknown error</p>', false, true, 'reservation-confirmation');
+              userMessagesService.addMessage('<p>Unknown error</p>', false, true, 'reservation-confirmation');
             }
           });
 
@@ -462,9 +463,9 @@
         },
         function(error) {
           if (error && error.error && error.error.msg) {
-            userMessagesService.addMessage('<p>' + error.error.msg + '</p>');
+            userMessagesService.addMessage('<p>' + error.error.msg + '</p>', false, true, 'reservation-confirmation');
           } else {
-            userMessagesService.addMessage('<p>Unknown error</p>');
+            userMessagesService.addMessage('<p>Unknown error</p>', false, true, 'reservation-confirmation');
           }
           if (onError) {
             onError(error);
@@ -565,9 +566,9 @@
 
 
           if(DynamicMessages && DynamicMessages[appLang]) {
-            userMessagesService.addMessage(DynamicMessages[appLang].you_have_added + addon.name + DynamicMessages[appLang].to_your_reservation, true);
+            userMessagesService.addMessage(DynamicMessages[appLang].you_have_added + addon.name + DynamicMessages[appLang].to_your_reservation, false , true, 'reservation-confirmation');
           } else {
-            userMessagesService.addMessage('<div>You have added ' + addon.name + ' to your reservation</div>', true);
+            userMessagesService.addMessage('<div>You have added ' + addon.name + ' to your reservation</div>', false, true, 'reservation-confirmation');
           }
 
           // Updating user loyalties once payment was done using the points
@@ -610,17 +611,17 @@
     $scope.sendToPassbook = function() {
       reservationService.sendToPassbook($stateParams.reservationCode).then(function() {
         if(DynamicMessages && DynamicMessages[appLang]) {
-          userMessagesService.addMessage(DynamicMessages[appLang].you_have_added_passbook);
+          userMessagesService.addMessage(DynamicMessages[appLang].you_have_added_passbook, false, true, 'reservation-confirmation');
         }
         else {
-          userMessagesService.addMessage('<div>You have successfully added your reservation to passbook.</div>');
+          userMessagesService.addMessage('<div>You have successfully added your reservation to passbook.</div>', false, true, 'reservation-confirmation');
         }
       }, function() {
         if(DynamicMessages && DynamicMessages[appLang]) {
-          userMessagesService.addMessage(DynamicMessages[appLang].sorry_could_not_add_passbook);
+          userMessagesService.addMessage(DynamicMessages[appLang].sorry_could_not_add_passbook, false, true, 'reservation-confirmation');
         }
         else {
-          userMessagesService.addMessage('<div>Sorry, we could not add reservation to passbook, please try again.</div>');
+          userMessagesService.addMessage('<div>Sorry, we could not add reservation to passbook, please try again.</div>', false, true, 'reservation-confirmation');
         }
       });
     };
