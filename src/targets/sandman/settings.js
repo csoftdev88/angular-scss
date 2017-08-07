@@ -86,7 +86,7 @@ angular.module('mobiusApp.config', [])
     'integration': {
       'enable':true,
       'enableDuplication': false,
-      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'endpoint':'https://0vafuvdy4f.execute-api.us-west-2.amazonaws.com/int/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sandman-integration',
