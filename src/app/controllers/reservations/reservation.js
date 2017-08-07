@@ -633,11 +633,25 @@ angular.module('mobius.controllers.reservation', [])
           $scope.invalidFormData.payment = null;
         }
 
-        if ($scope.isValid()) {
-          $state.go('reservation.confirmation');
-          trackProductCheckout(3);
+        if ($scope.voucher.code) {
+          $scope.redeemVoucher()
+            .then(function () {
+              if ($scope.isValid()) {
+                $state.go('reservation.confirmation');
+                trackProductCheckout(3);
+              } else {
+                scrollToDetails('reservationBillingForm');
+              }
+            })
+            .catch($log.info);
         } else {
-          scrollToDetails('reservationBillingForm');
+          $scope.voucher.valid = true;
+          if ($scope.isValid()) {
+            $state.go('reservation.confirmation');
+            trackProductCheckout(3);
+          } else {
+            scrollToDetails('reservationBillingForm');
+          }
         }
         break;
       case 'reservation.confirmation':
@@ -1450,7 +1464,7 @@ angular.module('mobius.controllers.reservation', [])
 
       var params = getCheckVoucherParams();
 
-      reservationService.checkVoucher(params).then(function(voucherData) {
+      return reservationService.checkVoucher(params).then(function(voucherData) {
         if (voucherData.valid) {
           //If successful display success message and price details with voucher param
           $scope.voucher.verifying = false;
@@ -1494,9 +1508,11 @@ angular.module('mobius.controllers.reservation', [])
           }, goToRoom));
         } else {
           invalidVoucher();
+          throw new Error();
         }
       }, function() {
         invalidVoucher();
+        throw new Error();
       });
     }
   };

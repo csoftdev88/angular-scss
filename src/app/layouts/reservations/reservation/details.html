@@ -375,7 +375,10 @@
 
     <form class="CreateUser"
           ng-class="{'ng-submitted': forms.details.$submitted}"
-          ng-if="settings.authType === 'keystone' && settings.UI.alternateBookingFlow && settings.UI.alternateBookingFlow.enabled">
+          ng-if="settings.authType === 'keystone' &&
+            !auth.isLoggedIn() &&
+            settings.UI.alternateBookingFlow &&
+            settings.UI.alternateBookingFlow.enabled">
 
       <img class="CreateUser__logo" src="/static/images/apple-touch-icon-72x72.png">
 

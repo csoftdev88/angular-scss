@@ -163,7 +163,7 @@
     </label>
   </div>
 
-  <div ng-if="bookingConfig.vouchers.enable && allRooms.length && !$stateParams.reservation" class="voucher-entry">
+  <div ng-if="bookingConfig.vouchers.enable && allRooms.length && !$stateParams.reservation && !bookingConfig.voucherInBillingSection" class="voucher-entry">
     <h4>_redeem_voucher_message_</h4>
     <label for="voucher" class=" medium">
               <input type="text" id="voucher"

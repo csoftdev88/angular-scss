@@ -966,6 +966,7 @@ angular.module('mobiusApp.config', [])
         }
       },
       'emailOptinUnderOverview': true,
+      'voucherInBillingSection': true,
       //Is billing state a required field?
       'billingStateRequired': true,
       //price breakdown
