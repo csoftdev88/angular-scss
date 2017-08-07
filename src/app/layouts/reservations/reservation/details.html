@@ -372,5 +372,15 @@
       </label>
       <input type="submit" id="submit" value="_submit_" ng-hide="true" />
     </form>
+
+    <form class="CreateUser" ng-if="settings.authType === 'keystone' && settings.UI.alternateBookingFlow && settings.UI.alternateBookingFlow.enabled">
+      <img class="CreateUser__logo" src="/static/images/apple-touch-icon-72x72.png">
+      <div class="CreateUser__content">
+        <h4 class="CreateUser__title">_create_account_title_</h4>
+        <p class="CreateUser__text">_create_account_text_</p>
+      </div>
+      <input class="CreateUser__password" type="password" placeholder="_password_label_" name="password" >
+    </form>
+
   </div>
 </reservation-details-form>

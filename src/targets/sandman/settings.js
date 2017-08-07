@@ -360,6 +360,9 @@ angular.module('mobiusApp.config', [])
     'campaigns': {
       display:true
     },
+    'alternateBookingFlow': {
+      'enabled': true
+    },
     'instagramFeed': {
       'images': [
         { url: '/static/images/lbe/insta-1.png'},

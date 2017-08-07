@@ -23,6 +23,7 @@ angular.module('mobius.controllers.reservation', [])
   $scope.canPayWithPoints = true;
   $scope.$stateParams = $stateParams;
   $scope.requiredFieldsMissingError = false;
+  $scope.settings = Settings;
 
   var clickedSubmit = false;
 
