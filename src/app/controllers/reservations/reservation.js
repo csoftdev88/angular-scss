@@ -578,6 +578,20 @@ angular.module('mobius.controllers.reservation', [])
     return !$scope.isValid() && !$state.is('reservation.details') && !$state.is('reservation.billing');
   };
 
+  function mapDataToKeystoneUser() {
+    return {
+      Title: _.findWhere($scope.profileTitles, { id: $scope.userDetails.title }) || null,
+      FirstName: $scope.userDetails.firstName,
+      LastName: $scope.userDetails.lastName,
+      Email: $scope.userDetails.email,
+      ConfirmEmail: $scope.userDetails.email,
+      Password: $scope.profile.userPassword,
+      ConfirmPassword: $scope.profile.userPassword,
+      tc: true,
+      privacy: $scope.additionalInfo.optedIn
+    };
+  }
+
   $scope.continue = function() {
     switch ($state.current.name) {
       case 'reservation.details':
@@ -588,27 +602,29 @@ angular.module('mobius.controllers.reservation', [])
 
         // Ensure that the user has filled in a password and that it is valid for member only bookings
         // If it is a usual booking, then ensure that if a password has optionally been given, it is valid
-        if ($scope.memberOnlyBooking) {
-          if ($scope.profile.userPassword === '') {
-            $scope.userPasswordInvalid = false;
-            $scope.userPasswordRequired = true;
-            return;
-          } else if (!$scope.isValidKeystonePassword.test($scope.profile.userPassword)) {
-            $scope.userPasswordInvalid = true;
-            $scope.userPasswordRequired = false;
-            return;
+        if (!$scope.auth.isLoggedIn()) {
+          if ($scope.memberOnlyBooking) {
+            if ($scope.profile.userPassword === '') {
+              $scope.userPasswordInvalid = false;
+              $scope.userPasswordRequired = true;
+              return;
+            } else if (!$scope.isValidKeystonePassword.test($scope.profile.userPassword)) {
+              $scope.userPasswordInvalid = true;
+              $scope.userPasswordRequired = false;
+              return;
+            } else {
+              $scope.userPasswordInvalid = false;
+              $scope.userPasswordRequired = false;
+            }
           } else {
-            $scope.userPasswordInvalid = false;
-            $scope.userPasswordRequired = false;
-          }
-        } else {
-          if ($scope.profile.userPassword !== '' && !$scope.isValidKeystonePassword.test($scope.profile.userPassword)) {
-            $scope.userPasswordInvalid = true;
-            $scope.userPasswordRequired = false;
-            return;
-          } else {
-            $scope.userPasswordInvalid = false;
-            $scope.userPasswordRequired = false;
+            if ($scope.profile.userPassword !== '' && !$scope.isValidKeystonePassword.test($scope.profile.userPassword)) {
+              $scope.userPasswordInvalid = true;
+              $scope.userPasswordRequired = false;
+              return;
+            } else {
+              $scope.userPasswordInvalid = false;
+              $scope.userPasswordRequired = false;
+            }
           }
         }
 
@@ -622,6 +638,17 @@ angular.module('mobius.controllers.reservation', [])
                                              $scope.forms.details.$error.required.length > 0);
 
         if ($scope.isValid()) {
+          // Check if we should create an account
+          if ($scope.profile.userPassword) {
+            window.KS.$me.register(mapDataToKeystoneUser())
+              .then(function (user) {
+                $log.info('User has successfully logged in', user);
+                $state.go('reservation.billing');
+                $scope.autofillSync();
+                trackProductCheckout(2);
+              })
+              .catch($log.warn);
+          }
           $state.go('reservation.billing');
           $scope.autofillSync();
           trackProductCheckout(2);
