@@ -570,6 +570,8 @@
     "create_account_title": "Register for an optional Sandman Hotel account",
     "create_account_text": "Create your Sandman Hotel Account to access great offers, just enter a password in the field below or enter your password if you’re already a member",
     "create_account_title_required": "To confirm this reservation you need to create an account",
-    "create_account_text_required": "Create your Sandman Hotel Account to access great offers, just enter a password in the field below or enter your password if you’re already a member to log in"
+    "create_account_text_required": "Create your Sandman Hotel Account to access great offers, just enter a password in the field below or enter your password if you’re already a member to log in",
+    "create_account_error": "You are booking a member’s only rate, which requires an active account with Sandman Hotels.  Please login or register to continue or hit the back button below to select a public rate.",
+    "create_account_invalid": "Your password should have at least 8 characters and contain 1 number, 1 uppercase and 1 lowercase letter"
   }
 }

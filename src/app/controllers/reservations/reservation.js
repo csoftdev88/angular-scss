@@ -25,8 +25,29 @@ angular.module('mobius.controllers.reservation', [])
   $scope.requiredFieldsMissingError = false;
   $scope.settings = Settings;
   $scope.memberOnlyBooking = $stateParams.memberOnly;
+  $scope.userPassword = '';
+  $scope.userPasswordError = false;
 
   var clickedSubmit = false;
+
+  // As we need to conditionally validate the password, I have created a function that
+  // returns a test function expected bu ng-pattern instead of a regex object
+  $scope.isValidKeystonePassword = (function () {
+    var regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
+    return {
+      test: function(value) {
+        if (!$scope.memberOnlyBooking && value === '') {
+          $scope.userPasswordError = false;
+          return true;
+        } else if (value === '') {
+          $scope.userPasswordError = true;
+          return false;
+        }
+        $scope.userPasswordError = !regex.test(value);
+        return !$scope.userPasswordError;
+      }
+    };
+  })();
 
   //If steps are at top of page we scroll to them, if they are in the widget we just scroll to top of page
   $scope.scrollReservationStepsPosition = $scope.bookingConfig.bookingStepsNav.showInReservationWidget ? 'top' : 'reservation-steps';

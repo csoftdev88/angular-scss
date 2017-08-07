@@ -64,15 +64,24 @@ reservation-widget {
 
   .CreateUser__logo {
     float: left;
-    margin: 0 16px 20px 0;
+    margin: 0 16px 5px 0;
   }
 
-  .CreateUser__password {
-    line-height: 40px;
-    height: 40px;
+  input.CreateUser__password {
+    line-height: 45px;
+    height: 45px;
     border: solid 1px #d9d9d9;
     border-radius: 0;
     margin: 5px 0 0 0;
+  }
+
+
+  .CreateUser__error {
+    font-size: 13px;
+    letter-spacing: -0px;
+    color: #d0021b;
+    line-height: 18px;
+    padding: 14px;
   }
 
   h3{
@@ -338,10 +347,9 @@ reservation-widget {
   }
 
   label[for="agreement3"] {
-    margin: @spacing @spacing @baseline/2 @spacing;
+    margin: @spacing 0 0 0;
     padding: 0px;
     line-height: 20px;
-    margin-bottom: 20px;
     text-align: left;
     display: block !important;
     .viewport-mobile &{
@@ -564,9 +572,7 @@ reservation-billing {
     }
 
     registration-call {
-      text-align: center;
-      display: block;
-      margin: 87px 0px;
+      display: none;
     }
   }
 
@@ -1276,4 +1282,8 @@ reservation-hotel-details {
   &[ng-click] {
     cursor: pointer;
   }
+}
+
+registration-call {
+  display: none;
 }

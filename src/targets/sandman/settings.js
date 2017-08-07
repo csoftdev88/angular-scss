@@ -965,6 +965,7 @@ angular.module('mobiusApp.config', [])
           'regex': /^3[47][0-9]{13}$/
         }
       },
+      'emailOptinUnderOverview': true,
       //Is billing state a required field?
       'billingStateRequired': true,
       //price breakdown

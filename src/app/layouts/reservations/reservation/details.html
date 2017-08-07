@@ -373,8 +373,12 @@
       <input type="submit" id="submit" value="_submit_" ng-hide="true" />
     </form>
 
-    <form class="CreateUser" ng-if="settings.authType === 'keystone' && settings.UI.alternateBookingFlow && settings.UI.alternateBookingFlow.enabled">
+    <form class="CreateUser"
+          ng-class="{'ng-submitted': forms.details.$submitted}"
+          ng-if="settings.authType === 'keystone' && settings.UI.alternateBookingFlow && settings.UI.alternateBookingFlow.enabled">
+
       <img class="CreateUser__logo" src="/static/images/apple-touch-icon-72x72.png">
+
       <div class="CreateUser__content">
         <h4 ng-if="memberOnlyBooking" class="CreateUser__title">
           _create_account_title_required_
@@ -389,8 +393,26 @@
           _create_account_text_
         </p>
       </div>
-      <input class="CreateUser__password" type="password" placeholder="_password_label_" name="password" >
+
+      <label for="password">
+        <input class="CreateUser__password"
+               type="password"
+               ng-required="memberOnlyBooking"
+               ng-pattern="isValidKeystonePassword"
+               placeholder="_password_label_"
+               ng-model="userPassword"
+               id="password"
+               name="password" >
+      </label>
+
     </form>
+
+    <p class="CreateUser__error" ng-show="userPasswordError && !(memberOnlyBooking && forms.details.$submitted)">
+      _create_account_invalid_
+    </p>
+    <p class="CreateUser__error" ng-show="memberOnlyBooking && forms.details.$submitted">
+      _create_account_error_
+    </p>
 
   </div>
 </reservation-details-form>
