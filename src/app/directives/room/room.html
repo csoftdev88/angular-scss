@@ -108,11 +108,11 @@
               </span>
             </p>
 
-            <button-submit role="button" tabindex="0" ng-click="selectProduct(product)" ng-hide="product.memberOnly && !isUserLoggedIn()">
+            <button-submit role="button" tabindex="0" ng-click="selectProduct(product)" ng-show="useAlternateBookingFlow">
               _book_now_
             </button-submit>
 
-            <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="auth.register()">_login_to_book_</a>
+            <a href class="button" ng-show="!useAlternateBookingFlow" ng-click="auth.register()">_login_to_book_</a>
           </pricing-info>
 
           <description-info>
@@ -133,12 +133,25 @@
               </p>
             </div>
           </description-info>
-          <div class="wide-button">
-            <button-submit class="wide-button-room-details" role="button" tabindex="0" ng-click="selectProduct(product)" ng-hide="product.memberOnly && !isUserLoggedIn()">
+          <div class="wide-button" ng-if="useAlternateBookingFlow">
+            <button-submit class="wide-button-room-details"
+                           role="button"
+                           tabindex="0"
+                           ng-click="selectProduct(product)">
               _book_now_
             </button-submit>
-            <a href class="button wide-button-room-details" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()"
-              ng-click="auth.login()">Login</a>
+          </div>
+          <div class="wide-button" ng-if="!useAlternateBookingFlow">
+            <button-submit class="wide-button-room-details"
+                           role="button"
+                           tabindex="0"
+                           ng-click="selectProduct(product)"
+                           ng-hide="product.memberOnly && !isUserLoggedIn()">
+              _book_now_
+            </button-submit>
+            <a href class="button wide-button-room-details"
+               ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()"
+               ng-click="auth.login()">Login</a>
           </div>
           <i class="fa fa-angle-right product-link" ng-if="config.ratesAsLinks"/>
         </list-item>

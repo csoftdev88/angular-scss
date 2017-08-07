@@ -432,6 +432,9 @@ angular
     templateUrl: 'layouts/reservations/reservation/reservation.html',
     url: '/reservation/:roomID/:productCode',
     controller: 'ReservationCtrl',
+    params: {
+      memberOnly: false
+    },
     data: {
       supportsEditMode: true,
       supportsMultiRoom: true

@@ -567,7 +567,9 @@
     "best_price_guarantee":"Best Price Guarantee",
     "you_wont_find_it_cheaper":"You won’t find it cheaper elsewhere, guaranteed! If you find a better price, call us on 1-800-SANDMAN with the details and we promise we'll match it.",
     "rate_not_available": "Sorry, the rate you are searching for is not available on these dates. Please select from one of the below rates.",
-    "create_account_title": "To confirm this reservation you need to create an account",
-    "create_account_text": "Create your Sandman Hotel Account to access great offers, just enter a password in the field below or enter your password if you’re already a member to log in"
+    "create_account_title": "Register for an optional Sandman Hotel account",
+    "create_account_text": "Create your Sandman Hotel Account to access great offers, just enter a password in the field below or enter your password if you’re already a member",
+    "create_account_title_required": "To confirm this reservation you need to create an account",
+    "create_account_text_required": "Create your Sandman Hotel Account to access great offers, just enter a password in the field below or enter your password if you’re already a member to log in"
   }
 }

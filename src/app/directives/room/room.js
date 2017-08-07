@@ -35,9 +35,9 @@ angular.module('mobiusApp.directives.room', [])
       scope.displayUpsells = Settings.UI.roomDetails.upsells ? Settings.UI.roomDetails.upsells.display : false;
       scope.productImageWidth = scope.config.productImages ? scope.config.productImages.width : '160';
       scope.productImageHeight = scope.config.productImages ? scope.config.productImages.height : '120';
-
-      console.log(scope.productImageWidth);
-      console.log(scope.productImageHeight);
+      scope.useAlternateBookingFlow = Settings.authType === 'keystone' &&
+        scope.uiConfig.alternateBookingFlow &&
+        scope.uiConfig.alternateBookingFlow.enabled;
 
       var roomCode = bookingService.getCodeFromSlug($stateParams.roomSlug);
       bookingParams.roomCode = roomCode;
@@ -428,7 +428,8 @@ angular.module('mobiusApp.directives.room', [])
             roomID: roomCode,
             productCode: product.code,
             promoCode: $stateParams.promoCode,
-            locationSlug: $stateParams.locationSlug
+            locationSlug: $stateParams.locationSlug,
+            memberOnly: product.memberOnly
           };
         }
         else{
@@ -436,7 +437,8 @@ angular.module('mobiusApp.directives.room', [])
             property: propertyCode,
             roomID: roomCode,
             productCode: product.code,
-            locationSlug: $stateParams.locationSlug
+            locationSlug: $stateParams.locationSlug,
+            memberOnly: product.memberOnly
           };
         }
 

@@ -376,8 +376,18 @@
     <form class="CreateUser" ng-if="settings.authType === 'keystone' && settings.UI.alternateBookingFlow && settings.UI.alternateBookingFlow.enabled">
       <img class="CreateUser__logo" src="/static/images/apple-touch-icon-72x72.png">
       <div class="CreateUser__content">
-        <h4 class="CreateUser__title">_create_account_title_</h4>
-        <p class="CreateUser__text">_create_account_text_</p>
+        <h4 ng-if="memberOnlyBooking" class="CreateUser__title">
+          _create_account_title_required_
+        </h4>
+        <h4 ng-if="!memberOnlyBooking" class="CreateUser__title">
+          _create_account_title_
+        </h4>
+        <p ng-if="memberOnlyBooking" class="CreateUser__text">
+          _create_account_text_required_
+        </p>
+        <p ng-if="!memberOnlyBooking" class="CreateUser__text">
+          _create_account_text_
+        </p>
       </div>
       <input class="CreateUser__password" type="password" placeholder="_password_label_" name="password" >
     </form>

@@ -24,6 +24,7 @@ angular.module('mobius.controllers.reservation', [])
   $scope.$stateParams = $stateParams;
   $scope.requiredFieldsMissingError = false;
   $scope.settings = Settings;
+  $scope.memberOnlyBooking = $stateParams.memberOnly;
 
   var clickedSubmit = false;
 
