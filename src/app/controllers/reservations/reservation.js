@@ -645,7 +645,6 @@ angular.module('mobius.controllers.reservation', [])
             })
             .catch($log.info);
         } else {
-          $scope.voucher.valid = true;
           if ($scope.isValid()) {
             $state.go('reservation.confirmation');
             trackProductCheckout(3);
