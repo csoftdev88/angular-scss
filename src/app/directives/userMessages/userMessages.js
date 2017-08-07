@@ -2,9 +2,8 @@
 
 angular.module('mobiusApp.directives.userMessages', [])
 
-  .directive('userMessages', [
-  'userMessagesService', '$controller', '$timeout', '$rootScope', function(
-    userMessagesService, $controller, $timeout, $rootScope) {
+  .directive('userMessages', ['userMessagesService', '$controller', '$timeout', '$rootScope', 'stateService',
+    function(userMessagesService, $controller, $timeout, $rootScope, stateService) {
 
     return {
       restrict: 'E',
@@ -18,7 +17,7 @@ angular.module('mobiusApp.directives.userMessages', [])
         scope.closeMessage = function(index) {
           if (0 <= index && index < scope.messages.length) {
             scope.messages.splice(index, 1);
-            if (!scope.isMobile()) {
+            if (!stateService.isMobile()) {
               $timeout(function () {
                 document.body.style.paddingTop = scope.messages.length ? angular.element('#user-messages').height() + 'px' : 0;
               }, 500);
