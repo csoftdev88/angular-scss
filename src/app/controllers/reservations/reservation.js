@@ -25,29 +25,14 @@ angular.module('mobius.controllers.reservation', [])
   $scope.requiredFieldsMissingError = false;
   $scope.settings = Settings;
   $scope.memberOnlyBooking = $stateParams.memberOnly;
-  $scope.userPassword = '';
-  $scope.userPasswordError = false;
+  $scope.profile = {};
+  $scope.profile.userPassword = 'dsffd';
+  $scope.userPasswordInvalid = false;
+  $scope.userPasswordRequired = false;
 
   var clickedSubmit = false;
 
-  // As we need to conditionally validate the password, I have created a function that
-  // returns a test function expected bu ng-pattern instead of a regex object
-  $scope.isValidKeystonePassword = (function () {
-    var regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
-    return {
-      test: function(value) {
-        if (!$scope.memberOnlyBooking && value === '') {
-          $scope.userPasswordError = false;
-          return true;
-        } else if (value === '') {
-          $scope.userPasswordError = true;
-          return false;
-        }
-        $scope.userPasswordError = !regex.test(value);
-        return !$scope.userPasswordError;
-      }
-    };
-  })();
+  $scope.isValidKeystonePassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
 
   //If steps are at top of page we scroll to them, if they are in the widget we just scroll to top of page
   $scope.scrollReservationStepsPosition = $scope.bookingConfig.bookingStepsNav.showInReservationWidget ? 'top' : 'reservation-steps';
@@ -599,6 +584,32 @@ angular.module('mobius.controllers.reservation', [])
 
         if ($scope.forms.details && !$scope.forms.details.$submitted) {
           $scope.forms.details.$submitted = true;
+        }
+
+        // Ensure that the user has filled in a password and that it is valid for member only bookings
+        // If it is a usual booking, then ensure that if a password has optionally been given, it is valid
+        if ($scope.memberOnlyBooking) {
+          if ($scope.profile.userPassword === '') {
+            $scope.userPasswordInvalid = false;
+            $scope.userPasswordRequired = true;
+            return;
+          } else if (!$scope.isValidKeystonePassword.test($scope.profile.userPassword)) {
+            $scope.userPasswordInvalid = true;
+            $scope.userPasswordRequired = false;
+            return;
+          } else {
+            $scope.userPasswordInvalid = false;
+            $scope.userPasswordRequired = false;
+          }
+        } else {
+          if ($scope.profile.userPassword !== '' && !$scope.isValidKeystonePassword.test($scope.profile.userPassword)) {
+            $scope.userPasswordInvalid = true;
+            $scope.userPasswordRequired = false;
+            return;
+          } else {
+            $scope.userPasswordInvalid = false;
+            $scope.userPasswordRequired = false;
+          }
         }
 
         //Clear email error message if any

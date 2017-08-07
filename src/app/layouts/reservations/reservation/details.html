@@ -374,7 +374,7 @@
     </form>
 
     <form class="CreateUser"
-          ng-class="{'ng-submitted': forms.details.$submitted}"
+          novalidate
           ng-if="settings.authType === 'keystone' &&
             !auth.isLoggedIn() &&
             settings.UI.alternateBookingFlow &&
@@ -397,23 +397,18 @@
         </p>
       </div>
 
-      <label for="password">
-        <input class="CreateUser__password"
-               type="password"
-               ng-required="memberOnlyBooking"
-               ng-pattern="isValidKeystonePassword"
-               placeholder="_password_label_"
-               ng-model="userPassword"
-               id="password"
-               name="password" >
-      </label>
+      <input class="CreateUser__password"
+             type="password"
+             ng-class="{'invalid-input': (userPasswordInvalid || userPasswordRequired) && forms.details.$submitted}"
+             placeholder="_password_label_"
+             ng-model="profile.userPassword">
 
     </form>
 
-    <p class="CreateUser__error" ng-show="userPasswordError && !(memberOnlyBooking && forms.details.$submitted)">
+    <p class="CreateUser__error" ng-show="userPasswordInvalid">
       _create_account_invalid_
     </p>
-    <p class="CreateUser__error" ng-show="memberOnlyBooking && forms.details.$submitted">
+    <p class="CreateUser__error" ng-show="userPasswordRequired">
       _create_account_error_
     </p>
 
