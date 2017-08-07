@@ -377,6 +377,7 @@
           novalidate
           ng-if="settings.authType === 'keystone' &&
             !auth.isLoggedIn() &&
+            !$stateParams.reservation &&
             settings.UI.alternateBookingFlow &&
             settings.UI.alternateBookingFlow.enabled">
 
