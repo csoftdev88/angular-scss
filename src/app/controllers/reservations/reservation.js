@@ -107,7 +107,7 @@ angular.module('mobius.controllers.reservation', [])
     }, true);
   });
 
-  function onAuthorized(isMobiusUser) {
+  function onAuthorized() {
     // Getting room/products data
     //
     var roomsPromises = [];
