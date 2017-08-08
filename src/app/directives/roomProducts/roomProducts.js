@@ -110,6 +110,14 @@ angular.module('mobiusApp.directives.room.products', [])
           // Tracking product impressions
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
             propertyService.getPropertyDetails(bookingParams.propertyCode).then(function(propertyData){
+              // Send tracking data to infiniti
+              infinitiApeironService.trackRates(
+                scope.products,
+                scope.otaProducts && scope.otaProducts[0] ? scope.otaProducts[0].price : 0,
+                scope.room,
+                dataLayerService.getCategoryName(propertyData, scope.room)
+              );
+
               //Google analytics
               var variant = '';
               if($stateParams.adults && $stateParams.children)

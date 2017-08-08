@@ -11,7 +11,7 @@ angular.module('mobius.controllers.hotel.details', [
                                          metaInformationService, channelService, previousSearchesService, $window,
                                          advertsService, $controller, $timeout, scrollService, $location, $stateParams,
                                          Settings, stateService, $rootScope, userPreferenceService, locationService,
-                                         routerService, DynamicMessages) {
+                                         routerService, DynamicMessages, infinitiApeironService) {
 
   $controller('PriceCtr', {
     $scope: $scope
@@ -415,6 +415,8 @@ angular.module('mobius.controllers.hotel.details', [
             $scope.ratesLoaded = true;
             $scope.filterCompareRooms();
 
+            infinitiApeironService.trackResults($scope.rooms);
+
             if ($scope.availableRooms.length === 0) {
               //If show alternative dates is enabled
               if((!$scope.altProperties || !$scope.altProperties.length) && showAltDates && bookingParams && bookingParams.from && bookingParams.to){
@@ -493,6 +495,8 @@ angular.module('mobius.controllers.hotel.details', [
 
     var roomsPromise = propertyService.getRooms(propertyCode)
       .then(function(rooms) {
+
+
         if(Settings.UI.hotelDetails.rooms.sortRoomsByWeighting){
           rooms = rooms.sort(function(accu, current) {
             return accu.weighting < current.weighting;

@@ -1190,6 +1190,8 @@ angular.module('mobius.controllers.reservation', [])
             }
             infinitiApeironService.trackPurchase(data, chainData, propertyData, trackingData, priceData, scopeData, $stateParams, $scope.rates.selectedRate);
 
+            infinitiApeironService.trackBuy(trackingData, priceData, scopeData, $stateParams);
+
             //Sending alerts to https://webservice.mobiuswebservices.com/alerting/alert
             apiService.sendApeironAlert('reporting', env, $stateParams, data, priceData);
           }
