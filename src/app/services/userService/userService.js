@@ -141,10 +141,11 @@ angular.module('mobiusApp.services.user', [])
           .then(function(updatedUser) {
             userObject = updatedUser;
           });
+      } else {
+        var defer = $q.defer();
+        defer.resolve();
+        return defer.promise;
       }
-      var defer = $q.defer();
-      defer.resolve();
-      return defer.promise;
     }
 
     function getUserCurrency() {
