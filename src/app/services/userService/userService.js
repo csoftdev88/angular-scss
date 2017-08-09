@@ -134,12 +134,17 @@ angular.module('mobiusApp.services.user', [])
       $window.document.cookie = 'MobiusCurrencyCode' + '=' + currency + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
       userObject.currencyCode = currency;
       if (Settings.authType === 'keystone' && keystoneIsAuthenticated()) {
-        window.KS.$me.update({
-          Currency: currency
-        })
+        return window.KS.$me
+          .update({
+            Currency: currency
+          })
           .then(function(updatedUser) {
             userObject = updatedUser;
           });
+      } else {
+        var defer = $q.defer();
+        defer.resolve();
+        return defer.promise;
       }
     }
 
