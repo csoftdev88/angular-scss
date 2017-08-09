@@ -41,11 +41,21 @@ describe('currencyList', function() {
         setHeaders: function(){}
       });
 
+      
       $provide.value('$state', {
         go: function(){},
         current:{
           name: 'hotel'
         }
+      });
+
+      $provide.value('user', {
+        storeUserCurrency: function() {
+          return {
+            then: function() {}
+          };
+        },
+        getUserCurrency: function() {}
       });
 
       $provide.value('$stateParams', {});
