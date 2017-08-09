@@ -83,6 +83,9 @@
           margin: 0 10px;
           border: solid 2px #fff;
           border-radius: 50%;
+          .viewport-mobile & {
+            margin: 0 3px;
+          }
         }
       }
       &.ui-datepicker-today a {
@@ -106,6 +109,9 @@
           color: @c-black !important;
           background: @c-datepicker-selected;
           border: solid 2px transparent;
+          .viewport-mobile & {
+            width: 37px;
+          }
         }
         &:before {
           background: @c-white;
