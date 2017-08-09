@@ -211,3 +211,12 @@
   @width: round(((100 - (@grid-column-count * @gap)) / @grid-column-count) * @i + (@gap * @i));
 }
 
+// I have no idea why we decided to create a custom grid system using loops but there are some issues on certain
+// tablet size, so please place those fixes here
+// @todo Replace this grid system with grid960 or some standard grid system
+@media only screen and (min-width: 1000px) {
+  [grid="7"] {
+    width: 540px;
+  }
+}
+
