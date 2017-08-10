@@ -75,7 +75,7 @@
 
     <div class="About__benefits--offer">
       <h2>_about_offer_title_</h2>
-      <span>{{ offers[0].title }}</span>
+      <span ng-click="gotoOffer(offers[0])">{{ offers[0].title }}</span>
       <img ng-click="gotoOffer(offers[0])" ng-src="{{ offers[0].image.uri }}">
     </div>
 
