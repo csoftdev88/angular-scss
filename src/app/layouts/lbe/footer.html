@@ -9,6 +9,7 @@
       _footer_subtitle_one_
     </small>
     <button ng-click="auth.register()"
+            ng-if="!auth.isLoggedIn()"
             class="Footer__button">
       _sign_up_
     </button>
