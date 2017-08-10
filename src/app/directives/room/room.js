@@ -359,10 +359,10 @@ angular.module('mobiusApp.directives.room', [])
             .then(function(hotelRooms){
 
               var availableRooms = [];
-              _.forEach((property.availability && property.availability.rooms) || [], function(availableRoom) {
-                var room = _.find(hotelRooms, {code: availableRoom.code});
-                if(room)
-                {
+              var propertyRooms = property.availability && property.availability.rooms || [];
+              _.each(hotelRooms, function (hotelRoom) {
+                var room = _.find(propertyRooms, { code: hotelRoom.code });
+                if (room) {
                   availableRooms.push(room);
                 }
               });

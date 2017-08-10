@@ -1,11 +1,11 @@
 {
-  "locale": "en-us",
+  "locale": "en",
   "language": "English",
   "description": "English version",
   "data": {
-    "base_href": "/en-us/",
+    "base_href": "/en/",
     "language": "english",
-    "language_code": "en-us",
+    "language_code": "en",
     "page_title": "me and all hotels",
     "footer_static_content":"me and all hotel düsseldorf<br/>Immermannstraße 23<br/>40210 Düsseldorf<br/><a href='tel:+49211542590'>Tel. +49 211 54259 0</a><br/><a href='mailto:booking.duesseldorf@meandallhotels.com'>booking.duesseldorf@meandallhotels.com</a>",
     "footer_copyright_text": "<strong>me and all hotels</strong> is a brand of Lindner Hotels & Resorts.",
@@ -557,6 +557,7 @@
     "blog": "Blog",
     "faq": "Faq",
     "filter_dates": "Dates",
-    "rate_not_available": "Sorry, the rate you are searching for is not available on these dates. Please select from one of the below rates."
+    "rate_not_available": "Sorry, the rate you are searching for is not available on these dates. Please select from one of the below rates.",
+    "book_now_floating_bar": "Book now"
   }
 }

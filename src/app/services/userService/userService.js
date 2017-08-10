@@ -99,6 +99,10 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function clearStoredUser() {
+      // Removing auth headers
+      var headers = {};
+      headers[HEADER_INFINITI_SSO] = undefined;
+      apiService.setHeaders(headers);
       $window.document.cookie = 'MobiusId=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
       $window.document.cookie = 'MobiusToken=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
       $window.document.cookie = 'CustomerID=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
@@ -130,24 +134,27 @@ angular.module('mobiusApp.services.user', [])
       $window.document.cookie = 'MobiusCurrencyCode' + '=' + currency + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
       userObject.currencyCode = currency;
       if (Settings.authType === 'keystone' && keystoneIsAuthenticated()) {
-        window.KS.$me.update({
-          Currency: currency
-        })
+        return window.KS.$me
+          .update({
+            Currency: currency
+          })
           .then(function(updatedUser) {
             userObject = updatedUser;
           });
+      } else {
+        var defer = $q.defer();
+        defer.resolve();
+        return defer.promise;
       }
     }
 
     function getUserCurrency() {
       if (Settings.authType === 'keystone') {
         if (keystoneIsAuthenticated()) {
-          return window.KS.$me.get().Currency || 'CAD';
-        } else {
-          return 'CAD';
+          return window.KS.$me.get().Currency || Settings.UI.currencies.default.code;
         }
       }
-      return cookieFactory('MobiusCurrencyCode');
+      return cookieFactory('MobiusCurrencyCode') || Settings.UI.currencies.default.code;
     }
 
     function loadProfile() {
@@ -275,10 +282,6 @@ angular.module('mobiusApp.services.user', [])
           $state.go('home', {}, {reload: true});
         });
 
-        // Removing auth headers
-        var headers = {};
-        headers[HEADER_INFINITI_SSO] = undefined;
-        apiService.setHeaders(headers);
         clearStoredUser();
 
         authPromise = $q.defer();

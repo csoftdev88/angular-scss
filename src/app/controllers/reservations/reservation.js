@@ -22,6 +22,9 @@ angular.module('mobius.controllers.reservation', [])
   $scope.isMobile = stateService.isMobile();
   $scope.canPayWithPoints = true;
   $scope.$stateParams = $stateParams;
+  $scope.requiredFieldsMissingError = false;
+
+  var clickedSubmit = false;
 
   //If steps are at top of page we scroll to them, if they are in the widget we just scroll to top of page
   $scope.scrollReservationStepsPosition = $scope.bookingConfig.bookingStepsNav.showInReservationWidget ? 'top' : 'reservation-steps';
@@ -529,7 +532,6 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.isValid = function() {
-    console.log('checking the validity', $scope.allRooms);
     if ($scope.allRooms && $scope.allRooms.length) {
       switch ($state.current.name) {
         case 'reservation.details':
@@ -580,6 +582,10 @@ angular.module('mobius.controllers.reservation', [])
         if ($scope.invalidFormData.email) {
           $scope.invalidFormData.email = null;
         }
+
+        $scope.requiredFieldsMissingError = ($scope.forms.details.$error &&
+                                             $scope.forms.details.required &&
+                                             $scope.forms.details.$error.required.length > 0);
 
         if ($scope.isValid()) {
           $state.go('reservation.billing');
@@ -919,8 +925,16 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   $scope.makeReservation = function() {
+
+    if (clickedSubmit) {
+      return;
+    }
+
+    clickedSubmit = true;
+
     if (!$scope.additionalInfo.agree) {
       $scope.isMakingReservation = false;
+      clickedSubmit = false;
       return modalService.openTermsAgreeDialog();
     }
 
@@ -1255,6 +1269,7 @@ angular.module('mobius.controllers.reservation', [])
         $scope.invalidFormData.generic = true;
         $state.go('reservation.details');
       }
+      clickedSubmit = false;
 
     });
 

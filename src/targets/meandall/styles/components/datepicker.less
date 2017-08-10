@@ -14,8 +14,8 @@
       }
     }
     .ui-datepicker-title {
-      font-family: Arial;
-      font-size: 1.3em;
+      font-family: ArialNarrow;
+      font-size: 21px;
       font-weight: normal;
     }
   }
@@ -32,6 +32,7 @@
 
 //- Calendar Table
 .ui-datepicker-calendar {
+  margin-bottom: 10px;
   thead {
     tr {
       th {
@@ -50,12 +51,13 @@
     }
     td {
       a {
-        color: #b3bdc2; // Today and Future days
+        color: #fff; // Today and Future days
         font-weight: 300;
         font-family: ArialNarrow;
         font-size: 18px;
         line-height: 1.67;
         text-align: center;
+        border: solid 2px transparent;
       }
       >*[data-tooltip]:after {
         background: #f4b458;
@@ -79,7 +81,7 @@
       &:not(.date-range-start) {
         &.ui-datepicker-today a {
           margin: 0 10px;
-          border: solid 1px #fff;
+          border: solid 2px #fff;
           border-radius: 50%;
         }
       }
@@ -92,7 +94,7 @@
       }
       // Days from other month
       &.ui-datepicker-other-month a {
-        color: #4a4a4a;
+        color: #fff;
       }
       // Selected start and end day
       &.date-range-end,
@@ -103,9 +105,11 @@
         span {
           color: @c-black !important;
           background: @c-datepicker-selected;
+          border: solid 2px transparent;
         }
         &:before {
           background: @c-white;
+          border: solid 2px transparent;
         }
         &:after {
           color: @c-secondary;

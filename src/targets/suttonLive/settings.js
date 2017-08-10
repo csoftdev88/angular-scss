@@ -443,7 +443,7 @@ angular.module('mobiusApp.config', [])
         'mobileHideRates': true,
         'displayAmenities': true,
         'displayRoomDetails': true,
-        'displayRoomSubtitle': false,
+        'displayRoomSubtitle': true,
         'roomDetailThumbnailSize':{
           'width': 150,
           'height': 150
@@ -1097,6 +1097,7 @@ angular.module('mobiusApp.config', [])
       'hotelDetails':{
         'hasViewMore': true,
         'hasTitle': true,
+        'scrollToOffset': 50,
         'hotelInfo': {
           'descriptionGrid': 8,
           'sidebarGrid': 4
