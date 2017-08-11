@@ -90,18 +90,14 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     }
 
     function trackPage(path){
-      var eventDetails = {
-        'detail':{},
-        'bubbles': true,
-        'cancelable': true
-      };
-      eventDetails.detail.path = path;
-      eventDetails.detail.url = window.location.origin + path;
-      eventDetails.detail.title = document.title;
-      eventDetails.detail.type = 'page';
-      eventDetails.detail.tags = [];
+      var eventDetails = {};
+      eventDetails.path = path;
+      eventDetails.url = window.location.origin + path;
+      eventDetails.title = document.title;
+      eventDetails.type = 'page';
+      eventDetails.tags = [];
       var propertySlug = bookingService.getParams().propertySlug;
-      eventDetails.detail.propertyCode = bookingService.getCodeFromSlug(propertySlug) || '';
+      eventDetails.propertyCode = bookingService.getCodeFromSlug(propertySlug) || '';
       trackEvent('hi_page', eventDetails);
     }
 
