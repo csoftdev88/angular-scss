@@ -63,7 +63,7 @@ angular.module('mobiusApp.config', [])
       'enable':false,
       'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.4-rc2/infiniti.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-integration',
       'username': 'meandall',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
