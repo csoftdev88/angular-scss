@@ -3,8 +3,10 @@
  * This service sends tracking events to infiniti apeiron
  */
 angular.module('mobiusApp.services.infinitiApeironService', []).service('infinitiApeironService', [
-  'Settings', 'apiService', '$state', '_', '$rootScope', 'channelService', 'sessionDataService', 'userObject', '$window', 'user', 'cookieFactory', 'contentService',
-  function(Settings, apiService, $state, _, $rootScope, channelService, sessionDataService, userObject, $window, user, cookieFactory, contentService) {
+  'Settings', 'apiService', '$state', '_', '$rootScope', 'channelService', 'sessionDataService', 'userObject',
+  '$window', 'user', 'cookieFactory', 'contentService', 'bookingService', 'propertyService', 'locationService', '$q',
+  function(Settings, apiService, $state, _, $rootScope, channelService, sessionDataService, userObject, $window,
+           user, cookieFactory, contentService, bookingService, propertyService, locationService, $q) {
 
     var env = document.querySelector('meta[name=environment]').getAttribute('content');
     var endpoint = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].endpoint : null;
@@ -14,6 +16,23 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     var password = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].password : null;
     var apeironId = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].id : null;
     var isSinglePageApp = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].singlePageApp: false;
+
+    /**
+     * Main function used to submit an event to infiniti tracking script with a payload specified by properties
+     * @param eventName
+     * @param properties
+     */
+    function trackEvent(eventName, properties){
+      var eventDetails = {
+        'bubbles': true,
+        'cancelable': true,
+        'detail':{}
+      };
+      eventDetails.detail.eventName = eventName;
+      eventDetails.detail.properties = properties;
+      var event = new CustomEvent('infiniti.event.track', eventDetails);
+      document.dispatchEvent(event);
+    }
 
     function trackPurchase(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams, selectedRate) {
       if (endpoint) {
@@ -57,18 +76,6 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       trackEvent('campaign_purchase', {'campaignCode': code.toString()});
     }
 
-    function trackEvent(eventName, properties){
-      var eventDetails = {
-        'bubbles': true,
-        'cancelable': true,
-        'detail':{}
-      };
-      eventDetails.detail.eventName = eventName;
-      eventDetails.detail.properties = properties;
-      var event = new CustomEvent('infiniti.event.track', eventDetails);
-      document.dispatchEvent(event);
-    }
-
     function trackPageView(path){
       var eventDetails = {
   			'detail':{},
@@ -77,8 +84,181 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
   		};
       eventDetails.detail.path = path;
       eventDetails.detail.url = window.location.origin + path;
+      eventDetails.detail.title = document.title;
       var event = new CustomEvent('infiniti.page.loaded', eventDetails);
       document.dispatchEvent(event);
+    }
+
+    function trackPage(path){
+      var eventDetails = {
+        'detail':{},
+        'bubbles': true,
+        'cancelable': true
+      };
+      eventDetails.detail.path = path;
+      eventDetails.detail.url = window.location.origin + path;
+      eventDetails.detail.title = document.title;
+      eventDetails.detail.type = 'page';
+      eventDetails.detail.tags = [];
+      var propertySlug = bookingService.getParams().propertySlug;
+      eventDetails.detail.propertyCode = bookingService.getCodeFromSlug(propertySlug) || '';
+      trackEvent('hi_page', eventDetails);
+    }
+
+    function mapRoomsForInfiniti(rooms) {
+      return _.map(rooms, function (room) {
+        return {
+          noOfAdults: parseInt(room.adults),
+          noOfChildren: parseInt(room.children)
+        };
+      });
+    }
+
+    function mapPropertyForInfiniti(region, property) {
+      var locationData = {
+        code: region.code,
+        name: region.nameShort
+      };
+
+      return {
+        code: property.code,
+        name: property.nameShort,
+        province: locationData,
+        region: locationData
+      };
+    }
+
+    function trackSearchParams(){
+      var urlParams = bookingService.getParams();
+      var dates = bookingService.datesFromString(urlParams.dates);
+      // Don't track searches without dates
+      if (!dates) {
+        return;
+      }
+      var rooms = bookingService.getMultiRoomData();
+      var propertySlug = bookingService.getParams().propertySlug;
+      var propertyCode = null;
+      if (propertySlug) {
+         propertyCode = bookingService.getCodeFromSlug(propertySlug);
+      }
+
+      // Get all properties and regions over a specific one by code as they would have likely been cached by now
+      $q.all([propertyService.getAll(), locationService.getRegions()])
+        .then(function (data) {
+          var properties = data[0];
+          var regions = data[1];
+          var property = _.findWhere(properties, { code: propertyCode });
+          var region = null;
+          if (property) {
+            region = _.findWhere(regions, { code: property.regionCode });
+          }
+          // Parse the encoded JSON with the room information
+          rooms = mapRoomsForInfiniti(rooms);
+          // If there is no multi room data, assume single room booking and get values from url params
+          if (rooms.length === 0) {
+            rooms = mapRoomsForInfiniti([{
+              adults: urlParams.adults,
+              children: urlParams.children
+            }]);
+          }
+
+          var searchData = {
+            type: 'search_parameters',
+            checkIn: dates.from || '',
+            checkOut: dates.to || '',
+            corpCode: urlParams.corpCode || '',
+            groupCode: urlParams.groupCode || '',
+            rooms: rooms,
+            promoCode: urlParams.promoCode || '',
+            property: property && region ? mapPropertyForInfiniti(region, property) : {}
+          };
+          trackEvent('hi_search_parameters', searchData);
+        });
+    }
+
+    function trackResults(rooms) {
+      var urlParams = bookingService.getParams();
+      _.each(rooms, function (room) {
+        var resultData = {
+          type: 'result',
+          roomName: room.name,
+          roomCode: room.code,
+          fromPrice: room.priceFrom,
+          propCode: bookingService.getCodeFromSlug(urlParams.propertySlug),
+          tags: []
+        };
+        trackEvent('hi_result', resultData);
+      });
+    }
+
+    function trackRates(rates, otaRate, room, category) {
+      var urlParams = bookingService.getParams();
+      var dates = bookingService.datesFromString(urlParams.dates);
+      _.each(rates, function (rate) {
+        var rateData = {
+          type: 'rate',
+          name: rate.name,
+          category: category || '',
+          roomCode: room.code,
+          code: rate.code,
+          cancelationAllowed: !! _.findWhere(rate.policies, { type: 'cancellation' }),
+          breakfastIncluded: false, // cant do this at the moment
+          memberRate: rate.memberOnly,
+          loyaltyRate: rate.allowPointsBooking,
+          hiddenRate: rate.productHidden,
+          strikeThrough: rate.price.formatting === 'slashthrough',
+          comparisonRate: otaRate,
+          pricePerNight: rate.price.totalBaseAfterPricingRules,
+          pricePerStay: rate.price.totalBaseAfterPricingRules * diffDates(dates.to, dates.from),
+          taxShown: false, // we never show tax,
+          tags: []
+        };
+        trackEvent('hi_rate', rateData);
+      });
+    }
+
+    function diffDates(to, from) {
+      to = new Date(to);
+      from = new Date(from);
+      var timeDiff = Math.abs(to.getTime() - from.getTime());
+      return Math.ceil(timeDiff / (1000 * 3600 * 24));
+    }
+
+    function stripPurchasePolicies(policies) {
+      return _.map(policies, function (policy) {
+        return {
+          type: policy.type,
+          value: policy.value
+        };
+      });
+    }
+
+    function trackBuy(trackingData, priceData, scopeData, stateParams) {
+      var roomData = bookingService.getMultiRoomData(stateParams.rooms);
+      var dates = bookingService.datesFromString(stateParams.dates);
+      var lengthOfStay = diffDates(dates.to, dates.from);
+      var leadTime = diffDates(dates.from, new Date().toDateString());
+      var purchaseData = {};
+      var numRooms = roomData ? roomData.length : 1;
+      if (numRooms === 0) {
+        numRooms++;
+      }
+
+      for (var i = 0; i < numRooms; i++) {
+        purchaseData = {
+          type: 'purchase',
+          "roomCode": scopeData.allRooms[i].code,
+          "rateCode": scopeData.allRooms[i]._selectedProduct.code,
+          "dailyRate": (priceData.totalAfterTaxAfterPricingRules / lengthOfStay) / numRooms,
+          "leadTime": leadTime,
+          "lengthOfStay": lengthOfStay,
+          "noOfOccupants": scopeData.moreRoomData[i].adults + scopeData.moreRoomData[i].children,
+          "paymentType": trackingData.paymentInfo.paymentMethod,
+          "points": null, // @todo As sandman does not have a loyalty program, we will just send null for now
+          "policies": stripPurchasePolicies(scopeData.allRooms[i]._selectedProduct.policies)
+        };
+        trackEvent('hi_purchase', purchaseData);
+      }
     }
 
     function buildGenericData(chainData) {
@@ -466,6 +646,11 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     return {
       trackPurchase: trackPurchase,
       trackSearch: trackSearch,
+      trackSearchParams: trackSearchParams,
+      trackResults: trackResults,
+      trackRates: trackRates,
+      trackBuy: trackBuy,
+      trackPage: trackPage,
       trackCampaignDisplay: trackCampaignDisplay,
       trackCampaignPurchase: trackCampaignPurchase,
       trackPageView: trackPageView,

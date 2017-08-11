@@ -633,6 +633,7 @@ angular
     if(infinitiApeironService.isSinglePageApp){
       infinitiApeironService.trackPageView($location.path() + $window.location.search);
     }
+    infinitiApeironService.trackPage($location.path() + $window.location.search);
   });
   //Facebook
   $rootScope.facebookAppId = Settings.UI.generics.facebookAppId;

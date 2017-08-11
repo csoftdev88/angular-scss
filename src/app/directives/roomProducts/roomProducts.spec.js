@@ -135,7 +135,8 @@ describe('RoomProducts', function() {
       $provide.value('apiService', apiService);
 
       $provide.value('infinitiApeironService', {
-        trackSearch: function(){}
+        trackSearch: function(){},
+        trackRates: function() {}
       });
 
       $provide.value('$window', {
