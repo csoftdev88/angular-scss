@@ -97,7 +97,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       eventDetails.type = 'page';
       eventDetails.tags = [];
       var propertySlug = bookingService.getParams().propertySlug;
-      eventDetails.detail.propertyCode = bookingService.getCodeFromSlug(propertySlug) || '';
+      eventDetails.propertyCode = bookingService.getCodeFromSlug(propertySlug) || '';
       trackEvent('hi_page', eventDetails);
     }
 
