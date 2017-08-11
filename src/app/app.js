@@ -601,18 +601,6 @@ angular
 .run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings,
               propertyService, track404sService, sessionDataService, infinitiApeironService, _) {
 
-  // REMOVE THIS testing infiniti events
-  /*window.addEventListener('infiniti.event.track', function (event) {
-    console.log('=============================');
-    console.log(event);
-    console.log('=============================');
-  });
-  window.addEventListener('infiniti.page.loaded', function (event) {
-    console.log('=============================');
-    console.log(event);
-    console.log('=============================');
-  });*/
-
   $rootScope.$on('$stateChangeStart', function(event, next) {
     if(next.name === 'unknown'){ //If the page we are navigating to is not recognised
       if(Settings.API.track404s && Settings.API.track404s.enable) {  //This segment tracks any 404s and sends to our 404 tracking service
