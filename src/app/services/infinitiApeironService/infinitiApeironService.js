@@ -17,6 +17,23 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     var apeironId = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].id : null;
     var isSinglePageApp = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].singlePageApp: false;
 
+    /**
+     * Main function used to submit an event to infiniti tracking script with a payload specified by properties
+     * @param eventName
+     * @param properties
+     */
+    function trackEvent(eventName, properties){
+      var eventDetails = {
+        'bubbles': true,
+        'cancelable': true,
+        'detail':{}
+      };
+      eventDetails.detail.eventName = eventName;
+      eventDetails.detail.properties = properties;
+      var event = new CustomEvent('infiniti.event.track', eventDetails);
+      document.dispatchEvent(event);
+    }
+
     function trackPurchase(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams, selectedRate) {
       if (endpoint) {
         var postData = buildPurchaseData(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams, selectedRate);
@@ -59,18 +76,6 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       trackEvent('campaign_purchase', {'campaignCode': code.toString()});
     }
 
-    function trackEvent(eventName, properties){
-      var eventDetails = {
-        'bubbles': true,
-        'cancelable': true,
-        'detail':{}
-      };
-      eventDetails.detail.eventName = eventName;
-      eventDetails.detail.properties = properties;
-      var event = new CustomEvent('infiniti.event.track', eventDetails);
-      document.dispatchEvent(event);
-    }
-
     function trackPageView(path){
       var eventDetails = {
   			'detail':{},
@@ -86,6 +91,22 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       eventDetails.detail.propertyCode = bookingService.getCodeFromSlug(propertySlug) || '';
       var event = new CustomEvent('infiniti.page.loaded', eventDetails);
       document.dispatchEvent(event);
+    }
+
+    function trackPage(path){
+      var eventDetails = {
+        'detail':{},
+        'bubbles': true,
+        'cancelable': true
+      };
+      eventDetails.detail.path = path;
+      eventDetails.detail.url = window.location.origin + path;
+      eventDetails.detail.title = document.title;
+      eventDetails.detail.type = 'page';
+      eventDetails.detail.tags = [];
+      var propertySlug = bookingService.getParams().propertySlug;
+      eventDetails.detail.propertyCode = bookingService.getCodeFromSlug(propertySlug) || '';
+      trackEvent('hi_page', eventDetails);
     }
 
     function mapRoomsForInfiniti(rooms) {
@@ -155,7 +176,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
             promoCode: urlParams.promoCode || '',
             property: property && region ? mapPropertyForInfiniti(region, property) : {}
           };
-          emitEvent(searchData);
+          trackEvent('hi_search_parameters', searchData);
         });
     }
 
@@ -170,7 +191,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
           propCode: bookingService.getCodeFromSlug(urlParams.propertySlug),
           tags: []
         };
-        emitEvent(resultData);
+        trackEvent('hi_result', resultData);
       });
     }
 
@@ -196,7 +217,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
           taxShown: false, // we never show tax,
           tags: []
         };
-        emitEvent(rateData);
+        trackEvent('hi_rate', rateData);
       });
     }
 
@@ -218,7 +239,6 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
 
     function trackBuy(trackingData, priceData, scopeData, stateParams) {
       var roomData = bookingService.getMultiRoomData(stateParams.rooms);
-      console.log('room data', roomData);
       var dates = bookingService.datesFromString(stateParams.dates);
       var lengthOfStay = diffDates(dates.to, dates.from);
       var leadTime = diffDates(dates.from, new Date().toDateString());
@@ -241,19 +261,8 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
           "points": null, // @todo As sandman does not have a loyalty program, we will just send null for now
           "policies": stripPurchasePolicies(scopeData.allRooms[i]._selectedProduct.policies)
         };
-        emitEvent(purchaseData);
+        trackEvent('hi_purchase', purchaseData);
       }
-    }
-
-    function emitEvent(data) {
-      var eventDetails = {
-        'bubbles': true,
-        'cancelable': true,
-        'detail':{}
-      };
-      eventDetails.detail = data;
-      var event = new CustomEvent('infiniti.event.track', eventDetails);
-      document.dispatchEvent(event);
     }
 
     function buildGenericData(chainData) {
@@ -645,6 +654,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       trackResults: trackResults,
       trackRates: trackRates,
       trackBuy: trackBuy,
+      trackPage: trackPage,
       trackCampaignDisplay: trackCampaignDisplay,
       trackCampaignPurchase: trackCampaignPurchase,
       trackPageView: trackPageView,
