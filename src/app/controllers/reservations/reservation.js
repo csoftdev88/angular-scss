@@ -221,10 +221,15 @@ angular.module('mobius.controllers.reservation', [])
           $scope.userDetails.zip = data.zip;
           $scope.userDetails.stateProvince = data.state;
           $scope.userDetails.country = data.country;
-          $scope.userDetails.localeCode = data.localeCode;
           $scope.userDetails.phone = data.tel1;
           $scope.additionalInfo.secondPhoneNumber = data.tel2;
           $scope.additionalInfo.optedIn = data.optedIn;
+
+          var userCountry = getUserCountry(data);
+          if (userCountry) {
+            $scope.userDetails.localeCode = userCountry.code;
+            $scope.userDetails.localeId = userCountry.id;
+          }
         });
       });
     }

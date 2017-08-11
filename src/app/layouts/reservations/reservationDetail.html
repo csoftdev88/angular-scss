@@ -49,7 +49,7 @@
         </header>
 
         <div class="tables">
-          <figure ng-switch="!config.isEditable && reservation.status !== 'Cancelled'">
+          <figure ng-switch="isEditable && reservation.status !== 'Cancelled'">
             <img ng-if="!config.largeRoomImage && roomDetails.images[0].uri" ng-src="{{roomDetails.images[0].uri}}" alt="{{roomDetails.name}}">
             <img ng-if="config.largeRoomImage && roomDetails.images[0].uri" ng-src="{{roomDetails.images[0].uri | cloudinaryImage : 355 : 415 : 'fill'}}"
               alt="{{roomDetails.name}}">
@@ -246,7 +246,7 @@
       from="1" to="1.5" show-logo="false"></section-image>
 
     <!-- AVAILABLE ADDONS -->
-    <section grid-row class="reservation-enhance" ng-if="availableAddons.length">
+    <section grid-row class="reservation-enhance" ng-if="availableAddons.length && (reservation.rooms.length === 1)">
       <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
         <h3 ng-bind-html="'_reservation_enhance_title_' | mainHeaderStyle"></h3>
         <ul>
