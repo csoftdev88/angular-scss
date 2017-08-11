@@ -85,10 +85,6 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       eventDetails.detail.path = path;
       eventDetails.detail.url = window.location.origin + path;
       eventDetails.detail.title = document.title;
-      eventDetails.detail.type = 'page';
-      eventDetails.detail.tags = [];
-      var propertySlug = bookingService.getParams().propertySlug;
-      eventDetails.detail.propertyCode = bookingService.getCodeFromSlug(propertySlug) || '';
       var event = new CustomEvent('infiniti.page.loaded', eventDetails);
       document.dispatchEvent(event);
     }
