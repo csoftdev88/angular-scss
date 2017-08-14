@@ -418,6 +418,7 @@ angular.module('mobiusApp.config', [])
         'hotels': false,
         'location': true
       },
+      'scrollToRates': 20,
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
       'numberOfRoomsAddedOnMobile': 2,

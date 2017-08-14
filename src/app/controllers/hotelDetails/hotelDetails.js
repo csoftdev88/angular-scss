@@ -765,7 +765,7 @@ angular.module('mobius.controllers.hotel.details', [
 
   function scrollToRates(target) {
     $timeout(function() {
-      scrollService.scrollTo(target, 20);
+      scrollService.scrollTo(target, $scope.config.scrollToRates);
     }, 100);
   }
 
