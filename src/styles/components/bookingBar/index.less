@@ -7,6 +7,17 @@
   margin-bottom: 40px;
   box-sizing: border-box;
 
+  // If the booking bar is anchored to the top, its parent will have a class sticky
+  // with position fixed, so here we make the booking bar full width while having a fixed parent
+  .sticky & {
+    left: 600px;
+    right: 0;
+    position: absolute;
+    .booking-bar__form {
+      padding-top: 19px;
+    }
+  }
+
   p, span, label {
     font-family: Lato;
   }
