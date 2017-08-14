@@ -115,6 +115,9 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
       $scope.scrollToTop = function(){
         $timeout(function(){
           scrollService.scrollTo('top');
+          if ($scope.loyaltyEngine) {
+            $rootScope.$broadcast('OPEN_DATE_PICKER');
+          }
         }, 0);
       };
 
