@@ -7,13 +7,6 @@
 <!-- MAIN CONTENT AREA -->
 <div ui-view autoscroll="true"></div>
 
-<scroll-to-top class="back-to-top"
-               ng-click="scrollToTop()"
-               scroll-position="scroll"
-               ng-class="{visible: scroll > scrollTopTrigger}">
-  <span>_book_now_floating_bar_</span>
-</scroll-to-top>
-
 <!-- BOOKING WIDGET AREA-->
 <floating-bar ng-if="isMobile"
               ng-class="{'hide': $state.includes('reservation') || $state.includes('error')}">
