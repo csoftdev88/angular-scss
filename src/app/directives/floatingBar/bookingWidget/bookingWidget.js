@@ -933,6 +933,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         scope.openBookingTab(true);
       });
 
+      var openSRBTabListener = $rootScope.$on('BOOKING_BAR_OPEN_SRB_TAB', function(){
+        scope.openBookingTab(false);
+      });
+
       var selectAllPropertiesListener = $rootScope.$on('BOOKING_BAR_SELECT_ALL', function(){
         scope.propertyRegionList[0].name = ALL_PROPERTIES;
         scope.regionPropertySelected = scope.propertyRegionList[0];
@@ -947,6 +951,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         prefillListener();
         openMRBTabListener();
         selectAllPropertiesListener();
+        openSRBTabListener();
       });
 
       function onPrefill(settings){

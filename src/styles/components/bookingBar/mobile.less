@@ -5,6 +5,13 @@
 
     padding: 29px 14px 19px 14px;
 
+    .booking-bar__form {
+      .booking-bar__form--rooms,
+      .dates {
+        width: 100%;
+      }
+    }
+
     &.booking-bar__size-large {
       height: initial;
       .booking-bar__form {
@@ -19,11 +26,16 @@
         .booking-bar__form--dates,
         .booking-bar__form--guests {
           width: calc(~'50% - 2px'); // @todo find out whats causing the need to offset by 4px
+          padding-bottom: 10px !important;
         }
         .booking-bar__submit {
-          float: right;
+          width: 100%;
         }
       }
+    }
+
+    &.booking-bar__size-small {
+      display: none;
     }
 
   }

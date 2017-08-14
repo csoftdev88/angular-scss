@@ -56,6 +56,13 @@ angular.module('mobiusApp.directives.floatingBar', [
 
         var EVENT_FLOATING_BAR = 'floatingBarEvent';
 
+        scope.closeWidget = function() {
+          scope.isCollapsed = true;
+          if (Settings.engine === 'loyalty') {
+            $('floating-bar').css('display', 'none');
+          }
+        };
+
         scope.setActive = function(newActive, isMobileToggle) {
           //remove css transition end classes
           $('booking-widget').removeClass('transEnd');

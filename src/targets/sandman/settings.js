@@ -377,6 +377,9 @@ angular.module('mobiusApp.config', [])
       'searchInSessionCookieName':'MobiusSearchInSession',
       'maxSearches':3
     },
+    'membersRate': {
+      'defaultSize': 'large'
+    },
     'funnelRetention':{
       'enable':false,
       'cookieName': 'MobiusFunnelRetention',
@@ -390,13 +393,6 @@ angular.module('mobiusApp.config', [])
     'chains': ['SIGN', 'SAND'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
-    },
-    'bookingBar': {
-      'maxAdults': 8,
-      'maxChildren': 8,
-      'dateFormat': 'dd MM yy',
-      'defaultSize': 'large',
-      'useTommorowDefault': true
     },
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
@@ -509,6 +505,7 @@ angular.module('mobiusApp.config', [])
         'hotels': false,
         'location': true
       },
+      'scrollToRates': 20,
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
       'defaultNumberOfRoomsMobile':10,
@@ -1089,6 +1086,7 @@ angular.module('mobiusApp.config', [])
         'hasViewMore': true,
         'hasTitle': true,
         'scrollToOffset': 50,
+        'showSubNav': false,
         'hotelInfo': {
           'descriptionGrid': 7,
           'sidebarGrid': 5

@@ -3,7 +3,8 @@
  *  Controller for hotel details page with a list of rooms
  */
 angular.module('mobius.controllers.hotel.details', [
-  'mobiusApp.filters.cloudinaryImage'
+  'mobiusApp.filters.cloudinaryImage',
+  'mobiusApp.directives.lbe.contactList'
 ])
 
 .controller('HotelDetailsCtrl', function($scope, $filter, _, bookingService, $state, contentService, propertyService,
@@ -39,15 +40,13 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.roomImageHeight = $scope.roomsConfig.roomImageSize && $scope.roomsConfig.roomImageSize.height ? $scope.roomsConfig.roomImageSize.height : '384';
   $scope.roomImageWidth = $scope.roomsConfig.roomImageSize && $scope.roomsConfig.roomImageSize.width ? $scope.roomsConfig.roomImageSize.width : '768';
 
-  console.log($scope.roomImageHeight);
-  console.log($scope.roomImageWidth);
-
   var defaultRoomsViewMode = $scope.viewSettings.defaultViewMode;
   var showAltDates = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.dates && $scope.roomsConfig.alternativeDisplays.dates.enable;
   var showAltProperties = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.properties && $scope.roomsConfig.alternativeDisplays.properties.enable;
 
   //Get our dynamic translations
   var appLang = stateService.getAppLanguageCode();
+  // @todo log if null
   var dynamicMessages = appLang && DynamicMessages && DynamicMessages[appLang] ? DynamicMessages[appLang] : null;
 
   //define page partials based on settings
@@ -72,6 +71,13 @@ angular.module('mobius.controllers.hotel.details', [
 
   // Include the amenities
   bookingParams.includes = 'amenities';
+
+  $scope.openBookingBar = function () {
+    if ($scope.loyaltyEngine) {
+      angular.element('floating-bar').css('display', 'block');
+    }
+    $rootScope.$broadcast('BOOKING_BAR_OPEN_SRB_TAB');
+  };
 
   // Sorting options
   $scope.initSortingOptions = function(options) {
@@ -363,7 +369,10 @@ angular.module('mobius.controllers.hotel.details', [
           breadcrumbsService.addBreadCrumb('Hotels', 'hotels');
         }
 
-        if ($scope.config.breadcrumbs.location && $stateParams.regionSlug && $stateParams.locationSlug) {
+        if ($scope.config.breadcrumbs.location &&
+            $stateParams.regionSlug &&
+            $stateParams.locationSlug &&
+            !Settings.UI.generics.singleProperty) {
           //Get property region/location data for breadcrumbs
           propertyService.getPropertyRegionData(details.locationCode).then(function(data) {
             breadcrumbsService
@@ -495,6 +504,11 @@ angular.module('mobius.controllers.hotel.details', [
 
     var roomsPromise = propertyService.getRooms(propertyCode)
       .then(function(rooms) {
+        if(Settings.UI.hotelDetails.rooms.sortRoomsByWeighting){
+          rooms = rooms.sort(function(accu, current) {
+            return accu.weighting < current.weighting;
+          });
+        }
 
 
         if(Settings.UI.hotelDetails.rooms.sortRoomsByWeighting){
@@ -584,7 +598,7 @@ angular.module('mobius.controllers.hotel.details', [
         roomSlug: rSlug,
         promoCode: $stateParams.promoCode,
         viewAllRates: viewAllRates,
-        scrollTo: 'hotel-room'
+        scrollTo: $scope.loyaltyEngine ? 'RatesList' : 'hotel-room'
       });
     } else {
       return $state.href('room', {
@@ -593,7 +607,7 @@ angular.module('mobius.controllers.hotel.details', [
         propertySlug: pSlug,
         roomSlug: rSlug,
         viewAllRates: viewAllRates,
-        scrollTo: 'hotel-room'
+        scrollTo: $scope.loyaltyEngine ? 'RatesList' : 'hotel-room'
       });
     }
   };
@@ -608,7 +622,7 @@ angular.module('mobius.controllers.hotel.details', [
         roomSlug: rSlug,
         promoCode: $stateParams.promoCode,
         viewAllRates: viewAllRates,
-        scrollTo: 'hotel-room'
+        scrollTo: $scope.loyaltyEngine ? 'RatesList' : 'hotel-room'
       });
     } else {
       $state.go('room', {
@@ -617,7 +631,7 @@ angular.module('mobius.controllers.hotel.details', [
         propertySlug: pSlug,
         roomSlug: rSlug,
         viewAllRates: viewAllRates,
-        scrollTo: 'hotel-room'
+        scrollTo: $scope.loyaltyEngine ? 'RatesList' : 'hotel-room'
       });
     }
   };
@@ -676,6 +690,14 @@ angular.module('mobius.controllers.hotel.details', [
   };
 
   $scope.selectDates = function() {
+    if ($scope.loyaltyEngine) {
+      if (stateService.isMobile()) {
+        $scope.openBookingBar();
+        return;
+      }
+      $rootScope.$broadcast('OPEN_DATE_PICKER');
+      return;
+    }
     $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
       openBookingTab: true,
       openDatePicker: true,
@@ -752,7 +774,7 @@ angular.module('mobius.controllers.hotel.details', [
 
   function scrollToRates(target) {
     $timeout(function() {
-      scrollService.scrollTo(target, 20);
+      scrollService.scrollTo(target, $scope.config.scrollToRates);
     }, 100);
   }
 

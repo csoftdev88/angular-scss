@@ -57,20 +57,21 @@ angular.module('mobius.controllers.regions', [])
           return region.meta.slug === regionSlug;
         });
 
-        if($scope.regionConfig.bookingStatistics && $scope.regionConfig.bookingStatistics.display && $scope.region.statistics){
+        if($scope.regionConfig.bookingStatistics && $scope.regionConfig.bookingStatistics.display && $scope.region && $scope.region.statistics){
           $timeout(function(){
             $scope.$broadcast('STATS_GROWL_ALERT', $scope.region.statistics);
           });
         }
 
+        var images = $scope.region ? $scope.region.images : [];
         //hero slider
-        $scope.updateHeroContent($scope.region.images);
+        $scope.updateHeroContent(images);
 
         //gallery
-        $scope.previewImages = contentService.getLightBoxContent($scope.region.images, 300, 150, 'fill');
+        $scope.previewImages = contentService.getLightBoxContent(images, 300, 150, 'fill');
         $scope.openGallery = function(slideIndex){
           modalService.openGallery(
-            contentService.getLightBoxContent($scope.region.images),
+            contentService.getLightBoxContent(images),
             slideIndex
           );
         };

@@ -36,6 +36,8 @@ angular.module('mobiusApp.directives.room', [])
       scope.productImageWidth = scope.config.productImages ? scope.config.productImages.width : '160';
       scope.productImageHeight = scope.config.productImages ? scope.config.productImages.height : '120';
 
+      scope.isLoyaltyEngine = Settings.engine === 'loyalty';
+
       console.log(scope.productImageWidth);
       console.log(scope.productImageHeight);
 
@@ -166,7 +168,7 @@ angular.module('mobiusApp.directives.room', [])
             propertyService.getPropertyRegionData(propertyData.locationCode).then(function(propertyRegionData){
 
               //breadcrumbs
-              if($stateParams.regionSlug && $stateParams.locationSlug)
+              if($stateParams.regionSlug && $stateParams.locationSlug && !Settings.UI.generics.singleProperty)
               {
                 breadcrumbsService
                   .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {regionSlug: propertyRegionData.region.meta.slug, property: null})
@@ -305,6 +307,7 @@ angular.module('mobiusApp.directives.room', [])
         defaultProducts = $filter('orderBy')(defaultProducts, ['-weighting', 'price.totalBaseAfterPricingRules']);
 
         scope.products = _.uniq([].concat(hiddenProducts, memberOnlyProducts, highlightedProducts, defaultProducts));
+        console.log('products', scope.products);
         scope.altProduct = data.altProducts && data.altProducts.length ? data.altProducts[0] : null;
 
         //STUB THIS

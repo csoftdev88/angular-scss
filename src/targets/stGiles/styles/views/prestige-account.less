@@ -1,0 +1,345 @@
+prestige-account {
+
+  div[grid="12"] {
+    margin-top: 112px;
+    background-color: rgba(0, 0, 0, 0.75);
+    .backdrop-filter-blur(20px);
+    min-height: 800px;
+    padding: 0 40px;
+    margin-right: 0;
+    margin-left: 0;
+    box-sizing: border-box;
+    .viewport-mobile & {
+      padding: 0 16px;
+    }
+  }
+
+  //Page header
+  header{
+    h1{
+      color: @c-dark-grey;
+      font-weight: 300;
+    }
+    .points{
+      color: @lbe-c-primary;
+    }
+    .viewport-mobile &{
+      text-align: center;
+      padding-top: 10px;
+      .Prestige__balance {
+        display: block;
+      }
+      h1,
+      .points{
+      }
+      .bg{
+        background: @c-secondary;
+      }
+    }
+  }
+
+  .title {
+    span {
+      color: #fff;
+    }
+  }
+
+  //transactions list
+  .transactions{
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 50px;
+
+    //transactions nav
+    nav{
+      display: inline-block;
+      width: 100%;
+      border-bottom: 2px solid @c-mid-grey;
+      .viewport-mobile &{
+        border: none;
+      }
+
+      .title {
+        font-family: @lbe-ff-primary;
+        float: left;
+        font-size: @size-2;
+        line-height: @size-4;
+        margin-bottom: 12px;
+        em{
+          font-size: @size--0;
+          font-weight: 300;
+          font-style: italic;
+          margin-left: 10px;
+          color: #fff;
+        }
+        .viewport-mobile &{
+          display: none;
+        }
+      }
+      ul{
+        float: right;
+        .viewport-mobile &{
+          float: left;
+        }
+        li{
+          position: relative;
+          display: inline;
+          float: left;
+          font-size: @size-2;
+          line-height: @size-4;
+          padding: 0 10px;
+          .viewport-mobile &{
+            font-size: @size--1;
+            &:first-child{
+              padding-left: 0;
+            }
+          }
+          &:before{
+            content: '|';
+            position: absolute;
+            left: -4px;
+            top: 0;
+            color: #fff;
+          }
+          &:first-child:before{
+            content: none;
+          }
+          &:last-child{
+            padding-right: 0;
+          }
+          a{
+            color: #fff;
+            font-weight: 300;
+            &.active{
+              color: @c-secondary;
+              font-weight: 700;
+              border-bottom: 1px solid @c-secondary;
+            }
+          }
+        }
+      }
+    }
+
+    //transactions items
+    ul.transaction-items{
+      border-bottom: 2px solid @c-mid-grey;
+      li{
+        display: inline-block;
+        width: 100%;
+        padding: 18px 0;
+        border-top: 1px solid #eee;
+        &:first-child{
+          border: none;
+        }
+
+        .date,
+        .description,
+        .transaction-value,
+        .balance,
+        .booking-ref{
+          float: left;
+          padding-left: 10px;
+          box-sizing: border-box;
+          min-height: 1px;
+          .label{
+            font-family: @lbe-ff-primary;
+            color: #fff;
+            font-size: @size--3;
+            line-height: @size-0;
+            text-transform: uppercase;
+            font-weight: 300;
+            min-height: 7px;
+            margin-bottom: 6px;
+          }
+          .value,
+          .detail {
+            font-family: @lbe-ff-primary;
+            color: #fff;
+            font-size: @size-1;
+            line-height: @size-3;
+            font-weight: 600;
+          }
+          .detail{
+            font-weight: 300;
+            margin-top: 10px;
+            .viewport-mobile &{
+              display: none;
+              &.open{
+                display: block;
+              }
+            }
+          }
+        }
+
+        .date{
+          width: 18%;
+          padding-left: 0;
+          .viewport-mobile &{
+            width: 25%;
+          }
+        }
+
+        .description{
+          width: 57%;
+          &.booking{
+            .booking-item{
+              width: 33.3%;
+              float: left;
+            }
+          }
+          .comments-toggle{
+            display: none;
+            font-size: @size--0;
+            line-height: @size-1;
+            font-weight: 600;
+            .hide{
+              display: inline-block;
+              margin-top: 5px;
+            }
+          }
+          .viewport-mobile &{
+            width: 45%;
+            &.booking{
+              .booking-item{
+                width: 100%;
+                display: none;
+                &:first-child{
+                  display: block;
+                }
+              }
+            }
+            .comments-toggle{
+              display: block;
+            }
+          }
+        }
+
+        .transaction-value{
+          width: 15%;
+          .value{
+            color: @lbe-c-primary;
+            &.positive{
+              color: @c-green;
+            }
+            &.negative{
+              color: @c-red;
+            }
+          }
+          .viewport-mobile &{
+            width: 30%;
+            text-align: right;
+          }
+        }
+
+        .balance{
+          width: 10%;
+          text-align: right;
+          .value{
+            color: @lbe-c-primary;
+          }
+          .viewport-mobile &{
+            display: none;
+          }
+        }
+
+      }
+
+      //pending transaction items
+      &.pending{
+        li{
+
+          .date,
+          .description,
+          .transaction-value,
+          .booking-ref{
+            width: 23%;
+            .viewport-mobile &{
+              width: 33.3%;
+              &.booking-ref.desktop{
+                display: none;
+              }
+            }
+          }
+
+          .transaction-value{
+            width: 8%;
+            text-align: right;
+          }
+        }
+      }
+    }
+
+  }
+}
+
+.PrestigePage {
+  .viewport-mobile & {
+    margin-top: 0 !important;
+  }
+}
+
+.Prestige__balance {
+  line-height: 19px;
+  font-family: @lbe-ff-secondary;
+  font-size: 16px;
+  letter-spacing: 0;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-top: 39px;
+  margin-bottom: 0;
+  .viewport-mobile & {
+    font-size: 13px;
+    line-height: 16px;
+  }
+}
+
+.Prestige__points {
+  line-height: 44px;
+  font-family: @lbe-ff-secondary;
+  font-size: 36px;
+  font-weight: bold;
+  text-align: left;
+  color: @lbe-c-primary;
+  .viewport-mobile & {
+    color: @lbe-c-primary !important;
+    font-size: 26px;
+    line-height: 32px;
+  }
+}
+
+.PrestigePage__bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('@{img-prefix}/rewards-bg.png');
+  background-size: cover;
+}
+
+.Prestige__view-switches {
+  .viewport-mobile & {
+    display: flex;
+    justify-content: center;
+    float: initial !important;
+  }
+}
+
+dir-pagination-controls {
+  ul.pagination {
+    li {
+      &:first-child,
+      &:last-child {
+        a {
+          background: @lbe-c-primary !important;
+          color: @lbe-c-primary !important;
+        }
+      }
+      &.disabled {
+        a {
+          background: #9b9b9b !important;
+        }
+      }
+    }
+  }
+}

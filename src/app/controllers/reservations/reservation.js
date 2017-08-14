@@ -537,6 +537,7 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.isValid = function() {
+    console.log('checking the validity', $scope.allRooms);
     if ($scope.allRooms && $scope.allRooms.length) {
       switch ($state.current.name) {
         case 'reservation.details':
@@ -997,6 +998,7 @@ angular.module('mobius.controllers.reservation', [])
     var reservationPromise = $q.all(promises).then(function(data) {
       var reservationDetailsParams = {
         reservationCode: data[0].reservationCode,
+        hideActionButtons: false,
         // Removing reservation code when booking modification is complete
         reservation: null,
         //Retain codes in confirmation for thirdparty bookings

@@ -19,10 +19,10 @@
           $log.warn('No config for the recommendation was provided!');
         }
         scope.recommendation = {
-          avatarUrl: 'http://res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1473438545/SAN/contents/qxitlxuhmr2lsownyuvd.jpg',
-          text: '20% off and a room upgrade, what more could I ask for!',
-          name: 'Laura Sandoval',
-          city: 'New York'
+          avatarUrl: config.avatarUrl,
+          text: config.text,
+          name: config.name,
+          city: config.city
         };
       }
     };

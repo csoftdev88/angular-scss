@@ -1,60 +1,96 @@
 <!-- New layout - Delete old layout below when this is complete -->
-<section class="hotel-detail__rooms-compare" ng-if="rooms.length" grid-row>
+<section class="hotel-detail__rooms-compare"
+         ng-if="rooms.length"
+         grid-row>
   <hr />
   <div grid="12" ng-attr-id="{{!viewSettings.scrollToCompare ? 'jsRooms' : undefined}}">
-    <header class="section-header" ng-class="{'flexi-dates-displayed':showFlexibleDates && ratesLoaded && !(availableRooms && availableRooms.length === 0)}">
+    <header class="section-header"
+            ng-class="{'flexi-dates-displayed':showFlexibleDates && ratesLoaded && !(availableRooms && availableRooms.length === 0)}">
 
-      <h2 ng-bind-html="'_rooms_title_' | mainHeaderStyle" ng-if="!(availableRooms && availableRooms.length === 0) || (altRoomDatesAvailable && altRoomDatesAvailable.length) || (altProperties && altProperties.length)"></h2>
+      <h2 ng-bind-html="'_rooms_title_' | mainHeaderStyle"
+          ng-if="!(availableRooms && availableRooms.length === 0) || (altRoomDatesAvailable && altRoomDatesAvailable.length) || (altProperties && altProperties.length)">
+      </h2>
 
       <!-- search details -->
-      <div class="search-details" ng-if="roomsConfig.showRoomCount && !(availableRooms && availableRooms.length === 0) || (altRoomDatesAvailable && altRoomDatesAvailable.length) || (altProperties && altProperties.length)">
-        <ng-pluralize class="room-counter" count="(rooms|filter:roomsDisplayFilter).length" when="{'1': '1 _room_found_', 'other': '{} _rooms_found_'}"></ng-pluralize>
+      <div class="search-details"
+           ng-if="roomsConfig.showRoomCount && !(availableRooms && availableRooms.length === 0) || (altRoomDatesAvailable && altRoomDatesAvailable.length) || (altProperties && altProperties.length)">
+        <ng-pluralize class="room-counter"
+                      count="(rooms|filter:roomsDisplayFilter).length"
+                      when="{'1': '1 _room_found_', 'other': '{} _rooms_found_'}">
+        </ng-pluralize>
       </div>
 
-      <div class="products-not-available" ng-if="((!altRoomDatesAvailable || !altRoomDatesAvailable.length) && (!altProperties || !altProperties.length)) && availableRooms && availableRooms.length === 0">
+      <div class="products-not-available"
+           ng-if="((!altRoomDatesAvailable || !altRoomDatesAvailable.length) && (!altProperties || !altProperties.length)) && availableRooms && availableRooms.length === 0">
         <h3>_rooms_not_available_on_dates_title_</h3>
         <!-- USER SPECIFIES DATES -->
         <button-submit ng-click="selectDates()">_select_new_dates_</button-submit>
       </div>
 
-      <div class="filter-bar" ng-show="ratesLoaded && !(availableRooms && availableRooms.length === 0)">
-        <div class="order-switch-container" ng-show="!roomsConfig.hideOrderSwitch && hasDates() && availableRooms && availableRooms.length">
+      <div class="filter-bar"
+           ng-show="ratesLoaded && !(availableRooms && availableRooms.length === 0)">
+        <div class="order-switch-container"
+             ng-show="!roomsConfig.hideOrderSwitch && hasDates() && availableRooms && availableRooms.length">
           <span class="filter-label">_filter_sortby_label_:</span>
           <order-switch>
-            <select name="sorting" ng-model="currentOrder" disable-search="true" chosen ng-options="option.name for option in sortingOptions"
-              placeholder-text-single="_sorting_filter_placeholder_" ng-change="orderSwitchChange(currentOrder)" ng-init="initSortingOptions({
-                'priceLowToHigh': '_price_low_to_high_',
-                'priceHighToLow': '_price_high_to_low_',
-                'recommended': '_recommended_'
-              })">
+            <select name="sorting"
+                    ng-model="currentOrder"
+                    disable-search="true"
+                    chosen
+                    ng-options="option.name for option in sortingOptions"
+                    placeholder-text-single="_sorting_filter_placeholder_"
+                    ng-change="orderSwitchChange(currentOrder)"
+                    ng-init="initSortingOptions({
+                      'priceLowToHigh': '_price_low_to_high_',
+                      'priceHighToLow': '_price_high_to_low_',
+                      'recommended': '_recommended_'
+                    })">
             </select>
           </order-switch>
         </div>
         <div class="view-switch">
           <span class="filter-label">_filter_view_label_:</span>
           <ul>
-            <li class="list-view" ng-class="{'is-active': roomsViewMode !== 'compare'}" ng-click="setRoomsViewMode('list')">
-              <i class="fa fa-th-list fa-2x" title="Show as list" /> _filter_detail_label_
+            <li class="list-view"
+                ng-class="{'is-active': roomsViewMode !== 'compare'}"
+                ng-click="setRoomsViewMode('list')">
+              <i class="fa fa-th-list fa-2x" title="Show as list" />
+              _filter_detail_label_
             </li>
-            <li class="compare-view" ng-class="{'is-active': roomsViewMode === 'compare'}" ng-click="setRoomsViewMode('compare')">
-              <i class="fa fa-th fa-2x" title="Show as compare" /> _filter_compare_label_
+            <li class="compare-view"
+                ng-class="{'is-active': roomsViewMode === 'compare'}"
+                ng-click="setRoomsViewMode('compare')">
+              <i class="fa fa-th fa-2x" title="Show as compare" />
+              _filter_compare_label_
             </li>
           </ul>
         </div>
         <div class="pricing-switch-container" ng-show="hasDates() && !(availableRooms && availableRooms.length === 0)">
           <span class="filter-label">_filter_pricing_label_:</span>
           <pricing-switch>
-            <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">_per_night_</a> |
-            <a href ng-class="{'is-active': pricePer === PP_STAY, 'is-disabled': !days}" ng-click="days && setPricePer(PP_STAY)" title="{{ days ? '': 'Please select dates to enable per stay pricing'}}">
+            <a href
+               ng-class="{'is-active': pricePer === PP_NIGHT}"
+               ng-click="setPricePer(PP_NIGHT)">
+              _per_night_
+            </a> |
+            <a href
+               ng-class="{'is-active': pricePer === PP_STAY, 'is-disabled': !days}"
+               ng-click="days && setPricePer(PP_STAY)"
+               title="{{ days ? '': 'Please select dates to enable per stay pricing'}}">
               _per_stay_
             </a>
           </pricing-switch>
         </div>
-        <div class="reset-container" ng-if="showCompareRoomsReset && roomsViewMode === 'compare'">
-          <a href ng-click="resetCompareRooms()">_show_all_rooms_</a>
+        <div class="reset-container"
+             ng-if="showCompareRoomsReset && roomsViewMode === 'compare'">
+          <a href
+             ng-click="resetCompareRooms()">
+            _show_all_rooms_
+          </a>
         </div>
       </div>
-      <div class="flexible-dates-bar" ng-if="showFlexibleDates && ratesLoaded && !(availableRooms && availableRooms.length === 0)">
+      <div class="flexible-dates-bar"
+           ng-if="showFlexibleDates && ratesLoaded && !(availableRooms && availableRooms.length === 0)">
         <div class="overview-container">
           <span class="filter-label">_lowest_price_</span>
           <div class="overview">
@@ -90,7 +126,7 @@
       to="0"></section-image>
 
     <div class="hotel-detail__rooms" ng-if="roomsViewMode !== 'compare'" ng-include="'layouts/components/hotel-list-section.html'"></div>
-    
+
     <div class="preloader" ng-show="preloader.visible"></div>
 
     <header ng-if="!isMobile && viewSettings.compareView && viewSettings.compareView.displayHeader" class="compare-rooms-header" ng-attr-id="{{viewSettings.scrollToCompare ? 'jsRooms' : undefined}}">

@@ -100,11 +100,19 @@
     <!--<keystone-script></keystone-script>-->
     <!-- @TODO Use the new doc to send the event to activate keystone -->
     <!--<script src="https://lvh.me:8080/status.0.0.6.js"></script>-->
-    <script src="https://scripts.infiniti.io/sandman/status.js"></script>
+    <!--<script src="https://scripts.infiniti.io/sandman/status.js"></script>-->
 
   </head>
 
-  <body resize-watcher ng-controller="BaseCtrl" ng-style="{'background-image': 'url(' + $root.campaign.sideRails.railImage.uri + ')'}" ng-class="{'campaign-rails-active': $root.campaign.sideRails.display, 'campaign-bar-active':$root.campaign.headerBar.display, 'thirdparty-active':$root.thirdparty, 'cookie-disclaimer-visible':$root.euCookieDisclaimerVisible, 'scrolled':scrollService.scroll > scrollService.headerLogoTrigger}" >
+  <body resize-watcher
+        ng-controller="BaseCtrl"
+        ng-style="{'background-image': 'url(' + $root.campaign.sideRails.railImage.uri + ')'}"
+        ng-class="{'campaign-rails-active': $root.campaign.sideRails.display,
+                   'campaign-bar-active':$root.campaign.headerBar.display,
+                   'thirdparty-active':$root.thirdparty,
+                   'cookie-disclaimer-visible':$root.euCookieDisclaimerVisible,
+                   'scrolled':scrollService.scroll > scrollService.headerLogoTrigger}">
+
     <!-- Google Tag Manager -->
     <google-tag-manager-script></google-tag-manager-script>
     <!-- End Google Tag Manager -->

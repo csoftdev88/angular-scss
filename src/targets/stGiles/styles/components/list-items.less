@@ -1,0 +1,204 @@
+////////////////////
+//// LIST ITEMS ////
+////////////////////
+
+@import '../components/ribbons';
+
+@list-item-min-height: 187px;
+
+list-items {
+  margin-left:0;
+  margin-right:0;
+}
+
+pricing-switch {
+  color: @c-light-grey;
+  margin-right: 0;
+  a {
+    color: @c-light-grey;
+
+    &.is-active {
+      font-weight: normal;
+      color: @c-secondary;
+      .chain-sign &{
+        font-weight: 700;
+        color: @c-menu-active-sign;
+      }
+    }
+  }
+}
+
+list-item {
+
+  // Import ribbon mixin from ../components/ribbons
+  .use-ribbon();
+
+  // Add padding to the top if a ribbon is present in the same container
+  .member-ribbon ~ pricing-info {
+    padding-top: 30px;
+  }
+  // @note Why can I not do .member-ribbon, .highlight-ribbon ~ pricing-info ??
+  .highlight-ribbon ~ pricing-info {
+    padding-top: 30px;
+  }
+
+  .member-ribbon + .list-item-header {
+    margin-top: 30px;
+  }
+
+  .highlight-ribbon + .list-item-header {
+    margin-top: 30px;
+  }
+
+  earned-points {
+    margin-top: 10px;
+    &:before {
+      content: none;
+    }
+  }
+
+  h2{
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    color: @c-grey !important;
+    .chain-sign &{
+      font-weight: 400 !important;
+      font-family: @ff-heading-sign !important;
+    }
+  }
+
+  .list-item-header {
+    //height: 30px;
+
+    pricing-info {
+      display: none;
+      .viewport-mobile & {
+        margin-top:10px;
+      }
+    }
+
+    earned-points,
+    .noPointsAwarded {
+      font-style: normal;
+      font-weight: 700;
+      color: @c-secondary;
+      .chain-sign &{
+        color: @c-secondary-sign;
+      }
+      &:before{
+        content: none;
+      }
+    }
+  }
+  pricing-info{
+    p{
+      display: inline-block;
+      span:not(.points){
+        float: none;
+        clear: initial;
+        padding-right: 5px;
+      }
+    }
+    button-submit{
+      text-transform: uppercase;
+      font-size: 14px;
+      background: @lbe-c-primary;
+      border-radius: 2px;
+    }
+  }
+
+  description-info{
+    .action-links{
+      a{
+        color: @c-secondary;
+        font-size: 14px;
+        .chain-sign &{
+          color: @c-secondary-sign;
+        }
+      }
+    }
+  }
+
+  &.slashthrough {
+    pricing-info{
+      p{
+        display: block;
+        .original-price{
+          font-weight: 700;
+          .viewport-mobile & {
+            float:none;
+            margin-right:5px;
+          }
+        }
+        span:not(.points) {
+          float: initial;
+          display: block;
+          &:after {
+            left: initial;
+            width: 20%;
+          }
+        }
+        .value{
+          color: @c-grey;
+          .viewport-mobile & {
+            color:@c-secondary;
+          }
+          .chain-sign &{
+            color: @c-menu-active-sign;
+          }
+        }
+        .pricing-filter-label{
+          color: @c-grey;
+          font-weight: 300;
+          font-style: italic;
+        }
+        .value:not(.points){
+          float: none;
+          clear: initial;
+        }
+      }
+    }
+  }
+
+  &.is-member-only {
+    &.is-member-only-disabled{
+      button-submit,
+      .button{
+        background:@c-button;
+        border-radius: 2px;
+        box-shadow:0 1px 2px 0 rgba(0, 0, 0, 0.5);
+        text-transform:uppercase;
+        .viewport-mobile & {
+          background:@c-secondary;
+          border-radius:8px;
+          text-transform:initial;
+        }
+      }
+    }
+  }
+}
+
+
+//- List Items - Grid
+list-items.grid-view {
+
+  list-item {
+
+  	&:last-of-type{
+  		border: none;
+  	}
+
+  	//- Image
+    figure {
+      margin-bottom: 0;
+    }
+
+    //- Heading
+    h2 {
+      color: @c-primary;
+      font-size: @size-1;
+      font-weight: normal;
+    }
+
+  }
+}

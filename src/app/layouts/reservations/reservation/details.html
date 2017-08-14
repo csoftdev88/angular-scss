@@ -28,6 +28,7 @@
                 ng-if="!isMobile && profileTitles"
                 ng-model="userDetails.title"
                 name="title"
+                disable-search="true"
                 autocomplete="honorific-prefix"
                 chosen>
           <option value="">_title_label_</option>
@@ -36,7 +37,7 @@
           placeholder="_title_label_"
           placeholder-text-single="_title_label_"
           ng-options="title.id as title.name for title in profileTitles"
-          ng-if="isMobile"
+          ng-if="isMobile" disable-search="true"
           ng-model="userDetails.title" autocomplete="honorific-prefix"
           name="title">
           <option value="">_title_label_</option>

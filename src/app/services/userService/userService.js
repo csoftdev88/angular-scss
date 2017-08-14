@@ -167,18 +167,14 @@ angular.module('mobiusApp.services.user', [])
           return loadRewards(getCustomerId());
         })
           .then(function() {
-
             userObject = mapKeystoneUserToMobiusUser(window.KS.$me.get());
 
             var headers = {};
             headers[HEADER_INFINITI_SSO] = getStoredUser().token;
             apiService.setHeaders(headers);
-
             return authPromise.resolve(true);
-
           });
-      } else {
-        var customerId = getCustomerId();
+      } else {var customerId = getCustomerId();
 
         //We need token to load mobius profile
         if(Settings.authType === 'mobius' && !(userObject.token || getStoredUser().token)){
@@ -275,8 +271,11 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function logout() {
-
-      if (! window.KS.$me) {
+      if (window.KS.$me) {
+        window.KS.$me.revoke().then(function() {
+          $state.go('home', {});
+        });
+      } else {
         $rootScope.$evalAsync(function(){
           userObject = {};
           $state.go('home', {}, {reload: true});
@@ -337,6 +336,13 @@ angular.module('mobiusApp.services.user', [])
     }
     else{
       loadProfile();
+    }
+
+    function isLoggedIn() {
+      if (Settings.authType === 'keystone') {
+        return keystoneIsAuthenticated();
+      }
+      return !!(userObject.id && userObject.email);
     }
 
     var emptyUser = {
@@ -411,9 +417,6 @@ angular.module('mobiusApp.services.user', [])
     }
 
     return {
-      isLoggedIn: function() {
-        return keystoneIsAuthenticated();
-      },
       getProfileUrl: function() {
         return (keystoneIsAuthenticated()) ? window.KS.$url.PROFILE : '#';
       },
@@ -436,6 +439,7 @@ angular.module('mobiusApp.services.user', [])
       getStoredUser: getStoredUser,
       clearStoredUser: clearStoredUser,
       storeUserCurrency: storeUserCurrency,
-      getUserCurrency: getUserCurrency
+      getUserCurrency: getUserCurrency,
+      isLoggedIn: isLoggedIn
     };
   });

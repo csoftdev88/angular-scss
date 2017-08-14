@@ -1,38 +1,70 @@
-<hero-slider content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
+<div class="PrestigePage__bg" ng-if="config.useBackground"></div>
 
-<breadcrumbs stickable="main-header"></breadcrumbs>
+<hero-slider content="heroContent"
+             ng-if="!config.hideHero"
+             slide-width="uiConfig.heroSlider.slideWidth"
+             slide-height="uiConfig.heroSlider.slideHeight">
+</hero-slider>
 
-<main class="grid-wrapper">
+<breadcrumbs stickable="main-header" ng-if="!config.hideBreadCrumbs"></breadcrumbs>
+
+<main class="grid-wrapper PrestigePage">
 
   <div class="preloader" ng-show="!dataLoaded"></div>
 
-  <prestige-account id="prestige-account" grid-row ng-show="dataLoaded">
+  <prestige-account id="prestige-account"
+                    grid-row
+                    ng-show="dataLoaded">
 
     <div grid="12">
 
       <header>
         <div class="bg"></div>
-        <h1 ng-bind-html="'_your_balance_:&nbsp;' | mainHeaderStyle"></h1>
-        <p class="points">{{prestigeData.pointsBalance}} _points_</p>
+        <h1 class="Prestige__balance" ng-bind-html="'_your_balance_:&nbsp;' | mainHeaderStyle"></h1>
+        <p class="points Prestige__points">
+          {{prestigeData.pointsBalance}} _points_
+        </p>
       </header>
 
       <div class="transactions">
 
         <nav>
           <h2 class="title">
-            <span ng-if="viewMode === 'recent'"><span ng-bind-html="'_recent_transactions_' | mainHeaderStyle"></span></span>
-            <span ng-if="viewMode === 'pending'"><span ng-bind-html="'_pending_transactions_' | mainHeaderStyle"></span><em>_prestige_account_pending_desc_</em></span>
+            <span ng-if="viewMode === 'recent'">
+              <span ng-bind-html="'_recent_transactions_' | mainHeaderStyle"></span>
+            </span>
+            <span ng-if="viewMode === 'pending'">
+              <span ng-bind-html="'_pending_transactions_' | mainHeaderStyle"></span>
+              <em>_prestige_account_pending_desc_</em>
+            </span>
           </h2>
-          <ul>
-            <li><a href="" ng-click="viewMode = 'recent'" ng-class="{'active': viewMode === 'recent'}"><span ng-if="!isMobile()">_recent_</span><span ng-if="isMobile()">_recent_transactions_</span></a></li>
-            <li ng-show="prestigeData.deferredTransactions.length"><a href="" ng-click="viewMode = 'pending'" ng-class="{'active': viewMode === 'pending'}"><span ng-if="!isMobile()">_pending_</span><span ng-if="isMobile()">_pending_transactions_</span></a></li>
+          <ul class="Prestige__view-switches">
+            <li>
+              <a href=""
+                 ng-click="viewMode = 'recent'"
+                 ng-class="{'active': viewMode === 'recent'}">
+                <span ng-if="!isMobile()">_recent_</span>
+                <span ng-if="isMobile()">_recent_transactions_</span>
+              </a>
+            </li>
+            <li ng-show="prestigeData.deferredTransactions.length">
+              <a href=""
+                 ng-click="viewMode = 'pending'"
+                 ng-class="{'active': viewMode === 'pending'}">
+                <span ng-if="!isMobile()">_pending_</span>
+                <span ng-if="isMobile()">_pending_transactions_</span>
+              </a>
+            </li>
           </ul>
         </nav>
 
         <!-- Recent transactions -->
-        <ul class="transaction-items" ng-if="viewMode === 'recent'">
+        <ul class="transaction-items"
+            ng-if="viewMode === 'recent'">
 
-          <li dir-paginate="item in prestigeData.recentTransactions | itemsPerPage: 10" pagination-id="recent" ng-init="item.showComments = false">
+          <li dir-paginate="item in prestigeData.recentTransactions | itemsPerPage: 10"
+              pagination-id="recent"
+              ng-init="item.showComments = false">
 
             <!-- Account creation -->
             <div ng-if="item.type === 1">
@@ -80,7 +112,11 @@
 
               <div class="transaction-value">
                 <div class="label">_transaction_</div>
-                <h4 class="value" ng-class="{'negative': item.amount < 0, 'positive': item.amount > 0}"><span ng-if="item.amount > 0">+</span>{{item.amount}}</h4>
+                <h4 class="value"
+                    ng-class="{'negative': item.amount < 0, 'positive': item.amount > 0}">
+                  <span ng-if="item.amount > 0">+</span>
+                  {{item.amount}}
+                </h4>
               </div>
 
               <div class="balance">
@@ -100,8 +136,17 @@
               <div class="description">
                 <div class="label">_manual_entry_</div>
                 <h4 class="value">_manually_added_points_</h4>
-                <p class="detail" ng-class="{'open': item.showComments}" ng-if="item.comments">{{item.comments}}</p>
-                <a href="" class="comments-toggle" ng-click="item.showComments = !item.showComments" ng-if="item.comments"><span ng-if="!item.showComments">_show_comments_</span><span class="hide" ng-if="item.showComments">_hide_comments_</span></a>
+                <p class="detail"
+                   ng-class="{'open': item.showComments}"
+                   ng-if="item.comments">{{item.comments}}
+                </p>
+                <a href=""
+                   class="comments-toggle"
+                   ng-click="item.showComments = !item.showComments"
+                   ng-if="item.comments">
+                  <span ng-if="!item.showComments">_show_comments_</span>
+                  <span class="hide" ng-if="item.showComments">_hide_comments_</span>
+                </a>
               </div>
 
               <div class="transaction-value">
@@ -126,8 +171,18 @@
               <div class="description">
                 <div class="label">_manual_reduction_</div>
                 <h4 class="value">_manually_removed_points_</h4>
-                <p class="detail" ng-class="{'open': item.showComments}" ng-if="item.comments">{{item.comments}}</p>
-                <a href="" class="comments-toggle" ng-click="item.showComments = !item.showComments" ng-if="item.comments"><span ng-if="!item.showComments">_show_comments_</span><span class="hide" ng-if="item.showComments">_hide_comments_</span></a>
+                <p class="detail"
+                   ng-class="{'open': item.showComments}"
+                   ng-if="item.comments">
+                  {{item.comments}}
+                </p>
+                <a href=""
+                   class="comments-toggle"
+                   ng-click="item.showComments = !item.showComments"
+                   ng-if="item.comments">
+                  <span ng-if="!item.showComments">_show_comments_</span>
+                  <span class="hide" ng-if="item.showComments">_hide_comments_</span>
+                </a>
               </div>
 
               <div class="transaction-value">
@@ -165,8 +220,53 @@
               </div>
 
               <div class="transaction-value">
-                <div class="label" ng-if="item.amount !== 0">_transaction_</div>
-                <h4 class="value" ng-class="{'positive': item.amount > 0, 'negative': item.amount < 0}" ng-if="item.amount !== 0"><span ng-if="item.amount > 0">+</span>{{item.amount}}</h4>
+                <div class="label"
+                     ng-if="item.amount !== 0">
+                  _transaction_
+                </div>
+                <h4 class="value"
+                    ng-class="{'positive': item.amount > 0, 'negative': item.amount < 0}"
+                    ng-if="item.amount !== 0">
+                  <span ng-if="item.amount > 0">+</span>
+                  {{item.amount}}
+                </h4>
+              </div>
+
+              <div class="balance">
+                <div class="label">_balance_</div>
+                <h4 class="value">{{item.balance}}</h4>
+              </div>
+            </div>
+            <!-- End Reward purchased/cancelled -->
+
+            <!-- Reward from answering poll -->
+            <div ng-if="item.type === 5">
+              <div class="date">
+                <div class="label">
+                  <span>_date_redeemed_</span>
+                </div>
+                <div class="value">{{formatDate(item.date, 'DD MMM YYYY')}}</div>
+              </div>
+
+              <div class="description">
+                <div class="label">_reward_name_</div>
+                <h4 class="value">
+                  <span>_redeemed_&nbsp;-&nbsp;</span>
+                  {{ item.title }}
+                </h4>
+              </div>
+
+              <div class="transaction-value">
+                <div class="label"
+                     ng-if="item.amount !== 0">
+                  _transaction_
+                </div>
+                <h4 class="value"
+                    ng-class="{'positive': item.amount > 0, 'negative': item.amount < 0}"
+                    ng-if="item.amount !== 0">
+                  <span ng-if="item.amount > 0">+</span>
+                  {{item.amount}}
+                </h4>
               </div>
 
               <div class="balance">
@@ -180,13 +280,18 @@
 
         </ul>
 
-        <dir-pagination-controls pagination-id="recent" ng-if="viewMode === 'recent'" on-page-change="onPageChange()"></dir-pagination-controls>
+        <dir-pagination-controls pagination-id="recent"
+                                 ng-if="viewMode === 'recent'"
+                                 on-page-change="onPageChange()">
+        </dir-pagination-controls>
         <!-- End Recent transactions -->
 
         <!-- Pending transactions -->
-        <ul class="transaction-items pending" ng-if="viewMode === 'pending'">
+        <ul class="transaction-items pending"
+            ng-if="viewMode === 'pending'">
 
-          <li dir-paginate="item in prestigeData.deferredTransactions | itemsPerPage: 10" pagination-id="pending">
+          <li dir-paginate="item in prestigeData.deferredTransactions | itemsPerPage: 10"
+              pagination-id="pending">
 
             <div class="date">
               <div class="label">_date_booked_</div>
@@ -217,7 +322,10 @@
 
         </ul>
 
-        <dir-pagination-controls pagination-id="pending" ng-if="viewMode === 'pending'" on-page-change="onPageChange()"></dir-pagination-controls>
+        <dir-pagination-controls pagination-id="pending"
+                                 ng-if="viewMode === 'pending'"
+                                 on-page-change="onPageChange()">
+        </dir-pagination-controls>
         <!-- End pending transactions -->
 
       </div>

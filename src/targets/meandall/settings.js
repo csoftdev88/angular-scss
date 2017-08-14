@@ -418,6 +418,7 @@ angular.module('mobiusApp.config', [])
         'hotels': false,
         'location': true
       },
+      'scrollToRates': 20,
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
       'numberOfRoomsAddedOnMobile': 2,
@@ -562,6 +563,7 @@ angular.module('mobiusApp.config', [])
       'numberOfRatesToShow': 5,
       'showDescription': false,
       'showDescriptionBottom': true,
+      'showOtherRoomsTitle': true,
       //show room highlight before description
       'showRoomHighlight': true,
       'includeTripAdvisorPreloader': false,
@@ -690,11 +692,12 @@ angular.module('mobiusApp.config', [])
       'breakdownLinkAfterTotal':true,
       'displayActionsInDetails':true,
       'displayPoliciesInDetails':true,
+      'useSingleRowData': true,
       'displayPropertyNameInDetails':true,
       'displayConfirmationNumberInDetails':true,
       'displayBookingDateInDetails': true,
       'addonNameAsDescriptionTitle':true,
-      'modifyButtonsAfterDetails':true,
+      'modifyButtonsAfterDetails':false,
       'largeRoomImage': true,
       'largePropertyImage': true,
       'descriptionUnderTitle': true,
@@ -1198,6 +1201,7 @@ angular.module('mobiusApp.config', [])
         'hideBreadcrumbs': true,
         'defaultViewMode': 'compare',
         'scrollToOffset': 10,
+        'showSubNav': false,
         'compareView':{
           'hideOnMobile':true,
           'headingTop':true,

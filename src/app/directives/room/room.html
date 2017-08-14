@@ -30,6 +30,13 @@
     <p class="description" ng-bind-html="sanitize(roomDetails.description)"></p>
   </section>
 
+
+  <button ng-click="openBookingBar()"
+          ng-if="isMobile"
+          class="Home__hero--button">
+    _search_
+  </button>
+
   <section ng-if="filteredAmenities.length && viewSettings.showAmenitiesTop" class="room-amenities">
     <h2 ng-bind-html="'_room_amenities_title_' | mainHeaderStyle"></h2>
     <input ng-if="roomDetails && config.restrictAmenities" type="checkbox" class="amenities-reveal-state" id="hotel-amenities" />
@@ -46,7 +53,7 @@
   <section ng-if="products" class="products-section">
     <div class="product-rates" ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
       <!-- <hr class="dividerWithoutImage"/> -->
-      <list-items ng-if="products.length">
+      <list-items ng-if="products.length" id="RatesList">
 
         <div class="controls">
           <order-switch ng-show="hasDates && products.length > 1">
@@ -77,7 +84,7 @@
           <div class="list-item-highlight-label member-ribbon" ng-if="product.memberOnly">_members_only_rate_</div>
           <div class="list-item-highlight-label highlight-ribbon" ng-if="product.highlighted">_most_booked_package_</div>
           <div class="list-item-header">
-            <h2 ng-bind-html="product.name | mainHeaderStyle"></h2>
+            <h2 class="product-title" ng-bind-html="product.name | mainHeaderStyle"></h2>
 
             <pricing-info>
               <p>
@@ -92,8 +99,15 @@
               </p>
             </pricing-info>
 
-            <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned && loyaltyProgramEnabled && product.productAwardPoints">_earn_
-              <ng-pluralize count="getValuePer(product.price.pointsEarned, true).toFixed(0)" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
+            <earned-points ng-if="isUserLoggedIn() &&
+                                  product.price.pointsEarned &&
+                                  loyaltyProgramEnabled &&
+                                  product.productAwardPoints">
+              _earn_
+              <ng-pluralize count="getValuePer(product.price.pointsEarned, true).toFixed(0)"
+                            when="{'1': '{} point', 'other': '{} points'}">
+              </ng-pluralize>
+
             </earned-points>
             <p class="noPointsAwarded" ng-if="isUserLoggedIn() && !product.productAwardPoints && loyaltyProgramEnabled">_no_points_rate_desc_</p>
           </div>
@@ -103,7 +117,7 @@
               <span class="original-price" ng-if="product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
               <span class="value">{{getValuePer(product.price.totalBaseAfterPricingRules, true) | i18nCurrency: currencyCode}}</span>
               <span class="pricing-filter-label" ng-if="pricePer === PP_NIGHT">_per_night_</span><span ng-if="pricePer === PP_STAY">_per_stay_</span>
-              <span ng-if="isUserLoggedIn() && product.price.pointsRequired && loyaltyProgramEnabled && product.allowPointsBooking">
+              <span ng-if="isUserLoggedIn() && product.price.pointsRequired && (loyaltyProgramEnabled || isLoyaltyEngine) && product.allowPointsBooking">
               <br />_or_ <span class="value points">{{getValuePer(product.price.pointsRequired, true).toFixed(0)}}</span>              _points_
               </span>
             </p>
@@ -116,29 +130,64 @@
           </pricing-info>
 
           <description-info>
+
             <div>
-              <a href="" class="tagline" ng-if="viewSettings.showTagline && product.tagline && product.tagline !== ''" ng-click="openRoomDetailsDialog(product)">{{product.tagline}}</a>
+
+              <a href=""
+                 class="tagline"
+                 ng-if="viewSettings.showTagline && product.tagline && product.tagline !== ''"
+                 ng-click="openRoomDetailsDialog(product)">
+                {{product.tagline}}
+              </a>
               <!-- NOTE: API will return descriptionShort prop, full description will be used in
               room details dialogue -->
               <div ng-bind-html="sanitize(product.descriptionShort || product.description)"></div>
 
-              <inclusions ng-if="viewSettings.showInclusions && product.inclusions" class="product-inclusions" inclusions="product.inclusions"></inclusions>
+              <inclusions ng-if="viewSettings.showInclusions && product.inclusions"
+                          class="product-inclusions"
+                          inclusions="product.inclusions">
+              </inclusions>
 
               <p class="action-links">
-                <a href ng-click="openPriceBreakdownInfo(product)" ng-if="product.price.breakdowns.length && !config.rateInfoIsTabbed">_view_price_breakdown_</a>
+                <a href
+                   ng-click="openPriceBreakdownInfo(product)"
+                   ng-if="product.price.breakdowns.length && !config.rateInfoIsTabbed">
+                  _view_price_breakdown_
+                </a>
+
                 <span ng-if="product.price.breakdowns.length && !config.rateInfoIsTabbed">&nbsp;&nbsp; | &nbsp;&nbsp;</span>
-                <a href ng-click="openPoliciesInfo([product])" ng-if="product.policies && !config.rateInfoIsTabbed">_view_policies_</a>
+
+                <a href ng-click="openPoliciesInfo([product])"
+                   ng-if="product.policies && !config.rateInfoIsTabbed">
+                  _view_policies_
+                </a>
+
                 <span ng-if="product.policies && !config.rateInfoIsTabbed">&nbsp;&nbsp; | &nbsp;&nbsp;</span>
-                <a href ng-click="openRoomDetailsDialog(product)" ng-if="openRoomDetailsDialog"><span ng-if="!config.rateInfoIsTabbed">_read_more_</span><span ng-if="config.rateInfoIsTabbed">_view_price_breakdown_policies_</span></a>
+
+                <a href
+                   ng-click="openRoomDetailsDialog(product)"
+                   ng-if="openRoomDetailsDialog">
+                  <span ng-if="!config.rateInfoIsTabbed">_read_more_</span>
+                  <span ng-if="config.rateInfoIsTabbed">_view_price_breakdown_policies_</span>
+                </a>
+
               </p>
             </div>
           </description-info>
           <div class="wide-button">
-            <button-submit class="wide-button-room-details" role="button" tabindex="0" ng-click="selectProduct(product)" ng-hide="product.memberOnly && !isUserLoggedIn()">
+            <button-submit class="wide-button-room-details"
+                           role="button"
+                           tabindex="0"
+                           ng-click="selectProduct(product)"
+                           ng-hide="product.memberOnly && !isUserLoggedIn()">
               _book_now_
             </button-submit>
-            <a href class="button wide-button-room-details" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()"
-              ng-click="auth.login()">Login</a>
+            <a href
+               class="button wide-button-room-details"
+               ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()"
+               ng-click="auth.login()">
+              _login_
+            </a>
           </div>
           <i class="fa fa-angle-right product-link" ng-if="config.ratesAsLinks"/>
         </list-item>

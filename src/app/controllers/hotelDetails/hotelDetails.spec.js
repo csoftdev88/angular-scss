@@ -135,7 +135,7 @@ describe('mobius.controllers.hotel.details', function() {
         });
 
         $provide.value('stateService', {
-          getAppLanguageCode: function(){},
+          getAppLanguageCode: function(){ return 'en-us'; },
           isMobile: function(){}
         });
 
@@ -173,7 +173,11 @@ describe('mobius.controllers.hotel.details', function() {
           propertySlug: 'vancouver'
         });
 
-        $provide.value('DynamicMessages', {});
+        $provide.value('DynamicMessages', {
+          'en-us': {
+            'subNavLinks': []
+          }
+        });
 
         $provide.value('Settings', {
           UI: {
