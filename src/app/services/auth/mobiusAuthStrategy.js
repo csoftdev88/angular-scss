@@ -15,7 +15,7 @@
     .module('mobiusApp.services.auth.mobius', [])
     .service( 'mobiusAuthStrategy', MobiusAuthStrategy);
 
-  function MobiusAuthStrategy($rootScope, $q, $timeout, $state, user, apiService, userObject) {
+  function MobiusAuthStrategy($rootScope, $q, $timeout, $state, user, apiService, userObject, $log) {
 
     // The header's attributes name
     var AUTH_HEADER = 'mobius-authentication';
@@ -147,8 +147,13 @@
       $rootScope.showRegisterDialog = !$rootScope.showRegisterDialog;
     };
 
+    /**
+     * Function to direct the user to the profile page
+     */
     this.viewProfile = function () {
-      $state.go('profile');
+      if (this.isLoggedIn()) {
+        $state.go('profile');
+      }
     };
 
   }

@@ -88,6 +88,10 @@ describe('mobius.controllers.hotel.details', function() {
           moment: sinon.stub()
         });
 
+        $provide.value('infinitiApeironService', {
+          trackResults: function() {}
+        });
+
         $provide.value('channelService', {
           getChannel: function() {
             return {

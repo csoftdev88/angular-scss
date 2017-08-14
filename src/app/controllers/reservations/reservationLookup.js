@@ -4,8 +4,9 @@
  */
 angular.module('mobius.controllers.reservationLookup', [])
 
-  .controller('ReservationLookupCtrl', function($scope, $controller, $state,
-    chainService, Settings, breadcrumbsService, modalService, reservationService, $rootScope, $timeout){
+  .controller('ReservationLookupCtrl', function($scope, $controller, $state, chainService, Settings,
+                                                breadcrumbsService, modalService, reservationService,
+                                                $rootScope, $timeout, user, apiService){
 
     //$controller('MainCtrl', {$scope: $scope});
     breadcrumbsService.addBreadCrumb('Reservation Lookup');
@@ -35,7 +36,19 @@ angular.module('mobius.controllers.reservationLookup', [])
         return;
       }
 
-      reservationService.find($scope.formData.fields.subject, $scope.formData.fields.email).then(function(data){
+      var email = $scope.formData.fields.email;
+
+      var headers = apiService.getHeaders();
+
+      // This is a hotfix for the lookup issue
+      // The issues is being caused by the api service auth header not being included in
+      // sessions that are not 'new'. To get around this we will manually send the email if the user is logged in
+      // and the auth header is not available
+      if ($scope.auth.isLoggedIn() && !(headers['mobius-authentication'] || headers['keystone-authentication'])) {
+        email = user.getUser().email;
+      }
+
+      reservationService.find($scope.formData.fields.subject, email).then(function(data){
         // Redirecting to reservation details
         var stateParams = {
           reservationCode: data.reservationCode,

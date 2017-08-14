@@ -74,7 +74,7 @@
         </header>
 
         <div class="tables">
-          <figure ng-switch="!config.isEditable && reservation.status !== 'Cancelled'">
+          <figure ng-switch="isEditable && reservation.status !== 'Cancelled'">
 
             <img ng-if="!config.largeRoomImage && roomDetails.images[0].uri"
                  class="RoomImage"
@@ -89,7 +89,6 @@
             <div ng-if="!roomDetails.images[0].uri"
                  class="room-image-placeholder">
             </div>
-
             <!-- TODO: Add actions to buttons -->
             <button ng-switch-when="true"
                     class="button"
@@ -434,8 +433,7 @@
     <!-- AVAILABLE ADDONS -->
     <section grid-row
              class="reservation-enhance"
-             ng-if="availableAddons.length">
-
+             ng-if="availableAddons.length && (reservation.rooms.length === 1)">
       <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
         <h3 ng-bind-html="'_reservation_enhance_title_' | mainHeaderStyle"></h3>
         <ul>
@@ -619,6 +617,5 @@
   </section-image>
 
   <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>
-
 
 </main>

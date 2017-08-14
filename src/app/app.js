@@ -506,6 +506,11 @@ angular
     }
   }
 
+  var profileLayout = 'layouts/profile/profile.html';
+  if (Settings.authType === 'keystone') {
+    profileLayout = 'layouts/profile/keystoneProfile.html';
+  }
+
   // Rewards page
   $stateProvider.state('rewards', {
     parent: 'root',
@@ -634,9 +639,12 @@ angular
       //Otherwise if page is recognised and the page is in the reservation flow or is /reservations, set the status code to 403
       $rootScope.prerenderStatusCode = '403';
     } else { //Otherwise set as 200 ok
+      $('link[rel="canonical"]').first().attr('href', $location.protocol() + '://' + $location.host() + $location.path());
       $rootScope.prerenderStatusCode = '200';
     }
   });
+
+  $('link[rel="canonical"]').first().attr('href', $location.protocol() + '://' + $location.host() + $location.path());
 
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
     $state.fromState = fromState;
@@ -648,6 +656,7 @@ angular
     if(infinitiApeironService.isSinglePageApp){
       infinitiApeironService.trackPageView($location.path() + $window.location.search);
     }
+    infinitiApeironService.trackPage($location.path() + $window.location.search);
   });
   //Facebook
   $rootScope.facebookAppId = Settings.UI.generics.facebookAppId;
@@ -928,11 +937,11 @@ angular
   });
 
   function getStartDate(dates) {
-    return $window.moment(dates.substring(0, dates.indexOf('_'))).format(Settings.UI.generics.longDateFormat);
+    return $window.moment(dates.substring(0, dates.indexOf('_'))).format(Settings.UI.datepicker.dateFormat);
   }
 
   function getEndDate(dates) {
-    return $window.moment(dates.substring(dates.indexOf('_') + 1, dates.length)).format(Settings.UI.generics.longDateFormat);
+    return $window.moment(dates.substring(dates.indexOf('_') + 1, dates.length)).format(Settings.UI.datepicker.dateFormat);
   }
 
   $scope.$on('$stateChangeSuccess', function() {

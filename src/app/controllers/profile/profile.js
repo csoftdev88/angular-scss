@@ -10,7 +10,7 @@
 
   function Profile($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user,
                    $timeout, _, chainService, metaInformationService, $location, Settings, propertyService,
-                   scrollService, UrlService, $log, $rootScope){
+                   scrollService, UrlService, $rootScope, $log) {
 
     //check if user is logged in
     function onAuthorized() {

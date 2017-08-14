@@ -192,6 +192,10 @@ angular.module('mobiusApp.services.api', [])
     _.extend(headers, obj);
   }
 
+  function getHeaders() {
+    return headers;
+  }
+
   function handleSessionDataHeaders(){
     if(Settings.API.sessionData.includeInApiCalls && sessionCookie){
       setHeaders(sessionCookie);
@@ -365,7 +369,8 @@ angular.module('mobiusApp.services.api', [])
     infinitiApeironPost: infinitiApeironPost,
     trackUsage: trackUsage,
     sendApeironAlert: sendApeironAlert,
-    mobiusTrackingPost: mobiusTrackingPost
+    mobiusTrackingPost: mobiusTrackingPost,
+    getHeaders: getHeaders
   };
   return api;
 });

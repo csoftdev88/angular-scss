@@ -134,24 +134,27 @@ angular.module('mobiusApp.services.user', [])
       $window.document.cookie = 'MobiusCurrencyCode' + '=' + currency + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
       userObject.currencyCode = currency;
       if (Settings.authType === 'keystone' && keystoneIsAuthenticated()) {
-        window.KS.$me.update({
-          Currency: currency
-        })
+        return window.KS.$me
+          .update({
+            Currency: currency
+          })
           .then(function(updatedUser) {
             userObject = updatedUser;
           });
+      } else {
+        var defer = $q.defer();
+        defer.resolve();
+        return defer.promise;
       }
     }
 
     function getUserCurrency() {
       if (Settings.authType === 'keystone') {
         if (keystoneIsAuthenticated()) {
-          return window.KS.$me.get().Currency || 'CAD';
-        } else {
-          return 'CAD';
+          return window.KS.$me.get().Currency || Settings.UI.currencies.default.code;
         }
       }
-      return cookieFactory('MobiusCurrencyCode');
+      return cookieFactory('MobiusCurrencyCode') || Settings.UI.currencies.default.code;
     }
 
     function loadProfile() {
@@ -171,8 +174,7 @@ angular.module('mobiusApp.services.user', [])
             apiService.setHeaders(headers);
             return authPromise.resolve(true);
           });
-      } else {
-        var customerId = getCustomerId();
+      } else {var customerId = getCustomerId();
 
         //We need token to load mobius profile
         if(Settings.authType === 'mobius' && !(userObject.token || getStoredUser().token)){

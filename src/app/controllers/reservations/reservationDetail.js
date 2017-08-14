@@ -114,13 +114,13 @@
               }
             });
 
-            console.log(policies);
 
-            return {
-              name: room.productName,
-              policies: policies
-            };
-          });
+
+          return {
+            name: room.productName,
+            policies: policies
+          };
+        });
 
           modalService.openPoliciesInfo(products);
         };

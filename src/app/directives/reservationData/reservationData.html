@@ -1,5 +1,6 @@
 <div ng-click="$state.go('reservationDetail', {reservationCode: reservation.reservationCode, showActionButtons: true})">
   <i class="fa fa-chevron-right" aria-hidden="true" ng-if="uiConfig.buttonSubmit.reservationData"></i>
+  <i class="fa fa-chevron-right" aria-hidden="true" ng-if="uiConfig.buttonSubmit.reservationData"></i>
   <div class="property-preview">
     <img ng-src="{{property.images[0].uri | cloudinaryImage : 430 : 300 : 'fill'}}" err-source="/static/images/hotel.jpg" alt="{{property.nameShort}}">
   </div>

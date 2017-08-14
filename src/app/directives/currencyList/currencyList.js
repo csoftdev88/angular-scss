@@ -98,19 +98,21 @@
             queryService.removeParam('currency');
           }
 
-          user.storeUserCurrency(currency.code);
-          var currencyObj = {};
-          currencyObj['mobius-currencycode'] = currency.code;
-          apiService.setHeaders(currencyObj);
-          if(reload){
-            $timeout(function () {
-              $rootScope.currencyCode = currency.code;
-              $state.go($state.current.name, $stateParams, {reload: true});
-            }, 50);
-          }
-          else{
-            $rootScope.currencyCode = currency.code;
-          }
+          user.storeUserCurrency(currency.code)
+            .then(function () {
+              var currencyObj = {};
+              currencyObj['mobius-currencycode'] = currency.code;
+              apiService.setHeaders(currencyObj);
+              if(reload){
+                $timeout(function () {
+                  $rootScope.currencyCode = currency.code;
+                  $state.go($state.current.name, $stateParams, {reload: true});
+                }, 50);
+              }
+              else{
+                $rootScope.currencyCode = currency.code;
+              }
+            });
         }
       }
     };

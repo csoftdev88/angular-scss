@@ -55,18 +55,20 @@
 
     $scope.data = data;
 
-    $scope.viewSearch = function(search) {
-      previousSearchesService.getSearchUrlParams(search)
-        .then(function(params) {
-          search.params = params;
-          $scope.cancel();
-          //Go to this search URL
-          $state.go(search.s, search.params, {reload: true});
-        })
-        .catch(function(err) {
-          $log.error(err);
-        });
-    };
+  $scope.viewSearch = function(search){
+
+    previousSearchesService.getSearchUrlParams(search)
+      .then(function(params){
+        search.params = params;
+        $scope.cancel();
+        //Go to this search URL
+        $state.go(search.s, search.params, {reload: true});
+      })
+      .catch(function (err) {
+        $log.error(err);
+      });
+
+  };
 
     $scope.removeSearch = function(searchToRemove) {
       //Hide search from modal
