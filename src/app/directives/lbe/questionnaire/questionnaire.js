@@ -5,7 +5,7 @@
  */
 (function() {
   angular
-    .module('mobiusApp.directives.lbe.questionnaire', [])
+    .module('mobiusApp.directives.lbe.questionnaire', ['mobiusApp.services.polls'])
     .directive('questionnaire', ['Settings', '$log', 'polls', 'userObject', 'DynamicMessages', 'stateService',
                                  'rewardsService', '$controller', '_', 'reservationService', 'propertyService',
                                  'apiService', '$q', 'user', Questionnaire]);
