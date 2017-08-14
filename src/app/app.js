@@ -245,10 +245,15 @@ angular
   var aboutLayout = 'layouts/about/about.html';
   var indexLayout = 'layouts/index.html';
   var homeLayout = 'layouts/home/home.html';
+  var profileLayout = 'layouts/profile/profile.html';
   if (Settings.engine === 'loyalty') {
     aboutLayout = 'layouts/lbe/about/about.html';
     indexLayout = 'layouts/lbe/index.html';
     homeLayout = 'layouts/lbe/home/home.html';
+    profileLayout = 'layouts/lbe/profile/profile.html';
+  }
+  if (Settings.authType === 'keystone') {
+    profileLayout = 'layouts/profile/keystoneProfile.html';
   }
 
   $stateProvider
@@ -499,11 +504,6 @@ angular
         controller: 'OffersCtrl'
       });
     }
-  }
-
-  var profileLayout = 'layouts/profile/profile.html';
-  if (Settings.authType === 'keystone') {
-    profileLayout = 'layouts/profile/keystoneProfile.html';
   }
 
   // Rewards page
