@@ -15,7 +15,7 @@
     .module('mobiusApp.services.auth.mobius', [])
     .service( 'mobiusAuthStrategy', MobiusAuthStrategy);
 
-  function MobiusAuthStrategy($rootScope, $q, $timeout, $state, user, apiService, userObject, $log) {
+  function MobiusAuthStrategy($rootScope, $q, $timeout, $state, user, apiService, userObject) {
 
     // The header's attributes name
     var AUTH_HEADER = 'mobius-authentication';
