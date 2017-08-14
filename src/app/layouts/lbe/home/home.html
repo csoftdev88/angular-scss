@@ -1,6 +1,6 @@
 <div class="About__hero">
 
-  <div class="About__hero--info">
+  <div class="About__hero--info" ng-if="auth.isLoggedIn()">
 
     <h2 class="About__hero--tagline">
       _about_tagline_
@@ -16,28 +16,41 @@
 
 </div>
 
-<div class="Home__hero--info">
-
-  <h2 class="About__hero--tagline">
-    _about_tagline_
-  </h2>
-  <h1 class="About__hero--title">
-    _about_title_one_
-  </h1>
-  <h1 class="About__hero--title">
-    _about_title_two_
-  </h1>
-
-  <button ng-click="openBookingBar()"
-          class="Home__hero--button">
-    _search_
-  </button>
-
-</div>
-
 <booking-bar class="Home__booking-bar" size="small"></booking-bar>
 
+<article class="HeroBenefits" ng-if="!auth.isLoggedIn()">
+
+  <div class="HeroBenefits__benefit">
+    <h2>_about_benefit_one_title_</h2>
+    <p>_about_benefit_one_text_</p>
+  </div>
+
+  <div class="HeroBenefits__benefit">
+    <h2>_about_benefit_two_title_</h2>
+    <p>_about_benefit_two_text_</p>
+  </div>
+
+  <div class="HeroBenefits__benefit">
+    <h2>_about_benefit_four_title_</h2>
+    <p>_about_benefit_four_text_</p>
+  </div>
+
+  <div class="HeroBenefits__buttons">
+    <button ng-click="auth.login()"
+            class="HeroBenefits__button login">
+      _login_
+    </button>
+    <button ng-click="auth.register()"
+            class="HeroBenefits__button signup">
+      _sign_up_
+    </button>
+  </div>
+
+</article>
+
 <main class="grid-wrapper About">
+
+  <questionnaire ng-if="auth.isLoggedIn()"></questionnaire>
 
   <div class="About__benefits">
 
