@@ -506,11 +506,6 @@ angular
     }
   }
 
-  var profileLayout = 'layouts/profile/profile.html';
-  if (Settings.authType === 'keystone') {
-    profileLayout = 'layouts/profile/keystoneProfile.html';
-  }
-
   // Rewards page
   $stateProvider.state('rewards', {
     parent: 'root',
