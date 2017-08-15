@@ -266,56 +266,56 @@ angular.module('mobiusApp.services.user', [])
       });
     }
 
+    function logoutCleanup() {
+      // Removing auth headers
+      apiService.setHeaders({HEADER_INFINITI_SSO: undefined});
+
+      clearStoredUser();
+
+      authPromise = $q.defer();
+    }
+
     function logout() {
-      if (window.KS.$me) {
-        window.KS.$me.revoke().then(function() {
-          $state.go('home', {});
-        });
-      } else {
-        $rootScope.$evalAsync(function(){
+      if (!window.KS.$me) {
+        $rootScope.$evalAsync(function () {
           userObject = {};
           $state.go('home', {}, {reload: true});
         });
 
-        // Removing auth headers
-        var headers = {};
-        headers[HEADER_INFINITI_SSO] = undefined;
-        apiService.setHeaders(headers);
+        logoutCleanup();
 
-        clearStoredUser();
-
-        authPromise = $q.defer();
-
-        if(Settings.authType === 'mobius'){
-          $timeout(function(){
+        if (Settings.authType === 'mobius') {
+          $timeout(function () {
             $rootScope.$broadcast('MOBIUS_USER_LOGIN_EVENT');
           });
         }
+      } else {
+        logoutCleanup();
       }
     }
 
-    function initSSOListeners(){
+    function initSSOListeners () {
       // SSO event listeners
       $window.addEventListener(
         EVENT_CUSTOMER_LOADED,
-      function(){
-        loadProfile();
-      });
+        function () {
+          loadProfile();
+        });
 
       $window.addEventListener(
         EVENT_CUSTOMER_LOGGED_OUT,
-      function(){
-        logout();
-      });
+        function () {
+          logout();
+        });
 
       $window.addEventListener(
         EVENT_ANONYMOUS_LOADED,
-      function(){
-        // Logged in as anonymous
-        if(authPromise){
-          authPromise.resolve(false);
-        }
-      });
+        function () {
+          // Logged in as anonymous
+          if (authPromise) {
+            authPromise.resolve(false);
+          }
+        });
     }
 
     function keystoneIsAuthenticated() {
