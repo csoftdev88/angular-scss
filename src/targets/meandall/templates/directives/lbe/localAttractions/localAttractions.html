@@ -1,0 +1,17 @@
+
+<article class="LocalAttractions">
+
+  <div class="LocalAttractions__map">
+    <span class="LocalAttractions__place--title map">
+
+    </span>
+  </div>
+
+  <div ng-repeat="place in places" class="LocalAttractions__place">
+    <span class="LocalAttractions__place--title">
+      {{ place.title }}
+    </span>
+    <img ng-src="{{ place.image }}">
+  </div>
+
+</article>

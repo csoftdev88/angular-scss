@@ -1,0 +1,13 @@
+<div class="image-wrapper">
+  <img ng-if="images[selected] && images[selected].uri" ng-src="{{images[selected].uri | cloudinaryImage : width : height : fill}}" alt="{{images[selected].alt}}"/>
+</div>
+
+<a ng-if="images.length > settings.minImages" ng-click="moveLeft()">&lt;</a>
+
+<ul>
+  <li ng-repeat="image in getCarousel(images)" ng-click="setSelected($index)" ng-class="{selected: $index === selected}">
+    <img ng-if="image.uri" ng-src="{{image.uri | cloudinaryImage : 50 : 50: 'fill'}}" alt="{{image.alt}}"/>
+  </li>
+</ul>
+
+<a ng-if="images.length > settings.minImages" ng-click="moveRight()">&gt;</a>
