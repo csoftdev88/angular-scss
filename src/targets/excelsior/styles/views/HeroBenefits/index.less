@@ -40,18 +40,24 @@
 .HeroBenefits__button {
   width: 192px;
   height: 40px;
-  font-size: 16px;
-  font-family: @ff-primary;
-  line-height: 40px;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-family: "Open Sans";
+  line-height: 17px;
   text-transform: uppercase;
   border-radius: 0;
   border: solid 2.4px #ffffff;
+  text-shadow: none;
+  &:first-child {
+    margin-right: 22px;
+  }
   &.login {
     background: transparent;
     color: #fff;
   }
   &.signup {
     background: #fff;
-    color: @c-secondary;
+    color: #B98747;
   }
 }
