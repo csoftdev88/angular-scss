@@ -1,0 +1,174 @@
+<booking-widget-search>
+  <h3 ng-if="!advanced">_booking_widget_title_</h3>
+
+  <!-- FIND YOUR HOTEL -->
+  <form-element class="hotel" ng-show="hasPropertySelection && !singleProperty && (!settings.displayPropertiesMegamenu || isMobile())">
+    <select name="regionHotels" required chosen
+            disable-search="false"
+            placeholder-text-single="_region_hotel_"
+            ng-model="regionPropertySelected"
+            chosen-options-class="{ 'location': type === 'location', 'property': type === 'property' }"
+            ng-options="option.name for option in propertyRegionList"
+            ng-change="propertyRegionChanged(); checkAvailability()">
+    </select>
+    <form-label>_find_your_hotel_</form-label>
+  </form-element>
+
+  <form-element class="hotel" ng-show="hasPropertySelection && !singleProperty && (settings.displayPropertiesMegamenu && !isMobile())">
+    <div mega-menu data-type="booking-widget"></div>
+    <input type="text"
+            id="booking-widget-property-megamenu"
+            placeholder="_find_your_hotel_"
+            ng-model="regionPropertySelected"
+            data-all-properties="test"
+            ng-required="true"
+            readonly="true"
+            ng-pattern="$root.generalValidationPattern">
+    <form-label>_find_your_hotel_</form-label>
+    <input-value>{{regionPropertySelected.name || '_find_your_hotel_'}}</input-value>
+  </form-element>
+
+  <form-element class="hotel disabled-hotel" ng-show="!hasPropertySelection && !singleProperty">
+    <div class="chosen-container chosen-container-single disabled">
+      <a class="chosen-single" tabindex="-1">
+        <span>{{regionPropertySelected.name}}</span>
+        <div><b></b></div>
+      </a>
+    </div>
+  </form-element>
+
+  <!-- ENTER YOUR DATES -->
+  <form-element class="dates">
+    <input type="text"
+            id="booking-widget-date-range"
+            placeholder="_dates_"
+            range-datepicker
+            ng-model="selected.dates"
+            data-range-selection="1"
+            data-close-button-text="_continue_"
+            ng-required="true"
+            readonly="true"
+            show-button-bar="false"
+            highlights="availability"
+            pane-title="getCurrentRate()"
+            data-counter-pluralization="{'0': '_no_dates_selected_short_', '1': '{} _night_', 'plural': '{} _nights_'}"
+            data-counter-dates="{'0': '_arrival_: {date}', '1': '_departure_: {date}'}"
+            data-force-end-date="true"
+            input-text="inputDateText"
+            ng-change="checkAvailability()"
+            bar-data="selected"
+            not-available-description="'_not_available_description_'">
+    <form-label>_enter_your_dates_</form-label>
+    <input-value>{{inputDateText || '_dates_'}}</input-value>
+  </form-element>
+
+  <!-- NUMBER OF ADULTS -->
+  <form-element class="persons" ng-if="!advanced">
+    <select name="adults"
+            required ng-model="selected.adults"
+            disable-search="true"
+            chosen ng-options="option.title for option in guestsOptions.adults"
+            placeholder-text-single="_adults_"
+            ng-change="checkAvailability()"
+            ng-init="setAdultsOptions({
+              'adult': '_adult_',
+              'adults': '_adults_'
+            })">
+    </select>
+    <form-label>_number_of_adults_</form-label>
+  </form-element>
+
+  <!-- NUMBER OF CHILDREN -->
+  <form-element class="persons" ng-if="!advanced">
+    <select name="children"
+            required ng-model="selected.children"
+            disable-search="true"
+            chosen ng-options="option.title for option in guestsOptions.children"
+            placeholder-text-single="_children_"
+            ng-change="checkAvailability()"
+            ng-init="setChildrenOptions({
+              'child': '_child_',
+              'children': '_children_'
+            })">
+    </select>
+    <form-label>_number_of_children_</form-label>
+  </form-element>
+
+  <!-- ENTER YOUR CODE -->
+  <form-element ng-if="!advanced" class="code" ng-class="{'code-input': selected.codeType}" title="_apply_code_">
+    <select name="code"
+        required ng-model="selected.codeType"
+        disable-search="true"
+        chosen ng-options="code as code.title for code in codeTypes"
+        ng-change="onCodeTypeChanged()"
+        ng-disabled="$root.thirdparty"
+        placeholder-text-single="_apply_code_">
+      <option></option>
+    </select>
+
+    <input type="text" class="booking-widget-promo-code" ng-disabled="$root.thirdparty" ng-show="selected.codeType.param === 'promoCode'" placeholder="_promo_code_" ng-model="selected.promoCode" ng-pattern="$root.generalValidationPattern">
+
+    <input type="text" class="booking-widget-promo-code" ng-disabled="$root.thirdparty" ng-show="selected.codeType.param === 'corpCode'" placeholder="_corp_code_" ng-model="selected.corpCode" ng-pattern="$root.generalValidationPattern">
+
+    <input type="text" class="booking-widget-promo-code" ng-disabled="$root.thirdparty" ng-show="selected.codeType.param === 'groupCode'" placeholder="_group_code_" ng-model="selected.groupCode" ng-pattern="$root.generalValidationPattern">
+    <form-label>{{selected.codeType.title}}</form-label>
+
+    <remove-text ng-show="canRemoveCodes && !$root.thirdparty" role="button" class="remove" ng-click="removeCode()"></remove-text>
+  </form-element>
+
+  <!-- PRODUCTS RATES -->
+  <form-element class="rate" ng-if="!advanced && settings.hasRatesSelection && rates">
+    <select name="rates"
+            required ng-model="selected.rate"
+            disable-search="true"
+            on-ready=""
+            chosen ng-options="rate.id as rate.name for rate in rates"
+            placeholder-text-single="_filter_rates_label_">
+    </select>
+    <form-label>_filter_rates_label_</form-label>
+  </form-element>
+
+</booking-widget-search>
+
+<booking-widget-add-room ng-if="advanced">
+  <booking-widget-room ng-repeat="room in selected.rooms">
+    <h3>_room_ {{$index + 1}}</h3>
+
+    <form-element class="persons">
+      <select name="adults"
+              required ng-model="room.adults"
+              placeholder-text-single="_adults_"
+              disable-search="true"
+              chosen ng-options="option.title for option in guestsOptions.adults">
+      </select>
+      <form-label>_number_of_adults_</form-label>
+    </form-element>
+
+    <form-element class="persons">
+      <select name="children"
+              required ng-model="room.children"
+              placeholder-text-single="0 _children_"
+              disable-search="true"
+              chosen ng-options="option.title for option in guestsOptions.children">
+      </select>
+      <form-label>_number_of_children_</form-label>
+    </form-element>
+
+    <button-text ng-if="$index > 1" role="button" tabindex="0" ng-click="removeRoom($index)" aria-label="Remove Room">_remove_room_</button-text>
+  </booking-widget-room>
+
+  <div>
+    <button-text role="button" tabindex="0" ng-click="addRoom()" ng-show="canAddRoom">+ _add_room_</button-text>
+  </div>
+
+</booking-widget-add-room>
+
+<!-- SUBMIT BUTTON -->
+<button-submit
+  role="button"
+  tabindex="0"
+  ng-click="isSearchable() && onSearch()"
+  ng-disabled="!isSearchable()">
+  <i class="fa fa-chevron-right" aria-hidden="true" ng-if="uiConfig.buttonSubmit.floatingBar"></i>
+  {{hasMultiroomTab? '_search_now_':'_go_'}}
+</button-submit>

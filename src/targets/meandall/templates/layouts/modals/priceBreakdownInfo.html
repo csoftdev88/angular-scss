@@ -1,0 +1,61 @@
+<!-- TODO: ui-info wrapper class should be removed from all modals
+           and price-breakdown modifier should be moved up to the
+           dialog element just like it is on some of other modals -->
+<div class="ui-info price-breakdown">
+  <header>
+    <h1 ng-bind-html="'_price_breakdown_modal_title_' | mainHeaderStyle"></h1>
+    <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+  </header>
+
+  <main>
+    <ul>
+      <li ng-repeat="room in data.rooms track by $index">
+        <table>
+          <tr>
+            <th>_room_type_</th>
+            <td>{{room.name}}</td>
+          </tr>
+          <tr>
+            <th>_rate_type_</th>
+            <td ng-bind-html="room._selectedProduct.name"></td>
+          </tr>
+        </table>
+
+        <table class="price-breakdown-content" ng-if="room._selectedProduct.price.breakdowns.length">
+          <thead>
+            <tr>
+              <th>_night_</th>
+              <th>_rooms_</th>
+              <th>_tax_</th>
+              <th ng-if="data.totalDailyFees > 0">_fees_</th>
+              <th>_total_rate_</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in room._selectedProduct.price.breakdowns | orderBy: 'date' track by $index">
+              <td>{{item.date | dateTime}}</td>
+              <td>{{item.totalBaseAfterPricingRules | i18nCurrency: currencyCode}}</td>
+              <td>{{item.totalTax | i18nCurrency: currencyCode}}</td>
+              <td ng-if="item.totalFees > 0">{{item.totalFees | i18nCurrency: currencyCode}}</td>
+              <td>{{item.totalAfterTaxAfterPricingRules | i18nCurrency: currencyCode}}</td>
+            </tr>
+          </tbody>
+          <tfoot ng-if="$last">
+            <tr ng-if="data.totalAdditionalTaxes > 0">
+              <th colspan="{{data.totalDailyFees > 0 ? 4 : 3}}">_additional_taxes_</th>
+              <th>{{data.totalAdditionalTaxes | i18nCurrency: currencyCode}}</th>
+            </tr>
+            <tr ng-if="data.totalAdditionalFees > 0">
+              <th colspan="{{data.totalDailyFees > 0 ? 4 : 3}}">_additional_fees_</th>
+              <th>{{data.totalAdditionalFees | i18nCurrency: currencyCode}}</th>
+            </tr>
+            <tr>
+              <th colspan="{{data.totalDailyFees > 0 ? 4 : 3}}">_total_</th>
+              <th>{{data.totalAfterTaxAfterPricingRules | i18nCurrency: currencyCode}}</th>
+            </tr>
+          </tfoot>
+        </table>
+      </li>
+    </ul>
+  </main>
+</div>

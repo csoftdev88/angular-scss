@@ -1,5 +1,0 @@
-{
-  "redirectCrawlers": false,
-  "redirectBaseUrl": "s3.amazonaws.com",
-  "redirectFolderName": "/2pv-prerender/"
-}

@@ -1,0 +1,47 @@
+<hero-slider content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
+
+<breadcrumbs stickable="main-header"></breadcrumbs>
+
+<main class="grid-wrapper" class="hotel-subpage">
+
+  <div class="preloader" ng-show="preloader.visible"></div>
+
+  <hotel-info grid-row>
+
+    <header grid-row id="jsAbout">
+      <h1 grid="12" ng-bind-html="info.title | mainHeaderStyle"></h1>
+      <!--<local-info ng-if="details.localInfo" local-info="details.localInfo" grid="6"></local-info>-->
+    </header>
+
+    <div grid="12">
+      <div class="desc" ng-bind-html="info.description | trustAsHtml" markdown-text-parser class="markdown-content"></div>
+      <button class="back" ng-click="goBack()">_back_</button>
+    </div>
+
+  </hotel-info>
+
+  <more-info-list grid-row ng-if="moreInfo.length">
+    <div grid="12">
+      <hr>
+      <h2 ng-bind-html="'_more_offers_title_' | mainHeaderStyle"></h2>
+      <info-list>
+        <info-item ng-repeat="info in moreInfo" ng-click="goToInfo(info)" ng-class="{ 'has-image' : info.image }">
+          <a ng-href="{{info.url}}">
+            <img ng-if="info.image" ng-src="{{info.image.uri | cloudinaryImage : 270 : 140 : 'fill'}}" alt="{{info.image.alt}}">
+            <section>
+              <h2>{{info.title}} </h2>
+              <div ng-bind-html="info.descriptionShort"></div>
+            </section>
+
+            <span class="read-more">_read_more_</span>
+          </a>
+        </info-item>
+      </info-list>
+    </div>
+  </more-info-list>
+
+  <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>
+
+</main>
+
+<div ng-include="'layouts/siteMap.html'" class="site-map" ng-if="footerConfig.displaySitemap"></div>
