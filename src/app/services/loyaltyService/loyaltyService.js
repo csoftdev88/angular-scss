@@ -2,9 +2,9 @@
 /*
 * Service for retrieving loyalty, rewards, badges from the API
 */
-angular.module('mobiusApp.services.loyalty', [])
-
-.service( 'loyaltyService',  function($q, apiService) {
+angular
+  .module('mobiusApp.services.loyalty', [])
+  .service( 'loyaltyService',  function($q, apiService) {
   function getAll(userId){
     var q = $q.defer();
 

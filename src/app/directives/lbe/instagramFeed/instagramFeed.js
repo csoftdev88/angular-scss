@@ -22,6 +22,7 @@
         }
 
         scope.images = config.images;
+        scope.instagramUrl = Settings.UI.socialLinksNew.instagram || null;
       }
     };
   }

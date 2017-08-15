@@ -229,10 +229,15 @@ angular.module('mobius.controllers.reservation', [])
           $scope.userDetails.zip = data.zip;
           $scope.userDetails.stateProvince = data.state;
           $scope.userDetails.country = data.country;
-          $scope.userDetails.localeCode = data.localeCode;
           $scope.userDetails.phone = data.tel1;
           $scope.additionalInfo.secondPhoneNumber = data.tel2;
           $scope.additionalInfo.optedIn = data.optedIn;
+
+          var userCountry = getUserCountry(data);
+          if (userCountry) {
+            $scope.userDetails.localeCode = userCountry.code;
+            $scope.userDetails.localeId = userCountry.id;
+          }
         });
       });
     }
@@ -540,6 +545,7 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.isValid = function() {
+    console.log('checking the validity', $scope.allRooms);
     if ($scope.allRooms && $scope.allRooms.length) {
       switch ($state.current.name) {
         case 'reservation.details':
@@ -1066,6 +1072,7 @@ angular.module('mobius.controllers.reservation', [])
     var reservationPromise = $q.all(promises).then(function(data) {
       var reservationDetailsParams = {
         reservationCode: data[0].reservationCode,
+        hideActionButtons: false,
         // Removing reservation code when booking modification is complete
         reservation: null,
         //Retain codes in confirmation for thirdparty bookings
@@ -1263,6 +1270,8 @@ angular.module('mobius.controllers.reservation', [])
               });
             }
             infinitiApeironService.trackPurchase(data, chainData, propertyData, trackingData, priceData, scopeData, $stateParams, $scope.rates.selectedRate);
+
+            infinitiApeironService.trackBuy(trackingData, priceData, scopeData, $stateParams);
 
             //Sending alerts to https://webservice.mobiuswebservices.com/alerting/alert
             apiService.sendApeironAlert('reporting', env, $stateParams, data, priceData);

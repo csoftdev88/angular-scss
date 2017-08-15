@@ -1,0 +1,69 @@
+@import '../../lbe/variables';
+
+/*
+ |==================================
+ | General
+ |==================================
+ */
+@members-rate-bg-1: '@{lbe-img-prefix}/court-bg.png';
+@members-rate-bg-2: '@{lbe-img-prefix}/tuscany-bg.png';
+@members-rate-color-1: @c-secondary;
+@members-rate-color-2: #902325;
+
+/*
+ |==================================
+ | Desktop
+ |==================================
+ */
+@members-rate-large-small-height: 104px;
+@members-rate-small-padding: 9px 4px 16px 4px;
+
+@members-rate-small-title-size: 14px;
+@members-rate-small-title-height: 16px;
+@members-rate-small-title-bottom-margin: 0;
+@members-rate-small-tagline-size: 9px;
+@members-rate-small-rate-size: 8px;
+@members-rate-small-rate-height: 20px;
+@members-rate-small-rate-padding: 5px;
+@members-rate-small-width: calc(~'50% - @{members-rate-small-space-between-minus}px');
+
+/**
+ * To alter the margin between the boxes, change the space-between value.
+ * The reason the space-between-px value is referenced for the actual value is because we need the value to contain px
+ * at the end. But for calculating the amount to offset the widget by, ref @members-rate-small-width we need an int
+ */
+@members-rate-small-space-between: 10;
+@members-rate-small-space-between-px: @members-rate-small-space-between * 1px;
+@members-rate-small-space-between-minus: @members-rate-small-space-between / 2;
+
+@members-rate-large-height: 221px;
+@members-rate-large-padding: 14px 37px 20px 24px;
+
+@members-rate-large-title-size: 25px;
+@members-rate-large-title-height: initial;
+@members-rate-large-title-bottom-margin: 8px;
+@members-rate-large-tagline-size: 20px;
+@members-rate-large-rate-size: 17px;
+@members-rate-large-rate-height: 43px;
+@members-rate-large-rate-padding: 31px;
+@members-rate-large-width: calc(~'50% - @{members-rate-large-space-between-minus}px');
+
+@members-rate-large-space-between: 88;
+@members-rate-large-space-between-px: @members-rate-large-space-between * 1px;
+@members-rate-large-space-between-minus: @members-rate-large-space-between / 2;
+
+/*
+ |==================================
+ | Mobile
+ |==================================
+ */
+@members-rate-mobile-large-height: 169px;
+
+@members-rate-mobile-margin-bottom: 15px;
+@members-rate-mobile-title-size: 20px;
+@members-rate-mobile-bottom-margin-size: 6.4px;
+@members-rate-mobile-tagline-size: 16px;
+@members-rate-mobile-rates-top-margin: 16px;
+@members-rate-mobile-rate-size: 13px;
+@members-rate-mobile-rate-height: 34px;
+@members-rate-mobile-rate-padding: 7px;

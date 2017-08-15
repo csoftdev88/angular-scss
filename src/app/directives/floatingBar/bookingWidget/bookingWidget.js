@@ -4,7 +4,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
 .directive('bookingWidget', function($rootScope, $controller, $filter, $state, $window,
   $stateParams, $q, $timeout, modalService, bookingService, queryService, validationService,
-  propertyService, locationService, filtersService, Settings, _, contentService, stateService, routerService, deviceDetector, DynamicMessages) {
+  propertyService, locationService, filtersService, Settings, _, contentService, stateService, routerService,
+                                     deviceDetector, DynamicMessages, infinitiApeironService) {
   return {
     restrict: 'E',
     scope: {
@@ -346,7 +347,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
 
         // Select today until tomorrow by default if configured
-        if (Settings.UI.datepicker && Settings.UI.datepicker.showToday) {
+        if (Settings.UI.datepicker && Settings.UI.datepicker.showToday && !bookingService.getParams().dates) {
           var startDate = new Date();
           var endDate = new Date();
           endDate.setDate(endDate.getDate() + 1);
@@ -722,7 +723,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             stateParams.scrollTo = 'jsRooms';
             scope.hideBar();
             $timeout(function () {
-              $state.go('hotel', stateParams, {reload: true});
+              $state.go('hotel', stateParams, {reload: true})
+                .then(function () {
+                  infinitiApeironService.trackSearchParams();
+                });
             }, 1000);
           }
           //Otherwise if "All properties" is selected
@@ -732,7 +736,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
               stateParams.property = null;
               scope.hideBar();
               $timeout(function () {
-                $state.go('allHotels', stateParams, {reload: true});
+                $state.go('allHotels', stateParams, {reload: true})
+                  .then(function () {
+                    infinitiApeironService.trackSearchParams();
+                  });
               }, 1000);
             }
             //Otherwise open the date picker
@@ -752,7 +759,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             stateParams.property = null;
             scope.hideBar();
             $timeout(function () {
-              $state.go('room', stateParams, {reload: true});
+              $state.go('room', stateParams, {reload: true})
+                .then(function () {
+                  infinitiApeironService.trackSearchParams();
+                });
             }, 1000);
           });
 
@@ -767,7 +777,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             stateParams.property = null;
             scope.hideBar();
             $timeout(function () {
-              $state.go('hotels', stateParams, {reload: true});
+              $state.go('hotels', stateParams, {reload: true})
+                .then(function () {
+                  infinitiApeironService.trackSearchParams();
+                });
             }, 1000);
           });
 
@@ -780,7 +793,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             stateParams.property = null;
             scope.hideBar();
             $timeout(function () {
-              $state.go('hotels', stateParams, {reload: true});
+              $state.go('hotels', stateParams, {reload: true})
+                .then(function () {
+                  infinitiApeironService.trackSearchParams();
+                });
             }, 1000);
           });
 
@@ -797,7 +813,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             stateParams.property = null;
             scope.hideBar();
             $timeout(function () {
-              $state.go('hotel', stateParams, {reload: true});
+              $state.go('hotel', stateParams, {reload: true})
+                .then(function () {
+                  infinitiApeironService.trackSearchParams();
+                });
             }, 1000);
           });
 
@@ -914,6 +933,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         scope.openBookingTab(true);
       });
 
+      var openSRBTabListener = $rootScope.$on('BOOKING_BAR_OPEN_SRB_TAB', function(){
+        scope.openBookingTab(false);
+      });
+
       var selectAllPropertiesListener = $rootScope.$on('BOOKING_BAR_SELECT_ALL', function(){
         scope.propertyRegionList[0].name = ALL_PROPERTIES;
         scope.regionPropertySelected = scope.propertyRegionList[0];
@@ -928,6 +951,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         prefillListener();
         openMRBTabListener();
         selectAllPropertiesListener();
+        openSRBTabListener();
       });
 
       function onPrefill(settings){

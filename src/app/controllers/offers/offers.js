@@ -23,6 +23,8 @@ angular.module('mobius.controllers.offers', [])
   //Used by view to define whether we are on a property specific offer
   $scope.property = null;
 
+  $scope.isLoyalty = Settings.engine === 'loyalty';
+
   //Catch previous state data for back button - see goToOffersList
   var previousState = {
     state: $state.fromState,
@@ -141,6 +143,9 @@ angular.module('mobius.controllers.offers', [])
         if ($stateParams.code) {
           selectOffer(bookingService.getCodeFromSlug($stateParams.code));
         }
+        _.each($scope.offersList, function(offer) {
+          setOfferUrl(offer);
+        });
       } else {
         if ($scope.isHotDeals) {
           //Hotdeal offers logic
@@ -450,6 +455,10 @@ angular.module('mobius.controllers.offers', [])
       //apply selected offer data to scope
       $scope.selectedOffer = $scope.offersList[selectedOfferIndex];
 
+      if ($scope.loyaltyEngine) {
+        updateAvailableProperties();
+      }
+
       //Add offer code to booking params
       bookingService.setBookingOffer($scope.selectedOffer);
       $rootScope.$broadcast('BOOKING_BAR_PREFILL_DATA', {
@@ -480,6 +489,8 @@ angular.module('mobius.controllers.offers', [])
 
       //Get offer title for breadcrumbs
       var offerTitle = $scope.selectedOffer.availability && $scope.selectedOffer.availability.title && $scope.selectedOffer.availability.title !== '' ? $scope.selectedOffer.availability.title : $scope.selectedOffer.title;
+
+      console.log('selected offer', $scope.selectedOffer);
 
       //Update breadcrumbs and hero slider
       if ($stateParams.propertySlug) {
@@ -866,6 +877,67 @@ angular.module('mobius.controllers.offers', [])
       } else {
         breadcrumbsService.addBreadCrumb($scope.isHotDeals ? 'Hot Deals' : 'Offers');
       }
+    }
+  }
+
+  function updateAvailableProperties() {
+    // @todo add logic to handle multi properties
+    $scope.memberRates = [];
+    if (Settings.UI.generics.singleProperty) {
+      propertyService.getAll()
+        .then(function (data) {
+          $scope.membersRateProperties = data;
+          console.log('data', data);
+          $scope.memberRates = [{
+            name: data[0].nameShort,
+            tagline: data[0].descriptionShort,
+            memberRate: null,
+            publicRate: null
+          }];
+          propertyService.getRooms(Settings.UI.generics.defaultPropertyCode)
+            .then(function (rooms) {
+              var top = -1;
+              var selectedRoom = rooms[0];
+              _.each(rooms, function (room) {
+                if (room.weighting > top) {
+                  selectedRoom = room;
+                  top = room.weighting;
+                }
+              });
+              var params = {
+                adults: 1,
+                children: 0,
+                propertySlug: $scope.membersRateProperties[0].meta.slug,
+                propertyCode: $scope.membersRateProperties[0].code,
+                productGroupId: 1,
+                from: $window.moment.tz
+              };
+              var startDate = new Date();
+              var endDate = new Date();
+              endDate.setDate(endDate.getDate() + 1);
+              startDate = $.datepicker.formatDate( 'yy-mm-dd', new Date(startDate), {});
+              endDate = $.datepicker.formatDate( 'yy-mm-dd', new Date(endDate), {});
+              params.from = startDate;
+              params.to = endDate;
+              propertyService.getRoomProducts(Settings.UI.generics.defaultPropertyCode, selectedRoom.code, params)
+                .then(function (products) {
+                  console.log('products', products);
+                  var highest = -1;
+                  var highestPrice = products.products[0].totalBase;
+                  _.each(products.products, function (product) {
+                    if (product.price.totalBase > highest) {
+                      highestPrice = product;
+                      highest = product.totalBaseAfterPricingRules;
+                    }
+                    if (product.memberOnly) {
+                      $scope.memberRates[0].memberRate = product.totalBaseAfterPricingRules;
+                    }
+                  });
+                  $scope.memberRates[0].publicRate = highestPrice;
+                  console.log('members rates', $scope.memberRates);
+                });
+            });
+        });
     }
   }
 

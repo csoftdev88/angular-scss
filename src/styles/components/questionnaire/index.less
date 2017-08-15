@@ -5,8 +5,8 @@
 
   padding: 0 @questionnaire-padding;
   overflow: hidden;
-  width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 115px;
+  position: relative;
 
   // Typography
   h1, h2 {
@@ -50,14 +50,14 @@
     font-family: @lbe-ff-secondary;
     .points {
       color: @lbe-c-primary;
-      font-size: 55px;
+      font-size: 45px;
       letter-spacing: @questionnaire-letter-spacing-wide;
       display: block;
       padding-bottom: 20px;
     }
     .points-label {
       color: @lbe-c-secondary;
-      font-size: 31px;
+      font-size: 27px;
       letter-spacing: @questionnaire-letter-spacing-wide;
       text-transform: capitalize;
     }
@@ -89,6 +89,31 @@
     overflow: hidden;
     padding: @questionnaire-questions-padding;
     border: @questionnaire-questions-border;
+    box-sizing: border-box;
+    height: 100%;
+    position: absolute;
+    margin-left: 50%;
+    width: 50%;
+
+    &.completed {
+      padding-left: 90px;
+    }
+
+    .error {
+      font-family: Raleway;
+      color: #ff0000;
+      font-size: 12px;
+    }
+
+    &.nextStay {
+      background: url('@{lbe-img-prefix}/next-stay-bg.png');
+      padding: 0 32px 20px 32px;
+    }
+
+    .questionnaire__status {
+      margin-left: 0;
+    }
+
   }
 
   .questionnaire__options {
@@ -112,8 +137,8 @@
     height: @questionnaire-tier-circle-size;
     border-radius: 50%;
     border: @questionnaire-tier-circle-border;
-    position: absolute;
-    top: 60px;
+    position: relative;
+    top: -120px;
     left: 350px;
     .tier-content {
       top: 50%;
@@ -136,8 +161,8 @@
       color: @lbe-c-secondary;
     }
     .stays {
-      font-size: 30px;
-      line-height: 34px;
+      font-size: 21px;
+      line-height: 29px;
       color: @lbe-c-primary;
       letter-spacing: @questionnaire-letter-spacing-thin;
     }
@@ -185,6 +210,38 @@
     text-align: center;
     border-radius: 0;
     color: @c-white;
+  }
+
+  .questionnaire__nextStay--title,
+  .questionnaire__nextStay--subtitle,
+  .questionnaire__nextStay--details {
+    text-transform: uppercase;
+    font-family: @lbe-ff-secondary;
+    color: #fff;
+  }
+
+  .questionnaire__nextStay--title {
+    font-size: 34px;
+    line-height: 41px;
+    padding-bottom: 23px;
+  }
+
+  .questionnaire__nextStay--subtitle {
+    font-size: 21px;
+    line-height: 29px;
+    padding-bottom: 11px;
+
+    &.emptyMessage {
+      text-align: center;
+      padding-top: 40%;
+      padding-right: 50px;
+    }
+  }
+
+  .questionnaire__nextStay--details {
+    font-size: 16px;
+    line-height: 19px;
+    padding-bottom: 17px;
   }
 
 }

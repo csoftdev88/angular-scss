@@ -1,0 +1,34 @@
+@import "./variables";
+
+.viewport-mobile {
+
+  .members-rates {
+
+    &.members-rates__size-large {
+      height: @members-rate-mobile-large-height;
+    }
+
+    .members-rate {
+      width: 100%;
+      margin-bottom: @members-rate-mobile-margin-bottom;
+      .members-rate__title {
+        font-size: @members-rate-mobile-title-size;
+        margin-bottom: @members-rate-mobile-bottom-margin-size;
+      }
+      .members-rate__tagline {
+        font-size: @members-rate-mobile-tagline-size;
+      }
+      .members-rate__rates {
+        margin-top: @members-rate-mobile-rates-top-margin;
+      }
+      .members-rate__rate {
+        font-size: @members-rate-mobile-rate-size;
+        height: @members-rate-mobile-rate-height;
+        line-height: @members-rate-mobile-rate-height;
+        padding: 0 @members-rate-mobile-rate-padding;
+      }
+    }
+
+  }
+
+}

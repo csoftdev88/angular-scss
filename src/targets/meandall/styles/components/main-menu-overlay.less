@@ -24,25 +24,10 @@
       margin: 0;
       list-style: none;
       text-align: center;
-      font-size: 2.3em;
+      font-size: 60px;
       line-height: 1.5em;
-      @media screen and (max-height: 1050px) {
-        font-size: 2em;
-      }
-      @media screen and (max-height: 950px) {
-        font-size: 1.7em;
-      }
-      @media screen and (max-height: 875px) {
-        font-size: 1.4em;
-      }
-      @media screen and (max-height: 750px) {
-        font-size: 1.2em;
-      }
-      @media screen and (max-height: 750px) and @small-mobile-max {
-        font-size: 1.7em;
-      }
-      @media screen and (max-height: 750px) and (max-width: 375px) {
-        font-size: 1.2em;
+      .viewport-mobile & {
+        font-size: 36px;
       }
       a {
         color: @c-black;

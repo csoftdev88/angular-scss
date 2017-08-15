@@ -1,0 +1,97 @@
+
+.login-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(26, 26, 26, 0.8);
+  z-index: 998;
+  margin-top: 70px;
+}
+
+.login-dialog {
+  width: 360px;
+  min-height: 400px;
+  background-color: #ffffff;
+  padding: 40px 50px;
+  top: 245px;
+  right: calc(~'50% - 180px');
+  box-sizing: border-box;
+  .viewport-mobile & {
+    top: 350px;
+  }
+  &.register {
+    top: 145px;
+    .viewport-mobile & {
+      top: 350px;
+    }
+  }
+  .options {
+    margin: 20px 0 5px 10px;
+    li {
+      a {
+        font-size: 14px;
+        letter-spacing: 1px;
+        color: #1f2532;
+        font-family: @ff-primary;
+        &:hover {
+          color: @lbe-c-primary;
+        }
+      }
+    }
+  }
+  .form-wrapper {
+    form {
+      button-submit,
+      input[type="submit"] {
+        font-family: @ff-primary;
+        text-transform: uppercase;
+        letter-spacing: 1.8px;
+        box-shadow: none;
+      }
+      fieldset {
+        padding: 0;
+        form-element {
+          select {
+            color: #000 !important;
+          }
+        }
+      }
+      input {
+        height: 40px !important;
+        line-height: 40px !important;
+        background-color: #eef3f6;
+        color: #000 !important;
+      }
+    }
+  }
+  header {
+    .close-btn {
+      right: -25px;
+      top: -25px;
+      .viewport-mobile & {
+        right: -5px;
+        top: -35px;
+      }
+      &:before {
+        font-size: 24px;
+        color: #fff;
+      }
+    }
+    .logo {
+      img {
+        width: 100%;
+        margin-bottom: 31px;
+      }
+    }
+  }
+
+  .form-wrapper {
+    // Register form
+    .register-form {
+      display: block;
+    }
+  }
+
+}

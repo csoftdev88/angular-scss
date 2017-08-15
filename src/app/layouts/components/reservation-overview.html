@@ -124,7 +124,7 @@
           <td>
             <a ng-if="bookingConfig.policiesLinkBottom" ng-href="{{bookingConfig.termsAndConditionsLink}}" ng-click="readPolicies()" target="_blank">_policies_</a>
             <span ng-show="!noBreakdown">
-              <span ng-if="bookingConfig.policiesLinkBottom"> | </span>
+              <span class="separator" ng-if="bookingConfig.policiesLinkBottom"> | </span>
               <a href ng-click="breakdownExtended = !breakdownExtended">
                 <span ng-if="!breakdownExtended">_view_price_breakdown_</span>
                 <span ng-if="breakdownExtended">_hide_price_breakdown_</span>

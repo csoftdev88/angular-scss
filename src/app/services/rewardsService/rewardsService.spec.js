@@ -31,6 +31,7 @@ describe('rewardsService', function() {
       };
 
       $provide.value('apiService', apiService);
+
     });
   });
 

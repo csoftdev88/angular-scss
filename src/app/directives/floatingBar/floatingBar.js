@@ -56,6 +56,13 @@ angular.module('mobiusApp.directives.floatingBar', [
 
         var EVENT_FLOATING_BAR = 'floatingBarEvent';
 
+        scope.closeWidget = function() {
+          scope.isCollapsed = true;
+          if (Settings.engine === 'loyalty') {
+            $('floating-bar').css('display', 'none');
+          }
+        };
+
         scope.setActive = function(newActive, isMobileToggle) {
           //remove css transition end classes
           $('booking-widget').removeClass('transEnd');
@@ -194,11 +201,24 @@ angular.module('mobiusApp.directives.floatingBar', [
       $scope.selected.adults = _.find($scope.guestsOptions.adults, {
         value: parseInt(bookingService.getAPIParams(true).adults, 10) || settings.defaultAdultCount
       });
-      _.each($scope.selected.rooms, function(room, index){
-        $scope.selected.rooms[index].adults = _.find($scope.guestsOptions.adults, {
-          value: 1
+      // If there is a rooms object in the URL, then try to load the previous search options into the adults and children select
+      var urlRooms = bookingService.getMultiRoomData();
+      if (urlRooms) {
+        _.each($scope.selected.rooms, function(room, index) {
+          $scope.selected.rooms[index].adults = _.findWhere($scope.guestsOptions.adults, {
+            value: urlRooms[index].adults
+          });
+          $scope.selected.rooms[index].children = _.findWhere($scope.guestsOptions.children, {
+            value: urlRooms[index].children
+          });
         });
-      });
+      } else {
+        _.each($scope.selected.rooms, function(room, index){
+          $scope.selected.rooms[index].adults = _.findWhere($scope.guestsOptions.adults, {
+            value: 1
+          });
+        });
+      }
     };
 
     $scope.setChildrenOptions = function(options){

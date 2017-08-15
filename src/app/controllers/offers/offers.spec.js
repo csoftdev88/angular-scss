@@ -106,7 +106,8 @@ describe('mobius.controllers.offers', function() {
             name: ''
           },
           go: sinon.spy(),
-          transitionTo: sinon.spy()
+          transitionTo: sinon.spy(),
+          href: sinon.spy()
         });
 
         $provide.value('$stateParams', {

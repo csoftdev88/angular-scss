@@ -4,9 +4,11 @@
 
   <div class="instagram-feed__images">
 
-    <img ng-repeat="image in images"
-         ng-src="{{ image.url }}"
-         class="instagram-feed__thumbnail" />
+    <a ng-href="{{ instagramUrl }}" target="_blank">
+      <img ng-repeat="image in images"
+           ng-src="{{ image.url }}"
+           class="instagram-feed__thumbnail" />
+    </a>
 
   </div>
 

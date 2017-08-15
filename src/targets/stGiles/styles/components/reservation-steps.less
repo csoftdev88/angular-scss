@@ -1,0 +1,174 @@
+//////////////////////////////////////
+//// Reservation steps navigation ////
+//////////////////////////////////////
+
+.reservation-steps {
+  display: inline-block;
+  width: 100%;
+  margin: 14px 0 31px 0;
+  text-align: center;
+
+  .label {
+    display: none;
+  }
+
+  ul {
+    position: relative;
+    height: 153px;
+    float: none;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.75);
+    .backdrop-filter-blur(20px);
+    padding: 33px 86px;
+    width: initial;
+    box-sizing: border-box;
+
+    .viewport-mobile & {
+      padding: 20px;
+      width: 100% !important;
+      height: initial;
+    }
+
+    li {
+      display: inline;
+      float: left;
+      width: auto;
+      margin-left: 70px;
+      box-sizing: border-box;
+
+      &:first-child{
+        margin-left: 0;
+      }
+
+      .button{
+        position: relative;
+        padding: 0;
+        min-width: 0;
+        border-radius: 0;
+        line-height: 50px;
+        height: 50px;
+        width: 50px;
+        border: solid 2px #fff;
+        box-shadow: none;
+        text-shadow: none;
+        text-align: center;
+        background: transparent;
+        font-weight: 400;
+        color: #fff;
+        font-size: 15px;
+
+        .viewport-mobile & {
+          line-height: 40px;
+          height: 40px;
+          width: 40px;
+        }
+
+        &:active,
+        &:focus,
+        &:hover {
+          background: transparent;
+        }
+
+        &:after,
+        .dot {
+          display: none;
+        }
+
+        &[disabled="disabled"]{
+          text-shadow: none;
+          padding: 0;
+          background: transparent;
+
+          &:active,
+          &:focus,
+          &:hover {
+            background: transparent;
+          }
+
+        }
+
+        .text{
+          color: #fff;
+          font-size: 13px;
+          line-height: 15px;
+          display: block;
+          width: 82px;
+          margin-left: -17px;
+          padding-top: 5px;
+          font-family: @lbe-ff-primary;
+          font-weight: bold;
+        }
+      }
+
+      &.current{
+        .button{
+          cursor: default;
+          padding: 0;
+          filter: none;
+          background: @lbe-c-primary;
+        }
+
+      }
+    }
+  }
+
+  .viewport-tablet &,
+  .viewport-mobile &{
+    ul{
+      width: auto;
+      li{
+        width: auto;
+        margin-left: 70px;
+        &:first-child{
+          margin-left: 0;
+        }
+        .button{
+          padding: 0;
+          &[disabled="disabled"]{
+            padding: 0;
+          }
+        }
+        &.current{
+          .button{
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .viewport-mobile &{
+    margin: 10px 0;
+    ul{
+      li{
+        margin-left: 35px;
+
+        &:first-child{
+          margin-left: 0;
+        }
+        .button{
+          padding-right: 0;
+          &[disabled="disabled"]{
+            padding: 0;
+          }
+          .text{
+            display: block;
+            font-size: 11px;
+            line-height: 16px;
+            width: 80px;
+            margin-left: -20px;
+          }
+        }
+        &.current{
+          .button{
+            padding: 0;
+            .text{
+
+            }
+          }
+        }
+      }
+    }
+
+  }
+}

@@ -22,6 +22,7 @@ describe('loyaltyService', function() {
             }
           };
         },
+        setHeaders: function() {},
         getFullURL: function(p){
           return p;
         }

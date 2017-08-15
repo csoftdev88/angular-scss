@@ -1,12 +1,13 @@
 'use strict';
+
 /*
  * This module controlls offers page
  */
-angular.module('mobius.controllers.rewards', [])
-
-  .controller('RewardsCtrl', function($scope, $controller, rewardsService,
-    $q, preloaderFactory, $state, user, $stateParams, modalService, breadcrumbsService,
-    userMessagesService, _, userObject, scrollService, $timeout) {
+angular
+  .module('mobius.controllers.rewards', [])
+  .controller('RewardsCtrl', function($scope, $controller, rewardsService, $q, preloaderFactory, $state, user,
+                                      $stateParams, modalService, breadcrumbsService, userMessagesService, _,
+                                      userObject, scrollService, $timeout, Settings) {
 
     //$controller('MainCtrl', {$scope: $scope});
     breadcrumbsService.addBreadCrumb('Rewards');
@@ -19,6 +20,8 @@ angular.module('mobius.controllers.rewards', [])
       }
     }
 
+    $scope.config = Settings.UI.viewsSettings.rewards;
+
     function init(){
       var rewardsPromise = $q.all([
         rewardsService.getMy(user.getCustomerId()),
@@ -30,6 +33,8 @@ angular.module('mobius.controllers.rewards', [])
           reward._isAffordable = user.getUser().loyalties.amount >= reward.pointCost;
           return reward;
         });
+        console.log('user a', userObject);
+        $scope.pointsBalance = userObject.loyalties.amount;
 
       }, function(){
         $state.go('home');

@@ -1,16 +1,48 @@
-<hero-slider ng-if="!viewSettings.hideHeroSlider" content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
+<hero-slider ng-if="!viewSettings.hideHeroSlider"
+             content="heroContent"
+             slide-width="uiConfig.heroSlider.slideWidth"
+             slide-height="uiConfig.heroSlider.slideHeight">
+</hero-slider>
 
-<section-image ng-if="config.sectionImages && config.sectionImages[0]" id="hotel-header-image" section="config.sectionImages[0]" when="'enter'" from="1" to="1.5" show-logo="true" hide-header-logo="true" description="details.descriptionShort"></section-image>
+<div class="Home__hero--info show-desktop" ng-if="loyaltyEngine">
+  <h1 class="About__hero--title">{{ details.nameShort }}</h1>
+  <h1 class="About__hero--title">_about_title_one_</h1>
+  <h2 class="About__hero--tagline">_about_tagline_</h2>
+</div>
 
-<notification-bar ng-if="config.sectionImages && config.sectionImages[0]" sticky-header="true" currently-editing="_you_are_currently_editing_"></notification-bar>
+<section-image ng-if="config.sectionImages && config.sectionImages[0]"
+               id="hotel-header-image"
+               section="config.sectionImages[0]"
+               when="'enter'"
+               from="1"
+               to="1.5"
+               show-logo="true"
+               hide-header-logo="true"
+               description="details.descriptionShort">
+</section-image>
 
-<breadcrumbs ng-if="!viewSettings.hideBreadcrumbs" stickable="main-header" id="breadcrumbs"></breadcrumbs>
+<notification-bar ng-if="config.sectionImages && config.sectionImages[0]"
+                  sticky-header="true"
+                  currently-editing="_you_are_currently_editing_">
+</notification-bar>
+
+<sub-nav ng-if="viewSettings.showSubNav" links="{{ viewSettings.subNavLinks }}"></sub-nav>
+
+<breadcrumbs class="HotelBreadcrumbs"
+             ng-if="!viewSettings.hideBreadcrumbs"
+             stickable="main-header"
+             id="breadcrumbs">
+</breadcrumbs>
 
 <main class="grid-wrapper hotel-detail">
 
-  <div class="preloader" ng-show="preloader.visible && !isFromSearch"></div>
+  <div class="preloader"
+       ng-show="preloader.visible && !isFromSearch">
+  </div>
 
-  <hotel-detail itemscope itemtype="http://schema.org/Hotel">
+  <hotel-detail itemscope
+                itemtype="http://schema.org/Hotel"
+                class="HotelDetails">
 
     <!-- schema.org -->
     <meta itemprop="description" content="{{details.meta.microdata.schemaOrg.description}}" />
@@ -33,13 +65,33 @@
       <local-info ng-if="showLocalInfo && localInfo && localInfo.time" local-info="localInfo" grid="6"></local-info>
     </header>
 
-    <div ng-repeat-start="partial in partials" ng-include="partial" class="hotel-detail-partials" include-replace ng-repeat-end></div>
+    <div ng-repeat-start="partial in partials"
+         ng-include="partial"
+         class="hotel-detail-partials"
+         include-replace
+         ng-repeat-end>
+    </div>
 
-    <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>
+    <contact-list ng-if="loyaltyEngine"></contact-list>
+
+    <scroll-to-top class="back-to-top"
+                   ng-click="scrollToTop()"
+                   scroll-position="scroll"
+                   ng-class="{visible: scroll > scrollTopTrigger}">
+      <span>_back_to_top_</span>
+    </scroll-to-top>
 
   </hotel-detail>
+
 </main>
 
-<section-image ng-if="config.sectionImages && config.sectionImages[2]" id="bottom-image" section="config.sectionImages[2]" when="'enter'" from="0.5" to="0.4" show-logo="false"></section-image>
+<section-image ng-if="config.sectionImages && config.sectionImages[2]"
+               id="bottom-image"
+               section="config.sectionImages[2]"
+               when="'enter'"
+               from="0.5"
+               to="0.4"
+               show-logo="false">
+</section-image>
 
 

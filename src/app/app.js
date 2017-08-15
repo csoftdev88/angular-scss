@@ -201,6 +201,13 @@ angular
     'mobiusApp.directives.lbe.bookingBar',
     'mobiusApp.directives.lbe.highlight',
     'mobiusApp.directives.lbe.instagramFeed',
+    'mobiusApp.directives.lbe.offers',
+    'mobiusApp.directives.lbe.tagline',
+    'mobiusApp.directives.lbe.hotelIntro',
+    'mobiusApp.directives.lbe.subNav',
+    'mobiusApp.directives.lbe.tripAdviserQuote',
+    'mobiusApp.directives.lbe.membersRate',
+    'mobiusApp.directives.lbe.localAttractions',
 
     'internationalPhoneNumber',
 
@@ -218,7 +225,8 @@ angular
     'mobiusApp.filters.stringLocaleReplace',
     'mobiusApp.filters.content',
     'mobiusApp.filters.trustAsHtml',
-    'mobiusApp.filters.byNameOrZip'
+    'mobiusApp.filters.byNameOrZip',
+    'mobiusApp.filters.trustAsUrl'
   ])
 
 .config(function($stateProvider, $locationProvider, $urlRouterProvider, growlProvider, Settings) {
@@ -233,11 +241,26 @@ angular
   growlProvider.globalPosition('top-center');
   //growlProvider.globalReversedOrder(true);
 
+  // Determine which layouts to used based on engine type
+  var aboutLayout = 'layouts/about/about.html';
+  var indexLayout = 'layouts/index.html';
+  var homeLayout = 'layouts/home/home.html';
+  var profileLayout = 'layouts/profile/profile.html';
+  if (Settings.engine === 'loyalty') {
+    aboutLayout = 'layouts/lbe/about/about.html';
+    indexLayout = 'layouts/lbe/index.html';
+    homeLayout = 'layouts/lbe/home/home.html';
+    profileLayout = 'layouts/lbe/profile/profile.html';
+  }
+  if (Settings.authType === 'keystone') {
+    profileLayout = 'layouts/profile/keystoneProfile.html';
+  }
+
   $stateProvider
   // Default application layout
     .state('root', {
     abstract: true,
-    templateUrl: 'layouts/index.html',
+    templateUrl: indexLayout,
     controller: 'MainCtrl',
     // NOTE: These params are used by booking widget
     // Can be placed into induvidual state later if needed
@@ -247,7 +270,7 @@ angular
   // Home page
   .state('home', {
     parent: 'root',
-    templateUrl: 'layouts/home/home.html',
+    templateUrl: homeLayout,
     url: '/'
   })
 
@@ -486,11 +509,6 @@ angular
     }
   }
 
-  var profileLayout = 'layouts/profile/profile.html';
-  if (Settings.authType === 'keystone') {
-    profileLayout = 'layouts/profile/keystoneProfile.html';
-  }
-
   // Rewards page
   $stateProvider.state('rewards', {
     parent: 'root',
@@ -526,7 +544,7 @@ angular
   // About Us oage
   .state('aboutUs', {
     parent: 'root',
-    templateUrl: 'layouts/about/about.html',
+    templateUrl: aboutLayout,
     url: '/about/:code',
     controller: 'AboutUsCtrl'
   })
@@ -619,12 +637,12 @@ angular
       //Otherwise if page is recognised and the page is in the reservation flow or is /reservations, set the status code to 403
       $rootScope.prerenderStatusCode = '403';
     } else { //Otherwise set as 200 ok
-      $rootScope.canonicalTag = $location.protocol() + '://' + $location.url() + $location.path();
+      $('link[rel="canonical"]').first().attr('href', $location.protocol() + '://' + $location.host() + $location.path());
       $rootScope.prerenderStatusCode = '200';
     }
   });
 
-  $rootScope.canonical = $location.protocol() + ':' + $location.host() + $location.path();
+  $('link[rel="canonical"]').first().attr('href', $location.protocol() + '://' + $location.host() + $location.path());
 
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
     $state.fromState = fromState;
@@ -636,6 +654,7 @@ angular
     if(infinitiApeironService.isSinglePageApp){
       infinitiApeironService.trackPageView($location.path() + $window.location.search);
     }
+    infinitiApeironService.trackPage($location.path() + $window.location.search);
   });
   //Facebook
   $rootScope.facebookAppId = Settings.UI.generics.facebookAppId;
@@ -716,11 +735,11 @@ angular
   }
 })
 
-.controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams,
-                                 stateService, scrollService, previousSearchesService, funnelRetentionService,
-                                 metaInformationService, Settings, notificationService, propertyService, channelService,
-                                 $window, breadcrumbsService, user, cookieFactory, apiService, CookieLawService,
-                                 bookingService, _, DynamicMessages, UrlService, $log) {
+.controller('BaseCtrl', function($scope, $timeout, $location, $rootScope, $controller, $state, $stateParams, stateService,
+                                 scrollService, previousSearchesService, funnelRetentionService, metaInformationService,
+                                 Settings, propertyService, channelService, $window, breadcrumbsService, user,
+                                 cookieFactory, apiService, CookieLawService, bookingService, _, UrlService, $log,
+                                 DynamicMessages, notificationService) {
 
   $controller('ReservationUpdateCtrl', {
     $scope: $scope
@@ -749,11 +768,13 @@ angular
   }
 
   $scope.uiConfig = Settings.UI;
-  $scope.menuOverlayEnabled = $scope.uiConfig.generics.header && $scope.uiConfig.generics.header.mainMenuAsOverlay;
+  $scope.menuOverlayEnabled = $scope.uiConfig.generics.header && $scope.uiConfig.generics.header.mainMenuAsOverlay ? true: false;
   $scope.userLang = user.getUserLanguage();
   $scope.appLang = stateService.getAppLanguageCode();
   $scope.scrollService = scrollService;
   $scope.floatingBarMobileTopRight = Settings.UI.bookingWidget.mobileTopRight;
+  $scope.loyaltyEngine = Settings.engine === 'loyalty';
+  $scope.isSingleProperty = Settings.UI.generics.singleProperty;
 
   //If menu overlay is enabled, add the event handlers to open and close the menu
   if($scope.menuOverlayEnabled){
@@ -840,7 +861,10 @@ angular
     }
 
     //if single property redirect home state to hotel page
-    if (Settings.UI.generics.singleProperty && Settings.UI.generics.defaultPropertyCode && toState.name === 'home') {
+    if (Settings.UI.generics.singleProperty &&
+      !Settings.UI.generics.dontRedirectSinglePropertyHome &&
+      Settings.UI.generics.defaultPropertyCode &&
+      toState.name === 'home') {
       e.preventDefault();
       if (Settings.API.propertySlug) {
         $state.go('hotel', {
@@ -874,7 +898,7 @@ angular
     $scope.user = user;
     $scope.isUserLoggedIn = $scope.auth.isLoggedIn;
 
-    $rootScope.$on('MOBIUS_USER_LOGIN_EVENT', function(){
+    $scope.$on('MOBIUS_USER_LOGIN_EVENT', function(){
       $scope.isUserLoggedIn = $scope.auth.isLoggedIn;
       if($state.current.name === 'reservation.details')
       {
@@ -886,6 +910,8 @@ angular
     if($scope.menuOverlayEnabled){
       $scope.hideMenuOverlay();
     }
+
+    $scope.isMobile = stateService.isMobile();
 
     if (Settings.UI.infoBar && Settings.UI.infoBar.showForSingleBookings) {
       //Get our dynamic translations
@@ -1058,17 +1084,3 @@ angular
     heroSliderEl.css('margin-top', mainHeaderHeight);
   }
 });
-
-
-//IE11 Custom Event Polyfill
-(function () {
-  if ( typeof window.CustomEvent === 'function' ) {return false;}
-  function CustomEvent ( event, params ) {
-    params = params || { bubbles: false, cancelable: false, detail: undefined };
-    var evt = document.createEvent( 'CustomEvent' );
-    evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
-    return evt;
-   }
-  CustomEvent.prototype = window.Event.prototype;
-  window.CustomEvent = CustomEvent;
-})();

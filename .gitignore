@@ -17,3 +17,5 @@ jsconfig.json
 typings/
 typings.json
 yarn.lock
+
+*.iml
