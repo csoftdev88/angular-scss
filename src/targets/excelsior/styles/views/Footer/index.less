@@ -1,13 +1,13 @@
 @import "./mobile";
 
 footer.main {
-  height: 400px;
-  background-color: #000;
+  height: 442px;
+  background-color: #B98747;
   text-align: initial;
   width: initial;
   h1, h2, h3, p, span, small, li {
     color: #fff;
-    font-family: @lbe-ff-primary;
+    font-family: "Open Sans";
   }
 }
 
@@ -20,6 +20,7 @@ footer.main {
   line-height: 20px;
   text-transform: uppercase;
   padding: 0 46px;
+  margin: 54px 0 0 0;
 }
 
 .Footer__title {
@@ -33,13 +34,14 @@ footer.main {
   display: block;
   font-size: 13px;
   letter-spacing: 0;
-  font-family: @lbe-ff-secondary;
+  font-family: Arial;
   margin-top: 15px;
 }
 
 .Footer__signup {
   width: 50%;
   float: left;
+  margin-top: 34px;
   .Footer__text {
     margin-bottom: 17px;
   }
@@ -56,7 +58,7 @@ footer.main {
   padding-left: 130px;
   h3 {
     padding-left: 10px;
-    font-family: @ff-primary;
+    font-family: "Open Sans";
     font-size: 25px;
     line-height: 30px;
     &:before {
@@ -78,14 +80,18 @@ footer.main {
 }
 
 .Footer__nav--item {
+  display: inline;
   text-transform: uppercase;
   font-size: 13px;
   line-height: 18px;
   padding-right: 21px;
+  a {
+    color: #fff;
+  }
 }
 
 .Footer__social {
-  margin-top: 110px;
+  margin-top: 260px;
 }
 
 .Footer__social--icons {
@@ -118,10 +124,6 @@ footer.main {
   .youtube:before {
     content: @fa-var-youtube;
   }
-}
-
-.Footer__nav--item {
-  display: inline;
 }
 
 .Footer__apps {
