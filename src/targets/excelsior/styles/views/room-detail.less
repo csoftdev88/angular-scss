@@ -1,0 +1,475 @@
+/////////////////////
+//// ROOM DETAIL ////
+/////////////////////
+
+hotel-room {
+
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+
+  .header {
+    .viewport-mobile & {
+      margin-bottom:0;
+    }
+    h1 {
+      .viewport-mobile & {
+        margin-bottom:15px;
+      }
+      .chain-sand &{
+        font-size: 24px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: @c-grey;
+      }
+    }
+  }
+
+  .Home__hero--button {
+    margin-bottom: 40px;
+  }
+
+  hr {
+    display: none;
+  }
+
+  .hotel-detail__header {
+    margin: 0 0 40px 0;
+    .logo, .contact-info, .title-wrapper {
+      display: none;
+    }
+  }
+
+  amenities-list {
+    amenity-item {
+      &:nth-child(n + 7) {
+        display: none;
+      }
+      .amenity-caption {
+        font-size: 17px;
+        letter-spacing: 0;
+        color: #000;
+        font-family: @lbe-ff-primary;
+        line-height: 25px;
+      }
+    }
+  }
+
+  h2{
+    font-size: 18px;
+    color: @c-grey;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .controls{
+
+    order-switch {
+
+      .chosen-container {
+        width: 150px !important;
+        border: none;
+      }
+
+      .chosen-container-single {
+        .chosen-single {
+          border-radius: 4px;
+          background: #f2f2f2;
+          background: -moz-linear-gradient(top, #f2f2f2 0%, #d4d4d4 100%);
+          background: -webkit-linear-gradient(top, #f2f2f2 0%,#d4d4d4 100%);
+          background: linear-gradient(to bottom, #f2f2f2 0%,#d4d4d4 100%);
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#d4d4d4',GradientType=0 );
+          border: 1px solid @c-light-grey;
+          span{
+            color: @c-grey;
+          }
+        }
+      }
+
+      //icon
+      .chosen-container-single .chosen-single div b {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 26px;
+        height: 100%;
+        background: none;
+        &:after {
+          .fa;
+          position: absolute;
+          color: @c-grey;
+          font-size: 14px;
+          content: @fa-var-sort;
+          right: 10px;
+          top: 8px;
+        }
+
+      }
+
+      .viewport-mobile & {
+        width: 100%;
+        margin: 10px 0px;
+        display:block;
+
+        .chosen-container {
+          width: 100% !important;
+        }
+      }
+    }
+
+    pricing-switch{
+      .viewport-mobile & {
+        display:block;
+      }
+      a{
+        &.is-active{
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+  .room-gallery {
+
+    li {
+      width: 205px;
+      //- Image
+      figure {
+        max-height: 124px;
+      }
+    }
+  }
+
+  .products-section {
+    list-item {
+      border: solid 2px #f1f1f1;
+      &:first-of-type {
+        border-top: solid 2px #f1f1f1;
+      }
+      &:last-of-type {
+        border-bottom: solid 2px #f1f1f1;
+      }
+      pricing-info {
+        border-left: solid 2px #f1f1f1;
+      }
+      /*earned-points {
+        display: none;
+      }*/
+    }
+  }
+
+
+  list-items {
+    &.other-rooms {
+      list-item {
+        margin-bottom: 80px;
+        width: 20%;
+        figure {
+          height: 123px;
+          max-height: initial;
+          .viewport-mobile & {
+            height: 100px;
+            img {
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+    list-item {
+
+      .pricing-filter-label {
+        display: none !important;
+      }
+
+      &.slashthrough {
+        pricing-info {
+          p {
+            span.original-price {
+              display: none;
+            }
+            span.value {
+              margin-top: 64px;
+              font-size: 37px;
+              font-family: @lbe-ff-secondary;
+              line-height: 44px;
+              font-weight: bold;
+              color: #252525;
+            }
+          }
+          button-submit {
+            border-radius: 0;
+            background: @lbe-c-primary;
+            &:hover {
+              background: @lbe-c-primary;
+            }
+          }
+        }
+      }
+
+      padding:30px 210px 30px 19%;
+
+      &:first-child {
+        border-top:0px none;
+      }
+      .viewport-mobile & {
+        padding:20px 30px 20px 120px;
+      }
+      &.without-image {
+        padding-left: 20px;
+        .viewport-mobile & {
+          padding-left:0px;
+          &.is-member-only {
+            padding-left:20px;
+            padding-right:30px;
+          }
+        }
+      }
+      .product-image {
+        position: absolute;
+        left: 15px;
+        top: 30px;
+        width: 15%;
+        .viewport-mobile & {
+          width:105px;
+          height:100px;
+          left:0;
+          top:20px;
+          border: solid 2px #bbbbbb;
+          box-sizing:border-box;
+        }
+      }
+
+      .list-item-highlight-label {
+        padding-bottom:@baseline / 2;
+      }
+
+      h2 {
+        &.product-title {
+          font-size: 21px !important;
+          line-height: 25px;
+        }
+        padding-top:0;
+        font-size: 16px !important;
+        color: #252525 !important;
+        text-transform: uppercase;
+        letter-spacing: 0;
+        font-family: @lbe-ff-primary;
+        line-height: 19px;
+        font-weight: bold !important;
+        margin-top: 9px !important;
+        .viewport-mobile & {
+          width:100%;
+          font-size:16px !important;
+        }
+      }
+
+      description-info {
+        .viewport-mobile & {
+          width:100%;
+          margin-top:-25px;
+        }
+        .action-links {
+          a {
+            color: #0e4194;
+            font-size: 16px;
+            font-family: @lbe-ff-secondary;
+            letter-spacing: 0;
+            line-height: 19px;
+          }
+        }
+      }
+
+      > pricing-info {
+        .viewport-mobile & {
+          display:none;
+        }
+      }
+
+      pricing-info{
+        right:20px;
+        height:100%;
+        width: 370px;
+        box-sizing:border-box;
+        .viewport-mobile & {
+          height:auto;
+          padding-top:0;
+        }
+        p {
+          .value {
+            .viewport-mobile & {
+              font-weight:400;
+              font-size:15px;
+              color:@c-secondary;
+            }
+            .viewport-mobile.chain-sign & {
+              color:@c-menu-active-sign;
+            }
+          }
+        }
+        button-submit {
+          font-family: @ff-default;
+          &:hover {
+            background: @lbe-c-primary
+          }
+        }
+      }
+      > .product-link {
+        display:none;
+      }
+      @media only screen and @small-mobile-max {
+        .wide-button-room-details {
+          margin-left: 0px;
+        }
+      }
+    }
+  }
+
+
+  section.room-description {
+    margin-top: @baseline*2;
+    ul {
+      padding-left:17px;
+      list-style:disc;
+    }
+  }
+
+  .room-details-left {
+    width:50%;
+    float:left;
+    .viewport-mobile &, .viewport-tablet & {
+      width:100%;
+      float:none;
+    }
+    .room-description {
+      ul li {
+        margin-bottom:15px;
+      }
+    }
+  }
+
+  .room-details-right {
+    width:100%;
+    float:left;
+    margin-bottom: 50px;
+    .viewport-mobile &, .viewport-tablet & {
+      width:100%;
+      margin-left:0;
+      float:none;
+    }
+  }
+
+  section.room-amenities {
+    background-color: #f9f9f9;
+    border: solid 1px #efefef;
+    margin-top: 20px;
+    padding: 0;
+    .viewport-mobile & {
+      border:0px none;
+      background:none;
+      padding:0;
+    }
+    h2 {
+      display: none;
+      .viewport-mobile & {
+        margin-bottom:20px;
+      }
+    }
+    amenity-item {
+      width:50%;
+      padding:0 10px;
+      min-height:60px;
+      .viewport-mobile &, .viewport-tablet & {
+        width:100%;
+        min-height: initial;
+        padding: 0;
+        margin-top: 20px;
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+    }
+    h2 {
+      font-size:13px;
+      font-weight:700;
+    }
+    span {
+      font-weight:300;
+    }
+  }
+
+}
+
+.other-rooms-title {
+  font-size: 31px;
+  font-family: @ff-primary;
+  font-weight: bold;
+  text-align: center;
+  line-height: 36px;
+  color: #000;
+  margin-bottom: 30px;
+  &:after {
+    content: url('@{img-prefix}/lbe/divider-orange.png');
+    display: block;
+  }
+  .viewport-mobile & {
+    margin-bottom: 30px;
+    margin-top: 30px;
+  }
+}
+
+.other-rooms-nav{
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 50px;
+  a{
+    position: relative;
+    font-size: 13px;
+    line-height: 42px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: @c-grey;
+    padding-right: 30px;
+    float: right;
+    max-width: 45%;
+    .chain-sign &{
+      font-family: @ff-heading-sign;
+    }
+    &:after{
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 24px;
+      height: 48px;
+      background: url('@{img-prefix}/arrow-right.png') no-repeat center;
+    }
+    &:first-child{
+      padding-right: 0;
+      padding-left: 30px;
+      float: left;
+      &:after{
+        background: url('@{img-prefix}/arrow-left.png') no-repeat center;
+        right: 0;
+        left: 0;
+      }
+    }
+  }
+}
+
+main.room-detail {
+
+  .ota-products {
+    > li {
+      .ota-rate-text {
+        img {
+          display: initial;
+        }
+        .viewport-mobile & {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+}
