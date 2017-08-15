@@ -396,22 +396,43 @@ angular.module('mobiusApp.services.user', [])
         return emptyUser;
       }
 
+      var defaultEmailFromProfile = ksUser.Email && ksUser.Email.filter(function (value) {
+        return value.IsDefault;
+      })[0];
+
+      var defaultAddressFromProfile = ksUser.Address && ksUser.Address.filter(function (value) {
+        return value.IsDefault;
+      })[0];
+
+      var defaultPhoneFromProfile = ksUser.Phone && ksUser.Phone.filter(function (value) {
+        return value.IsDefault;
+      })[0];
+
+      var secondPhone;
+      if (ksUser.Phone && ksUser.Phone.length > 1) {
+        secondPhone = ksUser.Phone.filter(function (value) {
+          return !value.IsDefault;
+        })[0];
+      } else {
+        secondPhone = null;
+      }
+
       return {
         id:           ksUser.MobiusId || null,
         title:        mapKeystoneTitleToId(ksUser.Name.Title),
         firstName:    ksUser.Name.FirstName || null,
         lastName:     ksUser.Name.LastName || null,
-        email:        (ksUser.Email[0]) ? ksUser.Email[0].Email : null,
-        address1:     (ksUser.Address[0]) ? ksUser.Address[0].FirstLine : null,
-        city:         (ksUser.Address[0]) ? ksUser.Address[0].City      : null,
-        zip:          (ksUser.Address[0]) ? ksUser.Address[0].Postcode  : null,
-        state:        (ksUser.Address[0]) ? ksUser.Address[0].County    : null,
-        country:      (ksUser.Address[0]) ? ksUser.Address[0].Country   : null,
-        localeCode:   (ksUser.Address[0]) ? ksUser.Address[0].Country   : null,
+        email:        defaultEmailFromProfile ? defaultEmailFromProfile.Email : null,
+        address1:     defaultAddressFromProfile ? defaultAddressFromProfile.FirstLine : null,
+        city:         defaultAddressFromProfile ? defaultAddressFromProfile.City      : null,
+        zip:          defaultAddressFromProfile ? defaultAddressFromProfile.Postcode  : null,
+        state:        defaultAddressFromProfile ? defaultAddressFromProfile.County    : null,
+        country:      defaultAddressFromProfile ? defaultAddressFromProfile.Country   : null,
+        localeCode:   defaultAddressFromProfile ? defaultAddressFromProfile.Country   : null,
         languageCode: ksUser.Language || null,
         currencyCode: ksUser.Currency || null,
-        tel1:         (ksUser.Phone[0]) ? ksUser.Phone[0].Number : null,
-        tel2:         (ksUser.Phone[1]) ? ksUser.Phone[1].Number : null,
+        tel1:         defaultPhoneFromProfile ? defaultPhoneFromProfile.Number : null,
+        tel2:         secondPhone ? secondPhone.Number : null,
         optedIn:      ksUser.OptIn,
         avatarUrl:    (ksUser.Avatar[0]) ? ksUser.Avatar[0].ImagePath : '/static/images/v4/img-profile.png'
       };
