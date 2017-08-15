@@ -1,0 +1,14 @@
+<h2 class="alt-room-title">_sorry_no_rooms_on_selected_dates_</h2>
+<h3>_there_are_rooms_available_for_ <strong>_nights_starting_from_</strong></h3>
+<div class="availability-container">
+  <a ng-repeat="availability in dates" ng-href="{{availability.url}}" ng-click="availabilityClick($event,availability)" ng-class="{'available': availability.available === true && availability.fullyAvailable === true, 'selected':availability.selected}">
+    <span class="availability-date">
+      <span>{{availability.date | dateTime: 'DD'}}</span>
+      <span>{{availability.date | dateTime: 'MMM YYYY'}}</span>
+    </span>
+    <span ng-if="availability.fullyAvailable && !availability.selected" class="availability-price">From <strong>{{availability.priceFrom | i18nCurrency: $root.currencyCode}}</strong> _per_night_</span>
+    <span ng-if="!availability.fullyAvailable && !availability.selected" class="availability-price">_not_available_</span>
+    <span ng-if="availability.selected" class="availability-selected"><strong>_your_selected_date_</strong></span>
+  </a>
+</div>
+<button-submit ng-click="selectDates()">_select_new_dates_</button-submit>

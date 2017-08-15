@@ -1,0 +1,92 @@
+<hero-slider content="heroContent"
+             slide-width="uiConfig.heroSlider.slideWidth"
+             slide-height="uiConfig.heroSlider.slideHeight">
+</hero-slider>
+
+<div class="Home__hero--info"
+     ng-class="{ 'show-desktop': auth.isLoggedIn() }">
+
+  <h2 class="About__hero--tagline">
+    _about_tagline_
+  </h2>
+  <h1 class="About__hero--title">
+    _about_title_one_
+  </h1>
+  <h1 class="About__hero--title">
+    _about_title_two_
+  </h1>
+
+  <button ng-click="openBookingBar()"
+          class="Home__hero--button">
+    _search_
+  </button>
+
+</div>
+
+<article class="HeroTitle">
+
+  <div class="HeroTitle__inner">
+    <img src="/static/images/v4/logo-icon@3x.png">
+    <div class="HeroTitle__title">
+      <h1>{{ $root.heroContent[0].title }}</h1>
+    </div>
+    <a ui-sref="aboutUs" class="HeroTitle__button">_find_out_more_</a>
+  </div>
+
+</article>
+
+<booking-bar class="Home__booking-bar" size="small"></booking-bar>
+
+<article class="HeroBenefits" ng-if="!auth.isLoggedIn()">
+
+  <div class="HeroBenefits__benefit">
+    <h2>_about_benefit_one_title_</h2>
+    <p>_about_benefit_one_text_</p>
+  </div>
+
+  <div class="HeroBenefits__benefit">
+    <h2>_about_benefit_two_title_</h2>
+    <p>_about_benefit_two_text_</p>
+  </div>
+
+  <div class="HeroBenefits__benefit">
+    <h2>_about_benefit_four_title_</h2>
+    <p>_about_benefit_four_text_</p>
+  </div>
+
+  <div class="HeroBenefits__buttons">
+    <button ng-click="auth.login()"
+            class="HeroBenefits__button login">
+      _login_
+    </button>
+    <button ng-click="auth.register()"
+            class="HeroBenefits__button signup">
+      _sign_up_
+    </button>
+  </div>
+
+</article>
+
+<main class="grid-wrapper HomePage">
+
+  <div class="preloader" ng-show="preloader.visible"></div>
+  <section dynamic-layout></section>
+
+</main>
+
+<scroll-to-top class="back-to-top"
+               ng-click="scrollToTop()"
+               scroll-position="scroll"
+               ng-class="{visible: scroll > scrollTopTrigger}">
+  <span>_back_to_top_</span>
+</scroll-to-top>
+
+<!-- Growl notifications -->
+<growl-alerts class="growl-alerts-dir"
+              languages-message="'_languages_message_'"
+              retention-message="'_retention_message_'"
+              room-upgrade-success="'_room_upgrade_success_'"
+              room-upgrade-failure="'_room_upgrade_failure_'"
+              room-upgrade-increase="'_room_upgrade_increase_'"
+              room-upgrade-decrease="'_room_upgrade_decrease_'">
+</growl-alerts>

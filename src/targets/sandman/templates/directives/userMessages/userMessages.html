@@ -1,0 +1,18 @@
+<ul ng-if="messages.length" id="user-messages">
+  <li ng-repeat="message in messages" class="{{message.type}}" ng-if="message.type === 'info-message'">
+    <div class="grid-wrapper">
+      <span class="message-content" ng-bind-html="sanitize(message.html)"></span>
+      <span class="message-close" ng-click="closeMessage($index)">x</span>
+    </div>
+  </li>
+  <li ng-repeat="message in messages" class="{{message.type}}" ng-if="message.type === 'info-reservation-confirmation'">
+    <div class="grid-wrapper">
+      <img class="user-message__img" ng-if="uiConfig.userMessages.image.display" ng-src="{{uiConfig.userMessages.image.url}}">
+      <span class="message-content">
+        <span class="title" ng-bind-html="'_reservation_confirmation_message_title_' | stringLocaleReplace: null : null : message.property : null"></span>
+        <span class="desc" ng-bind-html="'_reservation_confirmation_message_desc_' | stringLocaleReplace: null : null : null : message.reservationCode"></span>
+      </span>
+      <span class="message-close" ng-click="closeMessage($index)">x</span>
+    </div>
+  </li>
+</ul>

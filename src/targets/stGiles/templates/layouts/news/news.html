@@ -1,0 +1,54 @@
+<hero-slider content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
+
+<breadcrumbs stickable="main-header"></breadcrumbs>
+
+<main class="grid-wrapper">
+
+  <div class="preloader" ng-show="preloader.visible"></div>
+
+  <news-list ng-if="!showDetail" grid="12">
+
+    <h1 ng-bind-html="'_news_page_title_' | mainHeaderStyle"></h1>
+
+    <p>_news_page_desc_</p>
+
+    <hr>
+
+    <article ng-repeat-start="news in newsList track by $index" ng-click="goToDetail(news.meta.slug)">
+      <img ng-src="{{news.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{news.image.alt}}">
+      <h2 ng-bind-html="news.title | mainHeaderStyle"></h2>
+      <div ng-bind-html="news.subtitle"></div>
+    </article>
+
+    <hr class="news-initial-divider" ng-repeat-end />
+
+  </news-list>
+
+  <news-detail id="news-detail" ng-if="showDetail" grid="12">
+    <h1 ng-bind-html="selectedNews.title | mainHeaderStyle"></h1>
+    <img ng-src="{{selectedNews.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}" alt="{{selectedNews.image.alt}}"/>
+    <div ng-bind-html="selectedNews.text"></div>
+    <button-back role="button" tabindex="0" ng-click="goToNewsList()" class="pull-left">_back_</button-back>
+    <div class="clearfix"></div>
+    <hr>
+
+    <h2 ng-if="newsList.length > 1" ng-bind-html="'_more_offers_title_' | mainHeaderStyle"></h2>
+
+    <offers-list grid-row>
+      <offer-item ng-repeat="news in newsList | filter:getRelevant track by $index">
+        <a ui-sref="news({code:news.meta.slug})">
+          <img ng-src="{{news.image.uri | cloudinaryImage : 270 : 140 : 'fill'}}" alt="{{news.image.alt}}">
+          <section>
+            <h3>{{news.title}}</h3>
+            <div ng-bind-html="news.subtitle"></div>
+          </section>
+          <span>_read_more_</span>
+        </a>
+      </offer-item>
+    </offers-list>
+
+  </news-detail>
+
+  <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>
+</main>
+<div ng-include="'layouts/siteMap.html'" class="site-map" ng-if="footerConfig.displaySitemap"></div>

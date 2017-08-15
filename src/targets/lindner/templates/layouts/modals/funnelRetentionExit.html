@@ -1,0 +1,12 @@
+<div class="ui-info">
+    <div class="funnel-container" ng-style="{'background-image': 'url('+ (data.retentionData.image.uri | cloudinaryImage : 700 : auto : 'fill') +')'}">
+        <main>
+            <h1>{{data.retentionData.title}}</h1>
+            <div class="funnel-description" ng-bind-html="sanitize(data.retentionData.text)"></div>
+            <a ng-href="tel:{{data.retentionData.telephone}}" class="retention-cta" ng-if="data.retentionData.telephone && !data.retentionData.voucherCode">{{data.retentionData.telephone}}</a>
+            <span ng-if="data.retentionData.voucherCode" class="retention-cta">{{data.retentionData.voucherCode}}</span>
+            <button class="button" ng-click="addVoucher(data.retentionData.voucherCode)" ng-if="data.retentionData.voucherCode">_book_now_</button>
+        </main>
+    </div>
+    <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+</div>

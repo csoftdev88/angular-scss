@@ -1,0 +1,129 @@
+<div class="login-dialog"
+     ng-click="$event.stopPropagation()"
+     ng-class="'form-step' + loginFormStep">
+
+  <header>
+    <a href=""
+       ng-click="loginFormStep = 1; auth.clearErrors(); retentionClick()"
+       ng-show="loginFormStep == 2"
+       class="back-btn">
+      _back_
+    </a>
+
+    <a href=""
+       ng-click="auth.clearErrors(); auth.login(); retentionClick()"
+       class="close-btn">
+    </a>
+
+    <figure class="logo">
+      <img src="/static/images/v4/logo-dark.png" alt="logo">
+    </figure>
+
+    <p class="error-msg" ng-if="loginDialogError">
+          <span ng-if="genericError">
+            _generic_error_message_
+          </span>
+      <span ng-if="missingFieldsError">
+            _missing_fields_message_
+          </span>
+      <span ng-if="incorrectEmailPasswordError">
+            _incorrect_email_password_error_
+          </span>
+      <span ng-if="notRegisteredEmailError">
+            _email_not_registered_error_
+          </span>
+      <span ng-if="passwordResetSuccess">
+            _reset_password_error_code_thirtyfour_
+          </span>
+    </p>
+
+    <div class="title" ng-show="config.loginDialog.showLoginTitle">
+      <h2>_log_in_</h2>
+      <hr>
+    </div>
+
+  </header>
+
+  <div class="form-wrapper">
+
+    <form name="loginForm" class="login-form" novalidate>
+      <fieldset>
+        <form-element>
+          <input
+            type="email"
+            id="loginEmail"
+            name="loginEmail"
+            ng-model="loginData.email"
+            required
+            email-check
+            placeholder="_email_label_"
+            ng-class="{'ng-submitted': loginForm.$submitted &&
+                                           (loginForm.loginEmail.$error.required ||
+                                           loginForm.loginEmail.$error.emailCheck)}"/>
+        </form-element>
+
+        <form-element>
+          <input
+            type="password"
+            id="loginPassword"
+            name="loginPassword"
+            ng-model="loginData.password"
+            required
+            placeholder="_password_label_"
+            ng-class="{'ng-submitted': loginForm.$submitted && loginForm.loginPassword.$error.required}"
+            ng-pattern="$root.generalValidationPattern"/>
+        </form-element>
+
+      </fieldset>
+
+      <button-submit role="button"
+                     tabindex="0"
+                     type="submit"
+                     ng-click="doLogin(loginForm, loginData); retentionClick()">
+        _login_
+      </button-submit>
+
+      <ul class="options">
+        <li>
+          <a href=""
+             ng-click="loginFormStep = 2; auth.clearErrors(); retentionClick()">
+            _forgot_password_label_
+          </a>
+        </li>
+        <li>
+          <a href=""
+             ng-click="auth.clearErrors(); $root.showLoginDialog = !$root.showLoginDialog; auth.register(); retentionClick()">
+            _register_now_
+          </a>
+        </li>
+      </ul>
+
+    </form>
+
+    <form name="resetForm" class="reset-form" novalidate>
+      <fieldset>
+        <form-element>
+          <input
+            type="email"
+            id="resetEmail"
+            name="resetEmail"
+            ng-model="resetData.email"
+            required
+            email-check
+            placeholder="_email_label_"
+            ng-class="{'ng-submitted': resetForm.$submitted && resetForm.resetEmail.$error.required}"/>
+        </form-element>
+
+      </fieldset>
+
+      <button-submit role="button"
+                     tabindex="0"
+                     ng-click="auth.reset(resetForm, resetData); retentionClick()">
+        _reset_password_
+      </button-submit>
+
+    </form>
+
+  </div>
+
+</div>
