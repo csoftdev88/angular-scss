@@ -7,10 +7,7 @@
   width: 100%;
   position: fixed;
   z-index: 999;
-  background-color: rgba(26, 26, 26, 1);
-
-  .backdrop-filter-blur(20px);
-
+  background-color: #fff;
 }
 
 .Header__buttons {
@@ -19,7 +16,7 @@
 
 .Header__menu {
   float: right;
-  padding: 5px 0 0 0;
+  padding: 9px 0 0 0;
 }
 
 .Header__buttons--auth {
@@ -64,9 +61,9 @@
   width: 93px;
   height: 35px;
   box-sizing: border-box;
-  border: solid 1px #ffffff;
+  border: 1px solid #B98747;
   background: transparent;
-  color: white;
+  color: #B98747;
   line-height: 35px;
   text-transform: uppercase;
   font-size: 14px;
@@ -100,8 +97,8 @@
 
 .Header__buttons--currency {
   a[title='Currency'] {
-    color: #fff;
-    font-family: @ff-primary;
+    color: #3F3029;
+    font-family: Arial;
     // Hide the change currency text
     span:last-of-type {
       display: none;
@@ -131,7 +128,7 @@
 
 .Header__menu--hamburger {
   cursor: pointer;
-  height: 26px;
+  height: 19px;
   width: 26px;
   display: block;
   .main-menu-active & {
