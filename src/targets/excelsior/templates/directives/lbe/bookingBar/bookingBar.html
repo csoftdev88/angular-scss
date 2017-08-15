@@ -1,0 +1,124 @@
+<article class="booking-bar" ng-class="sizeClass">
+
+  <form class="booking-bar__form" ng-class="{'multiroom-booking': multiRoomSearch}">
+
+    <h3 class="booking-bar__title"
+        ng-show="isSmall() && !multiRoomSearch">
+      _quick_book_
+    </h3>
+
+    <h3 class="booking-bar__title"
+        ng-show="isSmall() && multiRoomSearch">
+      _advanced_search_
+    </h3>
+
+    <form-element class="booking-bar__form--room"
+                  ng-if="!uiConfig.generics.singleProperty">
+      <select name="property"
+              chosen
+              disable-search="true"
+              ng-model="search.property"
+              placeholder-text-single="_find_your_hotel_"
+              ng-options="property.id as property.nameShort for property in properties">
+      </select>
+    </form-element>
+
+    <form-element class="dates">
+      <input type="text"
+             id="booking-bar-dates"
+             placeholder="_dates_"
+             range-datepicker
+             ng-model="dates"
+             data-range-selection="1"
+             data-close-button-text="_continue_"
+             ng-required="true"
+             readonly
+             show-button-bar="false"
+             data-counter-pluralization="{'0': '_no_dates_selected_short_', '1': '{} _night_', 'plural': '{} _nights_'}"
+             data-counter-dates="{'0': '_arrival_: {date}', '1': '_departure_: {date}'}"
+             data-force-end-date="true"
+             input-text="inputDateText"
+             bar-data="selected"
+             not-available-description="'_not_available_description_'">
+      <input-value class="dates-text">
+        {{ inputDateText }}
+      </input-value>
+    </form-element>
+
+    <form-element class="booking-bar__form--rooms"
+                  ng-repeat="room in rooms"
+                  ng-class="{'inlineFormElement': room == rooms[0], 'margin-left': room !== rooms[0]}">
+
+      <a ng-click="removeRoom($index)"
+            ng-if="$index !== 0"
+            class="booking-bar__link remove-room">
+        _remove_room_
+      </a>
+
+      <form-element class="booking-bar__form--guests adults">
+        <select name="adults"
+                chosen
+                disable-search="true"
+                ng-model="room.adults"
+                placeholder-text-single="_adults_"
+                ng-options="adult.value as adult.title for adult in adults">
+        </select>
+      </form-element>
+
+      <form-element class="booking-bar__form--guests children">
+        <select name="children"
+                chosen
+                disable-search="true"
+                ng-model="room.children"
+                placeholder-text-single="_children_"
+                ng-options="child.value as child.title for child in children">
+        </select>
+      </form-element>
+
+    </form-element>
+
+    <form-element ng-if="multiRoomSearch" class="booking-bar__form--add-room">
+      <a ng-click="addRoom()" class="booking-bar__link add-room">
+        _add_room_
+      </a>
+    </form-element>
+
+    <form-element ng-show="!showCode && !multiRoomSearch" class="booking-bar__form--code">
+      <select name="code"
+              chosen
+              disable-search="true"
+              ng-model="search.codeType"
+              ng-change="showCode = !showCode"
+              placeholder-text-single="_apply_code_"
+              ng-options="code.value as code.title for code in codes">
+      </select>
+    </form-element>
+
+    <form-element ng-show="showCode && !multiRoomSearch" class="booking-bar__form--code">
+      <input type="text" ng-model="search.code">
+      <remove-text role="button"
+                   class="remove"
+                   ng-click="showCode = !showCode">
+      </remove-text>
+    </form-element>
+
+    <button type="submit"
+            ng-click="doSearch()"
+            class="booking-bar__submit">
+      _search_
+    </button>
+
+    <a ng-click="switchSearchType()"
+       ng-show="!multiRoomSearch"
+       class="booking-bar__link advanced">
+      _advanced_search_
+    </a>
+    <a ng-click="switchSearchType()"
+       ng-show="multiRoomSearch"
+       class="booking-bar__link quick">
+      _quick_book_
+    </a>
+
+  </form>
+
+</article>

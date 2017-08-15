@@ -1,0 +1,125 @@
+//////////////////////
+//// OFFER DETAIL ////
+//////////////////////
+
+offer-detail {
+  display: inline-block;
+
+  //- Page Heading
+  h1 {
+    .h1;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 32px;
+  }
+
+  .controls{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+
+    .inner{
+
+      &.has-dropdown{
+        display: inline-block;
+      }
+
+      .property-select {
+
+        float: left;
+        margin-right: 36px;
+
+        .chosen-container {
+          width: 300px !important;
+          border: none;
+        }
+
+        //property dropdown
+        // region/hotel styling in dropdown
+        .chosen-results {
+          li{
+            text-align: left;
+            padding: 11px;
+          }
+          li.location {
+            font-size: 10px;
+            color: #9a9a9a;
+            height: 16px;
+            line-height: 16px;
+            background: #d9d9d9;
+            padding: 0 11px;
+            cursor: default;
+            pointer-events: none;
+          }
+          li.property {
+            font-size: 15px;
+            color: @c-grey;
+          }
+        }
+
+        .chosen-container-single {
+          .chosen-single {
+            border-radius: 4px;
+            background: #f2f2f2;
+            background: -moz-linear-gradient(top, #f2f2f2 0%, #d4d4d4 100%);
+            background: -webkit-linear-gradient(top, #f2f2f2 0%,#d4d4d4 100%);
+            background: linear-gradient(to bottom, #f2f2f2 0%,#d4d4d4 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#d4d4d4',GradientType=0 );
+            border: 1px solid @c-light-grey;
+            line-height: 38px;
+            height: 38px;
+            span{
+              color: @c-grey;
+            }
+          }
+        }
+
+        //icon
+        .chosen-container-single .chosen-single div b {
+          display: block;
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 26px;
+          height: 100%;
+          background: none;
+          &:after {
+            .fa;
+            position: absolute;
+            color: @c-grey;
+            font-size: 14px;
+            content: @fa-var-sort;
+            right: 10px;
+            top: 11px;
+          }
+
+        }
+
+        .viewport-mobile & {
+          width: 100%;
+          margin: 10px 0px;
+
+          .chosen-container {
+            width: 100% !important;
+          }
+        }
+      }
+    }
+
+  }
+
+
+
+  //- Book Now Button
+  button-submit,
+  button-submit:hover {
+    float: left;
+    background: @lbe-c-primary;
+    border-radius: 2px;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: @white;
+    cursor: pointer;
+  }
+
+}
