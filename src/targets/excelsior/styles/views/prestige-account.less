@@ -2,8 +2,7 @@ prestige-account {
 
   div[grid="12"] {
     margin-top: 112px;
-    background-color: rgba(0, 0, 0, 0.75);
-    .backdrop-filter-blur(20px);
+    background-color: #fff;
     min-height: 800px;
     padding: 0 40px;
     margin-right: 0;
@@ -21,7 +20,7 @@ prestige-account {
       font-weight: 300;
     }
     .points{
-      color: @lbe-c-primary;
+      color: #B98747;
     }
     .viewport-mobile &{
       text-align: center;
@@ -40,7 +39,7 @@ prestige-account {
 
   .title {
     span {
-      color: #fff;
+      color: #3F3029;
     }
   }
 
@@ -54,13 +53,13 @@ prestige-account {
     nav{
       display: inline-block;
       width: 100%;
-      border-bottom: 2px solid @c-mid-grey;
+      border-bottom: 2px solid #d8d8d8;
       .viewport-mobile &{
         border: none;
       }
 
       .title {
-        font-family: @lbe-ff-primary;
+        font-family: "Open Sans";
         float: left;
         font-size: @size-2;
         line-height: @size-4;
@@ -70,7 +69,7 @@ prestige-account {
           font-weight: 300;
           font-style: italic;
           margin-left: 10px;
-          color: #fff;
+          color: #3F3029;
         }
         .viewport-mobile &{
           display: none;
@@ -99,7 +98,7 @@ prestige-account {
             position: absolute;
             left: -4px;
             top: 0;
-            color: #fff;
+            color: #3F3029;
           }
           &:first-child:before{
             content: none;
@@ -108,12 +107,12 @@ prestige-account {
             padding-right: 0;
           }
           a{
-            color: #fff;
+            color: #3F3029;
             font-weight: 300;
             &.active{
-              color: @c-secondary;
+              color: #B98747;
               font-weight: 700;
-              border-bottom: 1px solid @c-secondary;
+              border-bottom: 1px solid #B98747;
             }
           }
         }
@@ -122,7 +121,7 @@ prestige-account {
 
     //transactions items
     ul.transaction-items{
-      border-bottom: 2px solid @c-mid-grey;
+      border-bottom: 2px solid #d8d8d8;
       li{
         display: inline-block;
         width: 100%;
@@ -142,22 +141,23 @@ prestige-account {
           box-sizing: border-box;
           min-height: 1px;
           .label{
-            font-family: @lbe-ff-primary;
-            color: #fff;
+            font-family: "Open Sans";
+            color: #B98747;
             font-size: @size--3;
             line-height: @size-0;
             text-transform: uppercase;
-            font-weight: 300;
+            font-weight: 600;
             min-height: 7px;
             margin-bottom: 6px;
           }
           .value,
           .detail {
-            font-family: @lbe-ff-primary;
-            color: #fff;
+            font-family: "Open Sans";
+            color: #3F3029;
             font-size: @size-1;
             line-height: @size-3;
             font-weight: 600;
+            text-transform: uppercase;
           }
           .detail{
             font-weight: 300;
@@ -217,7 +217,7 @@ prestige-account {
         .transaction-value{
           width: 15%;
           .value{
-            color: @lbe-c-primary;
+            color: #3F3029;
             &.positive{
               color: @c-green;
             }
@@ -235,7 +235,7 @@ prestige-account {
           width: 10%;
           text-align: right;
           .value{
-            color: @lbe-c-primary;
+            color: #3F3029;
           }
           .viewport-mobile &{
             display: none;
@@ -283,7 +283,7 @@ prestige-account {
   font-family: @lbe-ff-secondary;
   font-size: 16px;
   letter-spacing: 0;
-  color: #ffffff;
+  color: #3F3029;
   text-transform: uppercase;
   margin-top: 39px;
   margin-bottom: 0;
@@ -295,13 +295,12 @@ prestige-account {
 
 .Prestige__points {
   line-height: 44px;
-  font-family: @lbe-ff-secondary;
-  font-size: 36px;
-  font-weight: bold;
+  font-family: "Open Sans";
+  font-size: 39px;
   text-align: left;
-  color: @lbe-c-primary;
+  color: #B98747;
   .viewport-mobile & {
-    color: @lbe-c-primary !important;
+    color: #B98747 !important;
     font-size: 26px;
     line-height: 32px;
   }
