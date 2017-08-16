@@ -137,17 +137,12 @@
 }
 
 .Header__menu--close {
-  height: 26px;
-  width: 26px;
+  height: 20px;
+  width: 20px;
+  margin-left: 6px;
   display: none;
+  background: url('@{img-prefix}/menu_close.png');
   .main-menu-active & {
     display: block;
-  }
-  &:after {
-    .fa;
-    position: absolute;
-    color: #fff;
-    font-size: 26px;
-    content: @fa-var-times;
   }
 }
