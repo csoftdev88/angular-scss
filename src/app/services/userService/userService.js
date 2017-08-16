@@ -302,6 +302,12 @@ angular.module('mobiusApp.services.user', [])
         loadProfile();
       });
 
+      $window.addEventListener('keystone.ready', function () {
+        if (keystoneIsAuthenticated()) {
+          loadProfile();
+        }
+      });
+
       $window.addEventListener(
         EVENT_CUSTOMER_LOGGED_OUT,
       function(){
