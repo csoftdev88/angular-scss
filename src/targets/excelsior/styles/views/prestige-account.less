@@ -20,7 +20,7 @@ prestige-account {
       font-weight: 300;
     }
     .points{
-      color: #B98747;
+      color: @c-primary;
     }
     .viewport-mobile &{
       text-align: center;
@@ -39,7 +39,7 @@ prestige-account {
 
   .title {
     span {
-      color: #3F3029;
+      color: @c-text;
     }
   }
 
@@ -69,7 +69,7 @@ prestige-account {
           font-weight: 300;
           font-style: italic;
           margin-left: 10px;
-          color: #3F3029;
+          color: @c-text;
         }
         .viewport-mobile &{
           display: none;
@@ -98,7 +98,7 @@ prestige-account {
             position: absolute;
             left: -4px;
             top: 0;
-            color: #3F3029;
+            color: @c-text;
           }
           &:first-child:before{
             content: none;
@@ -107,12 +107,12 @@ prestige-account {
             padding-right: 0;
           }
           a{
-            color: #3F3029;
+            color: @c-text;
             font-weight: 300;
             &.active{
-              color: #B98747;
+              color: @c-primary;
               font-weight: 700;
-              border-bottom: 1px solid #B98747;
+              border-bottom: 1px solid @c-primary;
             }
           }
         }
@@ -142,7 +142,7 @@ prestige-account {
           min-height: 1px;
           .label{
             font-family: "Open Sans";
-            color: #B98747;
+            color: @c-primary;
             font-size: @size--3;
             line-height: @size-0;
             text-transform: uppercase;
@@ -153,7 +153,7 @@ prestige-account {
           .value,
           .detail {
             font-family: "Open Sans";
-            color: #3F3029;
+            color: @c-text;
             font-size: @size-1;
             line-height: @size-3;
             font-weight: 600;
@@ -217,7 +217,7 @@ prestige-account {
         .transaction-value{
           width: 15%;
           .value{
-            color: #3F3029;
+            color: @c-text;
             &.positive{
               color: @c-green;
             }
@@ -235,7 +235,7 @@ prestige-account {
           width: 10%;
           text-align: right;
           .value{
-            color: #3F3029;
+            color: @c-text;
           }
           .viewport-mobile &{
             display: none;
@@ -283,7 +283,7 @@ prestige-account {
   font-family: @lbe-ff-secondary;
   font-size: 16px;
   letter-spacing: 0;
-  color: #3F3029;
+  color: @c-text;
   text-transform: uppercase;
   margin-top: 39px;
   margin-bottom: 0;
@@ -298,9 +298,9 @@ prestige-account {
   font-family: "Open Sans";
   font-size: 39px;
   text-align: left;
-  color: #B98747;
+  color: @c-primary;
   .viewport-mobile & {
-    color: #B98747 !important;
+    color: @c-primary !important;
     font-size: 26px;
     line-height: 32px;
   }

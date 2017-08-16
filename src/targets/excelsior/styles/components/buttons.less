@@ -1,5 +1,5 @@
 //- BUTTONS -//
-@c-button: #E34E3F;
+@c-button: @c-secondary;
 
 
 //- Button Submit
@@ -8,12 +8,12 @@
 input[type="submit"],
 button-submit {
 
-  background: #E34E3F;
+  background: @c-secondary;
 
   &:active,
   &:focus,
   &:hover {
-    background: darken(#E34E3F, 10%);
+    background: darken(@c-secondary, 10%);
     box-shadow: none;
   }
 
