@@ -32,7 +32,7 @@
   }
 
   .hotel-overview {
-    margin-top: 148px;
+    margin-top: 83px;
     view-more-images {
       margin-left: 0 !important;
     }
@@ -230,7 +230,7 @@
   }
 
   .amenity-item {
-    margin-bottom: 57px;
+    margin-bottom: 36px;
     span {
       img {
         max-height: none;
@@ -240,12 +240,11 @@
       }
     }
     .amenity-caption {
-      padding-left: 30px;
-      font-size: 17px;
-      letter-spacing: 0;
-      color: #000;
-      font-family: @ff-primary;
-      line-height: 25px;
+      padding-left: 33px;
+      font-size: 14px;
+      color: #585C58;
+      font-family: "Open Sans";
+      line-height: 19px;
     }
     &:nth-child(n + 7) {
       display: none;
@@ -259,7 +258,10 @@
     .map-wrapper {
       width: 100vw;
       margin-left: calc(~'-50vw + 50% - 10px');
-      height: 376px;
+      height: 462px;
+      ng-map {
+        height: 462px;
+      }
     }
   }
 }
@@ -299,4 +301,15 @@
   color: #fff;
   font-size: 16px;
   font-family: @ff-primary;
+}
+
+.hotel-description div p {
+  font-family: Arial;
+  font-size: 14px;
+  line-height: 25px;
+  color: #585C58;
+}
+
+.HotelContactInfo {
+  margin-top: 50px;
 }
