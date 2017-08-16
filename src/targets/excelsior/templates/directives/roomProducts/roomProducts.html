@@ -30,70 +30,75 @@
     </div>
 
     <div class="rate-description">
-      <h4>
+      <div class="ProductImage">
+        <img src="/static/images/product-img.png" />
+      </div>
+      <div class="ProductInfo">
+        <h4>
+          <span ng-bind-html="product.name | mainHeaderStyle"></span>
+          <a class="info"
+             href
+             ng-click="openProductDetailsDialog(product)"
+             ng-if="settings.showRateInfoIcon">
+          </a>
 
-        <span ng-bind-html="product.name | mainHeaderStyle"></span>
-        <a class="info"
-           href
-           ng-click="openProductDetailsDialog(product)"
-           ng-if="settings.showRateInfoIcon">
-        </a>
-
-        <earned-points ng-if="isUserLoggedIn() &&
+          <earned-points ng-if="isUserLoggedIn() &&
                               product.price.pointsEarned &&
                               loyaltyProgramEnabled &&
                               !roomsConfig.displayEarnedPointsBelowDescription &&
                               product.productAwardPoints">
+            _earn_at_least_
+            <ng-pluralize count="getValuePer(product.price.pointsEarned, true).toFixed(0)"
+                          when="{'1': '{} point', 'other': '{} points'}">
+            </ng-pluralize>
+          </earned-points>
+
+          <p class="noPointsAwarded"
+             ng-if="isUserLoggedIn() && !product.productAwardPoints && loyaltyProgramEnabled">
+            _no_points_rate_desc_
+          </p>
+        </h4>
+
+        <a href=""
+           class="tagline"
+           ng-if="settings.showTagline && product.tagline && product.tagline !== ''"
+           ng-click="openProductDetailsDialog(product)">
+          {{ product.tagline }}
+        </a>
+
+        <p class="full-description"
+           ng-if="settings.showDescription"
+           ng-bind-html="sanitize(product.descriptionShort || product.description)">
+        </p>
+
+        <p ng-if="settings.showDescription"
+           class="tag-line">
+          {{ product.tagline }}
+        </p>
+
+        <earned-points ng-if="isUserLoggedIn() &&
+                            product.price.pointsEarned &&
+                            loyaltyProgramEnabled &&
+                            roomsConfig.displayEarnedPointsBelowDescription &&
+                            product.productAwardPoints">
           _earn_at_least_
           <ng-pluralize count="getValuePer(product.price.pointsEarned, true).toFixed(0)"
                         when="{'1': '{} point', 'other': '{} points'}">
           </ng-pluralize>
         </earned-points>
 
-        <p class="noPointsAwarded"
-           ng-if="isUserLoggedIn() && !product.productAwardPoints && loyaltyProgramEnabled">
-          _no_points_rate_desc_
-        </p>
-      </h4>
+        <inclusions ng-if="settings.showInclusions && product.inclusions"
+                    class="product-inclusions"
+                    inclusions="product.inclusions">
+        </inclusions>
 
-      <a href=""
-         class="tagline"
-         ng-if="settings.showTagline && product.tagline && product.tagline !== ''"
-         ng-click="openProductDetailsDialog(product)">
-        {{ product.tagline }}
-      </a>
+        <a class="info mobile"
+           href
+           ng-click="openProductDetailsDialog(product)">
+          _view_details_
+        </a>
 
-      <p class="full-description"
-         ng-if="settings.showDescription"
-         ng-bind-html="sanitize(product.descriptionShort || product.description)">
-      </p>
-
-      <p ng-if="settings.showDescription"
-         class="tag-line">
-        {{ product.tagline }}
-      </p>
-
-      <earned-points ng-if="isUserLoggedIn() &&
-                            product.price.pointsEarned &&
-                            loyaltyProgramEnabled &&
-                            roomsConfig.displayEarnedPointsBelowDescription &&
-                            product.productAwardPoints">
-        _earn_at_least_
-        <ng-pluralize count="getValuePer(product.price.pointsEarned, true).toFixed(0)"
-                      when="{'1': '{} point', 'other': '{} points'}">
-        </ng-pluralize>
-      </earned-points>
-
-      <inclusions ng-if="settings.showInclusions && product.inclusions"
-                  class="product-inclusions"
-                  inclusions="product.inclusions">
-      </inclusions>
-
-      <a class="info mobile"
-         href
-         ng-click="openProductDetailsDialog(product)">
-        _view_details_
-      </a>
+      </div>
 
     </div>
 

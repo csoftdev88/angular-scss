@@ -180,7 +180,7 @@ hotel-detail {
         }
 
         .item-header{
-          margin-bottom: 16px;
+          margin-bottom: 44px;
           .viewport-mobile & {
             padding-left:115px;
             margin-bottom:5px;
@@ -189,25 +189,11 @@ hotel-detail {
 
           h3{
             a{
-              font-family: @ff-heading;
-              color: @c-grey;
+              font-family: "Open Sans";
+              font-size: 19px;
+              color: #B98747;
               text-transform: uppercase;
               font-weight: normal;
-              .chain-sign &{
-                font-family: @ff-heading-it-sign;
-                text-transform: none;
-                font-size: 21px;
-              }
-              &:after {
-                color: @c-brown;
-                font-size: 18px;
-                position: relative;
-                top: -1px;
-                left: 5px;
-                .viewport-mobile & {
-                  display:none;
-                }
-              }
             }
 
             .sub-title{
@@ -379,7 +365,7 @@ hotel-detail {
           room-details {
             float: left;
             width: 63%;
-            padding: 15px;
+            padding: 0 15px 15px 28px;
             border: 1px solid #c6beb5;
             box-sizing: border-box;
             border-top: none;
@@ -392,10 +378,14 @@ hotel-detail {
             .description {
               float: left;
               width: 70%;
+              margin-bottom: 20px;
 
               div {
                 p {
-                  display: none;
+                  font-family: Arial;
+                  color: #585C58;
+                  font-size: 14px;
+                  line-height: 25px;
 
                   &:nth-child(-n+3){
                     display: block;
@@ -405,12 +395,6 @@ hotel-detail {
             }
 
             > .pricing-info {
-              .price-form {
-
-                .value {
-
-                }
-              }
 
               .not-available{
                 button-submit{
@@ -423,15 +407,11 @@ hotel-detail {
               }
 
               button {
-                background: @lbe-c-primary;
+                background: #E34E3F;
                 border-radius: 0;
-                font-family: @ff-default;
-                .chain-sign &,
-                .chain-sand &{
-                  font-family: @ff-default;
-                }
+                font-family: "Open Sans";
                 &:hover {
-                  background: @lbe-c-primary;
+                  background: #E34E3F;
                 }
               }
             }
