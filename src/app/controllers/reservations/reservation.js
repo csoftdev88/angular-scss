@@ -93,6 +93,10 @@ angular.module('mobius.controllers.reservation', [])
     params: $state.fromParams
   };
 
+  $scope.breakdown = {
+    extended: false
+  };
+
   $scope.$on('USER_LOGIN_EVENT', function() {
     prefillUserDetails($scope.auth && $scope.auth.isLoggedIn() ? user.getUser() : {
       email: $stateParams.email

@@ -32,7 +32,7 @@
   }
 
   .hotel-overview {
-    margin-top: 148px;
+    margin-top: 83px;
     view-more-images {
       margin-left: 0 !important;
     }
@@ -146,7 +146,7 @@
       room-products {
 
         .button {
-          background: @lbe-c-primary !important;
+          background: @c-secondary;
           border-radius: 0 !important;
           width: 206px !important;
           text-transform: uppercase !important;
@@ -197,7 +197,8 @@
 
       h3 {
         a {
-          color: #000 !important;
+          background: #fff;
+          padding: 0 15px;
         }
         width: 100%;
         text-align: center;
@@ -207,9 +208,18 @@
         font-family: @ff-primary;
         font-weight: bold;
         letter-spacing: 0;
-        &:after {
-          content: url('@{img-prefix}/lbe/divider-orange.png');
-          display: block;
+
+        position: relative;
+        z-index: 1;
+
+        &:before {
+          border-top: 1px solid @c-primary;
+          content:"";
+          margin: 0 auto; /* this centers the line to the full width specified */
+          position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
+          top: 50%; left: 0; right: 0; bottom: 0;
+          width: 95%;
+          z-index: -1;
         }
       }
     }
@@ -220,7 +230,7 @@
   }
 
   .amenity-item {
-    margin-bottom: 57px;
+    margin-bottom: 36px;
     span {
       img {
         max-height: none;
@@ -230,12 +240,11 @@
       }
     }
     .amenity-caption {
-      padding-left: 30px;
-      font-size: 17px;
-      letter-spacing: 0;
-      color: #000;
+      padding-left: 33px;
+      font-size: 14px;
+      color: @c-tertiary;
       font-family: @ff-primary;
-      line-height: 25px;
+      line-height: 19px;
     }
     &:nth-child(n + 7) {
       display: none;
@@ -249,7 +258,10 @@
     .map-wrapper {
       width: 100vw;
       margin-left: calc(~'-50vw + 50% - 10px');
-      height: 376px;
+      height: 462px;
+      ng-map {
+        height: 462px;
+      }
     }
   }
 }
@@ -289,4 +301,15 @@
   color: #fff;
   font-size: 16px;
   font-family: @ff-primary;
+}
+
+.hotel-description div p {
+  font-family: @ff-secondary;
+  font-size: 14px;
+  line-height: 25px;
+  color: @c-tertiary;
+}
+
+.HotelContactInfo {
+  margin-top: 50px;
 }

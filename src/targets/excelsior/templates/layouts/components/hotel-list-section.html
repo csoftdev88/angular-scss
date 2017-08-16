@@ -23,7 +23,7 @@
         <img class="room-image mobile" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : roomImageWidth : roomImageHeight : 'fill'}}"
           alt="{{room.name}}" ng-if="!roomsConfig.includeSlider">
 
-        <a class="room-see-more" ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-if="roomsConfig.hideShowInfoIcon">_see_more_information_</a>
+        <!--<a class="room-see-more" ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-if="roomsConfig.hideShowInfoIcon">_see_more_information_</a>-->
 
         <header class="item-header mobile">
           <h3>

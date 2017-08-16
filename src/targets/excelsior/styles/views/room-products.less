@@ -1,7 +1,8 @@
 @import "../components/ribbons";
 
 room-products {
-	margin-top:25px;
+	margin-top:34px;
+  padding-left: 15px;
 	.viewport-mobile & {
 		margin-top:0;
 	}
@@ -24,16 +25,29 @@ room-products {
 	}
 	> ul {
 		> li {
-			border-color: #c6beb5;
+      border: 3px solid @c-primary;
 			position:relative;
+      padding-left: 0;
+      margin-bottom: 5px;
       .rate-description {
         border-right: none;
+        padding-top: 0;
+        padding-bottom: 0;
+        height: 100%;
+        .ProductImage {
+          float: left;
+          height: 170px;
+          width: 170px;
+          margin-right: 32px;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .ProductInfo {
+          padding-top: 22px;
+        }
       }
-			//border: 0;
-			//border-bottom: 1px solid @c-light-grey;
-			&:first-child {
-				border-top: 1px solid #c6beb5;
-			}
 			&:last-of-type {
 				border-radius: 0;
 			}
@@ -46,7 +60,7 @@ room-products {
 			&.is-member-only.is-member-only-disabled {
 				.button {
 					background:@c-button;
-					box-shadow:0 1px 2px 0 rgba(0, 0, 0, 0.5);
+					box-shadow: none;
 				}
 			}
 			&.is-member-only, &.is-member-only-disabled {
@@ -151,29 +165,22 @@ room-products {
 				.sub-desc {}
 			}
 			.rate-description {
-				a.info.link {
-					&:hover {}
-				}
+        width: 70%;
 				h4 {
-					font-weight: 700;
-					color: @c-dark-grey;
-					.chain-sign & {
-						font-weight: 400;
-						font-family: @ff-heading-bold-sign;
-					}
+          font-family: @ff-secondary;
+          font-size: 16px;
+          line-height: 18px;
+          color: @c-text;
+          padding-bottom: 14px;
 					> span {
-						font-weight: 600;
 						text-transform: uppercase;
+            font-weight: bold;
 					}
 					a.info {
 						float: left;
 					}
 					a.info::after {
 						font-size: 20px;
-					}
-					a.description-toggle {
-						&:after {}
-						.viewport-mobile & {}
 					}
 				}
 				.description-wrapper {
@@ -206,6 +213,7 @@ room-products {
 			}
 			pricing-details {
 				margin-bottom:10px;
+        width: 30%;
 				.price-details {
           width: 100%;
           padding-top: 40px;
@@ -239,14 +247,14 @@ room-products {
           width: 100%;
           float: initial;
 					.button {
-						background: @lbe-c-primary;
+						background: #e34e3f;
 						border-radius: 2px;
 						font-size: 14px;
 						text-transform: uppercase;
 						line-height: 38px;
 						min-width:91px;
 						&:hover {
-							background: darken(@lbe-c-primary, 10%);
+							background: #e34e3f;
 						}
 					}
 					.viewport-mobile & {}

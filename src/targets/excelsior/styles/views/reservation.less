@@ -3,7 +3,7 @@
 /////////////////////
 
 @c-gray-reservation:  #d7d7d7;
-@c-form-text:         #fff;
+@c-form-text:         @c-text;
 @c-brown-light:       #d7c6ae;
 @spacing:             20px;
 
@@ -17,8 +17,7 @@ reservation-widget {
   padding: 24px 47px 24px 34px;
   box-sizing: border-box;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.75);
-  .backdrop-filter-blur(20px);
+  background-color: #fff;
   box-shadow: none;
   border-radius: 0;
 
@@ -33,36 +32,6 @@ reservation-widget {
   // Override chosen styling for select boxes
   .chosen-container-active.chosen-with-drop .chosen-single {
     box-shadow: none;
-  }
-  .chosen-container,
-  input[type="tel"],
-  input[type="text"],
-  input[type="email"],
-  select {
-    border-radius: 0;
-    border: none;
-    background: #000;
-    color: @c-white;
-    height: 45px;
-    line-height: 16px;
-    font-size: 13px;
-    text-transform: none;
-    font-family: @ff-secondary;
-    a, div {
-      padding-top: 6px;
-    }
-    .chosen-drop {
-      background: #000;
-      border-radius: 0;
-    }
-    .chosen-results {
-      border: none;
-      border-radius: 0;
-      li.highlighted {
-        background-image: none;
-        background: @lbe-c-primary;
-      }
-    }
   }
 
   &.reservation-assurance-active {
@@ -84,6 +53,11 @@ reservation-widget {
 
   .continue-btn {
     width: 246px;
+    span {
+      font-size: 12px;
+      letter-spacing: 1px;
+      font-weight: bold;
+    }
     .viewport-mobile & {
       display: none;
     }
@@ -128,10 +102,10 @@ reservation-widget {
   h3 {
     margin-top: 30px;
     font-size: 24px;
-    color: #fff;
+    color: @c-text;
     line-height: 29px;
     font-weight: 300;
-    font-family: @lbe-ff-secondary;
+    font-family: @ff-secondary;
     text-transform: uppercase;
     .viewport-mobile & {
       margin-top:20px;
@@ -164,14 +138,30 @@ reservation-widget {
     padding: 0 15px;
     border-radius: 0;
     border: none;
-    background: #000;
+    background: #F7F7F7;
     color: @c-form-text;
     font-size: @size-0;
     font-weight: normal;
     transition: border-color 0.15s linear;
 
+    a, div {
+      padding-top: 6px;
+    }
+    .chosen-drop {
+      background: #000;
+      border-radius: 0;
+    }
+    .chosen-results {
+      border: none;
+      border-radius: 0;
+      li.highlighted {
+        background-image: none;
+        background: @lbe-c-primary;
+      }
+    }
+
     &:focus {
-      box-shadow: inset 0 1px 3px fade(@c-form-text, 20%);
+      box-shadow: none;
     }
   }
 
@@ -240,11 +230,12 @@ reservation-widget {
 
     h3 {
       margin-top: 0;
-      color: #000;
+      color: @c-text;
       font-size: 16px;
       line-height: 19px;
       text-transform: uppercase;
-      font-family: @lbe-ff-secondary;
+      font-family: @ff-secondary;
+      font-weight: bold;
     }
 
     h4{
@@ -252,8 +243,7 @@ reservation-widget {
       line-height: 32px;
       color: #000;
       text-transform: uppercase;
-      font-weight: 300;
-      font-family: @lbe-ff-primary;
+      font-family: @ff-primary;
     }
 
     .room-data-details{
@@ -264,12 +254,12 @@ reservation-widget {
     }
 
     .desc {
-      color: #000;
+      color: @c-text;
       font-size: 16px;
       letter-spacing: 0;
       line-height: 19px;
       text-transform: uppercase;
-      font-weight: 300;
+      font-weight: bold;
     }
 
     .desc,
@@ -285,7 +275,7 @@ reservation-widget {
 
     .price{
       color: #000;
-      font-family: @lbe-ff-secondary;
+      font-family: @ff-secondary;
       strong {
         font-size: 29px;
         line-height: 35px;
@@ -299,6 +289,7 @@ reservation-widget {
         font-size: 14px;
         letter-spacing: 0;
         line-height: 17px;
+        font-style: normal;
       }
     }
 
@@ -353,6 +344,12 @@ reservation-widget {
       width: 100%;
     }
 
+    tr {
+      font-size: 15px;
+      font-family: @ff-secondary;
+      color: #000;
+    }
+
     th {
       font-weight: normal;
       text-align: left;
@@ -362,6 +359,7 @@ reservation-widget {
     td {
       font-weight: 700;
       padding: 0 5px;
+      float: right;
     }
 
     .data {
@@ -403,8 +401,9 @@ reservation-widget {
   }
 
   label[for="agreement3"] {
-    margin: 10px 0 20px 0;
-    padding: 0px;
+    margin: 10px 0 41px 0;
+    color: @c-text;
+    padding: 0;
     line-height: 20px;
     text-align: left;
     display: block !important;
@@ -476,15 +475,6 @@ reservation-widget {
 
   reservation-widget {
 
-    // Fix for chrome not to change bg colour when auto filling
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover,
-    input:-webkit-autofill:focus,
-    input:-webkit-autofill:active {
-      -webkit-box-shadow: 0 0 0 30px #000 inset !important;
-      -webkit-text-fill-color: #fff !important;
-    }
-
     .input-left,
     .input-right {
       box-sizing: border-box;
@@ -520,8 +510,20 @@ reservation-widget {
 
 .ReservationDetails__overview {
   background: #fff;
+  border: 1px solid #D8D8D8;
   padding: 14px;
   box-sizing: border-box;
+}
+
+.links {
+  margin: 9px 18px 0 0;
+  .breakdown, .policies {
+    float: right;
+    color: @c-secondary;
+    font-size: 11px;
+    line-height: 15px;
+    text-transform: uppercase;
+  }
 }
 
 ////////////////////////////////////////////////
@@ -831,11 +833,12 @@ reservation-confirmation {
   }
 
   table{
-    color: #fff;
-    font-family: @lbe-ff-secondary;
+    color: @c-text;
+    font-family: @ff-secondary;
     letter-spacing: -0px;
     font-weight: 300;
     tr {
+      padding-bottom: 13px;
       th {
         text-transform: uppercase;
         font-size: 15px;

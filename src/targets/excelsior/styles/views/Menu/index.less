@@ -6,7 +6,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(26, 26, 26, 0.8);
+  background-color: #fff;
   z-index: 999;
   margin-top: 70px;
   display: none;
@@ -14,9 +14,6 @@
   .main-menu-active & {
     display: block;
   }
-
-  .backdrop-filter-blur(20px);
-
 }
 
 .Menu__items {
@@ -41,17 +38,22 @@
 
 .Menu__items--item {
   font-size: 30px;
-  color: #fff;
+  color: @c-secondary;
   a {
-    color: #fff;
+    color: @c-secondary;
   }
   .current-currency {
     display: none;
   }
 }
 
+.Menu__items--divider {
+  border-top: 1px solid @c-primary;
+  margin: 28px 100px;
+}
+
 .Menu__items--highlight {
   font-size: 20px;
-  color: @c-secondary;
+  color: @c-primary;
 }
 

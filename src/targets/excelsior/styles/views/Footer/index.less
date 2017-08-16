@@ -1,13 +1,13 @@
 @import "./mobile";
 
 footer.main {
-  height: 400px;
-  background-color: #000;
+  height: 442px;
+  background-color: @c-primary;
   text-align: initial;
   width: initial;
   h1, h2, h3, p, span, small, li {
     color: #fff;
-    font-family: @lbe-ff-primary;
+    font-family: @ff-primary;
   }
 }
 
@@ -20,6 +20,7 @@ footer.main {
   line-height: 20px;
   text-transform: uppercase;
   padding: 0 46px;
+  margin: 54px 0 0 0;
 }
 
 .Footer__title {
@@ -33,13 +34,14 @@ footer.main {
   display: block;
   font-size: 13px;
   letter-spacing: 0;
-  font-family: @lbe-ff-secondary;
+  font-family: @ff-secondary;
   margin-top: 15px;
 }
 
 .Footer__signup {
   width: 50%;
   float: left;
+  margin-top: 34px;
   .Footer__text {
     margin-bottom: 17px;
   }
@@ -78,14 +80,18 @@ footer.main {
 }
 
 .Footer__nav--item {
+  display: inline;
   text-transform: uppercase;
   font-size: 13px;
   line-height: 18px;
   padding-right: 21px;
+  a {
+    color: #fff;
+  }
 }
 
 .Footer__social {
-  margin-top: 110px;
+  margin-top: 84px;
 }
 
 .Footer__social--icons {
@@ -120,14 +126,14 @@ footer.main {
   }
 }
 
-.Footer__nav--item {
-  display: inline;
-}
-
 .Footer__apps {
   width: 50%;
   margin-left: 50%;
   padding-left: 100px;
+  padding-top: 38px;
+  img:first-child {
+    margin-right: 20px;
+  }
 }
 
 .Footer__apps--downloads {

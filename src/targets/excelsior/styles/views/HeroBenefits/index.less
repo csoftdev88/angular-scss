@@ -12,7 +12,7 @@
 .HeroBenefits__benefit {
   margin-bottom: 44px;
   h1, h2, p {
-    font-family: @lbe-ff-primary;
+    font-family: @ff-primary;
     color: #fff;
     letter-spacing: -0px;
   }
@@ -28,8 +28,8 @@
   }
   p {
     font-size: 18px;
-    line-height: 21px;
-    margin-top: 12px;
+    line-height: 24px;
+    margin-top: 5px;
   }
 }
 
@@ -40,18 +40,24 @@
 .HeroBenefits__button {
   width: 192px;
   height: 40px;
-  font-size: 16px;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
   font-family: @ff-primary;
-  line-height: 40px;
+  line-height: 17px;
   text-transform: uppercase;
   border-radius: 0;
   border: solid 2.4px #ffffff;
+  text-shadow: none;
+  &:first-child {
+    margin-right: 22px;
+  }
   &.login {
     background: transparent;
     color: #fff;
   }
   &.signup {
     background: #fff;
-    color: @c-secondary;
+    color: @c-primary;
   }
 }

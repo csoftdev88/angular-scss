@@ -55,7 +55,7 @@
     "billing_information": "Billing Information",
     "confirm_your_reservation": "Confirmation",
     "login_register": "Log In / Register",
-    "login_to_book": "Select",
+    "login_to_book": "Book",
     "continue_as_guest": "Continue as Guest",
     "reset_password": "Reset Password",
     "save_password": "Save Password",
@@ -134,7 +134,7 @@
     "last_badge_earned": "Last Badge earned",
     "last_reward_bought": "Last reward bought",
     "no_badges_earned": "You have not earned any badges yet",
-    "book_now": "Select",
+    "book_now": "Book",
     "book_now_floating_bar": "Book Now",
     "single_booking": "<strong>Single</strong> Booking",
     "multiroom_booking": "<strong>Multiroom</strong> Booking",
@@ -630,6 +630,7 @@
     "lowercase_or": "or",
     "reservation_services": "Central Reservations",
     "guest_services": "Guest Services / Concierge",
-    "email_us": "Email us"
+    "email_us": "Email us",
+    "become_insider": "Become an excelsior insider"
   }
 }
