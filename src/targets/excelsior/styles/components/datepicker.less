@@ -2,7 +2,7 @@
 
 .ui-datepicker {
   box-shadow: 0 0 1px @c-black;
-  background: @c-black;
+  background: #fff;
 
   .ui-datepicker-group {
     //Add to second datepicker, create a border without messing up width dimensions
@@ -11,6 +11,15 @@
         box-shadow: -1px 0 0 #363636;
       }
     }
+  }
+
+  .ui-datepicker-header {
+    color: #000;
+  }
+
+  .ui-datepicker-prev,
+  .ui-datepicker-next {
+    color: #000;
   }
 
   .ui-datepicker-buttonpane {
@@ -33,17 +42,17 @@
 
   tbody {
     tr {
-      border-color: @c-black;
+      border-color: #fff;
     }
 
     td,
     th {
-      color: lighten(@c-text, 50%); // Past days
+      color: @c-text;
     }
 
     td {
       a {
-        color: #b3bdc2; // Today and Future days
+        color: @c-text; // Today and Future days
         font-weight: 300;
       }
 
@@ -217,6 +226,7 @@
       &.selected {
         color: @c-secondary;
       }
+      color: @c-text;
     }
   }
 
