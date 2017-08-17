@@ -148,7 +148,7 @@ reservation-widget {
       padding-top: 6px;
     }
     .chosen-drop {
-      background: #000;
+      background: #fff;
       border-radius: 0;
     }
     .chosen-results {
@@ -769,12 +769,12 @@ reservation-confirmation {
 
   > div {
     border-radius: 0;
-    border: solid 2px #ffffff;
+    border: solid 2px #000;
     border-top: none;
     border-right: none;
 
     .tab-content {
-      border-right: solid 2px #ffffff;
+      border-right: solid 2px #000;
     }
 
     .viewport-mobile &{
@@ -796,19 +796,23 @@ reservation-confirmation {
 
     li:first-of-type {
       background: transparent;
-      border-top: solid 2px #ffffff;
+      border-top: solid 2px #000;
+      color: @c-text;
+      a {
+        color: @c-text;
+      }
     }
 
     li:nth-of-type(2) {
-      background: url('@{img-prefix}/yellow-bg.png');
+      background: @c-primary;
       background-size: contain;
-      border-bottom: solid 1px #ffffff;
+      border-bottom: solid 1px #000;
     }
 
     li:last-of-type {
-      background: url('@{img-prefix}/blue-bg.png');
+      background: @c-secondary;
       background-size: contain;
-      border-bottom: solid 1px #ffffff;
+      border-bottom: solid 1px #000;
     }
 
     a {
@@ -820,7 +824,7 @@ reservation-confirmation {
 
     li.active {
       a {
-        color: #fff;
+        color: initial;
         font-weight: bold;
       }
     }
