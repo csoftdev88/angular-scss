@@ -1,0 +1,169 @@
+<hero-slider content="heroContent" ng-if="bookingConfig.displayHeroSlider" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
+<!--<breadcrumbs stickable="main-header"></breadcrumbs>-->
+
+<section-image ng-if="bookingConfig.sectionImages && bookingConfig.sectionImages[0]" id="reservation-header-image" section="bookingConfig.sectionImages[0]" when="'enter'" from="1" to="1.5" show-logo="false" hide-header-logo="false"></section-image>
+
+<main class="reservation-page" ng-class="{'no-hero': !bookingConfig.displayHeroSlider}">
+  <div class="grid-wrapper">
+    <div class="preloader" ng-show="preloader.visible"></div>
+
+    <section grid-row class="hotel-detail__header" ng-if="bookingConfig.headerPartial.display">
+
+      <figure class="logo">
+        <img ng-src="{{bookingConfig.headerPartial.logo.src}}" alt="{{bookingConfig.headerPartial.logo.alt}}">
+      </figure>
+
+      <div class="title-wrapper">
+        <h1 class="title" ng-bind-html="'_your_booking_' | mainHeaderStyle" ng-if="!isCurrentBookingStep('reservation.confirmation')"></h1>
+        <h1 class="title" ng-bind-html="'_your_confirmation_' | mainHeaderStyle" ng-if="isCurrentBookingStep('reservation.confirmation')"></h1>
+      </div>
+
+      <div class="contact-info">
+        <div class="inner">
+          <div class="icon">
+            <i class="fa fa-phone"></i>
+          </div>
+          <div class="details">
+            <div class="desc">_hotel_detail_header_contact_title_:</div>
+            <div class="info">{{chain.contacts[0].tel}}</div>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+    </section>
+
+    <nav grid-row id="reservation-steps" class="reservation-steps" ng-if="bookingConfig.bookingStepsNav.display && !bookingConfig.bookingStepsNav.showInReservationWidget">
+      <a ng-click="auth.login()" ng-if="!isUserLoggedIn() && state.includes('reservation.details') && !isModifyingAsAnonymous() && bookingConfig.loginCtaTop.display"
+        class="reservation-login-banner">_user_has_account_login_</a>
+      <h4 class="label">_your_booking_progress_</h4>
+      <ul>
+        <li><a class="button" href="" ng-click="goToRoom()">1<span class="dot">.</span> <span class="text">_choose_your_room_</span></a></li>
+        <li ng-class="{'current': isCurrentBookingStep('reservation.details')}"><a class="button" href="" ng-click="goToBookingStep($event, 'reservation.details')">2<span class="dot">.</span> <span class="text">_guest_details_</span></a></li>
+        <li ng-class="{'current': isCurrentBookingStep('reservation.billing')}"><a class="button" href="" ng-disabled="isBookingStepDisabled('reservation.billing')" ng-click="goToBookingStep($event, 'reservation.billing')">3<span class="dot">.</span> <span class="text">_billing_information_</span></a></li>
+        <li ng-class="{'current': isCurrentBookingStep('reservation.confirmation')}"><a class="button" href="" ng-disabled="isBookingStepDisabled('reservation.confirmation')" ng-click="goToBookingStep($event, 'reservation.confirmation')">4<span class="dot">.</span> <span class="text">_confirm_your_reservation_</span></a></li>
+      </ul>
+    </nav>
+
+    <reservation-widget grid-row ng-class="{'reservation-assurance-active': bookingConfig.reservationAssurance}">
+
+      <span id="alert-warning" class="alert-warning" ng-if="invalidFormData.payment">
+        <img class="alert-warning__img"
+             ng-if="bookingConfig.alertImage.display"
+             ng-src="{{bookingConfig.alertImage.url}}">
+        <span>_payment_not_authorized_: </span>
+      <span ng-if="invalidFormData.cardName">_payment_not_authorized_card_name_</span>
+      <span ng-if="invalidFormData.paymentType">_payment_not_authorized_payment_type_</span>
+      <span ng-if="invalidFormData.expiryDate">_payment_not_authorized_expiry_date_</span>
+      <span ng-if="invalidFormData.ccExpired">_payment_not_authorized_cc_expired_</span>
+      <span ng-if="invalidFormData.ccvInvalid">_payment_not_authorized_ccv_invalid_</span>
+      <span ng-if="invalidFormData.ccNumberInvalid">_payment_not_authorized_cc_number_invalid_</span>
+      </span>
+
+      <span id="alert-warning" class="alert-warning" ng-if="invalidFormData.email">
+        <img class="alert-warning__img"
+             ng-if="bookingConfig.alertImage.display"
+             ng-src="{{bookingConfig.alertImage.url}}">
+        _user_already_registered_
+      </span>
+
+      <span id="alert-warning" class="alert-warning" ng-if="invalidFormData.generic">
+        <img class="alert-warning__img"
+             ng-if="bookingConfig.alertImage.display"
+             ng-src="{{bookingConfig.alertImage.url}}">
+        _generic_reservation_error_
+      </span>
+
+
+      <div grid-row>
+
+        <!-- RESERVATION DETAILS -->
+        <div grid="5">
+          <aside ng-if="bookingConfig.detailsBeforeForm && !isMobile"
+                 class="ReservationDetails__overview"
+                 ng-include="'layouts/components/reservation-overview.html'">
+          </aside>
+          <div class="links">
+            <a ng-click="goBack()" class="back">< _back_</a>
+            <span ng-show="!noBreakdown" class="breakdown">
+              <span class="separator" ng-if="bookingConfig.policiesLinkBottom"> | </span>
+              <a href ng-click="breakdown.extended = !breakdown.extended">
+                <span ng-if="!breakdown.extended">_view_price_breakdown_</span>
+                <span ng-if="breakdown.extended">_hide_price_breakdown_</span>
+              </a>
+            </span>
+            <a ng-href="{{bookingConfig.termsAndConditionsLink}}"
+               ng-click="readPolicies()"
+               class="policies"
+               target="_blank">
+              _policies_
+            </a>
+          </div>
+        </div>
+
+        <div class="ReservationDetails__container" grid="7">
+          <nav grid-row id="reservation-steps" class="reservation-steps" ng-if="bookingConfig.bookingStepsNav.display && bookingConfig.bookingStepsNav.showInReservationWidget">
+            <h4 class="label">_your_booking_progress_</h4>
+            <ul>
+              <li><a class="button" href="" ng-click="goToRoom()">1<span class="dot">.</span> <span class="text">_choose_your_room_</span></a></li>
+              <li ng-class="{'current': isCurrentBookingStep('reservation.details')}"><a class="button" href="" ng-click="goToBookingStep($event, 'reservation.details')">2<span class="dot">.</span> <span class="text">_guest_details_</span></a></li>
+              <li ng-class="{'current': isCurrentBookingStep('reservation.billing')}"><a class="button" href="" ng-disabled="isBookingStepDisabled('reservation.billing')" ng-click="goToBookingStep($event, 'reservation.billing')">3<span class="dot">.</span> <span class="text">_billing_information_</span></a></li>
+              <li ng-class="{'current': isCurrentBookingStep('reservation.confirmation')}"><a class="button" href="" ng-disabled="isBookingStepDisabled('reservation.confirmation')" ng-click="goToBookingStep($event, 'reservation.confirmation')">4<span class="dot">.</span> <span class="text">_confirm_your_reservation_</span></a></li>
+            </ul>
+          </nav>
+          <!-- SUBVIEWS -->
+          <ui-view>
+          </ui-view>
+          <div ng-if="bookingConfig.detailsBeforeForm" class="form-bottom">
+            <label for="agreement3" class="input-checkbox newsletter-signup" ng-show="state.includes('reservation.details') || (!bookingConfig.hideNewsletterCheckboxIfSelected && state.includes('reservation.billing')) || (bookingConfig.hideNewsletterCheckboxIfSelected && !additionalInfo.optedIn && state.includes('reservation.billing'))">
+              <input type="checkbox" id="agreement3" ng-model="additionalInfo.optedIn"/>
+              <i ng-bind-html='"_email_optin_label_" | stringLocaleReplace:chainName'></i>
+            </label>
+            <div ng-if="bookingConfig.detailsBeforeForm && state.includes('reservation.confirmation')">
+              <label for="agreement1" class="input-checkbox">
+                <input type="checkbox" id="agreement1" ng-model="additionalInfo.agree"/>
+                _i_agree_to_ <a ng-href="{{bookingConfig.termsAndConditionsLink}}" class="terms-link" ng-click="readPolicies()" target="_blank">_terms_conditions_</a>
+              </label>
+              <label ng-if="!bookingConfig.hideNewsletterCheckboxIfSelected || (bookingConfig.hideNewsletterCheckboxIfSelected && !additionalInfo.optedIn)" for="agreement2" class="input-checkbox">
+                <input type="checkbox" id="agreement2" ng-model="additionalInfo.optedIn"/>
+                _receive_offer_label_
+              </label>
+            </div>
+            <button-submit class="continue-btn" ng-click="continue()" ng-disabled="isContinueDisabled()">
+              <i class="fa fa-chevron-right"
+                 aria-hidden="true"
+                 ng-if="(continueName === 'continue') && uiConfig.buttonSubmit.continueBtn"></i>
+              <span ng-if="continueName === 'continue'">_continue_</span>
+              <span ng-if="continueName === 'confirm'">_confirm_</span>
+            </button-submit>
+          </div>
+        </div>
+        <aside ng-if="!bookingConfig.detailsBeforeForm || isMobile"
+               grid="5"
+               class="ReservationDetails__overview"
+               ng-include="'layouts/components/reservation-overview.html'">
+        </aside>
+      </div>
+
+      <label ng-if="!bookingConfig.detailsBeforeForm" for="agreement3" class="input-checkbox" ng-show="state.includes('reservation.details') || state.includes('reservation.billing')">
+        <input type="checkbox" id="agreement3" ng-model="additionalInfo.optedIn"/>
+        <i ng-bind-html='"_email_optin_label_" | stringLocaleReplace:chainName'></i>
+      </label>
+
+      <div class="reservation-controls" grid-row>
+        <span class="tooltiptext" ng-if="bookingConfig.ccvAsTooltip && isCurrentBookingStep('reservation.billing')">_cvv_modal_desc_</span>
+        <button ng-if="(bookingConfig.detailsBeforeForm && isMobile) || !bookingConfig.detailsBeforeForm" class="next" ng-click="continue()" ng-disabled="isContinueDisabled()">
+          <span ng-if="continueName === 'continue'">_continue_</span>
+          <span ng-if="continueName === 'confirm'">_confirm_</span>
+        </button>
+        <registration-call ng-if="!isUserLoggedIn() && state.includes('reservation.details') && !isModifyingAsAnonymous() && bookingConfig.loginCta.display">
+          <h4 ng-bind-html="'_reservation_page_loginprompt_title_' | mainHeaderStyle"></h4>
+          <p>_click_here_to_ <a href ng-click="auth.login()">_login_register_</a>.</p>
+        </registration-call>
+      </div>
+    </reservation-widget>
+
+    <!--Reservation assurance badges-->
+    <section class="reservation-assurance-badges" ng-if="bookingConfig.reservationAssurance.display" ng-include="'layouts/components/reservation-assurance-badges.html'"></section>
+  </div>
+</main>

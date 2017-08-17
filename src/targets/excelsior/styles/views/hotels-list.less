@@ -1,0 +1,494 @@
+/////////////////////
+//// HOTELS LIST ////
+/////////////////////
+
+hotels, .alt-hotels {
+  .chosen-container-single {
+    .chosen-single {
+      border-radius: 4px;
+      background: #f2f2f2;
+      background: -moz-linear-gradient(top, #f2f2f2 0%, #d4d4d4 100%);
+      background: -webkit-linear-gradient(top, #f2f2f2 0%,#d4d4d4 100%);
+      background: linear-gradient(to bottom, #f2f2f2 0%,#d4d4d4 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr= '#f2f2f2', endColorstr='#d4d4d4',GradientType=0 );
+      border: 1px solid @c-light-grey;
+      line-height: 29px;
+
+      span {
+        color: @c-grey;
+      }
+    }
+  }
+  //icon
+  .chosen-container-single .chosen-single div b {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 26px;
+    height: 100%;
+    background: none;
+
+    &:after {
+      .fa;
+      position: absolute;
+      color: @c-grey;
+      font-size: 14px;
+      content: @fa-var-sort;
+      right: 10px;
+      top: 8px;
+    }
+  }
+
+  header + section {
+    margin: @baseline 0;
+  }
+
+  .hotels__header {
+    margin-bottom: 20px;
+  }
+  //- Page Heading
+  h1 {
+    .h1;
+    color: @c-dark-grey;
+    margin: 0;
+  }
+
+  p {
+    color: @c-black;
+    margin-bottom: @baseline;
+  }
+
+  .hotels__controls {
+    .clearfix;
+    margin-bottom: @baseline;
+
+    .order-switch {
+      float: left;
+
+      .viewport-mobile & {
+        width: 100%;
+      }
+
+      .chosen-container {
+        width: 200px !important;
+      }
+    }
+  }
+
+  .hotels__list {
+    ul {
+      margin: 0 -1%;
+
+      .grid,
+      [grid-container],
+      [grid] {
+        margin: 0;
+        width: 100%;
+      }
+      @media only screen and @tablet-portrait-min {
+        .generate-fluid-grid(3);
+      }
+
+      .item {
+        margin-bottom: @baseline/2;
+        position: relative;
+        box-sizing: border-box;
+        // MOBILE SPECIFIC STYLES
+        @media only screen and @large-mobile-max {
+          border-top: 1px dashed @c-light-grey;
+          margin-bottom: 20px;
+          padding-top: 30px;
+          padding-bottom: 70px;
+
+          &:first-child {
+            border-top: none;
+          }
+        }
+        // image container
+        .item-image {
+          border-radius: @radius/2;
+          background: lighten(@c-light-grey, 10%);
+          position: relative;
+          cursor: pointer;
+
+          img {
+            display: block;
+            width: 100%;
+            color: @c-base;
+          }
+
+          .star-rating {
+            position: absolute;
+            bottom: @baseline/6;
+            right: @baseline/3;
+          }
+        }
+
+        h2 {
+          font-size: 18px;
+          font-weight: 600;
+          color: @c-grey;
+          text-transform: uppercase;
+
+          strong {
+            font-weight: 600;
+          }
+        }
+
+        pricing-info {
+          display: inline-block;
+          width: 100%;
+          /*
+          .viewport-mobile &{
+            position: absolute;
+            bottom: 0;
+          }
+          */
+          @media only screen and @large-mobile-max {
+            position: absolute;
+            bottom: 0;
+          }
+
+          p {
+            color: @c-dark-grey;
+
+            .value {
+              font-size: 13px;
+              color: @c-secondary;
+            }
+          }
+
+          p.price.available {
+            .viewport-mobile & {
+              text-align: left;
+            }
+          }
+
+          p.price.unavailable {
+            .not-available();
+            margin-top: 0;
+            float: none;
+            max-width: none;
+            font-weight: 500;
+
+            .viewport-mobile & {
+              text-align: left;
+            }
+
+            button-submit {
+              display: block;
+            }
+          }
+
+          button-submit {
+            display: none;
+            @media only screen and @large-mobile-max {
+              display: inline-block;
+              float: left;
+              padding: 10px;
+              min-width: 0;
+              width: 100%;
+              line-height: 1;
+              height: auto;
+              margin-bottom: 10px;
+            }
+          }
+        }
+
+        &.sign {
+          background: url('@{img-prefix}/watermark-signature-logo-small.png') no-repeat 0 180%;
+          background-size: 120%;
+
+          pricing-info {
+            p {
+              .value {
+                color: @c-menu-active-sign;
+              }
+            }
+          }
+
+          h2 {
+            font-family: @ff-heading-bold-sign;
+            font-weight: normal;
+            color: @c-dark-grey;
+            line-height: 24px;
+
+            strong {
+              font-weight: normal;
+            }
+          }
+
+          .region-name {
+            font-family: @ff-heading-it-sign;
+            font-weight: normal;
+          }
+        }
+      }
+
+      .filter-no-matches {
+        display: block;
+      }
+
+      .item ~ .filter-no-matches {
+        display: none;
+      }
+    }
+
+    .item {
+      .description {
+        position: relative;
+        overflow: hidden;
+      }
+    }
+
+    .entries--tiles .item {
+      .item-image {
+        width: 100%;
+        margin-bottom: @baseline/2;
+      }
+
+      &:nth-child(3n + 1) {
+        clear: left;
+      }
+    }
+
+    .entries--list .item {
+      border-bottom: 1px dashed #ccc;
+      margin-bottom: 25px;
+
+      .viewport-mobile & {
+        border: none;
+      }
+      //DESKTOP SPECIFIC STYLES
+      @media only screen and @tablet-portrait-min {
+        padding-left: 18%;
+        padding-right: 18%;
+
+        .item-image {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 16%;
+        }
+
+        pricing-info {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 16%;
+          text-align: right;
+        }
+      }
+      //DESKTOP SPECIFIC STYLES
+    }
+  }
+
+  .hotels__filter {
+    padding: 0 0 45px;
+    @media only screen and @tablet-portrait-max {
+      margin-top: @baseline;
+      padding-top: 3.5*@baseline;
+      background: url('@{img-prefix}/v4/dividing-line.png') 50% 0 no-repeat;
+    }
+
+    .viewport-mobile & {
+      background-position: 50% 100%;
+      margin: 0 0 @baseline;
+    }
+
+    .view-switch {
+      margin-bottom: @baseline;
+      border-top: 2px solid @c-light-grey;
+      padding-top: 16px;
+      .clearfix;
+
+      .viewport-mobile & {
+        display: none;
+      }
+
+      li {
+        display: block;
+        float: left;
+        width: 50%;
+        font-size: @size--1;
+        color: @c-grey;
+        cursor: pointer;
+
+        .fa {
+          font-size: @size-4;
+          margin-right: @baseline/2;
+          position: relative;
+          top: 5px;
+        }
+
+        &.is-active .fa {
+          color: @c-secondary;
+        }
+      }
+    }
+
+    .filters-bar {
+      padding: @baseline 0 5px;
+      border-width: 2px 0;
+      border-style: solid;
+      border-color: @c-light-grey;
+
+      .viewport-mobile & {
+        border: none;
+      }
+    }
+
+    hr {
+      border-bottom: 1px solid @c-light-grey;
+      margin: 22px 0 5px;
+      background: transparent;
+      height: 0;
+      width: 100%;
+      left: 0;
+
+      &:after,
+      &:before {
+        display: none;
+      }
+    }
+
+    .star-filter {
+      hr {
+        display: none;
+      }
+    }
+
+    h2,
+    h3 {
+      font-weight: 400;
+      font-size: 15px;
+      margin-bottom: @baseline/2;
+      color: @c-dark-grey;
+    }
+
+    .logo-trip-advisor {
+      display: inline-block;
+      background: transparent url('@{img-prefix}/v4/icon-tripadvisor.png') no-repeat center 2px;
+      width: 100px;
+      height: 20px;
+    }
+  }
+
+  .ratings {
+    min-height: 30px;
+
+    .rating-default {
+      float: right;
+    }
+
+    .brand {
+      &.sand {
+        width: 98px;
+        height: 17px;
+        background: url('@{img-prefix}/sandman-logo-medium.png') no-repeat center;
+      }
+
+      &.sign {
+        width: 40px;
+        height: 26px;
+        background: url('@{img-prefix}/signature-logo-medium.png') no-repeat center;
+      }
+    }
+
+    .rating-trip-advisor {
+      float: right;
+      max-width: 50%;
+
+      .viewport-mobile & {
+        max-width: none;
+      }
+
+      img {
+        max-width: 100%;
+      }
+    }
+    // MOBILE SPECIFIC STYLES
+    @media only screen and @large-mobile-max {
+      margin-top: 0;
+      z-index: 10;
+      position: relative;
+      padding-right: 10px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .reset-filters {
+    padding: 25px 0 0;
+    font-size: @size--0;
+  }
+
+  .stars {
+    text-align: center;
+    position: relative;
+    margin-bottom: 10px;
+
+    .stars-left {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .stars-right {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    li {
+      display: inline-block;
+      margin: 0 1px;
+      cursor: pointer;
+
+      &:after {
+        content: "\f005";
+        font-family: FontAwesome;
+        display: inline-block;
+        color: @c-light-grey;
+      }
+
+      &.included:after {
+        color: @c-secondary;
+      }
+    }
+
+    &.rating-trip-advisor {
+      &.img {
+        display: inline;
+        // MOBILE SPECIFIC STYLES
+        @media only screen and @large-mobile-max {
+          margin: 0 1%;
+        }
+      }
+
+      li {
+        @rating-size: 12px;
+        @trip-advisor-color: #4a863f;
+        width: @rating-size;
+        margin-top: 2px;
+        height: @rating-size;
+        border-radius: @rating-size;
+        border: 2px solid @trip-advisor-color;
+
+        &:after {
+          content: '';
+          display: block;
+          margin: 2px;
+        }
+
+        &.included:after {
+          @rating-active-size: 8px;
+          width: @rating-active-size;
+          height: @rating-active-size;
+          background: @trip-advisor-color;
+          border-radius: @rating-active-size;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@import "./mobile";
+
+.Menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 999;
+  margin-top: 70px;
+  display: none;
+
+  .main-menu-active & {
+    display: block;
+  }
+}
+
+.Menu__items {
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 151px;
+}
+
+.Menu__items--item,
+.Menu__items--highlight {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  font-family: @ff-primary;
+  line-height: 67px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  cursor: pointer;
+}
+
+.Menu__items--item {
+  font-size: 30px;
+  color: @c-secondary;
+  a {
+    color: @c-secondary;
+  }
+  .current-currency {
+    display: none;
+  }
+}
+
+.Menu__items--divider {
+  border-top: 1px solid @c-primary;
+  margin: 28px 100px;
+}
+
+.Menu__items--highlight {
+  font-size: 20px;
+  color: @c-primary;
+}
+

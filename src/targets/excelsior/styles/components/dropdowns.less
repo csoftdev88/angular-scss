@@ -1,0 +1,63 @@
+@media only screen and @tablet-portrait-min {
+  .dropdown-menu {
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+    top: 30px;
+    li[currency-list] &,
+    li[currency-list] & {
+      top: 80px;
+    }
+    .desktop-profile & {
+      top: 80px;
+    }
+    &.submenu {
+      background-color: @c-primary;
+      .chain-sign & {
+        background: @c-primary-sign;
+      }
+      .chain-sand & {
+        background: @c-primary-sand;
+      }
+      min-width: 150px;
+      margin-left: 0;
+      a {
+        color: #fff;
+      }
+      li {
+        a span {
+          line-height: 20px;
+          font-size:12px;
+        }
+        .dropdown {
+          padding:0;
+          a {
+            font-size:13px !important;
+          }
+        }
+      }
+    }
+    li{
+      border-top: 1px solid #343434 !important;
+      padding: 15px 0 0 0 !important;
+      margin: 15px;
+      .chain-sign &, .chain-sand & {
+        border-top:1px solid rgba(255, 255, 255, 0.2)!important;
+      }
+      &:first-child {
+        padding-top:0 !important;
+        border-top:0px none !important;
+      }
+      a{
+        text-transform:initial !important;
+        font-size: 15px !important;
+        line-height:22px;
+        font-weight: 700;
+        span {
+          font-weight:300;
+        }
+      }
+      .divider {
+        display:none;
+      }
+    }
+  }
+}

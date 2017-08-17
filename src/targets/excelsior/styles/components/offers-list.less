@@ -1,0 +1,118 @@
+////////////////////////
+//// LIST OF OFFERS AND REWARDS////
+////////////////////////
+offers-list,
+rewards-list {
+  offer-item,
+  reward-item {
+    border-radius: 0;
+    height: 426px;
+    border: 1px solid @c-light-grey;
+    box-shadow: none;
+    // if it's clickable
+    &[ng-click] {
+      cursor: pointer;
+      &:hover {
+        box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
+        background: #faf8f6;
+        img {
+          opacity: 0.8;
+        }
+        section:after {
+          /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,faf8f6+99&0+0,1+100 */
+          background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(250,248,246,0.99) 99%, rgba(250,248,246,1) 100%);
+          /* FF3.6-15 */
+          background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(250,248,246,0.99) 99%,rgba(250,248,246,1) 100%);
+          /* Chrome10-25,Safari5.1-6 */
+          background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(250,248,246,0.99) 99%,rgba(250,248,246,1) 100%);
+          /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=  '#00000000', endColorstr='#faf8f6',GradientType=0 );
+          /* IE6-9 */
+        }
+      }
+    }
+    //- Image
+    img {
+      height: 200px;
+      max-height: 200px;
+      min-height: 0;
+      margin-bottom: 10px;
+    }
+    //- Content - Title + Description
+    section {
+      max-height: 150px;
+      h2 {
+        margin-bottom: 10px;
+      }
+      div {
+        font-size: 12px;
+      }
+    }
+    //- Title
+    h2,
+    h3 {
+      color: @c-dark-grey;
+      font-size: 20px;
+      text-transform: uppercase;
+      font-weight: 700 !important;
+      .chain-sand & {
+        color: @c-dark-grey;
+      }
+    }
+    /*
+    h2{
+      span{
+        font-size: 14px;
+        font-weight: 300;
+        color: @c-secondary;
+        display: block;
+        line-height: 12px;
+        .chain-sign & {
+          font-size:18px;
+          line-height:20px;
+          color: @c-menu-active-sign;
+          font-family: @ff-heading-it-sign;
+          text-transform:initial;
+        }
+      }
+    }
+    */
+    //- Description
+    div {
+      color: @c-grey;
+      line-height: 17px;
+    }
+    //- Read More
+    .read-more {
+      background: @c-secondary;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      line-height: 38px;
+      height: 38px;
+      text-shadow: none;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+      bottom: 23px;
+      width: 145px;
+      left: 50%;
+      transform: translate(-50%, 0);
+      &:hover {
+        background: darken(@c-secondary, 10%);
+        .chain-sign & {
+          background: darken(@c-secondary-sign, 10%);
+        }
+      }
+      .chain-sign & {
+        background: @c-secondary-sign;
+        font-family: @ff-heading-bold-sign;
+      }
+    }
+    //- Advert Offer
+    &.advert {
+      height: 426px;
+      position: relative;
+    }
+  }
+}

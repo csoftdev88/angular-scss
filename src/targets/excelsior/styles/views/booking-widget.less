@@ -1,0 +1,225 @@
+////////////////////////
+//// BOOKING WIDGET ////
+////////////////////////
+
+booking-widget {
+
+  // Override standard input styling
+  .chosen-container, input, select, input[type='text'] {
+    border-radius: 0;
+    border: none;
+    background: #000;
+    color: @c-white;
+    height: 45px;
+    line-height: 16px;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-family: @ff-secondary;
+    a, div {
+      padding-top: 6px;
+    }
+    .chosen-drop {
+      background: #fff;
+      border-radius: 0;
+    }
+    .chosen-results {
+      border: none;
+      border-radius: 0;
+    }
+  }
+
+  //- Search button
+  button-submit {
+    color: #fff;
+    text-transform: uppercase;
+    height: 26px;
+    line-height: 26px;
+    border-radius: 2px;
+    min-width: 0px;
+    padding:0;
+    background: @lbe-c-primary;
+    &:hover {
+      background: darken(@lbe-c-primary, 10%);
+    }
+    .viewport-mobile &{
+      height: 44px;
+      line-height: 44px;
+      margin-top: 0 !important;
+    }
+  }
+
+  button-submit[disabled='disabled'] {
+    color: #fff;
+    background: lighten(@lbe-c-primary, 5%);
+  }
+
+  .chosen-container,
+  input[type="text"],
+  .chosen-container-single .chosen-single{
+    height: 26px;
+    line-height: 26px;
+  }
+
+  @keyframes input-prefilled {
+    0%   { box-shadow: 0px 0px 0px 2px @c-secondary }
+    50%   { box-shadow: 0px 0px 50px 10px @c-secondary }
+    100% { box-shadow: 0px 0px 0px 50px 20px transparent; }
+  }
+
+}
+
+//- Search
+booking-widget-search {
+  width: 90%;
+  //- Make your booking
+  h3 {
+    display: none
+  }
+  form-element {
+    &.code.code-input {
+      remove-text {
+        top: 7px;
+      }
+    }
+    input-value {
+      border-radius: 0;
+      border: none;
+      background: #000;
+      color: @c-white;
+      font-size: 13px;
+      text-transform: uppercase;
+      font-family: @ff-secondary;
+      a, div {
+        padding-top: 6px;
+      }
+      .chosen-drop {
+        background: #fff;
+        border-radius: 0;
+      }
+      .chosen-results {
+        border: none;
+        border-radius: 0;
+      }
+    }
+  }
+
+}
+
+booking-widget-search form-element,
+booking-widget-add-room form-element {
+
+  // icons
+  .chosen-single:before,
+  &:before {
+    color: @c-grey;
+  }
+
+  &.hotel .chosen-single:before   { content: @fa-var-building; }
+}
+
+booking-widget-search form-element.code{
+  remove-text {
+    top: -1px;
+  }
+  input.prefilled {
+    animation-duration: 3s;
+    padding-left:25px;
+    background-image: url('@{img-prefix}/medal.svg');
+    background-repeat:no-repeat;
+    background-position: 4px 3px;
+  }
+}
+
+//- My Account
+my-account {
+
+  //- Sign Up
+  .sign-up {
+
+    p {
+      position: relative;
+      margin: 0 auto;
+      padding: 5px 0;
+      width: 260px;
+      background: none;
+      font-weight: bold;
+      font-size: 14px;
+      &:after{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 450px;
+        height: 96px;
+        background: url('@{img-prefix}/faded-status-plus.png') center no-repeat;
+        transform: translate3d(-25%, -25%, 0);
+        opacity: .25;
+      }
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none;
+      position: relative;
+      z-index: 9;
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+    }
+  }
+
+
+  //- Cards - rewards, badges
+  article {
+    flex: 1;
+
+    border-right: none;
+
+    &:last-of-type {
+      margin-right: 0;
+      padding-right: 0;
+      border: 0;
+    }
+
+    &.account-profile{
+      padding-left: 40px;
+    }
+
+    &.description{
+      position: relative;
+      flex: none;
+      float: right;
+      width: 300px;
+      p{
+        font-size: 14px;
+        font-weight: 700;
+      }
+      &:after{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 450px;
+        height: 96px;
+        background: url('@{img-prefix}/faded-status-plus.png') center no-repeat;
+        transform: translate3d(-25%, -25%, 0);
+        opacity: .25;
+      }
+    }
+
+    h4{
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: none;
+      margin-top: 5px;
+
+    }
+
+    p + p{
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+  }
+}
