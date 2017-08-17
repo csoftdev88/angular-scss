@@ -20,7 +20,7 @@
           $log.warn('No config for the highlight was provided!');
         }
         scope.imageUrl = config.imageUrl;
-        scope.icon = attrs.icon || false;
+        scope.icon = attrs.icon === 'true';
       }
     };
   }

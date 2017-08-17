@@ -1,4 +1,5 @@
 <hero-slider content="heroContent"
+             class="short"
              slide-width="uiConfig.heroSlider.slideWidth"
              slide-height="uiConfig.heroSlider.slideHeight">
 </hero-slider>
@@ -15,11 +16,6 @@
   </div>
 </article>
 
-<booking-bar class="Home__booking-bar"
-             size="small"
-             ng-if="isLoyalty">
-</booking-bar>
-
 <breadcrumbs stickable="main-header"
              ng-show="showDetail"
              ng-click="{'hide': !showDetail}"
@@ -27,6 +23,8 @@
 </breadcrumbs>
 
 <main class="grid-wrapper OffersPage">
+
+  <booking-bar size="small"></booking-bar>
 
   <div class="preloader" ng-show="preloader.visible"></div>
 

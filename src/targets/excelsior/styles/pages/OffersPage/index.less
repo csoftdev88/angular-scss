@@ -8,6 +8,17 @@
     display: none;
   }
 
+  .highlight {
+    width: calc(~'100% - 387px');
+  }
+
+  .booking-bar {
+    position: absolute;
+    right: 0;
+    top: 100px;
+    border: 1px solid #DEDEDE;
+  }
+
   offer-detail {
     margin-bottom: 86px;
     h1 {
@@ -17,6 +28,7 @@
       line-height: 57px;
       text-transform: uppercase;
       color: #000;
+      font-weight: normal;
     }
     div[grid="12"] {
       margin: 0;
@@ -26,6 +38,7 @@
     }
     .offer-content {
       min-height: 300px;
+      width: calc(~'100% - 387px');
       .viewport-mobile & {
         min-height: initial;
       }
