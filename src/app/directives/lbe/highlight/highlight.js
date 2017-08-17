@@ -14,12 +14,13 @@
       scope: true,
       templateUrl: 'directives/lbe/highlight/highlight.html',
       transclude: true,
-      link: function (scope) {
+      link: function (scope, elem, attrs) {
         var config = Settings.UI.highlight;
         if (!config) {
           $log.warn('No config for the highlight was provided!');
         }
         scope.imageUrl = config.imageUrl;
+        scope.icon = attrs.icon || false;
       }
     };
   }
