@@ -8,8 +8,27 @@
     display: none;
   }
 
+  .highlight {
+    width: calc(~'100% - 387px');
+    box-sizing: border-box;
+    .viewport-mobile & {
+      width: 100%;
+      padding: 28px 5px 15px 15px;
+    }
+  }
+
+  .booking-bar {
+    position: absolute;
+    right: 0;
+    top: 88px;
+    border: 1px solid #DEDEDE;
+  }
+
   offer-detail {
-    margin-bottom: 86px;
+    margin-bottom: 40px;
+    .viewport-mobile & {
+      margin-top: 20px;
+    }
     h1 {
       font-size: 40px;
       letter-spacing: 0;
@@ -17,6 +36,7 @@
       line-height: 57px;
       text-transform: uppercase;
       color: #000;
+      font-weight: normal;
     }
     div[grid="12"] {
       margin: 0;
@@ -26,8 +46,10 @@
     }
     .offer-content {
       min-height: 300px;
+      width: calc(~'100% - 387px');
       .viewport-mobile & {
         min-height: initial;
+        width: 100%;
       }
     }
   }
@@ -101,9 +123,9 @@
 
 .Offer__about {
   width: 70%;
-  float: left;
   .Highlight__title {
-    color: #902325;
+    color: @c-primary;
+    font-weight: normal;
     text-transform: uppercase;
     font-size: 20px;
     font-family: @ff-primary;
@@ -113,6 +135,9 @@
   ul {
     padding-left: 30px;
     list-style: initial;
+    font-family: @ff-secondary;
+    color: rgba(0,0,0,0.75);
+    line-height: 32px;
   }
 }
 

@@ -289,7 +289,7 @@ angular.module('mobius.controllers.hotel.details', [
     var scrollToValue = $location.search().scrollTo || null;
     if (scrollToValue && scrollToValue === 'jsRooms') {
       $timeout(function() {
-        var offset = stateService.isMobile() ? -$scope.viewSettings.scrollToOffset : 20;
+        var offset = stateService.isMobile() ? -$scope.viewSettings.scrollToOffset : $scope.viewSettings.scrollToOffsetDesktop || 20;
         scrollService.scrollTo(scrollToValue, offset);
       }, 1500).then(function() {
         //Set scrollTo value to null so page doesn't scroll to rooms if user doesn't come from booking bar

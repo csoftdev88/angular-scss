@@ -14,7 +14,7 @@ reservation-hotel-details {
       margin: 0;
       font-size: 34px;
       line-height: 41px;
-      color: #fff;
+      color: @c-text;
       font-weight: 300;
       font-family: @lbe-ff-secondary;
       padding-bottom: 23px;
@@ -34,7 +34,7 @@ reservation-hotel-details {
     h3{
       font-size: 24px;
       line-height: 29px;
-      color: #fff;
+      color: @c-text;
       font-weight: 300;
       max-width: 75%;
       text-transform: uppercase;
@@ -44,12 +44,21 @@ reservation-hotel-details {
     h4{
       font-size: 16px;
       line-height: 19px;
-      color: #fff;
+      color: @c-text;
       font-weight: 300;
       max-width: 75%;
       text-transform: uppercase;
       font-family: @lbe-ff-secondary;
 
+    }
+    .booking-date {
+      color: @c-text;
+    }
+    table tr, td {
+      color: @c-text;
+    }
+    span {
+      color: @c-text;
     }
     .chain-logo{
       display: block;
@@ -60,12 +69,6 @@ reservation-hotel-details {
         width: 98px;
         height: 17px;
         background: url('@{img-prefix}/sandman-logo-medium.png') no-repeat;
-        background-size: 100%;
-      }
-      &.sign{
-        width: 40px;
-        height: 26px;
-        background: url('@{img-prefix}/signature-logo-medium.png') no-repeat;
         background-size: 100%;
       }
     }
@@ -105,12 +108,11 @@ reservation-hotel-details {
   .ReservationsNextStay__container {
     width: 100vw;
     margin-left: calc(~'50% - 50vw - 15px');
-    background-color: rgba(0, 0, 0, 0.75);
-    .backdrop-filter-blur(20px);
+    background-color: #fff;
     margin-bottom: 220px;
     .viewport-mobile & {
       margin-left: calc(~'50% - 50vw');
-      margin-bottom: 140px;
+      margin-bottom: 0;
     }
   }
 
@@ -169,11 +171,13 @@ reservation-hotel-details {
         h2 {
           font-size: 18px;
           font-weight: 600;
-          color: @c-grey;
+          color: @c-text;
+          width: 100%;
         }
         span{
           font-size: 14px;
           font-weight: 300;
+          float: initial;
         }
       }
 
@@ -291,10 +295,9 @@ reservation-hotel-details {
 }
 
 .reservations-not-available {
-  background-color: rgba(0, 0, 0, 0.75);
-  .backdrop-filter-blur(20px);
+  background-color: #fff;
   h3, p {
-    color: #fff;
-    font-family: @lbe-ff-primary;
+    color: @c-primary;
+    font-family: @ff-primary;
   }
 }

@@ -42,6 +42,8 @@
           var searchCurrency = queryService.getValue(Settings.currencyParamName);
           var userCurrency = user.getUserCurrency();
 
+          scope.currentCurrency = _.findWhere(currencies, { code: Settings.UI.currencies.default });
+
           if($state.current.name !== 'reservationDetail')
           {
             if(userCurrency && currencies.hasOwnProperty(userCurrency)){

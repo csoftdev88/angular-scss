@@ -1,13 +1,8 @@
 <hero-slider content="heroContent"
+             class="short"
              slide-width="uiConfig.heroSlider.slideWidth"
              slide-height="uiConfig.heroSlider.slideHeight">
 </hero-slider>
-
-<div class="Home__hero--info show-desktop" ng-if="isLoyalty">
-  <h2 class="About__hero--tagline">_about_tagline_</h2>
-  <h1 class="About__hero--title">{{ offersList[0].title }}</h1>
-  <button ng-click="openBookingBar()" class="Home__hero--button">_search_</button>
-</div>
 
 <article class="HeroTitle" ng-if="isLoyalty && !showDetail">
   <div class="HeroTitle__inner">
@@ -21,11 +16,6 @@
   </div>
 </article>
 
-<booking-bar class="Home__booking-bar"
-             size="small"
-             ng-if="isLoyalty">
-</booking-bar>
-
 <breadcrumbs stickable="main-header"
              ng-show="showDetail"
              ng-click="{'hide': !showDetail}"
@@ -33,6 +23,8 @@
 </breadcrumbs>
 
 <main class="grid-wrapper OffersPage">
+
+  <booking-bar size="small"></booking-bar>
 
   <div class="preloader" ng-show="preloader.visible"></div>
 
@@ -123,18 +115,14 @@
                         selectedOffer.title | mainHeaderStyle">
       </h1>
 
-      <highlight ng-if="isLoyalty">
+      <highlight icon="false" ng-if="isLoyalty">
         <div class="Offer__about">
           <h2 class="Highlight__title">
             _book_offer_to_receive_
           </h2>
           <span ng-bind-html="selectedOffer.subtitle | trustAsHtml"></span>
         </div>
-        <div class="Offer__properties">
-        </div>
       </highlight>
-
-      <trip-adviser-quote ng-if="!isMobile"></trip-adviser-quote>
 
       <div class="offer-content">
         <img ng-if="!config.displayOfferImageInHeroSlider"
@@ -155,10 +143,6 @@
           _login_register_
         </a>
       </div>
-
-      <trip-adviser-quote ng-if="isMobile"></trip-adviser-quote>
-
-      <members-rate rooms="memberRates" size="large"></members-rate>
 
       <div class="controls"
            ng-if="selectedOffer.availability ?

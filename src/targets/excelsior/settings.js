@@ -1161,6 +1161,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       },
       'hotelDetails':{
         'hideBreadcrumbs': true,
+        'scrollToOffsetDesktop': 200,
         'hasViewMore': true,
         'hasTitle': false,
         'showSubNav': false,
