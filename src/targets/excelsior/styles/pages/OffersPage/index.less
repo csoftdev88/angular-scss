@@ -10,6 +10,11 @@
 
   .highlight {
     width: calc(~'100% - 387px');
+    box-sizing: border-box;
+    .viewport-mobile & {
+      width: 100%;
+      padding: 28px 5px 15px 15px;
+    }
   }
 
   .booking-bar {
@@ -20,7 +25,10 @@
   }
 
   offer-detail {
-    margin-bottom: 86px;
+    margin-bottom: 40px;
+    .viewport-mobile & {
+      margin-top: 20px;
+    }
     h1 {
       font-size: 40px;
       letter-spacing: 0;
@@ -41,6 +49,7 @@
       width: calc(~'100% - 387px');
       .viewport-mobile & {
         min-height: initial;
+        width: 100%;
       }
     }
   }
