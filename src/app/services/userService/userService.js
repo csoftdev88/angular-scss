@@ -301,6 +301,17 @@ angular.module('mobiusApp.services.user', [])
         loadProfile();
       });
 
+      /**
+       * keystone.session.created is fired when the user explicitly logs in. This handler
+       * is to check when keystone is ready, if the user is already logged in, then load
+       * their profile and set the auth headers as if they have just logged in.
+       */
+      $window.addEventListener('keystone.ready', function () {
+        if (keystoneIsAuthenticated()) {
+          loadProfile();
+        }
+      });
+
       $window.addEventListener(
         EVENT_CUSTOMER_LOGGED_OUT,
       function(){
