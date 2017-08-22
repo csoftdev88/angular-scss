@@ -1,12 +1,4 @@
 <h3 id="reservationBillingForm" class="reservation-billing-form" ng-bind-html="'_reservation_page_billing_title_' | mainHeaderStyle"></h3>
-<!--
-<label id="form-errors" class="form-errors" ng-if="forms.billing.$invalid  && forms.billing.$submitted">
-  <div>_missing_fields_message_</div>
-  <div ng-if="!forms.billing.creditcard.$valid">_card_number_error_</div>
-  <div ng-if="forms.billing.$submitted && !getCardExpirationDate()">_card_expiry_error_</div>
-  <div ng-if="!forms.billing.cvv.$valid || forms.billing.cvv.$error.pattern">_card_cvv_error_</div>
-</label>
--->
 <reservation-billing>
   <div ng-switch="billingDetails.paymentMethod">
     <ul class="payment-methods">
@@ -14,27 +6,21 @@
         <i class="{{cardIcon}}" ng-class="{selected: getCreditCardDetails(billingDetails.card.number).icon === cardIcon}"></i>
       </li>
       <li class="divider" ng-if="loyaltyProgramEnabled && canPayWithPoints"></li>
-      <li ng-click="selectPaymentMethod('point')" ng-if="loyaltyProgramEnabled && canPayWithPoints" class="points">
+      <li ng-click="selectPaymentMethod('point')" ng-if="loyaltyProgramEnabled && canPayWithPoints && auth.isLoggedIn()" class="points">
         <i class="points" ng-class="{selected: billingDetails.paymentMethod == 'point'}"></i>
       </li>
     </ul>
     <section class="payment-points" ng-switch-when="point">
       <!-- Points details only for logged in user -->
       <table ng-if="auth && auth.isLoggedIn()">
-        <tr>
+        <tr class="current">
           <th>_current_points_</th>
           <td>{{pointsData.currentPoints}}</td>
         </tr>
-        <tr>
+        <tr class="cost">
           <th>_points_required_booking_</th>
           <td>-{{pointsData.pointsRequired}}</td>
         </tr>
-        <!--
-        <tr>
-          <th>_points_earned_booking_</th>
-          <td ng-class="{'earned': pointsData.pointsEarned > 0, 'not-earned': pointsData.pointsEarned <= 0}"><span ng-if="pointsData.pointsEarned > 0">+</span>{{pointsData.pointsEarned}}</td>
-        </tr>
-        -->
         <tr class="balance">
           <th>_balance_after_booking_</th>
           <td ng-class="{'not-enough': pointsData.pointsAfterBooking < 0}">{{pointsData.pointsAfterBooking}}</td>
