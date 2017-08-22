@@ -18,6 +18,9 @@ prestige-account {
     h1{
       color: @c-dark-grey;
       font-weight: 300;
+      .viewport-mobile & {
+        color: initial;
+      }
     }
     .points{
       color: @c-primary;
@@ -27,9 +30,6 @@ prestige-account {
       padding-top: 10px;
       .Prestige__balance {
         display: block;
-      }
-      h1,
-      .points{
       }
       .bg{
         background: @c-secondary;
