@@ -527,7 +527,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'hotels': false,
         'location': true
       },
-      'scrollToRates': 350,
+      'scrollToRates': 360,
       //List of rooms and their products
       'defaultNumberOfRooms': 5,
       'defaultNumberOfRoomsMobile':10,
