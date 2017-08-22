@@ -144,11 +144,7 @@
                ng-include="'layouts/components/reservation-overview.html'">
         </aside>
 
-        <div grid="5">
-          <aside ng-if="bookingConfig.detailsBeforeForm && !isMobile"
-                 class="ReservationDetails__overview"
-                 ng-include="'layouts/components/reservation-overview.html'">
-          </aside>
+        <div grid="5" ng-if="isMobile">
           <div class="links">
             <a ng-click="goBack()" class="back">< _back_</a>
             <span ng-show="!noBreakdown" class="breakdown">
