@@ -15,7 +15,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
   'showEUCookieDisclaimer':true,
   'enableHotDeals':true,
   'infiniti': {
-    'enable': true,
+    'enable': false,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
     'integration': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
     'staging': 'http://staging-infiniti-sandman.mobiusbookingengine.com/track/content/infiniti.js',
@@ -65,7 +65,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     },
     'integration': {
-      'enable':true,
+      'enable':false,
       'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
@@ -77,7 +77,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'singlePageApp': true
     },
     'staging': {
-      'enable':true,
+      'enable':false,
       'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
@@ -89,7 +89,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'singlePageApp': true
     },
     'uat': {
-      'enable':true,
+      'enable': false,
       'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
@@ -99,7 +99,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     },
     'live': {
-      'enable':true,
+      'enable': false,
       'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
@@ -133,15 +133,15 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
-    'chainCode': 'STG',
+    'chainCode': 'EXC',
     'trackUsage': true,
     'languageInPath': true,
     'baseURL': {
-      'development': '//integration-www-stgiles.mobiusbookingengine.com/api/4.0/',
-      'integration': '//integration-www-stgiles.mobiusbookingengine.com/api/4.0/',
-      'staging': '//integration-www-stgiles.mobiusbookingengine.com/api/4.0/',
+      'development': '//integration-www-excelsior.mobiusbookingengine.com/api/4.0/',
+      'integration': '//integration-www-excelsior.mobiusbookingengine.com/api/4.0/',
+      'staging': '//integration-www-excelsior.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
-      'live': 'https://www.sandmanhotels.com/api/4.0/'
+      'live': ''
     },
     'mobiusTracking': {
       'development': {
@@ -287,7 +287,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-tenantId': '1',
+      'Mobius-tenantId': '6',
       'Mobius-channelId': [{
         'name': 'mobileWeb',
         'channelID': 23,
@@ -402,7 +402,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'inactivityPeriodInterval':1000, //The interval at which inactivity checks are made (Milliseconds)
       'displayExitModal':false
     },
-    'chains': ['STG'],
+    'chains': ['EXC'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
     },
@@ -411,7 +411,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     },
     'generics': {
       'singleProperty': true,
-      'defaultPropertyCode': 'SGC',
+      'defaultPropertyCode': 'EXC',
       'facebookAppId': '',
       'disableMainHeaderStyle': true,
       'applyChainClassToBody': true,
