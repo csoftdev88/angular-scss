@@ -58,6 +58,14 @@ angular.module('mobiusApp.services.user', [])
 
     }
 
+    function getTrackingId() {
+      console.log('getTrackingId: ' + window.KS.$me.get().Id);
+      if (Settings.authType === 'keystone') {
+        return (keystoneIsAuthenticated() && window.KS.$me.get().Id) ? window.KS.$me.get().Id : null;
+      }
+      return getCustomerId();
+    }
+
     function updateUser(data) {
       var customerId = getCustomerId();
 
@@ -462,6 +470,7 @@ angular.module('mobiusApp.services.user', [])
       getUser: getUser,
       loadProfile: loadProfile,
       getCustomerId: getCustomerId,
+      getTrackingId: getTrackingId,
       loadLoyalties: loadLoyalties,
       loadRewards: loadRewards,
       updateUser: updateUser,
