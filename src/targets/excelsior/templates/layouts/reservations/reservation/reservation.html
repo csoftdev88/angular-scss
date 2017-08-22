@@ -78,7 +78,7 @@
       <div grid-row>
 
         <!-- RESERVATION DETAILS -->
-        <div grid="5">
+        <div grid="5" ng-if="!isMobile">
           <aside ng-if="bookingConfig.detailsBeforeForm && !isMobile"
                  class="ReservationDetails__overview"
                  ng-include="'layouts/components/reservation-overview.html'">
@@ -143,6 +143,29 @@
                class="ReservationDetails__overview"
                ng-include="'layouts/components/reservation-overview.html'">
         </aside>
+
+        <div grid="5">
+          <aside ng-if="bookingConfig.detailsBeforeForm && !isMobile"
+                 class="ReservationDetails__overview"
+                 ng-include="'layouts/components/reservation-overview.html'">
+          </aside>
+          <div class="links">
+            <a ng-click="goBack()" class="back">< _back_</a>
+            <span ng-show="!noBreakdown" class="breakdown">
+              <span class="separator" ng-if="bookingConfig.policiesLinkBottom"> | </span>
+              <a href ng-click="breakdown.extended = !breakdown.extended">
+                <span ng-if="!breakdown.extended">_view_price_breakdown_</span>
+                <span ng-if="breakdown.extended">_hide_price_breakdown_</span>
+              </a>
+            </span>
+            <a ng-href="{{bookingConfig.termsAndConditionsLink}}"
+               ng-click="readPolicies()"
+               class="policies"
+               target="_blank">
+              _policies_
+            </a>
+          </div>
+        </div>
       </div>
 
       <label ng-if="!bookingConfig.detailsBeforeForm" for="agreement3" class="input-checkbox" ng-show="state.includes('reservation.details') || state.includes('reservation.billing')">
