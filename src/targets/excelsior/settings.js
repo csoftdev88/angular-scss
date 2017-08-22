@@ -420,7 +420,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'dontRedirectSinglePropertyHome': true,
       'header': {
         'logoLink': 'https://gooole.com',
-        'logoText': 'St. Giles Hotels',
+        'logoText': 'Excelsior Hotels',
         'telephone': '+49 211 54259 0',
         'loginAsLink': true,
         'hideMobileHeader': true,
@@ -1100,7 +1100,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
 
     // Widget names and their templates
     'templates': {
-      'about': '<tagline ng-if="auth.isLoggedIn()" showLogo="true" text="Become a St. Giles Insider - Sign Up now and benefit immediately… It’s that simple."></tagline>',
+      'about': '<tagline ng-if="auth.isLoggedIn()" showLogo="true" text="Become a Excelsior Insider - Sign Up now and benefit immediately… It’s that simple."></tagline>',
       'questionnaire': '<questionnaire ng-if="auth.isLoggedIn()"></questionnaire>',
       'testimonial': '<recommendation></recommendation>',
       'offers': '<offers></offers>',
