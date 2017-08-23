@@ -314,18 +314,17 @@ hotels, .alt-hotels {
         font-size: @size--1;
         color: @c-grey;
         cursor: pointer;
-
         .fa {
           font-size: @size-4;
           margin-right: @baseline/2;
           position: relative;
           top: 5px;
         }
-
         &.is-active .fa {
-          color: @c-secondary;
+          color: @c-primary;
         }
       }
+
     }
 
     .filters-bar {
@@ -492,3 +491,13 @@ hotels, .alt-hotels {
     }
   }
 }
+
+hotel-detail .hotel-detail__rooms-compare {
+  .section-header .filter-bar div.view-switch ul li.is-active i {
+    color: @c-primary;
+  }
+  .room-list-compare-container .rooms-list list-item div.list-item-container .room-hide-btn {
+    background-color: @c-primary;
+  }
+}
+

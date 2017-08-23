@@ -78,7 +78,7 @@
         </room-ota-products>
 
 
-        <list-item ng-repeat="product in products | orderBy : currentOrder.sort | limitTo: roomRatesLimit" ng-class="{'without-image':!config.showProductImage || (config.showProductImage && (!product.image || !product.image.uri)),'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice}" ng-click="productClick(product)">
+        <list-item ng-repeat="product in products | orderBy : currentOrder.sort | limitTo: roomRatesLimit" ng-class="{'without-image':!config.showProductImage || (config.showProductImage && (!product.image || !product.image.uri)),'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice}">
           <img ng-src="{{product.image.uri | cloudinaryImage : productImageWidth : productImageHeight : 'fill'}}" alt="{{product.image.alt}}" class="product-image"
             ng-if="config.showProductImage && product.image && product.image.uri" />
           <div class="list-item-highlight-label member-ribbon" ng-if="product.memberOnly">_members_only_rate_</div>
@@ -126,7 +126,7 @@
               _book_now_
             </button-submit>
 
-            <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="auth.register()">_login_to_book_</a>
+            <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="auth.login()">_login_to_book_</a>
           </pricing-info>
 
           <description-info>
