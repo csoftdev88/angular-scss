@@ -825,13 +825,13 @@ reservation-confirmation {
     }
 
     li:nth-of-type(2) {
-      background: @c-primary;
+      background: lighten(@c-primary, 20%);
       background-size: contain;
       border-bottom: solid 1px #000;
     }
 
     li:last-of-type {
-      background: @c-secondary;
+      background: lighten(@c-secondary, 20%);
       background-size: contain;
       border-bottom: solid 1px #000;
     }
@@ -1662,14 +1662,14 @@ reservation-hotel-details {
 .ConfirmationBackground {
   background: url('@{img-prefix}/confirmation-bg.png');
   position: absolute;
-  height: 900px;
+  height: 100vh;
   width: 100vw;
   top: 0;
   left: 0;
   z-index: -999;
+  background-size: cover;
   .viewport-mobile & {
     height: 1150px;
-    background-size: cover;
   }
 }
 
