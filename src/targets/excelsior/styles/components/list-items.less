@@ -42,12 +42,12 @@ list-item {
     padding-top: 30px;
   }
 
-  .member-ribbon + .list-item-header {
-    margin-top: 30px;
-  }
-
-  .highlight-ribbon + .list-item-header {
-    margin-top: 30px;
+  &.is-member-only {
+    background: initial;
+    &.is-member-only-disabled .button {
+      box-shadow: none !important;
+      border-radius: 0 !important;
+    }
   }
 
   earned-points {
@@ -61,10 +61,6 @@ list-item {
     font-size: 18px !important;
     font-weight: 600 !important;
     color: @c-grey !important;
-    .chain-sign &{
-      font-weight: 400 !important;
-      font-family: @ff-heading-sign !important;
-    }
   }
 
   .list-item-header {
@@ -102,8 +98,8 @@ list-item {
     button-submit{
       text-transform: uppercase;
       font-size: 14px;
-      background: @lbe-c-primary;
-      border-radius: 2px;
+      background: @c-secondary;
+      border-radius: 0;
     }
   }
 

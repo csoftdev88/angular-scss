@@ -7,6 +7,13 @@ hotel-room {
   margin-left: 0 !important;
   margin-right: 0 !important;
 
+  p {
+    color: #585C58;
+    margin-top: 14px;
+    line-height: 25px;
+    font-family: @ff-secondary;
+  }
+
   .header {
     .viewport-mobile & {
       margin-bottom:0;
@@ -145,7 +152,7 @@ hotel-room {
       border: 2px solid #D8D8D8;
       margin-bottom: 26px;
       pricing-info {
-        border-left: solid 2px #f1f1f1;
+        border-left: solid 1px #D8D8D8;
       }
     }
   }
@@ -237,19 +244,14 @@ hotel-room {
       }
 
       h2 {
-        &.product-title {
-          font-size: 21px !important;
-          line-height: 25px;
-        }
         padding-top:0;
-        font-size: 16px !important;
-        color: #252525 !important;
+        font-size: 18px !important;
+        color: @c-primary !important;
         text-transform: uppercase;
-        letter-spacing: 0;
-        font-family: @lbe-ff-primary;
-        line-height: 19px;
-        font-weight: bold !important;
-        margin-top: 9px !important;
+        font-family: @ff-primary;
+        line-height: 24px;
+        font-weight: normal !important;
+        margin-top: 0 !important;
         .viewport-mobile & {
           width:100%;
           font-size:16px !important;
