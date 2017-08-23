@@ -290,8 +290,9 @@
     </section>
   </div>
   <hr/>
-  <h2 class="other-rooms-title" ng-if="!config.otherRooms.hide && property.nameLong && (!otherRooms || (otherRooms && otherRooms.length > 1)) "
-    ng-bind-html="'_other_rooms_title_' | stringLocaleReplace:property.nameLong | mainHeaderStyle"></h2>
+  <h2 class="other-rooms-title" ng-if="!config.otherRooms.hide && property.nameLong && (!otherRooms || (otherRooms && otherRooms.length > 1)) ">
+    <span ng-bind-html="'_other_rooms_title_' | stringLocaleReplace:property.nameLong | mainHeaderStyle"></span>
+  </h2>
 
   <!-- Keeping this just in case
   <div ng-if="!otherRooms && roomDetails && !otherRoomsLoading" class="load-more-rooms">
