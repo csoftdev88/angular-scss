@@ -204,13 +204,16 @@ hotel-detail {
               width: 100%;
               border: none;
 
+              &:before {
+                display: none;
+              }
+
               a {
                 margin: 0;
-                &:after {
-                  color: @c-primary;
-                  content: @fa-var-info-circle;
-                  float: right;
-                  margin-top: -5px;
+                padding: 0;
+                &:after,
+                &:before {
+                  display: none;
                 }
               }
             }
