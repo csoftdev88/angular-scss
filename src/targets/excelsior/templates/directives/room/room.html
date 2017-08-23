@@ -93,8 +93,8 @@
                 <span ng-if="pricePer === PP_NIGHT">_per_night_</span>
                 <span ng-if="pricePer === PP_STAY">_per_stay_</span>
 
-                <span ng-if="isUserLoggedIn() && product.price.pointsRequired && loyaltyProgramEnabled && product.allowPointsBooking">
-                <br />_or_ <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1)).toFixed(0)}}</span>                _points_
+                <span ng-if="product.price.pointsRequired && loyaltyProgramEnabled && product.allowPointsBooking">
+                <br />_or_ <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1)).toFixed(0)}}</span> _points_
                 </span>
               </p>
             </pricing-info>

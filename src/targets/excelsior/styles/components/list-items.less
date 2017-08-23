@@ -94,11 +94,24 @@ list-item {
   }
   pricing-info{
     p{
-      display: inline-block;
+      display: block;
       span:not(.points){
         float: none;
         clear: initial;
         padding-right: 5px;
+      }
+      span.value {
+        font-size: 29px;
+        font-weight: bold;
+        line-height: 33px;
+        font-family: @ff-secondary;
+        color: #000;
+      }
+      span.currency {
+        color: #000;
+        font-family: @ff-primary;
+        line-height: 23px;
+        font-size: 16px;
       }
     }
     button-submit{
