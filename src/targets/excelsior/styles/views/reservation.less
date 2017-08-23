@@ -435,8 +435,8 @@ reservation-widget {
     .next {
       float: right;
       margin: 0 @spacing;
-      .viewport-mobile &{
-        margin: 0 0 0 @spacing/2;
+      .viewport-mobile & {
+        margin: 20px 0 0 @spacing/2;
       }
     }
 
@@ -601,6 +601,12 @@ reservation-billing {
   .payment-points {
     margin-top: @spacing;
 
+    border: 1px solid @c-primary;
+    border-radius: 3px;
+    padding: 30px;
+    font-family: @ff-secondary;
+    font-weight: normal;
+
     th, td {
       padding: 10px 0;
       font-size: @size-1;
@@ -614,19 +620,34 @@ reservation-billing {
 
     td {
       color: @c-brown;
-      font-weight: bold;
       font-size: @size-2;
       text-align: right;
+      font-weight: normal;
     }
 
-    .earned {
-      color: @lbe-c-primary;
+    .current td {
+      color: @c-primary;
+    }
+
+    .current th,
+    .cost th {
+      color: #751C14;
+    }
+
+    .cost td {
+      color: @c-red;
+    }
+
+    .cost {
+      th, td {
+        font-size: @size-2;
+      }
     }
 
     .balance {
-
       th, td {
-        font-size: @size-3;
+        font-size: @size-1;
+        color: @c-mid-grey;
       }
     }
 
@@ -949,6 +970,9 @@ reservation-finished {
     background-color: rgba(26, 26, 26, 0.8);
     .backdrop-filter-blur(20px);
     margin-bottom: 100px;
+    .viewport-mobile & {
+      margin-bottom: 20px;
+    }
 
     .summary-container {
       max-width: 1212px;
