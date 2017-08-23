@@ -3,7 +3,6 @@
 
 .booking-bar {
   background-color: #fff;
-  margin-bottom: 40px;
   box-sizing: border-box;
 
   // If the booking bar is anchored to the top, its parent will have a class sticky
@@ -15,6 +14,10 @@
     .booking-bar__form {
       padding-top: 19px;
     }
+  }
+
+  .sticky.roombar & {
+    left: 732px;
   }
 
   p, span, label {
