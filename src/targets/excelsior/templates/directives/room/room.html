@@ -78,9 +78,14 @@
         </room-ota-products>
 
 
-        <list-item ng-repeat="product in products | orderBy : currentOrder.sort | limitTo: roomRatesLimit" ng-class="{'without-image':!config.showProductImage || (config.showProductImage && (!product.image || !product.image.uri)),'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice}">
+        <list-item ng-repeat="product in products | orderBy : currentOrder.sort | limitTo: roomRatesLimit"
+                   ng-class="{'without-image':!config.showProductImage,'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice}">
           <img ng-src="{{product.image.uri | cloudinaryImage : productImageWidth : productImageHeight : 'fill'}}" alt="{{product.image.alt}}" class="product-image"
             ng-if="config.showProductImage && product.image && product.image.uri" />
+          <img src="/static/images/rate_default.png"
+               alt=""
+               class="product-image"
+               ng-if="config.showProductImage && !(product.image && product.image.uri)" />
           <div class="list-item-highlight-label member-ribbon" ng-if="product.memberOnly">_members_only_rate_</div>
           <div class="list-item-highlight-label highlight-ribbon" ng-if="product.highlighted">_most_booked_package_</div>
           <div class="list-item-header">
@@ -168,7 +173,7 @@
                    ng-click="openRoomDetailsDialog(product)"
                    ng-if="openRoomDetailsDialog">
                   <span ng-if="!config.rateInfoIsTabbed">_read_more_</span>
-                  <span ng-if="config.rateInfoIsTabbed">_view_price_breakdown_policies_</span>
+                  <span ng-if="config.rateInfoIsTabbed">_read_more_</span>
                 </a>
 
               </p>
