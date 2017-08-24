@@ -14,29 +14,22 @@ Front end application for mobius booking engine
 2. `npm install -g grunt-cli bower karma phantomjs@1.9.8`
 3. `git clone https://github.com/2PVentures/mobius-web.git`
 4. `cd mobius-web`:
-  * `npm install`
-  * `bower install`
-  * `grunt build --tenant=suttonLive --environment=development` to build the app using "sutton" as target.
-  * Run server `NODE_ENV=development node server.js --tenant=suttonLive --environment=development`
-  * Finally, open `localhost:9000` in your browser
+5. Install dependencies and watch files `npm run watch.sandman`
+6. Run the middleware `npm run server.sandman`
+7. Finally, open `localhost:9000` in your browser
 
-### Local development
-1. Follow installation steps 1-3 described above.
-2. Run `grunt development --tenant=suttonLive --environment=development` to build the app using "sutton" as target.
-3. Run server `NODE_ENV=development node server.js --tenant=suttonLive --environment=development`.
+### How do I deploy to a live environment ?
+1. Change to root `sudo su -`
+1. Follow installation steps 1-4 described above.
+2. Run `npm run build.sandman` 
+3. Run `pm2 restart WEB` (If pm2 says there is no instance of WEB running do `pm2 start server.js --name "WEB" -- --tenant=sandman --environment=live`)
+4. Clear cloudflare cache visit `https://webservice.mobiuswebservices.com/cloudflare/clearcache?site=mobiusbookingengine`
 
-### Production
-1. Follow instalation steps 1-4 described above.
-2. Run `grunt production --tenant=suttonLive --environment=live` to build the app using "sutton" as target.
-3. Run `NODE_ENV=production node server.js --tenant=suttonLive --environment=live`
-
-In case the application needs to run on a different port append `port=xxxx` eg `port=9090` to the start command.
--> eg full: `pm2 start server.js -- tenant=laval port=9090`
-
-Running production with PM2, node server needs to be started on mobius-web folder:
-1. cd mobius-web
-2. export NODE_ENV=production
-3. pm2 start server.js --name "WEB" -- --tenant=suttonLive --environment=live
+#### Trouble shooting ####
+If you deploy the app and get an index_US cannot be found, or something
+similiar, then something has gone wrong with the build process. Re build
+the application and try again. Failing that, ensure that the locales in the 
+config file are valid and match the values of the build folder names.
 
 ### The Build System
 
@@ -83,48 +76,6 @@ browser plugin for this:
 
 When you load your page, click the Live Reload icon in your toolbar and
 everything should work.
-
-If you'd prefer to not install a browser extension, then you must add the
-following to the end of the `body` tag in `index.html`:
-
-```html
-<script src="http://localhost:35729/livereload.js"></script>
-```
-
-### Troubleshooting
-During install some of you may encounter some issues, most of this issues can be solved by one of the following tips.
-
-#### Update NPM, Bower or Grunt
-Sometimes you may find there is a weird error during install like npm's *Error: ENOENT*, usually updating those tools to the latest version solves the issue.
-
-Updating NPM:
-```
-$ npm update -g npm
-```
-
-Updating Grunt:
-```
-$ npm update -g grunt-cli
-```
-
-Updating Bower:
-```
-$ npm update -g bower
-```
-
-#### Cleaning NPM and Bower cache
-NPM and Bower has a caching system for holding packages that you already installed.
-Cleaning the cache solves some troubles this system creates.
-
-NPM Clean Cache:
-```
-$ npm cache clean
-```
-
-Bower Clean Cache:
-```
-$ bower cache clean
-```
 
 ## Configuration
 All settings can be categorised into the following categories:

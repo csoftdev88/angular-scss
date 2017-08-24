@@ -35,8 +35,17 @@ or page.
 
 #### Creating a new tenant from scratch ####
 
-To create a new tenant, all you need to do is copy the 'default' folder and
-rename it to the name of the skin. This will then act as the 'tenant' name
+To create a new tenant, all you need to do is copy an existing tenant folder and
+rename. This will then act as the 'tenant' name
 used in the build commands. Also, please keep the utility npm scripts up to date
 by adding a serve.tenant and run.tenant to the package JSON.
+
+The styling of the tenant is imported from a single file, style.less. This file
+is only for use with imports and allows your to import new tenant specific
+components as well as picking some from the global styles.
+
+The config.less is where we store the variables used throughout the tenant
+styling. This file should be the first to be changed. Once the tenant folder
+is copied, change the variables here with the tenant's existing color, font and
+sizing requirments.
 
