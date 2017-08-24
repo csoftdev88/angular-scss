@@ -316,7 +316,7 @@
     "room_description_title": "Room Description",
     "room_amenities_title": "Room Amenities",
     "room_images_title": "More Room Images",
-    "other_rooms_title": "Other Rooms at {nameShort}",
+    "other_rooms_title": "Other Rooms",
     "select_dates_for_prices_title": "Please select dates to see the latest prices",
     "earn_at_least": "Earn at least",
     "room_rates_load_error": "Unfortunately we were unable to load the rates for this room.",
