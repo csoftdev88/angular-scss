@@ -1,75 +1,10 @@
-# mobius
+# Mobius web
 
 [![Code Climate](https://codeclimate.com/repos/55a13cd2e30ba0458a00384f/badges/fda5b4afe8ad006ed0fe/gpa.svg)](https://codeclimate.com/repos/55a13cd2e30ba0458a00384f/feed)
 [![Circle CI](https://circleci.com/gh/2PVentures/mobius-web/tree/master.svg?style=shield&circle-token=c747f87a995b02c9d999cee050e74265a98745e4)](https://circleci.com/gh/2PVentures/mobius-web/tree/master)
 [![Test Coverage](https://codeclimate.com/repos/55a13cd2e30ba0458a00384f/badges/fda5b4afe8ad006ed0fe/coverage.svg)](https://codeclimate.com/repos/55a13cd2e30ba0458a00384f/coverage)
 
-Rewrite of existing hotel booking engine into angular.js SPA..
-
-## Overall Directory Structure
-
-At a high level, the structure looks roughly like this:
-
-```
-mobius/
-  |- src/
-  |  |- app/
-  |  |  |- <app logic>
-  |  |  |- directives/
-  |  |  |  |- <reusable controls>
-  |  |  |- filters/
-  |  |  |  |- <reusable components>
-  |  |  |- layouts/
-  |  |  |  |- <application templates>
-  |  |  |- services/
-  |  |  |  |- <reusable components>
-  |  |  |- app.js
-  |  |  |- settings.js
-  |  |  |- index.html
-  |  |- font/
-  |  |  |- <core static files>
-  |  |- images/
-  |  |  |- <core icons, logos>
-  |  |- locales/
-  |  |  |- en_US.json
-  |  |- styles/
-  |  |  |- <core less files>
-  |  |-targets
-  |  |  |-suttonLive
-  |  |  |  |- <target specific files>
-  |- bower_components/
-  |- node_modules/
-  |- karma/
-  |- tests/
-  |  |- ...
-  |- .bowerrc
-  |- bower.json
-  |- build.config.js
-  |- Gruntfile.js
-  |- package.json
-```
-
-What follows is a brief description of each entry, but most directories contain
-their own `README.md` file with additional documentation, so browse around to
-learn more:
-
-- `src/` - our application sources. [Read more &raquo;](src/README.md)
-- `bower_components/` - third-party libraries used in front-end. [Bower](http://bower.io) will install
-  packages here. Anything added to this directory will need to be manually added
-  to `build.config.js` and `karma/karma-unit.js` to be picked up by the build
-  system.
-- `node_modules/` - third-party libraries used in build system. [NodeJS](http://nodejs.org/) will install
-  packages here.
-- `karma/` - test configuration.
-- `.bowerrc` - the Bower configuration file. This tells Bower to install
-  components into the `vendor/` directory.
-- `bower.json` - this is our project configuration for Bower and it contains the
-  list of Bower dependencies we need.
-- `build.config.js` - our customizable build settings; see "The Build System"
-  below.
-- `Gruntfile.js` - our build script; see "The Build System" below.
-- `package.json` - metadata about the app, used by NPM and our build script. Our
-  NPM dependencies are listed here.
+Front end application for mobius booking engine
 
 ## FAQ
 
@@ -79,38 +14,33 @@ learn more:
 2. `npm install -g grunt-cli bower karma phantomjs@1.9.8`
 3. `git clone https://github.com/2PVentures/mobius-web.git`
 4. `cd mobius-web`:
-  * `npm install`
-  * `bower install`
-  * `grunt build --tenant=suttonLive --environment=development` to build the app using "sutton" as target.
-  * Run server `NODE_ENV=development node server.js --tenant=suttonLive --environment=development`
-  * Finally, open `localhost:9000` in your browser
+5. Install dependencies and watch files `npm run watch.sandman`
+6. Run the middleware `npm run server.sandman`
+7. Finally, open `localhost:9000` in your browser
 
-### Local development
-1. Follow installation steps 1-3 described above.
-2. Run `grunt development --tenant=suttonLive --environment=development` to build the app using "sutton" as target.
-3. Run server `NODE_ENV=development node server.js --tenant=suttonLive --environment=development`.
+### How do I deploy to a live environment ?
+1. Change to root `sudo su -`
+1. Follow installation steps 1-4 described above.
+2. Run `npm run build.sandman` 
+3. Run `pm2 restart WEB` (If pm2 says there is no instance of WEB running do `pm2 start server.js --name "WEB" -- --tenant=sandman --environment=live`)
+4. Clear cloudflare cache visit `https://webservice.mobiuswebservices.com/cloudflare/clearcache?site=mobiusbookingengine`
 
-### Production
-1. Follow instalation steps 1-4 described above.
-2. Run `grunt production --tenant=suttonLive --environment=live` to build the app using "sutton" as target.
-3. Run `NODE_ENV=production node server.js --tenant=suttonLive --environment=live`
-
-In case the application needs to run on a different port append `port=xxxx` eg `port=9090` to the start command.
--> eg full: `pm2 start server.js -- tenant=laval port=9090`
-
-Running production with PM2, node server needs to be started on mobius-web folder:
-1. cd mobius-web
-2. export NODE_ENV=production
-3. pm2 start server.js --name "WEB" -- --tenant=suttonLive --environment=live
+#### Trouble shooting ####
+If you deploy the app and get an index_US cannot be found, or something
+similiar, then something has gone wrong with the build process. Re build
+the application and try again. Failing that, ensure that the locales in the 
+config file are valid and match the values of the build folder names.
 
 ### The Build System
 
 The best way to learn about the build system is by familiarizing yourself with
-Grunt and then reading through the heavily documented build script,
+Grunt and then reading through the build script,
 `Gruntfile.js`.
 
+All configs used by the Gruntfile can be found in build.config.js
+
 The driver of the process is the `watch` multi-task, which watches for file
-changes using `grunt-contrib-watch` and executes one of nine tasks when a file
+changes using `grunt-contrib-watch` and executes one of many tasks when a file
 changes:
 
 * `watch:styles` - When any `*.less` file within `src/styles` changes, the
@@ -121,12 +51,17 @@ changes:
 * `watch:markup` - When any `*.html` file within `src/` changes, all templates are put into strings in a JavaScript file that will add the template to AngularJS's [`$templateCache`](http://docs.angularjs org/api/ng.$templateCache) so template files are part of the initial JavaScript payload and do not require any future XHR.  The template cache files are  `build/app/mobius-templates-*_*.js`.
 * `watch:jsunit` - When any `*.spec.js` file in `src/` changes, the test files are linted and the unit tests are executed.
 
-As covered in the previous section, `grunt watch` will execute a full build up-front and then run any of the aforementioned `watch:*` tasks as needed to ensure the fastest possible build. So whenever you're working on your project,
-start with:
-
-```sh
-$ grunt watch
-```
+Most of this is very standard with the exception of 2 things:
+  * localisation task - This is a custom localisation grunt task. It just uses
+   regex to match any text that is suffixed and prefixed with a _. For example
+   _title_. It then replaces this with the text in the locale json using the text
+   as a key. The locale is compiled X number of times, where X is each language
+   in the tenant's locale directory
+   * index task - This is a simple task that runs through the index file and
+   places some information about the environment and app it is building, such
+   as environment=production, tenant=sandman etc. These meta fields are then
+   read by a service so that you can lookup which settings to use when env
+   specific settings are provided.
 
 ### Live Reload!
 
@@ -142,60 +77,12 @@ browser plugin for this:
 When you load your page, click the Live Reload icon in your toolbar and
 everything should work.
 
-If you'd prefer to not install a browser extension, then you must add the
-following to the end of the `body` tag in `index.html`:
-
-```html
-<script src="http://localhost:35729/livereload.js"></script>
-```
-
-### Troubleshooting
-During install some of you may encounter some issues, most of this issues can be solved by one of the following tips.
-
-#### Update NPM, Bower or Grunt
-Sometimes you may find there is a weird error during install like npm's *Error: ENOENT*, usually updating those tools to the latest version solves the issue.
-
-Updating NPM:
-```
-$ npm update -g npm
-```
-
-Updating Grunt:
-```
-$ npm update -g grunt-cli
-```
-
-Updating Bower:
-```
-$ npm update -g bower
-```
-
-#### Cleaning NPM and Bower cache
-NPM and Bower has a caching system for holding packages that you already installed.
-Cleaning the cache solves some troubles this system creates.
-
-NPM Clean Cache:
-```
-$ npm cache clean
-```
-
-Bower Clean Cache:
-```
-$ bower cache clean
-```
-
 ## Configuration
 All settings can be categorised into the following categories:
 
 - Front-end
 - Server
 - Build system
-
-### UI
-Front-end configuration is located in the following places:
-`src/targets/{tenant}/settings.js`
-`src/targets/{tenant}/styles`
-`src/targets/{tenant}/locales`
 
 #### `Settings.js` - main configuration file which contais customer related settings.
 Main sections are:
@@ -213,42 +100,6 @@ All styles are located in `src/styles` folder in [less](http://lesscss.org/) or 
 ### Server
 `config/environments`
 `routes/index.js`
-
-### Build process
-All build related settings are located in the following files:
-`Gruntfile.js`
-`build.config.js`
-
-See The Build System.
-
-## Creating a new tenant from scratch
-All settings specific to a tenant is located in src/targets/{tenant}/ - a default setup is provided to get you started in src/targets/default/ - when creating a new tenant duplicate the default folder and rename it according to the tenant name, and update as follows:
-
-### Settings
-The main tenant settings file is located in src/targets/{tenant}/settings.js and is commented, many settings such as google analytics, google tag manager can be enabled/disabled depending on tenant needs, this should be evaluated at the start of the project. However some settings are required and must be set at the start of the project, request them to your project manager, those are:
-
-* defaultProductRateId
-* authType - "infiniti" or "mobius"
-* infiniti - if authType = infiniti this must be enabled and environment urls updated accordingly
-* infiniti e-commerce tracking - if authType = infiniti this must be enabled and environment urls updated accordingly
-* evolution infiniti script - if authType = infiniti this must be enabled and script updated accordingly
-* sentry - this should always be enabled and urls are not tenant specific so doesn't need to be updated
-* googleAnalytics - check if this should be enabled and get client ID
-* googleTagManager - check if this should be enabled and get client ID
-* chainCode - uppercase code for current tenant
-* Mobius-chainId
-* Mobius-channelId
-* baseURL - API base url with various environments
-* Mobius product search/purchase tracking - enable?
-* singleProperty - true if only one property
-* facebookAppId - required for facebook sharing
-
-### Locales
-Locales files located in src/targets/{tenant}/locales are processed by grunt/node when building the app into angular template files. These files and some of their settings need to match the "languages" settings in Settings file, you can check what values are required by a tenant by fetching the "generics/languages" endpoint of the current tenant API, then update the locales params such as "base_href", "language_code" accordingly
-
-### css
-Refer to comments in src/targets/default/styles/style.less
-
 
 ## prerender.io
 As mobius-web is an angular application, we rely on prerender.io to index pages for search engines.
