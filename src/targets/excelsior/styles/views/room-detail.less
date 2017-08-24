@@ -166,6 +166,21 @@ hotel-room {
       list-item {
         margin-bottom: 80px;
         width: 25%;
+        pricing-info {
+          p {
+            margin-top: initial;
+            float: left;
+            color: #585C58;
+            font-family: @ff-secondary;
+            font-size: 15px;
+            span.value {
+              font-size: 21px;
+              font-weight: bold;
+              line-height: 24px;
+              color: @c-primary;
+            }
+          }
+        }
         figure {
           height: 123px;
           max-height: initial;
@@ -483,4 +498,29 @@ main.room-detail {
     }
   }
 
+}
+
+.RoomInfo {
+  overflow: auto;
+  margin: 43px 0 80px 0;
+}
+
+.RoomInfo__image {
+  float: left;
+  margin-right: 35px;
+}
+
+.RoomInfo__text {
+  font-family: @ff-secondary;
+  font-size: 15px;
+  line-height: 25px;
+  color: #585C58;
+}
+
+.RoomInfo__title {
+  margin-top: 140px;
+  font-family: @ff-primary;
+  font-size: 37px;
+  line-height: 51px;
+  color: @c-primary;
 }

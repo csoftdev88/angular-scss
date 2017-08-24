@@ -278,32 +278,11 @@
     </section>
   </div>
 
-  <div class="room-details-right" ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
-    <section class="room-description" ng-show="roomDetails.description" ng-if="config.showDescriptionBottom">
-      <p ng-bind-html="sanitize(roomDetails.description)"></p>
-    </section>
-    <section ng-if="filteredAmenities.length && !viewSettings.showAmenitiesTop" class="room-amenities">
-      <h2 ng-bind-html="'_room_amenities_title_' | mainHeaderStyle"></h2>
-      <input ng-if="roomDetails && config.restrictAmenities" type="checkbox" class="amenities-reveal-state" id="room-amenities" />
-      <amenities-list ng-if="property" ng-class="{'restricted-amenities': config.restrictAmenities}">
-        <amenity-item ng-repeat="amenity in filteredAmenities" ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = property.chainCode">
-          <slug-img slug="amenity" type="room" width="15"></slug-img>
-          <span class="amenity-caption">{{amenity.name}}</span>
-        </amenity-item>
-      </amenities-list>
-      <label ng-if="roomDetails && config.restrictAmenities" for="room-amenities" class="amenities-reveal-trigger">_show_all_facilities_</label>
-    </section>
-  </div>
-  <hr/>
+  <div ng-include="'directives/room/roomInfo.html'"></div>
+
   <h2 class="other-rooms-title" ng-if="!config.otherRooms.hide && property.nameLong && (!otherRooms || (otherRooms && otherRooms.length > 1)) ">
     <span ng-bind-html="'_other_rooms_title_' | stringLocaleReplace:property.nameLong | mainHeaderStyle"></span>
   </h2>
-
-  <!-- Keeping this just in case
-  <div ng-if="!otherRooms && roomDetails && !otherRoomsLoading" class="load-more-rooms">
-    <button-submit ng-click="loadMoreRooms()">_view_more_rooms_</button-submit>
-  </div>
-  -->
 
   <div class="preloader relative" ng-show="!config.otherRooms.hide && otherRoomsLoading"></div>
 
