@@ -16,6 +16,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     var password = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].password : null;
     var apeironId = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].id : null;
     var isSinglePageApp = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].singlePageApp: false;
+    var hospitalityEnabled = !!(Settings.hospitalityEvents && Settings.hospitalityEvents[env]);
 
     /**
      * Main function used to submit an event to infiniti tracking script with a payload specified by properties
@@ -90,15 +91,17 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     }
 
     function trackPage(path){
-      var eventDetails = {};
-      eventDetails.path = path;
-      eventDetails.url = window.location.origin + path;
-      eventDetails.title = document.title;
-      eventDetails.type = 'page';
-      eventDetails.tags = [];
-      var propertySlug = bookingService.getParams().propertySlug;
-      eventDetails.propertyCode = bookingService.getCodeFromSlug(propertySlug) || '';
-      trackEvent('hi_page', eventDetails);
+      if (hospitalityEnabled) {
+        var eventDetails = {};
+        eventDetails.path = path;
+        eventDetails.url = window.location.origin + path;
+        eventDetails.title = document.title;
+        eventDetails.type = 'page';
+        eventDetails.tags = [];
+        var propertySlug = bookingService.getParams().propertySlug;
+        eventDetails.propertyCode = bookingService.getCodeFromSlug(propertySlug) || '';
+        trackEvent('hi_page', eventDetails);
+      }
     }
 
     function mapRoomsForInfiniti(rooms) {
@@ -125,92 +128,98 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     }
 
     function trackSearchParams(){
-      var urlParams = bookingService.getParams();
-      var dates = bookingService.datesFromString(urlParams.dates);
-      // Don't track searches without dates
-      if (!dates) {
-        return;
-      }
-      var rooms = bookingService.getMultiRoomData();
-      var propertySlug = bookingService.getParams().propertySlug;
-      var propertyCode = null;
-      if (propertySlug) {
-         propertyCode = bookingService.getCodeFromSlug(propertySlug);
-      }
+      if (hospitalityEnabled) {
+        var urlParams = bookingService.getParams();
+        var dates = bookingService.datesFromString(urlParams.dates);
+        // Don't track searches without dates
+        if (!dates) {
+          return;
+        }
+        var rooms = bookingService.getMultiRoomData();
+        var propertySlug = bookingService.getParams().propertySlug;
+        var propertyCode = null;
+        if (propertySlug) {
+          propertyCode = bookingService.getCodeFromSlug(propertySlug);
+        }
 
-      // Get all properties and regions over a specific one by code as they would have likely been cached by now
-      $q.all([propertyService.getAll(), locationService.getRegions()])
-        .then(function (data) {
-          var properties = data[0];
-          var regions = data[1];
-          var property = _.findWhere(properties, { code: propertyCode });
-          var region = null;
-          if (property) {
-            region = _.findWhere(regions, { code: property.regionCode });
-          }
-          // Parse the encoded JSON with the room information
-          rooms = mapRoomsForInfiniti(rooms);
-          // If there is no multi room data, assume single room booking and get values from url params
-          if (rooms.length === 0) {
-            rooms = mapRoomsForInfiniti([{
-              adults: urlParams.adults,
-              children: urlParams.children
-            }]);
-          }
+        // Get all properties and regions over a specific one by code as they would have likely been cached by now
+        $q.all([propertyService.getAll(), locationService.getRegions()])
+          .then(function (data) {
+            var properties = data[0];
+            var regions = data[1];
+            var property = _.findWhere(properties, { code: propertyCode });
+            var region = null;
+            if (property) {
+              region = _.findWhere(regions, { code: property.regionCode });
+            }
+            // Parse the encoded JSON with the room information
+            rooms = mapRoomsForInfiniti(rooms);
+            // If there is no multi room data, assume single room booking and get values from url params
+            if (rooms.length === 0) {
+              rooms = mapRoomsForInfiniti([{
+                adults: urlParams.adults,
+                children: urlParams.children
+              }]);
+            }
 
-          var searchData = {
-            type: 'search_parameters',
-            checkIn: dates.from || '',
-            checkOut: dates.to || '',
-            corpCode: urlParams.corpCode || '',
-            groupCode: urlParams.groupCode || '',
-            rooms: rooms,
-            promoCode: urlParams.promoCode || '',
-            property: property && region ? mapPropertyForInfiniti(region, property) : {}
-          };
-          trackEvent('hi_search_parameters', searchData);
-        });
+            var searchData = {
+              type: 'search_parameters',
+              checkIn: dates.from || '',
+              checkOut: dates.to || '',
+              corpCode: urlParams.corpCode || '',
+              groupCode: urlParams.groupCode || '',
+              rooms: rooms,
+              promoCode: urlParams.promoCode || '',
+              property: property && region ? mapPropertyForInfiniti(region, property) : {}
+            };
+            trackEvent('hi_search_parameters', searchData);
+          });
+      }
     }
 
     function trackResults(rooms) {
-      var urlParams = bookingService.getParams();
-      _.each(rooms, function (room) {
-        var resultData = {
-          type: 'result',
-          roomName: room.name,
-          roomCode: room.code,
-          fromPrice: room.priceFrom,
-          propCode: bookingService.getCodeFromSlug(urlParams.propertySlug),
-          tags: []
-        };
-        trackEvent('hi_result', resultData);
-      });
+      if (hospitalityEnabled) {
+        var urlParams = bookingService.getParams();
+        _.each(rooms, function (room) {
+          var resultData = {
+            type: 'result',
+            roomName: room.name,
+            roomCode: room.code,
+            fromPrice: room.priceFrom,
+            propCode: bookingService.getCodeFromSlug(urlParams.propertySlug),
+            tags: []
+          };
+          trackEvent('hi_result', resultData);
+        });
+      }
     }
 
     function trackRates(rates, otaRate, room, category) {
-      var urlParams = bookingService.getParams();
-      var dates = bookingService.datesFromString(urlParams.dates);
-      _.each(rates, function (rate) {
-        var rateData = {
-          type: 'rate',
-          name: rate.name,
-          category: category || '',
-          roomCode: room.code,
-          code: rate.code,
-          cancelationAllowed: !! _.findWhere(rate.policies, { type: 'cancellation' }),
-          breakfastIncluded: false, // cant do this at the moment
-          memberRate: rate.memberOnly,
-          loyaltyRate: rate.allowPointsBooking,
-          hiddenRate: rate.productHidden,
-          strikeThrough: rate.price.formatting === 'slashthrough',
-          comparisonRate: otaRate,
-          pricePerNight: rate.price.totalBaseAfterPricingRules,
-          pricePerStay: rate.price.totalBaseAfterPricingRules * diffDates(dates.to, dates.from),
-          taxShown: false, // we never show tax,
-          tags: []
-        };
-        trackEvent('hi_rate', rateData);
-      });
+      if (hospitalityEnabled) {
+        var urlParams = bookingService.getParams();
+        var dates = bookingService.datesFromString(urlParams.dates);
+        _.each(rates, function (rate) {
+          var rateData = {
+            type: 'rate',
+            name: rate.name,
+            category: category || '',
+            roomCode: room.code,
+            code: rate.code,
+            cancelationAllowed: !! _.findWhere(rate.policies, { type: 'cancellation' }),
+            breakfastIncluded: false, // cant do this at the moment
+            memberRate: rate.memberOnly,
+            loyaltyRate: rate.allowPointsBooking,
+            hiddenRate: rate.productHidden,
+            strikeThrough: rate.price.formatting === 'slashthrough',
+            comparisonRate: otaRate,
+            pricePerNight: rate.price.totalBaseAfterPricingRules,
+            pricePerStay: rate.price.totalBaseAfterPricingRules * diffDates(dates.to, dates.from),
+            taxShown: false, // we never show tax,
+            tags: []
+          };
+          trackEvent('hi_rate', rateData);
+        });
+      }
     }
 
     function diffDates(to, from) {
@@ -230,30 +239,32 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     }
 
     function trackBuy(trackingData, priceData, scopeData, stateParams) {
-      var roomData = bookingService.getMultiRoomData(stateParams.rooms);
-      var dates = bookingService.datesFromString(stateParams.dates);
-      var lengthOfStay = diffDates(dates.to, dates.from);
-      var leadTime = diffDates(dates.from, new Date().toDateString());
-      var purchaseData = {};
-      var numRooms = roomData ? roomData.length : 1;
-      if (numRooms === 0) {
-        numRooms++;
-      }
+      if (hospitalityEnabled) {
+        var roomData = bookingService.getMultiRoomData(stateParams.rooms);
+        var dates = bookingService.datesFromString(stateParams.dates);
+        var lengthOfStay = diffDates(dates.to, dates.from);
+        var leadTime = diffDates(dates.from, new Date().toDateString());
+        var purchaseData = {};
+        var numRooms = roomData ? roomData.length : 1;
+        if (numRooms === 0) {
+          numRooms++;
+        }
 
-      for (var i = 0; i < numRooms; i++) {
-        purchaseData = {
-          type: 'purchase',
-          "roomCode": scopeData.allRooms[i].code,
-          "rateCode": scopeData.allRooms[i]._selectedProduct.code,
-          "dailyRate": (priceData.totalAfterTaxAfterPricingRules / lengthOfStay) / numRooms,
-          "leadTime": leadTime,
-          "lengthOfStay": lengthOfStay,
-          "noOfOccupants": scopeData.moreRoomData[i].adults + scopeData.moreRoomData[i].children,
-          "paymentType": trackingData.paymentInfo.paymentMethod,
-          "points": null, // @todo As sandman does not have a loyalty program, we will just send null for now
-          "policies": stripPurchasePolicies(scopeData.allRooms[i]._selectedProduct.policies)
-        };
-        trackEvent('hi_purchase', purchaseData);
+        for (var i = 0; i < numRooms; i++) {
+          purchaseData = {
+            type: 'purchase',
+            "roomCode": scopeData.allRooms[i].code,
+            "rateCode": scopeData.allRooms[i]._selectedProduct.code,
+            "dailyRate": (priceData.totalAfterTaxAfterPricingRules / lengthOfStay) / numRooms,
+            "leadTime": leadTime,
+            "lengthOfStay": lengthOfStay,
+            "noOfOccupants": scopeData.moreRoomData[i].adults + scopeData.moreRoomData[i].children,
+            "paymentType": trackingData.paymentInfo.paymentMethod,
+            "points": null, // @todo As sandman does not have a loyalty program, we will just send null for now
+            "policies": stripPurchasePolicies(scopeData.allRooms[i]._selectedProduct.policies)
+          };
+          trackEvent('hi_purchase', purchaseData);
+        }
       }
     }
 
