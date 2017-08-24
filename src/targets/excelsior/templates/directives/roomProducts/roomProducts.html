@@ -32,6 +32,9 @@
     <div class="rate-description">
       <div class="ProductImage">
         <img src="/static/images/product-img.png" />
+        <span ng-if="product.price.pointsEarned" class="ProductPointsEarned">
+          _earn_ {{getValuePer(product.price.pointsEarned, true).toFixed(0)}} _points_
+        </span>
       </div>
       <div class="ProductInfo">
         <h4>
