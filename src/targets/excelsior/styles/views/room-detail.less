@@ -157,6 +157,9 @@ hotel-room {
       margin-bottom: 26px;
       pricing-info {
         border-left: solid 1px #D8D8D8;
+        .viewport-mobile & {
+          border-left: none;
+        }
       }
     }
   }
@@ -235,7 +238,7 @@ hotel-room {
         border-top:0px none;
       }
       .viewport-mobile & {
-        padding:20px 30px 20px 120px;
+        padding:20px 30px 20px 20px;
       }
       &.without-image {
         padding-left: 20px;
@@ -253,12 +256,7 @@ hotel-room {
         top: 0;
         width: 200px;
         .viewport-mobile & {
-          width:105px;
-          height:100px;
-          left:0;
-          top:20px;
-          border: solid 2px #bbbbbb;
-          box-sizing:border-box;
+          display: none;
         }
       }
 
@@ -315,6 +313,9 @@ hotel-room {
         }
         p {
           margin-top: 64px;
+          .viewport-mobile & {
+            margin-top: 20px;
+          }
           .points-label {
             font-size: 15px;
             font-weight: bold;
@@ -328,7 +329,7 @@ hotel-room {
             .viewport-mobile & {
               font-weight:400;
               font-size:15px;
-              color:@c-secondary;
+              color:@c-primary;
             }
           }
         }
