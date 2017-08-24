@@ -21,9 +21,7 @@
                   currently-editing="_you_are_currently_editing_">
 </notification-bar>
 
-<booking-bar size="full-width"
-             ng-if="config.displayBookingBar && !isMobile">
-</booking-bar>
+<booking-bar class="roombar" size="full-width" stickable="main-header" ng-if="!isMobile"></booking-bar>
 
 <div class="Home__hero--info show-desktop" ng-if="loyaltyEngine">
   <h1 class="About__hero--title">{{ roomDetails.name }}</h1>
@@ -44,11 +42,11 @@
 
   <room></room>
 
-  <scroll-to-top class="back-to-top"
+  <!--<scroll-to-top class="back-to-top"
                  ng-click="scrollToTop()"
                  scroll-position="scroll"
                  ng-class="{visible: scroll > scrollTopTrigger}">
     <span>_back_to_top_</span>
-  </scroll-to-top>
+  </scroll-to-top>-->
 
 </main>

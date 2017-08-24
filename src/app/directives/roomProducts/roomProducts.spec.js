@@ -75,7 +75,8 @@ describe('RoomProducts', function() {
       $provide.value('stateService', {
         isMobile: function(){
           return true;
-        }
+        },
+        getCurrentCurrency: function() { return 'CAD'; }
       });
 
       $provide.value('user', {

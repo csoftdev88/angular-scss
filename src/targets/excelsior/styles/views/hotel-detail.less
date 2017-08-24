@@ -35,15 +35,12 @@ hotel-detail {
   }
 
   .hotel-info-amenities{
-    margin-top: 40px;
+    margin-top: 0;
     margin-left: 0;
     .viewport-mobile & {
       margin-top:0;
     }
     h2{
-      .chain-sand &{
-        color: @c-grey;
-      }
       .viewport-mobile & {
         display:none;
       }
@@ -158,15 +155,9 @@ hotel-detail {
       .display-more-rooms {
         color: #fff;
         font-weight: 700;
-        background: @c-primary-sign;
-        .chain-sand &{
-          background: @c-primary-sand;
-        }
+        background: @c-primary;
         &:hover {
           background: darken(@c-primary-sign, 10%);
-          .chain-sand & {
-            background: darken(@c-primary-sand, 10%);
-          }
         }
       }
 
@@ -204,13 +195,16 @@ hotel-detail {
               width: 100%;
               border: none;
 
+              &:before {
+                display: none;
+              }
+
               a {
                 margin: 0;
-                &:after {
-                  color: @c-primary;
-                  content: @fa-var-info-circle;
-                  float: right;
-                  margin-top: -5px;
+                padding: 0;
+                &:after,
+                &:before {
+                  display: none;
                 }
               }
             }
@@ -352,7 +346,7 @@ hotel-detail {
                   .value {
                     .viewport-mobile & {
                       text-transform:uppercase;
-                      color:@c-secondary;
+                      color: @c-primary;
                       font-weight:initial;
                       padding:0;
                     }
@@ -649,6 +643,12 @@ hotel-detail {
       .rooms-list {
         list-item {
           .pricing-info {
+            .price-form {
+              text-align: left;
+              a.button {
+                margin-top: 10px;
+              }
+            }
             a.button,
             a.button:hover,
             button-submit,
@@ -731,14 +731,10 @@ hotel-detail {
     }
   }
   .reveal-trigger {
-    padding-bottom: 0;
     margin-top: 20px;
     font-weight: 200;
     font-size: 13px;
     line-height: 13px;
-    .chain-sign & {
-      color:@c-menu-active-sign;
-    }
   }
 }
 

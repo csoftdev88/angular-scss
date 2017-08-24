@@ -73,6 +73,10 @@
           }
         });
 
+        scope.openDatePicker = function () {
+          $rootScope.$broadcast('OPEN_DATE_PICKER');
+        };
+
         scope.$on('$destroy', function(){
           datePickerListener();
         });

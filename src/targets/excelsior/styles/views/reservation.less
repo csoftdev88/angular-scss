@@ -825,19 +825,18 @@ reservation-confirmation {
     }
 
     li:nth-of-type(2) {
-      background: @c-primary;
+      background: lighten(@c-primary, 20%);
       background-size: contain;
       border-bottom: solid 1px #000;
     }
 
     li:last-of-type {
-      background: @c-secondary;
+      background: lighten(@c-secondary, 20%);
       background-size: contain;
       border-bottom: solid 1px #000;
     }
 
     a {
-      color: #fff;
       font-weight: normal;
       text-transform: uppercase;
       font-family: @lbe-ff-primary;
@@ -967,8 +966,7 @@ reservation-finished {
     margin-left: calc(~'50% - 50vw');
     padding: 70px 0;
     padding-top: 70px !important;
-    background-color: rgba(26, 26, 26, 0.8);
-    .backdrop-filter-blur(20px);
+    background-color: #fff;
     margin-bottom: 100px;
     .viewport-mobile & {
       margin-bottom: 20px;
@@ -1533,14 +1531,14 @@ reservation-hotel-details {
 
     h1, h3, h4, .booking-date {
       font-family: @lbe-ff-secondary;
-      color: #fff;
+      color: @c-text;
       text-transform: uppercase;
       font-weight: 300;
     }
 
     span, tr, td {
       font-family: @lbe-ff-secondary;
-      color: #fff;
+      color: @c-text;
       font-weight: 300;
     }
 
@@ -1662,14 +1660,14 @@ reservation-hotel-details {
 .ConfirmationBackground {
   background: url('@{img-prefix}/confirmation-bg.png');
   position: absolute;
-  height: 900px;
+  height: 100vh;
   width: 100vw;
   top: 0;
   left: 0;
   z-index: -999;
+  background-size: cover;
   .viewport-mobile & {
     height: 1150px;
-    background-size: cover;
   }
 }
 
