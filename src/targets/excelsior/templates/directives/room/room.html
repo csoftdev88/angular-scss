@@ -99,12 +99,12 @@
                 <span ng-if="pricePer === PP_STAY">_per_stay_</span>
 
                 <span ng-if="product.price.pointsRequired && loyaltyProgramEnabled && product.allowPointsBooking">
-                <br />_or_ <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1)).toFixed(0)}}</span> _points_
+                _or_ <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1)).toFixed(0)}}</span> _points_
                 </span>
               </p>
             </pricing-info>
 
-            <earned-points ng-if="isUserLoggedIn() &&
+            <!--<earned-points ng-if="isUserLoggedIn() &&
                                   product.price.pointsEarned &&
                                   loyaltyProgramEnabled &&
                                   product.productAwardPoints">
@@ -113,7 +113,7 @@
                             when="{'1': '{} point', 'other': '{} points'}">
               </ng-pluralize>
 
-            </earned-points>
+            </earned-points>-->
             <p class="noPointsAwarded" ng-if="isUserLoggedIn() && !product.productAwardPoints && loyaltyProgramEnabled">_no_points_rate_desc_</p>
           </div>
 
@@ -122,8 +122,8 @@
               <span class="original-price" ng-if="product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
               <span class="value">{{getValuePer(product.price.totalBaseAfterPricingRules, true) | i18nCurrency: currencyCode}}</span>
               <span class="pricing-filter-label" ng-if="pricePer === PP_NIGHT">_per_night_</span><span ng-if="pricePer === PP_STAY">_per_stay_</span>
-              <span ng-if="isUserLoggedIn() && product.price.pointsRequired && (loyaltyProgramEnabled || isLoyaltyEngine) && product.allowPointsBooking">
-              <br />_or_ <span class="value points">{{getValuePer(product.price.pointsRequired, true).toFixed(0)}}</span>              _points_
+              <span class="points-label" ng-if="isUserLoggedIn() && product.price.pointsRequired && (loyaltyProgramEnabled || isLoyaltyEngine) && product.allowPointsBooking">
+              _or_ <span class="value points">{{getValuePer(product.price.pointsRequired, true).toFixed(0)}}</span>              _points_
               </span>
             </p>
 

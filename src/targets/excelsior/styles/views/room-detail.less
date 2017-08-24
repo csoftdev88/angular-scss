@@ -191,11 +191,6 @@ hotel-room {
               display: none;
             }
             span.value {
-              margin-top: 64px;
-              font-size: 37px;
-              font-family: @ff-secondary;
-              line-height: 44px;
-              font-weight: bold;
               color: #000;
             }
           }
@@ -294,14 +289,21 @@ hotel-room {
           padding-top:0;
         }
         p {
+          margin-top: 64px;
+          .points-label {
+            font-size: 15px;
+            font-weight: bold;
+            line-height: 17px;
+            color: #000;
+          }
           .value {
+            &.points {
+              font-size: 15px;
+            }
             .viewport-mobile & {
               font-weight:400;
               font-size:15px;
               color:@c-secondary;
-            }
-            .viewport-mobile.chain-sign & {
-              color:@c-menu-active-sign;
             }
           }
         }
