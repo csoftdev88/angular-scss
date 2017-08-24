@@ -31,7 +31,7 @@ pricing-switch {
 list-item {
 
   // Import ribbon mixin from ../components/ribbons
-  .use-ribbon();
+  .use-ribbon(28);
 
   // Add padding to the top if a ribbon is present in the same container
   .member-ribbon ~ pricing-info {
@@ -139,10 +139,9 @@ list-item {
       p{
         display: block;
         .original-price{
-          font-weight: 700;
+          display: none;
           .viewport-mobile & {
-            float:none;
-            margin-right:5px;
+            display: none;
           }
         }
         span:not(.points) {

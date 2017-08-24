@@ -95,46 +95,24 @@ room-products {
 					.price-form {
 						font-weight: 700;
             margin-top: 60px;
-					}
-				}
-				.chain-sand & {
-					//background-color: rgba(172, 127, 73, 0.09);
-					pricing-details {
-						.price-form {
-							.original-price {}
-							.value {
-								color: @c-grey;
-							}
-						}
-					}
-				}
-				.chain-sign & {
-					//background: rgba(236, 230, 223, 0.28) url('@{img-prefix}/watermark-signature-logo-small.png') no-repeat 12px center;
-					//background-size: auto 90%;
-					pricing-details {
-						.price-form {
-							.original-price {}
-							.value {
-								color: @c-menu-active-sign;
-							}
-						}
-					}
-					.action-buttons {
-						.label {
-							text-transform: none;
-							font-size: 18px;
-							font-style: italic;
-							font-family: @ff-heading-bold-sign;
-						}
-						.button {
-							font-family: @ff-default;
-						}
+            .value {
+              color: #000;
+            }
 					}
 				}
 			}
+      pricing-details {
+        .price-details {
+          .price-form {
+            span.value {
+              color: #000;
+            }
+          }
+        }
+      }
 
       // Import ribbons mixin from ../components/ribbons
-			.use-ribbon();
+			.use-ribbon(5);
 
 			.action-buttons {
 				.label {

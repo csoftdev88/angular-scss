@@ -1,5 +1,5 @@
 
-.use-ribbon {
+.use-ribbon(@amount) {
   .highlight-ribbon, .member-ribbon {
     width: 155px !important;
     position: absolute;
@@ -39,7 +39,7 @@
     background-size:100% 100%;
     width: 150px !important;
     right: -6px;
-    top: 28px;
+    top: @amount * 1px;
     padding: 10px 15px 12px 20px !important;
   }
 }
