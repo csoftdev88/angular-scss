@@ -14,16 +14,18 @@ Front end application for mobius booking engine
 2. `npm install -g grunt-cli bower karma phantomjs@1.9.8`
 3. `git clone https://github.com/2PVentures/mobius-web.git`
 4. `cd mobius-web`:
-5. Install dependencies and watch files `npm run watch.sandman`
-6. Run the middleware `npm run server.sandman`
-7. Finally, open `localhost:9000` in your browser
+5. Install dependencies `npm i && bower install --allow-root`
+6. Build and watch files `npm run watch.sandman`
+7. Run the middleware `npm run server.sandman`
+8. Finally, open `localhost:9000` in your browser
 
 ### How do I deploy to a live environment ?
 1. Change to root `sudo su -`
-1. Follow installation steps 1-4 described above.
-2. Run `npm run build.sandman` 
-3. Run `pm2 restart WEB` (If pm2 says there is no instance of WEB running do `pm2 start server.js --name "WEB" -- --tenant=sandman --environment=live`)
-4. Clear cloudflare cache visit `https://webservice.mobiuswebservices.com/cloudflare/clearcache?site=mobiusbookingengine`
+2. Follow installation steps 1-4 described above.
+3. Install dependencies `npm i && bower install --allow-root`
+4. Run `npm run build.sandman` 
+5. Run `pm2 restart WEB` (If pm2 says there is no instance of WEB running do `pm2 start server.js --name "WEB" -- --tenant=sandman --environment=live`)
+6. Clear cloudflare cache visit `https://webservice.mobiuswebservices.com/cloudflare/clearcache?site=mobiusbookingengine`
 
 #### Trouble shooting ####
 If you deploy the app and get an index_US cannot be found, or something
