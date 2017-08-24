@@ -24,6 +24,8 @@ angular.module('mobius.controllers.reservation', [])
   $scope.$stateParams = $stateParams;
   $scope.requiredFieldsMissingError = false;
 
+  var clickedSubmit = false;
+
   //If steps are at top of page we scroll to them, if they are in the widget we just scroll to top of page
   $scope.scrollReservationStepsPosition = $scope.bookingConfig.bookingStepsNav.showInReservationWidget ? 'top' : 'reservation-steps';
 
@@ -89,6 +91,10 @@ angular.module('mobius.controllers.reservation', [])
   var previousState = {
     state: $state.fromState,
     params: $state.fromParams
+  };
+
+  $scope.breakdown = {
+    extended: false
   };
 
   $scope.$on('USER_LOGIN_EVENT', function() {
@@ -219,10 +225,15 @@ angular.module('mobius.controllers.reservation', [])
           $scope.userDetails.zip = data.zip;
           $scope.userDetails.stateProvince = data.state;
           $scope.userDetails.country = data.country;
-          $scope.userDetails.localeCode = data.localeCode;
           $scope.userDetails.phone = data.tel1;
           $scope.additionalInfo.secondPhoneNumber = data.tel2;
           $scope.additionalInfo.optedIn = data.optedIn;
+
+          var userCountry = getUserCountry(data);
+          if (userCountry) {
+            $scope.userDetails.localeCode = userCountry.code;
+            $scope.userDetails.localeId = userCountry.id;
+          }
         });
       });
     }
@@ -924,8 +935,16 @@ angular.module('mobius.controllers.reservation', [])
   }
 
   $scope.makeReservation = function() {
+
+    if (clickedSubmit) {
+      return;
+    }
+
+    clickedSubmit = true;
+
     if (!$scope.additionalInfo.agree) {
       $scope.isMakingReservation = false;
+      clickedSubmit = false;
       return modalService.openTermsAgreeDialog();
     }
 
@@ -983,6 +1002,7 @@ angular.module('mobius.controllers.reservation', [])
     var reservationPromise = $q.all(promises).then(function(data) {
       var reservationDetailsParams = {
         reservationCode: data[0].reservationCode,
+        hideActionButtons: false,
         // Removing reservation code when booking modification is complete
         reservation: null,
         //Retain codes in confirmation for thirdparty bookings
@@ -1181,6 +1201,8 @@ angular.module('mobius.controllers.reservation', [])
             }
             infinitiApeironService.trackPurchase(data, chainData, propertyData, trackingData, priceData, scopeData, $stateParams, $scope.rates.selectedRate);
 
+            infinitiApeironService.trackBuy(trackingData, priceData, scopeData, $stateParams);
+
             //Sending alerts to https://webservice.mobiuswebservices.com/alerting/alert
             apiService.sendApeironAlert('reporting', env, $stateParams, data, priceData);
           }
@@ -1260,6 +1282,7 @@ angular.module('mobius.controllers.reservation', [])
         $scope.invalidFormData.generic = true;
         $state.go('reservation.details');
       }
+      clickedSubmit = false;
 
     });
 

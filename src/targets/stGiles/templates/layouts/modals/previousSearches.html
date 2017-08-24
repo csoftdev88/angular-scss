@@ -1,0 +1,22 @@
+<div class="ui-info">
+  <header>
+    <h1>_continue_your_search_</h1>
+    <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+  </header>
+
+  <main>
+    <p>_would_you_like_to_continue_</p>
+    <div>
+      <ul class="previous-search-results">
+        <li ng-repeat="search in data.searches | filter:{'display':true}">
+          <a ng-click="cancel(); viewSearch(search);">
+            <span class="search-name">{{search.name}}</span>
+            <span class="search-dates">{{search.dates}}</span>
+          </a>
+          <button ng-click="removeSearch(search)" class="fa fa-close remove-search"></button>
+          <button ng-click="viewSearch(search)" class="fa fa-arrow-right view-search"></button>
+        </li>
+      </ul>
+    </div>
+  </main>
+</div>

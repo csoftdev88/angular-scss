@@ -1,0 +1,15 @@
+<div growl class="growl-alerts top-center"></div>
+<div growl inline="true" reference="1" class="growl-alerts top-right"></div>
+<div growl inline="true" reference="2" class="growl-alerts right-center"></div>
+<div growl inline="true" reference="3" class="growl-alerts top-left"></div>
+<!-- CUSTOM TEMPLATE FOR GROWL ALERTS TO ADD SEE RATES LINK -->
+<script type="text/ng-template" id="templates/growl/growl.html">
+  <div class="growl-container" ng-class="wrapperClasses()">
+    <div class="growl-item alert" ng-repeat="message in messages" ng-class="alertClasses(message)">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="deleteMessage(message)" ng-show="!message.disableCloseButton">&times;</button>
+      <h4 class="growl-title" ng-show="message.title" ng-bind="message.title"></h4>
+      <div class="growl-message" ng-bind-html="message.text"></div>
+      <a ng-href="#" class="growl-alt-product-link" ng-click="$root.showAltProduct(message.variables); deleteMessage(message)" ng-if="message.variables.product">_see_rates_</a>
+    </div>
+  </div>
+</script>

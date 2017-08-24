@@ -1,17 +1,19 @@
-'use strict';
 /*
  * This module controlls reservations
  */
-angular.module('mobius.controllers.about', [])
+(function () {
+  'use strict';
 
-  .controller('AboutUsCtrl', function($scope, $controller, contentService, chainService,
-         $state, $stateParams, _, Settings, modalService, breadcrumbsService,
-         metaInformationService, $location, bookingService, scrollService, $timeout) {
+  angular
+    .module('mobius.controllers.about', [])
+    .controller('AboutUsCtrl', About);
+
+  function About($scope, $controller, contentService, chainService, $state, $stateParams, _, Settings, modalService,
+                 breadcrumbsService, metaInformationService, $location, bookingService, scrollService, $timeout) {
 
     $controller('MainCtrl', {$scope: $scope});
 
-    breadcrumbsService.clear()
-     .addBreadCrumb('About Us');
+    breadcrumbsService.clear().addBreadCrumb('About Us');
 
     $scope.config = Settings.UI.aboutChain;
     $scope.contentConfig = Settings.UI.contents;
@@ -36,7 +38,7 @@ angular.module('mobius.controllers.about', [])
       }
       else {
         $scope.previewImages = contentService.getLightBoxContent(
-        chain.images, 300, 150, 'fill');
+          chain.images, 300, 150, 'fill');
         $scope.updateHeroContent(null, true);
       }
 
@@ -51,7 +53,7 @@ angular.module('mobius.controllers.about', [])
 
     var selectedAboutIndex;
 
-    $scope.showDetail = $stateParams.code ? true : false;
+    $scope.showDetail = !!$stateParams.code;
     $scope.$watch(function(){
       return $scope.showDetail;
     }, function(){
@@ -113,4 +115,6 @@ angular.module('mobius.controllers.about', [])
         .addBreadCrumb('About Us', 'aboutUs', {code: null})
         .addBreadCrumb($scope.selectedAbout.title);
     }
-  });
+
+  }
+}());

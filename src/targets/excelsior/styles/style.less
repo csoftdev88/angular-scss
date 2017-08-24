@@ -1,0 +1,178 @@
+////////////////////////
+//// STYLES IMPORTS ////
+////////////////////////
+
+//- VENDORS -//
+@import (less) '../../../styles/vendor/reset.css';
+@import (less) '../../../styles/vendor/mobius-icons.css'; // Font icons - only files necessary for now are linked (should be removed later)
+
+//- V4 STYLES -//
+
+//- Libraries
+@import '../../../../bower_components/font-awesome/less/font-awesome';
+@import (less) '../../../../bower_components/angular-growl-v2/build/angular-growl.min.css';
+
+//- Config
+@import '../../../styles/config';
+@import 'config'; // Override defaults vars with target specific
+
+//- Scaffolding
+@import '../../../styles/scaffolding/base';
+@import 'scaffolding/base';
+@import '../../../styles/scaffolding/typography';
+@import 'scaffolding/typography';
+@import '../../../styles/scaffolding/containers';
+
+@import (reference) '../../../styles/scaffolding/mixins';
+@import '../../../styles/scaffolding/helpers';
+
+//- Views
+@import '../../../styles/views/footer';
+@import 'views/footer';
+@import '../../../styles/views/floating-bar';
+@import 'views/floating-bar';
+@import '../../../styles/views/booking-widget';
+@import 'views/booking-widget';
+@import '../../../styles/views/room-detail';
+@import 'views/room-detail';
+@import '../../../styles/views/hotels-list';
+@import 'views/hotels-list';
+@import '../../../styles/views/hotel-detail';
+@import 'views/hotel-detail';
+@import '../../../styles/views/room-products';
+@import 'views/room-products';
+@import '../../../styles/views/hotel-subpage';
+@import '../../../styles/views/about-hotel';
+@import 'views/about-hotel';
+@import '../../../styles/views/site-map';
+@import '../../../styles/views/breadcrumbs';
+@import 'views/breadcrumbs';
+@import '../../../styles/views/about-us';
+@import 'views/about-us';
+@import '../../../styles/views/news';
+@import '../../../styles/views/contacts-page';
+@import 'views/contacts-page';
+@import '../../../styles/views/reservation';
+@import 'views/reservation';
+@import '../../../styles/views/reservations';
+@import 'views/reservations';
+@import '../../../styles/views/offer-detail';
+@import 'views/offer-detail';
+@import '../../../styles/views/login-dialog';
+@import 'views/modals/login-dialog';
+@import '../../../styles/views/profile-register';
+@import '../../../styles/views/prestige-account';
+@import 'views/prestige-account';
+@import '../../../styles/views/404';
+@import '../../../styles/views/error-page';
+@import '../../../styles/views/regions';
+
+//- Modals
+@import '../../../styles/views/modals/badges';
+@import '../../../styles/views/modals/loyalties';
+@import 'views/modals/loyalty-upsells';
+@import '../../../styles/views/modals/lightbox';
+@import 'views/modals/lightbox';
+@import '../../../styles/views/modals/details';
+@import '../../../styles/views/modals/reservation';
+@import '../../../styles/views/modals/rewards';
+@import '../../../styles/views/modals/policies';
+@import '../../../styles/views/modals/price-breakdown';
+@import '../../../styles/views/modals/login-prompt';
+@import '../../../styles/views/modals/other-rooms';
+@import '../../../styles/views/modals/tiers-list';
+@import '../../../styles/views/modals/product-details';
+@import '../../../styles/views/modals/dialog-v2';
+@import '../../../styles/views/modals/campaign-dialog';
+@import '../../../styles/views/modals/previous-searches-dialog';
+@import '../../../styles/views/modals/upsells-dialog';
+@import 'views/modals/product-details';
+@import '../../../styles/views/modals/funnel-retention-exit-dialog';
+@import '../../../styles/views/modals/alt-products-dialog';
+@import 'views/Menu/index';
+@import 'views/About/index';
+@import 'views/Header/index';
+@import 'views/Footer/index';
+@import 'views/Offers/index';
+@import 'views/Tagline/index';
+@import 'views/HeroTitle/index';
+@import 'views/HeroBenefits/index';
+@import 'views/Home/index';
+@import 'views/HotelIntro/index';
+@import 'views/HotelDetails/index';
+@import 'views/Reservation/index';
+@import 'views/CurrencyList/index';
+@import 'pages/OffersPage/index';
+@import 'pages/RewardsPage/index';
+@import 'pages/HomePage/index';
+@import 'pages/ProfilePage/index';
+@import '../../../styles/components/SubNav/index';
+@import '../../../styles/components/TripAdviserQuote/index';
+@import '../../../styles/components/membersRate/index';
+@import 'components/highlight/index';
+
+//- Components
+@import '../../../styles/components/growl-alerts';
+@import '../../../styles/components/animations';
+@import '../../../styles/components/datepicker';
+@import '../../../styles/components/datepicker2';
+@import 'components/datepicker';
+@import '../../../styles/components/buttons';
+@import 'components/buttons';
+@import '../../../styles/components/dropdowns';
+@import 'components/dropdowns';
+@import '../../../styles/components/forms';
+@import '../../../styles/components/chosen-select';
+@import '../../../styles/components/msg-box';
+@import 'components/msg-box';
+@import '../../../styles/components/modal-dialog';
+@import '../../../styles/components/pricing-info';
+@import '../../../styles/components/star-rating';
+@import '../../../styles/components/horizontal-line';
+@import 'components/horizontal-line';
+@import '../../../styles/components/view-more-images';
+@import 'components/view-more-images';
+@import '../../../styles/components/amenities';
+@import 'components/amenities';
+@import '../../../styles/components/list-items';
+@import 'components/list-items';
+@import '../../../styles/components/hero-slider';
+@import 'components/hero-slider';
+@import '../../../styles/components/offers-list';
+@import 'components/offers-list';
+@import '../../../styles/components/rewards-list';
+@import '../../../styles/components/hotel-location';
+@import 'components/hotel-location';
+@import '../../../styles/components/range-slider';
+@import 'components/range-slider';
+@import '../../../styles/components/user-messages';
+@import 'components/user-messages';
+@import '../../../styles/components/preloader';
+@import '../../../styles/components/notification-bar';
+@import '../../../styles/components/international-tel';
+@import '../../../styles/components/local-info';
+@import 'components/local-info';
+@import '../../../styles/components/rates-preloading-container';
+@import '../../../styles/components/back-to-top';
+@import '../../../styles/components/tooltips';
+@import '../../../styles/components/pagination';
+@import '../../../styles/components/share-widget';
+@import 'components/share-widget';
+@import '../../../styles/components/reservation-steps';
+@import 'components/reservation-steps';
+@import '../../../styles/components/mega-menu';
+@import '../../../styles/components/ota-products';
+@import '../../../styles/components/campaign-bar';
+@import '../../../styles/components/slidedown-notifications';
+@import '../../../styles/components/campaign-rails';
+@import '../../../styles/components/campaign-folded-corner';
+@import '../../../styles/components/cookie-disclaimer';
+@import '../../../styles/components/altRoomDisplays';
+@import '../../../styles/components/product-inclusions';
+@import '../../../styles/components/reservation-assurance-badges';
+
+@import '../../../styles/components/recommendation/index';
+@import 'views/questionnaire/index';
+@import '../../../styles/components/instagramFeed/index';
+@import 'views/bookingBar/index';
+@import 'views/HotelContactInfo/index';

@@ -1,0 +1,101 @@
+<div class="Footer__inner">
+
+  <div class="Footer__signup">
+
+    <h1 class="Footer__title">
+      _footer_title_one_
+    </h1>
+    <small class="Footer__text">
+      _footer_subtitle_one_
+    </small>
+    <button ng-if="!auth.isLoggedIn()"
+            class="Footer__button">
+      <a class="stylelessLink" href="https://confirmsubscription.com/h/d/FF176ABAAF034E43" target="_blank">_sign_up_</a>
+    </button>
+
+  </div>
+
+  <div class="Footer__apps">
+
+    <h1 class="Footer__title">_footer_title_one_</h1>
+    <small class="Footer__text">_footer_subtitle_two_</small>
+
+    <div class="Footer__apps--downloads">
+
+      <a target="_blank" href="_iphone_app_download_link_">
+        <img class="apple" src="/static/images/apple-app-download.svg">
+      </a>
+
+      <a target="_blank" href="_android_app_download_link_">
+        <img class="android" src="/static/images/android-app-download.png">
+      </a>
+
+    </div>
+  </div>
+
+  <div class="Footer__social">
+    <ul class="Footer__social--icons">
+
+      <li ng-if="uiConfig.socialLinksNew.facebook">
+        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.facebook }}">
+          <span class="facebook"></span>
+        </a>
+      </li>
+      <li ng-if="uiConfig.socialLinksNew.twitter">
+        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.twitter }}">
+          <span class="twitter"></span>
+        </a>
+      </li>
+      <li ng-if="uiConfig.socialLinksNew.instagram">
+        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.instagram }}">
+          <span class="instagram"></span>
+        </a>
+      </li>
+      <li ng-if="uiConfig.socialLinksNew.linkedIn">
+        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.linkedIn }}">
+          <span class="linkedin"></span>
+        </a>
+      </li>
+      <li ng-if="uiConfig.socialLinksNew.youtube">
+        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.youtube }}">
+          <span class="youtube"></span>
+        </a>
+      </li>
+
+    </ul>
+
+    <div class="Footer__tagline">
+      <h3>_footer_tagline_</h3>
+    </div>
+
+  </div>
+
+  <div class="Footer__nav">
+    <ul class="Footer__nav--items">
+
+      <li class="Footer__nav--item">
+        <a target="_blank" href="_footer_nav_one_link_">_footer_nav_one_</a>
+      </li>
+      <li class="Footer__nav--item">
+        <a target="_blank" href="_footer_nav_two_link_">_footer_nav_two_</a>
+      </li>
+      <li class="Footer__nav--item">
+        <a target="_blank" href="_footer_nav_three_link_">_footer_nav_three_</a>
+      </li>
+      <li class="Footer__nav--item">
+        <a target="_blank" href="_footer_nav_four_link_">_footer_nav_four_</a>
+      </li>
+      <li class="Footer__nav--item">
+        <a target="_blank" href="_footer_nav_five_link_">_footer_nav_five_</a>
+      </li>
+      <li class="Footer__nav--item">
+        <a target="_blank" href="_footer_nav_six_link_">_footer_nav_six_</a>
+      </li>
+
+    </ul>
+  </div>
+
+  <div class="Footer__phone">
+    <img src="/static/images/phone-footer@3x.png">
+  </div>
+</div>

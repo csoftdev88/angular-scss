@@ -1,0 +1,33 @@
+<div ng-class="{'dropdown': currencies.length > 1}"
+     class="CurrencyList"
+     ng-show="currencies.length > 1">
+
+  <img ng-src="/static/images/flag-{{ currentCurrency.code }}.jpg"
+       class="icon CurrencyList__flag"
+       ng-if="config.showFlags"
+       alt="">
+
+  <a href title="Currency" class="CurrencyList__current">
+    <span class="current-currency">
+      {{currentCurrency.code}}
+    </span>
+    <span class="change-currency">
+      _change_currency_ ({{currentCurrency.code}})
+    </span>
+  </a>
+
+  <ul class="dropdown-menu submenu CurrencyList__list"
+      ng-show="currencies.length > 1">
+
+      <li ng-repeat="currency in currencies">
+          <a class="currency"
+             href
+             title="{{currency.name}}"
+             ng-click="changeCurrency(currency)">
+            {{getFormattedLabel(currency.code)}}
+          </a>
+      </li>
+
+  </ul>
+
+</div>

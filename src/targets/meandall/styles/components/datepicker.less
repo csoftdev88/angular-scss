@@ -32,6 +32,7 @@
 
 //- Calendar Table
 .ui-datepicker-calendar {
+  margin-bottom: 10px;
   thead {
     tr {
       th {
@@ -82,6 +83,9 @@
           margin: 0 10px;
           border: solid 2px #fff;
           border-radius: 50%;
+          .viewport-mobile & {
+            margin: 0 3px;
+          }
         }
       }
       &.ui-datepicker-today a {
@@ -105,6 +109,9 @@
           color: @c-black !important;
           background: @c-datepicker-selected;
           border: solid 2px transparent;
+          .viewport-mobile & {
+            width: 37px;
+          }
         }
         &:before {
           background: @c-white;
@@ -162,12 +169,11 @@
         &.date-range-start {
           a,
           span {
-            background: @c-datepicker-unavailable;
+            background: #fff;
           }
           &:before {
             background: @c-white;
           }
-          &:after {}
         }
       }
       &.date-partially-available {
@@ -202,7 +208,7 @@
       &:after {
         font-weight: 400;
         font-size:11px;
-        color: #6f6f6f;
+        color: #868684;
       }
     }
   }

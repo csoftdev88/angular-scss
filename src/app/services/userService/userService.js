@@ -134,24 +134,27 @@ angular.module('mobiusApp.services.user', [])
       $window.document.cookie = 'MobiusCurrencyCode' + '=' + currency + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
       userObject.currencyCode = currency;
       if (Settings.authType === 'keystone' && keystoneIsAuthenticated()) {
-        window.KS.$me.update({
-          Currency: currency
-        })
+        return window.KS.$me
+          .update({
+            Currency: currency
+          })
           .then(function(updatedUser) {
             userObject = updatedUser;
           });
+      } else {
+        var defer = $q.defer();
+        defer.resolve();
+        return defer.promise;
       }
     }
 
     function getUserCurrency() {
       if (Settings.authType === 'keystone') {
         if (keystoneIsAuthenticated()) {
-          return window.KS.$me.get().Currency || 'CAD';
-        } else {
-          return 'CAD';
+          return window.KS.$me.get().Currency || Settings.UI.currencies.default.code;
         }
       }
-      return cookieFactory('MobiusCurrencyCode');
+      return cookieFactory('MobiusCurrencyCode') || Settings.UI.currencies.default.code;
     }
 
     function loadProfile() {
@@ -164,18 +167,14 @@ angular.module('mobiusApp.services.user', [])
           return loadRewards(getCustomerId());
         })
           .then(function() {
-
             userObject = mapKeystoneUserToMobiusUser(window.KS.$me.get());
 
             var headers = {};
             headers[HEADER_INFINITI_SSO] = getStoredUser().token;
             apiService.setHeaders(headers);
-
             return authPromise.resolve(true);
-
           });
-      } else {
-        var customerId = getCustomerId();
+      } else {var customerId = getCustomerId();
 
         //We need token to load mobius profile
         if(Settings.authType === 'mobius' && !(userObject.token || getStoredUser().token)){
@@ -272,8 +271,11 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function logout() {
-
-      if (! window.KS.$me) {
+      if (window.KS.$me) {
+        window.KS.$me.revoke().then(function() {
+          $state.go('home', {});
+        });
+      } else {
         $rootScope.$evalAsync(function(){
           userObject = {};
           $state.go('home', {}, {reload: true});
@@ -297,6 +299,17 @@ angular.module('mobiusApp.services.user', [])
         EVENT_CUSTOMER_LOADED,
       function(){
         loadProfile();
+      });
+
+      /**
+       * keystone.session.created is fired when the user explicitly logs in. This handler
+       * is to check when keystone is ready, if the user is already logged in, then load
+       * their profile and set the auth headers as if they have just logged in.
+       */
+      $window.addEventListener('keystone.ready', function () {
+        if (keystoneIsAuthenticated()) {
+          loadProfile();
+        }
       });
 
       $window.addEventListener(
@@ -334,6 +347,13 @@ angular.module('mobiusApp.services.user', [])
     }
     else{
       loadProfile();
+    }
+
+    function isLoggedIn() {
+      if (Settings.authType === 'keystone') {
+        return keystoneIsAuthenticated();
+      }
+      return !!(userObject.id && userObject.email);
     }
 
     var emptyUser = {
@@ -408,9 +428,6 @@ angular.module('mobiusApp.services.user', [])
     }
 
     return {
-      isLoggedIn: function() {
-        return keystoneIsAuthenticated();
-      },
       getProfileUrl: function() {
         return (keystoneIsAuthenticated()) ? window.KS.$url.PROFILE : '#';
       },
@@ -433,6 +450,7 @@ angular.module('mobiusApp.services.user', [])
       getStoredUser: getStoredUser,
       clearStoredUser: clearStoredUser,
       storeUserCurrency: storeUserCurrency,
-      getUserCurrency: getUserCurrency
+      getUserCurrency: getUserCurrency,
+      isLoggedIn: isLoggedIn
     };
   });

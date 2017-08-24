@@ -86,9 +86,9 @@ angular.module('mobiusApp.config', [])
     'integration': {
       'enable':true,
       'enableDuplication': false,
-      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'endpoint':'https://0vafuvdy4f.execute-api.us-west-2.amazonaws.com/int/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.4-rc2/infiniti.min.js',
       'id':'sandman-integration',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
@@ -377,6 +377,9 @@ angular.module('mobiusApp.config', [])
       'searchInSessionCookieName':'MobiusSearchInSession',
       'maxSearches':3
     },
+    'membersRate': {
+      'defaultSize': 'large'
+    },
     'funnelRetention':{
       'enable':false,
       'cookieName': 'MobiusFunnelRetention',
@@ -390,13 +393,6 @@ angular.module('mobiusApp.config', [])
     'chains': ['SIGN', 'SAND'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
-    },
-    'bookingBar': {
-      'maxAdults': 8,
-      'maxChildren': 8,
-      'dateFormat': 'dd MM yy',
-      'defaultSize': 'large',
-      'useTommorowDefault': true
     },
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
@@ -509,6 +505,7 @@ angular.module('mobiusApp.config', [])
         'hotels': false,
         'location': true
       },
+      'scrollToRates': 20,
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
       'defaultNumberOfRoomsMobile':10,
@@ -1089,6 +1086,7 @@ angular.module('mobiusApp.config', [])
         'hasViewMore': true,
         'hasTitle': true,
         'scrollToOffset': 50,
+        'showSubNav': false,
         'hotelInfo': {
           'descriptionGrid': 7,
           'sidebarGrid': 5

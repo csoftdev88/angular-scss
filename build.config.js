@@ -97,8 +97,7 @@ module.exports = {
       js: [
         // jquery is a dependency on a lot of other scripts, ensure it is always loaded first
         'bower_components/jquery/dist/jquery.min.js',
-        'bower_components/jquery-ui/jquery-ui.min.js',
-        'vendors/jquery-datepicker/index.js',
+        'bower_components/jquery-ui/dist/jquery-ui.js',
         'vendors/chosen/chosen.jquery.min.js',
         'bower_components/raven-js/dist/raven.min.js',
         'bower_components/angular/angular.min.js',
@@ -126,8 +125,6 @@ module.exports = {
         'bower_components/angular-markdown-directive/markdown.js',
         'bower_components/angular-tooltips/dist/angular-tooltips.min.js',
         'bower_components/angularUtils-pagination/dirPagination.js',
-        'vendors/jquery-ui/datepicker-translations/de.js',
-        'vendors/jquery-ui/datepicker-translations/fr.js',
         'bower_components/re-tree/re-tree.min.js',
         'bower_components/ng-device-detector/ng-device-detector.min.js',
         'bower_components/angular-vertilize/angular-vertilize.min.js',

@@ -1,0 +1,36 @@
+@import "./mobile";
+
+.Home__hero--info {
+  display: none;
+  position: absolute;
+  &.show-desktop {
+    display: block;
+    left: calc(~'(100vw - 1212px) / 2');
+    top: 290px;
+    width: 62%;
+    .Home__hero--button {
+      display: none;
+    }
+  }
+}
+
+.Home__hero--button {
+  margin-top: 20px;
+  background-color: @c-secondary;
+  border-radius: 0;
+  width: 322px;
+  height: 39.9px;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 16px;
+  line-height: 39.9px;
+  font-family: @ff-primary;
+}
+
+.Home__booking-bar {
+  .booking-bar {
+    position: absolute;
+    right: calc(~'(100vw - 1212px) / 2');
+    top: 150px;
+  }
+}

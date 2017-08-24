@@ -1,0 +1,308 @@
+<reservation-confirmation id="reservationConfirmation">
+  <tabset>
+    <tab heading="_guest_details_">
+      <table>
+        <tbody ng-if="!uiConfig.reservations.tempHackInfoFormReorder">
+          <tr>
+            <th>_first_name_label_:</th>
+            <td>{{userDetails.firstName}}</td>
+          </tr>
+          <tr>
+            <th>_last_name_label_:</th>
+            <td>{{userDetails.lastName}}</td>
+          </tr>
+          <tr>
+            <th>_email_label_:</th>
+            <td>{{userDetails.email}}</td>
+          </tr>
+          <tr>
+            <th>_primary_phone_label_:</th>
+            <td>{{userDetails.phone}}</td>
+          </tr>
+          <tr>
+            <th>_address_label_:</th>
+            <td>{{userDetails.address}}</td>
+          </tr>
+          <tr>
+            <th>_city_label_:</th>
+            <td>{{userDetails.city}}</td>
+          </tr>
+          <tr>
+            <th>_state_label_:</th>
+            <td>{{userDetails.stateProvince}}</td>
+          </tr>
+          <tr>
+            <th>_country_label_:</th>
+            <td>{{userDetails.countryObj.name}}</td>
+          </tr>
+          <tr>
+            <th>_postcode_label_:</th>
+            <td>{{userDetails.zip}}</td>
+          </tr>
+        </tbody>
+        <tbody ng-if="uiConfig.reservations.tempHackInfoFormReorder">
+        <tr>
+          <th>_first_name_label_:</th>
+          <td>{{userDetails.firstName}}</td>
+        </tr>
+        <tr>
+          <th>_last_name_label_:</th>
+          <td>{{userDetails.lastName}}</td>
+        </tr>
+        <tr>
+          <th>_email_label_:</th>
+          <td>{{userDetails.email}}</td>
+        </tr>
+        <tr>
+          <th>_primary_phone_label_:</th>
+          <td>{{userDetails.phone}}</td>
+        </tr>
+        <tr>
+          <th>_address_label_:</th>
+          <td>{{userDetails.address}}</td>
+        </tr>
+        <tr>
+          <th>_postcode_label_:</th>
+          <td>{{userDetails.zip}}</td>
+        </tr>
+        <tr>
+          <th>_city_label_:</th>
+          <td>{{userDetails.city}}</td>
+        </tr>
+        <tr>
+          <th>_state_label_:</th>
+          <td>{{userDetails.stateProvince}}</td>
+        </tr>
+        <tr>
+          <th>_country_label_:</th>
+          <td>{{userDetails.countryObj.name}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </tab>
+
+    <!-- CREDIT CARD BILLING DETAILS -->
+    <tab heading="_billing_details_" ng-if="billingDetails.paymentMethod === 'cc'">
+      <table>
+        <tbody>
+          <tr>
+            <th>_card_number_label_:</th>
+            <td>
+              <i ng-class="getCreditCardDetails(billingDetails.card.number).icon"></i>
+              {{getCreditCardPreviewNumber(billingDetails.card.number)}}
+            </td>
+          </tr>
+          <tr>
+            <th>_card_type_label_:</th>
+            <td>
+              {{getCreditCardDetails(billingDetails.card.number).name}}
+            </td>
+          </tr>
+          <tr>
+            <th>_card_expiry_label_:</th>
+            <td>{{getCardExpirationDate() | dateTime:'MM/YYYY'}}</td>
+          </tr>
+          <tr>
+            <th>_card_cvv_label_:</th>
+            <td>{{billingDetails.card.securityCode}}</td>
+          </tr>
+          <tr>
+            <th>_card_name_label_:</th>
+            <td>{{billingDetails.card.holderName}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <table ng-if="!billingDetails.useGuestAddress">
+        <tbody>
+          <tr>
+            <th>_address_label_:</th>
+            <td>{{billingDetails.address}}</td>
+          </tr>
+          <tr>
+            <th>_city_label_:</th>
+            <td>{{billingDetails.city}}</td>
+          </tr>
+          <tr>
+            <th>_state_label_:</th>
+            <td>{{billingDetails.stateProvince}}</td>
+          </tr>
+          <tr>
+            <th>_country_label_:</th>
+            <td>{{billingDetails.countryObj.name}}</td>
+          </tr>
+          <tr>
+            <th>_postcode_label_:</th>
+            <td>{{billingDetails.zip}}</td>
+          </tr>
+          <tr>
+            <th>_primary_phone_label_:</th>
+            <td>{{billingDetails.phone}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+
+    <!-- PAY WITH POINTS DETAILS -->
+    <tab heading="_points_balance_" ng-if="billingDetails.paymentMethod === 'point'">
+      <table class="points-balance">
+        <tbody>
+          <tr>
+            <th>_current_points_</th>
+            <td>
+              {{pointsData.currentPoints}}
+            </td>
+          </tr>
+          <tr>
+            <th>_points_required_booking_</th>
+            <td>{{pointsData.pointsRequired}}</td>
+          </tr>
+          <!--
+          <tr>
+            <th>_points_earned_booking_:</th>
+            <td class="earned">+{{pointsData.pointsEarned}}</td>
+          </tr>
+          -->
+          <tr>
+            <th>_balance_after_booking_</th>
+            <td ng-class="{'not-enough': pointsData.pointsAfterBooking < 0}">{{pointsData.pointsAfterBooking}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+
+    <tab heading="_additional_details_">
+      <form name="forms.additionalInfo" class="additional-details" novalidate ng-submit="forms.additionalInfo.$valid && continue()">
+
+          <label for="commentsTop" ng-if="bookingConfig.additionalDetails.comments.display && bookingConfig.additionalDetails.comments.position === 'top'">
+            <textarea id="commentsTop" placeholder="_comments_placeholder_" ng-model="additionalInfo.comments" name="commentsTop" ng-pattern="$root.generalValidationPattern"></textarea>
+            <span>
+              <span ng-hide="forms.additionalInfo.commentsTop.$error">_comments_label_</span>
+              <span ng-show="forms.additionalInfo.commentsTop.$error">_comments_label_</span>
+              <span ng-show="forms.additionalInfo.commentsTop.$error.pattern">_letters_pattern_error_</span>
+            </span>
+          </label>
+
+          <label for="form-arrival-time" class="input-left">
+            <select id="form-arrival-time" ng-model="additionalInfo.arrivalTime">
+              <option value="">_arrival_time_placeholder_</option>
+              <option value="5 AM">{{1482642000000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="6 AM">{{1482645600000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="7 AM">{{1482649200000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="8 AM">{{1482652800000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="9 AM">{{1482656400000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="10 AM">{{1482660000000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="11 AM">{{1482663600000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="12 PM">{{1482667200000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="1 PM">{{1482670800000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="2 PM">{{1482674400000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="3 PM">{{1482678000000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="4 PM">{{1482681600000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="5 PM">{{1482685200000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="6 PM">{{1482688800000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="7 PM">{{1482692400000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="8 PM">{{1482696000000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="9 PM">{{1482699600000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="10 PM">{{1482703200000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="11 PM">{{1482706800000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="12 AM">{{1482710400000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+            </select>
+            <span>_arrival_time_label_</span>
+          </label>
+
+          <!--ng-options="item.display as item.display for item in possibleArrivalMethods"-->
+          <label for="arrival-method" class="input-right">
+            <select id="arrival-method"
+              ng-model="additionalInfo.arrivalMethod">
+              <option value="">_arrical_method_placeholder_</option>
+              <option value="Car">_car_</option>
+              <option value="Bus">_bus_</option>
+              <option value="Train">_train_</option>
+              <option value="Plane">_plane_</option>
+              <option value="Boat">_boat_</option>
+              <option value="Other">_other_</option>
+            </select>
+            <span>_arrical_method_label_</span>
+          </label>
+
+          <label for="commentsBottom" ng-if="bookingConfig.additionalDetails.comments.display && bookingConfig.additionalDetails.comments.position === 'bottom'">
+            <textarea id="commentsBottom" placeholder="_comments_placeholder_" ng-model="additionalInfo.comments"></textarea>
+            <span>
+              <span ng-hide="forms.additionalInfo.commentsBottom.$error">_comments_label_</span>
+              <span ng-show="forms.additionalInfo.commentsBottom.$error.pattern">_letters_pattern_error_</span>
+            </span>
+          </label>
+
+          <label for="form-departure-time" ng-if="bookingConfig.additionalDetails.departureTime.display">
+            <select id="form-departure-time" ng-model="additionalInfo.departureTime" placeholder="Departure Time">
+              <option value="">_departure_time_placeholder_</option>
+              <option value="1 AM">{{1482627600000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="2 AM">{{1482631200000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="3 AM">{{1482634800000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="4 AM">{{1482638400000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="5 AM">{{1482642000000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="6 AM">{{1482645600000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="7 AM">{{1482649200000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="8 AM">{{1482652800000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="9 AM">{{1482656400000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="10 AM">{{1482660000000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="11 AM">{{1482663600000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="12 PM">{{1482667200000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="1 PM">{{1482670800000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="2 PM">{{1482674400000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="3 PM">{{1482678000000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="4 PM">{{1482681600000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="5 PM">{{1482685200000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="6 PM">{{1482688800000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="7 PM">{{1482692400000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="8 PM">{{1482696000000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="9 PM">{{1482699600000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="10 PM">{{1482703200000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="11 PM">{{1482706800000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option value="12 AM">{{1482710400000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+            </select>
+            <span>_departure_time_label_</span>
+          </label>
+
+          <label for="secondTelephone" ng-if="bookingConfig.additionalDetails.tel2.display">
+            <input type="text" id="second-telephone"
+              placeholder="_secondary_phone_number_"
+              ng-model="additionalInfo.secondPhoneNumber"
+              name="secondTelephone"
+              ng-pattern="$root.generalValidationPattern"/>
+            <span>
+              <span ng-hide="forms.additionalInfo.secondTelephone.$error">_secondary_phone_number_</span>
+              <span ng-show="forms.additionalInfo.secondTelephone.$error">_secondary_phone_number_</span>
+              <span ng-show="forms.additionalInfo.secondTelephone.$error.pattern">_letters_pattern_error_</span>
+            </span>
+          </label>
+
+          <label for="secondEmail" ng-if="bookingConfig.additionalDetails.email2.display">
+            <input type="email" id="second-email"
+              placeholder="_additional_email_label_"
+              ng-model="additionalInfo.secondEmail"
+              name="secondEmail"
+              email-check/>
+            <span>
+              <span ng-hide="forms.additionalInfo.$submitted && forms.additionalInfo.secondEmail.$error">_additional_email_label_</span>
+              <span ng-show="forms.additionalInfo.$submitted && forms.additionalInfo.secondEmail.$error.emailCheck">_invalid_email_message_</span>
+            </span>
+          </label>
+
+          <label for="thirdEmail" ng-if="bookingConfig.additionalDetails.email3.display">
+            <input type="email" id="third-email"
+              placeholder="_additional_email_label_"
+              ng-model="additionalInfo.thirdEmail"
+              name="thirdEmail"
+              email-check/>
+            <span>
+              <span ng-hide="forms.additionalInfo.thirdEmail.$error">_additional_email_label_</span>
+              <span ng-show="forms.additionalInfo.thirdEmail.$error">_additional_email_label_</span>
+              <span ng-show="forms.additionalInfo.thirdEmail.$error.pattern">_invalid_email_message_</span>
+            </span>
+          </label>
+
+        <input type="submit" id="submit" value="_submit_" ng-hide="true" />
+        </form>
+    </tab>
+  </tabset>
+</reservation-confirmation>

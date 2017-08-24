@@ -424,6 +424,7 @@ angular.module('mobiusApp.config', [])
         'hotels': true,
         'location': false
       },
+      'scrollToRates': 20,
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
       'defaultNumberOfRoomsMobile':10,
@@ -443,7 +444,7 @@ angular.module('mobiusApp.config', [])
         'mobileHideRates': true,
         'displayAmenities': true,
         'displayRoomDetails': true,
-        'displayRoomSubtitle': false,
+        'displayRoomSubtitle': true,
         'roomDetailThumbnailSize':{
           'width': 150,
           'height': 150
@@ -1098,6 +1099,7 @@ angular.module('mobiusApp.config', [])
         'hasViewMore': true,
         'hasTitle': true,
         'scrollToOffset': 50,
+        'showSubNav': false,
         'hotelInfo': {
           'descriptionGrid': 8,
           'sidebarGrid': 4

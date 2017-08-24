@@ -303,13 +303,11 @@ module.exports = function(grunt) {
     localisation: {
       options: {
         locales: 'src/targets/' + target + '/locales',
-        //pattern: /_(.+)_/
         pattern: /_([a-zA-Z_]+)_/
-        //pattern: /[^a-zA-Z](_([a-zA-Z_]+)_)[^a-zA-Z]/
       },
       files: {
         src: [ '**/*.html' ],
-        cwd: 'src/app',
+        cwd: 'src/targets/' + target + '/templates/',
         expand: true,
         dest: 'build/templates/{locale}/'
       }

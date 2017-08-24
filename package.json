@@ -1,16 +1,18 @@
 {
   "name": "mobius",
-  "version": "4.13.1",
+  "version": "4.13.2",
   "private": true,
   "scripts": {
     "server.sandman": "NODE_ENV=development node server.js --tenant=sandman --environment=integration",
     "server.sutton": "NODE_ENV=development node server.js --tenant=suttonLive --environment=integration",
     "server.meandall": "NODE_ENV=development node server.js --tenant=meandall --environment=integration",
-    "server.stgiles": "NODE_ENV=development node server.js --tenant=stGiles --environment=integration",
+    "server.stGiles": "NODE_ENV=development node server.js --tenant=stGiles --environment=integration",
+    "server.excelsior": "NODE_ENV=development node server.js --tenant=excelsior --environment=integration",
     "watch.sandman": "grunt development --tenant=sandman --environment=integration",
     "watch.sutton": "grunt development --tenant=suttonLive --environment=integration",
     "watch.meandall": "grunt development --tenant=meandall --environment=integration",
-    "watch.stGiles": "grunt development --tenant=stGiles --environment=integration"
+    "watch.stGiles": "grunt development --tenant=stGiles --environment=integration",
+    "watch.excelsior": "grunt development --tenant=excelsior --environment=integration"
   },
   "engines": {
     "node": "=0.10.22"

@@ -121,6 +121,11 @@ angular
       $scope.incorrectEmailPasswordError = false;
       $scope.notRegisteredEmailError = false;
       $scope.passwordResetSuccess = false;
+      $scope.error = false;
+      $scope.userRegisteredError = false;
+      $scope.genericError = false;
+      $scope.missingFieldsError = false;
+      $scope.submitted = false;
     };
 
     // Assign the API to a scope variable

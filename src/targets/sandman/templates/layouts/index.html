@@ -1,0 +1,16 @@
+<header id="main-header" ng-include="'layouts/header.html'">
+</header>
+
+<user-messages></user-messages>
+
+<!-- MAIN CONTENT AREA -->
+<div ui-view autoscroll="true"></div>
+
+<!-- Growl alerts, as this is the template for the abstract BaseCtrl, events calling the growl alerts should propagate to the growl alert event listeners -->
+<growl-alerts class="growl-alerts-dir" languages-message="'_languages_message_'" retention-message="'_retention_message_'"></growl-alerts>
+
+<!-- BOOKING WIDGET AREA-->
+<floating-bar ng-class="{'hide': $state.includes('reservation') || $state.includes('error'), 'bar-top-right':floatingBarMobileTopRight}"></floating-bar>
+
+<footer class="main" ng-if="!hideFooter" ng-class="{'special-footer': $state.includes('hotel') || $state.includes('reservationDetail') || $state.includes('reservation') || $state.includes('reservations'), 'no-booking-bar': $state.includes('reservation') || $state.includes('error')}" ng-include="'layouts/footer.html'">
+</footer>

@@ -5,7 +5,7 @@
 angular.module('mobiusApp.dynamicMessages', [])
 
 .constant('DynamicMessages', {
-  'en-us':{
+  'en':{
     'your_reservation':'<div>Your Reservation <strong>',
     'was_successfully_cancelled':'</strong> was successfully cancelled.</div>',
     'you_have_added':'<div>You have added ',
@@ -26,7 +26,10 @@ angular.module('mobiusApp.dynamicMessages', [])
     'from':'From',
     'tax':'tax',
     'adults': 'adults',
-    'children': 'children'
+    'children': 'children',
+    'promo_code': 'Promo code',
+    'corp_code': 'Corp code',
+    'group_code': 'Group code'
   },
   'de':{
     'your_reservation':'<div>Ihre Reservierung <strong>',
@@ -49,6 +52,9 @@ angular.module('mobiusApp.dynamicMessages', [])
     'from':'Von',
     'tax':'Steuer',
     'adults': 'Erwachsene',
-    'children': 'Kinder'
+    'children': 'Kinder',
+    'promo_code': 'Promo code',
+    'corp_code': 'Corp code',
+    'group_code': 'Group code'
   }
 });

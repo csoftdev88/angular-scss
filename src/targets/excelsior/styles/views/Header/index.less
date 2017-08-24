@@ -1,0 +1,148 @@
+@import "./mobile";
+
+.Header {
+  padding: 18px 130px 17px 130px;
+  height: 70px;
+  box-sizing: border-box;
+  width: 100%;
+  position: fixed;
+  z-index: 999;
+  background-color: #fff;
+}
+
+.Header__buttons {
+  float: right;
+}
+
+.Header__menu {
+  float: right;
+  padding: 9px 0 0 0;
+}
+
+.Header__buttons--auth {
+  float: left;
+}
+
+.Header__inner {
+  max-width: 1212px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.Header__logo {
+  position: absolute;
+  top: 8px;
+}
+
+.Header__profile {
+  width: 200px;
+  display: flex;
+  margin-right: 10px;
+  .avatar {
+    margin: auto 9px auto auto;
+  }
+}
+.Header__profile--userInfo {
+  .name, .loyalty {
+    color: @c-text;
+    font-family: @ff-secondary;
+  }
+  .name {
+    font-size: 13.2px;
+    line-height: 16px;
+  }
+  .loyalty {
+    font-size: 10px;
+    line-height: 12px;
+  }
+}
+
+.Header__button {
+  width: 93px;
+  height: 35px;
+  box-sizing: border-box;
+  border: 1px solid @c-primary;
+  background: transparent;
+  color: @c-primary;
+  line-height: 35px;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0;
+  font-family: @ff-primary;
+  font-weight: 100;
+  border-radius: 0;
+  margin: 0 9px 0 0;
+  padding: 0;
+  text-shadow: none;
+
+  &.register {
+    margin-right: 42px;
+  }
+}
+
+.Header__buttons--preferences {
+  float: left;
+  li.Header__buttons--preference {
+    display: inline;
+    line-height: 36px;
+    margin-right: 34px;
+  }
+  li.Header__buttons--preference:first-of-type {
+    float: left;
+  }
+  li.Header__buttons--preference:last-of-type {
+    float: right;
+  }
+}
+
+.Header__buttons--currency {
+  a[title='Currency'] {
+    color: @c-text;
+    font-family: @ff-secondary;
+    // Hide the change currency text
+    span:last-of-type {
+      display: none;
+    }
+  }
+}
+
+.Header__buttons--language {
+  ul {
+    li {
+      display: inline;
+      &:first-of-type {
+        margin-right: 10px;
+      }
+      &.selected {
+        a {
+          color: #fff;
+        }
+      }
+      a {
+        color: grey;
+        font-family: @ff-primary;
+      }
+    }
+  }
+}
+
+.Header__menu--hamburger {
+  cursor: pointer;
+  height: 19px;
+  width: 26px;
+  display: block;
+  .main-menu-active & {
+    display: none;
+  }
+}
+
+.Header__menu--close {
+  height: 20px;
+  width: 20px;
+  margin-left: 6px;
+  display: none;
+  background: url('@{img-prefix}/menu_close.png');
+  .main-menu-active & {
+    display: block;
+  }
+}

@@ -1,0 +1,41 @@
+<h2 ng-if="rooms.length" class="members-rates__title">
+  _book_now_at_
+</h2>
+
+<div class="members-rates"
+     ng-if="rooms.length"
+     ng-class="sizeClass">
+
+  <div class="members-rate"
+       ng-click="$state.go('hotel', { scrollTo: 'jsRooms' })"
+       ng-repeat="room in rooms">
+
+    <h1 class="members-rate__title">
+      {{ room.name }}
+    </h1>
+
+    <small class="members-rate__tagline">
+      {{ room.tagline }}
+    </small>
+
+    <ul class="members-rate__rates">
+
+      <li class="members-rate__rate">
+        _members_rate_
+        <span class="members-rate__price">
+          {{ room.memberRate | i18nCurrency: currencyCode }}
+        </span>
+      </li>
+
+      <li class="members-rate__rate">
+        _public_rate_
+        <span class="members-rate__price">
+          {{ room.publicRate | i18nCurrency: currencyCode }}
+        </span>
+      </li>
+
+    </ul>
+
+  </div>
+
+</div>

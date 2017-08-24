@@ -1,0 +1,26 @@
+<div class="slider-content">
+</div>
+
+<div class="slider-controls" ng-swipe-left="slide(false, $event)" ng-swipe-right="slide(true, $event)" ng-click="onContentClick()">
+  <div ng-show="content.length > 1">
+    <a href class="slide-button slide-left" ng-click="slide(true, $event)"/>
+    <a href class="slide-button slide-right" ng-click="slide(false, $event)"/>
+
+    <div class="pages" ng-click="preventClick($event)" ng-if="content.length" ng-switch="counterType">
+      <span ng-switch-default ng-repeat="page in content" ng-class="{active:slideIndex==$index}" ng-click="slideToIndex($index, $event)"/>
+
+      <counter ng-switch-when="counter">{{slideIndex + 1}} / {{content.length}}</counter>
+    </div>
+  </div>
+</div>
+
+<div class="view-more-images-directions" ng-show="content.length > 1">
+  <a href class="slide-button slide-left" ng-click="slide(true, $event)"></a>
+  <a href class="slide-button slide-right" ng-click="slide(false, $event)"></a>
+</div>
+
+<notification-bar ng-if="hasNotificationBar" currently-editing="_you_are_currently_editing_"></notification-bar>
+
+<ul class="thumbnail-nav" ng-if="hasThumbnails && content.length > 1">
+  <li ng-repeat="thumb in content | limitTo: 4"><img ng-src="{{thumb.uri | cloudinaryImage : thumbWidth : thumbHeight : 'fill'}}" ng-click="slideToIndex($index, $event)"></li>
+</ul>

@@ -1,16 +1,33 @@
-'use strict';
+/**
+ * Directive to include on a <li> element to transform into a drop down list to select the user currency.
+ *
+ * If a user is authenticated, the currency will be saved to their profile. It will also save the currency selected
+ * to a cookie, MobiusCurrencyCode, regardless of auth.
+ *
+ * @note This directive requires the <li> element to be within a <ul> with the dropdownGroup directive
+ * @see dropdownGroup
+ */
+(function () {
+  'use strict';
 
-angular.module('mobiusApp.directives.currency', [])
+  angular
+    .module('mobiusApp.directives.currency', [])
+    .directive('currencyList', ['Settings', 'contentService', '_', 'queryService', '$rootScope', 'user', '$state',
+      '$stateParams', 'apiService', '$timeout', '$log', CurrencyList]);
 
-  .directive('currencyList', ['Settings', 'contentService', '_', 'queryService', '$rootScope', 'user', '$state', '$stateParams', 'apiService', '$timeout',
-    function(Settings, contentService, _, queryService, $rootScope, user, $state, $stateParams, apiService, $timeout) {
+  function CurrencyList(Settings, contentService, _, queryService, $rootScope, user, $state, $stateParams, apiService,
+                        $timeout, $log) {
     return {
       restrict: 'EA',
       scope: {},
       templateUrl: 'directives/currencyList/currencyList.html',
-
-      // Widget logic goes here
       link: function(scope) {
+        // Get the directives config
+        scope.config = Settings.UI.currencyList;
+        if (!scope.config) {
+          $log.warn('The currency list directive was initialised without a config');
+        }
+
         contentService.getCurrencies().then(function(data) {
           var currencies = {};
           _.each(data, function(currencyData) {
@@ -24,6 +41,8 @@ angular.module('mobiusApp.directives.currency', [])
 
           var searchCurrency = queryService.getValue(Settings.currencyParamName);
           var userCurrency = user.getUserCurrency();
+
+          scope.currentCurrency = _.findWhere(currencies, { code: Settings.UI.currencies.default });
 
           if($state.current.name !== 'reservationDetail')
           {
@@ -71,7 +90,7 @@ angular.module('mobiusApp.directives.currency', [])
 
         function setCurrency(currency, reload) {
           scope.currentCurrency = currency;
-          
+
           //Only add the query param if the currency is not the same as default, otherwise remove param
           if(currency.code !== Settings.UI.currencies.default){
             queryService.setValue(Settings.currencyParamName, currency.code);
@@ -81,20 +100,24 @@ angular.module('mobiusApp.directives.currency', [])
             queryService.removeParam('currency');
           }
 
-          user.storeUserCurrency(currency.code);
-          var currencyObj = {};
-          currencyObj['mobius-currencycode'] = currency.code;
-          apiService.setHeaders(currencyObj);
-          if(reload){
-            $timeout(function () {
-              $rootScope.currencyCode = currency.code;
-              $state.go($state.current.name, $stateParams, {reload: true});
-            }, 50);
-          }
-          else{
-            $rootScope.currencyCode = currency.code;
-          }
+          user.storeUserCurrency(currency.code)
+            .then(function () {
+              var currencyObj = {};
+              currencyObj['mobius-currencycode'] = currency.code;
+              apiService.setHeaders(currencyObj);
+              if(reload){
+                $timeout(function () {
+                  $rootScope.currencyCode = currency.code;
+                  $state.go($state.current.name, $stateParams, {reload: true});
+                }, 50);
+              }
+              else{
+                $rootScope.currencyCode = currency.code;
+              }
+            });
         }
       }
     };
-  }]);
+  }
+
+}());
