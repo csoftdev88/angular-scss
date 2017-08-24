@@ -60,7 +60,7 @@ angular.module('mobiusApp.config', [])
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
     },
     'integration': {
-      'enable':true,
+      'enable':false,
       'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
@@ -69,7 +69,7 @@ angular.module('mobiusApp.config', [])
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
     },
     'staging': {
-      'enable':true,
+      'enable':false,
       'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
@@ -78,7 +78,7 @@ angular.module('mobiusApp.config', [])
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
     },
     'uat': {
-      'enable':true,
+      'enable': false,
       'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
@@ -87,7 +87,7 @@ angular.module('mobiusApp.config', [])
       'password': 'AqKkVLTGfqiecX+xbFTaQkKKguvUt47j'
     },
     'live': {
-      'enable':true,
+      'enable':false,
       'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
