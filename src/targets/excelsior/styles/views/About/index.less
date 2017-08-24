@@ -36,15 +36,31 @@
 
 .About__logo {
   margin-bottom: 38px;
+  position: relative;
   h1 {
     text-align: center;
     font-family: @ff-primary;
     text-transform: uppercase;
-    font-size: 32px;
-    line-height: 39px;
+    font-size: 19px;
+    line-height: 26px;
     margin-bottom: 11px;
-    font-weight: bold;
-    color: #000;
+    font-weight: normal;
+    color: @c-primary;
+
+    span {
+      background: #fff;
+      padding: 0 15px;
+    }
+
+    &:before {
+      border-top: 1px solid @c-primary;
+      content:"";
+      margin: 0 auto; /* this centers the line to the full width specified */
+      position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
+      top: 50%; left: 0; right: 0; bottom: 0;
+      width: 95%;
+      z-index: -1;
+    }
   }
 }
 
