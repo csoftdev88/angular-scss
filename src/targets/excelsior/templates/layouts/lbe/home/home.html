@@ -84,7 +84,7 @@
       <h1><span>_about_signup_title_</span></h1>
     </div>
 
-    <div class="About__benefits--overview">
+    <div class="About__benefits--overview" ng-class="{'full-width': !rewards[0]}">
 
       <div class="About__benefit">
         <span class="lowest-rates"></span>
@@ -110,11 +110,22 @@
         <p>_about_benefit_four_text_</p>
       </div>
 
+      <div class="About__benefit">
+        <span class="points"></span>
+        <h2>_about_benefit_four_title_</h2>
+        <p>_about_benefit_four_text_</p>
+      </div>
+
+      <div class="About__benefit">
+        <span class="points"></span>
+        <h2>_about_benefit_four_title_</h2>
+        <p>_about_benefit_four_text_</p>
+      </div>
     </div>
 
-    <div class="About__benefits--offer">
-      <span ng-click="gotoOffer(offers[0])">{{ offers[0].title }}</span>
-      <img ng-click="gotoOffer(offers[0])" ng-src="{{ offers[0].image.uri }}">
+    <div class="About__benefits--offer" ng-if="rewards[0]">
+      <span ui-sref="rewards">{{ rewards[0].title }}</span>
+      <img ui-sref="rewards" ng-src="{{ rewards[0].image.uri }}">
     </div>
 
   </div>
