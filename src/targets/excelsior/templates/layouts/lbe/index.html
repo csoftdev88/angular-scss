@@ -17,6 +17,7 @@
         ng-if="!hideFooter"
         ng-hide="$state.includes('reservation') ||
                  $state.includes('rewards') ||
+                 $state.includes('home') ||
                  $state.includes('prestige')"
         ng-include="uiConfig.partials.footer">
 </footer>

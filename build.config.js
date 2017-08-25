@@ -99,6 +99,7 @@ module.exports = {
         'bower_components/jquery/dist/jquery.min.js',
         'bower_components/jquery-ui/dist/jquery-ui.js',
         'vendors/chosen/chosen.jquery.min.js',
+        'bower_components/circliful/js/jquery.circliful.min.js',
         'bower_components/raven-js/dist/raven.min.js',
         'bower_components/angular/angular.min.js',
         'bower_components/angular-resource/angular-resource.js',
@@ -131,7 +132,9 @@ module.exports = {
         'bower_components/angular-cookie-law/dist/angular-cookie-law.min.js',
         'bower_components/ouibounce/build/ouibounce.min.js'
       ],
-      styles: []
+      styles: [
+        'bower_components/circliful/css/jquery.circliful.css'
+      ]
     }
   }
 };

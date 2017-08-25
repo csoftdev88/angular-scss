@@ -32,6 +32,9 @@
     <div class="rate-description">
       <div class="ProductImage">
         <img src="/static/images/product-img.png" />
+        <span ng-if="product.price.pointsEarned" class="ProductPointsEarned">
+          _earn_ {{getValuePer(product.price.pointsEarned, true).toFixed(0)}} _points_
+        </span>
       </div>
       <div class="ProductInfo">
         <h4>
@@ -41,17 +44,6 @@
              ng-click="openProductDetailsDialog(product)"
              ng-if="settings.showRateInfoIcon">
           </a>
-
-          <earned-points ng-if="isUserLoggedIn() &&
-                              product.price.pointsEarned &&
-                              loyaltyProgramEnabled &&
-                              !roomsConfig.displayEarnedPointsBelowDescription &&
-                              product.productAwardPoints">
-            _earn_at_least_
-            <ng-pluralize count="getValuePer(product.price.pointsEarned, true).toFixed(0)"
-                          when="{'1': '{} point', 'other': '{} points'}">
-            </ng-pluralize>
-          </earned-points>
 
           <p class="noPointsAwarded"
              ng-if="isUserLoggedIn() && !product.productAwardPoints && loyaltyProgramEnabled">
@@ -75,17 +67,6 @@
            class="tag-line">
           {{ product.tagline }}
         </p>
-
-        <earned-points ng-if="isUserLoggedIn() &&
-                            product.price.pointsEarned &&
-                            loyaltyProgramEnabled &&
-                            roomsConfig.displayEarnedPointsBelowDescription &&
-                            product.productAwardPoints">
-          _earn_at_least_
-          <ng-pluralize count="getValuePer(product.price.pointsEarned, true).toFixed(0)"
-                        when="{'1': '{} point', 'other': '{} points'}">
-          </ng-pluralize>
-        </earned-points>
 
         <inclusions ng-if="settings.showInclusions && product.inclusions"
                     class="product-inclusions"
