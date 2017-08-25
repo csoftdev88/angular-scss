@@ -3,14 +3,13 @@
   <div class="About__hero--info" ng-if="auth.isLoggedIn()">
 
     <h2 class="About__hero--tagline">
-      _about_tagline_
+      _about_offer_title_
     </h2>
-    <h1 class="About__hero--title">
-      _about_title_one_
+    <h1 class="About__hero--title"
+         ng-click="gotoOffer(offers[0])">
+      {{ offers[0].title }}
     </h1>
-    <h1 class="About__hero--title">
-      _about_title_two_
-    </h1>
+    <a ng-click="gotoOffer(offers[0])" class="button ghost">_view_more_</a>
 
   </div>
 
