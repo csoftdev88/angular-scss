@@ -12,3 +12,16 @@ several other features such as :
  - Rate & Availability information
  - Hotel & Room content
  - Offers & Promotions
+ 
+ Mobius web is a multi tenanted system, meaning that it is designed to have a 
+ 'core' and then tenant implementations. The core consists of the all the business
+ logic (FE logic) with JS controllers / services. These controllers then supply
+ the DOM, provided by the tenant with a contract, defining which functionality
+ is exposed to that page.
+ 
+ Tenant's are also known as theme's or skins, but they are just providing the
+ HTML templates, LESS styling and configuration.
+ 
+ It is importing to remember while developing to think of the tenancy and the
+ contract that the core controllers are providing to the DOM, and ensure you
+ do not brake compatibility amongst tenants.

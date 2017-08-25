@@ -1,4 +1,4 @@
-<div class="About__hero fullscreen">
+<div class="About__hero" ng-class="{'fullscreen': !auth.isLoggedIn()}">
 
   <div class="About__hero--info" ng-if="auth.isLoggedIn()">
 
@@ -46,3 +46,115 @@
   <booking-bar class="Home__booking-bar" size="small"></booking-bar>
 
 </div>
+
+<footer class="LoggedInFooter" ng-if="!auth.isLoggedIn()">
+  <div class="Footer__nav">
+    <ul class="Footer__nav--items">
+
+      <li class="Footer__nav--item">
+        <a target="_blank" href="_footer_nav_one_link_">_footer_nav_one_</a>
+      </li>
+      <li class="Footer__nav--item">
+        <a target="_blank" href="_footer_nav_two_link_">_footer_nav_two_</a>
+      </li>
+      <li class="Footer__nav--item">
+        <a target="_blank" href="_footer_nav_three_link_">_footer_nav_three_</a>
+      </li>
+      <li class="Footer__nav--item">
+        <a target="_blank" href="_footer_nav_four_link_">_footer_nav_four_</a>
+      </li>
+      <li class="Footer__nav--item">
+        <a target="_blank" href="_footer_nav_five_link_">_footer_nav_five_</a>
+      </li>
+      <li class="Footer__nav--item">
+        <a target="_blank" href="_footer_nav_six_link_">_footer_nav_six_</a>
+      </li>
+
+    </ul>
+  </div>
+</footer>
+
+<main class="grid-wrapper About" ng-if="auth.isLoggedIn()">
+
+  <questionnaire ng-if="auth.isLoggedIn()"></questionnaire>
+
+  <div class="About__benefits">
+
+    <div class="About__logo">
+      <h1><span>_about_signup_title_</span></h1>
+    </div>
+
+    <div class="About__benefits--overview" ng-class="{'full-width': !rewards[0]}">
+
+      <div class="About__benefit">
+        <span class="lowest-rates"></span>
+        <h2>_about_benefit_one_title_</h2>
+        <p>_about_benefit_one_text_</p>
+      </div>
+
+      <div class="About__benefit">
+        <span class="get-rewarded"></span>
+        <h2>_about_benefit_two_title_</h2>
+        <p>_about_benefit_two_text_</p>
+      </div>
+
+      <div class="About__benefit">
+        <span class="privileges"></span>
+        <h2>_about_benefit_three_title_</h2>
+        <p>_about_benefit_three_text_</p>
+      </div>
+
+      <div class="About__benefit">
+        <span class="points"></span>
+        <h2>_about_benefit_four_title_</h2>
+        <p>_about_benefit_four_text_</p>
+      </div>
+
+      <div class="About__benefit">
+        <span class="points"></span>
+        <h2>_about_benefit_four_title_</h2>
+        <p>_about_benefit_four_text_</p>
+      </div>
+
+      <div class="About__benefit">
+        <span class="points"></span>
+        <h2>_about_benefit_four_title_</h2>
+        <p>_about_benefit_four_text_</p>
+      </div>
+    </div>
+
+    <div class="About__benefits--offer" ng-if="rewards[0]">
+      <span ui-sref="rewards">{{ rewards[0].title }}</span>
+      <img ui-sref="rewards" ng-src="{{ rewards[0].image.uri }}">
+    </div>
+
+  </div>
+
+  <div class="About__signup">
+    <h1>_about_offer_title_</h1>
+    <p>{{ offers[0].title }}</p>
+    <button ng-click="gotoOffer(offers[0])">_view_more_</button>
+  </div>
+
+  <div class="About__instagram">
+    <instagram-feed></instagram-feed>
+  </div>
+
+  <div class="About__testimonial">
+    <recommendation></recommendation>
+  </div>
+
+  <!-- Scroll to top button -->
+  <scroll-to-top class="back-to-top"
+                 ng-click="scrollToTop()"
+                 scroll-position="scroll"
+                 ng-class="{visible: scroll > scrollTopTrigger}">
+    <span>_book_now_floating_bar_</span>
+  </scroll-to-top>
+
+  <!-- Growl notifications -->
+  <growl-alerts class="growl-alerts-dir"
+                languages-message="'_languages_message_'"
+                retention-message="'_retention_message_'">
+  </growl-alerts>
+</main>

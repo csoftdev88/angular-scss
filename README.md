@@ -100,7 +100,7 @@ All styles are located in `src/styles` folder in [less](http://lesscss.org/) or 
 
 ### Server
 `config/environments`
-`routes/index.js`
+`routes/config.js`
 
 ## prerender.io
 As mobius-web is an angular application, we rely on prerender.io to index pages for search engines.

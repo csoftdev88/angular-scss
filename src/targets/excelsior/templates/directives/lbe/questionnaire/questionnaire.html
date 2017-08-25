@@ -2,11 +2,20 @@
 
   <article class="questionnaire__points">
 
-    <div class="questionnaire__status">
-      <span class="subtitle">Your Status</span>
+    <div class="questionnaire__info">
+      <h3>{{ name }} | {{ tier }}</h3>
     </div>
 
-    <div class="questionnaire__your-points">
+    <div class="questionnaire__amount">
+      <span class="points">{{ points }}</span>
+      <span class="points-label">_points_</span>
+    </div>
+
+    <div class="questionnaire__footer">
+      <span>{{ numPointsToNextTier }} away from your next stay</span>
+    </div>
+
+    <!--<div class="questionnaire__your-points">
       <span class="points">{{ points }}</span>
       <span class="points-label">_points_</span>
     </div>
@@ -18,24 +27,7 @@
         <span class="tagline">Away from Next Tier</span>
       </div>
     </div>
-    <div id="numPointsCircle"></div>
-
-  </article>
-
-  <article ui-sref="rewards" class="questionnaire__feature">
-
-    <div ng-if="!noRewardAvailable" class="questionnaire__featureReward">
-      <span>_featured_reward_</span>
-    </div>
-
-    <div ng-if="!noRewardAvailable" class="questionnaire__reward">
-      <span class="rewardName">{{ featuredReward }}</span>
-      <span class="rewardPoints">{{ featuredRewardPoints }} _points_</span>
-    </div>
-
-    <div ng-if="noRewardAvailable" class="questionnaire__reward">
-      <span class="rewardName">_no_rewards_available_</span>
-    </div>
+    <div id="numPointsCircle"></div>-->
 
   </article>
 

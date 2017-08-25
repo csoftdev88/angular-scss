@@ -275,6 +275,15 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
         }
       }
 
+      user.loadRewards(userObject.id)
+        .then(function (rewards) {
+          $scope.rewards = rewards;
+          console.log('rewards', rewards);
+        })
+        .catch(function (err) {
+          console.error(err);
+        });
+
       //check if user is logged in and then get campaigns
       function onAuthorized(){
         if(Settings.UI.campaigns && Settings.UI.campaigns.display){

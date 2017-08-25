@@ -88,8 +88,10 @@
      * @see apiService
      */
     this.logout = function () {
+      console.log('logging out');
       $rootScope.$evalAsync(function() {
         userObject = {};
+        console.log('ging home');
         $state.go('home', {}, {reload: true});
       });
       // Removing auth headers
@@ -97,10 +99,6 @@
       headers[AUTH_HEADER] = undefined;
       apiService.setHeaders(headers);
       user.clearStoredUser();
-
-      // Create a new auth promise
-      // @todo Why do we need to do this ?
-      user.authPromise = $q.defer();
 
       // Submit a login event that updates the base ctrl's function isLoggedIn
       // @todo again, why the hell do we do this?
