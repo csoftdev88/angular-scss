@@ -1,6 +1,8 @@
 <header>
   <h1 ng-if="config.displayMainTitle">_location_</h1>
-  <h2 ng-bind-html="'_mapLocationHeader_' | stringLocaleReplace: hotelDetails.nameShort : hotelDetails.nameLong | mainHeaderStyle"></h2>
+  <h2>
+    <span ng-bind-html="'_mapLocationHeader_' | stringLocaleReplace: hotelDetails.nameShort : hotelDetails.nameLong | mainHeaderStyle"></span>
+  </h2>
   <p class="view-map-link" ng-if="config.displayGoogleMapsLink">
     <a target="_blank"
        ng-if="position"
