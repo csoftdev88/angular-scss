@@ -53,6 +53,20 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'live': ''
     }
   },
+  'hospitalityEvents': {
+    'development': {
+      'enable': true
+    },
+    'integration': {
+      'enable': true
+    },
+    'staging': {
+      'enable': false
+    },
+    'live': {
+      'enable': false
+    }
+  },
   'infinitiApeironTracking': {
     'development': {
       'enable':false,

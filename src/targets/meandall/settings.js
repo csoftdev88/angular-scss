@@ -49,6 +49,20 @@ angular.module('mobiusApp.config', [])
       'live': ''
     }
   },
+  'hospitalityEvents': {
+    'development': {
+      'enable': false
+    },
+    'integration': {
+      'enable': false
+    },
+    'staging': {
+      'enable': false
+    },
+    'live': {
+      'enable': false
+    }
+  },
   'infinitiApeironTracking': {
     'development': {
       'enable':false,
