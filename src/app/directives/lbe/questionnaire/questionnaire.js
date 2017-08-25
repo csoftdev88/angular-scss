@@ -68,6 +68,7 @@
           ]).then(function () {
             scope.points = userObject.loyalties.amount;
             scope.tier = userObject.loyalties.tier;
+            scope.name = userObject.firstName + ' ' + userObject.lastName;
           });
 
           loyaltiesPromise.then(function () {
@@ -80,12 +81,6 @@
                 total += transaction.amount;
               });
               scope.numPointsToNextTier = (Math.ceil(total / 1000) * 1000) - scope.points;
-              $('#numPointsCircle').circliful({
-                animationStep: 5,
-                foregroundBorderWidth: 5,
-                backgroundBorderWidth: 15,
-                percent: 75
-              });
             });
           });
 
