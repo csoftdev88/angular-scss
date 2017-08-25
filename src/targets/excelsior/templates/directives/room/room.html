@@ -82,10 +82,13 @@
                    ng-class="{'without-image':!config.showProductImage,'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice}">
           <img ng-src="{{product.image.uri | cloudinaryImage : productImageWidth : productImageHeight : 'fill'}}" alt="{{product.image.alt}}" class="product-image"
             ng-if="config.showProductImage && product.image && product.image.uri" />
-          <img src="/static/images/rate_default.png"
+          <img src="/static/images/product-img.png"
                alt=""
                class="product-image"
                ng-if="config.showProductImage && !(product.image && product.image.uri)" />
+          <span ng-if="product.price.pointsEarned" class="ProductPointsEarned">
+            _earn_ {{getValuePer(product.price.pointsEarned, true).toFixed(0)}} _points_
+          </span>
           <div class="list-item-highlight-label member-ribbon" ng-if="product.memberOnly">_members_only_rate_</div>
           <div class="list-item-highlight-label highlight-ribbon" ng-if="product.highlighted">_most_booked_package_</div>
           <div class="list-item-header">

@@ -21,11 +21,10 @@ Front end application for mobius booking engine
 
 ### How do I deploy to a live environment ?
 1. Change to root `sudo su -`
-2. Follow installation steps 1-4 described above.
-3. Install dependencies `npm i && bower install --allow-root`
-4. Run `npm run build.sandman` 
-5. Run `pm2 restart WEB` (If pm2 says there is no instance of WEB running do `pm2 start server.js --name "WEB" -- --tenant=sandman --environment=live`)
-6. Clear cloudflare cache visit `https://webservice.mobiuswebservices.com/cloudflare/clearcache?site=mobiusbookingengine`
+1. Follow installation steps 1-4 described above.
+2. Run `npm run build.sandman-live` (replace sandman and live with correct tenant and env)
+3. Run `pm2 restart WEB` (If pm2 says there is no instance of WEB running do `pm2 start server.js --name "WEB" -- --tenant=sandman --environment=live`)
+4. Clear cloudflare cache visit `https://webservice.mobiuswebservices.com/cloudflare/clearcache?site=mobiusbookingengine`
 
 #### Trouble shooting ####
 If you deploy the app and get an index_US cannot be found, or something

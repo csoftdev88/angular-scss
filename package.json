@@ -16,7 +16,7 @@
     "build.sandman-live": "NODE_ENV=production grunt production --tenant=sandman --environment=live",
     "build.sutton-live": "NODE_ENV=production grunt production --tenant=suttonLive --environment=live",
     "build.meandall-live": "NODE_ENV=production grunt production --tenant=meandall --environment=live",
-    "build.excesior-integration": "NODE_ENV=production grunt production --tenant=excelsior --environment=integration",
+    "build.excesior-live": "NODE_ENV=production grunt production --tenant=excelsior --environment=live",
     "build.sandman-integration": "NODE_ENV=production grunt production --tenant=sandman --environment=integration",
     "build.sutton-integration": "NODE_ENV=production grunt production --tenant=suttonLive --environment=integration",
     "build.meandall-integration": "NODE_ENV=production grunt production --tenant=meandall --environment=integration",
