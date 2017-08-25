@@ -27,7 +27,10 @@ angular.module('mobiusApp.dynamicMessages', [])
     'tax':'tax',
     'promo_code_applied':'Promo code applied successfully',
     'corp_code_applied':'Corp code applied successfully',
-    'group_code_applied':'Group code applied successfully'
+    'group_code_applied':'Group code applied successfully',
+    'promo_code':'Promo code',
+    'corp_code':'Corp code',
+    'group_code':'Group code'
   },
   'de':{
     'your_reservation':'<div>Ihre Reservierung <strong>',
