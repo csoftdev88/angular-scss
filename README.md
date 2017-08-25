@@ -14,9 +14,10 @@ Front end application for mobius booking engine
 2. `npm install -g grunt-cli bower karma phantomjs@1.9.8`
 3. `git clone https://github.com/2PVentures/mobius-web.git`
 4. `cd mobius-web`:
-5. Install dependencies and watch files `npm run watch.sandman`
-6. Run the middleware `npm run server.sandman`
-7. Finally, open `localhost:9000` in your browser
+5. Install dependencies `npm i && bower install --allow-root`
+6. Build and watch files `npm run watch.sandman`
+7. Run the middleware `npm run server.sandman`
+8. Finally, open `localhost:9000` in your browser
 
 ### How do I deploy to a live environment ?
 1. Change to root `sudo su -`
