@@ -1,6 +1,5 @@
 var express = require('express'),
   path = require('path'),
-  basicAuth = require('basic-auth-connect'),
   favicon = require('serve-favicon'),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
@@ -34,8 +33,6 @@ module.exports = function(app) {
   app.set('views', path.join(app.directory, '/' + directory));
   app.engine('html', require('ejs').renderFile);
   app.set('view engine', 'html');
-  //app.use(basicAuth('mobius', 'mobius'));
-  //app.use(favicon());
   app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({
     extended: true
