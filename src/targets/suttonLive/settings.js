@@ -49,6 +49,20 @@ angular.module('mobiusApp.config', [])
       'live': 'https://infiniti-evolution-test.appspot.com/track/purchase'
     }
   },
+  'hospitalityEvents': {
+    'development': {
+      'enable': false
+    },
+    'integration': {
+      'enable': false
+    },
+    'staging': {
+      'enable': false
+    },
+    'live': {
+      'enable': false
+    }
+  },
   'infinitiApeironTracking': {
     'development': {
       'enable':false,
