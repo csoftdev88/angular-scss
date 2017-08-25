@@ -48,7 +48,4 @@ module.exports = function(app) {
   });
 
   app.use(errorhandler());
-
-  var env = process.env.NODE_ENV || 'development';
-  require('./' + env)(app);
 };
