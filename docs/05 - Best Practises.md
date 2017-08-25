@@ -20,3 +20,10 @@ have dedicated LESS files, then use the style sheets to apply the correct rules.
 #### Code style guide
 Let's not re invent the wheel, just follow the jshint and eslint and make sure to
 read john papa's angular guide (https://github.com/johnpapa/angular-styleguide/tree/master/a1)
+
+#### Contributing ####
+Don't merge other peoples branches after reviewing
+
+At the beginning of the commit message, please specify the tenant name then a colon.
+
+e.g. git commit -m "sandman: Improve the home page"

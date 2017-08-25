@@ -49,3 +49,13 @@ styling. This file should be the first to be changed. Once the tenant folder
 is copied, change the variables here with the tenant's existing color, font and
 sizing requirments.
 
+Now, go to the settings json and update the API endpoints to the tenant, as well
+as changing / disabling the services such as google analytics, tag manager etc.
+to use to correct tokens. If you know in advance what feature they want on / off,
+you can do this now.
+
+Lastly, copy over all of the static images that mobius uses for the tenant. This
+is mainly the logo, provided at normal, @2x and @3x for retina support as png.
+Additionally you can use http://www.favicomatic.com/ to generate all the favicons
+for the tenant.
+
