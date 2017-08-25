@@ -14,13 +14,13 @@ module.exports = function(app) {
 
   // App sources and bower scripts
   var directory = process.env.NODE_ENV === 'production' ? 'compile' : 'build';
-  app.use('/static/app', express.static(path.join(app.directory, '/' + directory + '/app/')));
-  app.use('/static/styles', express.static(path.join(app.directory, '/' + directory + '/styles/')));
-  app.use('/static/images', express.static(path.join(app.directory, '/build/images/')));
-  app.use('/static/font', express.static(path.join(app.directory, '/build/font/')));
-  app.use('/static/bower_components', express.static(path.join(app.directory, '/bower_components')));
-  app.use('/static/vendors', express.static(path.join(app.directory, '/vendors')));
-  app.use('/static/targets', express.static(path.join(app.directory, '/' + directory + '/targets/')));
+  app.use('/static/app', express.static(path.join(app.directory, '../' + directory + '/app/')));
+  app.use('/static/styles', express.static(path.join(app.directory, '../' + directory + '/styles/')));
+  app.use('/static/images', express.static(path.join(app.directory, '../build/images/')));
+  app.use('/static/font', express.static(path.join(app.directory, '../build/font/')));
+  app.use('/static/bower_components', express.static(path.join(app.directory, '../bower_components')));
+  app.use('/static/vendors', express.static(path.join(app.directory, '../vendors')));
+  app.use('/static/targets', express.static(path.join(app.directory, '../' + directory + '/targets/')));
 
   process.argv.forEach(function (val) {
     if(val.indexOf('port') !== -1){
@@ -30,7 +30,7 @@ module.exports = function(app) {
   });
 
   app.set('port', port || 9000);
-  app.set('views', path.join(app.directory, '/' + directory));
+  app.set('views', path.join(app.directory, '../' + directory));
   app.engine('html', require('ejs').renderFile);
   app.set('view engine', 'html');
   app.use(morgan('dev'));
