@@ -4,9 +4,9 @@
  */
 angular.module('mobiusApp.services.infinitiApeironService', []).service('infinitiApeironService', [
   'Settings', 'apiService', '$state', '_', '$rootScope', 'channelService', 'sessionDataService', 'userObject',
-  '$window', 'user', 'cookieFactory', 'contentService', 'bookingService', 'propertyService', 'locationService', '$q',
+  '$window', 'user', 'cookieFactory', 'contentService', 'bookingService', 'locationService', '$q',
   function(Settings, apiService, $state, _, $rootScope, channelService, sessionDataService, userObject, $window,
-           user, cookieFactory, contentService, bookingService, propertyService, locationService, $q) {
+           user, cookieFactory, contentService, bookingService, locationService, $q) {
 
     var env = document.querySelector('meta[name=environment]').getAttribute('content');
     var endpoint = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].endpoint : null;
@@ -17,6 +17,50 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     var apeironId = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].id : null;
     var isSinglePageApp = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].singlePageApp: false;
     var hospitalityEnabled = !!(Settings.hospitalityEvents && Settings.hospitalityEvents[env]);
+
+    /**
+     * FIXME: Duplicated code from the property service to avoid a circular dependency
+     * The correct fix is to split the property service into 2 services instead
+     * */
+    function correctParams(params) {
+      if (params && (!params.from || !params.to || !params.adults || !params.productGroupId)) {
+        delete params.from;
+        delete params.to;
+        delete params.adults;
+        delete params.children;
+        delete params.productGroupId;
+      }
+      return params;
+    }
+
+    /**
+     * FIXME: Duplicated code from the property service to avoid a circular dependency
+     * The correct fix is to split the property service into 2 services instead
+     * */
+    function getAllProperties(params) {
+      var q = $q.defer();
+      apiService.getThrottled(apiService.getFullURL('properties.all'), correctParams(params)).then(function (propertyData) {
+
+        //If thirdparties system is active and properties are restricted, filter the returned property data
+        if ($rootScope.thirdparty && $rootScope.thirdparty.properties) {
+          var thirdPartyPropertyCodes = $rootScope.thirdparty.properties;
+          if (thirdPartyPropertyCodes.length) {
+            var thirdPartyProperties = [];
+            _.each(thirdPartyPropertyCodes, function (thirdPartyPropertyCode) {
+              var property = _.find(propertyData, function (property) {
+                return thirdPartyPropertyCode === property.code;
+              });
+              if (property) {
+                thirdPartyProperties.push(property);
+              }
+            });
+            propertyData = thirdPartyProperties;
+          }
+        }
+        q.resolve(propertyData);
+      });
+      return q.promise;
+    }
 
     /**
      * Main function used to submit an event to infiniti tracking script with a payload specified by properties
@@ -131,7 +175,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         }
 
         // Get all properties and regions over a specific one by code as they would have likely been cached by now
-        $q.all([propertyService.getAll(), locationService.getRegions()])
+        $q.all([getAllProperties(), locationService.getRegions()])
           .then(function (data) {
             var properties = data[0];
             var regions = data[1];
@@ -150,13 +194,10 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
               }]);
             }
 
-            var dateFormat = 'YYYY-MM-DD';
-            var checkIn = dates.from ? $window.moment(dates.from).format(dateFormat) : '';
-            var checkOut = dates.to ? $window.moment(dates.to).format(dateFormat) : '';
             var searchData = {
               type: 'search_parameters',
-              checkIn: checkIn,
-              checkOut: checkOut,
+              checkIn: dates.from || '',
+              checkOut: dates.to || '',
               corpCode: urlParams.corpCode || '',
               groupCode: urlParams.groupCode || '',
               rooms: rooms,
