@@ -1,0 +1,75 @@
+{
+  "integrations": {},
+  "context": {
+    "page": {
+      "path": "/locations/british-columbia/quesnel/hotels/quesnel-que",
+      "referrer": "",
+      "search": "?property=QUE&adults=2&children=0&dates=2017-10-21_2017-10-28&fromSearch=1",
+      "title": "Sandman Hotel Group",
+      "url": "http://integration-www-sandman.mobiusbookingengine.com/locations/british-columbia/quesnel/hotels/quesnel-que?property=QUE&adults=2&children=0&dates=2017-10-21_2017-10-28&fromSearch=1"
+    },
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36",
+    "library": {
+      "name": "analytics.js",
+      "version": "3.0.0"
+    },
+    "campaign": {}
+  },
+  "properties": {
+    "type": "purchase",
+    "roomCode": "CPKN",
+    "rateCode": "CHAIN-EARLY7PUB",
+    "dailyRate": 152.54999999999998,
+    "leadTime": 52,
+    "lengthOfStay": 7,
+    "noOfOccupants": 2,
+    "paymentType": "cc",
+    "points": null,
+    "policies": [
+      {
+        "type": "cancellation",
+        "value": "C7"
+      },
+      {
+        "type": "family",
+        "value": "DEFAULT"
+      },
+      {
+        "type": "pet",
+        "value": "PET10"
+      },
+      {
+        "type": "extraGuest",
+        "value": "EG1"
+      },
+      {
+        "type": "checkInOut",
+        "value": "DEFSM"
+      },
+      {
+        "type": "noShow",
+        "value": "NOSHOW"
+      },
+      {
+        "type": "guarantee",
+        "value": "DEFAULT"
+      }
+    ],
+    "installationId": "sandman-integration"
+  },
+  "event": "hi_purchase",
+  "anonymousId": "548a83cc-5c25-4471-8b96-79f5fbef51b2",
+  "timestamp": "2017-08-31T13:21:47.163Z",
+  "type": "track",
+  "writeKey": "ufGF40hZthWnYEeH6q09RzrKiusmuWQe",
+  "userId": "a8ab6280-74bb-11e7-9094-5fcdb0698fd5",
+  "sentAt": "2017-08-31T13:21:47.164Z",
+  "_metadata": {
+    "bundled": [
+      "Facebook Pixel",
+      "Segment.io"
+    ],
+    "unbundled": []
+  },
+  "messageId": "ajs-8aa549c298cb52d47d9a1d33c3f87558"
+}
