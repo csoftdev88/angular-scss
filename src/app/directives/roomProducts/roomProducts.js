@@ -15,6 +15,8 @@ angular.module('mobiusApp.directives.room.products', [])
       bookingParams.propertyCode = bookingService.getCodeFromSlug(scope.details.meta.slug);
       bookingParams.roomCode = bookingService.getCodeFromSlug(scope.room.meta.slug);
 
+      scope.currencyCode = stateService.getCurrentCurrency().code;
+
       var numNights = $window.moment(bookingParams.to).diff(bookingParams.from, 'days');
 
       scope.loyaltyProgramEnabled = Settings.loyaltyProgramEnabled;
@@ -102,6 +104,7 @@ angular.module('mobiusApp.directives.room.products', [])
             defaultProducts = $filter('orderBy')(defaultProducts, ['-weighting', 'price.totalBaseAfterPricingRules']);
 
             scope.products = _.uniq([].concat(hiddenProducts, memberOnlyProducts, highlightedProducts, defaultProducts));
+            console.log('products', scope.products);
 
             scope.otaProducts = data.otaProducts;
 

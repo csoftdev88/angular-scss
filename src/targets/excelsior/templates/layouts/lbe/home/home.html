@@ -1,64 +1,90 @@
-<div class="About__hero">
+<div class="About__hero" ng-class="{'fullscreen': !auth.isLoggedIn()}">
 
   <div class="About__hero--info" ng-if="auth.isLoggedIn()">
 
     <h2 class="About__hero--tagline">
-      _about_tagline_
+      _about_offer_title_
     </h2>
-    <h1 class="About__hero--title">
-      _about_title_one_
+    <h1 class="About__hero--title"
+         ng-click="gotoOffer(offers[0])">
+      {{ offers[0].title }}
     </h1>
-    <h1 class="About__hero--title">
-      _about_title_two_
-    </h1>
+    <a ng-click="gotoOffer(offers[0])" class="button ghost">_view_more_</a>
 
   </div>
+
+  <article class="HeroBenefits" ng-if="!auth.isLoggedIn()">
+
+    <div class="HeroBenefits__benefit">
+      <h2>_about_benefit_one_title_</h2>
+      <p>_about_benefit_one_text_</p>
+    </div>
+
+    <div class="HeroBenefits__benefit">
+      <h2>_about_benefit_two_title_</h2>
+      <p>_about_benefit_two_text_</p>
+    </div>
+
+    <div class="HeroBenefits__benefit">
+      <h2>_about_benefit_four_title_</h2>
+      <p>_about_benefit_four_text_</p>
+    </div>
+
+    <div class="HeroBenefits__buttons">
+      <button ng-click="auth.login()"
+              class="HeroBenefits__button login">
+        _login_
+      </button>
+      <button ng-click="auth.register()"
+              class="HeroBenefits__button signup">
+        _sign_up_
+      </button>
+    </div>
+
+  </article>
+
+  <booking-bar class="Home__booking-bar" size="small"></booking-bar>
 
 </div>
 
-<booking-bar class="Home__booking-bar" size="small"></booking-bar>
+<footer class="LoggedInFooter" ng-if="!auth.isLoggedIn()">
+  <div class="Footer__nav">
+    <ul class="Footer__nav--items">
 
-<article class="HeroBenefits" ng-if="!auth.isLoggedIn()">
+      <li class="Footer__nav--item">
+        <a target="_blank" href="_footer_nav_one_link_">_footer_nav_one_</a>
+      </li>
+      <li class="Footer__nav--item">
+        <a target="_blank" href="_footer_nav_two_link_">_footer_nav_two_</a>
+      </li>
+      <li class="Footer__nav--item">
+        <a target="_blank" href="_footer_nav_three_link_">_footer_nav_three_</a>
+      </li>
+      <li class="Footer__nav--item">
+        <a target="_blank" href="_footer_nav_four_link_">_footer_nav_four_</a>
+      </li>
+      <li class="Footer__nav--item">
+        <a target="_blank" href="_footer_nav_five_link_">_footer_nav_five_</a>
+      </li>
+      <li class="Footer__nav--item">
+        <a target="_blank" href="_footer_nav_six_link_">_footer_nav_six_</a>
+      </li>
 
-  <div class="HeroBenefits__benefit">
-    <h2>_about_benefit_one_title_</h2>
-    <p>_about_benefit_one_text_</p>
+    </ul>
   </div>
+</footer>
 
-  <div class="HeroBenefits__benefit">
-    <h2>_about_benefit_two_title_</h2>
-    <p>_about_benefit_two_text_</p>
-  </div>
-
-  <div class="HeroBenefits__benefit">
-    <h2>_about_benefit_four_title_</h2>
-    <p>_about_benefit_four_text_</p>
-  </div>
-
-  <div class="HeroBenefits__buttons">
-    <button ng-click="auth.login()"
-            class="HeroBenefits__button login">
-      _login_
-    </button>
-    <button ng-click="auth.register()"
-            class="HeroBenefits__button signup">
-      _sign_up_
-    </button>
-  </div>
-
-</article>
-
-<main class="grid-wrapper About">
+<main class="grid-wrapper About" ng-if="auth.isLoggedIn()">
 
   <questionnaire ng-if="auth.isLoggedIn()"></questionnaire>
 
   <div class="About__benefits">
 
     <div class="About__logo">
-      <h1>_about_signup_title_</h1>
+      <h1><span>_about_signup_title_</span></h1>
     </div>
 
-    <div class="About__benefits--overview">
+    <div class="About__benefits--overview" ng-class="{'full-width': !rewards[0]}">
 
       <div class="About__benefit">
         <span class="lowest-rates"></span>
@@ -84,20 +110,30 @@
         <p>_about_benefit_four_text_</p>
       </div>
 
+      <div class="About__benefit">
+        <span class="points"></span>
+        <h2>_about_benefit_four_title_</h2>
+        <p>_about_benefit_four_text_</p>
+      </div>
+
+      <div class="About__benefit">
+        <span class="points"></span>
+        <h2>_about_benefit_four_title_</h2>
+        <p>_about_benefit_four_text_</p>
+      </div>
     </div>
 
-    <div class="About__benefits--offer">
-      <h2>_about_offer_title_</h2>
-      <span ng-click="gotoOffer(offers[0])">{{ offers[0].title }}</span>
-      <img ng-click="gotoOffer(offers[0])" ng-src="{{ offers[0].image.uri }}">
+    <div class="About__benefits--offer" ng-if="rewards[0]">
+      <span ui-sref="rewards">{{ rewards[0].title }}</span>
+      <img ui-sref="rewards" ng-src="{{ rewards[0].image.uri }}">
     </div>
 
   </div>
 
   <div class="About__signup">
-    <h1>_become_insider_</h1>
-    <p>_about_signup_text_</p>
-    <button ng-click="auth.register()">_sign_up_</button>
+    <h1>_about_offer_title_</h1>
+    <p>{{ offers[0].title }}</p>
+    <button ng-click="gotoOffer(offers[0])">_view_more_</button>
   </div>
 
   <div class="About__instagram">

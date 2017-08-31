@@ -16,6 +16,7 @@ angular.module('mobiusApp.directives.room', [])
       $controller('PriceCtr', {$scope: scope});
       $controller('RatesCtrl', {$scope: scope});
 
+      scope.currencyCode = stateService.getCurrentCurrency().code;
       scope.ratesLoaded = false;
       scope.isFromSearch = $stateParams.fromSearch && $stateParams.fromSearch === '1';
       scope.roomRatesLimit = Settings.UI.roomDetails.numberOfRatesToShow;

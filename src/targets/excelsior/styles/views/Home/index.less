@@ -32,5 +32,21 @@
     position: absolute;
     right: calc(~'(100vw - 1212px) / 2');
     top: 150px;
+    .fullscreen & {
+      top: calc(~'50% - 183px');
+    }
+  }
+}
+
+.LoggedInFooter {
+  background: @c-primary;
+  position: fixed;
+  z-index: 9999;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  padding-top: 0;
+  .Footer__nav {
+    margin-top: 5px;
   }
 }

@@ -62,6 +62,20 @@ angular.module('mobiusApp.config', [])
       'live': ''
     }
   },
+  'hospitalityEvents': {
+    'development': {
+      'enable': true
+    },
+    'integration': {
+      'enable': true
+    },
+    'staging': {
+      'enable': false
+    },
+    'live': {
+      'enable': false
+    }
+  },
   'infinitiApeironTracking': {
     'local': {
       'enable':false,
@@ -192,7 +206,7 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
+        'url':'https://wxi3vsykv4.execute-api.us-west-2.amazonaws.com/int/event/create'
       },
       'staging': {
         'id': 'sandman-staging',

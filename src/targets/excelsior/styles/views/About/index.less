@@ -8,13 +8,30 @@
 .About__hero {
   width: 100%;
   height: 758px;
-  background: url('@{img-prefix}/skyline_bg.jpg');
+  background: url('@{img-prefix}/cta-bg@3x.png');
   background-size: cover;
+  &.fullscreen {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
 }
 
 .About__hero--info {
-  padding: 345px 0 0 0;
   margin-left: calc(~'(100vw - 1212px) / 2');
+  position: absolute;
+  top: calc(~'50% - 90px');
+}
+
+.button.ghost {
+  margin-top: 20px;
+  background: transparent;
+  border: solid 2px white;
+  &:hover {
+    background: transparent;
+  }
 }
 
 .About__hero--tagline {
@@ -36,15 +53,31 @@
 
 .About__logo {
   margin-bottom: 38px;
+  position: relative;
   h1 {
     text-align: center;
-    font-family: @lbe-ff-primary;
+    font-family: @ff-primary;
     text-transform: uppercase;
-    font-size: 32px;
-    line-height: 39px;
+    font-size: 19px;
+    line-height: 26px;
     margin-bottom: 11px;
-    font-weight: bold;
-    color: #000;
+    font-weight: normal;
+    color: @c-primary;
+
+    span {
+      background: #fff;
+      padding: 0 15px;
+    }
+
+    &:before {
+      border-top: 1px solid @c-primary;
+      content:"";
+      margin: 0 auto; /* this centers the line to the full width specified */
+      position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
+      top: 50%; left: 0; right: 0; bottom: 0;
+      width: 95%;
+      z-index: -1;
+    }
   }
 }
 
@@ -59,6 +92,12 @@
   padding-right: 40px;
   padding-top: 70px;
   box-sizing: border-box;
+  &.full-width {
+    width: 100%;
+    .About__benefit {
+      width: calc(~'33% - 60px');
+    }
+  }
 }
 
 .About__benefits--offer {

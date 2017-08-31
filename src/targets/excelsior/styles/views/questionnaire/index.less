@@ -3,9 +3,9 @@
 
 .questionnaire {
 
-  padding: 0 @questionnaire-padding;
+  padding: 0;
   overflow: hidden;
-  margin-bottom: 115px;
+  margin-bottom: 75px;
   position: relative;
 
   // Typography
@@ -16,20 +16,57 @@
   h1 {
     font-size: 16px;
     letter-spacing: @questionnaire-letter-spacing-wide;
-    font-family: @lbe-ff-primary;
+    font-family: @ff-primary;
   }
 
   h2 {
     font-size: 12px;
     letter-spacing: @questionnaire-letter-spacing-avg;
-    font-family: @lbe-ff-secondary;
+    font-family: @ff-secondary;
   }
 
   .questionnaire__points {
     height: 300px;
-    margin-bottom: 13px;
     object-fit: contain;
     background: url(@questionnaire-points-bg-image);
+    background-size: cover;
+  }
+
+  .questionnaire__footer {
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+    width: 50%;
+    text-align: center;
+    color: #fff;
+    background: #000;
+    opacity: 0.7;
+    font-family: @ff-secondary;
+    font-size: 15px;
+    box-sizing: border-box;
+  }
+
+  .questionnaire__amount {
+    position: absolute;
+    top: 47%;
+    left: 18%;
+    font-family: @ff-secondary;
+    font-size: 39px;
+    color: #fff;
+  }
+
+  .questionnaire__info {
+    position: absolute;
+    top: 0;
+    padding: 10px;
+    color: #fff;
+    background: #000;
+    opacity: 0.7;
+    text-align: center;
+    width: 50%;
+    font-family: @ff-secondary;
+    font-size: 19px;
+    box-sizing: border-box;
   }
 
   .questionnaire__feature {
@@ -47,7 +84,7 @@
 
   .questionnaire__your-points {
     margin: 64px 0 0 66px;
-    font-family: @lbe-ff-secondary;
+    font-family: @ff-secondary;
     .points {
       color: @c-primary;
       font-size: 45px;
@@ -56,7 +93,7 @@
       padding-bottom: 20px;
     }
     .points-label {
-      color: @lbe-c-secondary;
+      color: @c-text;
       font-size: 27px;
       letter-spacing: @questionnaire-letter-spacing-wide;
       text-transform: capitalize;
@@ -66,30 +103,27 @@
   .questionnaire__status {
     margin: 27px 0 0 37px;
     span {
-      font-family: @lbe-ff-secondary;
+      font-family: @ff-secondary;
       text-transform: uppercase;
       color: @c-white;
       font-size: 16px;
-    }
-    &:after {
-      content: url(@questionnaire-status-divider);
-      display: block;
-      margin-left: 7px;
+      &.subtitle {
+        color: @c-text;
+        font-weight: bold;
+      }
     }
   }
 
   .questionnaire__points,
   .questionnaire__feature {
     float: left;
-    width: 54%;
-    margin-right: 15px;
+    width: 50%;
   }
 
   .questionnaire__questions {
     overflow: hidden;
     padding: @questionnaire-questions-padding;
-    border: @questionnaire-questions-border;
-    box-sizing: border-box;
+    border-left: @questionnaire-questions-border;
     height: 100%;
     position: absolute;
     margin-left: 50%;
@@ -100,7 +134,7 @@
     }
 
     .error {
-      font-family: Raleway;
+      font-family: @ff-secondary;
       color: #ff0000;
       font-size: 12px;
     }
@@ -119,7 +153,7 @@
   .questionnaire__options {
     label {
       font-size: 18.2px;
-      font-family: @lbe-ff-primary;
+      font-family: @ff-primary;
       line-height: 2.3;
       color: @c-black;
     }
@@ -150,15 +184,15 @@
     }
     span {
       display: block;
-      font-family: @lbe-ff-secondary;
+      font-family: @ff-secondary;
     }
     .tier {
       text-transform: uppercase;
-      color: @c-white;
+      color: @c-text;
       font-size: 14px;
     }
     .tagline {
-      color: @lbe-c-secondary;
+      color: @c-text;
     }
     .stays {
       font-size: 21px;
@@ -189,7 +223,7 @@
     background-color: rgba(26, 26, 26, 0.8);
     padding: 11px 0 0 17px;
     span {
-      font-family: @lbe-ff-secondary;
+      font-family: @ff-secondary;
       display: block;
       color: @c-white;
     }
@@ -206,7 +240,7 @@
     height: 40px;
     background-color: @c-primary;
     font-size: 16px;
-    font-family: @lbe-ff-primary;
+    font-family: @ff-primary;
     text-align: center;
     border-radius: 0;
     color: @c-white;
@@ -216,7 +250,7 @@
   .questionnaire__nextStay--subtitle,
   .questionnaire__nextStay--details {
     text-transform: uppercase;
-    font-family: @lbe-ff-secondary;
+    font-family: @ff-secondary;
     color: #fff;
   }
 
@@ -233,7 +267,7 @@
 
     &.emptyMessage {
       text-align: center;
-      padding-top: 40%;
+      padding-top: 26%;
       padding-right: 50px;
     }
   }

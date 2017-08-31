@@ -716,6 +716,8 @@ angular
   //localize moment.js
   $window.moment.locale(appLang);
 
+  $rootScope.currencyCode = Settings.UI.currencies.default;
+
   //Let's get property slug if single property and save it to settings for future use
   if (Settings.UI.generics.singleProperty && Settings.UI.generics.defaultPropertyCode) {
     if (!Settings.API.propertySlug) {

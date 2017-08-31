@@ -262,7 +262,7 @@ angular.module('mobiusApp.services.user', [])
     function loadRewards(customerId){
 
       if(!Settings.loyaltyProgramEnabled){
-        return;
+        return $q.when([]);
       }
 
       customerId = customerId || getCustomerId();

@@ -825,22 +825,21 @@ reservation-confirmation {
     }
 
     li:nth-of-type(2) {
-      background: @c-primary;
+      background: lighten(@c-primary, 20%);
       background-size: contain;
       border-bottom: solid 1px #000;
     }
 
     li:last-of-type {
-      background: @c-secondary;
+      background: lighten(@c-secondary, 20%);
       background-size: contain;
       border-bottom: solid 1px #000;
     }
 
     a {
-      color: #fff;
       font-weight: normal;
       text-transform: uppercase;
-      font-family: @lbe-ff-primary;
+      font-family: @ff-primary;
     }
 
     li.active {
@@ -914,6 +913,9 @@ reservation-finished {
       width: 100vw;
       margin-left: calc(~'-50vw + 50% - 10px');
       height: 376px;
+      ng-map {
+        height: 376px;
+      }
       .viewport-mobile & {
         height: 326px;
         margin-top: 120px;
@@ -935,7 +937,8 @@ reservation-finished {
   .map-section {
     hotel-location {
       > header {
-        margin: 74px 0 72px 0;
+        margin: 74px 0 40px 0;
+        position: relative;
         .viewport-mobile & {
           display: none;
         }
@@ -946,14 +949,23 @@ reservation-finished {
       h2 {
         text-transform: uppercase;
         text-align: center;
-        color: #000;
-        font-family: @lbe-ff-primary;
-        font-size: 31px;
-        font-weight: bold;
-        line-height: 36px;
-        &:after {
-          content: url('@{img-prefix}/lbe/divider-orange.png');
-          display: block;
+        color: @c-primary;
+        font-family: @ff-primary;
+        font-size: 19px;
+        font-weight: normal;
+        line-height: 22px;
+        span {
+          background: #fff;
+          padding: 0 15px;
+        }
+        &:before {
+          border-top: 1px solid @c-primary;
+          content:"";
+          margin: 0 auto; /* this centers the line to the full width specified */
+          position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
+          top: 50%; left: 0; right: 0; bottom: 0;
+          width: 95%;
+          z-index: -1;
         }
       }
     }
@@ -967,8 +979,7 @@ reservation-finished {
     margin-left: calc(~'50% - 50vw');
     padding: 70px 0;
     padding-top: 70px !important;
-    background-color: rgba(26, 26, 26, 0.8);
-    .backdrop-filter-blur(20px);
+    background-color: #fff;
     margin-bottom: 100px;
     .viewport-mobile & {
       margin-bottom: 20px;
@@ -1097,7 +1108,7 @@ reservation-finished {
       .backdrop-filter-blur(20px);
       color: #fff;
       text-transform: uppercase;
-      font-family: @lbe-ff-primary;
+      font-family: @ff-primary;
       display: block;
       font-size: 24px;
       line-height: 35px;
@@ -1110,7 +1121,7 @@ reservation-finished {
 
     h3 {
       font-size: 31px;
-      font-family: @lbe-ff-primary;
+      font-family: @ff-primary;
       font-weight: bold;
       line-height: 36px;
       text-transform: uppercase;
@@ -1297,7 +1308,7 @@ reservation-finished {
 
     h3 {
       font-size: 31px;
-      font-family: @lbe-ff-primary;
+      font-family: @ff-primary;
       font-weight: bold;
       line-height: 36px;
       text-transform: uppercase;
@@ -1500,11 +1511,11 @@ reservation-hotel-details {
 
       button:first-of-type{
         border-radius: 0;
-        background: @lbe-ff-primary;
+        background: @ff-primary;
         &:active,
         &:focus,
         &:hover {
-          background: @lbe-ff-primary;
+          background: @ff-primary;
         }
       }
 
@@ -1532,15 +1543,15 @@ reservation-hotel-details {
     }
 
     h1, h3, h4, .booking-date {
-      font-family: @lbe-ff-secondary;
-      color: #fff;
+      font-family: @ff-secondary;
+      color: @c-text;
       text-transform: uppercase;
       font-weight: 300;
     }
 
     span, tr, td {
-      font-family: @lbe-ff-secondary;
-      color: #fff;
+      font-family: @ff-secondary;
+      color: @c-text;
       font-weight: 300;
     }
 
@@ -1662,14 +1673,14 @@ reservation-hotel-details {
 .ConfirmationBackground {
   background: url('@{img-prefix}/confirmation-bg.png');
   position: absolute;
-  height: 900px;
+  height: 100vh;
   width: 100vw;
   top: 0;
   left: 0;
   z-index: -999;
+  background-size: cover;
   .viewport-mobile & {
     height: 1150px;
-    background-size: cover;
   }
 }
 

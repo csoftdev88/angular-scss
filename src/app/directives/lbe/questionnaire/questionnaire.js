@@ -68,6 +68,7 @@
           ]).then(function () {
             scope.points = userObject.loyalties.amount;
             scope.tier = userObject.loyalties.tier;
+            scope.name = userObject.firstName + ' ' + userObject.lastName;
           });
 
           loyaltiesPromise.then(function () {

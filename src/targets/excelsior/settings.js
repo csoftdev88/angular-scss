@@ -53,6 +53,20 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'live': ''
     }
   },
+  'hospitalityEvents': {
+    'development': {
+      'enable': true
+    },
+    'integration': {
+      'enable': true
+    },
+    'staging': {
+      'enable': false
+    },
+    'live': {
+      'enable': false
+    }
+  },
   'infinitiApeironTracking': {
     'development': {
       'enable':false,
@@ -737,7 +751,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'displayPoliciesInDetails':true,
       'displayVideo': true,
       'hideHeader':true,
-      'videoUrl': 'https://www.youtube.com/embed/4znCOZMJdlY',
+      'videoUrl': 'https://www.youtube.com/watch?v=xKRmh7AmOfI',
       'useBackground': true,
       'useSingleRowData': true,
       'useSidetable': false,

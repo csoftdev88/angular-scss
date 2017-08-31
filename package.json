@@ -12,7 +12,19 @@
     "watch.sutton": "grunt development --tenant=suttonLive --environment=integration",
     "watch.meandall": "grunt development --tenant=meandall --environment=integration",
     "watch.stGiles": "grunt development --tenant=stGiles --environment=integration",
-    "watch.excelsior": "grunt development --tenant=excelsior --environment=integration"
+    "watch.excelsior": "grunt development --tenant=excelsior --environment=integration",
+    "build.sandman-live": "NODE_ENV=production grunt production --tenant=sandman --environment=live",
+    "build.sutton-live": "NODE_ENV=production grunt production --tenant=suttonLive --environment=live",
+    "build.meandall-live": "NODE_ENV=production grunt production --tenant=meandall --environment=live",
+    "build.excesior-live": "NODE_ENV=production grunt production --tenant=excelsior --environment=live",
+    "build.sandman-integration": "NODE_ENV=production grunt production --tenant=sandman --environment=integration",
+    "build.sutton-integration": "NODE_ENV=production grunt production --tenant=suttonLive --environment=integration",
+    "build.meandall-integration": "NODE_ENV=production grunt production --tenant=meandall --environment=integration",
+    "build.excesior-integration": "NODE_ENV=production grunt production --tenant=excelsior --environment=integration",
+    "build.sandman-staging": "NODE_ENV=production grunt production --tenant=sandman --environment=staging",
+    "build.sutton-staging": "NODE_ENV=production grunt production --tenant=suttonLive --environment=staging",
+    "build.meandall-staging": "NODE_ENV=production grunt production --tenant=meandall --environment=staging",
+    "build.excesior-staging": "NODE_ENV=production grunt production --tenant=excelsior --environment=staging"
   },
   "engines": {
     "node": "=0.10.22"
