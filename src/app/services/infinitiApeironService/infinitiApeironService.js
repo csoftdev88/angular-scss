@@ -338,8 +338,8 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         'uuid': sessionCookie.sessionData.sessionId
       };
 
-      customerObject.infinitiId = cookieFactory('CustomerID') ? cookieFactory('CustomerID') : 0;
-      customerObject.id = user.getTrackingId() !== null ? user.getTrackingId().toString() : null;
+      customerObject.infinitiId = user.getTrackingId() !== null ? user.getTrackingId().toString() : null;
+      customerObject.id = user.getCustomerId() !== null ? user.getCustomerId().toString() : null;
 
       infinitiApeironData.customer = customerObject;
 
@@ -512,8 +512,8 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         };
       }
 
-      customerObject.infinitiId = cookieFactory('CustomerID') ? cookieFactory('CustomerID') : 0;
-      customerObject.id = user.getTrackingId() !== null ? user.getTrackingId().toString() : null;
+      customerObject.infinitiId = user.getTrackingId() !== null ? user.getTrackingId().toString() : null;
+      customerObject.id = user.getCustomerId() !== null ? user.getCustomerId().toString() : null;
 
       infinitiApeironData.customer = customerObject;
 
