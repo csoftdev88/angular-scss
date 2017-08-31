@@ -150,10 +150,13 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
               }]);
             }
 
+            var dateFormat = 'YYYY-MM-DD';
+            var checkIn = dates.from ? $window.moment(dates.from).format(dateFormat) : '';
+            var checkOut = dates.to ? $window.moment(dates.to).format(dateFormat) : '';
             var searchData = {
               type: 'search_parameters',
-              checkIn: dates.from || '',
-              checkOut: dates.to || '',
+              checkIn: checkIn,
+              checkOut: checkOut,
               corpCode: urlParams.corpCode || '',
               groupCode: urlParams.groupCode || '',
               rooms: rooms,
