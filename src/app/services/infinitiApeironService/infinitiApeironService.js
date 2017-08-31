@@ -86,22 +86,9 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       eventDetails.detail.path = path;
       eventDetails.detail.url = window.location.origin + path;
       eventDetails.detail.title = document.title;
+      eventDetails.detail.propertyCode = bookingService.getCodeFromSlug(propertySlug) || '';
       var event = new CustomEvent('infiniti.page.loaded', eventDetails);
       document.dispatchEvent(event);
-    }
-
-    function trackPage(path){
-      if (hospitalityEnabled) {
-        var eventDetails = {};
-        eventDetails.path = path;
-        eventDetails.url = window.location.origin + path;
-        eventDetails.title = document.title;
-        eventDetails.type = 'page';
-        eventDetails.tags = [];
-        var propertySlug = bookingService.getParams().propertySlug;
-        eventDetails.propertyCode = bookingService.getCodeFromSlug(propertySlug) || '';
-        trackEvent('hi_page', eventDetails);
-      }
     }
 
     function mapRoomsForInfiniti(rooms) {
@@ -238,6 +225,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       });
     }
 
+    // FIXME: this is duplicating most of what already gets sent as an ecommerce event......
     function trackBuy(trackingData, priceData, scopeData, stateParams) {
       if (hospitalityEnabled) {
         var roomData = bookingService.getMultiRoomData(stateParams.rooms);
@@ -411,7 +399,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
             'price': roomData._selectedProduct.price.totalAfterTaxAfterPricingRules,
             'priceBeforeTax': roomData._selectedProduct.price.totalBaseAfterPricingRules,
             'tax': '',
-            'revenue': '',
+            'revenue': ''
           }
         };
         rooms.push(room);
@@ -419,12 +407,12 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
 
       infinitiApeironData.items = rooms;
 
-      var totalDiscount = priceData.totalDiscount * -1; //Discounts come through as negative values
+      var totalDiscount = -priceData.totalDiscount; //Discounts come through as negative values
       var totalPrice = priceData.breakdownTotalBaseAfterPricingRules;
 
       var discountCode = stateParams.promoCode ? stateParams.promoCode : null;
-      discountCode = stateParams.groupCode ? stateParams.groupCode : null;
-      discountCode = stateParams.corpCode ? stateParams.corpCode : null;
+      discountCode = discountCode || stateParams.groupCode ? stateParams.groupCode : null;
+      discountCode = discountCode || stateParams.corpCode ? stateParams.corpCode : null;
 
       infinitiApeironData.transaction = {
         'transactionType': 'purchase',
@@ -657,7 +645,6 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       trackResults: trackResults,
       trackRates: trackRates,
       trackBuy: trackBuy,
-      trackPage: trackPage,
       trackCampaignDisplay: trackCampaignDisplay,
       trackCampaignPurchase: trackCampaignPurchase,
       trackPageView: trackPageView,
