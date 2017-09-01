@@ -167,14 +167,13 @@
         </li>
 
         <li has-dropdown="click"
-            ng-if="isMobile"
-            ng-hide="config.generics.singleProperty || (!config.menu.showHotels && !config.menu.standalone && !isMobile) || (config.menu.standalone && !isMobile)"
+            ng-hide="!isMobile || config.generics.singleProperty || (!config.menu.showHotels && !config.menu.standalone && !isMobile) || (config.menu.standalone && !isMobile)"
             menu-content="hotels"
             data-disable-title-click="true"
             data-title="_hotels_">
         </li>
         <li has-dropdown="hover"
-            ng-hide="config.generics.singleProperty || (!config.menu.showHotels && !config.menu.standalone && !isMobile) || (config.menu.standalone && !isMobile) || isMobile"
+            ng-hide="isMobile || config.generics.singleProperty || (!config.menu.showHotels && !config.menu.standalone && !isMobile) || (config.menu.standalone && !isMobile)"
             menu-content="hotels"
             data-disable-title-click="true"
             data-title="_hotels_">
