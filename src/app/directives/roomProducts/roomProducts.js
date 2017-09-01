@@ -193,15 +193,16 @@ angular.module('mobiusApp.directives.room.products', [])
           }
         }
 
+        var selectedProduct = _.findWhere(scope.products, {code: productCode});
+
         var params = {
           property: scope.details.code,
           roomID: roomCode,
           productCode: productCode,
           promoCode: $stateParams.promoCode || null,
-          locationSlug: $stateParams.locationSlug
+          locationSlug: $stateParams.locationSlug,
+          memberOnly: selectedProduct.memberOnly
         };
-
-        var selectedProduct = _.findWhere(scope.products, {code: productCode});
 
         //If up sells enabled and available display up sell modal
         if(scope.displayUpsells && upsell) {

@@ -59,7 +59,6 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function getTrackingId() {
-      console.log('getTrackingId: ' + window.KS.$me.get().AuthoritativeId);
       if (Settings.authType === 'keystone') {
         return (keystoneIsAuthenticated() && window.KS.$me.get().AuthoritativeId) ? window.KS.$me.get().AuthoritativeId : null;
       }
