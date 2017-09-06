@@ -27,7 +27,7 @@
       <span class="desktop" ng-bind-html="'_single_booking_' | mainHeaderStyle"></span>
     </a>
   </li>
-  <li class="floating-bar--tab-advanced-booking" ng-if="hasMutiroomTab" ng-class="{'is-active': active === ADVANCED_BOOKING}">
+  <li class="floating-bar--tab-advanced-booking" ng-if="hasMultiroomTab" ng-class="{'is-active': active === ADVANCED_BOOKING}">
     <a href="" ng-click="setActive(ADVANCED_BOOKING)" ng-bind-html="'_multiroom_booking_' | mainHeaderStyle"></a>
   </li>
   <li class="floating-bar--tab-my-accounts" ng-show="loyaltyProgramEnabled" ng-class="{'is-active': active === MY_ACCOUNT}">

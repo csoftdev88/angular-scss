@@ -734,7 +734,7 @@ angular.module('mobiusApp.config', [])
       "checkAvailabilityOnChange": false,
       "checkOfferAvailabilityOnChange": false,
       "displayPropertiesMegamenu": false,
-      'hasMutiroomTab': true,
+      'hasMultiroomTab': true,
       'hasRatesSelection': false,
       //searchOffset stops user from searching availability past a certain date (today + searchOffset.days)
       'searchOffset' :{
