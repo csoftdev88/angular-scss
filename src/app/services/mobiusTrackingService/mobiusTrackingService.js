@@ -87,8 +87,9 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
       defaultData.customer.uuid = sessionCookie.sessionData.sessionId;
       defaultData.uuid = sessionCookie.sessionData.sessionId;
       //chain
-      defaultData.chain.code = chainData.code;
-      defaultData.chain.name = chainData.nameShort;
+      // use the property's data first and fallback to default API data
+      defaultData.chain.code = propertyData.chainCode || chainData.code;
+      defaultData.chain.name = propertyData.chain || chainData.nameShort;
       //booking params
       defaultData.noOfAdults = parseInt(bookingParams.adults, 10);
       defaultData.noOfChildren = parseInt(bookingParams.children, 10);

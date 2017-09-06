@@ -18,7 +18,7 @@ describe('bookingWidget', function() {
             loyaltyProgramEnabled: true
           },
           bookingWidget: {
-            hasMutiroomTab: true
+            hasMultiroomTab: true
           },
           screenTypes: {
             mobile: {
@@ -71,8 +71,8 @@ describe('bookingWidget', function() {
       expect(env.scope.active).to.not.be.empty;
     });
 
-    it('should define hasMutiroomTab property on scope according to configuration', function() {
-      expect(env.scope.hasMutiroomTab).equal(true);
+    it('should define hasMultiroomTab property on scope according to configuration', function() {
+      expect(env.scope.hasMultiroomTab).equal(true);
     });
   });
 
@@ -141,7 +141,7 @@ describe('GuestsCtrl', function() {
   });
 
   describe('adults and children', function(){
-    
+
     it('should be define on scope.guestsOptions', function() {
       expect(_scope.guestsOptions.adults).to.be.an('array');
       expect(_scope.guestsOptions.children).to.be.an('array');
@@ -159,7 +159,7 @@ describe('GuestsCtrl', function() {
       expect(_scope.guestsOptions.adults[0].title).equal('1 Adult');
       expect(_scope.guestsOptions.children[0].title).equal('Children');
     });
-    
+
   });
 });
 

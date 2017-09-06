@@ -941,7 +941,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'checkOfferAvailabilityOnChange': false,
       'displayPropertiesMegamenu': true,
       'displaySelectAllHotelsAction':false,
-      'hasMutiroomTab': true,
+      'hasMultiroomTab': true,
       'hasRatesSelection': true,
       'timezone':'America/Vancouver',
       //searchOffset stops user from searching availability past a certain date (today + searchOffset.days)
