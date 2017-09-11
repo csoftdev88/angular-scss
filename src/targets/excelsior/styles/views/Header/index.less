@@ -2,7 +2,7 @@
 
 .Header {
   padding: 18px 130px 17px 130px;
-  height: 70px;
+  height: 100px;
   box-sizing: border-box;
   width: 100%;
   position: fixed;
@@ -12,11 +12,15 @@
 
 .Header__buttons {
   float: right;
+  position: relative;
+  top: 7px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
 }
 
 .Header__menu {
   float: right;
-  padding: 9px 0 0 0;
 }
 
 .Header__buttons--auth {
@@ -31,7 +35,7 @@
 
 .Header__logo {
   position: absolute;
-  top: 8px;
+  top: 20px;
 }
 
 .Header__profile {
@@ -60,26 +64,40 @@
 }
 
 .Header__button {
-  width: 93px;
-  height: 35px;
+  height: 50px;
   box-sizing: border-box;
-  border: 1px solid @c-primary;
-  background: transparent;
-  color: @c-primary;
+  background: #fff;
+
+  color: @c-button-text;
   line-height: 35px;
-  text-transform: uppercase;
-  font-size: 14px;
-  letter-spacing: 0;
   font-family: @ff-primary;
-  font-weight: 100;
-  border-radius: 0;
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: normal;
+
+  border: 1px solid @c-button-border;
+  border-radius: 4px;
   margin: 0 9px 0 0;
   padding: 0;
   text-shadow: none;
 
+  &.login {
+    width: 115px;
+  }
+
   &.register {
+    width: 134px;
     margin-right: 42px;
   }
+
+  i.fa {
+    color: @c-primary;
+    font-size: 19px;
+    position: relative;
+    left: -9px;
+    top: 2px;
+  }
+
 }
 
 .Header__buttons--preferences {
@@ -130,8 +148,8 @@
 
 .Header__menu--hamburger {
   cursor: pointer;
-  height: 19px;
-  width: 26px;
+  height: 20px;
+  width: 27px;
   display: block;
   .main-menu-active & {
     display: none;

@@ -13,12 +13,14 @@
       <button class="Header__button login"
               ng-if="!isUserLoggedIn()"
               ng-click="auth.login()">
-        _log_in_
+        <i class="fa fa-sign-in"></i>
+        _login_
       </button>
 
       <button class="Header__button register"
               ng-if="!auth.isLoggedIn()"
               ng-click="auth.register()">
+        <i class="fa fa-user-plus"></i>
         _register_
       </button>
 
