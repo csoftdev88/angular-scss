@@ -30,8 +30,10 @@
   background: linear-gradient(90deg, #4A4A4A 0%, #676767 100%);
   display: flex;
   flex-flow: row nowrap;
-  justify-content: center;
   align-items: center;
+  h1 {
+   padding-left: 40px;
+  }
   .emphasis {
     font-weight: 600;
   }
@@ -69,6 +71,10 @@
 .HeroBenefit__background {
   flex: 1 1 0px;
   background: linear-gradient(135.58deg, #A06E2E 0%, #B98747 100%);
+  &.get-rewarded {
+    border-left: 1px solid #B58343;
+    border-right: 1px solid #B58343;
+  }
 }
 
 .HeroBenefits__icon-wrapper {
@@ -92,7 +98,7 @@
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
-  flex: 0 0 200px;
+  flex: 0 0 220px;
 }
 
 .HeroBenefits__benefit {
