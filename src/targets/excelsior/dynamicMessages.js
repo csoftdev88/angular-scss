@@ -1,5 +1,7 @@
 //Service to store translations that need to be accessed by JS (all other translations are compiled into HTML from locales)
 
+// FIXME: why reinvent the wheel?? Use a proper i18n library instead, ng-translate works well for example
+
 'use strict';
 
 angular.module('mobiusApp.dynamicMessages', [])
@@ -33,7 +35,11 @@ angular.module('mobiusApp.dynamicMessages', [])
       'corp_code_applied':'Corp code applied successfully',
       'group_code_applied':'Group code applied successfully',
       'enter_valid_choice': 'Please provide a valid option',
-      'answer_the_question': 'Answer the following question to earn XX points'
+      'answer_the_question': 'Answer the following question to earn XX points',
+      'invalid_email_message': 'Please enter a valid email address',
+      'email_match_error_message': 'The emails do not match',
+      'password_pattern_error': 'The password must contain at least 8 characters',
+      'password_match_error_message': 'The passwords do not match'
     },
     'de': {
       'your_reservation': '<div>Ihre Reservierung <strong>',

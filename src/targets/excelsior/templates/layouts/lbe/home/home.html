@@ -61,17 +61,18 @@
       </div>
     </div>
     <div class="HeroBenefits__signup">
+      <h1>_sign_up_home_</h1>
       <div class="form-wrapper">
 
         <a href=""
-           ng-click="registerFormFilledEmail = !registerFormFilledEmail; retentionClick()"
-           ng-show="registerFormFilledEmail"
+           ng-click="registerFormSteps.filledEmail = !registerFormSteps.filledEmail"
+           ng-show="registerFormSteps.filledEmail"
            class="back-btn">
           _back_
         </a>
 
         <form name="registerForm" class="register-form" novalidate>
-          <fieldset ng-show="!registerFormFilledEmail">
+          <fieldset ng-show="!registerFormSteps.filledEmail">
             <form-element>
               <input
                 type="email"
@@ -84,10 +85,9 @@
                 ng-class="{'ng-submitted': form.$submitted &&
                                            (form.registerEmail.$error.required ||
                                            form.registerEmail.$error.emailCheck)}"/>
-              <span class="error"
-                    ng-if="form.$submitted && form.registerEmailConfirm.$error.emailCheck">
-                _invalid_email_message_
-              </span>
+              <div class="input-icon-wrapper">
+                <i class="input-icon fa fa-envelope-o"></i>
+              </div>
             </form-element>
 
             <form-element>
@@ -104,15 +104,9 @@
                                        (form.registerEmailConfirm.$error.required ||
                                        form.registerEmailConfirm.$error.emailCheck ||
                                        form.registerEmailConfirm.$error.equals)}"/>
-              <span class="error"
-                    ng-if="form.$submitted && form.registerEmailConfirm.$error.emailCheck">
-                _invalid_email_message_
-              </span>
-
-              <span class="error"
-                    ng-if="form.$submitted && form.registerEmailConfirm.$error.equals">
-                _email_match_error_message_
-              </span>
+              <div class="input-icon-wrapper">
+                <i class="input-icon fa fa-envelope-o"></i>
+              </div>
             </form-element>
 
             <form-element>
@@ -128,6 +122,9 @@
                                        (form.registerPassword.$error.required ||
                                        form.registerPassword.$error.pattern)}"
                 ng-pattern="$root.generalValidationPattern"/>
+              <div class="input-icon-wrapper">
+                <i class="input-icon fa fa-lock"></i>
+              </div>
             </form-element>
 
             <form-element>
@@ -142,15 +139,14 @@
                 ng-class="{'ng-submitted': form.$submitted &&
                                        (form.registerPasswordConfirm.$error.required ||
                                        form.registerPasswordConfirm.$error.equals)}"/>
-              <span class="error"
-                    ng-if="form.$submitted && form.registerPasswordConfirm.$error.equals">
-                _password_match_error_message_
-              </span>
+              <div class="input-icon-wrapper">
+                <i class="input-icon fa fa-lock"></i>
+              </div>
             </form-element>
 
           </fieldset>
 
-          <fieldset ng-show="registerFormFilledEmail">
+          <fieldset ng-show="registerFormSteps.filledEmail">
             <form-element ng-if="registerTitles">
               <select name="registerTitle"
                       required
@@ -203,17 +199,21 @@
 
           <button-submit role="button"
                          tabindex="0"
-                         ng-show="!registerFormFilledEmail"
-                         ng-click="registerFormFilledEmail = !registerFormFilledEmail">
+                         ng-show="!registerFormSteps.filledEmail"
+                         ng-click="gateRegisterNext(registerForm)">
             _next_
           </button-submit>
 
           <button-submit role="button"
                          tabindex="0"
-                         ng-show="registerFormFilledEmail"
+                         ng-show="registerFormSteps.filledEmail"
                          ng-click="register(registerForm, registerData); retentionClick()">
             _register_
           </button-submit>
+
+          <div class="error-message">
+            {{ getRegisterValidationMessage(registerForm) }}
+          </div>
 
         </form>
 

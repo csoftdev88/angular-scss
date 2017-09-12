@@ -632,6 +632,7 @@
     "reservation_services": "Central Reservations",
     "guest_services": "Guest Services / Concierge",
     "email_us": "Email us",
-    "become_insider": "Become an excelsior insider"
+    "become_insider": "Become an excelsior insider",
+    "sign_up_home": "<span class=\"emphasis\">Sign Up</span> for <span class=\"emphasis\">FREE</span>"
   }
 }

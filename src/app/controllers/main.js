@@ -6,12 +6,16 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService', '$window',
     'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService',
     'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'cookieFactory', 'campaignsService',
-    'locationService', 'bookingService', 'apiService', 'userObject', 'offers',
+    'locationService', 'bookingService', 'apiService', 'userObject', 'offers', 'DynamicMessages',
     function($scope, $state, $modal, orderByFilter, modalService, $window, contentService, Settings, user, $controller,
              _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,
-             stateService,$rootScope, cookieFactory, campaignsService, locationService, bookingService, apiService, userObject, offers) {
+             stateService,$rootScope, cookieFactory, campaignsService, locationService, bookingService, apiService,
+             userObject, offers, DynamicMessages) {
       var activeThirdParty;
       $scope.chainCode = Settings.API.chainCode;
+
+      var appLang = stateService.getAppLanguageCode();
+      var dynamicMessages = appLang && DynamicMessages && DynamicMessages[appLang] ? DynamicMessages[appLang] : null;
 
       try{
 
@@ -42,7 +46,7 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
         $scope.registerCountries = data;
       });
 
-      // @todo move this into registerService and refactor register controller
+      // TODO: move this into a new registerService and refactor register controller
       $scope.register = function(form, registerData){
         $scope.clearErrorMsg();
         $scope.submitted = true;
@@ -74,6 +78,80 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
         }
       };
 
+      /**
+       * Gate pressing Next on the register form
+       * if the first part of the form is not valid.
+       * Because of the confused scope hierarchy we need to pass-in
+       * the stepsModel from the child scope.
+       * */
+      $scope.gateRegisterNext = function(registerForm) {
+        registerForm.$setDirty();
+        var requiredFields = [
+          'registerEmail',
+          'registerEmailConfirm',
+          'registerPassword',
+          'registerPasswordConfirm'
+        ];
+        var allOkay = true;
+        for (var i = 0; i < requiredFields.length; i++) {
+          var fieldName = requiredFields[i];
+          registerForm[fieldName].$setDirty();
+          registerForm[fieldName].$setTouched();
+          if (!registerForm[fieldName].$valid) {
+            allOkay = false;
+          }
+        }
+        if (allOkay) {
+          $scope.registerFormSteps.filledEmail = true;
+        } else {
+          var msg = $scope.getRegisterValidationMessage(registerForm);
+          console.log('Error: ' + msg);
+        }
+      };
+
+      /**
+       * Return the most appropriate error message based on the state of the form
+       * */
+      $scope.getRegisterValidationMessage = function(registerForm) {
+        console.log('Calling getRegisterValidationMessage()');
+        var errorProperties = [
+          '$touched',
+          '$dirty',
+          '$invalid'
+        ];
+
+        // Check if fall conditions to show an error are met for a named field
+        function showFieldError(fieldName) {
+          for (var i = 0; i < errorProperties.length; i++) {
+            var prop = errorProperties[i];
+            if (!registerForm[fieldName][prop]) {
+              console.log('fieldName ' + fieldName + ' -> ' + prop + ' is valid');
+              return false;
+            }
+          }
+          console.log(fieldName + ' Invalid');
+          return true;
+        }
+
+        // Grab message from the i18n file
+        function getTranslatedMessage(key) {
+          console.log('dynamicMessages: ', dynamicMessages);
+          return dynamicMessages && dynamicMessages[key] ? dynamicMessages[key] : '';
+        }
+
+        // Step one
+        if (!$scope.registerFormSteps.filledEmail) {
+          console.log('registerForm', registerForm);
+          if (showFieldError('registerEmail')) {
+            return getTranslatedMessage('invalid_email_message');
+          }
+          if (showFieldError('registerEmailConfirm')) {
+            return getTranslatedMessage('email_match_error_message');
+          }
+        }
+        return '';
+      };
+
       $scope.clearErrorMsg = function () {
         $scope.loginDialogError = false;
         $scope.missingFieldsError = false;
@@ -95,7 +173,9 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
       $scope.loyaltyProgramEnabled = Settings.loyaltyProgramEnabled;
 
       $rootScope.showRegisterDialog = false;
-      $scope.registerFormFilledEmail = false;
+      $scope.registerFormSteps = {
+        filledEmail: false
+      };
 
       $scope.user = userObject;
 

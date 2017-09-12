@@ -27,7 +27,7 @@
   line-height: 38px;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
   border-radius: 6px 6px 0 0;
-  background: linear-gradient(90deg, #4A4A4A 0%, #676767 100%);
+  background: linear-gradient(90deg, @c-alt-grey 0%, #676767 100%);
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -62,14 +62,73 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 374px;
-  height: 441px;
+  width: 304px;
+  height: 381px;
   border-radius: 0 0 6px 0;
   background-color: #fff;
+  padding: 30px 35px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: stretch;
+  .emphasis {
+    font-weight: 700;
+  }
+  & > h1 {
+    color: #404040;
+    font-family: @ff-primary;
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 38px;
+    text-shadow: 0 1px 0 #FFFFFF;
+    margin-bottom: 20px;
+  }
+  .form-wrapper {
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+
+    input {
+      position: relative;
+      margin-bottom: 10px;
+      height: 56px;
+      border: 1px solid #DEDEDE;
+      border-radius: 4px;
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.02);
+      padding-left: 50px;
+      .placeholder({
+        color: lighten(@c-alt-grey, 30%);
+        font-family: @ff-primary;
+        font-size: 16px;
+        font-weight: 300;
+      });
+    }
+    .input-icon-wrapper {
+      height: 56px;
+      width: 50px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(101,101,101,0.27);
+      font-size: 20px;
+    }
+    input.ng-touched.ng-dirty.ng-invalid + .input-icon-wrapper {
+      color: @c-red;
+    }
+    input.ng-touched.ng-dirty.ng-valid + .input-icon-wrapper {
+      color: @c-green;
+    }
+  }
 }
 
 .HeroBenefit__background {
   flex: 1 1 0px;
+  display: flex;
   background: linear-gradient(135.58deg, #A06E2E 0%, #B98747 100%);
   &.get-rewarded {
     border-left: 1px solid #B58343;
@@ -102,8 +161,8 @@
 }
 
 .HeroBenefits__benefit {
-  width: 100%;
-  height: 100%;
+  flex: 1 1 0px;
+  align-self: stretch;
   display: flex;
   flex-flow: column nowrap;
   h1, h2, p {
