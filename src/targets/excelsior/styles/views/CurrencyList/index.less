@@ -8,3 +8,30 @@
   padding: @CurrencyList__flag-padding;
 }
 
+.CurrencyList {
+  cursor: pointer;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  color: #4A4A4A;
+  font-family: @ff-primary;
+  font-size: 14px;
+  font-weight: 600;
+  &::after {
+    font-family: FontAwesome;
+    content: "\f107";
+    color: #C8C8C8;
+    font-size: 16px;
+    line-height: 16px;
+  }
+  & > .fa {
+    color: #4A4A4A;
+    font-size: 20px;
+    margin-right: 10px;
+  }
+}
+
+.CurrencyList__current {
+  margin-right: 5px;
+  min-width: 35px;
+}
