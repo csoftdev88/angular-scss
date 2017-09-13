@@ -91,7 +91,7 @@
       console.log('logging out');
       $rootScope.$evalAsync(function() {
         userObject = {};
-        console.log('ging home');
+        console.log('going home');
         $state.go('home', {}, {reload: true});
       });
       // Removing auth headers
