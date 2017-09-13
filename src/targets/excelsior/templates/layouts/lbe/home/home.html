@@ -193,6 +193,7 @@
             <form-element ng-if="registerCountries">
               <select type="text"
                       id="country"
+                      class="with-icon"
                       required
                       placeholder="_country_label_"
                       placeholder-text-single="_country_label_"
@@ -200,8 +201,8 @@
                       ng-model="registerData.localeId"
                       name="country"
                       chosen>
-                <option value="">_country_label_</option>
               </select>
+              <i class="country-icon fa fa-globe"></i>
             </form-element>
           </fieldset>
 

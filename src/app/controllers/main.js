@@ -103,6 +103,10 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
         }
         if (allOkay) {
           $scope.registerFormSteps.filledEmail = true;
+          // Trick to set the search placeholder inside the chosen drop-down
+          angular
+            .element('.chosen-container-single .chosen-search input')
+            .attr('placeholder', 'Search countries');
         }
       };
 
@@ -174,6 +178,7 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
       $scope.registerFormSteps = {
         filledEmail: false
       };
+      $scope.registerData = {};
 
       $scope.user = userObject;
 
