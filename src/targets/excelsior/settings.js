@@ -505,9 +505,9 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     'displaySocialLinks': true,
     'socialLinks': [
       {'network': 'blog', 'link': ''},
-      {'network': 'facebook', 'link': 'https://www.facebook.com/StGilesHotels/'},
-      {'network': 'twitter', 'link': 'https://twitter.com/stgileshotels'},
-      {'network': 'instagram', 'link': 'https://www.instagram.com/stgileshotels/'},
+      {'network': 'facebook', 'link': 'https://www.facebook.com/excelsiornyc'},
+      {'network': 'twitter', 'link': 'https://twitter.com/excelsiornyc'},
+      {'network': 'instagram', 'link': ''},
       {'network': 'google', 'link': ''}
     ],
     'socialLinksNew': {

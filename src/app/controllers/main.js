@@ -103,9 +103,6 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
         }
         if (allOkay) {
           $scope.registerFormSteps.filledEmail = true;
-        } else {
-          var msg = $scope.getRegisterValidationMessage(registerForm);
-          console.log('Error: ' + msg);
         }
       };
 
@@ -113,40 +110,41 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
        * Return the most appropriate error message based on the state of the form
        * */
       $scope.getRegisterValidationMessage = function(registerForm) {
-        console.log('Calling getRegisterValidationMessage()');
         var errorProperties = [
           '$touched',
           '$dirty',
           '$invalid'
         ];
 
-        // Check if fall conditions to show an error are met for a named field
+        // Check if all conditions to show an error message are met for a named field
         function showFieldError(fieldName) {
           for (var i = 0; i < errorProperties.length; i++) {
             var prop = errorProperties[i];
             if (!registerForm[fieldName][prop]) {
-              console.log('fieldName ' + fieldName + ' -> ' + prop + ' is valid');
               return false;
             }
           }
-          console.log(fieldName + ' Invalid');
           return true;
         }
 
-        // Grab message from the i18n file
+        // Grab message from the dynamicMessages service
         function getTranslatedMessage(key) {
-          console.log('dynamicMessages: ', dynamicMessages);
           return dynamicMessages && dynamicMessages[key] ? dynamicMessages[key] : '';
         }
 
+        var fieldToErrorMessage = {
+          registerEmail: 'invalid_email_message',
+          registerEmailConfirm: 'email_match_error_message',
+          registerPassword: 'password_pattern_error',
+          registerPasswordConfirm: 'password_match_error_message'
+        };
+
         // Step one
         if (!$scope.registerFormSteps.filledEmail) {
-          console.log('registerForm', registerForm);
-          if (showFieldError('registerEmail')) {
-            return getTranslatedMessage('invalid_email_message');
-          }
-          if (showFieldError('registerEmailConfirm')) {
-            return getTranslatedMessage('email_match_error_message');
+          for (var field in fieldToErrorMessage) {
+            if (showFieldError(field)) {
+              return getTranslatedMessage(fieldToErrorMessage[field]);
+            }
           }
         }
         return '';
