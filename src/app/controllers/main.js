@@ -59,7 +59,7 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
           apiService.post(apiService.getFullURL('customers.register'), registerData).then(function(response){
             userObject.id = response.id;
             user.loadProfile();
-            $rootScope.showRegisterDialog = !$rootScope.showRegisterDialog;
+            $rootScope.showRegisterDialog = false;
             $state.go('home');
           }, function(err){
             if(err.error.msg === 'User already registered'){
@@ -114,6 +114,9 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
        * Return the most appropriate error message based on the state of the form
        * */
       $scope.getRegisterValidationMessage = function(registerForm) {
+        if (!registerForm) {
+          return;
+        }
         var errorProperties = [
           '$touched',
           '$dirty',
