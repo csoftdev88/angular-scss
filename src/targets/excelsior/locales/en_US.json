@@ -633,6 +633,7 @@
     "guest_services": "Guest Services / Concierge",
     "email_us": "Email us",
     "become_insider": "Become an excelsior insider",
-    "sign_up_home": "<span class=\"emphasis\">Sign Up</span> for <span class=\"emphasis\">FREE</span>"
+    "sign_up_home": "<span class=\"emphasis\">Sign Up</span> for <span class=\"emphasis\">FREE</span>",
+    "members_only_incentive": "Not a member? <span class=\"emphasis underline\">Register</span> today for <span class=\"emphasis\">Free!</span>"
   }
 }

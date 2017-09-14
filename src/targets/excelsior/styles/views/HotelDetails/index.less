@@ -1,6 +1,65 @@
 @import "./mobile";
 
+.members-only-banner {
+  width: 100%;
+  height: 191px;
+  position: relative;
+  top: 100px;
+  background: url('@{img-prefix}/rewards-bg.png') center no-repeat;
+  background-size: cover;
+
+  .glass-filter {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  .members-only-banner__labels-positionner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+    max-width: 1212px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0 20px;
+    height: 100%;
+    user-select: none;
+  }
+
+  .members-only-banner__label {
+    color: #fff;
+    font-family: Quattrocento;
+    text-transform: uppercase;
+    font-size: 50px;
+    line-height: 50px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+    cursor: default;
+  }
+
+  .members-only-banner__not-member {
+    color: #fff;
+    font-family: @ff-primary;
+    font-size: 24px;
+    line-height: 24px;
+    font-weight: 300;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    .emphasis {
+      font-weight: 600;
+    }
+    .underline {
+      text-decoration: underline;
+    }
+  }
+
+}
+
 .HotelDetails {
+  margin-top: 100px;
+
   // Hide all the dividers
   hr {
     display: none;
