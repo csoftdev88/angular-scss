@@ -259,8 +259,14 @@
     input.ng-touched.ng-dirty.ng-invalid + .input-icon-wrapper {
       color: @c-red;
     }
-
     input.ng-touched.ng-dirty.ng-valid + .input-icon-wrapper {
+      color: @c-green;
+    }
+
+    select.ng-dirty.ng-invalid ~ .country-icon {
+      color: @c-red;
+    }
+    select.ng-dirty.ng-valid ~ .country-icon {
       color: @c-green;
     }
   }

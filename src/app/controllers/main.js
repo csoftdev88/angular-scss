@@ -47,7 +47,7 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
       });
 
       // TODO: move this into a new registerService and refactor register controller
-      $scope.register = function(form, registerData){
+      $scope.register = function(form, registerData) {
         $scope.clearErrorMsg();
         $scope.submitted = true;
         if (form.$valid) {
@@ -84,29 +84,49 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
        * Because of the confused scope hierarchy we need to pass-in
        * the stepsModel from the child scope.
        * */
-      $scope.gateRegisterNext = function(registerForm) {
+      $scope.gatedRegisterNext = function(registerForm, formData) {
         registerForm.$setDirty();
-        var requiredFields = [
+        var requiredStep1 = [
           'registerEmail',
           'registerEmailConfirm',
           'registerPassword',
           'registerPasswordConfirm'
         ];
+        var requiredStep2 = [
+          'registerTitle',
+          'registerFname',
+          'registerLname',
+          'country'
+        ];
         var allOkay = true;
-        for (var i = 0; i < requiredFields.length; i++) {
-          var fieldName = requiredFields[i];
+
+        var requiredFields = $scope.registerFormSteps.filledEmail ? requiredStep2 : requiredStep1;
+        var otherFields = $scope.registerFormSteps.filledEmail ? requiredStep1 : requiredStep2;
+
+        var i, fieldName;
+        for (i = 0; i < requiredFields.length; i++) {
+          fieldName = requiredFields[i];
           registerForm[fieldName].$setDirty();
           registerForm[fieldName].$setTouched();
           if (!registerForm[fieldName].$valid) {
             allOkay = false;
           }
         }
+        for (i = 0; i < otherFields.length; i++) {
+          fieldName = otherFields[i];
+          registerForm[fieldName].$setPristine();
+          registerForm[fieldName].$setUntouched();
+        }
         if (allOkay) {
-          $scope.registerFormSteps.filledEmail = true;
-          // Trick to set the search placeholder inside the chosen drop-down
-          angular
-            .element('.chosen-container-single .chosen-search input')
-            .attr('placeholder', 'Search countries');
+          if (!$scope.registerFormSteps.filledEmail) {
+            $scope.registerFormSteps.filledEmail = true;
+            // Trick to set the search placeholder inside the chosen drop-down
+            angular
+              .element('.chosen-container-single .chosen-search input')
+              .attr('placeholder', 'Search countries');
+            return;
+          }
+          $scope.register(registerForm, formData);
         }
       };
 
@@ -139,19 +159,25 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
           return dynamicMessages && dynamicMessages[key] ? dynamicMessages[key] : '';
         }
 
-        var fieldToErrorMessage = {
+        var field2ErrStep1 = {
           registerEmail: 'invalid_email_message',
           registerEmailConfirm: 'email_match_error_message',
           registerPassword: 'password_pattern_error',
           registerPasswordConfirm: 'password_match_error_message'
         };
 
-        // Step one
-        if (!$scope.registerFormSteps.filledEmail) {
-          for (var field in fieldToErrorMessage) {
-            if (showFieldError(field)) {
-              return getTranslatedMessage(fieldToErrorMessage[field]);
-            }
+        var field2ErrStep2 = {
+          registerTitle: 'missing_title',
+          registerFname: 'missing_fname',
+          registerLname: 'missing_lname',
+          country: 'missing_country'
+        };
+
+        var fieldToErrorMessage = $scope.registerFormSteps.filledEmail ? field2ErrStep2 : field2ErrStep1;
+        for (var field in fieldToErrorMessage) {
+          if (!fieldToErrorMessage.hasOwnProperty(field)) { continue; }
+          if (showFieldError(field)) {
+            return getTranslatedMessage(fieldToErrorMessage[field]);
           }
         }
         return '';

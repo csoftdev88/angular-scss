@@ -209,14 +209,14 @@
           <button-submit role="button"
                          tabindex="0"
                          ng-show="!registerFormSteps.filledEmail"
-                         ng-click="gateRegisterNext(registerForm)">
+                         ng-click="gatedRegisterNext(registerForm)">
             _next_
           </button-submit>
 
           <button-submit role="button"
                          tabindex="0"
                          ng-show="registerFormSteps.filledEmail"
-                         ng-click="register(registerForm, registerData); retentionClick()">
+                         ng-click="gatedRegisterNext(registerForm, registerData)">
             _register_
           </button-submit>
 
@@ -228,17 +228,6 @@
 
       </div>
     </div>
-
-    <!--<div class="HeroBenefits__buttons">-->
-      <!--<button ng-click="auth.login()"-->
-              <!--class="HeroBenefits__button login">-->
-        <!--_login_-->
-      <!--</button>-->
-      <!--<button ng-click="auth.register()"-->
-              <!--class="HeroBenefits__button signup">-->
-        <!--_sign_up_-->
-      <!--</button>-->
-    <!--</div>-->
 
   </article>
 
