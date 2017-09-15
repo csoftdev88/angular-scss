@@ -1,10 +1,13 @@
 //- DATEPICKER -//
 
+@in-shadow: -1px 0 0 #eaeaea;
+@out-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.15);
+
 .ui-datepicker {
   margin-top: 5px;
   border-radius: 6px;
   overflow: hidden;
-  box-shadow: 0 0 0px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: @out-shadow;
   background: #fff;
 
   &:after {
@@ -15,7 +18,7 @@
     //Add to second datepicker, create a border without messing up width dimensions
     + .ui-datepicker-group {
       .ui-datepicker-calendar {
-        box-shadow: -1px 0 0 #eaeaea;
+        box-shadow: @in-shadow;
       }
     }
   }
@@ -23,7 +26,7 @@
   .ui-datepicker-header {
     color: #000;
     border-bottom: 1px solid #eaeaea;
-    box-shadow: -1px 0 0 #eaeaea;
+    box-shadow: @in-shadow;
   }
 
   .ui-datepicker-prev,
@@ -33,7 +36,7 @@
   }
 
   .ui-datepicker-buttonpane {
-    box-shadow: 0 -1px 0 #eaeaea;
+    box-shadow: @in-shadow;
   }
 
   &:after {
