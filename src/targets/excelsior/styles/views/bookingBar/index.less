@@ -5,6 +5,11 @@
   background-color: #fff;
   box-sizing: border-box;
 
+  input, .chosen-container {
+    border: 1px solid #E6D4BD;
+    box-shadow: none;
+  }
+
   // If the booking bar is anchored to the top, its parent will have a class sticky
   // with position fixed, so here we make the booking bar full width while having a fixed parent
   .sticky & {
@@ -18,6 +23,11 @@
 
   .sticky.roombar & {
     left: -50%;
+  }
+
+  .booking-bar__form--guests .chosen-container {
+    // Urrgh! Some idiot guy who doesn't understand CSS specificity put !important on the master style sheet!
+    width: 160px !important;
   }
 
   p, span, label {
@@ -68,25 +78,37 @@
 
   &.booking-bar__size-large,
   &.booking-bar__size-full-width {
-    padding: 31px 50px 10px 50px;
+    padding: 10px 50px 0px 50px;
     .booking-bar__form--rooms {
+      display: flex;
+      flex-flow: row nowrap;
+      flex: none;
       .multiroom-booking & {
         width: 340px;
         display: block;
         margin-top: 20px;
       }
       &.margin-left {
-        margin: 20px 0 0 273px;
+        margin: 10px 0 0 306px;
       }
     }
     .booking-bar__form {
+      display: flex;
+      flex-direction: row;
       .booking-bar__link.advanced {
-        margin-right: 20px;
+        margin-right: 12px;
       }
       &.multiroom-booking {
+        flex-wrap: wrap;
         .booking-bar__form--rooms {
-          display: block;
-          width: 520px;
+          flex: 0 0 100%;
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: baseline;
+          justify-content: flex-start;
+          &.inlineFormElement {
+            flex: none;
+          }
         }
         .booking-bar__link.remove-room {
           width: initial;
@@ -105,7 +127,9 @@
       }
       form-element {
         display: inline-block;
-        padding: 0 20px 0 0;
+        &:not(:last-child) {
+          margin-right: 12px;
+        }
       }
       .booking-bar__link.remove {
         width: initial;
@@ -116,9 +140,14 @@
           padding: 0;
         }
       }
-      .booking-bar__submit {
-        width: 125px;
-      }
+    }
+
+    .search-button-positionner {
+      flex: 1 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
     }
   }
 
@@ -126,10 +155,11 @@
     width: 100vw;
     margin-left: calc(~'50% - 50vw');
     display: flex;
-    background: #f1e7da;
+    border: 1px solid #E6D4BD;
+    background-color: #F1E7DA;
 
     .booking-bar__form {
-      width: 1112px;
+      width: 1212px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -143,20 +173,34 @@
     }
 
     .dates {
-      width: 250px;
+      width: 294px;
       input[type="text"] {
         color: #3C3C3C;
-        background: #F7F7F7;
+        background: #fff;
       }
     }
 
     .dates-text {
+      z-index: 1;
       position: absolute;
-      z-index: 100;
-      top: 10px;
-      left: 10px;
+      top: 2px;
+      left: 2px;
       color: #3C3C3C;
-      background: #F7F7F7;
+      background: #fff;
+      font-size: 15px;
+      font-weight: 300;
+      height: 52px;
+      line-height: 52px;
+      padding-left: 20px;
+      cursor: pointer;
+      width: calc(~'100% - 24px');
+      .fa-calendar {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        color: #C8C8C8;
+        font-size: 17px;
+      }
     }
 
     .booking-bar__form--label {
@@ -170,10 +214,6 @@
 
     .booking-bar__form--room {
       width: 245px;
-    }
-
-    .booking-bar__form--guests {
-      width: 200px;
     }
 
     .booking-bar__form--code {
@@ -198,16 +238,28 @@
     }
 
     .booking-bar__submit {
-      border-radius: 0;
-      background-color: @c-secondary;
-      color: white;
-      font-family: @ff-primary;
       text-transform: uppercase;
-      font-weight: 100;
-      height: 45px;
-      width: 117px;
-      font-size: 16px;
-      line-height: 19px;
+      height: 56px;
+      width: 203px;
+      border: 1px solid #79AF41;
+      border-radius: 4px;
+      font-family: @ff-primary;
+      background-color: #87C34A;
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 24px;
+      text-align: center;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+      transition: background-color 200ms;
+      &:hover {
+        background-color: #79AF41;
+      }
+      &:focus {
+        background-color: #79AF41;
+        outline: none;
+      }
+      box-shadow: none;
     }
   }
 

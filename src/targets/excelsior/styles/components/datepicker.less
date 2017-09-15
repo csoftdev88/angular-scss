@@ -1,7 +1,10 @@
 //- DATEPICKER -//
 
 .ui-datepicker {
-  box-shadow: 0 0 1px @c-black;
+  margin-top: 5px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 0 0px 3px rgba(0, 0, 0, 0.05);
   background: #fff;
 
   &:after {
@@ -12,22 +15,25 @@
     //Add to second datepicker, create a border without messing up width dimensions
     + .ui-datepicker-group {
       .ui-datepicker-calendar {
-        box-shadow: -1px 0 0 #363636;
+        box-shadow: -1px 0 0 #eaeaea;
       }
     }
   }
 
   .ui-datepicker-header {
     color: #000;
+    border-bottom: 1px solid #eaeaea;
+    box-shadow: -1px 0 0 #eaeaea;
   }
 
   .ui-datepicker-prev,
   .ui-datepicker-next {
-    color: #000;
+    font-size: 16px;
+    color: #b98747;
   }
 
   .ui-datepicker-buttonpane {
-    box-shadow: 0 -1px 0 #363636;
+    box-shadow: 0 -1px 0 #eaeaea;
   }
 
   &:after {
@@ -36,6 +42,7 @@
 }
 //- Calendar Table
 .ui-datepicker-calendar {
+  margin: 0;
   thead {
     tr {
       th {
@@ -99,11 +106,11 @@
         a,
         span {
           color: white !important;
-          background: @lbe-c-primary;
+          background: #87C34A;
         }
 
         &:before {
-          background: @lbe-c-primary;
+          background: #87C34A;
         }
 
         &:after {
@@ -126,7 +133,7 @@
         }
 
         a {
-          background: @lbe-c-primary;
+          background: #87C34A;
           color: white;
         }
       }
@@ -234,10 +241,11 @@
     }
   }
 
-  .ui-datepicker-close {
-    background: @lbe-c-primary !important;
-    font-size: 14px !important;
-    color: #fff !important;
-    text-transform: uppercase !important;
+  button.ui-datepicker-close {
+    background: #87C34A;
+    font-size: 15px;
+    color: #fff;
+    text-transform: uppercase;
+    width: auto;
   }
 }

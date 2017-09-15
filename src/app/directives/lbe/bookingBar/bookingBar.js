@@ -190,6 +190,9 @@
           if (scope.rooms.length > 1) {
             scope.rooms.splice(index, 1);
           }
+          if (scope.rooms.length < 2) {
+            scope.multiRoomSearch = false;
+          }
         };
 
         scope.switchSearchType = function () {

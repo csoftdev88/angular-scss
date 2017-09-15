@@ -39,21 +39,17 @@
              data-force-end-date="true"
              input-text="inputDateText"
              bar-data="selected"
-             not-available-description="'_not_available_description_'">
-      <input-value class="dates-text" ng-click="openDatePicker()">
-        {{ inputDateText }}
-      </input-value>
+             not-available-description="'_not_available_description_'"/>
+
+      <div class="input-value dates-text" ng-click="openDatePicker()">
+        {{ inputDateText || '_dates_' }}
+        <i class="fa fa-calendar"></i>
+      </div>
     </form-element>
 
     <form-element class="booking-bar__form--rooms"
                   ng-repeat="room in rooms"
-                  ng-class="{'inlineFormElement': room == rooms[0], 'margin-left': room !== rooms[0]}">
-
-      <a ng-click="removeRoom($index)"
-            ng-if="$index !== 0"
-            class="booking-bar__link remove-room">
-        _remove_room_
-      </a>
+                  ng-class="{'inlineFormElement':$first, 'margin-left': !$first}">
 
       <form-element class="booking-bar__form--guests adults">
         <select name="adults"
@@ -74,6 +70,12 @@
                 ng-options="child.value as child.title for child in children">
         </select>
       </form-element>
+
+      <a ng-click="removeRoom($index)"
+         ng-if="$index !== 0"
+         class="booking-bar__link remove-room">
+        _remove_room_
+      </a>
 
     </form-element>
 
@@ -102,22 +104,26 @@
       </remove-text>
     </form-element>
 
-    <button type="submit"
-            ng-click="doSearch()"
-            class="booking-bar__submit">
-      _search_
-    </button>
+    <div class="search-button-positionner">
+      <button type="submit"
+              ng-click="doSearch()"
+              class="booking-bar__submit">
+        _search_
+      </button>
+    </div>
 
-    <a ng-click="switchSearchType()"
-       ng-show="!multiRoomSearch"
-       class="booking-bar__link advanced">
-      _advanced_search_
-    </a>
-    <a ng-click="switchSearchType()"
-       ng-show="multiRoomSearch"
-       class="booking-bar__link quick">
-      _quick_book_
-    </a>
+    <!--Disabling these until we have a good design-->
+    <!--<a ng-click="switchSearchType()"-->
+       <!--ng-show="!multiRoomSearch"-->
+       <!--class="booking-bar__link advanced">-->
+      <!--_advanced_search_-->
+    <!--</a>-->
+    <!---->
+    <!--<a ng-click="switchSearchType()"-->
+       <!--ng-show="multiRoomSearch"-->
+       <!--class="booking-bar__link quick">-->
+      <!--_quick_book_-->
+    <!--</a>-->
 
   </form>
 
