@@ -157,21 +157,22 @@
           stateParams.children = scope.rooms[0].children;
           stateParams.dates = scope.dates;
 
-          if (scope.search.code !== 'default') {
-            stateParams[scope.search.codeType] = scope.search.code;
-          }
+          stateParams.promoCode = null;
+          stateParams.corpCode = null;
+          stateParams.groupCode = null;
+
           // Changing application state
-          if(!scope.multiRoomSearch) {
+          if (!scope.multiRoomSearch) {
             // Removing rooms when not in multiroom booking mode
             stateParams.rooms = null;
             stateParams.room = null;
+            // N.B. Only single-room bookings can use codes
+            if (scope.search.code) {
+              stateParams[scope.search.codeType] = scope.search.code;
+            }
           } else {
             stateParams.rooms = scope.rooms;
             stateParams.room = 1;
-            // Multi room bookings cannot use codes
-            stateParams.promoCode = null;
-            stateParams.corpCode = null;
-            stateParams.groupCode = null;
           }
           if ($stateParams.roomSlug) {
             stateParams.roomSlug = $stateParams.roomSlug;
