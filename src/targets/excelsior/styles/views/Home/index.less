@@ -35,6 +35,10 @@
     .fullscreen & {
       top: calc(~'50% - 183px');
     }
+    .fullscreen &.booking-bar__size-full-width-bottom {
+      top: initial;
+      bottom: 0;
+    }
   }
 }
 
@@ -48,5 +52,18 @@
   padding-top: 0;
   .Footer__nav {
     margin-top: 5px;
+  }
+}
+
+.drop-up .chosen-container {
+  &.chosen-with-drop {
+    border-radius: 0 0 4px 4px;
+    border-color: #ccb08c;
+  }
+  .chosen-drop {
+    top: initial;
+    bottom: 54px;
+    border-radius: 4px 4px 0 0;
+    border-color: #ccb08c;
   }
 }

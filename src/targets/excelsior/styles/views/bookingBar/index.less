@@ -77,7 +77,8 @@
   }
 
   &.booking-bar__size-large,
-  &.booking-bar__size-full-width {
+  &.booking-bar__size-full-width,
+  &.booking-bar__size-full-width-bottom {
     padding: 10px 50px 0px 50px;
     .booking-bar__form--rooms {
       display: flex;
@@ -151,7 +152,8 @@
     }
   }
 
-  &.booking-bar__size-full-width {
+  &.booking-bar__size-full-width,
+  &.booking-bar__size-full-width-bottom {
     width: 100vw;
     margin-left: calc(~'50% - 50vw');
     display: flex;
@@ -169,7 +171,7 @@
 
     span, input {
       color: #3C3C3C;
-      font-family: @ff-secondary;
+      font-family: @ff-primary;
     }
 
     .dates {
@@ -224,16 +226,20 @@
       display: inline-block;
       position: absolute;
       margin: 2px 4px;
-      right: 25px;
-      top: 9px;
-      color: @c-gray;
+      font-size: 20px;
+      right: 15px;
+      top: 15px;
       z-index: 9;
       cursor: pointer;
 
       &:before {
         .fa;
         content: @fa-var-times;
-        color: #3C3C3C;
+        cursor: pointer;
+        color: lighten(@c-mid-grey, 10%);
+      }
+      &:hover:before {
+        color: @c-mid-grey;
       }
     }
 
