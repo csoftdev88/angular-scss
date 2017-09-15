@@ -32,7 +32,7 @@ angular.module('mobiusApp.directives.stickable', [])
           }
 
           var elementToStick = $('#' + attr.stickable);
-          var elementToStickHeight = elementToStick.height();
+          var elementToStickHeight = elementToStick.outerHeight();
           var growlAlerts = $('growl-alerts');
 
           if (elementToStickHeight && (elementOffset - scrollTop < elementToStickHeight)) {
