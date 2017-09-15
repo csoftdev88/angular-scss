@@ -20,16 +20,19 @@
     "build.meandall-live": "NODE_ENV=production grunt production --tenant=meandall --environment=live",
     "build.excelsior-live": "NODE_ENV=production grunt production --tenant=excelsior --environment=live",
     "build.national-live": "NODE_ENV=production grunt production --tenant=national --environment=live",
+    "build.stGiles-live": "NODE_ENV=production grunt production --tenant=stGiles --environment=live",
     "build.sandman-integration": "NODE_ENV=production grunt production --tenant=sandman --environment=integration",
     "build.sutton-integration": "NODE_ENV=production grunt production --tenant=suttonLive --environment=integration",
     "build.meandall-integration": "NODE_ENV=production grunt production --tenant=meandall --environment=integration",
     "build.excelsior-integration": "NODE_ENV=production grunt production --tenant=excelsior --environment=integration",
     "build.national-integration": "NODE_ENV=production grunt production --tenant=national --environment=integration",
+    "build.stGiles-integration": "NODE_ENV=production grunt production --tenant=stGiles --environment=integration",
     "build.sandman-staging": "NODE_ENV=production grunt production --tenant=sandman --environment=staging",
     "build.sutton-staging": "NODE_ENV=production grunt production --tenant=suttonLive --environment=staging",
     "build.meandall-staging": "NODE_ENV=production grunt production --tenant=meandall --environment=staging",
     "build.excelsior-staging": "NODE_ENV=production grunt production --tenant=excelsior --environment=staging",
-    "build.national-staging": "NODE_ENV=production grunt production --tenant=national --environment=staging"
+    "build.national-staging": "NODE_ENV=production grunt production --tenant=national --environment=staging",
+    "build.stGiles-staging": "NODE_ENV=production grunt production --tenant=stGiles --environment=staging"
   },
   "engines": {
     "node": "=0.10.22"
