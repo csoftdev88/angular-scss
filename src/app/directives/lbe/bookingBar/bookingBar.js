@@ -1,5 +1,6 @@
 /**
  * Directive for the LBE as a replica to the floating bar's booking-widget.
+ * TODO: work out if we still need this replica after the separation of templates per tenant?
  */
 (function() {
   'use strict';
@@ -33,6 +34,7 @@
         scope.dates = '';
         scope.adults = [];
         scope.children = [];
+        scope.canAddRoom = true;
         scope.properties = [{
           id: 'default',
           nameShort: DynamicMessages[appLang].select_property
@@ -66,7 +68,6 @@
         };
 
         var datePickerListener = $rootScope.$on('OPEN_DATE_PICKER', function () {
-          console.log('Open date picker');
           var rangeInput = angular.element('#booking-bar-dates');
           if (rangeInput.length) {
             rangeInput.focus();
@@ -83,10 +84,6 @@
 
         // Code types available to user
         scope.codes = [
-          {
-            title: DynamicMessages[appLang].apply_code,
-            value: 'default'
-          },
           {
             title: 'Corporate Code',
             value: 'corpCode'
@@ -115,10 +112,10 @@
 
         function initialiseValues() {
           if ($stateParams.adults) {
-            scope.rooms[0].adults = parseInt($stateParams.adults);
+            scope.rooms[0].adults = parseInt($stateParams.adults, 10);
           }
           if ($stateParams.children) {
-            scope.rooms[0].children = parseInt($stateParams.children);
+            scope.rooms[0].children = parseInt($stateParams.children, 10);
           }
           if ($stateParams.dates) {
             scope.dates = $stateParams.dates;
@@ -156,8 +153,8 @@
           stateParams.scrollTo = 'jsRooms';
           stateParams.rooms = null;
           stateParams.room = null;
-          stateParams.adults = scope.search.adults;
-          stateParams.children = scope.search.children;
+          stateParams.adults = scope.rooms[0].adults;
+          stateParams.children = scope.rooms[0].children;
           stateParams.dates = scope.dates;
 
           if (scope.search.code !== 'default') {
@@ -184,6 +181,7 @@
 
         scope.addRoom = function () {
           scope.rooms.push({adults: 1, children: 0});
+          scope.canAddRoom = scope.rooms.length < Settings.UI.bookingWidget.maxRooms;
         };
 
         scope.removeRoom = function (index) {
@@ -193,6 +191,7 @@
           if (scope.rooms.length < 2) {
             scope.multiRoomSearch = false;
           }
+          scope.canAddRoom = scope.rooms.length < Settings.UI.bookingWidget.maxRooms;
         };
 
         scope.switchSearchType = function () {
@@ -216,6 +215,12 @@
           }];
         };
 
+        scope.removeCode = function () {
+          scope.search.code = '';
+          scope.search.codeType = null;
+          scope.showCode = false;
+        };
+
         scope.doSearch = function () {
           // @todo Add here some kind of UI validation, make the fields red. Design input required
           if ((scope.search.property === 'default' && !Settings.UI.generics.singleProperty) || scope.dates === '') {
@@ -236,14 +241,14 @@
           var stateParams = buildSearchParams();
 
           // Convert rooms object so its URL compatible
-          var romSettings = {
+          var roomSettings = {
             'search': 'rooms',
             'type': 'object',
             'required': false,
             'field': ''
           };
-          if (validationService.isValueValid(stateParams.rooms, romSettings)) {
-            var queryValue = validationService.convertValue(stateParams.rooms, romSettings);
+          if (validationService.isValueValid(stateParams.rooms, roomSettings)) {
+            var queryValue = validationService.convertValue(stateParams.rooms, roomSettings);
             stateParams.rooms = queryValue;
           }
           // Default to the hotel page

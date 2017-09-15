@@ -16,9 +16,6 @@
     left: 600px;
     right: 0;
     position: absolute;
-    .booking-bar__form {
-      padding-top: 19px;
-    }
   }
 
   .sticky.roombar & {
@@ -96,8 +93,10 @@
     .booking-bar__form {
       display: flex;
       flex-direction: row;
+      align-items: center;
       .booking-bar__link.advanced {
-        margin-right: 12px;
+        margin-left: 12px;
+        max-width: 150px;
       }
       &.multiroom-booking {
         flex-wrap: wrap;
@@ -123,13 +122,17 @@
           margin-left: 590px;
         }
       }
-      .booking-bar__form--add-room {
-        margin: 20px 0 0 293px;
-      }
       form-element {
         display: inline-block;
         &:not(:last-child) {
           margin-right: 12px;
+        }
+      }
+      .booking-bar__form--add-room {
+        margin: 10px 0 0 321px;
+        flex: 0 0 100%;
+        .add-room {
+          float: initial;
         }
       }
       .booking-bar__link.remove {
@@ -198,8 +201,8 @@
       width: calc(~'100% - 24px');
       .fa-calendar {
         position: absolute;
-        top: 15px;
-        right: 15px;
+        top: 16px;
+        right: 16px;
         color: #C8C8C8;
         font-size: 17px;
       }

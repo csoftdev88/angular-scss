@@ -79,7 +79,10 @@
 
     </form-element>
 
-    <form-element ng-if="multiRoomSearch" class="booking-bar__form--add-room">
+    <form-element
+      ng-if="multiRoomSearch"
+      ng-show="canAddRoom"
+      class="booking-bar__form--add-room">
       <a ng-click="addRoom()" class="booking-bar__link add-room">
         _add_room_
       </a>
@@ -90,7 +93,7 @@
               chosen
               disable-search="true"
               ng-model="search.codeType"
-              ng-change="showCode = !showCode"
+              ng-change="showCode = true"
               placeholder-text-single="_apply_code_"
               ng-options="code.value as code.title for code in codes">
       </select>
@@ -100,7 +103,7 @@
       <input type="text" ng-model="search.code">
       <remove-text role="button"
                    class="remove"
-                   ng-click="showCode = !showCode">
+                   ng-click="removeCode()">
       </remove-text>
     </form-element>
 
@@ -110,20 +113,19 @@
               class="booking-bar__submit">
         _search_
       </button>
-    </div>
+      <!--Disabling these until we have a good design-->
+      <!--<a ng-click="switchSearchType()"-->
+         <!--ng-show="!multiRoomSearch"-->
+         <!--class="booking-bar__link advanced">-->
+        <!--_advanced_search_-->
+      <!--</a>-->
 
-    <!--Disabling these until we have a good design-->
-    <!--<a ng-click="switchSearchType()"-->
-       <!--ng-show="!multiRoomSearch"-->
-       <!--class="booking-bar__link advanced">-->
-      <!--_advanced_search_-->
-    <!--</a>-->
-    <!---->
-    <!--<a ng-click="switchSearchType()"-->
-       <!--ng-show="multiRoomSearch"-->
-       <!--class="booking-bar__link quick">-->
-      <!--_quick_book_-->
-    <!--</a>-->
+      <!--<a ng-click="switchSearchType()"-->
+         <!--ng-show="multiRoomSearch"-->
+         <!--class="booking-bar__link quick">-->
+        <!--_quick_book_-->
+      <!--</a>-->
+    </div>
 
   </form>
 
