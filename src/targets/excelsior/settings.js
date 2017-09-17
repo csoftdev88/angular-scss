@@ -559,7 +559,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'showRoomCount': true,
         //Show room highlight text instead of description
         'showRoomHighlight': true,
-        'desktopDisplayRatesOnLoad': false,
+        'desktopDisplayRatesOnLoad': true,
         'mobileHideRates':true,
         'displayAmenities': true,
         'displayRoomDetails': true,

@@ -178,13 +178,17 @@ hotel-detail {
             box-sizing:border-box;
           }
 
-          h3{
-            a{
-              font-family: @ff-primary;
-              font-size: 19px;
+          h3 {
+            a {
+              height: 37px;
+              width: 834px;
+              font-family: Quattrocento;
+              font-size: 28px;
+              font-weight: bold;
+              letter-spacing: 1px;
+              line-height: 37px;
               color: @c-primary;
               text-transform: uppercase;
-              font-weight: normal;
             }
 
             .sub-title{
@@ -778,6 +782,17 @@ hotel-detail .hotel-detail__rooms-compare {
       }
     }
 
+    .view-switch {
+      font-size: 16px;
+      font-weight: 300;
+      .is-active {
+        font-weight: normal;
+      }
+      i.fa {
+        font-size: 28px;
+      }
+    }
+
     @drop-down-padding: 12px;
     @drop-down-height: 31px;
     .chosen-container {
@@ -785,7 +800,7 @@ hotel-detail .hotel-detail__rooms-compare {
       height: @drop-down-height;
       padding-left: @drop-down-padding;
       padding-right: 5px;
-      min-width: 160px;
+      min-width: 180px;
       box-shadow: none;
       ul.chosen-results li {
         padding-left: @drop-down-padding;
