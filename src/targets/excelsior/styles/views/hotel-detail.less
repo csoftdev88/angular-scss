@@ -741,3 +741,83 @@ hotel-detail {
 .hotel-info-details {
   float: right;
 }
+
+hotel-detail .hotel-detail__rooms-compare {
+  .section-header .filter-bar {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    border-top: 1px solid #EEEAEA;
+    border-bottom: 1px solid #EEEAEA;
+    background-color: #F9F9F9;
+    padding: 0;
+    height: 74px;
+
+    .filter-label {
+      color: @c-alt-grey;
+      font-family: @ff-primary;
+      font-size: 16px;
+      font-weight: 300;
+    }
+
+    .order-switch-container {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+    }
+
+    pricing-switch a {
+      color: #CBCBCB;
+      font-size: 16px;
+      font-weight: 300;
+      &.is-active {
+        color: #B98747;
+        font-weight: normal;
+      }
+    }
+
+    @drop-down-padding: 12px;
+    @drop-down-height: 31px;
+    .chosen-container {
+      margin-bottom: 0;
+      height: @drop-down-height;
+      padding-left: @drop-down-padding;
+      padding-right: 5px;
+      min-width: 160px;
+      box-shadow: none;
+      ul.chosen-results li {
+        padding-left: @drop-down-padding;
+        padding-right: @drop-down-padding;
+        font-size: 14px;
+        height: @drop-down-height;
+        line-height: @drop-down-height;
+      }
+      .chosen-container-single .chosen-single, .chosen-single, .chosen-single.chosen-default {
+        height: 31px;
+        line-height: 31px;
+        span {
+          color: #B98747;
+          font-size: 15px;
+          font-weight: normal;
+        }
+        div b {
+          top: 2px;
+          right: -7px;
+          &:before {
+            color: #575757;
+            font-size: 20px;
+            line-height: 20px;
+          }
+        }
+      }
+    }
+  }
+  .section-header .filter-bar div.view-switch ul li.is-active i {
+    color: @c-primary;
+  }
+  .room-list-compare-container .rooms-list list-item div.list-item-container .room-hide-btn {
+    background-color: @c-primary;
+  }
+}
