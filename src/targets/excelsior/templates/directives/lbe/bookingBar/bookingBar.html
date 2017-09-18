@@ -100,7 +100,9 @@
     </form-element>
 
     <form-element ng-show="showCode && !multiRoomSearch" class="booking-bar__form--code">
-      <input type="text" ng-model="search.code">
+      <input type="text"
+             ng-model="search.code"
+             placeholder="{{ getCurrentCodeType() }}">
       <remove-text role="button"
                    class="remove"
                    ng-click="removeCode()">

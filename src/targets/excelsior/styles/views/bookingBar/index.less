@@ -223,6 +223,15 @@
 
     .booking-bar__form--code {
       width: 243px;
+      input {
+        .placeholder({
+          color: lighten(@c-alt-grey, 30%);
+          font-family: @ff-primary;
+          font-size: 16px;
+          font-weight: 300;
+          font-style: italic;
+        });
+      }
     }
 
     remove-text {

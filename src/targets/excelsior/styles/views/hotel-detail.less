@@ -340,6 +340,7 @@ hotel-detail {
                   }
                 }
                 .price-form {
+                  margin: 0;
                   .viewport-mobile & {
                     font-size:15px;
                     color:@c-secondary;
@@ -364,6 +365,7 @@ hotel-detail {
               font-family: @ff-primary;
               color: #848484;
               font-size: 16px;
+              font-weight: normal;
               font-style: italic;
               text-align: center;
               &:nth-child(-n+3) {
@@ -375,6 +377,7 @@ hotel-detail {
           .room-vpanel {
             display: flex;
             flex-flow: row nowrap;
+            align-items: flex-start;
           }
 
           room-details {
@@ -749,12 +752,13 @@ hotel-detail .hotel-detail__rooms-compare {
     flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
-    margin-top: 10px;
-    border-top: 1px solid #EEEAEA;
-    border-bottom: 1px solid #EEEAEA;
+    margin-top: 0;
+    border: 1px solid #EEEAEA;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
     background-color: #F9F9F9;
     padding: 0;
-    height: 74px;
+    height: 60px;
 
     .filter-label {
       color: @c-alt-grey;
@@ -797,6 +801,7 @@ hotel-detail .hotel-detail__rooms-compare {
       height: @drop-down-height;
       padding-left: @drop-down-padding;
       padding-right: 5px;
+      margin-bottom: 4px;
       min-width: 180px;
       box-shadow: none;
       ul.chosen-results li {

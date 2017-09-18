@@ -180,6 +180,14 @@
           return stateParams;
         }
 
+        scope.getCurrentCodeType = function() {
+          if (!scope.search.codeType) {
+            return '';
+          }
+          var matchingCode = _.find(scope.codes, {value: scope.search.codeType});
+          return matchingCode ? 'Enter ' + matchingCode.title : ''; // TODO: i18n
+        };
+
         scope.addRoom = function () {
           scope.rooms.push({adults: 1, children: 0});
           scope.canAddRoom = scope.rooms.length < Settings.UI.bookingWidget.maxRooms;

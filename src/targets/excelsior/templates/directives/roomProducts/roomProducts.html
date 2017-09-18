@@ -15,15 +15,16 @@
       ng-class="{'is-highlighted': product.highlighted || ($first && !product.memberOnly && settings.highlightFirstRate),
                  'is-member-only': product.memberOnly,
                  'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(),
-                 'slashthrough': product.price.formatting = 'slashThrough' &&
+                 'slashthrough': product.price.formatting === 'slashThrough' &&
                                  settings.showSlashThrough === true &&
                                  product.price.totalBaseAfterPricingRules < product.price.originalPrice}"
       ng-repeat="product in products | limitTo: getRatesLimit()">
 
-    <div class="list-item-highlight-label member-ribbon"
-         ng-if="product.memberOnly">
-      _members_only_rate_
-    </div>
+    <!--For LBE all products are members only-->
+    <!--<div class="list-item-highlight-label member-ribbon"-->
+         <!--ng-if="product.memberOnly">-->
+      <!--_members_only_rate_-->
+    <!--</div>-->
 
     <div class="list-item-highlight-label highlight-ribbon"
          ng-if="product.highlighted">
@@ -49,18 +50,13 @@
         <a href=""
            class="tagline"
            ng-if="settings.showTagline && product.tagline && product.tagline !== ''"
-           ng-click="openProductDetailsDialog(product)">
-          {{ product.tagline }}
+           ng-click="openProductDetailsDialog(product)"
+           ng-bind-html="product.tagline">
         </a>
 
         <p class="full-description"
            ng-if="settings.showDescription"
            ng-bind-html="sanitize(product.descriptionShort || product.description)">
-        </p>
-
-        <p ng-if="settings.showDescription"
-           class="tag-line">
-          {{ product.tagline }}
         </p>
 
         <inclusions ng-if="settings.showInclusions && product.inclusions"
@@ -76,24 +72,44 @@
       </div>
     </div>
 
-    <!--<div ng-if="product.price.pointsEarned" class="PointsEarned">-->
-    <div class="PointsEarned">
-      <!--<span>_earn_ {{getValuePer(product.price.pointsEarned, true).toFixed(0)}} _points_</span>-->
+    <div ng-if="product.price.pointsEarned" class="PointsEarned">
+    <!--<div class="PointsEarned">-->
       <i class="star-icon fa fa-star-o"></i>
-      <span class="earn-points">_earn_ 150 _points_</span>
-      <span class="with-this-booking">_with_this_booking_</span>
+      <div class="text-content">
+        <span class="earn-points">_earn_ {{getValuePer(product.price.pointsEarned, true).toFixed(0)}} _points_</span>
+        <!--<span class="earn-points">_earn_ 150 _points_</span>-->
+        <span class="with-this-booking">_with_this_booking_</span>
+      </div>
     </div>
 
     <pricing-details ng-switch="!availableRooms || availableRooms.indexOf(room.code) > -1">
       <div class="price-and-actions-wrapper"
            ng-switch-when="true">
-        <div class="price-details">
+        <div class="price-details"
+              data-ng-class="{'with-slashed-price':
+              product.price.formatting === 'slashThrough' &&
+              settings.showSlashThrough === true &&
+              product.price.totalBaseAfterPricingRules < product.price.originalPrice
+              }">
+
+          <div class="price-form points"
+               ng-if="room.priceFrom &&
+                    product.price.pointsRequired &&
+                    isUserLoggedIn() &&
+                    loyaltyProgramEnabled &&
+                    product.allowPointsBooking">
+            <span class="value demotest">
+              {{ getValuePer(product.price.pointsRequired, true).toFixed(0) }}
+            </span>
+            _points_ _lowercase_or_
+          </div>
+
           <p class="price-form"
              ng-if="room.priceFrom"
              itemprop="priceRange">
 
             <span class="original-price"
-                  ng-if="product.price.formatting = 'slashThrough' &&
+                  ng-if="product.price.formatting === 'slashThrough' &&
                          settings.showSlashThrough === true &&
                          product.price.totalBaseAfterPricingRules < product.price.originalPrice">
               {{ getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode }}
@@ -101,19 +117,6 @@
             <span class="value">
               {{ getValuePer(product.price.totalBaseAfterPricingRules, true) | i18nCurrency: currencyCode }}
             </span>
-          </p>
-
-          <p class="price-form points"
-             ng-if="room.priceFrom &&
-                    product.price.pointsRequired &&
-                    isUserLoggedIn() &&
-                    loyaltyProgramEnabled &&
-                    product.allowPointsBooking">
-            _lowercase_or_
-            <span class="value demotest">
-              {{ getValuePer(product.price.pointsRequired, true).toFixed(0) }}
-            </span>
-            _points_
           </p>
         </div>
 

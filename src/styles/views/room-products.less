@@ -46,12 +46,14 @@ room-products, room-ota-products {
             width: 100%;
             .original-price{
               display: inline-block;
-              color: @c-red;
               position: relative;
               float: right;
               font-style: normal;
+              color: @c-secondary;
+              font-size: 15px;
+              font-weight: 300;
               &:after{
-                border-top: 1px solid @c-red;
+                border-top: 1px solid @c-secondary;
                 position: absolute;
                 content: "";
                 right: 0;
@@ -83,7 +85,6 @@ room-products, room-ota-products {
       }
 
       &.is-member-only {
-        background: @c-highlight-bg;
         background: #f7f4f4;
         padding-top: 10px;
         &.is-member-only-disabled{

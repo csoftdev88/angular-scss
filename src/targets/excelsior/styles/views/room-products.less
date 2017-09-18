@@ -27,9 +27,24 @@ room-products {
       position:relative;
       margin: 0;
       padding: 0;
+      border: none;
+      background-color: #fff;
+
+      &.is-member-only {
+        background-color: #fff;
+        &.is-member-only-disabled {
+          background-color: #fff;
+        }
+      }
+
       &.product-container {
         display: flex;
         flex-flow: row nowrap;
+        align-items: center;
+        transition: background-color 200ms;
+        &:hover {
+          background-color: rgba(185, 135, 70, 0.025);
+        }
       }
 
       &:first-child {
@@ -38,6 +53,9 @@ room-products {
       &:last-child {
         border-radius: 0 0 6px 6px;
       }
+      &:only-child {
+        border-radius: 6px;
+      }
       &:not(:first-child) {
         border-top: 1px dashed #EEEAEA;
       }
@@ -45,9 +63,8 @@ room-products {
       .rate-description {
         flex: 1 1 auto;
         border-right: none;
-        padding-left: 15px;
-        padding-top: 0;
-        padding-bottom: 0;
+        padding: 0;
+        margin: 0 15px;
         height: 100%;
 
         .ProductPointsEarned {
@@ -78,7 +95,6 @@ room-products {
 				}
 			}
 			&.is-member-only, &.is-member-only-disabled {
-				background-color: rgba(185, 135, 72, 0.15);
 				.chain-sign & {
 					background:rgba(147, 33, 46, 0.08);
 				}
@@ -110,7 +126,7 @@ room-products {
 						font-weight: 700;
             margin-top: 60px;
             .value {
-              color: #000;
+              color: @c-alt-grey;
             }
 					}
 				}
@@ -119,7 +135,10 @@ room-products {
         .price-details {
           .price-form {
             span.value {
-              color: #000;
+              color: @c-alt-grey;
+              font-family: @ff-primary;
+              font-size: 22px;
+              font-weight: bold;
             }
           }
         }
@@ -168,6 +187,7 @@ room-products {
 				h4 {
           font-family: @ff-primary;
           font-size: 16px;
+          letter-spacing: 1px;
           color: @c-primary;
 					> span {
             font-family: @ff-primary;
@@ -205,16 +225,21 @@ room-products {
           font-style: normal;
           font-size: 15px;
           font-weight: 300;
+          outline: none;
+          .link {
+            text-decoration: underline;
+          }
         }
 				.info.mobile {}
 			}
       .PointsEarned {
         position: relative;
-        width: 190px;
+        flex: 0 0 150px;
         height: 42px;
         align-self: center;
         border-radius: 20px;
-        padding: 5px 0 5px 40px;
+        padding: 5px 5px;
+        margin-right: 30px;
         box-sizing: border-box;
         border: 1px solid #eeeded;
         background-color: #fdfdfd;
@@ -222,18 +247,25 @@ room-products {
         color: #9B9B9B;
         font-family: @ff-primary;
         font-size: 11px;
-        line-height: 11px;
+        line-height: 13px;
         display: flex;
-        flex-flow: column nowrap;
-        align-items: flex-start;
+        flex-flow: row nowrap;
         justify-content: center;
 
         .star-icon {
-          position: absolute;
           font-size: 24px;
+          line-height: 24px;
           color: #e5d615;
-          top: 9px;
-          left: 8px;
+          flex: none;
+          margin-right: 5px;
+          margin-top: 3px;
+        }
+        .text-content {
+          flex: 1 1 auto;
+          display: flex;
+          flex-flow: column nowrap;
+          align-items: flex-start;
+          justify-content: center;
         }
         .earn-points {
           text-transform: uppercase;
@@ -241,46 +273,67 @@ room-products {
         }
       }
 			pricing-details {
-        flex: 0 0 300px;
+        flex: none;
+        width: auto;
         .price-and-actions-wrapper {
           display: flex;
           flex-flow: row nowrap;
-          width: 100%;
+          width: auto;
           height: 100%;
         }
 				.price-details {
           justify-self: stretch;
-          align-items: flex-end;
+          width: auto;
+          flex: none;
+          display: flex;
+          align-items: center;
+          padding-top: 0;
+          padding-right: 10px;
 					.price-form {
+            position: relative;
             width: 100%;
             float: right;
 						text-align: right;
-						margin-top: 10px;
-            margin-bottom: 7px;
-            .value {
-              font-size: 29px;
-              font-family: @ff-secondary;
+            margin: 0;
+
+            .original-price {
+              top: 4px;
             }
-						&.points {
-							top: -6px;
-							position: relative;
-						}
-						&.points,
-						&.points .value {
-							margin-top: 0;
-							font-size: 13px;
-							font-style: normal;
-							font-weight: bold;
-							color: @c-primary;
-              font-family: @ff-secondary;
-						}
-					}
+
+            &.points,
+            &.points .value {
+              margin-top: 0;
+              font-style: normal;
+              color: @c-primary;
+              font-family: @ff-primary;
+              font-size: 16px;
+              font-weight: 300;
+            }
+            &.points {
+              position: relative;
+              white-space: nowrap;
+            }
+            &.points .value {
+              font-weight: bold;
+            }
+          }
+          &.with-slashed-price .price-form:not(.points) {
+            top: -11px;
+          }
+          .price-form.points {
+            top: 0;
+            margin-right: 5px;
+          }
 					.viewport-mobile & {}
 				}
 				.action-buttons {
           display: flex;
           flex-flow: row nowrap;
           align-items: center;
+          justify-content: center;
+          width: auto;
+          flex: none;
+          margin-right: 8px;
 					.viewport-mobile & {}
 				}
 				.viewport-mobile & {}
@@ -297,7 +350,7 @@ room-products {
     border: 1px solid @c-light-grey;
     border-radius: 6px;
     background-color: #fff;
-    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
   }
 }
 
