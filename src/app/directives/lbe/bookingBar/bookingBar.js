@@ -58,10 +58,10 @@
         // Load the adults and children options
         var i;
         for (i = 1; i < config.maxAdults + 1; i++) {
-          scope.adults.push({value: i, title: i.toString() + ' ' + DynamicMessages[appLang].adults});
+          scope.adults.push({value: i, title: i.toString() + ' ' + (i === 1 ? DynamicMessages[appLang].adult : DynamicMessages[appLang].adults)});
         }
         for (i = 0; i < config.maxChildren + 1; i++) {
-          scope.children.push({value: i, title: i.toString() + ' ' + DynamicMessages[appLang].children});
+          scope.children.push({value: i, title: i.toString() + ' ' + (i === 1 ? DynamicMessages[appLang].child : DynamicMessages[appLang].children)});
         }
         scope.isSmall = function () {
           return size === 'small';

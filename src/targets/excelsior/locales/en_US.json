@@ -28,7 +28,6 @@
     "contact": "Contact Us",
     "reservations": "Reservations",
     "profile": "Profile",
-    "rewards": "Rewards",
     "prestige_account": "Status Plus Account",
     "login": "Login",
     "log_in": "Log In",
@@ -126,7 +125,6 @@
     "tier": "Tier",
     "point": "point",
     "points": "points",
-    "no_rewards_desc": "You don’t have any rewards yet",
     "loyalty_progam_title": "<strong>Status</strong> Plus",
     "loyalty_progam_link": "Log in or register",
     "loyalty_progam_desc": "to get points and earn free nights. It’s that simple!",
@@ -634,6 +632,7 @@
     "email_us": "Email us",
     "become_insider": "Become an excelsior insider",
     "sign_up_home": "<span class=\"emphasis\">Sign Up</span> for <span class=\"emphasis\">FREE</span>",
-    "members_only_incentive": "Not a member? <span class=\"emphasis underline\">Register</span> today for <span class=\"emphasis\">Free!</span>"
+    "members_only_incentive": "Not a member? <span class=\"emphasis underline\">Register</span> today for <span class=\"emphasis\">Free!</span>",
+    "with_this_booking": "with this booking"
   }
 }

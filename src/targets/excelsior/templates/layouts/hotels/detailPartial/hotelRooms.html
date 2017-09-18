@@ -64,12 +64,13 @@
 
         <div class="list-item-container">
           <!-- Room info -->
+          <div class="description" ng-bind-html="sanitize(roomsConfig.showRoomHighlight ? (room.roomHighlight && room.roomHighlight !== '' ? room.roomHighlight : room.description) : room.description)"></div>
+
+          <!-- Room info -->
           <div class="list-item-info">
 
             <hero-slider data-has-notification-bar="false" data-auto-play="false" on-room-click="openRoomGallery" data-room="{{room}}" data-counter-type="none" content="room.images" ng-if="roomsConfig.includeSlider && room.images && room.images.length > 0" data-has-thumbnails="{{roomsConfig.sliderHasThumbnails}}" slide-width="400" slide-height="400"></hero-slider>
-
             <div class="room-image-placeholder" ng-if="room.images.length == 0"></div>
-
             <img class="room-image desktop" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : roomsConfig.roomDetailThumbnailSize.width : roomsConfig.roomDetailThumbnailSize.height : 'fill'}}" alt="{{room.name}}" ng-if="!roomsConfig.includeSlider">
             <img class="room-image mobile" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : roomImageWidth : roomImageHeight : 'fill'}}" alt="{{room.name}}" ng-if="!roomsConfig.includeSlider">
 
@@ -91,12 +92,10 @@
                 <span class="amenity-caption">{{amenity.name}}</span>
               </li>
             </ul>
-            <!--<a href ng-click="goToRoom(details.meta.slug, room.meta.slug)">Read More About this Room</a>-->
+
           </div>
 
           <room-details ng-if="roomsConfig.displayRoomDetails" ng-class="{'rates-displayed': room._displayRates}">
-
-            <div class="description" ng-bind-html="sanitize(roomsConfig.showRoomHighlight ? (room.roomHighlight && room.roomHighlight !== '' ? room.roomHighlight : room.description) : room.description)"></div>
 
             <div class="pricing-info" ng-include="'layouts/components/pricing-info.html'"></div>
 

@@ -1,7 +1,6 @@
 @import "../components/ribbons";
 
 room-products {
-	margin-top:34px;
   padding-left: 15px;
 	.viewport-mobile & {
 		margin-top:0;
@@ -25,25 +24,32 @@ room-products {
 	}
 	> ul {
 		> li {
-      border: 3px solid @c-primary;
-			position:relative;
-      padding-left: 0;
-      margin-bottom: 5px;
+      position:relative;
+      margin: 0;
+      padding: 0;
+      &.product-container {
+        display: flex;
+        flex-flow: row nowrap;
+      }
+
+      &:first-child {
+        border-radius: 6px 6px 0 0;
+      }
+      &:last-child {
+        border-radius: 0 0 6px 6px;
+      }
+      &:not(:first-child) {
+        border-top: 1px dashed #EEEAEA;
+      }
+
       .rate-description {
+        flex: 1 1 auto;
         border-right: none;
+        padding-left: 15px;
         padding-top: 0;
         padding-bottom: 0;
         height: 100%;
-        .ProductImage {
-          float: left;
-          height: 190px;
-          width: 190px;
-          margin-right: 32px;
-          img {
-            width: 100%;
-            height: 100%;
-          }
-        }
+
         .ProductPointsEarned {
           position: absolute;
           bottom: 9px;
@@ -55,12 +61,10 @@ room-products {
           font-family: @c-secondary;
         }
         .ProductInfo {
-          padding-top: 22px;
+          padding: 15px 0;
         }
       }
-			&:last-of-type {
-				border-radius: 0;
-			}
+
 			&.is-highlighted {
 				background: rgba(229, 119, 26, 0.17);
 				.chain-sign & {
@@ -139,10 +143,17 @@ room-products {
 						font-style: italic;
 						font-family: @ff-heading-bold-sign;
 					}
-					.button {
-						font-family: @ff-default;
-						padding: 0 25px;
-					}
+          .button {
+            height: 50px;
+            width: 120px;
+            color: #fff;
+            font-family: @ff-primary;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 50px;
+            text-align: center;
+            text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+          }
 				}
 			}
 			.no-products {
@@ -155,12 +166,13 @@ room-products {
 			.rate-description {
         width: 70%;
 				h4 {
-          font-family: @ff-secondary;
+          font-family: @ff-primary;
           font-size: 16px;
-          line-height: 18px;
-          color: @c-text;
-          padding-bottom: 14px;
+          color: @c-primary;
 					> span {
+            font-family: @ff-primary;
+            font-size: 16px;
+            color: @c-primary;
 						text-transform: uppercase;
             font-weight: bold;
 					}
@@ -187,24 +199,58 @@ room-products {
 					margin-top: 0;
 					.viewport-mobile & {}
 				}
-				.tagline {
-					font-style: normal;
-					font-weight: 600;
-					color: @c-light-brown;
-					display: block;
-					padding-left: 27px;
-					.viewport-mobile & {
-						padding-left:0px;
-					}
-				}
+        .tagline {
+          color: #4A4A4A;
+          font-family: @ff-primary;
+          font-style: normal;
+          font-size: 15px;
+          font-weight: 300;
+        }
 				.info.mobile {}
 			}
+      .PointsEarned {
+        position: relative;
+        width: 190px;
+        height: 42px;
+        align-self: center;
+        border-radius: 20px;
+        padding: 5px 0 5px 40px;
+        box-sizing: border-box;
+        border: 1px solid #eeeded;
+        background-color: #fdfdfd;
+
+        color: #9B9B9B;
+        font-family: @ff-primary;
+        font-size: 11px;
+        line-height: 11px;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: flex-start;
+        justify-content: center;
+
+        .star-icon {
+          position: absolute;
+          font-size: 24px;
+          color: #e5d615;
+          top: 9px;
+          left: 8px;
+        }
+        .earn-points {
+          text-transform: uppercase;
+          font-weight: 700;
+        }
+      }
 			pricing-details {
-				margin-bottom:10px;
-        width: 30%;
-				.price-details {
+        flex: 0 0 300px;
+        .price-and-actions-wrapper {
+          display: flex;
+          flex-flow: row nowrap;
           width: 100%;
-          padding-top: 40px;
+          height: 100%;
+        }
+				.price-details {
+          justify-self: stretch;
+          align-items: flex-end;
 					.price-form {
             width: 100%;
             float: right;
@@ -232,19 +278,9 @@ room-products {
 					.viewport-mobile & {}
 				}
 				.action-buttons {
-          width: 100%;
-          float: initial;
-					.button {
-						background: #e34e3f;
-						border-radius: 2px;
-						font-size: 14px;
-						text-transform: uppercase;
-						line-height: 38px;
-						min-width:91px;
-						&:hover {
-							background: #e34e3f;
-						}
-					}
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
 					.viewport-mobile & {}
 				}
 				.viewport-mobile & {}
@@ -255,7 +291,13 @@ room-products {
 
 .list-item-container {
   room-products {
-    width: calc(~'100% - 295px');
+    flex: 1 1 auto;
+    margin-left: 30px;
+    padding: 0;
+    border: 1px solid @c-light-grey;
+    border-radius: 6px;
+    background-color: #fff;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.15);
   }
 }
 

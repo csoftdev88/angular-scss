@@ -170,11 +170,10 @@ hotel-detail {
           padding:0 30px 10px 0;
         }
 
-        .item-header{
-          margin-bottom: 44px;
+        .item-header {
+          margin-bottom: 5px;
           .viewport-mobile & {
             padding-left:115px;
-            margin-bottom:5px;
             box-sizing:border-box;
           }
 
@@ -263,7 +262,7 @@ hotel-detail {
             }
           }
 
-          > div{
+          > div {
 
             &.list-item-info {
               box-sizing: border-box;
@@ -360,9 +359,28 @@ hotel-detail {
             }
           }
 
+          .description {
+            div p {
+              font-family: @ff-primary;
+              color: #848484;
+              font-size: 16px;
+              font-style: italic;
+              text-align: center;
+              &:nth-child(-n+3) {
+                display: block;
+              }
+            }
+          }
+
+          .room-vpanel {
+            display: flex;
+            flex-flow: row nowrap;
+          }
+
           room-details {
-            float: left;
-            width: 63%;
+            width: 70%;
+            align-self: center;
+            margin-bottom: 20px;
             padding: 0 15px 15px 28px;
             border: 1px solid #c6beb5;
             box-sizing: border-box;
@@ -371,25 +389,6 @@ hotel-detail {
             &.rates-displayed{
               border-left: none;
               border-bottom: none;
-            }
-
-            .description {
-              float: left;
-              width: 70%;
-              margin-bottom: 20px;
-
-              div {
-                p {
-                  font-family: @ff-secondary;
-                  color: @c-tertiary;
-                  font-size: 14px;
-                  line-height: 25px;
-
-                  &:nth-child(-n+3){
-                    display: block;
-                  }
-                }
-              }
             }
 
             > .pricing-info {
@@ -443,12 +442,10 @@ hotel-detail {
           }
 
           hero-slider {
-            overflow: visible;
+            border-radius: 6px;
+            overflow: hidden;
             width: 50%;
             height: auto;
-            margin-top: 0;
-            float: left;
-            margin-bottom:15px;
 
             ul.thumbnail-nav{
               display: inline;
