@@ -25,20 +25,19 @@
       </button>
 
       <div class="Header__profile" ng-if="auth.isLoggedIn()">
-
         <img class="avatar" src="/static/images/lbe/avatar-placeholder.png">
-
-        <div class="Header__profile--userInfo">
-          <h4 class="name">
-            {{ user.firstName }} {{ user.lastName }}
-          </h4>
-          <small class="loyalty">
-            {{ user.loyalties.amount }} _points_ | {{ user.loyalties.tier }} tier member
-          </small>
+        <div class="name">
+          {{ user.firstName }} {{ user.lastName }}
         </div>
-
+        <span class="pipe-splitter"></span>
+        <div class="loyalty-points">
+          <span class="emphasise">{{ user.loyalties.amount }}</span> _points_
+        </div>
+        <span class="pipe-splitter"></span>
+        <div class="loyalty-tier">
+          {{ user.loyalties.tier }} tier member
+        </div>
       </div>
-    </div>
 
     <ul dropdown-group class="Header__buttons--preferences">
 

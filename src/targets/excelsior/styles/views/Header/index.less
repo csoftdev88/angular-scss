@@ -25,6 +25,11 @@
 
 .Header__buttons--auth {
   float: left;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  position: relative;
+  top: 10px;
 }
 
 .Header__inner {
@@ -39,27 +44,39 @@
 }
 
 .Header__profile {
-  width: 200px;
   display: flex;
-  margin-right: 10px;
+  flex-flow: row nowrap;
+  width: auto;
+  margin-right: 30px;
+  align-items: center;
+
+  font-family: @ff-primary;
+  font-size: 16px;
+  font-weight: 300;
+
   .avatar {
-    margin: auto 9px auto auto;
+    margin-right: 9px;
     width: 26px;
     height: 26px;
+    border-radius: 50%;
+    overflow: hidden;
   }
-}
-.Header__profile--userInfo {
-  .name, .loyalty {
-    color: @c-text;
-    font-family: @ff-secondary;
-  }
+
   .name {
-    font-size: 13.2px;
-    line-height: 16px;
+    color: @c-alt-grey;
   }
-  .loyalty {
-    font-size: 10px;
-    line-height: 12px;
+
+  .pipe-splitter {
+    background-color: rgba(0, 0, 0, 0.15);
+    margin: 0 9px;
+    width: 1px;
+    height: 24px;
+  }
+  .loyalty-points .emphasise {
+     font-weight: bold;
+  }
+  .loyalty-tier {
+    color: #B98747;
   }
 }
 
