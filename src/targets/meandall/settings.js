@@ -277,7 +277,7 @@ angular.module('mobiusApp.config', [])
       'my': 'customers/:customerId/rewards'
     },
     'promoCodes': {
-      'promoCode': 'promoCode',
+      'promoCode': 'corpCode',
       'groupCode': 'groupCode',
       'corpCode': 'corpCode'
     },
