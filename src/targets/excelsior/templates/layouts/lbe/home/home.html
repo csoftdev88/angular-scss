@@ -231,8 +231,8 @@
 
   </article>
 
-  <booking-bar class="Home__booking-bar drop-up" size="full-width-bottom"></booking-bar>
-
+  <booking-bar class="Home__booking-bar drop-up" ng-if="!auth.isLoggedIn()" size="full-width-bottom"></booking-bar>
+  <booking-bar class="Home__booking-bar drop-up" ng-if="auth.isLoggedIn()" stickable="main-header" size="full-width"></booking-bar>
 </div>
 
 <!--<footer class="LoggedInFooter" ng-if="!auth.isLoggedIn()">-->
@@ -266,57 +266,55 @@
 
   <questionnaire ng-if="auth.isLoggedIn()"></questionnaire>
 
-  <div class="About__benefits">
+  <!--<div class="About__benefits">-->
+    <!--<div class="About__logo">-->
+      <!--<h1><span>_about_signup_title_</span></h1>-->
+    <!--</div>-->
 
-    <div class="About__logo">
-      <h1><span>_about_signup_title_</span></h1>
-    </div>
+    <!--<div class="About__benefits&#45;&#45;overview" ng-class="{'full-width': !rewards[0]}">-->
 
-    <div class="About__benefits--overview" ng-class="{'full-width': !rewards[0]}">
+      <!--<div class="About__benefit">-->
+        <!--<span class="lowest-rates"></span>-->
+        <!--<h2>_about_benefit_one_title_</h2>-->
+        <!--<p>_about_benefit_one_text_</p>-->
+      <!--</div>-->
 
-      <div class="About__benefit">
-        <span class="lowest-rates"></span>
-        <h2>_about_benefit_one_title_</h2>
-        <p>_about_benefit_one_text_</p>
-      </div>
+      <!--<div class="About__benefit">-->
+        <!--<span class="get-rewarded"></span>-->
+        <!--<h2>_about_benefit_two_title_</h2>-->
+        <!--<p>_about_benefit_two_text_</p>-->
+      <!--</div>-->
 
-      <div class="About__benefit">
-        <span class="get-rewarded"></span>
-        <h2>_about_benefit_two_title_</h2>
-        <p>_about_benefit_two_text_</p>
-      </div>
+      <!--<div class="About__benefit">-->
+        <!--<span class="privileges"></span>-->
+        <!--<h2>_about_benefit_three_title_</h2>-->
+        <!--<p>_about_benefit_three_text_</p>-->
+      <!--</div>-->
 
-      <div class="About__benefit">
-        <span class="privileges"></span>
-        <h2>_about_benefit_three_title_</h2>
-        <p>_about_benefit_three_text_</p>
-      </div>
+      <!--<div class="About__benefit">-->
+        <!--<span class="points"></span>-->
+        <!--<h2>_about_benefit_four_title_</h2>-->
+        <!--<p>_about_benefit_four_text_</p>-->
+      <!--</div>-->
 
-      <div class="About__benefit">
-        <span class="points"></span>
-        <h2>_about_benefit_four_title_</h2>
-        <p>_about_benefit_four_text_</p>
-      </div>
+      <!--<div class="About__benefit">-->
+        <!--<span class="points"></span>-->
+        <!--<h2>_about_benefit_four_title_</h2>-->
+        <!--<p>_about_benefit_four_text_</p>-->
+      <!--</div>-->
 
-      <div class="About__benefit">
-        <span class="points"></span>
-        <h2>_about_benefit_four_title_</h2>
-        <p>_about_benefit_four_text_</p>
-      </div>
+      <!--<div class="About__benefit">-->
+        <!--<span class="points"></span>-->
+        <!--<h2>_about_benefit_four_title_</h2>-->
+        <!--<p>_about_benefit_four_text_</p>-->
+      <!--</div>-->
+    <!--</div>-->
 
-      <div class="About__benefit">
-        <span class="points"></span>
-        <h2>_about_benefit_four_title_</h2>
-        <p>_about_benefit_four_text_</p>
-      </div>
-    </div>
-
-    <div class="About__benefits--offer" ng-if="rewards[0]">
-      <span ui-sref="rewards">{{ rewards[0].title }}</span>
-      <img ui-sref="rewards" ng-src="{{ rewards[0].image.uri }}">
-    </div>
-
-  </div>
+    <!--<div class="About__benefits&#45;&#45;offer" ng-if="rewards[0]">-->
+      <!--<span ui-sref="rewards">{{ rewards[0].title }}</span>-->
+      <!--<img ui-sref="rewards" ng-src="{{ rewards[0].image.uri }}">-->
+    <!--</div>-->
+  <!--</div>-->
 
   <div class="About__signup">
     <h1>_about_offer_title_</h1>

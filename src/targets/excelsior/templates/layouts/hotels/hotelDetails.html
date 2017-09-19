@@ -16,7 +16,9 @@
       <div class="members-only-banner__label">
         Members Only Rates
       </div>
-      <div ng-click="auth.register()" class="members-only-banner__not-member">
+      <div ng-if="!auth.isLoggedIn()"
+           ng-click="auth.register()"
+           class="members-only-banner__not-member">
         _members_only_incentive_
       </div>
     </div>

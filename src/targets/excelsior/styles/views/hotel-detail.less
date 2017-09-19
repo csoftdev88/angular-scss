@@ -2,6 +2,10 @@
 //// HOTELS DETAIL ////
 ///////////////////////
 
+body.sticky-bread .hotel-detail__rooms-compare {
+  margin-top: 76px;
+}
+
 hotel-detail {
 
   .back-to-top{
@@ -181,7 +185,7 @@ hotel-detail {
             a {
               height: 37px;
               width: 834px;
-              font-family: Quattrocento;
+              font-family: @ff-serif;
               font-size: 28px;
               font-weight: bold;
               letter-spacing: 1px;
@@ -758,7 +762,9 @@ hotel-detail .hotel-detail__rooms-compare {
     border-radius: 0 0 6px 6px;
     background-color: #F9F9F9;
     padding: 0;
-    height: 60px;
+    height: 76px;
+    width: 100vw;
+    margin-left: calc(~'50% - 50vw');
 
     .filter-label {
       color: @c-alt-grey;

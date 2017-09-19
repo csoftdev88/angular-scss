@@ -1,6 +1,10 @@
 @import "variables";
 @import "mobile";
 
+booking-bar {
+  left: 0;
+}
+
 .booking-bar {
   background-color: #fff;
   box-sizing: border-box;
@@ -13,9 +17,7 @@
   // If the booking bar is anchored to the top, its parent will have a class sticky
   // with position fixed, so here we make the booking bar full width while having a fixed parent
   .sticky & {
-    left: 600px;
-    right: 0;
-    position: absolute;
+    margin-left: 0;
   }
 
   .sticky.roombar & {
@@ -76,7 +78,7 @@
   &.booking-bar__size-large,
   &.booking-bar__size-full-width,
   &.booking-bar__size-full-width-bottom {
-    padding: 10px 50px 0px 50px;
+    padding: 10px 50px 0 50px;
     .booking-bar__form--rooms {
       display: flex;
       flex-flow: row nowrap;
