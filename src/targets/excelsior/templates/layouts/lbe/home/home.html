@@ -232,8 +232,10 @@
   </article>
 
   <booking-bar class="Home__booking-bar drop-up" ng-if="!auth.isLoggedIn()" size="full-width-bottom"></booking-bar>
-  <booking-bar class="Home__booking-bar drop-up" ng-if="auth.isLoggedIn()" stickable="main-header" size="full-width"></booking-bar>
 </div>
+
+<!--<booking-bar class="Home__booking-bar" ng-if="auth.isLoggedIn()" stickable="main-header" size="full-width"></booking-bar>-->
+<booking-bar class="Home__booking-bar" ng-if="auth.isLoggedIn()" size="full-width"></booking-bar>
 
 <!--<footer class="LoggedInFooter" ng-if="!auth.isLoggedIn()">-->
   <!--<div class="Footer__nav">-->
