@@ -513,10 +513,10 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       {'network': 'google', 'link': ''}
     ],
     'socialLinksNew': {
-      'facebook': 'https://www.facebook.com/StGilesHotels/',
-      'twitter': 'https://twitter.com/stgileshotels',
-      'instagram': 'https://www.instagram.com/stgileshotels/',
-      'linkedIn': 'https://www.linkedin.com/company-beta/1019577/',
+      'facebook': 'https://www.facebook.com/excelsiornyc',
+      'twitter': 'https://twitter.com/excelsiornyc',
+      'instagram': '',
+      'linkedIn': '',
       'youtube': ''
     },
     'shareLinks': {
