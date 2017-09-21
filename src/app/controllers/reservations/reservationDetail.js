@@ -246,7 +246,8 @@
 
         var reservationDataPromise = [propertyPromise, roomDataPromise];
 
-        if(!$scope.config.disableAddons){
+        if(!$scope.config.disableAddons) {
+          // TODO: refactor this into a new addonsService and reuse it in questionnaire.js
           var addonsPromise = $q.all([
             // Available addons
             reservationService.getAvailableAddons($scope.auth, {

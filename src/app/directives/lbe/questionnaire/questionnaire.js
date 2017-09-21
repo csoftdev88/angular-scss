@@ -2,6 +2,12 @@
 
 /**
  * Directive to encapsulate the loyalty questions widget used in the LBE
+ * FIXME: rename this.
+ * FIXME: this has been hugely corrupted over-time and does much more than the name questionnaire implies
+ * This now does:
+ * 1. Loyalty status (points, tier)
+ * 2. Poll questions
+ * 3. Next stay with addons
  */
 (function() {
   angular
@@ -25,29 +31,69 @@
 
         // Get all the polls available then display the first with options in the directive
         var selectPoll = function () {
-          pollsService.getAll()
+          return pollsService.getAll()
             .then(function (data) {
               if (data) {
                 pollId = data[0].id;
-                pollsService.get(data[0].id)
+                return pollsService.get(data[0].id)
                   .then(function (data) {
                     scope.question = data.question;
                     scope.options = data.choices;
                     scope.choiceId = data.choices[0].id;
                     scope.reward = dynamicMessages.answer_the_question.replace('XX', data.points);
                   });
-                return;
               }
               $log.info('No polls available, maybe the user answered all of them');
               scope.question = false;
             })
-            .catch(function(err) {
+            .catch(function (err) {
               if (!scope.nextStay) {
                 $log.warn('APi failed to get the next poll, maybe the user answered all of them', err);
                 scope.question = false;
               }
             });
         };
+
+        function getAvailableAddons() {
+          // TODO: refactor this into a new addonsService and reuse it in reservationDetails.js
+          return $q.all([
+            // Available addons
+            reservations.getAvailableAddons(scope.auth, {
+              propertyCode: scope.nextStay.property.code,
+              roomTypeCode: scope.nextStay.rooms[0].roomTypeCode,
+              productCode: scope.nextStay.rooms[0].productCode,
+              reservationID: scope.nextStay.id
+            }),
+            // Reservation addons
+            reservations.getReservationAddOns(scope.nextStay.reservationCode, null)
+          ]).then(function(addons) {
+            // Available addons should only contain those which not in reservationAddons
+            var availableAddons = addons[0];
+            var reservationAddons = addons[1];
+
+            scope.nextStay.availableAddons = [];
+            _.each(availableAddons, function(addon) {
+
+              var addedAddon = _.find(reservationAddons, function(a) {
+                return a.code === addon.code;
+              });
+
+              if (!addedAddon) {
+                scope.nextStay.availableAddons.push(addon);
+              }
+            });
+
+            var SHORT_DESCRIPTION_LENGTH = 100;
+            scope.nextStay.reservationAddons = _.map(reservationAddons, function(addon) {
+              addon.descriptionShort = addon.description ? addon.description.substr(0, SHORT_DESCRIPTION_LENGTH) : '';
+              addon.hasViewMore = addon.descriptionShort && addon.description && addon.descriptionShort.length < addon.description.length;
+              if (addon.hasViewMore) {
+                addon.descriptionShort += '…';
+              }
+              return addon;
+            });
+          });
+        }
 
         var init = function () {
 
@@ -99,17 +145,24 @@
               return nextStay;
             });
 
-          reservationPromise.then(function (nextStay) {
-            if (nextStay) {
-              property.getPropertyDetails(nextStay.property.code)
-                .then(function (property) {
-                  $log.info('Property retrieved, assigning it to the next stay object');
-                  nextStay.property = property;
-                  scope.nextStay = nextStay;
-                  $log.info('The next stay', nextStay);
-                });
-            }
-          });
+          reservationPromise
+            .then(function (nextStay) {
+              if (nextStay) {
+                return property.getPropertyDetails(nextStay.property.code)
+                  .then(function (property) {
+                    $log.info('Property retrieved, assigning it to the next stay object');
+                    nextStay.property = property;
+                    scope.nextStay = nextStay;
+                    return getAvailableAddons();
+                  })
+                  .then(function () {
+                    $log.info('Fetched addons: the next stay', scope.nextStay);
+                  });
+              }
+            })
+            .catch(function (error) {
+              $log.error('Fetching reservation details failed', error);
+            });
 
           // Get rewards available to the user
           rewardsService.getAll(userObject.id)
@@ -154,6 +207,7 @@
           scope.featuredReward = null;
           scope.featuredRewardPoints = null;
           scope.nextStay = false;
+          scope.defaultCurrencyCode = Settings.UI.currencies.default;
         };
 
         /**

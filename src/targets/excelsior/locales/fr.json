@@ -116,6 +116,7 @@
         "make_your_booking": "<strong>Réservez</strong> votre séjour",
         "booking_widget_title": "",
         "not_available_description": "Non disponible à cette date",
+        "your_status": "Votre statut",
         "your_booking": "Votre réservation",
         "your_confirmation": "Votre confirmation",
         "your_reservation": "Votre réservation",
@@ -126,6 +127,7 @@
         "stamps": "Timbres",
         "point": "point",
         "tier": "Niveau",
+        "current_tier": "Votre Niveau",
         "points": "points",
         "no_rewards_desc": "Vous pouvez acheter des récompenses dans la section <a href ng-click='toogleFullListMode()''>Toutes les récompenses</a> si vous avez assez de points.",
         "loyalty_progam_title": "<strong>Status</strong> Plus",
@@ -481,6 +483,7 @@
         "offers_page_no_property_offers_title": "Désolé! Il n'y a plus d'offres disponibles pour le moment à cet endroit",
         "offers_page_no_offers_desc": "Essayez de sélectionner un hôtel pour voir les offres de cet hôtel ou revenez plus tard pour vérifier à nouveau",
         "hot_deals_page_description": "Vous cherchez une offre de dernière minute? Consultez régulièrement cette page pour voir les offres limitées de séjours dans tous nos hôtels à travers le Canada! Défilez vers le bas pour voir nos offres en vedette!",
+        "view_profile": "Voir profil",
         "profile_page_title": "Votre profil",
         "profile_page_desc": "Vos informations ne seront pas communiquées à des tiers. Veuillez consulter notre Politique de confidentialité pour plus de détails Vérifiez vos <a ui-sref='réservations'></a>",
         "profile_page_password_title": "CHANGER VOTRE MOT DE PASSE",
@@ -634,6 +637,8 @@
         "about_offer_subtitle": "Summer in the city",
         "sign_up_home": "<span class=\"emphasis\">Sign Up</span> for <span class=\"emphasis\">FREE</span>",
         "members_only_incentive": "Not a member? <span class=\"emphasis\">Register</span> today for <span class=\"emphasis\">Free!</span>",
-        "with_this_booking": "with this booking"
+        "with_this_booking": "with this booking",
+        "questionnaire_subtitle": "What would you prefer?",
+        "submit_answer": "Submit Answer"
   }
 }

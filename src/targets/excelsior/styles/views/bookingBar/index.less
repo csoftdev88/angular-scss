@@ -3,13 +3,15 @@
 
 booking-bar {
   left: 0;
+  display: block;
 }
 
 .booking-bar {
   background-color: #fff;
   box-sizing: border-box;
 
-  input, .chosen-container {
+  input:not([type=radio]):not([type=checkbox]),
+  .chosen-container {
     border: 1px solid #E6D4BD;
     box-shadow: none;
   }
@@ -25,7 +27,7 @@ booking-bar {
   }
 
   .booking-bar__form--guests .chosen-container {
-    // Urrgh! Some idiot guy who doesn't understand CSS specificity put !important on the master style sheet!
+    // Urrgh! Someone (who doesn't understand CSS specificity) put !important on the master style sheet!
     width: 160px !important;
   }
 
@@ -79,6 +81,10 @@ booking-bar {
   &.booking-bar__size-full-width,
   &.booking-bar__size-full-width-bottom {
     padding: 10px 50px 0 50px;
+    .sticky & {
+      // compensate for scrollbar width
+      padding-right: 67px;
+    }
     .booking-bar__form--rooms {
       display: flex;
       flex-flow: row nowrap;
@@ -162,13 +168,14 @@ booking-bar {
     width: 100vw;
     margin-left: calc(~'50% - 50vw');
     display: flex;
+    justify-content: center;
     border: 1px solid #E6D4BD;
+    border-left: none;
+    border-right: none;
     background-color: #F1E7DA;
 
     .booking-bar__form {
       width: 1212px;
-      margin-left: auto;
-      margin-right: auto;
     }
   }
 
