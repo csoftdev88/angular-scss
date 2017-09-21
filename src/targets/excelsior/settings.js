@@ -362,7 +362,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     },
     'recommendation': {
       'avatarUrl': '/static/images/lbe/avatar@3x.png',
-      'text': '20% off and a room upgrade, what more could I ask for!',
+      'text': '“20% off and a room upgrade, what more could I ask for!”',
       'name': 'Laura Sandoval',
       'city': 'New York'
     },
