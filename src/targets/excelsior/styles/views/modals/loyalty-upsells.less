@@ -1,18 +1,95 @@
-dialog.loyalty-upsell {
-  padding: 20px;
+// The base styling of this dialog was very specific, let's be more specific!
+dialog.loyalty-upsell.dialog-v2.upsells-dialog {
+  padding: 0;
+  background-color: #fff;
+  height: 327px;
+  border-radius: 6px;
+  overflow: hidden;
+
   div.ui-info main {
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 0;
+    padding: 10px;
+
+    .image-wrapper {
+      img {
+        overflow: hidden;
+        border-radius: 6px;
+      }
+    }
+
+    image-carousel {
+      width: initial;
+      flex: none;
+    }
+
     .details {
-      max-height: 260px;
-      overflow-x: auto;
+      background-color: #fff;
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-flow: column nowrap;
+      max-height: initial;
+      overflow: hidden;
+      h1 {
+        font-family: @ff-serif;
+        font-size: 28px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        line-height: 37px;
+        color: #b98747;
+        text-transform: uppercase;
+      }
       h1:after {
         content: none;
       }
-    }
-    .button-strip {
-      a.button {
-        margin-bottom: 0;
+      .description {
+        flex: 1;
+        margin: 20px 0;
       }
     }
+
+    .button-strip {
+      position: initial;
+      top: initial;
+      left: initial;
+      a.button, a.button.ghost {
+        box-shadow: none;
+        text-transform: uppercase;
+        height: 50px;
+        line-height: 50px;
+        font-family: @ff-primary;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+        border: 1px solid #d24335;
+        border-radius: 4px;
+        transition: background 200ms;
+        margin: 8px 0 0 0;
+        width: 100%;
+
+        &:first-of-type {
+          margin-top: 0;
+        }
+      }
+      a.button {
+        background: #e34e3f;
+        color: #fff;
+      }
+      a.button.ghost {
+        background: #fff;
+        color: #d24335;
+        text-shadow: none;
+        font-weight: normal;
+      }
+    }
+
+    .price-difference {
+      left: 0;
+    }
+
     span.price-difference {
       background: @c-primary;
     }
