@@ -370,7 +370,9 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'showOffer': true
     },
     'hotelIntro': {
-
+      'title': 'What to expect when you visit',
+      'highlight': 'Committed to the idea that a life well-traveled is defined by a personal connection to the people, culture and lifestyles of the places we visit, the Excelsior Hotel offers discerning guests an authentic, residence-style experience in the heart of New York City’s Upper West Side.',
+      'description': 'To complement our fashionable surroundings, we’ve designed a delightfully affordable pied-a-terre distinguished by relaxed yet sophisticated ambiance and unpretentious style. The Excelsior is located within a beautifully restored landmark building, infusing classic design and architecture with contemporary comfort. In addition to swanky, Art Deco-inspired rooms, the hotel features a fitness center, Boardroom and Calle Ocho restaurant, which brings guests and neighborhood residents together for signature Latin fare and a locally famous weekend brunch complete with unlimited complimentary sangria.'
     },
     'datepicker': {
       'showToday': false,
