@@ -1,5 +1,5 @@
 <hero-slider content="heroContent"
-             class="short"
+             class="OffersPage_hero-slider short"
              slide-width="uiConfig.heroSlider.slideWidth"
              slide-height="uiConfig.heroSlider.slideHeight">
 </hero-slider>
@@ -16,15 +16,16 @@
   </div>
 </article>
 
-<breadcrumbs stickable="main-header"
+<booking-bar id="bookingbar" ng-if="!isMobile" stickable="main-header" size="full-width"></booking-bar>
+
+<breadcrumbs id="breadcrumbs"
+             stickable="bookingbar"
              ng-show="showDetail"
              ng-click="{'hide': !showDetail}"
              class="OffersBreadcrumbs">
 </breadcrumbs>
 
 <main class="grid-wrapper OffersPage">
-
-  <booking-bar size="small"></booking-bar>
 
   <div class="preloader" ng-show="preloader.visible"></div>
 
