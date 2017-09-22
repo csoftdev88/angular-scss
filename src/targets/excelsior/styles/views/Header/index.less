@@ -12,36 +12,31 @@
 }
 
 .Header__buttons {
-  float: right;
-  position: relative;
-  top: 7px;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-}
-
-.Header__menu {
-  float: right;
+  justify-content: flex-end;
+  flex: 1;
 }
 
 .Header__buttons--auth {
-  float: left;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  position: relative;
-  top: 10px;
 }
 
 .Header__inner {
   max-width: 1212px;
+  height: 100%;
   margin-right: auto;
   margin-left: auto;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
 }
 
 .Header__logo {
-  position: absolute;
-  top: 21px;
+  flex: 0;
 }
 
 .Header__profile {
