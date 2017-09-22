@@ -15,6 +15,7 @@ angular.module('mobiusApp.directives.stickable', [])
         var previousScrollTop;
         var originalTop = null;
         var stickToHeight = null;
+        var stickToTop = null;
         var elementHeight = null;
         var nextMarginTop = null;
         var stuck = false;
@@ -37,8 +38,9 @@ angular.module('mobiusApp.directives.stickable', [])
 
           previousScrollTop = scrollTop;
 
+          var elementToStick = $('#' + attr.stickable);
+          stickToTop = elementToStick.offset().top - scrollTop;
           if (stickToHeight === null) {
-            var elementToStick = $('#' + attr.stickable);
             stickToHeight = elementToStick.outerHeight();
           }
           if (originalTop === null) {
@@ -58,10 +60,13 @@ angular.module('mobiusApp.directives.stickable', [])
           }
 
           if (!stuck) {
-            if (scrollTop + stickToHeight > originalTop) {
+            if (scrollTop + stickToHeight + stickToTop > originalTop) {
               elem.css('position', 'fixed');
-              elem.css('top', stickToHeight);
+              elem.css('top', stickToTop + stickToHeight);
               elem.css('z-index', STICKABLE_Z_INDEX);
+              elem.css('margin-top', 0);
+              elem.css('margin-bottom', 0);
+              elementToStick.css('box-shadow', 'none');
               elem.addClass('sticky');
               $('body').addClass('sticky-bread');
 
@@ -76,11 +81,14 @@ angular.module('mobiusApp.directives.stickable', [])
             return;
           }
 
-          if (scrollTop + stickToHeight <= originalTop) {
+          if (scrollTop + stickToHeight + stickToTop <= originalTop) {
             elem.next().css('margin-top', '');
             elem.css('position', '');
             elem.css('top', '');
             elem.css('z-index', '');
+            elem.css('margin-top', '');
+            elem.css('margin-bottom', '');
+            elementToStick.css('box-shadow', '');
             elem.removeClass('sticky');
             $('body').removeClass('sticky-bread');
             if (growlAlerts.length) {
