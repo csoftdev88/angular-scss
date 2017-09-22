@@ -5,7 +5,7 @@
 </div>
 
 <div class="Menu__items" dropdown-group>
-  <div ng-click="$state.go('home')"
+  <div ng-click="$state.go('home', $stateParams, { reload: true })"
       class="Menu__items--item">
     _home_
   </div>
