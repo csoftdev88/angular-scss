@@ -5,7 +5,8 @@
 .reservation-steps {
   display: inline-block;
   width: 100%;
-  margin: 14px 0 31px 0;
+  margin: 0;
+  background-color: #423B33;
   text-align: center;
 
   .label {
@@ -17,7 +18,6 @@
     height: 153px;
     float: none;
     display: inline-block;
-    background-color: #fff;
     padding: 33px 86px;
     width: initial;
     box-sizing: border-box;
@@ -35,15 +35,20 @@
       margin-left: 70px;
       box-sizing: border-box;
 
+      .step-number {
+        position: relative;
+        top: -2px;
+      }
+
       &:first-child{
         margin-left: 0;
       }
 
-      .button{
+      .button {
         position: relative;
         padding: 0;
         min-width: 0;
-        border-radius: 0;
+        border-radius: 50%;
         line-height: 50px;
         height: 50px;
         width: 50px;
@@ -86,8 +91,8 @@
 
         }
 
-        .text{
-          color: #d8d8d8;
+        .text {
+          color: #ffffff;
           font-size: 13px;
           line-height: 15px;
           display: block;
@@ -95,7 +100,7 @@
           margin-left: -17px;
           padding-top: 5px;
           font-family: @ff-primary;
-          font-weight: bold;
+          font-weight: normal;
         }
       }
 
@@ -106,7 +111,7 @@
           filter: none;
           color: #fff;
           background: @c-primary;
-          border: 2px solid #FFFFFF;
+          border: 2px solid @c-primary;
           .text {
             color: @c-primary;
           }

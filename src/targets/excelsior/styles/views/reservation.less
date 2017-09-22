@@ -35,9 +35,10 @@ reservation-widget {
   }
 
   &.reservation-assurance-active {
-    margin-bottom:40px;
+    padding: 20px;
+    margin-bottom: 40px;
     .viewport-mobile & {
-      margin-bottom:40px;
+      margin-bottom: 40px;
     }
   }
   form {
@@ -133,10 +134,10 @@ reservation-widget {
   .chosen-container,
   .chosen-container .chosen-single,
   textarea {
-    height: 45px;
-    line-height: 45px;
+    height: 56px;
+    line-height: 56px;
+    border-radius: 4px;
     padding: 0 15px;
-    border-radius: 0;
     border: none;
     background: #F7F7F7;
     color: @c-form-text;
@@ -167,6 +168,12 @@ reservation-widget {
 
   .chosen-container {
     padding: 0 7px 0 15px;
+    border: 1px solid #DEDEDE;
+
+    .chosen-single {
+      height: 54px;
+      line-height: 54px;
+    }
 
     .chosen-drop {
       border: 1px solid @c-gray-reservation;
@@ -229,21 +236,23 @@ reservation-widget {
     }
 
     h3 {
-      margin-top: 0;
       color: @c-text;
-      font-size: 16px;
       line-height: 19px;
       text-transform: uppercase;
-      font-family: @ff-secondary;
-      font-weight: bold;
+      font-family: @ff-primary;
+      font-size: 18px;
+      font-weight: 300;
+      margin: 10px 0;
+      letter-spacing: 1px;
     }
 
-    h4{
+    h4 {
       font-size: 22px;
       line-height: 32px;
-      color: #000;
       text-transform: uppercase;
-      font-family: @ff-primary;
+      font-family: @ff-serif;
+      letter-spacing: 1px;
+      color: @c-primary;
     }
 
     .room-data-details{
@@ -254,7 +263,7 @@ reservation-widget {
     }
 
     .desc {
-      color: @c-text;
+      color: #E44D3F;
       font-size: 16px;
       letter-spacing: 0;
       line-height: 19px;
@@ -277,9 +286,12 @@ reservation-widget {
       color: #000;
       font-family: @ff-secondary;
       strong {
-        font-size: 29px;
         line-height: 35px;
         font-weight: bold;
+        color: #4a4a4a;
+        font-family: @ff-primary;
+        font-size: 22px;
+
         .viewport-mobile & {
           font-size: 23px;
           line-height: 28px;
@@ -300,8 +312,9 @@ reservation-widget {
     .image-wrapper {
       overflow: hidden;
       // Make width of parent's container by adding the padding to width
-      width: calc(~'100% + 28px');
-      margin-left: -14px; // This needs to be parent's padding
+      width: calc(~'100% + 60px');
+      margin-left: -30px; // This needs to be parent's padding
+      margin-top: 30px;
 
       img {
         border-radius: 0;
@@ -317,11 +330,9 @@ reservation-widget {
     .room-image-placeholder {
       width: 100%;
       height:210px;
-      margin-bottom: 14px;
       border-radius: 0;
       margin: 11px 0;
       max-height: 117px;
-      width: 100%;
       border: 2px solid #dedede;
       .chain-sand & {
         background:url('@{img-prefix}/sandman-placeholder-large.jpg') no-repeat;
@@ -363,6 +374,7 @@ reservation-widget {
     }
 
     .data {
+      font-family: @ff-primary;
       margin: @spacing 0;
       border: none;
     }
@@ -509,10 +521,12 @@ reservation-widget {
 }
 
 .ReservationDetails__overview {
-  background: #fff;
-  border: 1px solid #D8D8D8;
-  padding: 14px;
+  padding: 30px;
   box-sizing: border-box;
+  border: 1px solid #dedede;
+  border-radius: 6px;
+  background-color: #fff;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
 }
 
 .links {
@@ -670,8 +684,8 @@ reservation-billing {
   }
 
   .chosen-container {
-    line-height: 45px;
-    height: 45px;
+    line-height: 56px;
+    height: 56px;
     border-radius: 0;
     border-color: #d7d7d7;
 
