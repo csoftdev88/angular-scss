@@ -1,33 +1,6 @@
-<hero-slider content="heroContent"
-             class="OffersPage_hero-slider short"
-             slide-width="uiConfig.heroSlider.slideWidth"
-             slide-height="uiConfig.heroSlider.slideHeight">
-</hero-slider>
-
-<article class="HeroTitle" ng-if="isLoyalty && !showDetail">
-  <div class="HeroTitle__inner">
-    <img src="/static/images/v4/logo-icon@3x.png">
-    <div class="HeroTitle__title">
-      <h1>{{ offersList[0].meta.description }}</h1>
-    </div>
-    <a ng-href="{{offersList[0].url}}" class="HeroTitle__button">
-      _find_out_more_
-    </a>
-  </div>
-</article>
-
-<booking-bar id="bookingbar" ng-if="!isMobile" stickable="main-header" size="full-width"></booking-bar>
-
-<breadcrumbs id="breadcrumbs"
-             stickable="bookingbar"
-             ng-show="showDetail"
-             ng-click="{'hide': !showDetail}"
-             class="OffersBreadcrumbs">
-</breadcrumbs>
-
 <main class="grid-wrapper OffersPage">
-
   <div class="preloader" ng-show="preloader.visible"></div>
+  <booking-bar id="bookingbar" ng-if="!isMobile" stickable="main-header" size="full-width"></booking-bar>
 
   <div grid="12" ng-if="isHotDeals && !showDetail">
     <p>_hot_deals_page_description_</p>
