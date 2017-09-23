@@ -898,7 +898,7 @@ reservation-confirmation {
 ////////////////////////////////
 reservation-finished {
 
-  margin-top: 260px;
+  margin-top: @header-height;
 
   .viewport-mobile &{
     margin-top: 130px;
@@ -941,6 +941,7 @@ reservation-finished {
   .video-section {
     width: 100vw;
     margin-left: calc(~'50% - 50vw');
+    margin-top: 30px;
     margin-bottom: 50px;
     height: 500px;
     .viewport-mobile & {
@@ -949,9 +950,12 @@ reservation-finished {
   }
 
   .map-section {
+    width: 100vw;
+    margin-left: calc(~'50% - 50vw');
+    background-color: #fff;
     hotel-location {
       > header {
-        margin: 74px 0 40px 0;
+        margin: 35px 0 25px 0;
         position: relative;
         .viewport-mobile & {
           display: none;
@@ -993,7 +997,7 @@ reservation-finished {
     margin-left: calc(~'50% - 50vw');
     padding: 70px 0;
     padding-top: 70px !important;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.7);
     margin-bottom: 100px;
     .viewport-mobile & {
       margin-bottom: 20px;
@@ -1139,7 +1143,8 @@ reservation-finished {
       font-weight: bold;
       line-height: 36px;
       text-transform: uppercase;
-      color: #000;
+      color: #fff;
+      text-shadow: 0 1px 10px #000;
       &:after {
         content: url('@{lbe-img-prefix}/divider-orange.png');
         display: block;
@@ -1369,7 +1374,6 @@ reservation-finished,
 reservation-hotel-details {
 
   .booking-details {
-    padding-top: 20px;
     width: 50%;
     float: left;
     a {
@@ -1453,7 +1457,8 @@ reservation-hotel-details {
 
     .table-container {
       border: solid 1px white;
-      padding: 20px 10px;
+      padding: 20px 20px;
+      border-radius: 6px;
       box-sizing: border-box;
       width: 50%;
       float: right;
@@ -1492,6 +1497,7 @@ reservation-hotel-details {
         width: 100%;
         margin-bottom: 14px;
         height: 348px;
+        border-radius: 6px;
       }
 
       .room-image-placeholder {
@@ -1570,6 +1576,7 @@ reservation-hotel-details {
     }
 
     h1 {
+      font-family: @ff-serif;
       font-size: 34px;
       line-height: 41px;
       margin-bottom: 18px;
