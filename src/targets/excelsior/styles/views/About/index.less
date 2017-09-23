@@ -154,15 +154,18 @@
   box-sizing: border-box;
   h1, p {
     color: #fff;
-    font-family: @ff-primary;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.9);
   }
   h1 {
+    font-family: @ff-serif;
+    letter-spacing: 1px;
     font-size: 44px;
     line-height: 60px;
     text-transform: uppercase;
     margin-bottom: 36px;
   }
   p {
+    font-family: @ff-primary;
     font-size: 34px;
     line-height: 40px;
     width: 500px;
@@ -172,14 +175,16 @@
   button {
     margin-top: 47px;
     width: 246px;
-    height: 40px;
+    height: 52px;
     background-color: @c-secondary;
-    font-size: 12px;
-    font-weight: bold;
     color: #fff;
     text-transform: uppercase;
-    border-radius: 0;
     text-shadow: none;
+    border: 1px solid darken(@c-secondary, 20%);
+    transition: background-color 150ms linear;
+    &:hover {
+      background-color: darken(@c-secondary, 20%);
+    }
   }
 }
 

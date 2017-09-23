@@ -233,9 +233,9 @@
 <booking-bar class="Home__booking-bar" ng-if="auth.isLoggedIn()" stickable="main-header" size="full-width"></booking-bar>
 <main class="grid-wrapper About" ng-if="auth.isLoggedIn()">
 
-  <questionnaire ng-if="auth.isLoggedIn()"></questionnaire>
+  <questionnaire></questionnaire>
 
-  <div class="About__signup">
+  <div class="About__signup" ng-if="offers.length">
     <h1>_about_offer_title_</h1>
     <p>{{ offers[0].title }}</p>
     <button ng-click="gotoOffer(offers[0])">_view_more_</button>
