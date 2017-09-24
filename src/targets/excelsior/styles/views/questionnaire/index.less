@@ -171,6 +171,7 @@ questionnaire {
   .tier-medallion {
     height: 56px;
     width: 56px;
+    flex: none;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -471,7 +472,7 @@ questionnaire {
 
   .next-stay-addons {
     border-left: 1px dotted #F5EDED;
-    flex: 1 1 0px;
+    flex: 1 1 auto;
     overflow: hidden;
     padding: 30px;
     display: flex;
@@ -482,12 +483,12 @@ questionnaire {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    border-bottom: 1px dashed #F5EDED;
 
     &:not(:first-of-type) {
       margin-top: 10px;
     }
     &:not(:last-of-type) {
+      border-bottom: 1px dashed #F5EDED;
       padding-bottom: 10px;
     }
   }

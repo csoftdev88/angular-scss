@@ -1,9 +1,41 @@
 
 .viewport-mobile {
 
-  .HeroBenefits {
-    position: initial;
+  .Home__booking-bar {
+    display: none;
+  }
+
+  .HotelDetails__search {
+    position: absolute;
+    bottom: 0;
+  }
+
+  .fullscreen .HeroBenefits {
+    position: relative;
     padding: 31px 12px 0 12px;
+    margin-top: @mobile-header-height;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .HeroBenefits__subtitle {
+    width: 100%;
+    font-size: 18px;
+  }
+
+  .HeroBenefits__benefits {
+    display: none;
+  }
+
+  .HeroBenefits__signup {
+    right: initial;
+    left: 0;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
   }
 
   .HeroBenefits__benefit {

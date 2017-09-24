@@ -6,6 +6,24 @@
     padding: 0;
     margin-top: 15px;
 
+    .tier-and-points {
+      flex-flow: column nowrap;
+      .points-amount {
+        .points {
+          font-size: 30px;
+        }
+        .points-label {
+          font-size: 15px;
+        }
+      }
+    }
+
+    .questionnaire__title {
+      height: 40px;
+      line-height: 40px;
+      font-size: 18px;
+    }
+
     .questionnaire__points {
       float: initial;
       width: 100%;
@@ -15,6 +33,23 @@
     .questionnaire__status {
       margin: 0;
       padding: 27px 0 0 37px;
+    }
+
+    .next-stay-details {
+      margin: 20px 0 10px 0;
+      padding: 20px;
+    }
+
+    .questionnaire__next-stay {
+      .next-stay-panel {
+        height: auto;
+        flex-flow: column nowrap;
+        padding: 0 15px;
+      }
+    }
+
+    .addon-wrapper {
+      flex-flow: column nowrap;
     }
 
     .questionnaire__questions {
@@ -29,7 +64,13 @@
       }
     }
 
+    .questionnaire__nextStay--title {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
     .questionnaire__nextStay--subtitle {
+      font-size: 18px;
       &.emptyMessage {
         padding-bottom: 40%;
         padding-right: 0;

@@ -17,12 +17,16 @@
   align-items: center;
   justify-content: flex-end;
   flex: 1;
+  overflow: hidden;
 }
 
 .Header__buttons--auth {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  overflow: hidden;
+  flex: 1;
+  justify-content: flex-end;
 }
 
 .Header__inner {
@@ -42,7 +46,9 @@
 .Header__profile {
   display: flex;
   flex-flow: row nowrap;
+  white-space: nowrap;
   width: auto;
+  margin-left: 30px;
   margin-right: 30px;
   align-items: center;
 

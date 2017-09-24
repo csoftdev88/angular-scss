@@ -216,7 +216,12 @@
     </div>
 
   </article>
-  <booking-bar class="Home__booking-bar drop-up"size="full-width-bottom"></booking-bar>
+  <!--Desktop search bar-->
+  <booking-bar class="Home__booking-bar drop-up" size="full-width-bottom"></booking-bar>
+  <!--Mobile search button-->
+  <button class="HotelDetails__search" ng-click="openBookingBar()">
+    _find_your_room_
+  </button>
 </div>
 
 <div ng-if="auth.isLoggedIn()" class="members-only-banner logged-in">
