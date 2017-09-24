@@ -113,6 +113,7 @@
           <div class="addon-text">
             <div class="addon-name" ng-bind-html="addon.name | wrapWordHtml : 'span' : 0"></div>
             <div class="addon-cost">
+              <!--TODO: get addon price if Settings.API.reservations.inclusionsAsAddons is false -->
               <span>{{ addon.price.totalAfterTax | i18nCurrency: defaultCurrencyCode }}</span>
               <span ng-if="addon.pointsRequired &&
                           loyaltyProgramEnabled &&
@@ -120,7 +121,9 @@
             </div>
           </div>
 
-          <button class="addon-add-button">
+          <button class="addon-add-button"
+                  ng-click="openAddonDetailDialog($event, addon)">
+            <i class="fa fa-plus-circle"></i>
             Add On
           </button>
           <!--<a class="button"-->

@@ -533,14 +533,19 @@ questionnaire {
   }
 
   .addon-add-button {
+    position: relative;
     flex: none;
     height: 40px;
     line-height: 40px;
-    width: 128px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    white-space: nowrap;
     border: 1px solid #EEEDED;
     border-radius: 100px;
     background-color: #FDFDFD;
     text-transform: uppercase;
+    padding: 0 15px;
 
     color: #898989;
     font-family: @ff-primary;
@@ -548,13 +553,10 @@ questionnaire {
     font-size: 15px;
     font-weight: bold;
 
-    .plus-circle-font-awesome {
-      height: 0.72%;
-      width: 1.31%;
+    .fa-plus-circle {
+      margin-right: 10px;
       color: #B98747;
-      font-family: FontAwesome;
       font-size: 23px;
-      line-height: 28px;
     }
   }
 

@@ -14,10 +14,12 @@
     .module('mobiusApp.directives.lbe.questionnaire', ['mobiusApp.services.polls'])
     .directive('questionnaire', ['Settings', '$log', 'polls', 'userObject', 'DynamicMessages', 'stateService',
                                  'rewardsService', '$controller', '_', 'reservationService', 'propertyService',
-                                 'apiService', '$q', 'user', Questionnaire]);
+                                 'apiService', '$q', 'user', 'userMessagesService', '$rootScope', 'modalService',
+                                 'infinitiEcommerceService', 'preloaderFactory', Questionnaire]);
 
   function Questionnaire(Settings, $log, pollsService, userObject, DynamicMessages, stateService, rewardsService,
-                         $controller, _, reservations, property, apiService, $q, user) {
+                         $controller, _, reservations, property, apiService, $q, user, userMessagesService, $rootScope,
+                         modalService, infinitiEcommerceService, preloaderFactory) {
     return {
       restrict: 'E',
       scope: true,
@@ -94,6 +96,69 @@
             });
           });
         }
+
+        // TODO: refactor this into a new addonsService and reuse it in reservationDetails.js
+        scope.addAddon = function (addon) {
+          // Check if this addon was already added
+          if (scope.nextStay.reservationAddons.indexOf(addon.code) !== -1) {
+            return;
+          }
+          // Add the addon to the next stay
+          var addAddonPromise = reservations.addAddon(scope.nextStay.reservationCode, addon, null)
+            .then(function () {
+              // Infiniti Tracking purchase
+
+              var product = {
+                'id': addon.code,
+                'variant': 'Room:' + addon.roomTypeCode + '|Type:' + addon.name,
+                'quantity': 1,
+                'amount': Settings.API.reservations.inclusionsAsAddons && addon.price ? addon.price.totalAfterTax : addon.price,
+                'category': 'Add-Ons',
+                'currency': $rootScope.currencyCode,
+                'title': addon.name,
+                'desc': addon.description
+              };
+              var infinitiTrackingProducts = [product];
+
+              var infinitiTrackingData = {
+                'reservationNumber': scope.nextStay.reservationCode,
+                'products': infinitiTrackingProducts
+              };
+
+              infinitiEcommerceService.trackPurchase(true, infinitiTrackingData);
+
+              // Removing from available addons
+              scope.nextStay.availableAddons = _.reject(scope.nextStay.availableAddons, function (a) {
+                return a.code === addon.code;
+              });
+              // Adding to reservation addons
+
+              // FIXME: what does that note/comment mean? In English please?
+              // NOTE: When getting addons from the API points will be reflected in another
+              // property as in original object `points` instead of `pointsRequired`
+              addon.points = addon.pointsRequired;
+              scope.nextStay.reservationAddons.push(addon);
+
+
+              userMessagesService.addMessage(DynamicMessages[appLang].you_have_added + addon.name + DynamicMessages[appLang].to_your_reservation, false, true, 'reservation-confirmation');
+
+              // Updating user loyalties once payment was done using the points
+              if (addon.pointsRequired) {
+                user.loadLoyalties();
+              }
+            });
+
+          preloaderFactory(addAddonPromise);
+        };
+
+        scope.openAddonDetailDialog = function(e, addon, payWithPoints) {
+          console.log('openAddonDetailDialog called', arguments);
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          modalService.openAddonDetailDialog(scope.addAddon, addon, payWithPoints);
+        };
 
         var init = function () {
 
