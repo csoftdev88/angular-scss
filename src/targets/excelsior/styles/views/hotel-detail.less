@@ -183,8 +183,6 @@ hotel-detail {
 
           h3 {
             a {
-              height: 37px;
-              width: 834px;
               font-family: @ff-serif;
               font-size: 28px;
               font-weight: bold;
@@ -192,6 +190,9 @@ hotel-detail {
               line-height: 37px;
               color: @c-primary;
               text-transform: uppercase;
+              .viewport-mobile & {
+                font-size: 18px;
+              }
             }
 
             .sub-title{
