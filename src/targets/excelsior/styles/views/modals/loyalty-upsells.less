@@ -6,11 +6,22 @@ dialog.loyalty-upsell.dialog-v2.upsells-dialog {
   border-radius: 6px;
   overflow: hidden;
 
+  .viewport-mobile & {
+    height: calc(~'100vh - 100px');
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+
   div.ui-info main {
     display: flex;
     flex-flow: row nowrap;
     margin: 0;
     padding: 10px;
+
+    .viewport-mobile & {
+      flex-flow: column nowrap;
+      align-items: flex-end;
+    }
 
     .image-wrapper {
       img {
@@ -22,6 +33,10 @@ dialog.loyalty-upsell.dialog-v2.upsells-dialog {
     image-carousel {
       width: initial;
       flex: none;
+      .viewport-mobile & {
+        width: 150px;
+        height: 150px;
+      }
     }
 
     .details {
@@ -40,6 +55,10 @@ dialog.loyalty-upsell.dialog-v2.upsells-dialog {
         line-height: 37px;
         color: #b98747;
         text-transform: uppercase;
+        .viewport-mobile & {
+          font-size: 18px;
+          line-height: 24px;
+        }
       }
       h1:after {
         content: none;
@@ -47,6 +66,9 @@ dialog.loyalty-upsell.dialog-v2.upsells-dialog {
       .description {
         flex: 1;
         margin: 20px 0;
+        .viewport-mobile & {
+          margin: 5px 0 20px;
+        }
       }
     }
 
@@ -64,22 +86,30 @@ dialog.loyalty-upsell.dialog-v2.upsells-dialog {
         font-weight: bold;
         text-align: center;
         text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
-        border: 1px solid #d24335;
         border-radius: 4px;
         transition: background 200ms;
         margin: 8px 0 0 0;
         width: 100%;
+        background: @c-green;
+
+        // Override weird inline display from main styles
+        .viewport-mobile & {
+          display: block;
+          height: 40px;
+          line-height: 40px;
+          font-size: 13px;
+        }
 
         &:first-of-type {
           margin-top: 0;
         }
       }
       a.button {
-        background: #e34e3f;
-        color: #fff;
+        background: @c-green;
       }
       a.button.ghost {
-        background: #fff;
+        border: 1px solid #d24335;
+        background: transparent;
         color: #d24335;
         text-shadow: none;
         font-weight: normal;
@@ -92,6 +122,10 @@ dialog.loyalty-upsell.dialog-v2.upsells-dialog {
 
     span.price-difference {
       background: @c-primary;
+      .viewport-mobile & {
+        font-size: 14px;
+        padding: 8px 20px 8px 10px;
+      }
     }
   }
 }
