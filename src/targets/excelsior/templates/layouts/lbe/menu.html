@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<div class="Menu__items" dropdown-group>
+<div class="Menu__items">
   <div ng-click="$state.go('home', $stateParams, { reload: true })"
       class="Menu__items--item">
     _home_
@@ -29,7 +29,7 @@
     _menu_name_
   </div>
 
-  <div class="Menu__sublinks-wrapper">
+  <div class="Menu__sublinks-wrapper" dropdown-group>
     <div class="equal-split-box">
       <div ui-sref="reservations"
            ng-if="auth.isLoggedIn()"
