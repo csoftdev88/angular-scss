@@ -1,5 +1,9 @@
 @import "./mobile";
 
+.mobile-search-button-wrapper {
+  display: none;
+}
+
 .HeroBenefits {
   position: absolute;
   left: calc(~'(100vw - 1212px) / 2');
@@ -72,6 +76,12 @@
   flex-flow: column nowrap;
   justify-content: space-between;
   align-items: stretch;
+
+  select,
+  input,
+  .chosen-container {
+    margin-bottom: 10px;
+  }
 
   .emphasis {
     font-weight: 700;

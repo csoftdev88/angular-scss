@@ -6,6 +6,32 @@
     padding: 0;
     margin-top: 15px;
 
+    .questionnaire__points,
+    .questionnaire__questions,
+    .questionnaire__next-stay,
+    .questionnaire__feature {
+      & > * {
+        padding: @questionnaire-mobile-padding;
+      }
+    }
+
+    .questionnaire__info {
+      .name {
+        font-size: 18px;
+        line-height: 18px;
+      }
+      .profile-link {
+        width: 95px;
+        height: 28px;
+        line-height: 28px;
+        font-size: 12px;
+        i.fa {
+          font-size: 18px;
+          margin: 0 8px;
+        }
+      }
+    }
+
     .tier-and-points {
       flex-flow: column nowrap;
       .points-amount {

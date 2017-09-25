@@ -47,7 +47,10 @@ angular.module('mobiusApp.dynamicMessages', [])
       'missing_title': 'Please select your title',
       'missing_fname': 'Please enter your first name',
       'missing_lname': 'Please enter your last name',
-      'missing_country': 'Please select your country'
+      'missing_country': 'Please select your country',
+      'corp_code': 'Corporate Code',
+      'group_code': 'Group Code',
+      'promo_code': 'Promo Code'
     },
     'de': {
       'your_reservation': '<div>Ihre Reservierung <strong>',

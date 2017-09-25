@@ -83,6 +83,7 @@
         });
 
         // Code types available to user
+        // TODO: get the titles from dynamicMessages
         scope.codes = [
           {
             title: 'Corporate Code',

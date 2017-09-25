@@ -78,7 +78,10 @@ questionnaire {
       color: @c-alt-grey;
       font-family: @ff-primary;
       font-size: 24px;
+      line-height: 24px;
       font-weight: 300;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .profile-link {
       flex: none;
@@ -273,7 +276,6 @@ questionnaire {
   .questionnaire__questions,
   .questionnaire__next-stay,
   .questionnaire__feature {
-    //width: calc(~'50% - @{hgap}');
     flex: 1 1 0px;
     & > * {
       padding: @questionnaire-padding;

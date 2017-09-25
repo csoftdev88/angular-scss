@@ -5,9 +5,33 @@
     display: none;
   }
 
+  .mobile-search-button-wrapper {
+    display: block;
+    border: 1px solid #E6D4BD;
+    background-color: @c-bookingbar-bg;
+  }
+
   .HotelDetails__search {
-    position: absolute;
-    bottom: 0;
+    position: relative;
+    width: calc(~'100% - 40px');
+    bottom: initial;
+    left: 20px;
+
+    height: 56px;
+    border: 1px solid #79AF41;
+    border-radius: 4px;
+    background-color: #87C34A;
+
+    color: #fff;
+    font-family: @ff-primary;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2);
+
+    &.position-bottom {
+      position: absolute;
+      bottom: 0;
+    }
   }
 
   .fullscreen .HeroBenefits {

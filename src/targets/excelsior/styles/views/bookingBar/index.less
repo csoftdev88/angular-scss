@@ -80,7 +80,8 @@ booking-bar {
   &.booking-bar__size-large,
   &.booking-bar__size-full-width,
   &.booking-bar__size-full-width-bottom {
-    padding: 10px 50px 0 50px;
+    padding: 0 50px;
+    min-height: 78px;
     .sticky & {
       // compensate for scrollbar width
       padding-right: 67px;
@@ -159,7 +160,6 @@ booking-bar {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 10px;
     }
   }
 
