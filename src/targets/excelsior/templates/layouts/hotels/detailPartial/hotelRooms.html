@@ -46,8 +46,10 @@
       <list-item ng-repeat="room in rooms | orderBy : currentOrder.sort | filter: roomsDisplayFilter | limitTo: numberOfRoomsDisplayed" data-hover-trigger="displayRoomRates(room)" data-trigger-delay="hoverTriggerDelay" ng-click="listItemClick()">
         <header class="item-header desktop">
           <h3>
-            <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle" ng-class="{'hide-info-icon' : roomsConfig.hideShowInfoIcon}"></a>
-            <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" class="view-more">_view_full_details_</a>
+            <!--FIXME: Disable room link until the room pages are styled to our standard-->
+            <!--<a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle" ng-class="{'hide-info-icon' : roomsConfig.hideShowInfoIcon}"></a>-->
+            <!--<a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" class="view-more">_view_full_details_</a>-->
+            <a ng-bind-html="room.name | mainHeaderStyle" ng-class="{'hide-info-icon' : roomsConfig.hideShowInfoIcon}"></a>
             <span class="sub-title" ng-if="roomsConfig.displayRoomSubtitle && room.subTitle">{{room.subTitle}}</span>
           </h3>
           <pricing-switch ng-if="$first">
@@ -78,8 +80,10 @@
 
             <header class="item-header mobile">
               <h3>
-                <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle"></a>
-                <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" class="view-more">_view_full_details_</a>
+                <!--FIXME: Disable room link until the room pages are styled to our standard-->
+                <!--<a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle"></a>-->
+                <!--<a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" class="view-more">_view_full_details_</a>-->
+                <a ng-bind-html="room.name | mainHeaderStyle"></a>
                 <span class="sub-title" ng-if="roomsConfig.displayRoomSubtitle && room.subTitle">{{room.subTitle}}</span>
               </h3>
             </header>
