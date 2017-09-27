@@ -70,10 +70,10 @@ angular.module('mobiusApp.config', [])
       'enable': true
     },
     'staging': {
-      'enable': false
+      'enable': true
     },
     'live': {
-      'enable': false
+      'enable': true
     }
   },
   'infinitiApeironTracking': {
@@ -375,7 +375,7 @@ angular.module('mobiusApp.config', [])
       display:true
     },
     'alternateBookingFlow': {
-      'enabled': true
+      'enabled': false
     },
     'instagramFeed': {
       'images': [
