@@ -23,8 +23,16 @@ angular.module('mobius.controllers.reservation', [])
   $scope.canPayWithPoints = true;
   $scope.$stateParams = $stateParams;
   $scope.requiredFieldsMissingError = false;
+  $scope.settings = Settings;
+  $scope.memberOnlyBooking = $stateParams.memberOnly;
+  $scope.profile = {};
+  $scope.profile.userPassword = '';
+  $scope.userPasswordInvalid = false;
+  $scope.userPasswordRequired = false;
 
   var clickedSubmit = false;
+
+  $scope.isValidKeystonePassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
 
   //If steps are at top of page we scroll to them, if they are in the widget we just scroll to top of page
   $scope.scrollReservationStepsPosition = $scope.bookingConfig.bookingStepsNav.showInReservationWidget ? 'top' : 'reservation-steps';
@@ -103,7 +111,7 @@ angular.module('mobius.controllers.reservation', [])
     }, true);
   });
 
-  function onAuthorized(isMobiusUser) {
+  function onAuthorized() {
     // Getting room/products data
     //
     var roomsPromises = [];
@@ -149,7 +157,7 @@ angular.module('mobius.controllers.reservation', [])
 
     // Showing login/register dialog when user making reservation as not logged in
     // user. This doesn't apply for modifications or if loyalty program is disbaled
-    if (!isMobiusUser && !$scope.isModifyingAsAnonymous() && Settings.authType === 'infiniti') {
+    if (!$scope.auth.isLoggedIn() && !$scope.isModifyingAsAnonymous() && Settings.authType === 'infiniti') {
       modalService.openLoginDialog();
     }
 
@@ -239,7 +247,7 @@ angular.module('mobius.controllers.reservation', [])
     }
     //If new reservation
     else {
-      prefillUserDetails(isMobiusUser || userObject.token ? user.getUser() : {
+      prefillUserDetails($scope.auth.isLoggedIn() || userObject.token ? user.getUser() : {
         email: $stateParams.email
       });
     }
@@ -540,27 +548,24 @@ angular.module('mobius.controllers.reservation', [])
     }
   };
 
-  $scope.isValid = function() {
-    console.log('checking the validity', $scope.allRooms);
-    if ($scope.allRooms && $scope.allRooms.length) {
-      switch ($state.current.name) {
-        case 'reservation.details':
-          return $scope.forms.details && !$scope.forms.details.$invalid;
-        case 'reservation.billing':
-          switch ($scope.billingDetails.paymentMethod) {
-            case 'point':
-              if ($scope.auth && $scope.auth.isLoggedIn() && $scope.getTotal('pointsRequired')) {
-                return user.getUser().loyalties.amount >= $scope.getTotal('pointsRequired');
-              }
-              break;
-          }
-          return $scope.forms.billing && !$scope.forms.billing.$invalid;
-        case 'reservation.confirmation':
-          return $scope.forms.additionalInfo && !$scope.forms.additionalInfo.$invalid;
-      }
+  $scope.isValid = function () {
+    $log.info('checking the validity', $scope.allRooms);
+    if (!$scope.allRooms || !$scope.allRooms.length) {
+      return false;
     }
-
-    return false;
+    switch ($state.current.name) {
+      case 'reservation.details':
+        return $scope.forms.details && !$scope.forms.details.$invalid;
+      case 'reservation.billing':
+        if ($scope.billingDetails.paymentMethod === 'point' && $scope.auth && $scope.auth.isLoggedIn() && $scope.getTotal('pointsRequired')) {
+          return user.getUser().loyalties.amount >= $scope.getTotal('pointsRequired');
+        }
+        return $scope.forms.billing && !$scope.forms.billing.$invalid;
+      case 'reservation.confirmation':
+        return $scope.forms.additionalInfo && !$scope.forms.additionalInfo.$invalid;
+      default:
+        return false;
+    }
   };
 
   $scope.isContinueDisabled = function() {
@@ -580,6 +585,116 @@ angular.module('mobius.controllers.reservation', [])
     return !$scope.isValid() && !$state.is('reservation.details') && !$state.is('reservation.billing');
   };
 
+  function mapDataToKeystoneRegister() {
+    var titleObj = _.findWhere($scope.profileTitles, {id: $scope.userDetails.title});
+    return {
+      Email: $scope.userDetails.email,
+      ConfirmEmail: $scope.userDetails.email,
+      Password: $scope.profile.userPassword,
+      ConfirmPassword: $scope.profile.userPassword,
+      tc: true,
+      privacy: $scope.additionalInfo.optedIn,
+      Profile: {
+        Name: {
+          Title: titleObj ? titleObj.code : null,
+          FirstName: $scope.userDetails.firstName,
+          LastName: $scope.userDetails.lastName
+        },
+        Phone: [{
+          Number: $scope.userDetails.phone,
+          IsDefault: false,
+          IsEmergency: false
+        }],
+        Address: [{
+          FirstLine: $scope.userDetails.address,
+          City: $scope.userDetails.city,
+          County: $scope.userDetails.stateProvince,
+          Postcode: $scope.userDetails.zip,
+          Country:  $scope.userDetails.countryObj ? $scope.userDetails.countryObj.code : null,
+          IsCompany: false,
+          IsDefault: true,
+          IsDelivery: false,
+          IsBilling: false
+        }]
+      }
+    };
+  }
+
+  function mapEmail(existingProfile, updatePayload) {
+    var defaultEmailFromProfile = existingProfile.Email && existingProfile.Email.filter(function (value) {
+      return value.IsDefault;
+    })[0];
+    if ($scope.userDetails.email && defaultEmailFromProfile.Email !== $scope.userDetails.email) {
+      var emailObj = {
+        Email: $scope.userDetails.email,
+        Source: 'keystone',
+        IsDefault: true,
+        IsEmergency: false
+      };
+      if (defaultEmailFromProfile) {
+        emailObj.Id = defaultEmailFromProfile.Id;
+      } else {
+        $log.warn('Keystone profile did not contain a default email!');
+      }
+      updatePayload.Email = [emailObj];
+    }
+  }
+
+  function mapPhone(existingProfile, updatePayload) {
+    var defaultPhoneFromProfile = existingProfile.Phone && existingProfile.Phone.filter(function (value) {
+      return value.IsDefault;
+    })[0];
+    if ($scope.userDetails.phone) {
+      if (!defaultPhoneFromProfile || defaultPhoneFromProfile.Number !== $scope.userDetails.phone) {
+        var phoneObject = {
+          Number: $scope.userDetails.phone,
+          IsDefault: false,
+          IsEmergency: false
+        };
+        if (defaultPhoneFromProfile) {
+          phoneObject.Id = defaultPhoneFromProfile.Id;
+        }
+        updatePayload.Phone = [phoneObject];
+      }
+    }
+  }
+
+  function mapAddress(existingProfile, updatePayload) {
+    var defaultAddressFromProfile = existingProfile.Address && existingProfile.Address.filter(function (value) {
+      return value.IsDefault;
+    })[0];
+
+    var addressObj = {
+      FirstLine: $scope.userDetails.address || null,
+      City: $scope.userDetails.city || null,
+      County: $scope.userDetails.stateProvince || null,
+      Postcode: $scope.userDetails.zip || null,
+      Country: $scope.userDetails.countryObj ? $scope.userDetails.countryObj.code : null
+    };
+    if (defaultAddressFromProfile) {
+      addressObj.Id = defaultAddressFromProfile.Id;
+    }
+    updatePayload.Address = [addressObj];
+  }
+
+  function mapDataToUpdateKeystone() {
+    var existingProfile = window.KS.$me.get();
+    var updatePayload = {};
+
+    var titleObj = _.findWhere($scope.profileTitles, {id: $scope.userDetails.title});
+    updatePayload.Name = {
+      Title: titleObj ? titleObj.code : null,
+      FirstName: $scope.userDetails.firstName,
+      LastName: $scope.userDetails.lastName
+    };
+
+    mapEmail(existingProfile, updatePayload);
+    mapPhone(existingProfile, updatePayload);
+    mapAddress(existingProfile, updatePayload);
+
+    return updatePayload;
+  }
+
   $scope.continue = function() {
     switch ($state.current.name) {
       case 'reservation.details':
@@ -588,19 +703,91 @@ angular.module('mobius.controllers.reservation', [])
           $scope.forms.details.$submitted = true;
         }
 
-        //Clear email error message if any
+        // Ensure that the user has filled in a password and that it is valid for member only bookings
+        // If it is a usual booking, then ensure that if a password has optionally been given, it is valid
+        if (!$scope.auth.isLoggedIn()) {
+          if ($scope.memberOnlyBooking) {
+            if ($scope.profile.userPassword === '') {
+              $scope.userPasswordInvalid = false;
+              $scope.userPasswordRequired = true;
+              return;
+            }
+            if (!$scope.isValidKeystonePassword.test($scope.profile.userPassword)) {
+              $scope.userPasswordInvalid = true;
+              $scope.userPasswordRequired = false;
+              return;
+            }
+            $scope.userPasswordInvalid = false;
+            $scope.userPasswordRequired = false;
+          } else {
+            $scope.userPasswordRequired = false;
+            if ($scope.profile.userPassword !== '' && !$scope.isValidKeystonePassword.test($scope.profile.userPassword)) {
+              $scope.userPasswordInvalid = true;
+              return;
+            }
+            $scope.userPasswordInvalid = false;
+          }
+        }
+
+        // Clear email error message if any
         if ($scope.invalidFormData.email) {
           $scope.invalidFormData.email = null;
         }
 
-        $scope.requiredFieldsMissingError = ($scope.forms.details.$error &&
-                                             $scope.forms.details.required &&
-                                             $scope.forms.details.$error.required.length > 0);
+        $scope.requiredFieldsMissingError = $scope.forms.details.$error &&
+                                            $scope.forms.details.required &&
+                                            $scope.forms.details.$error.required.length > 0;
 
         if ($scope.isValid()) {
-          $state.go('reservation.billing');
-          $scope.autofillSync();
-          trackProductCheckout(2);
+
+          var proceed = function () {
+            $state.go('reservation.billing');
+            $scope.autofillSync();
+            trackProductCheckout(2);
+          };
+
+          var mappedUser = mapDataToKeystoneRegister();
+          if ($scope.auth.isLoggedIn()) {
+            // Update Keystone profile in the background
+            var updatePayload = mapDataToUpdateKeystone();
+            window.KS.$me.update(updatePayload).then(function (updatedProfile) {
+              $log.info('Successfully updated Keystone profile', updatedProfile);
+            }, function (error) {
+              $log.error('Updating keystone profile failed!', error);
+            });
+            proceed();
+          } else {
+            // Check if we should create an account
+            if ($scope.profile.userPassword) {
+
+              var loginDetails = {
+                Email: mappedUser.Email,
+                Password: mappedUser.Password
+              };
+
+              var loginOrRegister = window.KS.$me.login(loginDetails).then(function () {
+                $log.info('User logged in successfully!');
+                proceed();
+              }, function () {
+                $log.info('Logging in failed, attempting register');
+                return window.KS.$me.register(mappedUser).then(function () {
+                  $log.info('User registered successfully!');
+                  proceed();
+                }, function (error) {
+                  $log.warn('Registering failed with error, check if email is taken, prompt user to verify their password', error);
+                });
+              });
+              console.log('Showing preloader...');
+              preloaderFactory(loginOrRegister);
+              loginOrRegister.finally(function () {
+                console.log('Hiding preloader');
+              });
+              return loginOrRegister;
+            }
+            proceed();
+          }
+
+
         } else {
           scrollToDetails('reservationDetailsForm');
         }
@@ -620,11 +807,24 @@ angular.module('mobius.controllers.reservation', [])
           $scope.invalidFormData.payment = null;
         }
 
-        if ($scope.isValid()) {
-          $state.go('reservation.confirmation');
-          trackProductCheckout(3);
+        if ($scope.voucher.code) {
+          $scope.redeemVoucher()
+            .then(function () {
+              if ($scope.isValid()) {
+                $state.go('reservation.confirmation');
+                trackProductCheckout(3);
+              } else {
+                scrollToDetails('reservationBillingForm');
+              }
+            })
+            .catch($log.info);
         } else {
-          scrollToDetails('reservationBillingForm');
+          if ($scope.isValid()) {
+            $state.go('reservation.confirmation');
+            trackProductCheckout(3);
+          } else {
+            scrollToDetails('reservationBillingForm');
+          }
         }
         break;
       case 'reservation.confirmation':
@@ -1440,7 +1640,7 @@ angular.module('mobius.controllers.reservation', [])
 
       var params = getCheckVoucherParams();
 
-      reservationService.checkVoucher(params).then(function(voucherData) {
+      return reservationService.checkVoucher(params).then(function(voucherData) {
         if (voucherData.valid) {
           //If successful display success message and price details with voucher param
           $scope.voucher.verifying = false;
@@ -1484,9 +1684,11 @@ angular.module('mobius.controllers.reservation', [])
           }, goToRoom));
         } else {
           invalidVoucher();
+          throw new Error();
         }
       }, function() {
         invalidVoucher();
+        throw new Error();
       });
     }
   };

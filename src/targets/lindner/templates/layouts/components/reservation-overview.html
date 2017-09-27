@@ -163,7 +163,7 @@
     </label>
   </div>
 
-  <div ng-if="bookingConfig.vouchers.enable && allRooms.length && !$stateParams.reservation" class="voucher-entry">
+  <div ng-if="bookingConfig.vouchers.enable && allRooms.length && !$stateParams.reservation && !bookingConfig.voucherInBillingSection" class="voucher-entry">
     <h4>_redeem_voucher_message_</h4>
     <label for="voucher" class=" medium">
               <input type="text" id="voucher"
@@ -183,4 +183,11 @@
       <i class="fa fa-close" /><span> _voucher_code_invalid_</span>
     </div>
   </div>
+  <label ng-if="!bookingConfig.detailsBeforeForm && bookingConfig.emailOptinUnderOverview"
+         for="agreement3"
+         class="input-checkbox"
+         ng-show="state.includes('reservation.details') || state.includes('reservation.billing')">
+    <input type="checkbox" id="agreement3" ng-model="additionalInfo.optedIn"/>
+    <i ng-bind-html='"_email_optin_label_" | stringLocaleReplace:chainName'></i>
+  </label>
 </section>

@@ -35,7 +35,7 @@
 
     <nav grid-row id="reservation-steps" class="reservation-steps" ng-if="bookingConfig.bookingStepsNav.display && !bookingConfig.bookingStepsNav.showInReservationWidget">
       <a ng-click="auth.login()" ng-if="!isUserLoggedIn() && state.includes('reservation.details') && !isModifyingAsAnonymous() && bookingConfig.loginCtaTop.display"
-        class="reservation-login-banner">_user_has_account_login_</a>
+         class="reservation-login-banner">_user_has_account_login_</a>
       <h4 class="label">_your_booking_progress_</h4>
       <ul>
         <li><a class="button" href="" ng-click="goToRoom()">1<span class="dot">.</span> <span class="text">_choose_your_room_</span></a></li>
@@ -129,7 +129,10 @@
         </aside>
       </div>
 
-      <label ng-if="!bookingConfig.detailsBeforeForm" for="agreement3" class="input-checkbox" ng-show="state.includes('reservation.details') || state.includes('reservation.billing')">
+      <label ng-if="!bookingConfig.detailsBeforeForm && !bookingConfig.emailOptinUnderOverview"
+             for="agreement3"
+             class="input-checkbox"
+             ng-show="state.includes('reservation.details') || state.includes('reservation.billing')">
         <input type="checkbox" id="agreement3" ng-model="additionalInfo.optedIn"/>
         <i ng-bind-html='"_email_optin_label_" | stringLocaleReplace:chainName'></i>
       </label>

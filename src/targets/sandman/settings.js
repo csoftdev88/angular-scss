@@ -70,10 +70,10 @@ angular.module('mobiusApp.config', [])
       'enable': true
     },
     'staging': {
-      'enable': false
+      'enable': true
     },
     'live': {
-      'enable': false
+      'enable': true
     }
   },
   'infinitiApeironTracking': {
@@ -102,7 +102,7 @@ angular.module('mobiusApp.config', [])
       'enableDuplication': false,
       'endpoint':'https://0vafuvdy4f.execute-api.us-west-2.amazonaws.com/int/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.4-rc5/infiniti.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-integration',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
@@ -373,6 +373,9 @@ angular.module('mobiusApp.config', [])
   'UI': {
     'campaigns': {
       display:true
+    },
+    'alternateBookingFlow': {
+      'enabled': false
     },
     'instagramFeed': {
       'images': [
@@ -973,6 +976,8 @@ angular.module('mobiusApp.config', [])
           'regex': /^3[47][0-9]{13}$/
         }
       },
+      'emailOptinUnderOverview': true,
+      'voucherInBillingSection': true,
       //Is billing state a required field?
       'billingStateRequired': true,
       //price breakdown

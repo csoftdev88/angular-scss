@@ -373,5 +373,46 @@
       </label>
       <input type="submit" id="submit" value="_submit_" ng-hide="true" />
     </form>
+
+    <form class="CreateUser"
+          novalidate
+          ng-if="settings.authType === 'keystone' &&
+            !auth.isLoggedIn() &&
+            !$stateParams.reservation &&
+            settings.UI.alternateBookingFlow &&
+            settings.UI.alternateBookingFlow.enabled">
+
+      <img class="CreateUser__logo" src="/static/images/apple-touch-icon-72x72.png">
+
+      <div class="CreateUser__content">
+        <h4 ng-if="memberOnlyBooking" class="CreateUser__title">
+          _create_account_title_required_
+        </h4>
+        <h4 ng-if="!memberOnlyBooking" class="CreateUser__title">
+          _create_account_title_
+        </h4>
+        <p ng-if="memberOnlyBooking" class="CreateUser__text">
+          _create_account_text_required_
+        </p>
+        <p ng-if="!memberOnlyBooking" class="CreateUser__text">
+          _create_account_text_
+        </p>
+      </div>
+
+      <input class="CreateUser__password"
+             type="password"
+             ng-class="{'invalid-input': (userPasswordInvalid || userPasswordRequired) && forms.details.$submitted}"
+             placeholder="_password_label_"
+             ng-model="profile.userPassword">
+
+    </form>
+
+    <p class="CreateUser__error" ng-show="userPasswordInvalid">
+      _create_account_invalid_
+    </p>
+    <p class="CreateUser__error" ng-show="userPasswordRequired">
+      _create_account_error_
+    </p>
+
   </div>
 </reservation-details-form>
