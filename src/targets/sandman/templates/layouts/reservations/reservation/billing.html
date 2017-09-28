@@ -56,9 +56,9 @@
 
         <label for="form-card-number">
           <input type="text" id="form-card-number" credit-card-check required
-            placeholder="xxxx-xxxx-xxxx-xxxx"
-            ng-model="billingDetails.card.number"
-            name="creditcard"/>
+                 placeholder="xxxx-xxxx-xxxx-xxxx"
+                 ng-model="billingDetails.card.number"
+                 name="creditcard"/>
           <span>
             <span ng-hide="forms.billing.$submitted && forms.billing.creditcard.$error.creditCardCheck">_card_number_label_</span>
             <span ng-show="forms.billing.$submitted && forms.billing.creditcard.$error.creditCardCheck">_card_number_error_</span>
@@ -67,11 +67,11 @@
 
         <label for="form-name-on-card">
           <input type="text" id="form-name-on-card" required
-            placeholder="_card_name_placeholder_"
-            ng-model="billingDetails.card.holderName"
-            name="holderName"
-            ng-pattern="$root.generalValidationPattern"/>
-            <span>
+                 placeholder="_card_name_placeholder_"
+                 ng-model="billingDetails.card.holderName"
+                 name="holderName"
+                 ng-pattern="$root.generalValidationPattern"/>
+          <span>
               <span ng-hide="forms.billing.$submitted && forms.billing.holderName.$error">_card_name_label_</span>
               <span ng-show="forms.billing.$submitted && forms.billing.holderName.$error && !forms.billing.holderName.$error.pattern">_card_name_label_</span>
               <span ng-show="forms.billing.$submitted && forms.billing.holderName.$error.pattern">_letters_pattern_error_</span>
@@ -87,10 +87,10 @@
             <!-- EXP MONTH -->
             <label for="form-expires-month" class="input-left">
               <select id="form-expires-month" name="form-expires-month"
-                required ng-model="cardExpiration.selectedMonth"
-                ng-change="onExpirationMonthChange()"
-                chosen ng-options="month.name for month in cardExpiration.months"
-                placeholder-text-single="_card_expiry_month_label_">
+                      required ng-model="cardExpiration.selectedMonth"
+                      ng-change="onExpirationMonthChange()"
+                      chosen ng-options="month.name for month in cardExpiration.months"
+                      placeholder-text-single="_card_expiry_month_label_">
                 <option></option>
               </select>
             </label>
@@ -98,10 +98,10 @@
             <!-- EXP YEAR -->
             <label for="form-expires-year" class="input-left">
               <select id="form-expires-year" name="form-expires-year"
-                required ng-model="cardExpiration.selectedYear"
-                ng-change="onExpirationYearChange()"
-                chosen ng-options="year for year in cardExpiration.years"
-                placeholder-text-single="_card_expiry_year_label_">
+                      required ng-model="cardExpiration.selectedYear"
+                      ng-change="onExpirationYearChange()"
+                      chosen ng-options="year for year in cardExpiration.years"
+                      placeholder-text-single="_card_expiry_year_label_">
                 <option></option>
               </select>
             </label>
@@ -110,12 +110,12 @@
           <div class="card-cvv">
             <label for="form-cvv">
               <input type="text" id="form-cvv" required
-                placeholder="_card_cvv_placeholder_"
-                ng-min="100"
-                ng-max="999"
-                ng-model="billingDetails.card.securityCode"
-                ng-pattern="/^[0-9]{3,4}$/"
-                name="cvv"/>
+                     placeholder="_card_cvv_placeholder_"
+                     ng-min="100"
+                     ng-max="999"
+                     ng-model="billingDetails.card.securityCode"
+                     ng-pattern="/^[0-9]{3,4}$/"
+                     name="cvv"/>
               <span>_card_cvv_label_</span>
             </label>
             <span class="help" ng-click="!bookingConfig.ccvAsTooltip ? openCCVInfo() : undefined">?<span class="tooltiptext" ng-if="!isMobile && bookingConfig.ccvAsTooltip">_cvv_modal_desc_</span></span>
@@ -124,7 +124,7 @@
 
         <label for="form-guest-address" class="input-checkbox">
           <input type="checkbox" id="form-guest-address"
-            ng-model="billingDetails.useGuestAddress" ng-true-value="{{bookingConfig.billingAddress.reverseCheckboxLogic ? 'false' : 'true'}}" ng-false-value="{{bookingConfig.billingAddress.reverseCheckboxLogic ? 'true' : 'false'}}"/>
+                 ng-model="billingDetails.useGuestAddress" ng-true-value="{{bookingConfig.billingAddress.reverseCheckboxLogic ? 'false' : 'true'}}" ng-false-value="{{bookingConfig.billingAddress.reverseCheckboxLogic ? 'true' : 'false'}}"/>
           _use_guest_address_label_
         </label>
 
@@ -137,7 +137,7 @@
                    ng-model="billingDetails.address"
                    ng-pattern="$root.generalValidationPattern"
                    name="address"/>
-              <span>
+            <span>
                 <span ng-hide="forms.billing.$submitted && forms.billing.address.$error">_address_label_</span>
                 <span ng-show="forms.billing.$submitted && forms.billing.address.$error.pattern">_address_pattern_error_</span>
               </span>
@@ -145,11 +145,11 @@
 
           <label for="city" class="input-left">
             <input type="text" id="city" required
-              placeholder="_city_placeholder_"
-              ng-model="billingDetails.city"
-              ng-pattern="$root.generalValidationPattern"
-              name="city"/>
-              <span>
+                   placeholder="_city_placeholder_"
+                   ng-model="billingDetails.city"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="city"/>
+            <span>
                 <span ng-hide="forms.billing.$submitted && forms.billing.city.$error">_city_label_</span>
                 <span ng-show="forms.billing.$submitted && forms.billing.city.$error.pattern">_city_pattern_error_</span>
               </span>
@@ -157,11 +157,11 @@
 
           <label for="state" class="input-right">
             <input type="text" id="state" ng-required="bookingConfig.billingStateRequired"
-              placeholder="_state_placeholder_"
-              ng-model="billingDetails.stateProvince"
-              ng-pattern="$root.generalValidationPattern"
-              name="state"/>
-              <span>
+                   placeholder="_state_placeholder_"
+                   ng-model="billingDetails.stateProvince"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="state"/>
+            <span>
                 <span ng-hide="forms.billing.$submitted && forms.billing.state.$error">_state_label_</span>
                 <span ng-show="forms.billing.$submitted && forms.billing.state.$error.pattern">_state_pattern_error_</span>
               </span>
@@ -188,12 +188,12 @@
               data-preferred-countries="ca, us, gb"
               ng-model="billingDetails.phone"
               placeholder="Phone"/>-->
-              <input type="tel"
-                     id="telephone"
-                     placeholder="_phone_placeholder_"
-                     ng-model="billingDetails.phone"
-                     ng-pattern="$root.generalValidationPattern"
-                     name="zip"/>
+            <input type="tel"
+                   id="telephone"
+                   placeholder="_phone_placeholder_"
+                   ng-model="billingDetails.phone"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="zip"/>
             <span>_phone_label_</span>
           </label>
 
@@ -318,6 +318,29 @@
 
         <input type="submit" id="submit" value="_submit_" ng-hide="true" />
       </form>
+
     </section>
   </div>
+
+  <div ng-if="bookingConfig.vouchers.enable && allRooms.length && !$stateParams.reservation && bookingConfig.voucherInBillingSection" class="voucher-entry">
+    <h4>_redeem_voucher_message_</h4>
+    <label for="voucher" class=" medium">
+      <input type="text" id="voucher"
+             placeholder="_enter_voucher_label_"
+             ng-model="voucher.code"
+             ng-disabled="voucher.valid || voucher.verifying"
+             ng-keypress="($event.which === 13)?redeemVoucher():0"
+             name="voucher"
+             ng-pattern="$root.generalValidationPattern"/>
+      <img src="/static/images/preloader.gif" ng-hide="!voucher.verifying" />
+      <button class="button" ng-click="redeemVoucher()" ng-disabled="!voucher.code || voucher.valid || voucher.verifying">_voucher_button_text_</button>
+    </label>
+    <div class="voucher-valid" ng-if="voucher.valid && voucher.submitted">
+      <i class="fa fa-check" /><span> _voucher_code_valid_</span>
+    </div>
+    <div class="voucher-invalid" ng-if="!voucher.valid && voucher.submitted">
+      <i class="fa fa-close" /><span> _voucher_code_invalid_</span>
+    </div>
+  </div>
+
 </reservation-billing>

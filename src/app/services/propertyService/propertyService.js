@@ -3,7 +3,7 @@
 * This service gets content for application main menu
 */
 angular.module('mobiusApp.services.properties', [])
-.service( 'propertyService',  function($rootScope, $q, apiService, locationService, _) {
+.service( 'propertyService',  function($rootScope, $q, apiService, locationService, infinitiApeironService, _) {
 
   function correctParams(params) {
     if (params && (!params.from || !params.to || !params.adults || !params.productGroupId)) {
@@ -44,6 +44,9 @@ angular.module('mobiusApp.services.properties', [])
 
   function getPropertyDetails(propertyCode, params){
     var URL = apiService.getFullURL('properties.details', {propertyCode: propertyCode});
+    if (params && params.from && params.to) {
+      infinitiApeironService.trackSearchParams();
+    }
     return apiService.get(URL, correctParams(params));
   }
 
@@ -154,7 +157,7 @@ angular.module('mobiusApp.services.properties', [])
       if (amenity.slug.charAt(0) === '-') { //If the amenity slug begins with a -
         amenity.slug = amenity.slug.substring(1); //Remove the first character of the slug string
       }
-    }); 
+    });
     return amenities;
   }
 

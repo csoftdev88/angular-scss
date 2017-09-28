@@ -455,6 +455,9 @@ angular
     templateUrl: 'layouts/reservations/reservation/reservation.html',
     url: '/reservation/:roomID/:productCode',
     controller: 'ReservationCtrl',
+    params: {
+      memberOnly: false
+    },
     data: {
       supportsEditMode: true,
       supportsMultiRoom: true
@@ -651,7 +654,6 @@ angular
     if(infinitiApeironService.isSinglePageApp){
       infinitiApeironService.trackPageView($location.path() + $window.location.search);
     }
-    infinitiApeironService.trackPage($location.path() + $window.location.search);
   });
   //Facebook
   $rootScope.facebookAppId = Settings.UI.generics.facebookAppId;

@@ -1,0 +1,158 @@
+{
+  "installationId": "sandman-integration",
+  "utcTimestamp": "2017-08-31T13:21:47.159Z",
+  "userTimestamp": "2017-08-31T13:21:47.159Z",
+  "anonymousId": "548a83cc-5c25-4471-8b96-79f5fbef51b2",
+  "shipTo": {
+    "title": "",
+    "firstName": "",
+    "lastName": "",
+    "email": "",
+    "telephone": "",
+    "address1": "",
+    "address2": "",
+    "address3": "",
+    "town": "",
+    "state": "",
+    "postcode": "",
+    "country": ""
+  },
+  "metaData": {
+    "channel": {
+      "code": "6",
+      "name": "Channel_web"
+    },
+    "chain": {
+      "code": "SAND",
+      "name": "Sandman"
+    }
+  },
+  "customer": {
+    "title": "Mr",
+    "firstName": "Julien",
+    "lastName": "Bramary",
+    "email": "julienb+sand1@2pventures.com",
+    "telephone": "123485",
+    "address1": "30 Claremont avenue",
+    "address2": "",
+    "address3": "",
+    "town": "Basel",
+    "state": "",
+    "postcode": "BS7 8JE",
+    "country": "GBR",
+    "gender": "",
+    "isCorporateCustomer": false,
+    "isLoyaltyMember": false,
+    "uuid": "ba01a5f8-0d2f-4dce-b5bc-9af81872fa81",
+    "infinitiId": "a8ab6280-74bb-11e7-9094-5fcdb0698fd5",
+    "id": "428156"
+  },
+  "items": [
+    {
+      "id": 164540,
+      "code": "CPKN",
+      "transaction": {
+        "id": "QUE-OO-252470"
+      },
+      "quantity": 1,
+      "discountAmount": 0,
+      "discountPercent": 0,
+      "totalRevenue": 945,
+      "totalPrice": 1067.85,
+      "totalTax": 122.85,
+      "dateFrom": "2017-10-20T23:00:00.000Z",
+      "dateTo": "2017-10-27T23:00:00.000Z",
+      "isPreorder": false,
+      "metaData": {
+        "adults": 2,
+        "children": 0,
+        "rate": "CHAIN-EARLY7PUB",
+        "starRating": 3,
+        "groupCode": null,
+        "promoCode": null,
+        "corpCode": null,
+        "policies": [
+          {
+            "type": "cancellation",
+            "value": "C7"
+          },
+          {
+            "type": "family",
+            "value": "DEFAULT"
+          },
+          {
+            "type": "pet",
+            "value": "PET10"
+          },
+          {
+            "type": "extraGuest",
+            "value": "EG1"
+          },
+          {
+            "type": "checkInOut",
+            "value": "DEFSM"
+          },
+          {
+            "type": "noShow",
+            "value": "NOSHOW"
+          },
+          {
+            "type": "guarantee",
+            "value": "DEFAULT"
+          }
+        ],
+        "region": {
+          "code": "BC",
+          "name": "British Columbia"
+        },
+        "location": {
+          "code": "QUES",
+          "name": "Quesnel"
+        },
+        "province": {
+          "code": "BRITISHCOLUMBIA",
+          "name": "British Columbia"
+        },
+        "property": {
+          "code": "QUE",
+          "name": "Quesnel"
+        }
+      },
+      "product": {
+        "id": "CHAIN-EARLY7PUB",
+        "name": "Early Bird Promotion | Flexible Cancellation Policy",
+        "category": "Corporate King Suite with Sofa Bed",
+        "sku": 164540,
+        "price": 1067.85,
+        "priceBeforeTax": 945,
+        "tax": "",
+        "revenue": ""
+      }
+    }
+  ],
+  "transaction": {
+    "transactionType": "purchase",
+    "id": "QUE-OO-252470",
+    "uuid": "ba01a5f8-0d2f-4dce-b5bc-9af81872fa81",
+    "totalRevenue": 945,
+    "totalPrice": 1067.85,
+    "totalTax": 122.85,
+    "shipping": "NONE",
+    "shippingDuration": null,
+    "shippingOption": "NONE",
+    "shippingIsSplit": null,
+    "currencyCode": "CAD",
+    "totalItems": 1,
+    "discountAmount": 0,
+    "discountPercent": 0,
+    "discountCode": null,
+    "discountCampaign": null,
+    "discountType": [
+      "flat"
+    ],
+    "isGift": false,
+    "source": "Online",
+    "subsource": "",
+    "paymentType": "VI"
+  }
+}

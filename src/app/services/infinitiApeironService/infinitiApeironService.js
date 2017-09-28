@@ -4,9 +4,9 @@
  */
 angular.module('mobiusApp.services.infinitiApeironService', []).service('infinitiApeironService', [
   'Settings', 'apiService', '$state', '_', '$rootScope', 'channelService', 'sessionDataService', 'userObject',
-  '$window', 'user', 'cookieFactory', 'contentService', 'bookingService', 'propertyService', 'locationService', '$q',
+  '$window', 'user', 'cookieFactory', 'contentService', 'bookingService', 'locationService', '$q',
   function(Settings, apiService, $state, _, $rootScope, channelService, sessionDataService, userObject, $window,
-           user, cookieFactory, contentService, bookingService, propertyService, locationService, $q) {
+           user, cookieFactory, contentService, bookingService, locationService, $q) {
 
     var env = document.querySelector('meta[name=environment]').getAttribute('content');
     var endpoint = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].endpoint : null;
@@ -17,6 +17,50 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     var apeironId = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].id : null;
     var isSinglePageApp = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].singlePageApp: false;
     var hospitalityEnabled = !!(Settings.hospitalityEvents && Settings.hospitalityEvents[env]);
+
+    /**
+     * FIXME: Duplicated code from the property service to avoid a circular dependency
+     * The correct fix is to split the property service into 2 services instead
+     * */
+    function correctParams(params) {
+      if (params && (!params.from || !params.to || !params.adults || !params.productGroupId)) {
+        delete params.from;
+        delete params.to;
+        delete params.adults;
+        delete params.children;
+        delete params.productGroupId;
+      }
+      return params;
+    }
+
+    /**
+     * FIXME: Duplicated code from the property service to avoid a circular dependency
+     * The correct fix is to split the property service into 2 services instead
+     * */
+    function getAllProperties(params) {
+      var q = $q.defer();
+      apiService.getThrottled(apiService.getFullURL('properties.all'), correctParams(params)).then(function (propertyData) {
+
+        //If thirdparties system is active and properties are restricted, filter the returned property data
+        if ($rootScope.thirdparty && $rootScope.thirdparty.properties) {
+          var thirdPartyPropertyCodes = $rootScope.thirdparty.properties;
+          if (thirdPartyPropertyCodes.length) {
+            var thirdPartyProperties = [];
+            _.each(thirdPartyPropertyCodes, function (thirdPartyPropertyCode) {
+              var property = _.find(propertyData, function (property) {
+                return thirdPartyPropertyCode === property.code;
+              });
+              if (property) {
+                thirdPartyProperties.push(property);
+              }
+            });
+            propertyData = thirdPartyProperties;
+          }
+        }
+        q.resolve(propertyData);
+      });
+      return q.promise;
+    }
 
     /**
      * Main function used to submit an event to infiniti tracking script with a payload specified by properties
@@ -86,22 +130,10 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       eventDetails.detail.path = path;
       eventDetails.detail.url = window.location.origin + path;
       eventDetails.detail.title = document.title;
+      var propertySlug = bookingService.getParams().propertySlug;
+      eventDetails.detail.propertyCode = bookingService.getCodeFromSlug(propertySlug) || '';
       var event = new CustomEvent('infiniti.page.loaded', eventDetails);
       document.dispatchEvent(event);
-    }
-
-    function trackPage(path){
-      if (hospitalityEnabled) {
-        var eventDetails = {};
-        eventDetails.path = path;
-        eventDetails.url = window.location.origin + path;
-        eventDetails.title = document.title;
-        eventDetails.type = 'page';
-        eventDetails.tags = [];
-        var propertySlug = bookingService.getParams().propertySlug;
-        eventDetails.propertyCode = bookingService.getCodeFromSlug(propertySlug) || '';
-        trackEvent('hi_page', eventDetails);
-      }
     }
 
     function mapRoomsForInfiniti(rooms) {
@@ -143,7 +175,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         }
 
         // Get all properties and regions over a specific one by code as they would have likely been cached by now
-        $q.all([propertyService.getAll(), locationService.getRegions()])
+        $q.all([getAllProperties(), locationService.getRegions()])
           .then(function (data) {
             var properties = data[0];
             var regions = data[1];
@@ -238,6 +270,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       });
     }
 
+    // FIXME: this is duplicating most of what already gets sent as an ecommerce event......
     function trackBuy(trackingData, priceData, scopeData, stateParams) {
       if (hospitalityEnabled) {
         var roomData = bookingService.getMultiRoomData(stateParams.rooms);
@@ -338,7 +371,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         'uuid': sessionCookie.sessionData.sessionId
       };
 
-      customerObject.infinitiId = cookieFactory('CustomerID') ? cookieFactory('CustomerID') : 0;
+      customerObject.infinitiId = user.getTrackingId() !== null ? user.getTrackingId().toString() : null;
       customerObject.id = user.getCustomerId() !== null ? user.getCustomerId().toString() : null;
 
       infinitiApeironData.customer = customerObject;
@@ -411,7 +444,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
             'price': roomData._selectedProduct.price.totalAfterTaxAfterPricingRules,
             'priceBeforeTax': roomData._selectedProduct.price.totalBaseAfterPricingRules,
             'tax': '',
-            'revenue': '',
+            'revenue': ''
           }
         };
         rooms.push(room);
@@ -419,12 +452,12 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
 
       infinitiApeironData.items = rooms;
 
-      var totalDiscount = priceData.totalDiscount * -1; //Discounts come through as negative values
+      var totalDiscount = -priceData.totalDiscount; //Discounts come through as negative values
       var totalPrice = priceData.breakdownTotalBaseAfterPricingRules;
 
       var discountCode = stateParams.promoCode ? stateParams.promoCode : null;
-      discountCode = stateParams.groupCode ? stateParams.groupCode : null;
-      discountCode = stateParams.corpCode ? stateParams.corpCode : null;
+      discountCode = discountCode || stateParams.groupCode ? stateParams.groupCode : null;
+      discountCode = discountCode || stateParams.corpCode ? stateParams.corpCode : null;
 
       infinitiApeironData.transaction = {
         'transactionType': 'purchase',
@@ -512,7 +545,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         };
       }
 
-      customerObject.infinitiId = cookieFactory('CustomerID') ? cookieFactory('CustomerID') : 0;
+      customerObject.infinitiId = user.getTrackingId() !== null ? user.getTrackingId().toString() : null;
       customerObject.id = user.getCustomerId() !== null ? user.getCustomerId().toString() : null;
 
       infinitiApeironData.customer = customerObject;
@@ -657,7 +690,6 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       trackResults: trackResults,
       trackRates: trackRates,
       trackBuy: trackBuy,
-      trackPage: trackPage,
       trackCampaignDisplay: trackCampaignDisplay,
       trackCampaignPurchase: trackCampaignPurchase,
       trackPageView: trackPageView,

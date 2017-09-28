@@ -209,7 +209,8 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
       };
       $scope.registerData = {};
 
-      $scope.user = userObject;
+      // FIXME: uncommenting this breaks the mobile menu profile, work out if this is needed!
+      // $scope.user = userObject;
 
       $scope.$on('$stateChangeSuccess', function() {
         $scope.$state = $state;

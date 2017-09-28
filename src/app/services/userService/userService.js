@@ -58,6 +58,13 @@ angular.module('mobiusApp.services.user', [])
 
     }
 
+    function getTrackingId() {
+      if (Settings.authType === 'keystone') {
+        return (keystoneIsAuthenticated() && window.KS.$me.get().AuthoritativeId) ? window.KS.$me.get().AuthoritativeId : null;
+      }
+      return cookieFactory('CustomerID') ? cookieFactory('CustomerID') : 0;
+    }
+
     function updateUser(data) {
       var customerId = getCustomerId();
 
@@ -99,10 +106,6 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function clearStoredUser() {
-      // Removing auth headers
-      var headers = {};
-      headers[HEADER_INFINITI_SSO] = undefined;
-      apiService.setHeaders(headers);
       $window.document.cookie = 'MobiusId=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
       $window.document.cookie = 'MobiusToken=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
       $window.document.cookie = 'CustomerID=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
@@ -269,36 +272,41 @@ angular.module('mobiusApp.services.user', [])
       });
     }
 
+    function logoutCleanup() {
+      // Removing auth headers
+      apiService.setHeaders({HEADER_INFINITI_SSO: undefined});
+
+      clearStoredUser();
+
+      authPromise = $q.defer();
+    }
+
     function logout() {
-      if (window.KS && window.KS.$me) {
-        window.KS.$me.revoke().then(function() {
-          $state.go('home', {});
-        });
-      } else {
-        $rootScope.$evalAsync(function(){
+      if (!window.KS || !window.KS.$me) {
+        $rootScope.$evalAsync(function () {
           userObject = {};
           $state.go('home', {}, {reload: true});
         });
 
-        clearStoredUser();
+        logoutCleanup();
 
-        authPromise = $q.defer();
-
-        if(Settings.authType === 'mobius'){
-          $timeout(function(){
+        if (Settings.authType === 'mobius') {
+          $timeout(function () {
             $rootScope.$broadcast('MOBIUS_USER_LOGIN_EVENT');
           });
         }
+      } else {
+        logoutCleanup();
       }
     }
 
-    function initSSOListeners(){
+    function initSSOListeners () {
       // SSO event listeners
       $window.addEventListener(
         EVENT_CUSTOMER_LOADED,
-      function(){
-        loadProfile();
-      });
+        function () {
+          loadProfile();
+        });
 
       /**
        * keystone.session.created is fired when the user explicitly logs in. This handler
@@ -313,18 +321,18 @@ angular.module('mobiusApp.services.user', [])
 
       $window.addEventListener(
         EVENT_CUSTOMER_LOGGED_OUT,
-      function(){
-        logout();
-      });
+        function () {
+          logout();
+        });
 
       $window.addEventListener(
         EVENT_ANONYMOUS_LOADED,
-      function(){
-        // Logged in as anonymous
-        if(authPromise){
-          authPromise.resolve(false);
-        }
-      });
+        function () {
+          // Logged in as anonymous
+          if (authPromise) {
+            authPromise.resolve(false);
+          }
+        });
     }
 
     function keystoneIsAuthenticated() {
@@ -405,22 +413,43 @@ angular.module('mobiusApp.services.user', [])
         return emptyUser;
       }
 
+      var defaultEmailFromProfile = ksUser.Email && ksUser.Email.filter(function (value) {
+        return value.IsDefault;
+      })[0];
+
+      var defaultAddressFromProfile = ksUser.Address && ksUser.Address.filter(function (value) {
+        return value.IsDefault;
+      })[0];
+
+      var defaultPhoneFromProfile = ksUser.Phone && ksUser.Phone.filter(function (value) {
+        return value.IsDefault;
+      })[0];
+
+      var secondPhone;
+      if (ksUser.Phone && ksUser.Phone.length > 1) {
+        secondPhone = ksUser.Phone.filter(function (value) {
+          return !value.IsDefault;
+        })[0];
+      } else {
+        secondPhone = null;
+      }
+
       return {
         id:           ksUser.MobiusId || null,
         title:        mapKeystoneTitleToId(ksUser.Name.Title),
         firstName:    ksUser.Name.FirstName || null,
         lastName:     ksUser.Name.LastName || null,
-        email:        (ksUser.Email[0]) ? ksUser.Email[0].Email : null,
-        address1:     (ksUser.Address[0]) ? ksUser.Address[0].FirstLine : null,
-        city:         (ksUser.Address[0]) ? ksUser.Address[0].City      : null,
-        zip:          (ksUser.Address[0]) ? ksUser.Address[0].Postcode  : null,
-        state:        (ksUser.Address[0]) ? ksUser.Address[0].County    : null,
-        country:      (ksUser.Address[0]) ? ksUser.Address[0].Country   : null,
-        localeCode:   (ksUser.Address[0]) ? ksUser.Address[0].Country   : null,
+        email:        defaultEmailFromProfile ? defaultEmailFromProfile.Email : null,
+        address1:     defaultAddressFromProfile ? defaultAddressFromProfile.FirstLine : null,
+        city:         defaultAddressFromProfile ? defaultAddressFromProfile.City      : null,
+        zip:          defaultAddressFromProfile ? defaultAddressFromProfile.Postcode  : null,
+        state:        defaultAddressFromProfile ? defaultAddressFromProfile.County    : null,
+        country:      defaultAddressFromProfile ? defaultAddressFromProfile.Country   : null,
+        localeCode:   defaultAddressFromProfile ? defaultAddressFromProfile.Country   : null,
         languageCode: ksUser.Language || null,
         currencyCode: ksUser.Currency || null,
-        tel1:         (ksUser.Phone[0]) ? ksUser.Phone[0].Number : null,
-        tel2:         (ksUser.Phone[1]) ? ksUser.Phone[1].Number : null,
+        tel1:         defaultPhoneFromProfile ? defaultPhoneFromProfile.Number : null,
+        tel2:         secondPhone ? secondPhone.Number : null,
         optedIn:      ksUser.OptIn,
         avatarUrl:    (ksUser.Avatar[0]) ? ksUser.Avatar[0].ImagePath : '/static/images/v4/img-profile.png'
       };
@@ -439,6 +468,7 @@ angular.module('mobiusApp.services.user', [])
       getUser: getUser,
       loadProfile: loadProfile,
       getCustomerId: getCustomerId,
+      getTrackingId: getTrackingId,
       loadLoyalties: loadLoyalties,
       loadRewards: loadRewards,
       updateUser: updateUser,

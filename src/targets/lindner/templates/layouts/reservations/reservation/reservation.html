@@ -129,7 +129,10 @@
         </aside>
       </div>
 
-      <label ng-if="!bookingConfig.detailsBeforeForm" for="agreement3" class="input-checkbox" ng-show="state.includes('reservation.details') || state.includes('reservation.billing')">
+      <label ng-if="!bookingConfig.detailsBeforeForm && !bookingConfig.emailOptinUnderOverview"
+             for="agreement3"
+             class="input-checkbox"
+             ng-show="state.includes('reservation.details') || state.includes('reservation.billing')">
         <input type="checkbox" id="agreement3" ng-model="additionalInfo.optedIn"/>
         <i ng-bind-html='"_email_optin_label_" | stringLocaleReplace:chainName'></i>
       </label>

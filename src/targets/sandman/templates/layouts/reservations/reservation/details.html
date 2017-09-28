@@ -34,12 +34,12 @@
           <option value="">_title_label_</option>
         </select>
         <select type="text" id="title" required
-          placeholder="_title_label_"
-          placeholder-text-single="_title_label_"
-          ng-options="title.id as title.name for title in profileTitles"
-          ng-if="isMobile" disable-search="true"
-          ng-model="userDetails.title" autocomplete="honorific-prefix"
-          name="title">
+                placeholder="_title_label_"
+                placeholder-text-single="_title_label_"
+                ng-options="title.id as title.name for title in profileTitles"
+                ng-if="isMobile" disable-search="true"
+                ng-model="userDetails.title" autocomplete="honorific-prefix"
+                name="title">
           <option value="">_title_label_</option>
         </select>
         <span ng-hide="forms.details.$submitted && forms.details.title.$error">_title_label_</span>
@@ -96,21 +96,21 @@
       </label>
 
       <label for="telephone" class="input-right">
-      <!--
-        <input type="text" id="telephone" national-mode="false" default-country="{{defaultCountryCode || 'ca'}}" international-phone-number
-          preferred-countries="{{preferredCountryCodes || 'ca'}}"
-          ng-model="userDetails.phone"
-          ng-change="countryPhoneChanged()"
-          name="phone"
-          placeholder="_phone_label_"/>
-          -->
-          <input type="tel"
-                 id="telephone"
-                 ng-model="userDetails.phone"
-                 name="phone"
-                 placeholder="_phone_label_"
-                 autocomplete="tel"
-                 ng-pattern="$root.generalValidationPattern"/>
+        <!--
+          <input type="text" id="telephone" national-mode="false" default-country="{{defaultCountryCode || 'ca'}}" international-phone-number
+            preferred-countries="{{preferredCountryCodes || 'ca'}}"
+            ng-model="userDetails.phone"
+            ng-change="countryPhoneChanged()"
+            name="phone"
+            placeholder="_phone_label_"/>
+            -->
+        <input type="tel"
+               id="telephone"
+               ng-model="userDetails.phone"
+               name="phone"
+               placeholder="_phone_label_"
+               autocomplete="tel"
+               ng-pattern="$root.generalValidationPattern"/>
         <span>
           <span ng-hide="forms.details.$submitted && forms.details.phone.$error">_phone_label_</span>
           <span ng-show="forms.details.$submitted && forms.details.phone.$error && !forms.details.phone.$error.pattern">_phone_label_</span>
@@ -373,5 +373,46 @@
       </label>
       <input type="submit" id="submit" value="_submit_" ng-hide="true" />
     </form>
+
+    <form class="CreateUser"
+          novalidate
+          ng-if="settings.authType === 'keystone' &&
+            !auth.isLoggedIn() &&
+            !$stateParams.reservation &&
+            settings.UI.alternateBookingFlow &&
+            settings.UI.alternateBookingFlow.enabled">
+
+      <img class="CreateUser__logo" src="/static/images/apple-touch-icon-72x72.png">
+
+      <div class="CreateUser__content">
+        <h4 ng-if="memberOnlyBooking" class="CreateUser__title">
+          _create_account_title_required_
+        </h4>
+        <h4 ng-if="!memberOnlyBooking" class="CreateUser__title">
+          _create_account_title_
+        </h4>
+        <p ng-if="memberOnlyBooking" class="CreateUser__text">
+          _create_account_text_required_
+        </p>
+        <p ng-if="!memberOnlyBooking" class="CreateUser__text">
+          _create_account_text_
+        </p>
+      </div>
+
+      <input class="CreateUser__password"
+             type="password"
+             ng-class="{'invalid-input': (userPasswordInvalid || userPasswordRequired) && forms.details.$submitted}"
+             placeholder="_password_label_"
+             ng-model="profile.userPassword">
+
+    </form>
+
+    <p class="CreateUser__error" ng-show="userPasswordInvalid">
+      _create_account_invalid_
+    </p>
+    <p class="CreateUser__error" ng-show="userPasswordRequired">
+      _create_account_error_
+    </p>
+
   </div>
 </reservation-details-form>

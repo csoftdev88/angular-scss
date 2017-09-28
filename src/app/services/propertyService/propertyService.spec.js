@@ -28,6 +28,10 @@ describe('propertyService', function() {
         getLocations: function(){}
       });
 
+      $provide.value('infinitiApeironService', {
+        trackSearchParams: function() {}
+      });
+
       $provide.value('previousSearchesService', {
         addSearch: function(){}
       });
