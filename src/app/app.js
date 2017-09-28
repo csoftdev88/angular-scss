@@ -444,6 +444,9 @@ angular
     url: '/reservation/:reservationCode?view',
     controller: 'ReservationDetailCtrl',
     reloadOnSearch: false,
+    params: {
+      showActionButtons: false
+    },
     data: {
       authProtected: true
     }
