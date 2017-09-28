@@ -72,9 +72,13 @@ angular.module('mobiusApp.directives.room', [])
         if(Settings.UI.hotelDetails.rooms.sortRoomsByWeighting){
           scope.sortingOptions.splice(0, 0, {
             name: options.recommended,
-            sort: function(product){
-              //return [0 - product.productHidden, 0 - product.weighting];
-              return - product.weighting;
+            // Recommended sort should respect the natural order set in setRoomProductDetails:
+            // 1. hiddenProducts first
+            // 2. memberOnly Products
+            // 3. highlighted Products
+            // 4. default Products
+            sort: function() {
+              return 0;
             }
           });
         }
