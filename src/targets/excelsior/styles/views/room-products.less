@@ -122,6 +122,16 @@ room-products {
 			}
 			&.slashthrough {
 				pricing-details {
+          .price-form:not(.points) {
+            .original-price {
+              color: @c-secondary;
+              font-size: 15px;
+              font-weight: 300;
+              &:after {
+                border-top: 1px solid @c-secondary;
+              }
+            }
+          }
 					.price-form {
 						font-weight: 700;
             margin-top: 60px;
