@@ -55,7 +55,7 @@
 
             <h4 ng-bind-html="reservation.rooms[0].productName"></h4>
             <h4 ng-if="config.displayConfirmationNumberInDetails">
-              _booking_reference_: <span>{{ reservationCode }}</span>
+              _booking_reference_: <span>{{ reservation.reservationCode }}</span>
             </h4>
             <span ng-if="config.displayBookingDateInDetails"
                   class="booking-date">

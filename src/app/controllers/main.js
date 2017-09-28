@@ -6,12 +6,16 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService', '$window',
     'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService',
     'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'cookieFactory', 'campaignsService',
-    'locationService', 'bookingService', 'apiService', 'userObject', 'offers',
+    'locationService', 'bookingService', 'apiService', 'userObject', 'offers', 'DynamicMessages',
     function($scope, $state, $modal, orderByFilter, modalService, $window, contentService, Settings, user, $controller,
              _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,
-             stateService,$rootScope, cookieFactory, campaignsService, locationService, bookingService, apiService, userObject, offers) {
+             stateService,$rootScope, cookieFactory, campaignsService, locationService, bookingService, apiService,
+             userObject, offers, DynamicMessages) {
       var activeThirdParty;
       $scope.chainCode = Settings.API.chainCode;
+
+      var appLang = stateService.getAppLanguageCode();
+      var dynamicMessages = appLang && DynamicMessages && DynamicMessages[appLang] ? DynamicMessages[appLang] : null;
 
       try{
 
@@ -42,8 +46,8 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
         $scope.registerCountries = data;
       });
 
-      // @todo move this into registerService and refactor register controller
-      $scope.register = function(form, registerData){
+      // TODO: move this into a new registerService and refactor register controller
+      $scope.register = function(form, registerData) {
         $scope.clearErrorMsg();
         $scope.submitted = true;
         if (form.$valid) {
@@ -55,7 +59,7 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
           apiService.post(apiService.getFullURL('customers.register'), registerData).then(function(response){
             userObject.id = response.id;
             user.loadProfile();
-            $rootScope.showRegisterDialog = !$rootScope.showRegisterDialog;
+            $rootScope.showRegisterDialog = false;
             $state.go('home');
           }, function(err){
             if(err.error.msg === 'User already registered'){
@@ -72,6 +76,111 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
           $scope.missingFieldsError = true;
           $scope.error = true;
         }
+      };
+
+      /**
+       * Gate pressing Next on the register form
+       * if the first part of the form is not valid.
+       * Because of the confused scope hierarchy we need to pass-in
+       * the stepsModel from the child scope.
+       * */
+      $scope.gatedRegisterNext = function(registerForm, formData) {
+        registerForm.$setDirty();
+        var requiredStep1 = [
+          'registerEmail',
+          'registerEmailConfirm',
+          'registerPassword',
+          'registerPasswordConfirm'
+        ];
+        var requiredStep2 = [
+          'registerTitle',
+          'registerFname',
+          'registerLname',
+          'country'
+        ];
+        var allOkay = true;
+
+        var requiredFields = $scope.registerFormSteps.filledEmail ? requiredStep2 : requiredStep1;
+        var otherFields = $scope.registerFormSteps.filledEmail ? requiredStep1 : requiredStep2;
+
+        var i, fieldName;
+        for (i = 0; i < requiredFields.length; i++) {
+          fieldName = requiredFields[i];
+          registerForm[fieldName].$setDirty();
+          registerForm[fieldName].$setTouched();
+          if (!registerForm[fieldName].$valid) {
+            allOkay = false;
+          }
+        }
+        for (i = 0; i < otherFields.length; i++) {
+          fieldName = otherFields[i];
+          registerForm[fieldName].$setPristine();
+          registerForm[fieldName].$setUntouched();
+        }
+        if (allOkay) {
+          if (!$scope.registerFormSteps.filledEmail) {
+            $scope.registerFormSteps.filledEmail = true;
+            // Trick to set the search placeholder inside the chosen drop-down
+            angular
+              .element('.chosen-container-single .chosen-search input')
+              .attr('placeholder', 'Search countries');
+            return;
+          }
+          $scope.register(registerForm, formData);
+        }
+      };
+
+      /**
+       * Return the most appropriate error message based on the state of the form
+       * */
+      $scope.getRegisterValidationMessage = function(registerForm) {
+        if (!registerForm) {
+          return;
+        }
+        var errorProperties = [
+          '$touched',
+          '$dirty',
+          '$invalid'
+        ];
+
+        // Check if all conditions to show an error message are met for a named field
+        function showFieldError(fieldName) {
+          for (var i = 0; i < errorProperties.length; i++) {
+            var prop = errorProperties[i];
+            if (!registerForm[fieldName][prop]) {
+              return false;
+            }
+          }
+          return true;
+        }
+
+        // Grab message from the dynamicMessages service
+        function getTranslatedMessage(key) {
+          return dynamicMessages && dynamicMessages[key] ? dynamicMessages[key] : '';
+        }
+
+        var field2ErrStep1 = {
+          registerEmail: 'invalid_email_message',
+          registerEmailConfirm: 'email_match_error_message',
+          registerPassword: 'password_pattern_error',
+          registerPasswordConfirm: 'password_match_error_message'
+        };
+
+        var field2ErrStep2 = {
+          registerTitle: 'missing_title',
+          registerFname: 'missing_fname',
+          registerLname: 'missing_lname',
+          country: 'missing_country'
+        };
+
+        var fieldToErrorMessage = $scope.registerFormSteps.filledEmail ? field2ErrStep2 : field2ErrStep1;
+        for (var field in fieldToErrorMessage) {
+          if (!fieldToErrorMessage.hasOwnProperty(field)) { continue; }
+          if (showFieldError(field)) {
+            return getTranslatedMessage(fieldToErrorMessage[field]);
+          }
+        }
+        return '';
       };
 
       $scope.clearErrorMsg = function () {
@@ -95,10 +204,12 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
       $scope.loyaltyProgramEnabled = Settings.loyaltyProgramEnabled;
 
       $rootScope.showRegisterDialog = false;
-      $scope.registerFormFilledEmail = false;
+      $scope.registerFormSteps = {
+        filledEmail: false
+      };
+      $scope.registerData = {};
 
-      // FIXME: uncommenting this breaks the mobile menu profile, work out if this is needed!
-      // $scope.user = userObject;
+      $scope.userObject = userObject;
 
       $scope.$on('$stateChangeSuccess', function() {
         $scope.$state = $state;

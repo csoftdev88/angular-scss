@@ -1,85 +1,120 @@
 @import "./mobile";
 
 .Header {
-  padding: 18px 130px 17px 130px;
-  height: 70px;
+  padding: 18px 20px 17px 20px;
+  height: 100px;
   box-sizing: border-box;
   width: 100%;
   position: fixed;
+  top: 0;
   z-index: 999;
   background-color: #fff;
 }
 
 .Header__buttons {
-  float: right;
-}
-
-.Header__menu {
-  float: right;
-  padding: 9px 0 0 0;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
 }
 
 .Header__buttons--auth {
-  float: left;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  flex: 1;
+  justify-content: flex-end;
 }
 
 .Header__inner {
   max-width: 1212px;
+  height: 100%;
   margin-right: auto;
   margin-left: auto;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
 }
 
 .Header__logo {
-  position: absolute;
-  top: 8px;
+  flex: 0;
 }
 
 .Header__profile {
-  width: 200px;
   display: flex;
-  margin-right: 10px;
+  flex-flow: row nowrap;
+  white-space: nowrap;
+  width: auto;
+  margin-left: 30px;
+  margin-right: 30px;
+  align-items: center;
+
+  font-family: @ff-primary;
+  font-size: 16px;
+  font-weight: 300;
+
   .avatar {
-    margin: auto 9px auto auto;
+    margin-right: 9px;
     width: 26px;
     height: 26px;
+    border-radius: 50%;
+    overflow: hidden;
   }
-}
-.Header__profile--userInfo {
-  .name, .loyalty {
-    color: @c-text;
-    font-family: @ff-secondary;
-  }
+
   .name {
-    font-size: 13.2px;
-    line-height: 16px;
+    color: @c-alt-grey;
   }
-  .loyalty {
-    font-size: 10px;
-    line-height: 12px;
+
+  .pipe-splitter {
+    background-color: rgba(0, 0, 0, 0.15);
+    margin: 0 9px;
+    width: 1px;
+    height: 24px;
+  }
+  .loyalty-points .emphasise {
+     font-weight: bold;
+  }
+  .loyalty-tier {
+    color: #B98747;
   }
 }
 
 .Header__button {
-  width: 93px;
-  height: 35px;
+  height: 50px;
   box-sizing: border-box;
-  border: 1px solid @c-primary;
-  background: transparent;
-  color: @c-primary;
+  background: #fff;
+
+  color: @c-button-text;
   line-height: 35px;
-  text-transform: uppercase;
-  font-size: 14px;
-  letter-spacing: 0;
   font-family: @ff-primary;
-  font-weight: 100;
-  border-radius: 0;
-  margin: 0 9px 0 0;
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: normal;
+
+  border: 1px solid @c-button-border;
+  border-radius: 4px;
+  margin: 0 5px 0 0;
   padding: 0;
   text-shadow: none;
 
+  &.login {
+    width: 115px;
+  }
+
   &.register {
+    width: 134px;
     margin-right: 42px;
   }
+
+  i.fa {
+    color: @c-primary;
+    font-size: 19px;
+    position: relative;
+    left: -9px;
+    top: 2px;
+  }
+
 }
 
 .Header__buttons--preferences {
@@ -102,7 +137,7 @@
     color: @c-text;
     font-family: @ff-secondary;
     // Hide the change currency text
-    span:last-of-type {
+    .change-currency {
       display: none;
     }
   }
@@ -130,21 +165,7 @@
 
 .Header__menu--hamburger {
   cursor: pointer;
-  height: 19px;
-  width: 26px;
-  display: block;
-  .main-menu-active & {
-    display: none;
-  }
-}
-
-.Header__menu--close {
   height: 20px;
-  width: 20px;
-  margin-left: 6px;
-  display: none;
-  background: url('@{img-prefix}/menu_close.png');
-  .main-menu-active & {
-    display: block;
-  }
+  width: 27px;
+  display: block;
 }

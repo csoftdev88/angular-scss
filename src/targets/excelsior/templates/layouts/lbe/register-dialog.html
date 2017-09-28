@@ -4,8 +4,8 @@
   <header>
 
     <a href=""
-       ng-click="registerFormFilledEmail = !registerFormFilledEmail; retentionClick()"
-       ng-show="registerFormFilledEmail"
+       ng-click="registerFormSteps.filledEmail = !registerFormSteps.filledEmail; retentionClick()"
+       ng-show="registerFormSteps.filledEmail"
        class="back-btn">
       _back_
     </a>
@@ -35,7 +35,7 @@
   <div class="form-wrapper">
 
     <form name="registerForm" class="register-form" novalidate>
-      <fieldset ng-show="!registerFormFilledEmail">
+      <fieldset ng-show="!registerFormSteps.filledEmail">
         <form-element>
           <input
             type="email"
@@ -114,7 +114,7 @@
 
       </fieldset>
 
-      <fieldset ng-show="registerFormFilledEmail">
+      <fieldset ng-show="registerFormSteps.filledEmail">
         <form-element ng-if="registerTitles">
           <select name="registerTitle"
                   required
@@ -167,14 +167,14 @@
 
       <button-submit role="button"
                      tabindex="0"
-                     ng-show="!registerFormFilledEmail"
-                     ng-click="registerFormFilledEmail = !registerFormFilledEmail">
+                     ng-show="!registerFormSteps.filledEmail"
+                     ng-click="registerFormSteps.filledEmail = !registerFormSteps.filledEmail">
         _next_
       </button-submit>
 
       <button-submit role="button"
                      tabindex="0"
-                     ng-show="registerFormFilledEmail"
+                     ng-show="registerFormSteps.filledEmail"
                      ng-click="register(registerForm, registerData); retentionClick()">
         _register_
       </button-submit>

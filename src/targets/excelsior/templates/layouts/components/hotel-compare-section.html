@@ -7,7 +7,9 @@
           ng-include="'layouts/components/amenities.html'"></div>
         <header ng-if="viewSettings.compareView && viewSettings.compareView.headingTop" class="item-header">
           <h3>
-            <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle"></a>
+            <!--FIXME: Disable room link until the room pages are styled to our standard-->
+            <!--<a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle"></a>-->
+            <a ng-bind-html="room.name | mainHeaderStyle"></a>
           </h3>
         </header>
         <hero-slider data-has-notification-bar="false" data-auto-play="false" on-room-click="openRoomGallery" data-room="{{room}}"
@@ -23,7 +25,9 @@
         <div class="room-content" vertilize>
           <header ng-if="!viewSettings.compareView || !viewSettings.compareView.headingTop" class="item-header">
             <h3>
-              <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle"></a>
+              <!--FIXME: Disable room link until the room pages are styled to our standard-->
+              <!--<a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle"></a>-->
+              <a ng-bind-html="room.name | mainHeaderStyle"></a>
             </h3>
           </header>
 

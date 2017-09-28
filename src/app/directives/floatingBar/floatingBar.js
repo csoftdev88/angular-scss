@@ -60,6 +60,7 @@ angular.module('mobiusApp.directives.floatingBar', [
           scope.isCollapsed = true;
           if (Settings.engine === 'loyalty') {
             $('floating-bar').css('display', 'none');
+            scope.setActive(false, false);
           }
         };
 

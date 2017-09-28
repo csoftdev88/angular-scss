@@ -1,20 +1,133 @@
-dialog.loyalty-upsell {
-  padding: 20px;
+// The base styling of this dialog was very specific, let's be more specific!
+dialog.loyalty-upsell.dialog-v2.upsells-dialog {
+  padding: 0;
+  background-color: #fff;
+  height: 327px;
+  border-radius: 6px;
+  overflow: hidden;
+
+  .viewport-mobile & {
+    height: calc(~'100vh - 100px');
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+
   div.ui-info main {
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 0;
+    padding: 10px;
+
+    .viewport-mobile & {
+      flex-flow: column nowrap;
+      align-items: flex-end;
+    }
+
+    .image-wrapper {
+      img {
+        overflow: hidden;
+        border-radius: 6px;
+      }
+    }
+
+    image-carousel {
+      width: initial;
+      flex: none;
+      .viewport-mobile & {
+        width: 150px;
+        height: 150px;
+      }
+    }
+
     .details {
-      max-height: 260px;
-      overflow-x: auto;
+      background-color: #fff;
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-flow: column nowrap;
+      max-height: initial;
+      overflow: hidden;
+      h1 {
+        font-family: @ff-serif;
+        font-size: 28px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        line-height: 37px;
+        color: #b98747;
+        text-transform: uppercase;
+        .viewport-mobile & {
+          font-size: 18px;
+          line-height: 24px;
+        }
+      }
       h1:after {
         content: none;
       }
-    }
-    .button-strip {
-      a.button {
-        margin-bottom: 0;
+      .description {
+        flex: 1;
+        margin: 20px 0;
+        .viewport-mobile & {
+          margin: 5px 0 20px;
+        }
       }
     }
+
+    .button-strip {
+      position: initial;
+      top: initial;
+      left: initial;
+      a.button, a.button.ghost {
+        display: block;
+        white-space: nowrap;
+        box-shadow: none;
+        text-transform: uppercase;
+        height: 50px;
+        line-height: 50px;
+        font-family: @ff-primary;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+        transition: background 200ms;
+        margin: 8px 0 0 0;
+        width: 100%;
+        background: @c-green;
+
+        // Override weird inline display from main styles
+        .viewport-mobile & {
+          display: block;
+          height: 40px;
+          line-height: 40px;
+          font-size: 13px;
+        }
+
+        &:first-of-type {
+          margin-top: 0;
+        }
+      }
+      a.button {
+        background: @c-green;
+      }
+      a.button.ghost {
+        border: 1px solid #d24335;
+        background: transparent;
+        color: #d24335;
+        text-shadow: none;
+        font-weight: normal;
+      }
+    }
+
+    .price-difference {
+      left: 0;
+    }
+
     span.price-difference {
       background: @c-primary;
+      .viewport-mobile & {
+        font-size: 14px;
+        padding: 8px 20px 8px 10px;
+      }
     }
   }
 }

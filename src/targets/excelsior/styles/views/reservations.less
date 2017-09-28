@@ -16,7 +16,7 @@ reservation-hotel-details {
       line-height: 41px;
       color: @c-text;
       font-weight: 300;
-      font-family: @ff-secondary;
+      font-family: @ff-serif;
       padding-bottom: 23px;
     }
 
@@ -34,11 +34,11 @@ reservation-hotel-details {
     h3{
       font-size: 24px;
       line-height: 29px;
-      color: @c-text;
-      font-weight: 300;
+      font-weight: normal;
       max-width: 75%;
       text-transform: uppercase;
-      font-family: @ff-secondary;
+      font-family: @ff-primary;
+      color: @c-primary;
       padding-bottom: 11px;
     }
     h4{
@@ -77,6 +77,10 @@ reservation-hotel-details {
   .room-types + .room-types {
     margin-top: @baseline;
   }
+
+  .room-types:last-of-type {
+    margin-bottom: @baseline;
+  }
 }
 
 //////////////////////////
@@ -108,7 +112,7 @@ reservation-hotel-details {
   .ReservationsNextStay__container {
     width: 100vw;
     margin-left: calc(~'50% - 50vw - 15px');
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.7);
     margin-bottom: 220px;
     .viewport-mobile & {
       margin-left: calc(~'50% - 50vw');

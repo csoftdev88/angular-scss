@@ -13,60 +13,51 @@
       <button class="Header__button login"
               ng-if="!isUserLoggedIn()"
               ng-click="auth.login()">
-        _log_in_
+        <i class="fa fa-sign-in"></i>
+        _login_
       </button>
 
       <button class="Header__button register"
               ng-if="!auth.isLoggedIn()"
               ng-click="auth.register()">
+        <i class="fa fa-user-plus"></i>
         _register_
       </button>
 
       <div class="Header__profile" ng-if="auth.isLoggedIn()">
-
         <img class="avatar" src="/static/images/lbe/avatar-placeholder.png">
-
-        <div class="Header__profile--userInfo">
-          <h4 class="name">
-            {{ user.firstName }} {{ user.lastName }}
-          </h4>
-          <small class="loyalty">
-            {{ user.loyalties.amount }} _points_ | {{ user.loyalties.tier }} tier member
-          </small>
+        <div class="name">
+          {{ userObject.firstName }} {{ userObject.lastName }}
         </div>
-
+        <span class="pipe-splitter"></span>
+        <div class="loyalty-points">
+          <span class="emphasise">{{ userObject.loyalties.amount }}</span> _points_
+        </div>
+        <span class="pipe-splitter"></span>
+        <div class="loyalty-tier">
+          {{ userObject.loyalties.tier }} tier member
+        </div>
       </div>
-    </div>
 
-    <ul dropdown-group class="Header__buttons--preferences">
-
-      <li has-dropdown="click"
-          currency-list
-          class="Header__buttons--currency Header__buttons--preference"
-          ng-show="!$state.includes('reservation') &&
+      <!--FIXME: this is not currently shown/used-->
+      <ul dropdown-group class="Header__buttons--preferences">
+        <li has-dropdown="click"
+            currency-list
+            class="Header__buttons--currency Header__buttons--preference"
+            ng-show="!$state.includes('reservation') &&
                    !$state.includes('reservationDetail') &&
                    !$state.includes('reservations')">
-      </li>
-      <li has-dropdown="click"
-          class="Header__buttons--language Header__buttons--preference"
-          ng-if="false"
-          language-list>
-      </li>
-
-    </ul>
+        </li>
+      </ul>
 
     <div class="Header__menu">
-
       <img src="/static/images/menu-icon@3x.png"
            ng-click="toggleMenuOverlay()"
            class="Header__menu--hamburger">
 
       <span ng-click="toggleMenuOverlay()" class="Header__menu--close"></span>
-
     </div>
-
   </div>
-
 </div>
 
 <!-- LOGIN DIALOG -->

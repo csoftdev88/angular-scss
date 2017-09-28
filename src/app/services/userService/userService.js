@@ -194,7 +194,7 @@ angular.module('mobiusApp.services.user', [])
           headers[HEADER_INFINITI_SSO] = Settings.authType === 'mobius' ? userObject.token || getStoredUser().token : cookieFactory(KEY_CUSTOMER_PROFILE);
           apiService.setHeaders(headers);
 
-          // Loading profile data and users loyelties
+          // Loading profile data and users loyalties
           return $q.all([
             apiService.get(apiService.getFullURL('customers.customer', {customerId: customerId})),
             loadLoyalties(customerId), loadRewards(customerId)
@@ -220,7 +220,6 @@ angular.module('mobiusApp.services.user', [])
                 $rootScope.$broadcast('MOBIUS_USER_LOGIN_EVENT');
               });
             }
-
 
             if(authPromise && authPromise.resolve){
               authPromise.resolve(true);
@@ -283,7 +282,7 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function logout() {
-      if (!window.KS.$me) {
+      if (!window.KS || !window.KS.$me) {
         $rootScope.$evalAsync(function () {
           userObject = {};
           $state.go('home', {}, {reload: true});

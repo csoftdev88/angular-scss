@@ -1,5 +1,6 @@
 <ul>
   <li class="floating-bar--tab-booking main-mobile-toggle" ng-class="{'is-active': active === BOOKING, 'mobile-is-open': !isCollapsed}" ng-hide="mobileMenuOpen">
+    <div class="glass-filter"></div>
     <a href="" ng-click="setActive(BOOKING, true);" ng-class="{'with-search-params' : hasSearchParams() && hasDates()}">
       <div class="desktop" ng-bind-html="'_make_your_booking_' | mainHeaderStyle"></div>
       <div class="mobile">
@@ -22,7 +23,7 @@
       <div class="mobile-search-text" ng-if="floatingBarTopRight">_search_</div>
     </a>
   </li>
-  <li class="floating-bar--tab-booking mobile-single-booking" ng-class="{'is-active': active === BOOKING}">
+  <li class="floating-bar--tab-booking mobile-single-booking" ng-if="hasMultiroomTab" ng-class="{'is-active': active === BOOKING}">
     <a href="" ng-click="setActive(BOOKING)">
       <span class="desktop" ng-bind-html="'_single_booking_' | mainHeaderStyle"></span>
     </a>

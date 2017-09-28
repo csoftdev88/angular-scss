@@ -2,7 +2,8 @@
 .viewport-mobile {
 
   .Header {
-    padding: 20px 20px 25px 10px;
+    padding: 5px 10px;
+    height: @mobile-header-height;
   }
 
   .Header__logo {
@@ -11,11 +12,16 @@
     padding-left: 10px;
   }
 
-  .Header__buttons--auth {
+  .Header__profile {
     display: none;
   }
 
   .Header__buttons--preferences {
+    display: none;
+  }
+
+  .Header__button.login,
+  .Header__button.register {
     display: none;
   }
 

@@ -1,16 +1,23 @@
 @media only screen and @tablet-portrait-min {
   .dropdown-menu {
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.15);
     top: 30px;
-    li[currency-list] &,
+    border-radius: 6px;
     li[currency-list] & {
-      top: 80px;
+      top: 55px;
+      left: -20px;
+      .fa {
+        color: #4A4A4A;
+        font-size: 20px;
+        line-height: 20px;
+        margin-right: 8px;
+      }
     }
     .desktop-profile & {
-      top: 80px;
+      top: 60px;
     }
     &.submenu {
-      background-color: @c-primary;
+      background-color: #fff;
       .chain-sign & {
         background: @c-primary-sign;
       }
@@ -20,9 +27,36 @@
       min-width: 150px;
       margin-left: 0;
       a {
-        color: #fff;
+        color: #9B9B9B;
+        font-family: @ff-primary;
+        font-size: 14px;
+        font-weight: 300;
       }
       li {
+        padding: 0 10px;
+        margin: 0;
+        border: none;
+        height: 40px;
+        line-height: 40px;
+        cursor: pointer;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        &:not(:first-of-type) {
+          border-top: 1px solid #DEDEDE;
+        }
+        &:hover {
+          background-color: #F0F0F0;
+        }
+        &:first-of-type:hover ~ .triangle-with-shadow:after {
+          background-color: #F0F0F0;
+        }
+        &:first-of-type {
+          border-radius: 6px 6px 0 0;
+        }
+        &:last-of-type {
+          border-radius: 0 0 6px 6px;
+        }
         a span {
           line-height: 20px;
           font-size:12px;
@@ -35,10 +69,7 @@
         }
       }
     }
-    li{
-      border-top: 1px solid #343434 !important;
-      padding: 15px 0 0 0 !important;
-      margin: 15px;
+    li {
       .chain-sign &, .chain-sand & {
         border-top:1px solid rgba(255, 255, 255, 0.2)!important;
       }
@@ -60,4 +91,25 @@
       }
     }
   }
+  .triangle-with-shadow {
+    position: absolute;
+    top: -20px;
+    left: 22px;
+    width: 50px;
+    height: 20px;
+    overflow: hidden;
+    box-shadow: none;
+  }
+  .triangle-with-shadow:after {
+    content: "";
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: #fff;
+    transform: rotate(45deg);
+    top: 8px;
+    left: 12px;
+    box-shadow: -2px -2px 2px 0px rgba(0, 0, 0, 0.15);
+  }
+
 }

@@ -1,18 +1,74 @@
 @import "./mobile";
 
+@slide-animation-duration: 222ms;
+@appear-animation-duration: 150ms;
+
 .Menu {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #fff;
-  z-index: 999;
-  margin-top: 70px;
-  display: none;
+  background-color: #212020;
+  z-index: 1002; // Ensure the menu is above the booking bar
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  opacity: 0;
+  display: flex;
+  transition: transform @slide-animation-duration ease-in, opacity @appear-animation-duration linear;
+  transform: translate3d(0, -100%, 0);
 
   .main-menu-active & {
-    display: block;
+    display: flex;
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition: transform @slide-animation-duration ease-out, opacity @appear-animation-duration linear;
+  }
+  & > .Menu__items {
+    transition: transform @slide-animation-duration ease-out, opacity @appear-animation-duration linear;
+    transition-delay: @slide-animation-duration;
+    transform: translate3d(-50%, 0, 0);
+    opacity: 0;
+    .main-menu-active & {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+  }
+}
+
+.Menu__close-icon-positionner {
+  z-index: 1;
+  width: 100%;
+  height: @header-height;
+  padding: 0 20px;
+  box-sizing: border-box;
+  transition: opacity @appear-animation-duration linear;
+  transition-delay: @slide-animation-duration;
+  opacity: 0;
+  .main-menu-active & {
+    opacity: 1;
+  }
+}
+
+.Menu__close-icon-inner-positionner {
+  width: 100%;
+  height: 100%;
+  max-width: 1212px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.Menu__close-icon {
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  transition: opacity @appear-animation-duration linear;
+  opacity: 0.6;
+  &:hover {
+    opacity: 1;
   }
 }
 
@@ -20,40 +76,103 @@
   width: 500px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 151px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  position: relative;
+  top: -100px;
 }
 
 .Menu__items--item,
 .Menu__items--highlight {
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: 0;
-  font-family: @ff-primary;
-  line-height: 67px;
+  letter-spacing: 2px;
+  font-family: @ff-serif;
+  line-height: 70px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
-  cursor: pointer;
 }
 
 .Menu__items--item {
-  font-size: 30px;
-  color: @c-secondary;
+  cursor: pointer;
+  position: relative;
+  font-size: 42px;
+  color: #fff;
   a {
     color: @c-secondary;
   }
   .current-currency {
     display: none;
   }
+  @underline-overspill: 3px;
+  &::after {
+    transition: width @appear-animation-duration linear;
+    content: '';
+    position: absolute;
+    width: 0;
+    left: -@underline-overspill;
+    bottom: 5px;
+    height: 2px;
+    background-color: @c-primary;
+    border-radius: 1px;
+  }
+  &:hover::after {
+    width: calc(~'100% + 2 * @{underline-overspill}');
+  }
 }
 
 .Menu__items--divider {
-  border-top: 1px solid @c-primary;
-  margin: 28px 100px;
+  background-color: #2D2722;
+  height: 1px;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .Menu__items--highlight {
-  font-size: 20px;
+  font-size: 24px;
+  font-weight: bold;
   color: @c-primary;
 }
+
+.Menu__sublinks-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+
+  .equal-split-box {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    & > * {
+      flex: 1 1 0px;
+    }
+  }
+
+  .Menu__items--subitem {
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: #D3D3D3;
+    font-family: @ff-primary;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 70px;
+    cursor: pointer;
+
+    border: 1px solid #2D2722;
+    background-color: transparent;
+
+    transition: background-color @appear-animation-duration linear;
+    &:hover {
+      background-color: @c-primary;
+    }
+  }
+}
+
+
 

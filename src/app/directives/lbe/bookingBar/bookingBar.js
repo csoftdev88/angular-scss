@@ -1,5 +1,6 @@
 /**
  * Directive for the LBE as a replica to the floating bar's booking-widget.
+ * TODO: work out if we still need this replica after the separation of templates per tenant?
  */
 (function() {
   'use strict';
@@ -33,6 +34,7 @@
         scope.dates = '';
         scope.adults = [];
         scope.children = [];
+        scope.canAddRoom = true;
         scope.properties = [{
           id: 'default',
           nameShort: DynamicMessages[appLang].select_property
@@ -56,17 +58,16 @@
         // Load the adults and children options
         var i;
         for (i = 1; i < config.maxAdults + 1; i++) {
-          scope.adults.push({value: i, title: i.toString() + ' ' + DynamicMessages[appLang].adults});
+          scope.adults.push({value: i, title: i.toString() + ' ' + (i === 1 ? DynamicMessages[appLang].adult : DynamicMessages[appLang].adults)});
         }
         for (i = 0; i < config.maxChildren + 1; i++) {
-          scope.children.push({value: i, title: i.toString() + ' ' + DynamicMessages[appLang].children});
+          scope.children.push({value: i, title: i.toString() + ' ' + (i === 1 ? DynamicMessages[appLang].child : DynamicMessages[appLang].children)});
         }
         scope.isSmall = function () {
           return size === 'small';
         };
 
         var datePickerListener = $rootScope.$on('OPEN_DATE_PICKER', function () {
-          console.log('Open date picker');
           var rangeInput = angular.element('#booking-bar-dates');
           if (rangeInput.length) {
             rangeInput.focus();
@@ -82,11 +83,8 @@
         });
 
         // Code types available to user
+        // TODO: get the titles from dynamicMessages
         scope.codes = [
-          {
-            title: DynamicMessages[appLang].apply_code,
-            value: 'default'
-          },
           {
             title: 'Corporate Code',
             value: 'corpCode'
@@ -115,10 +113,10 @@
 
         function initialiseValues() {
           if ($stateParams.adults) {
-            scope.rooms[0].adults = parseInt($stateParams.adults);
+            scope.rooms[0].adults = parseInt($stateParams.adults, 10);
           }
           if ($stateParams.children) {
-            scope.rooms[0].children = parseInt($stateParams.children);
+            scope.rooms[0].children = parseInt($stateParams.children, 10);
           }
           if ($stateParams.dates) {
             scope.dates = $stateParams.dates;
@@ -156,25 +154,26 @@
           stateParams.scrollTo = 'jsRooms';
           stateParams.rooms = null;
           stateParams.room = null;
-          stateParams.adults = scope.search.adults;
-          stateParams.children = scope.search.children;
+          stateParams.adults = scope.rooms[0].adults;
+          stateParams.children = scope.rooms[0].children;
           stateParams.dates = scope.dates;
 
-          if (scope.search.code !== 'default') {
-            stateParams[scope.search.codeType] = scope.search.code;
-          }
+          stateParams.promoCode = null;
+          stateParams.corpCode = null;
+          stateParams.groupCode = null;
+
           // Changing application state
-          if(!scope.multiRoomSearch) {
+          if (!scope.multiRoomSearch) {
             // Removing rooms when not in multiroom booking mode
             stateParams.rooms = null;
             stateParams.room = null;
+            // N.B. Only single-room bookings can use codes
+            if (scope.search.code) {
+              stateParams[scope.search.codeType] = scope.search.code;
+            }
           } else {
             stateParams.rooms = scope.rooms;
             stateParams.room = 1;
-            // Multi room bookings cannot use codes
-            stateParams.promoCode = null;
-            stateParams.corpCode = null;
-            stateParams.groupCode = null;
           }
           if ($stateParams.roomSlug) {
             stateParams.roomSlug = $stateParams.roomSlug;
@@ -182,14 +181,27 @@
           return stateParams;
         }
 
+        scope.getCurrentCodeType = function() {
+          if (!scope.search.codeType) {
+            return '';
+          }
+          var matchingCode = _.find(scope.codes, {value: scope.search.codeType});
+          return matchingCode ? 'Enter ' + matchingCode.title : ''; // TODO: i18n
+        };
+
         scope.addRoom = function () {
           scope.rooms.push({adults: 1, children: 0});
+          scope.canAddRoom = scope.rooms.length < Settings.UI.bookingWidget.maxRooms;
         };
 
         scope.removeRoom = function (index) {
           if (scope.rooms.length > 1) {
             scope.rooms.splice(index, 1);
           }
+          if (scope.rooms.length < 2) {
+            scope.multiRoomSearch = false;
+          }
+          scope.canAddRoom = scope.rooms.length < Settings.UI.bookingWidget.maxRooms;
         };
 
         scope.switchSearchType = function () {
@@ -213,6 +225,12 @@
           }];
         };
 
+        scope.removeCode = function () {
+          scope.search.code = '';
+          scope.search.codeType = null;
+          scope.showCode = false;
+        };
+
         scope.doSearch = function () {
           // @todo Add here some kind of UI validation, make the fields red. Design input required
           if ((scope.search.property === 'default' && !Settings.UI.generics.singleProperty) || scope.dates === '') {
@@ -233,14 +251,14 @@
           var stateParams = buildSearchParams();
 
           // Convert rooms object so its URL compatible
-          var romSettings = {
+          var roomSettings = {
             'search': 'rooms',
             'type': 'object',
             'required': false,
             'field': ''
           };
-          if (validationService.isValueValid(stateParams.rooms, romSettings)) {
-            var queryValue = validationService.convertValue(stateParams.rooms, romSettings);
+          if (validationService.isValueValid(stateParams.rooms, roomSettings)) {
+            var queryValue = validationService.convertValue(stateParams.rooms, roomSettings);
             stateParams.rooms = queryValue;
           }
           // Default to the hotel page

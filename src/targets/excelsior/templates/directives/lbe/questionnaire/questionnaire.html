@@ -1,81 +1,48 @@
 <article class="questionnaire">
 
   <article class="questionnaire__points">
-
+    <div class="questionnaire__title">
+      _your_status_
+    </div>
     <div class="questionnaire__info">
-      <h3>{{ name }} | {{ tier }}</h3>
-    </div>
-
-    <div class="questionnaire__amount">
-      <span class="points">{{ points }}</span>
-      <span class="points-label">_points_</span>
-    </div>
-
-    <div class="questionnaire__footer">
-      <span>{{ numPointsToNextTier }} away from your next stay</span>
-    </div>
-
-    <!--<div class="questionnaire__your-points">
-      <span class="points">{{ points }}</span>
-      <span class="points-label">_points_</span>
-    </div>
-
-    <div class="questionnaire__tier">
-      <div class="tier-content">
-        <span class="tier">{{ tier }} tier</span>
-        <span class="stays">{{ numPointsToNextTier }} points</span>
-        <span class="tagline">Away from Next Tier</span>
+      <div class="name">{{ name }}</div>
+      <div ui-sref="profile"
+           class="profile-link">
+        _view_profile_
+        <i class="fa fa-angle-right"></i>
       </div>
     </div>
-    <div id="numPointsCircle"></div>-->
 
-  </article>
+    <div class="tier-and-points">
+      <div class="tier">
+        <div class="tier-medallion" ng-class="tier ? tier.toLowerCase() : ''">
+          <i class="fa fa-user"></i>
+        </div>
+        <div class="tier-text">
+            <span class="tier-label">_current_tier_</span>
+            <span class="current-tier" ng-class="tier ? tier.toLowerCase() : ''">{{ tier }} _tier_</span>
+        </div>
+      </div>
 
-  <article ng-if="!nextStay && !question"
-           ui-sref="reservations"
-           class="questionnaire__questions nextStay">
-
-    <h1 class="questionnaire__nextStay--subtitle emptyMessage">You do not have any upcoming stays</h1>
-
-  </article>
-
-  <article ng-if="nextStay"
-           ui-sref="reservations"
-           class="questionnaire__questions nextStay">
-
-    <div class="questionnaire__status">
-      <span>Your next stay</span>
+      <div class="points-amount">
+        <span class="points">{{ points }}</span>
+        <span class="points-label">_points_</span>
+      </div>
     </div>
-
-    <h1 class="questionnaire__nextStay--title">
-      {{ nextStay.property.nameShort }}
-    </h1>
-
-    <h2 class="questionnaire__nextStay--subtitle">
-      {{ nextStay.rooms[0].roomTypeName }}
-    </h2>
-
-    <h3 class="questionnaire__nextStay--details">
-      {{ nextStay.rooms[0].productName }}
-    </h3>
-
-    <h3 class="questionnaire__nextStay--details">
-      Confirmation number : {{ nextStay.reservationCode }}
-    </h3>
-
-    <h3 class="questionnaire__nextStay--details">
-      {{ nextStay.arrivalDate | dateTime }} - {{ nextStay.departureDate | dateTime }}
-    </h3>
-
   </article>
 
-  <article ng-if="! nextStay && question" class="questionnaire__questions">
+  <div ng-if="question" class="stop-gap"></div>
 
+  <article ng-if="question" class="questionnaire__questions">
     <span class="error" ng-if="errorMsg">{{ errorMsg }}</span>
 
-    <h2 class="questionnaire__title">_questionnaire_title_</h2>
+    <div class="questionnaire__title">
+      _questionnaire_title_
+    </div>
 
-    <p class="questionnaire__subtitle">{{ reward }}</p>
+    <p class="questionnaire__subtitle">_questionnaire_subtitle_</p>
+
+    <p class="questionnaire__reward">{{ reward }}</p>
 
     <h1 class="questionnaire__question">{{ question }}</h1>
 
@@ -86,18 +53,85 @@
                  name="choice"
                  ng-model="choiceId"
                  value="{{ option.value }}" />
+          <div class="styled-radio">
+            <div class="styled-checked-indicator"></div>
+          </div>
           {{ option.name }}
         </label>
 
       </li>
     </ul>
 
-    <button type="submit"
-            ng-click="answer()"
-            class="questionnaire__submit">
-      _submit_
-    </button>
+    <div class="button-positionner">
+      <button type="submit"
+              ng-click="answer()"
+              class="questionnaire__submit">
+        _submit_answer_
+      </button>
+    </div>
+  </article>
+
+  <article ng-if="nextStay"
+           class="questionnaire__next-stay">
+    <div class="questionnaire__title">
+      Your next stay
+    </div>
+
+    <div class="next-stay-panel">
+      <!--TODO: go to the actual reservation instead of all-->
+      <div ui-sref="reservations" class="next-stay-details">
+        <h1 class="questionnaire__nextStay--title">
+          {{ nextStay.property.nameLong }}
+        </h1>
+
+        <h2 class="questionnaire__nextStay--subtitle">
+          {{ nextStay.rooms[0].roomTypeName }}
+        </h2>
+
+        <h3 class="questionnaire__next-stay--date">
+          {{ nextStay.arrivalDate | dateTime }} - {{ nextStay.departureDate | dateTime }}
+        </h3>
+
+        <h3 class="questionnaire__next-stay--reservation-code">
+          Confirmation number: {{ nextStay.reservationCode }}
+        </h3>
+      </div>
+      <div class="next-stay-addons">
+        <div class="addon-wrapper"
+             ng-repeat="addon in nextStay.availableAddons"
+             ng-click="openAddonDetailDialog(addon)">
+          <div class="addon-image">
+            <img ng-if="addon.image && addon.image.uri"
+                 ng-src="{{addon.image.uri}}"/>
+            <img ng-if="(!addon.image || !addon.image.uri) &&
+                              addon.images &&
+                              addon.images.length &&
+                              addon.images[0].uri"
+                 ng-src="{{addon.images[0].uri}}"/>
+          </div>
+
+          <div class="addon-text">
+            <div class="addon-name" ng-bind-html="addon.name | wrapWordHtml : 'span' : 0"></div>
+            <div class="addon-cost">
+              <!--TODO: get addon price if Settings.API.reservations.inclusionsAsAddons is false -->
+              <span>{{ addon.price.totalAfterTax | i18nCurrency: defaultCurrencyCode }}</span>
+              <span ng-if="addon.pointsRequired &&
+                          loyaltyProgramEnabled &&
+                          addon.allowPointsBooking"> _lowercase_or_ {{ addon.pointsRequired }} _points_</span>
+            </div>
+          </div>
+
+          <div class="addon-add-button"
+                  ng-click="openAddonDetailDialog($event, addon)">
+            <i class="fa fa-plus-circle"></i>
+            Add On
+          </div>
+        </div>
+      </div>
+    </div>
 
   </article>
+
+
 
 </article>

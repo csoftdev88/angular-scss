@@ -2,6 +2,8 @@
 //// FLOATING BAR ////
 //////////////////////
 
+//FIXME: this is rather messy and only a small part is used for excelsior
+
 .multiroom-mode booking-widget-add-room{
   width: 50% !important;
   .viewport-mobile & {
@@ -9,19 +11,57 @@
   }
 }
 
-floating-bar {
+@slide-animation-duration: 222ms;
+@appear-animation-duration: 150ms;
 
+floating-bar {
+  .viewport-mobile & {
+    // Override display none on the element to ensure transitions happen
+    display: block !important;
+    transform: translate3d(0, 100vh, 0);
+    height: calc(~'100vh - @{mobile-header-height}');
+    opacity: 0;
+    transition: transform @slide-animation-duration ease-in, opacity @appear-animation-duration linear;
+    &.active {
+      opacity: 1;
+      // Override display none on the element to ensure transitions happen
+      display: block !important;
+      transform: translate3d(0, 0, 0);
+      transition: transform @slide-animation-duration ease-out, opacity @appear-animation-duration linear;
+      height: calc(~'100vh - @{mobile-header-height}');
+      bottom: initial;
+      top: @mobile-header-height;
+      > ul {
+        display: table;
+      }
+    }
+  }
+}
+
+floating-bar {
   display: none;
+  color: #4A4A4A;
 
   &.multi-room{
     background: @c-booking-widget-active;
   }
 
+  .glass-filter {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
   //- Tabs
   > ul {
-
     li {
-
+      color: #4A4A4A;
+      a {
+        color: #4A4A4A;
+      }
       &.floating-bar--tab-advanced-booking {
         a {
           text-decoration: underline;
@@ -48,24 +88,29 @@ floating-bar {
         border-bottom: @baseline*1.5 solid @c-booking-widget-active;
       }
 
-      //- Skew effect
-      &:after {
-       // border-bottom: @baseline*1.5 solid @c-booking-widget-active;
-      }
-
-
       &.floating-bar--tab-booking {
 
         .viewport-mobile &.main-mobile-toggle {
+          background: url('@{img-prefix}/rewards-bg.png') center no-repeat;
+          background-size: cover;
+          position: relative;
+
+          .book-now-button {
+            font-family: @ff-serif;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 23px;
+            position: absolute;
+            top: 0;
+            left: 30px;
+          }
 
           &.mobile-is-open a{
-            background: @c-booking-widget;
+            background: transparent;
           }
 
           a{
 
             &.with-search-params {
-              background: @lbe-c-primary;
             }
 
             .mobile{

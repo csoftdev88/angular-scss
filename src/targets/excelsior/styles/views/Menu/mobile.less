@@ -1,9 +1,13 @@
 
 .viewport-mobile {
 
+  .Menu__close-icon-positionner {
+    height: @mobile-header-height;
+  }
+
   .Menu__items {
-    width: 100%;
-    margin-top: 10px;
+    width: calc(~'100% - 30px');
+    top: -@mobile-header-height;
   }
 
   .Menu__items--item {
@@ -14,6 +18,26 @@
   .Menu__items--highlight {
     font-size: 14px;
     line-height: 50px;
+  }
+
+  .Menu__sublinks-wrapper {
+    .equal-split-box {
+      flex-flow: column nowrap;
+    }
+    .Menu__items--subitem {
+      line-height: 50px;
+      font-size: 14px;
+      &:hover {
+        background-color: transparent;
+      }
+    }
+    .CurrencyList {
+      flex-flow: row wrap;
+      justify-content: center;
+    }
+    .change-currency {
+      display: none;
+    }
   }
 
 }

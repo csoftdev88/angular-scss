@@ -6,9 +6,53 @@
     padding: 0;
     margin-top: 15px;
 
+    .questionnaire__points,
+    .questionnaire__questions,
+    .questionnaire__next-stay,
+    .questionnaire__feature {
+      & > * {
+        padding: @questionnaire-mobile-padding;
+      }
+    }
+
+    .questionnaire__info {
+      .name {
+        font-size: 18px;
+        line-height: 18px;
+      }
+      .profile-link {
+        width: 95px;
+        height: 28px;
+        line-height: 28px;
+        font-size: 12px;
+        i.fa {
+          font-size: 18px;
+          margin: 0 8px;
+        }
+      }
+    }
+
+    .tier-and-points {
+      flex-flow: column nowrap;
+      .points-amount {
+        .points {
+          font-size: 30px;
+        }
+        .points-label {
+          font-size: 15px;
+        }
+      }
+    }
+
+    .questionnaire__title {
+      height: 40px;
+      line-height: 40px;
+      font-size: 18px;
+    }
+
     .questionnaire__points {
       float: initial;
-      width: 100%;
+      flex: 0 0 100%;
       margin-right: initial;
     }
 
@@ -17,11 +61,27 @@
       padding: 27px 0 0 37px;
     }
 
+    .next-stay-details {
+      margin: 20px 0 10px 0;
+      padding: 20px;
+    }
+
+    .questionnaire__next-stay {
+      .next-stay-panel {
+        height: auto;
+        flex-flow: column nowrap;
+        padding: 0 15px;
+      }
+    }
+
+    .addon-wrapper {
+      flex-flow: column nowrap;
+    }
+
     .questionnaire__questions {
-      padding: 25px 9px;
-      border: solid 1px #d8d8d8;
       margin-left: 0;
-      width: 100%;
+      margin-top: 10px;
+      flex: 0 0 100%;
       position: relative;
       &.nextStay {
         margin-left: 0;
@@ -29,7 +89,13 @@
       }
     }
 
+    .questionnaire__nextStay--title {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
     .questionnaire__nextStay--subtitle {
+      font-size: 18px;
       &.emptyMessage {
         padding-bottom: 40%;
         padding-right: 0;

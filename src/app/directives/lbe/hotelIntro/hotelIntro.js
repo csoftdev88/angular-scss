@@ -13,12 +13,16 @@
       restrict: 'E',
       scope: true,
       templateUrl: 'directives/lbe/hotelIntro/hotelIntro.html',
-      link: function () {
+      link: function (scope) {
         // Get the config for the hotel info
         var config = Settings.UI.hotelIntro;
         if (!config) {
           $log.warn('No config for the hotel-intro directive was provided!');
+          return;
         }
+        scope.title = config.title;
+        scope.highlight = config.highlight;
+        scope.description = config.description;
       }
     };
   }

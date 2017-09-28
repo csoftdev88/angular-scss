@@ -1,14 +1,20 @@
 @import "./mobile";
 
 footer.main {
-  padding-top: 0;
+  padding: 35px 0;
   height: 210px;
-  background-color: @c-primary;
+  background: url('@{img-prefix}/footer-bg.png') repeat;
   text-align: initial;
   width: initial;
   h1, h2, h3, p, span, small, li {
     color: #fff;
     font-family: @ff-primary;
+  }
+  .Footer__title {
+    color: #fff;
+    font-family: @ff-serif;
+    font-size: 25px;
+    font-weight: bold;
   }
 }
 
@@ -42,7 +48,13 @@ footer.main {
   width: 50%;
   float: left;
   margin-top: 20px;
+
   .Footer__text {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: @ff-primary;
+    font-size: 18px;
+    line-height: 1.1;
+    font-weight: normal;
     margin-bottom: 17px;
   }
 }
@@ -82,11 +94,15 @@ footer.main {
 .Footer__nav--item {
   display: inline;
   text-transform: uppercase;
-  font-size: 13px;
-  line-height: 18px;
   padding-right: 21px;
   a {
-    color: #fff;
+    font-weight: normal;
+    color: #949494;
+    font-family: @ff-primary;
+    font-size: 15px;
+    &:hover {
+      color: lighten(#949494, 30%);
+    }
   }
 }
 

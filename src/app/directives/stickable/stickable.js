@@ -8,12 +8,17 @@ angular.module('mobiusApp.directives.stickable', [])
 
     return {
       link: function (scope, elem, attr) {
-        // TODO: Same as in scrollTo, breadcrumbs directives
-        // remove scope.scroll and dont use scope data binding
-        // which is too slow on scroll events etc.
         var STICKABLE_Z_INDEX = 995;
         var $$window = angular.element($window);
-        var elementOffset = elem.offset().top;
+        var growlAlerts = $('growl-alerts');
+
+        var previousScrollTop;
+        var originalTop = null;
+        var stickToHeight = null;
+        var stickToTop = null;
+        var elementHeight = null;
+        var nextMarginTop = null;
+        var stuck = false;
 
         var isMobile = stateService.isMobile();
 
@@ -21,53 +26,81 @@ angular.module('mobiusApp.directives.stickable', [])
           isMobile = stateService.isMobile();
         });
 
-        function onScroll(){
-          if(isMobile){
+        function onScroll() {
+          if (isMobile) {
             return;
           }
 
           var scrollTop = $$window.scrollTop();
-          if(scrollTop === scope.scroll){
+          if (scrollTop === previousScrollTop) {
             return;
           }
 
-          var elementToStick = $('#' + attr.stickable);
-          var elementToStickHeight = elementToStick.height();
-          var growlAlerts = $('growl-alerts');
+          previousScrollTop = scrollTop;
 
-          if (elementToStickHeight && (elementOffset - scrollTop < elementToStickHeight)) {
-            elem.next().css('margin-top', elem.height() * 2);
-            elem.css('position', 'fixed');
-            elem.css('top', elementToStickHeight);
-            elem.css('z-index', STICKABLE_Z_INDEX);
-            elem.addClass('sticky');
-            $('body').addClass('sticky-bread');
-            if(growlAlerts.length)
-            {
-              growlAlerts.removeClass('hidden');
-            }
-          } else {
-            elem.css('position', '');
-            elem.css('top', '');
-            elem.next().css('margin-top','');
-            elem.removeClass('sticky');
-            $('body').removeClass('sticky-bread');
-            if(growlAlerts.length)
-            {
-              growlAlerts.addClass('hidden');
+          var elementToStick = $('#' + attr.stickable);
+          stickToTop = elementToStick.offset().top - scrollTop;
+          if (stickToHeight === null) {
+            stickToHeight = elementToStick.outerHeight();
+          }
+          if (originalTop === null) {
+            originalTop = elem.offset().top;
+          }
+          if (elementHeight === null) {
+            elementHeight = elem.outerHeight();
+          }
+          var nextEl = elem.next();
+          if (nextMarginTop === null) {
+            nextMarginTop = nextEl.css('margin-top');
+            if (nextMarginTop === 'auto') {
+              nextMarginTop = 0;
+            } else {
+              nextMarginTop = parseInt(nextMarginTop, 10);
             }
           }
 
-          scope.$evalAsync(function(){
-            scope.scroll = scrollTop;
-          });
-        }
+          if (!stuck) {
+            if (scrollTop + stickToHeight + stickToTop > originalTop) {
+              elem.css('position', 'fixed');
+              elem.css('top', stickToTop + stickToHeight);
+              elem.css('z-index', STICKABLE_Z_INDEX);
+              elem.css('margin-top', 0);
+              elem.css('margin-bottom', 0);
+              elementToStick.css('box-shadow', 'none');
+              elem.addClass('sticky');
+              $('body').addClass('sticky-bread');
 
-        onScroll();
+              // compensate for the element's removal from the layout
+              nextEl.css('margin-top', (nextMarginTop + elementHeight) + 'px');
+              if (growlAlerts.length) {
+                growlAlerts.removeClass('hidden');
+              }
+
+              stuck = true;
+            }
+            return;
+          }
+
+          if (scrollTop + stickToHeight + stickToTop <= originalTop) {
+            elem.next().css('margin-top', '');
+            elem.css('position', '');
+            elem.css('top', '');
+            elem.css('z-index', '');
+            elem.css('margin-top', '');
+            elem.css('margin-bottom', '');
+            elementToStick.css('box-shadow', '');
+            elem.removeClass('sticky');
+            $('body').removeClass('sticky-bread');
+            if (growlAlerts.length) {
+              growlAlerts.addClass('hidden');
+            }
+            stuck = false;
+          }
+        }
 
         $$window.bind(EVENT_SCROLL, onScroll);
 
-        scope.$on('$destroy', function(){
+        scope.$on('$destroy', function() {
           $$window.unbind(EVENT_SCROLL, onScroll);
         });
       }

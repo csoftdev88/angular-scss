@@ -8,8 +8,8 @@ booking-widget {
   .chosen-container, input, select, input[type='text'] {
     border-radius: 0;
     border: none;
-    background: #000;
-    color: @c-white;
+    background: #fff;
+    color: #4A4A4A;
     height: 45px;
     line-height: 16px;
     font-size: 13px;
@@ -37,10 +37,6 @@ booking-widget {
     border-radius: 2px;
     min-width: 0px;
     padding:0;
-    background: @lbe-c-primary;
-    &:hover {
-      background: darken(@lbe-c-primary, 10%);
-    }
     .viewport-mobile &{
       height: 44px;
       line-height: 44px;
@@ -71,11 +67,17 @@ booking-widget {
 //- Search
 booking-widget-search {
   width: 90%;
+
+  .viewport-mobile & {
+    margin-top: 20px;
+  }
+
   //- Make your booking
   h3 {
     display: none
   }
   form-element {
+
     &.code.code-input {
       remove-text {
         top: 7px;
@@ -84,8 +86,8 @@ booking-widget-search {
     input-value {
       border-radius: 0;
       border: none;
-      background: #000;
-      color: @c-white;
+      background: #fff;
+      color: #4A4A4A;
       font-size: 13px;
       text-transform: uppercase;
       font-family: @ff-secondary;

@@ -29,11 +29,16 @@
 
 .Home__booking-bar {
   .booking-bar {
-    position: absolute;
-    right: calc(~'(100vw - 1212px) / 2');
-    top: 150px;
-    .fullscreen & {
-      top: calc(~'50% - 183px');
+    &.booking-bar__size-full-width {
+      min-height: 112px;
+    }
+    .fullscreen &.booking-bar__size-full-width-bottom {
+      position: absolute;
+      left: 0;
+      top: initial;
+      bottom: 0;
+      min-height: 112px;
+      z-index: 1;
     }
   }
 }
@@ -49,4 +54,96 @@
   .Footer__nav {
     margin-top: 5px;
   }
+}
+
+.drop-up .chosen-container {
+  &.chosen-with-drop {
+    border-radius: 0 0 4px 4px;
+    border-color: #ccb08c;
+  }
+  .chosen-drop {
+    top: initial;
+    bottom: 54px;
+    border-radius: 4px 4px 0 0;
+    border-color: #ccb08c;
+  }
+}
+
+.members-only-banner {
+  width: 100%;
+  height: 191px;
+  position: relative;
+  margin-top: @header-height;
+  background: url('@{img-prefix}/rewards-bg.png') center no-repeat;
+  background-size: cover;
+
+  .glass-filter {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  .members-only-banner__labels-positionner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+    max-width: 1212px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0 20px;
+    height: 100%;
+    user-select: none;
+  }
+
+  .members-only-banner__label {
+    color: #fff;
+    font-family: @ff-serif;
+    text-transform: uppercase;
+    font-size: 50px;
+    line-height: 50px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+    cursor: default;
+  }
+
+  .members-only-banner__not-member {
+    color: #fff;
+    font-family: @ff-primary;
+    font-size: 24px;
+    line-height: 24px;
+    font-weight: 300;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    .emphasis {
+      font-weight: 600;
+    }
+    .underline {
+      text-decoration: underline;
+    }
+  }
+
+  .over-title {
+    font-family: @ff-primary;
+    font-size: 22px;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+
+  &.logged-in {
+    height: 300px;
+    .members-only-banner__label {
+      display: flex;
+      flex-flow: column nowrap;
+    }
+  }
+
+  .white-background {
+    height: 2.87%;
+    width: 101.67%;
+    border: 1px solid #E6D4BD;
+    background-color: @c-bookingbar-bg;
+  }
+
 }
