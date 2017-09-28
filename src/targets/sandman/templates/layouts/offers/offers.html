@@ -60,13 +60,6 @@
                 ng-if="offersList.length > 0"
                 class="OffersGrid__item">
       <a ng-href="{{offer.url}}">
-        <div class="OffersGrid__item--title"
-             ng-bind-html="offer.availability &&
-                           offer.availability.title &&
-                           offer.availability.title != ''  ?
-                           offer.availability.title :
-                           offer.title | wrapWordHtml : 'span' : 0 : config.offersThumbnailsTitlePattern : offer.propertyName">
-        </div>
         <div class="banner"
              ng-if="offer.merchandisingBanner"
              ng-style="{'background-color': offer.merchandisingBanner.bgColor, 'color': offer.merchandisingBanner.textColor}">
