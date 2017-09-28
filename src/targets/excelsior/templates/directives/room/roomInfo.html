@@ -1,0 +1,22 @@
+<article class="RoomInfo">
+
+  <img ng-src="{{roomDetails.images[0].uri | cloudinaryImage : 666 : 585 : 'fill'}}"
+       class="RoomInfo__image"
+       ng-alt="{{roomDetails.images[0].alt}}" />
+
+  <div class="RoomInfo__description">
+
+    <h1 class="RoomInfo__title">_rooms_</h1>
+
+    <p class="RoomInfo__text" ng-bind-html="roomDetails.description | trustAsHtml"></p>
+
+    <ul ng-class="{'restricted-amenities': config.restrictAmenities}" class="amenities-list">
+      <li class="amenity-item" ng-repeat="amenity in roomDetails.amenities" ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = details.chainCode">
+        <slug-img slug="amenity" type="hotel" width="32"></slug-img>
+        <span class="amenity-caption">{{amenity.name}}</span>
+      </li>
+    </ul>
+
+  </div>
+
+</article>

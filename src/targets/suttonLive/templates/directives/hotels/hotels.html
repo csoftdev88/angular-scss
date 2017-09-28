@@ -1,0 +1,357 @@
+<header grid-row ng-if="locationDetails">
+  <h1 grid="6">{{locationDetails.nameShort}}</h1>
+  <local-info ng-if="locationDetails.localInfo && locationDetails.localInfo.time" local-info="locationDetails.localInfo" grid="6"></local-info>
+</header>
+
+<section grid-row ng-if="locationDetails">
+  <div grid="8">
+    <p>{{locationDetails.description}}</p>
+    <!--<a href ng-click="openLocationDetail(locationDetails)">_learn_more_about_ {{locationDetails.nameShort}}</a>-->
+  </div>
+  <view-more-images grid="4" class="has-no-link">
+      <hero-slider data-has-notification-bar="false" on-slide-click="openGallery" data-counter-type="counter" content="previewImages"></hero-slider>
+
+      <read-more ng-if="locationDetails.content.length && locationDetails.content[0].title">
+        <p ng-bind-html="'_find_out_more_' | mainHeaderStyle"></p>
+        <ul>
+          <li ng-repeat="item in locationDetails.content | orderBy: 'order'"><a href="" ui-sref="locationInfo({regionSlug: regionSlug, locationSlug: locationDetails.meta.slug, infoSlug: item.slug})">{{item.title}}</a></li>
+        </ul>
+      </read-more>
+    </view-more-images>
+</section>
+
+<header grid-row ng-if="regionDetails">
+  <h1 grid="6">{{regionDetails.nameShort}}</h1>
+</header>
+
+<section grid-row ng-if="regionDetails">
+  <div grid="8">
+    <p>{{regionDetails.description}}</p>
+  </div>
+  <view-more-images grid="4">
+    <a ng-if="regionDetails.images.length > 1" href class="gallery-link" ng-click="openGallery()">_view_more_images_</a>
+    <hero-slider data-has-notification-bar="false" data-on-slide-click="openGallery" data-counter-type="counter" content="regionDetails.images"></hero-slider>
+  </view-more-images>
+  <hr>
+</section>
+
+
+  <section grid-container="9" widget="hotels" id="hotels" ng-class="{'compare-enabled': compareEnabled}">
+    <header class="hotels__header">
+      <h1 ng-bind-html="'_hotels_page_title_' | mainHeaderStyle"></h1>
+      <ng-pluralize ng-if="config.displayHotelsCount" class="hotels-counter" count="(hotels|filter:hotelFilter|filter:filterByTags).length" when="{'1': '1 _hotel_found_', 'other': '{} _hotels_found_'}"></ng-pluralize>
+    </header>
+    <div class="hotels__controls" ng-if="hasDates() && hotelAvailable() && showFilter('sort') && !filterConfig.sort.displayInSidebar">
+      <div class="order-switch">
+        <select
+          name="sorting"
+          ng-model="currentOrder"
+          chosen
+          ng-options="option.name for option in sortingOptions"
+          disable-search="true"
+          ng-change="orderSwitchChange(currentOrder)"
+          ng-init="initSortingOptions({
+            'priceLowToHigh': '_price_low_to_high_',
+            'priceHighToLow': '_price_high_to_low_',
+            'availability': '_availability_',
+            'starRatingLowToHigh': '_star_rating_low_to_high_',
+            'starRatingHighToLow': '_star_rating_high_to_low_'
+          })">
+        </select>
+      </div>
+    </div>
+    <div ng-if="!isUserLoggedIn()" class="msg-box">_hotels_page_login_prompt_desc_</div>
+    <div class="hotels__list">
+      <section ng-show="hotels.length === 0">_no_hotels_found_</section>
+      <ng-map default-style="true" center="-25,131" zoom="7" max-zoom="13" scrollwheel="false" ng-if="isLocationPage && config.displayMap && hotelViewMode === 'tiles' && filteredHotels.length" style="display:block; margin:20px 0 40px 0;">
+        <info-window id="foo" max-width="400">
+          <div ng-non-bindable>
+            <div class="hotel-content clearfix">
+              <div class="ratings">
+                <div class="brand" ng-if="displayPropertyChainBranding" ng-class="marker.hotel.chainCode.toLowerCase()"></div>
+                <div class="stars rating-trip-advisor img" ng-if="filterConfig.tripAdvisor.enable">
+                  <a ng-href="{{marker.hotel.tripAdvisorUrl}}" target="_blank"><img ng-src="{{marker.hotel.tripAdvisorRatingUrl}}" alt="tripadvisor rating"></a>
+                </div>
+
+                <div class="rating-default" ng-if="filterConfig.stars.enable && filterConfig.stars.displayStarsOnHotels">
+                  <ul class="star-rating">
+                    <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= marker.hotel.rating}"></li>
+                  </ul>
+                </div>
+              </div>
+              <h2 ng-click="navigateToHotel(marker.hotel)"><strong>{{marker.hotel.nameShort}}</strong></h2>
+              <div class="description" ng-if="marker.hotel.descriptionShort" ng-bind-html="sanitize(marker.hotel.descriptionShort)"></div>
+              <pricing-info>
+                <p class="price available left" ng-if="marker.hotel.available">
+                  _price_from_ <span class="value">{{marker.hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> _per_night_
+                  <span ng-if="hotel.available && isUserLoggedIn() && hotel.minPointsRequired">
+                    <br />_or_ <span class="value">{{marker.hotel.minPointsRequired}}</span> _points_
+                  </span>
+                </p>
+
+                <p class="price unavailable" ng-if="!marker.hotel.available && hasDates()">
+                  _not_available_on_dates_title_
+                </p>
+                <button-submit role="button" tabindex="0" ng-click="navigateToHotel(marker.hotel)">_view_more_</button-submit>
+              </pricing-info>
+            </div>
+          </div>
+        </info-window>
+
+        <marker ng-repeat="(id, marker) in markers" id="{{id}}"
+          position="{{marker.position}}"
+          on-click="showMarker(event, id)"></marker>
+      </ng-map>
+      <ul class="entries entries--{{hotelViewMode}}" vertilize-container>
+        <li ng-if="(hotelViewMode === 'list' || hotelViewMode === 'tiles') || isMobile" class="item" ng-repeat="hotel in hotels | orderBy : currentOrder.sort | filter : hotelFilter | filter: filterByTags as filteredHotels" grid="{{hotelViewMode === 'list' ? 3 : 1}}" ng-class="hotel.chainCode.toLowerCase()">
+            <a class="item-image" ng-href="{{hotel.url}}" ng-click="navigateToHotel(hotel)">
+              <div class="banner" ng-if="hotel.merchandisingBanner" ng-style="{'background-color': hotel.merchandisingBanner.bgColor, 'color': hotel.merchandisingBanner.textColor}">{{hotel.merchandisingBanner.text}}</div>
+              <img ng-src="{{hotel.images[0].uri | cloudinaryImage : 700 : 630 : 'fill'}}" alt="Mobius hotel {{hotel.name}} photo"/>
+            </a>
+
+            <h2 ng-if="hotelViewMode === 'list'" ng-click="navigateToHotel(hotel)"><strong>{{hotel.nameShort}}</strong></h2>
+
+            <h5 class="region-name" ng-if="config.displayHotelRegionName && hotelViewMode === 'list' && hotel.regionName">{{hotel.regionName}}</h5>
+
+            <div class="ratings">
+              <div class="brand" ng-if="displayPropertyChainBranding" ng-class="hotel.chainCode.toLowerCase()"></div>
+              <div class="stars rating-trip-advisor img" ng-if="filterConfig.tripAdvisor.enable">
+                <a ng-href="{{hotel.tripAdvisorUrl}}" target="_blank"><img ng-src="{{hotel.tripAdvisorRatingUrl}}" alt="tripadvisor rating"></a>
+              </div>
+
+              <div class="rating-default" ng-if="filterConfig.stars.enable && filterConfig.stars.displayStarsOnHotels">
+                <ul class="star-rating">
+                  <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>
+                </ul>
+              </div>
+            </div>
+
+            <h2 ng-if="hotelViewMode === 'tiles'" ng-click="navigateToHotel(hotel)"><strong>{{hotel.nameShort}}</strong></h2>
+            <h5 class="region-name" ng-if="config.displayHotelRegionName && hotelViewMode === 'tiles' && hotel.regionName">{{hotel.regionName}}</h5>
+
+            <pricing-info>
+              <p class="price available left" ng-if="hotel.available">
+                _price_from_ <span class="value">{{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</span> _per_night_
+                <span ng-if="hotel.available && isUserLoggedIn() && hotel.minPointsRequired">
+                  <br />_or_ <span class="value">{{hotel.minPointsRequired}}</span> _points_
+                </span>
+              </p>
+              <p class="price unavailable" ng-if="!hasDates()">
+                <button-submit ng-click="selectDates(hotel)">_select_dates_</button-submit>
+              </p>
+
+              <p class="price unavailable" ng-if="!hotel.available && hasDates()">
+                _not_available_on_dates_title_
+              </p>
+              <button-submit role="button" tabindex="0" ng-click="navigateToHotel(hotel)">_view_more_</button-submit>
+            </pricing-info>
+
+            <p class="description">{{hotel.descriptionShort}}</p>
+        </li>
+
+        <li ng-if="hotelViewMode === 'compare' && !isMobile" class="item" ng-repeat="hotel in compareHotels | filter:{userHidden:false} | filter : hotelFilter | filter: filterByTags | orderBy : currentOrder.sort  | limitTo:(comparisonIndex - ((compareHotels|filter:{userHidden:false}| filter : hotelFilter | filter: filterByTags).length)) | limitTo:compareHotelLimit" grid="{{hotelViewMode === 'list' ? 3 : 1}}" ng-class="hotel.chainCode.toLowerCase()">
+            <a class="item-image" ng-href="{{hotel.url}}" ng-click="navigateToHotel(hotel)">
+              <div class="banner" ng-if="hotel.merchandisingBanner" ng-style="{'background-color': hotel.merchandisingBanner.bgColor, 'color': hotel.merchandisingBanner.textColor}">{{hotel.merchandisingBanner.text}}</div>
+              <img ng-src="{{hotel.images[0].uri | cloudinaryImage : 700 : 630 : 'fill'}}" alt="Mobius hotel {{hotel.name}} photo"/>
+            </a>
+
+            <div class="ratings">
+              <div class="brand" ng-if="displayPropertyChainBranding" ng-class="hotel.chainCode.toLowerCase()"></div>
+              <div class="stars rating-trip-advisor img" ng-if="filterConfig.tripAdvisor.enable">
+                <a ng-href="{{hotel.tripAdvisorUrl}}" target="_blank"><img ng-src="{{hotel.tripAdvisorRatingUrl}}" alt="tripadvisor rating"></a>
+              </div>
+
+              <div class="rating-default" ng-if="filterConfig.stars.enable && filterConfig.stars.displayStarsOnHotels">
+                <ul class="star-rating">
+                  <li ng-repeat="i in [1,2,3,4,5]" ng-class="{'included': i <= hotel.rating}"></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="hotel-content" vertilize>
+              <h2 ng-click="navigateToHotel(hotel)"><strong>{{hotel.nameShort}}</strong></h2>
+              <h5 class="region-name">{{hotel.regionName}}</h5>
+              <div class="description" ng-bind-html="sanitize(hotel.descriptionShort ? hotel.descriptionShort : hotel.description)"></div>
+            </div>
+
+            <a ng-href="{{hotel.url}}" ng-click="navigateToHotel(hotel)" class="read-more">_read_more_</a>
+
+            <ul class="amenities" ng-if="hotel.amenities.length > 0">
+              <li class="amenity" ng-repeat="amenity in hotel.amenities | limitTo:3" ng-init="amenity.chainCode = hotel.chainCode">
+                <slug-img slug="amenity" type="hotel" width="19"></slug-img>
+                <span class="amenity-caption">{{amenity.name}}</span>
+              </li>
+            </ul>
+
+            <pricing-info>
+              <p class="price available left" ng-if="hotel.available">
+                <span ng-if="hotel.available && isUserLoggedIn() && hotel.minPointsRequired">
+                  <br />_or_ <span class="value">{{hotel.minPointsRequired}}</span> _points_
+                </span>
+              </p>
+              <p class="price unavailable" ng-if="!hotel.available && hasDates()">
+                _not_available_on_dates_title_
+              </p>
+              <button-submit ng-if="hotel.available" role="button" tabindex="0" ng-click="navigateToHotel(hotel)">_price_from_ {{hotel.priceFrom | i18nCurrency: $root.currencyCode}}</button-submit>
+              <button-submit ng-if="!hotel.available && hasDates()" role="button" tabindex="0" ng-click="navigateToHotel(hotel)">_view_more_</button-submit>
+              <button-submit ng-if="!hasDates()" ng-click="selectDates(hotel)">_select_dates_</button-submit>
+            </pricing-info>
+
+            <button class="hotel-hide-btn" ng-click="hideHotel(hotel)">Hide</button>
+        </li>
+
+        <li class="item filter-no-matches" ng-if="hotels">
+          <div class="products-not-available">
+            <div>
+              <h3>_hotels_filter_no_result_title_</h3>
+              <p>_hotels_filter_no_result_desc_</p>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <button class="compare-direction-btn" ng-click="shiftHotelCarousel(false)" ng-disabled="!(comparisonIndex > 0)" ng-if="hotelViewMode === 'compare' && !isMobile && (compareHotels|filter:{userHidden:false}| filter : hotelFilter | filter: filterByTags).length">Prev</button>
+      <button class="compare-direction-btn" ng-click="shiftHotelCarousel(true)" ng-disabled="!(comparisonIndex < ((compareHotels|filter:{userHidden:false}| filter : hotelFilter | filter: filterByTags).length - compareHotelLimit))" ng-if="hotelViewMode === 'compare' && !isMobile && (compareHotels|filter:{userHidden:false}| filter : hotelFilter | filter: filterByTags).length">Next</button>
+    </div>
+  </section>
+
+  <aside grid-container="3" class="hotels__filter" ng-class="{'compare-enabled': compareEnabled}">
+    <div class="view-switch">
+      <h2>_filter_view_label_</h2>
+      <ul>
+        <li ng-class="{'is-active': hotelViewMode === 'list'}" ng-click="setHotelViewMode('list')">
+          <i class="fa fa-th-list"  title="Show as list" /> _filter_list_label_
+        </li>
+        <li ng-class="{'is-active': hotelViewMode === 'tiles'}" ng-click="setHotelViewMode('tiles')">
+          <i class="fa fa-th-large" title="Show as tiles" /> _filter_grid_label_
+        </li>
+        <li ng-if="compareEnabled" ng-class="{'is-active': hotelViewMode === 'compare'}" ng-click="setHotelViewMode('compare')">
+          <i class="fa fa-th" title="Show as compare" /> _filter_compare_label_
+        </li>
+      </ul>
+    </div>
+    <div class="reset-container" ng-if="showCompareHotelsReset && hotelViewMode === 'compare' && !isMobile">
+      <a href ng-click="resetCompareHotels()">_reset_compare_</a>
+    </div>
+    <div class="filters-bar">
+
+      <div ng-repeat="filter in hotelFilters" ng-class="{'is-accordion': filter.accordion, 'is-closed': filter.closed, 'last':$last}" ng-init="filter.closed = filter.accordion" ng-show="filter.enable">
+
+        <div ng-if="filter.type === 'sort' && filter.displayInSidebar && hasDates()">
+          <h3>_sorting_filter_placeholder_<span ng-if="filter.accordion" class="accordion-toggle" ng-click="toggleAccordion($event)"></span></h3>
+          <div class="accordion-content">
+            <select
+              name="sorting"
+              ng-model="currentOrder"
+              chosen
+              ng-options="option.name for option in sortingOptions"
+              disable-search="true"
+              ng-change="orderSwitchChange(currentOrder)"
+              ng-init="initSortingOptions({
+                'priceLowToHigh': '_price_low_to_high_',
+                'priceHighToLow': '_price_high_to_low_',
+                'availability': '_availability_',
+                'starRatingLowToHigh': '_star_rating_low_to_high_',
+                'starRatingHighToLow': '_star_rating_high_to_low_'
+              })">
+            </select>
+          </div>
+          <hr>
+        </div>
+
+        <div ng-show="filter.type === 'price' && hotelAvailable() && hasDates()">
+          <!--<h2>_filter_label_</h2>-->
+          <h3>_filter_price_per_night_label_<span ng-if="filter.accordion" class="accordion-toggle" ng-click="toggleAccordion($event)"></span></h3>
+          <div class="accordion-content">
+            <div
+              range-slider
+              min="minPrice"
+              max="maxPrice"
+              model-min="$parent.minSelectedPrice"
+              model-max="$parent.maxSelectedPrice"
+              show-values="true"
+              filter="i18nCurrency"
+              filter-options="{{$root.currencyCode}}"
+              attach-handle-values="true"></div>
+            </div>
+          <hr>
+        </div>
+
+        <div ng-show="filter.type === 'stars'" class="star-filter">
+          <h3>_filter_star_rating_label_<span ng-if="filter.accordion" class="accordion-toggle" ng-click="filter.closed = !filter.closed"></span></h3>
+          <div class="accordion-content">
+            <div class="stars">
+              <ul class="stars-left">
+                <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMinStars(stars)" ng-class="{included: stars <= minStars}"></li>
+              </ul>
+              _filter_range_separator_
+              <ul class="stars-right">
+                <li ng-repeat="stars in [1,2,3,4,5]" ng-click="setMaxStars(stars)" ng-class="{included: stars <= maxStars}"></li>
+              </ul>
+            </div>
+          </div>
+          <hr>
+        </div>
+
+
+        <div ng-show="filter.type === 'tripAdvisor'">
+          <h3><i class="logo-trip-advisor"></i> _filter_rating_label_<span ng-if="filter.accordion" class="accordion-toggle" ng-click="toggleAccordion($event)"></span></h3>
+          <div class="accordion-content">
+            <div class="stars rating-trip-advisor">
+              <ul class="stars-left">
+                <li ng-repeat="rating in [1,2,3,4,5]" ng-click="setMinRating(rating)" ng-class="{included: rating <= minRating}"></li>
+              </ul>
+              _filter_range_separator_
+              <ul class="stars-right">
+                <li ng-repeat="rating in [1,2,3,4,5]" ng-click="setMaxRating(rating)" ng-class="{included: rating <= maxRating}"></li>
+              </ul>
+            </div>
+          </div>
+          <hr/>
+        </div>
+
+        <div ng-if="filter.type === 'chain' && hasDates() && filterChains">
+          <h3>_filter_chain_label_<span ng-if="filter.accordion" class="accordion-toggle" ng-click="toggleAccordion($event)"></span></h3>
+          <div class="accordion-content">
+            <select name="rate"
+              required ng-model="$parent.chainFilter"
+              disable-search="true"
+              chosen ng-options="chain.code as chain.nameShort for chain in filterChains">
+            </select>
+          </div>
+          <hr/>
+        </div>
+        <div ng-if="filter.type === 'rates' && hasDates() && rates.all.length > 1">
+          <h3>_filter_rates_label_<span ng-if="filter.accordion" class="accordion-toggle" ng-click="toggleAccordion($event)"></span></h3>
+          <div class="accordion-content">
+            <select name="rate"
+              required ng-model="rates.selectedRate"
+              disable-search="true"
+              ng-change="rates.onRateChanged()"
+              chosen ng-options="rate as rate.name for rate in rates.all">
+            </select>
+          </div>
+          <hr/>
+        </div>
+
+        <div ng-show="filter.type === 'tags' && hasDates()">
+          <h3>_location_<span ng-if="filter.accordion" class="accordion-toggle" ng-click="toggleAccordion($event)"></span></h3>
+          <div class="accordion-content">
+            <ul class="check-boxes">
+              <li ng-repeat="tag in filterTagOptions">
+                <input type="checkbox" ng-model="tag.checked" ng-change="tagFilterChange()"> {{createTagFilterOptionLabel('_filter_tag_options_label_', tag.name)}}
+              </li>
+            </ul>
+          </div>
+          <hr/>
+        </div>
+
+        <div class="reset-filters" ng-show="filter.type === 'reset'">
+          <a href ng-click="resetFilters()">_reset_filters_</a>
+        </div>
+
+      </div>
+    </div>
+  </aside>
+
+  <!-- Growl notifications -->
+  <growl-alerts class="growl-alerts-dir" booking-message="'_statistics_booking_message_'" views-message="'_statistics_views_message_'" searches-message="'_statistics_searches_message_'" languages-message="'_languages_message_'" retention-message="'_retention_message_'" minute="'_minute_'" minutes="'_minutes_'" hour="'_hour_'" hours="'_hours_'" day="'_day_'" days="'_days_'" week="'_week_'" weeks="'_weeks_'" position-reference="config.bookingStatistics.positionReference" display-time="config.bookingStatistics.displayTime" display-delay="config.bookingStatistics.displayDelay"></growl-alerts>

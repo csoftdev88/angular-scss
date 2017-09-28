@@ -44,7 +44,7 @@ rules:
   # Best Practices
   accessor-pairs: 2
   block-scoped-var: 0
-  complexity: [2, 6]
+  complexity: [2, 10]
   consistent-return: 0
   curly: 0
   default-case: 0
@@ -179,7 +179,7 @@ rules:
   quotes: 0
   require-jsdoc: 0
   semi-spacing: 0
-  semi: 0
+  semi: 2
   sort-vars: 0
   space-after-keywords: 0
   space-before-blocks: 0

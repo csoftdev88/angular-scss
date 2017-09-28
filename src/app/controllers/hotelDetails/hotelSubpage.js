@@ -125,7 +125,7 @@ angular.module('mobius.controllers.hotel.subpage', [])
 
         //Get property region/location data for breadcrumbs
         propertyService.getPropertyRegionData(details.locationCode).then(function(propertyRegionData){
-          if($stateParams.regionSlug && $stateParams.locationSlug)
+          if($stateParams.regionSlug && $stateParams.locationSlug && !Settings.UI.generics.singleProperty)
           {
             //breadcrumbs
             breadcrumbsService

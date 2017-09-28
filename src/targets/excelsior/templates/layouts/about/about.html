@@ -1,0 +1,129 @@
+<hero-slider content="heroContent"
+             slide-width="uiConfig.heroSlider.slideWidth"
+             slide-height="uiConfig.heroSlider.slideHeight">
+</hero-slider>
+
+<breadcrumbs stickable="main-header"></breadcrumbs>
+
+<main class="grid-wrapper">
+
+  <about-us ng-if="!showDetail">
+
+    <div class="preloader" ng-show="preloader.visible"></div>
+
+    <h1 grid="10" ng-bind-html="chain.nameLong | mainHeaderStyle"></h1>
+
+    <section grid-row class="description">
+
+      <p grid="{{contentConfig.displayContentImageInHeroSlider ? 12 : 8}}"
+         ng-bind-html="sanitize(chain.description)">
+      </p>
+
+      <view-more-images grid="4" ng-if="!contentConfig.displayContentImageInHeroSlider">
+
+        <a ng-if="chain.images.length > 1"
+           href
+           class="gallery-link"
+           ng-click="openGallery()">
+          _view_more_images_
+        </a>
+        <hero-slider data-has-notification-bar="false"
+                     data-on-slide-click="openGallery"
+                     data-counter-type="counter"
+                     content="previewImages">
+        </hero-slider>
+
+      </view-more-images>
+    </section>
+
+    <hr>
+
+    <contacts-list grid="12">
+      <contact-item ng-repeat="contact in chain.contacts">
+        <h2>{{contact.name}}</h2>
+        <p>{{contact.address}}</p>
+        <p>{{contact.city}}, {{contact.country}} {{contact.zip}}</p>
+        <p class="tel">
+          <a href="tel:{{contact.tel}}">{{contact.tel}}</a>
+        </p>
+        <p class="mail">
+          <a href="mailto:{{contact.email}}">{{contact.email}}</a>
+        </p>
+      </contact-item>
+    </contacts-list>
+
+    <hr>
+
+    <offers-list id="offers-list">
+      <offer-item ng-repeat="about in aboutList |
+                            filter:{showOnMenu:true} |
+                            limitTo: config.offersLimit track by $index">
+
+        <a ui-sref="aboutUs({code:about.meta.slug})">
+          <img ng-src="{{about.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{about.image.alt}}">
+
+          <section>
+            <h2>{{about.title}}</h2>
+            <div ng-bind-html="about.subtitle"></div>
+          </section>
+
+          <span class="read-more">_read_more_</span>
+        </a>
+
+      </offer-item>
+    </offers-list>
+
+
+  </about-us>
+
+  <about-detail id="about-detail" ng-if="showDetail" grid="12">
+
+    <div class="about-content">
+
+      <h1 ng-bind-html="selectedAbout.title | mainHeaderStyle"></h1>
+
+      <img ng-if="!contentConfig.displayContentImageInHeroSlider"
+           ng-src="{{selectedAbout.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}"
+           alt="{{selectedAbout.image.alt}}"/>
+      <div ng-bind-html="selectedAbout.text | trustAsHtml" markdown-text-parser class="markdown-content"></div>
+    </div>
+
+    <button-back role="button"
+                 tabindex="0"
+                 ng-click="goToAboutList()"
+                 class="pull-left">
+      _back_
+    </button-back>
+
+    <hr>
+
+    <h2 ng-if="aboutList.length > 1" ng-bind-html="'_more_offers_title_' | mainHeaderStyle"></h2>
+
+    <offers-list ng-if="aboutList.length > 1">
+      <offer-item ng-repeat="about in aboutList |
+                             filter:getRelevant |
+                             limitTo: config.offersLimit track by $index">
+
+        <a ui-sref="aboutUs({code:about.meta.slug})">
+          <img ng-src="{{about.image.uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{about.image.alt}}">
+
+          <section>
+            <h2>{{about.title}} </h2>
+            <div ng-bind-html="about.subtitle"></div>
+          </section>
+
+          <span class="read-more">_read_more_</span>
+        </a>
+
+      </offer-item>
+    </offers-list>
+
+  </about-detail>
+
+  <!--<scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>-->
+</main>
+
+<div ng-include="'layouts/siteMap.html'"
+     class="site-map"
+     ng-if="footerConfig.displaySitemap">
+</div>

@@ -630,7 +630,7 @@ angular.module('mobiusApp.config', [])
       "checkAvailabilityOnChange": false,
       "checkOfferAvailabilityOnChange": false,
       "displayPropertiesMegamenu": false,
-      'hasMutiroomTab': false,
+      'hasMultiroomTab': false,
       'hasRatesSelection': false,
       'timezone':'Europe/Zurich',
       //searchOffset stops user from searching availability past a certain date (today + searchOffset.days)
@@ -814,6 +814,7 @@ angular.module('mobiusApp.config', [])
       'hotelDetails':{
         'hasViewMore': false,
         'hasTitle': false,
+        'showSubNav': false,
         'hotelInfo': {
           'descriptionGrid': 8,
           'sidebarGrid': 4

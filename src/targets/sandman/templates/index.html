@@ -1,0 +1,128 @@
+<!doctype html>
+<html ng-app="mobiusApp">
+  <head>
+    <base href="_base_href_">
+    <title ng-bind="metaInformation.pagetitle"></title>
+
+    <meta charset="utf-8" />
+    <meta name="language" content="_language_">
+    <meta http-equiv="Content-Language" content="_language_code_">
+    <meta name="fragment" content="!">
+    <meta name="prerender-status-code" content="{{prerenderStatusCode}}">
+
+    <meta name="version" CONTENT="<%= version %>">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="{{ metaInformation.description }}">
+    <meta name="keywords" content="{{ metaInformation.keywords }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+
+    <meta name="environment" content="<=?environment=>" />
+    <meta property="og:title" content="{{ metaInformation.ogTitle }}" />
+    <meta property="og:description" content="{{ metaInformation.ogDescription }}" />
+    <meta property="og:type" content="{{ metaInformation.ogType }}" />
+    <meta property="og:url" content="{{ metaInformation.ogUrl }}" />
+    <meta property="og:image" content="{{ metaInformation.ogImage }}" />
+    <meta property="og:locale" content="{{ metaInformation.ogLocale }}" />
+
+    <!-- Google webfonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,600,700,700i|Open+Sans+Condensed:700|Questrial' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato" />
+
+    <!-- FAVICON -->
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/static/images/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/images/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/images/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/images/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/static/images/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/static/images/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/static/images/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/static/images/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/static/images/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/static/images/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/static/images/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/static/images/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/static/images/favicon-128.png" sizes="128x128" />
+    <meta name="application-name" content="&nbsp;"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="/static/images/mstile-144x144.png" />
+    <meta name="msapplication-square70x70logo" content="/static/images/mstile-70x70.png" />
+    <meta name="msapplication-square150x150logo" content="/static/images/mstile-150x150.png" />
+    <meta name="msapplication-wide310x150logo" content="/static/images/mstile-310x150.png" />
+    <meta name="msapplication-square310x310logo" content="/static/images/mstile-310x310.png" />
+
+    <!-- Fonts -->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato" />
+
+    <!-- vendor styles CSS --><% vendor_styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="/static/<%= file %>" /><% }); %>
+
+    <!-- compiled APP CSS --><% styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="/static/<%= file %>" /><% }); %>
+
+    <!-- vendor JS --><% vendor_js.forEach( function ( file ) { %>
+    <script type="text/javascript" src="/static/<%= file %>"></script><% }); %>
+
+    <!-- compiled APP JS --><% scripts.forEach( function ( file ) { %>
+    <script type="text/javascript" src="/static/<%= file %>"></script><% }); %>
+
+    <!-- compiled APP TEMPLATES --><% templates.forEach( function ( file ) { %>
+    <script type="text/javascript" src="/static/<%= file %>"></script><% }); %>
+
+    <!-- Google maps -->
+    <script src="https://maps.google.com/maps/api/js?key=AIzaSyDrDrszTdjMue_sjd9ifYTESs1kebtzGdU"></script>
+
+    <link rel="canonical" href="/" />
+
+    <!-- Evolution infiniti -->
+    <evolution-infiniti-script></evolution-infiniti-script>
+    <!-- End Evolution infiniti -->
+
+    <!-- INFINITI LOGIN -->
+    <infiniti-script></infiniti-script>
+
+    <!-- INFINITI APEIRON LOGIN -->
+    <infiniti-apeiron-script></infiniti-apeiron-script>
+
+    <!-- Google Analytics -->
+    <google-analytics-script></google-analytics-script>
+    <!-- End Google Analytics -->
+
+    <!-- Real User Monitoring Script -->
+    <rum-script></rum-script>
+
+    <!-- Hotjar Script -->
+    <!--<hotjar-script></hotjar-script>-->
+    <!-- End Hotjar Script -->
+
+    <!-- Keystone auth script -->
+    <!--<keystone-script></keystone-script>-->
+    <!--<script src="https://lvh.me:8080/status.0.0.6.js"></script>-->
+    <script src="https://scripts.infiniti.io/sandman/status.js"></script>
+
+  </head>
+
+  <body resize-watcher
+        ng-controller="BaseCtrl"
+        ng-style="{'background-image': 'url(' + $root.campaign.sideRails.railImage.uri + ')'}"
+        ng-class="{'campaign-rails-active': $root.campaign.sideRails.display,
+                   'campaign-bar-active':$root.campaign.headerBar.display,
+                   'thirdparty-active':$root.thirdparty,
+                   'cookie-disclaimer-visible':$root.euCookieDisclaimerVisible,
+                   'scrolled':scrollService.scroll > scrollService.headerLogoTrigger}">
+
+    <!-- Google Tag Manager -->
+    <google-tag-manager-script></google-tag-manager-script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Click handler for campaign rails -->
+    <a ng-if="$root.campaign.uri" ng-href="{{$root.campaign.uri}}" id="campaign-rails-handler"></a>
+
+    <!-- Add your site or application content here -->
+    <div ui-view id="main-container"></div>
+
+    <section ng-if="menuOverlayEnabled && uiConfig.menu.customLinks" ng-include="'layouts/components/menu-overlay.html'" class="main-menu-overlay"></section>
+
+  </body>
+</html>

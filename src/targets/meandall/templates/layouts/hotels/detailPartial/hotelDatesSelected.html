@@ -1,0 +1,46 @@
+<section class="hotel-detail__dates">
+
+  <div class="inner">
+
+    <div class="background">
+      <div class="color"></div>
+      <div class="pattern"></div>
+    </div>
+
+    <div class=" grid-row">
+
+      <div grid="12">
+
+        <div class="title-wrapper">
+          <h2 class="title">_dates_selected_:</h2>
+        </div>
+
+        <div class="no-dates-wrapper" ng-if="!hasDates()">
+          <p>_no_dates_selected_</p>
+        </div>
+        
+        <div class="dates-wrapper" ng-if="hasDates()">
+          <div class="inner">
+            <div class="date-item">
+              <div class="title">_check_in_:</div>
+              <div class="date">{{getCheckinDate()}}</div>
+            </div>
+            <div class="date-item">
+              <div class="title">_check_out_:</div>
+              <div class="date">{{getCheckoutDate()}}</div>
+            </div>
+          </div>
+        </div>
+
+        <nav>
+          <button-submit class="alt" ng-click="selectDates()">
+            <span ng-if="!hasDates()">_select_dates_</span>
+            <span ng-if="hasDates()">_change_dates_</span>
+          </button-submit>
+        </nav>
+
+      </div>
+    </div>
+
+  </div>
+</section>

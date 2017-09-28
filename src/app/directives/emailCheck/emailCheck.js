@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Directive that validates the credit card number
+ * Directive that validates email addresses
  */
 angular.module('mobiusApp.directives.emailCheck', [])
 

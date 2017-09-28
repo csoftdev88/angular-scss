@@ -1,0 +1,22 @@
+<article class="recommendation">
+
+  <div class="opening-quote"></div>
+
+  <h1 class="recommendation__text">
+    {{ recommendation.text }}
+  </h1>
+
+  <div class="closing-quote"></div>
+
+  <div class="recommendation__avatar">
+
+    <img ng-src="{{ recommendation.avatarUrl }}" />
+
+    <div class="recommendation__avatar-info">
+      <h2>{{ recommendation.name }}</h2>
+      <small>{{ recommendation.city }}</small>
+    </div>
+
+  </div>
+
+</article>

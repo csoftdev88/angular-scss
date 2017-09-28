@@ -15,6 +15,8 @@ angular.module('mobiusApp.directives.room.products', [])
       bookingParams.propertyCode = bookingService.getCodeFromSlug(scope.details.meta.slug);
       bookingParams.roomCode = bookingService.getCodeFromSlug(scope.room.meta.slug);
 
+      scope.currencyCode = stateService.getCurrentCurrency().code;
+
       var numNights = $window.moment(bookingParams.to).diff(bookingParams.from, 'days');
 
       scope.loyaltyProgramEnabled = Settings.loyaltyProgramEnabled;
@@ -102,6 +104,7 @@ angular.module('mobiusApp.directives.room.products', [])
             defaultProducts = $filter('orderBy')(defaultProducts, ['-weighting', 'price.totalBaseAfterPricingRules']);
 
             scope.products = _.uniq([].concat(hiddenProducts, memberOnlyProducts, highlightedProducts, defaultProducts));
+            console.log('products', scope.products);
 
             scope.otaProducts = data.otaProducts;
 
@@ -110,6 +113,14 @@ angular.module('mobiusApp.directives.room.products', [])
           // Tracking product impressions
           chainService.getChain(Settings.API.chainCode).then(function(chainData) {
             propertyService.getPropertyDetails(bookingParams.propertyCode).then(function(propertyData){
+              // Send tracking data to infiniti
+              infinitiApeironService.trackRates(
+                scope.products,
+                scope.otaProducts && scope.otaProducts[0] ? scope.otaProducts[0].price : 0,
+                scope.room,
+                dataLayerService.getCategoryName(propertyData, scope.room)
+              );
+
               //Google analytics
               var variant = '';
               if($stateParams.adults && $stateParams.children)
@@ -182,15 +193,16 @@ angular.module('mobiusApp.directives.room.products', [])
           }
         }
 
+        var selectedProduct = _.findWhere(scope.products, {code: productCode});
+
         var params = {
           property: scope.details.code,
           roomID: roomCode,
           productCode: productCode,
           promoCode: $stateParams.promoCode || null,
-          locationSlug: $stateParams.locationSlug
+          locationSlug: $stateParams.locationSlug,
+          memberOnly: selectedProduct.memberOnly
         };
-
-        var selectedProduct = _.findWhere(scope.products, {code: productCode});
 
         //If up sells enabled and available display up sell modal
         if(scope.displayUpsells && upsell) {

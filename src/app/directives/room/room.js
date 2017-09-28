@@ -16,6 +16,7 @@ angular.module('mobiusApp.directives.room', [])
       $controller('PriceCtr', {$scope: scope});
       $controller('RatesCtrl', {$scope: scope});
 
+      scope.currencyCode = stateService.getCurrentCurrency().code;
       scope.ratesLoaded = false;
       scope.isFromSearch = $stateParams.fromSearch && $stateParams.fromSearch === '1';
       scope.roomRatesLimit = Settings.UI.roomDetails.numberOfRatesToShow;
@@ -35,10 +36,11 @@ angular.module('mobiusApp.directives.room', [])
       scope.displayUpsells = Settings.UI.roomDetails.upsells ? Settings.UI.roomDetails.upsells.display : false;
       scope.productImageWidth = scope.config.productImages ? scope.config.productImages.width : '160';
       scope.productImageHeight = scope.config.productImages ? scope.config.productImages.height : '120';
+      scope.useAlternateBookingFlow = Settings.authType === 'keystone' &&
+        scope.uiConfig.alternateBookingFlow &&
+        scope.uiConfig.alternateBookingFlow.enabled;
 
-      console.log(scope.productImageWidth);
-      console.log(scope.productImageHeight);
-
+      scope.isLoyaltyEngine = Settings.engine === 'loyalty';
       var roomCode = bookingService.getCodeFromSlug($stateParams.roomSlug);
       bookingParams.roomCode = roomCode;
 
@@ -166,7 +168,7 @@ angular.module('mobiusApp.directives.room', [])
             propertyService.getPropertyRegionData(propertyData.locationCode).then(function(propertyRegionData){
 
               //breadcrumbs
-              if($stateParams.regionSlug && $stateParams.locationSlug)
+              if($stateParams.regionSlug && $stateParams.locationSlug && !Settings.UI.generics.singleProperty)
               {
                 breadcrumbsService
                   .addBreadCrumb(propertyRegionData.region.nameShort, 'regions', {regionSlug: propertyRegionData.region.meta.slug, property: null})
@@ -305,6 +307,7 @@ angular.module('mobiusApp.directives.room', [])
         defaultProducts = $filter('orderBy')(defaultProducts, ['-weighting', 'price.totalBaseAfterPricingRules']);
 
         scope.products = _.uniq([].concat(hiddenProducts, memberOnlyProducts, highlightedProducts, defaultProducts));
+        console.log('products', scope.products);
         scope.altProduct = data.altProducts && data.altProducts.length ? data.altProducts[0] : null;
 
         //STUB THIS
@@ -428,7 +431,8 @@ angular.module('mobiusApp.directives.room', [])
             roomID: roomCode,
             productCode: product.code,
             promoCode: $stateParams.promoCode,
-            locationSlug: $stateParams.locationSlug
+            locationSlug: $stateParams.locationSlug,
+            memberOnly: product.memberOnly
           };
         }
         else{
@@ -436,7 +440,8 @@ angular.module('mobiusApp.directives.room', [])
             property: propertyCode,
             roomID: roomCode,
             productCode: product.code,
-            locationSlug: $stateParams.locationSlug
+            locationSlug: $stateParams.locationSlug,
+            memberOnly: product.memberOnly
           };
         }
 

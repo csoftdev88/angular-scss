@@ -1,14 +1,21 @@
 'use strict';
 
-angular.module('mobius.controllers.main', [])
+angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
 
   // TODO: add ng-min into a build step
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService', '$window',
-    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService', 'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'cookieFactory', 'campaignsService', 'locationService', 'bookingService',
-    function($scope, $state, $modal, orderByFilter, modalService, $window,
-      contentService, Settings, user, $controller, _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,stateService,$rootScope, cookieFactory, campaignsService, locationService, bookingService) {
+    'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService',
+    'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'cookieFactory', 'campaignsService',
+    'locationService', 'bookingService', 'apiService', 'userObject', 'offers', 'DynamicMessages',
+    function($scope, $state, $modal, orderByFilter, modalService, $window, contentService, Settings, user, $controller,
+             _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,
+             stateService,$rootScope, cookieFactory, campaignsService, locationService, bookingService, apiService,
+             userObject, offers, DynamicMessages) {
       var activeThirdParty;
       $scope.chainCode = Settings.API.chainCode;
+
+      var appLang = stateService.getAppLanguageCode();
+      var dynamicMessages = appLang && DynamicMessages && DynamicMessages[appLang] ? DynamicMessages[appLang] : null;
 
       try{
 
@@ -27,6 +34,167 @@ angular.module('mobius.controllers.main', [])
 
       }
 
+      contentService.getTitles().then(function(data) {
+        $scope.registerTitles = data;
+      });
+
+      contentService.getContactMethods().then(function(data) {
+        $scope.registerContacts = data;
+      });
+
+      contentService.getCountries().then(function(data) {
+        $scope.registerCountries = data;
+      });
+
+      // TODO: move this into a new registerService and refactor register controller
+      $scope.register = function(form, registerData) {
+        $scope.clearErrorMsg();
+        $scope.submitted = true;
+        if (form.$valid) {
+          if (registerData.localeId && angular.isDefined($scope.registerCountries)) {
+            var selectedCountry = contentService.getCountryByID(registerData.localeId, $scope.registerCountries);
+            registerData.localeCode = selectedCountry && selectedCountry.code;
+          }
+          registerData.external = true;
+          apiService.post(apiService.getFullURL('customers.register'), registerData).then(function(response){
+            userObject.id = response.id;
+            user.loadProfile();
+            $rootScope.showRegisterDialog = false;
+            $state.go('home');
+          }, function(err){
+            if(err.error.msg === 'User already registered'){
+              $scope.userRegisteredError = true;
+              $scope.error = true;
+            }
+            else{
+              $scope.genericError = true;
+              $scope.error = true;
+            }
+          });
+        }
+        else{
+          $scope.missingFieldsError = true;
+          $scope.error = true;
+        }
+      };
+
+      /**
+       * Gate pressing Next on the register form
+       * if the first part of the form is not valid.
+       * Because of the confused scope hierarchy we need to pass-in
+       * the stepsModel from the child scope.
+       * */
+      $scope.gatedRegisterNext = function(registerForm, formData) {
+        registerForm.$setDirty();
+        var requiredStep1 = [
+          'registerEmail',
+          'registerEmailConfirm',
+          'registerPassword',
+          'registerPasswordConfirm'
+        ];
+        var requiredStep2 = [
+          'registerTitle',
+          'registerFname',
+          'registerLname',
+          'country'
+        ];
+        var allOkay = true;
+
+        var requiredFields = $scope.registerFormSteps.filledEmail ? requiredStep2 : requiredStep1;
+        var otherFields = $scope.registerFormSteps.filledEmail ? requiredStep1 : requiredStep2;
+
+        var i, fieldName;
+        for (i = 0; i < requiredFields.length; i++) {
+          fieldName = requiredFields[i];
+          registerForm[fieldName].$setDirty();
+          registerForm[fieldName].$setTouched();
+          if (!registerForm[fieldName].$valid) {
+            allOkay = false;
+          }
+        }
+        for (i = 0; i < otherFields.length; i++) {
+          fieldName = otherFields[i];
+          registerForm[fieldName].$setPristine();
+          registerForm[fieldName].$setUntouched();
+        }
+        if (allOkay) {
+          if (!$scope.registerFormSteps.filledEmail) {
+            $scope.registerFormSteps.filledEmail = true;
+            // Trick to set the search placeholder inside the chosen drop-down
+            angular
+              .element('.chosen-container-single .chosen-search input')
+              .attr('placeholder', 'Search countries');
+            return;
+          }
+          $scope.register(registerForm, formData);
+        }
+      };
+
+      /**
+       * Return the most appropriate error message based on the state of the form
+       * */
+      $scope.getRegisterValidationMessage = function(registerForm) {
+        if (!registerForm) {
+          return;
+        }
+        var errorProperties = [
+          '$touched',
+          '$dirty',
+          '$invalid'
+        ];
+
+        // Check if all conditions to show an error message are met for a named field
+        function showFieldError(fieldName) {
+          for (var i = 0; i < errorProperties.length; i++) {
+            var prop = errorProperties[i];
+            if (!registerForm[fieldName][prop]) {
+              return false;
+            }
+          }
+          return true;
+        }
+
+        // Grab message from the dynamicMessages service
+        function getTranslatedMessage(key) {
+          return dynamicMessages && dynamicMessages[key] ? dynamicMessages[key] : '';
+        }
+
+        var field2ErrStep1 = {
+          registerEmail: 'invalid_email_message',
+          registerEmailConfirm: 'email_match_error_message',
+          registerPassword: 'password_pattern_error',
+          registerPasswordConfirm: 'password_match_error_message'
+        };
+
+        var field2ErrStep2 = {
+          registerTitle: 'missing_title',
+          registerFname: 'missing_fname',
+          registerLname: 'missing_lname',
+          country: 'missing_country'
+        };
+
+        var fieldToErrorMessage = $scope.registerFormSteps.filledEmail ? field2ErrStep2 : field2ErrStep1;
+        for (var field in fieldToErrorMessage) {
+          if (!fieldToErrorMessage.hasOwnProperty(field)) { continue; }
+          if (showFieldError(field)) {
+            return getTranslatedMessage(fieldToErrorMessage[field]);
+          }
+        }
+        return '';
+      };
+
+      $scope.clearErrorMsg = function () {
+        $scope.loginDialogError = false;
+        $scope.missingFieldsError = false;
+        $scope.incorrectEmailPasswordError = false;
+        $scope.notRegisteredEmailError = false;
+        $scope.passwordResetSuccess = false;
+        $scope.error = false;
+        $scope.userRegisteredError = false;
+        $scope.genericError = false;
+        $scope.missingFieldsError = false;
+        $scope.submitted = false;
+      };
 
       var EVENT_VIEWPORT_RESIZE = 'viewport:resize';
 
@@ -34,6 +202,14 @@ angular.module('mobius.controllers.main', [])
       $scope.config = Settings.UI;
       $scope.uiConfig = Settings.UI;
       $scope.loyaltyProgramEnabled = Settings.loyaltyProgramEnabled;
+
+      $rootScope.showRegisterDialog = false;
+      $scope.registerFormSteps = {
+        filledEmail: false
+      };
+      $scope.registerData = {};
+
+      $scope.userObject = userObject;
 
       $scope.$on('$stateChangeSuccess', function() {
         $scope.$state = $state;
@@ -51,6 +227,9 @@ angular.module('mobius.controllers.main', [])
       $scope.scrollToTop = function(){
         $timeout(function(){
           scrollService.scrollTo('top');
+          if ($scope.loyaltyEngine) {
+            $rootScope.$broadcast('OPEN_DATE_PICKER');
+          }
         }, 0);
       };
 
@@ -151,6 +330,13 @@ angular.module('mobius.controllers.main', [])
         );
       }
 
+      $scope.openBookingBar = function () {
+        if ($scope.loyaltyEngine) {
+          angular.element('floating-bar').css('display', 'block');
+        }
+        $rootScope.$broadcast('BOOKING_BAR_OPEN_SRB_TAB');
+      };
+
       $scope.openCCVInfo = modalService.openCCVInfo;
       $scope.openPoliciesInfo = modalService.openPoliciesInfo;
       $scope.openTiersListDialog = function(e){
@@ -201,6 +387,15 @@ angular.module('mobius.controllers.main', [])
         }
       }
 
+      user.loadRewards(userObject.id)
+        .then(function (rewards) {
+          $scope.rewards = rewards;
+          console.log('rewards', rewards);
+        })
+        .catch(function (err) {
+          console.error(err);
+        });
+
       //check if user is logged in and then get campaigns
       function onAuthorized(){
         if(Settings.UI.campaigns && Settings.UI.campaigns.display){
@@ -211,6 +406,18 @@ angular.module('mobius.controllers.main', [])
             });
           }
         }
+      }
+
+      if ($scope.uiConfig.homePage && $scope.config.homePage.showOffer) {
+        offers.getAvailableFeatured(1)
+          .then(function (offers) {
+            $scope.offers = offers;
+            console.log('offers', offers);
+          });
+
+        $scope.gotoOffer = function (offer) {
+          $state.go('offers', { code: offer.meta.slug });
+        };
       }
 
       // Inheriting the following controllers

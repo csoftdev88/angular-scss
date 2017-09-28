@@ -14,6 +14,9 @@ describe('userMessages', function() {
         getMessages: sinon.spy()
       });
 
+      $provide.value('Settings', {});
+      $provide.service('stateService', function() { return {}; });
+
       $controllerProvider.register('SanitizeCtrl', function($scope){
         $scope._sanitizeCtrInherited = true;
       });

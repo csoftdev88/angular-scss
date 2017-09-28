@@ -49,6 +49,20 @@ angular.module('mobiusApp.config', [])
       'live': 'https://infiniti-evolution-test.appspot.com/track/purchase'
     }
   },
+  'hospitalityEvents': {
+    'development': {
+      'enable': false
+    },
+    'integration': {
+      'enable': false
+    },
+    'staging': {
+      'enable': false
+    },
+    'live': {
+      'enable': false
+    }
+  },
   'infinitiApeironTracking': {
     'development': {
       'enable':false,
@@ -144,7 +158,7 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
+        'url':'https://wxi3vsykv4.execute-api.us-west-2.amazonaws.com/int/event/create'
       },
       'staging': {
         'id': 'sutton-staging',
@@ -424,6 +438,7 @@ angular.module('mobiusApp.config', [])
         'hotels': true,
         'location': false
       },
+      'scrollToRates': 20,
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
       'defaultNumberOfRoomsMobile':10,
@@ -903,7 +918,7 @@ angular.module('mobiusApp.config', [])
       "checkAvailabilityOnChange": false,
       "checkOfferAvailabilityOnChange": true,
       "displayPropertiesMegamenu": false,
-      'hasMutiroomTab': true,
+      'hasMultiroomTab': false,
       'hasRatesSelection': false,
       'timezone':'America/Vancouver',
       //searchOffset stops user from searching availability past a certain date (today + searchOffset.days)
@@ -1098,6 +1113,7 @@ angular.module('mobiusApp.config', [])
         'hasViewMore': true,
         'hasTitle': true,
         'scrollToOffset': 50,
+        'showSubNav': false,
         'hotelInfo': {
           'descriptionGrid': 8,
           'sidebarGrid': 4

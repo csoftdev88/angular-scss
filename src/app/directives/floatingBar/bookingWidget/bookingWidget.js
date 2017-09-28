@@ -4,7 +4,8 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
 
 .directive('bookingWidget', function($rootScope, $controller, $filter, $state, $window,
   $stateParams, $q, $timeout, modalService, bookingService, queryService, validationService,
-  propertyService, locationService, filtersService, Settings, _, contentService, stateService, routerService, deviceDetector, DynamicMessages) {
+  propertyService, locationService, filtersService, Settings, _, contentService, stateService, routerService,
+                                     deviceDetector, DynamicMessages) {
   return {
     restrict: 'E',
     scope: {
@@ -346,7 +347,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
 
         // Select today until tomorrow by default if configured
-        if (Settings.UI.datepicker && Settings.UI.datepicker.showToday) {
+        if (Settings.UI.datepicker && Settings.UI.datepicker.showToday && !bookingService.getParams().dates) {
           var startDate = new Date();
           var endDate = new Date();
           endDate.setDate(endDate.getDate() + 1);
@@ -914,6 +915,10 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         scope.openBookingTab(true);
       });
 
+      var openSRBTabListener = $rootScope.$on('BOOKING_BAR_OPEN_SRB_TAB', function(){
+        scope.openBookingTab(false);
+      });
+
       var selectAllPropertiesListener = $rootScope.$on('BOOKING_BAR_SELECT_ALL', function(){
         scope.propertyRegionList[0].name = ALL_PROPERTIES;
         scope.regionPropertySelected = scope.propertyRegionList[0];
@@ -928,6 +933,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         prefillListener();
         openMRBTabListener();
         selectAllPropertiesListener();
+        openSRBTabListener();
       });
 
       function onPrefill(settings){

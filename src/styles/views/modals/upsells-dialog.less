@@ -1,0 +1,88 @@
+
+dialog.loyalty-upsell {
+
+  .ui-info {
+    main {
+      max-width: 891px;
+      margin: 0 28px 0 0;
+      border-top: none;
+      span.price-difference {
+        background: url('@{img-prefix}/banner-bg.png');
+      }
+    }
+
+    .details {
+      padding: 20px;
+      .description {
+        strong {
+          margin-top: 20px;
+        }
+      }
+      h1 {
+        text-transform: uppercase;
+        font-family: @ff-secondary;
+        font-size: 17px;
+        line-height: 21px;
+        &:after {
+          content: url("@{img-prefix}/lbe/divider-orange.png");
+          display: block;
+        }
+      }
+    }
+
+    .image-wrapper {
+      width: 341px;
+      height: 307px;
+    }
+
+    image-carousel {
+      ul {
+        display: none;
+      }
+    }
+
+    .button-strip {
+      a.button {
+        background: @lbe-c-primary;
+        border-radius: 0;
+        font-family: @ff-primary;
+        font-size: 16px;
+        width: 245px;
+        &:hover {
+          background: @lbe-c-primary;
+        }
+      }
+      a.button.ghost {
+        background: transparent;
+        border: 2px solid @lbe-c-primary;
+        color: @lbe-c-primary;
+      }
+    }
+    .button {
+      margin: 0 0 29px 0;
+    }
+  }
+
+  border-radius: 0;
+  border: none;
+  height: 307px;
+  width: 891px;
+
+}
+
+
+// Mobile @todo move this to seperate files
+
+.viewport-mobile {
+
+  dialog.loyalty-upsell {
+    height: 90%;
+    .ui-info {
+      .image-wrapper {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+}

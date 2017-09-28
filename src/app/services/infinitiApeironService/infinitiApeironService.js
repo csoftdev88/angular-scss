@@ -3,8 +3,10 @@
  * This service sends tracking events to infiniti apeiron
  */
 angular.module('mobiusApp.services.infinitiApeironService', []).service('infinitiApeironService', [
-  'Settings', 'apiService', '$state', '_', '$rootScope', 'channelService', 'sessionDataService', 'userObject', '$window', 'user', 'cookieFactory', 'contentService',
-  function(Settings, apiService, $state, _, $rootScope, channelService, sessionDataService, userObject, $window, user, cookieFactory, contentService) {
+  'Settings', 'apiService', '$state', '_', '$rootScope', 'channelService', 'sessionDataService', 'userObject',
+  '$window', 'user', 'cookieFactory', 'contentService', 'bookingService', 'locationService', '$q',
+  function(Settings, apiService, $state, _, $rootScope, channelService, sessionDataService, userObject, $window,
+           user, cookieFactory, contentService, bookingService, locationService, $q) {
 
     var env = document.querySelector('meta[name=environment]').getAttribute('content');
     var endpoint = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].endpoint : null;
@@ -14,6 +16,68 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     var password = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].password : null;
     var apeironId = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].id : null;
     var isSinglePageApp = Settings.infinitiApeironTracking && Settings.infinitiApeironTracking[env] ? Settings.infinitiApeironTracking[env].singlePageApp: false;
+    var hospitalityEnabled = !!(Settings.hospitalityEvents && Settings.hospitalityEvents[env]);
+
+    /**
+     * FIXME: Duplicated code from the property service to avoid a circular dependency
+     * The correct fix is to split the property service into 2 services instead
+     * */
+    function correctParams(params) {
+      if (params && (!params.from || !params.to || !params.adults || !params.productGroupId)) {
+        delete params.from;
+        delete params.to;
+        delete params.adults;
+        delete params.children;
+        delete params.productGroupId;
+      }
+      return params;
+    }
+
+    /**
+     * FIXME: Duplicated code from the property service to avoid a circular dependency
+     * The correct fix is to split the property service into 2 services instead
+     * */
+    function getAllProperties(params) {
+      var q = $q.defer();
+      apiService.getThrottled(apiService.getFullURL('properties.all'), correctParams(params)).then(function (propertyData) {
+
+        //If thirdparties system is active and properties are restricted, filter the returned property data
+        if ($rootScope.thirdparty && $rootScope.thirdparty.properties) {
+          var thirdPartyPropertyCodes = $rootScope.thirdparty.properties;
+          if (thirdPartyPropertyCodes.length) {
+            var thirdPartyProperties = [];
+            _.each(thirdPartyPropertyCodes, function (thirdPartyPropertyCode) {
+              var property = _.find(propertyData, function (property) {
+                return thirdPartyPropertyCode === property.code;
+              });
+              if (property) {
+                thirdPartyProperties.push(property);
+              }
+            });
+            propertyData = thirdPartyProperties;
+          }
+        }
+        q.resolve(propertyData);
+      });
+      return q.promise;
+    }
+
+    /**
+     * Main function used to submit an event to infiniti tracking script with a payload specified by properties
+     * @param eventName
+     * @param properties
+     */
+    function trackEvent(eventName, properties){
+      var eventDetails = {
+        'bubbles': true,
+        'cancelable': true,
+        'detail':{}
+      };
+      eventDetails.detail.eventName = eventName;
+      eventDetails.detail.properties = properties;
+      var event = new CustomEvent('infiniti.event.track', eventDetails);
+      document.dispatchEvent(event);
+    }
 
     function trackPurchase(reservationData, chainData, propertyData, trackingData, priceData, scopeData, stateParams, selectedRate) {
       if (endpoint) {
@@ -57,18 +121,6 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       trackEvent('campaign_purchase', {'campaignCode': code.toString()});
     }
 
-    function trackEvent(eventName, properties){
-      var eventDetails = {
-        'bubbles': true,
-        'cancelable': true,
-        'detail':{}
-      };
-      eventDetails.detail.eventName = eventName;
-      eventDetails.detail.properties = properties;
-      var event = new CustomEvent('infiniti.event.track', eventDetails);
-      document.dispatchEvent(event);
-    }
-
     function trackPageView(path){
       var eventDetails = {
   			'detail':{},
@@ -77,8 +129,176 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
   		};
       eventDetails.detail.path = path;
       eventDetails.detail.url = window.location.origin + path;
+      eventDetails.detail.title = document.title;
+      var propertySlug = bookingService.getParams().propertySlug;
+      eventDetails.detail.propertyCode = bookingService.getCodeFromSlug(propertySlug) || '';
       var event = new CustomEvent('infiniti.page.loaded', eventDetails);
       document.dispatchEvent(event);
+    }
+
+    function mapRoomsForInfiniti(rooms) {
+      return _.map(rooms, function (room) {
+        return {
+          noOfAdults: parseInt(room.adults),
+          noOfChildren: parseInt(room.children)
+        };
+      });
+    }
+
+    function mapPropertyForInfiniti(region, property) {
+      var locationData = {
+        code: region.code,
+        name: region.nameShort
+      };
+
+      return {
+        code: property.code,
+        name: property.nameShort,
+        province: locationData,
+        region: locationData
+      };
+    }
+
+    function trackSearchParams(){
+      if (hospitalityEnabled) {
+        var urlParams = bookingService.getParams();
+        var dates = bookingService.datesFromString(urlParams.dates);
+        // Don't track searches without dates
+        if (!dates) {
+          return;
+        }
+        var rooms = bookingService.getMultiRoomData();
+        var propertySlug = bookingService.getParams().propertySlug;
+        var propertyCode = null;
+        if (propertySlug) {
+          propertyCode = bookingService.getCodeFromSlug(propertySlug);
+        }
+
+        // Get all properties and regions over a specific one by code as they would have likely been cached by now
+        $q.all([getAllProperties(), locationService.getRegions()])
+          .then(function (data) {
+            var properties = data[0];
+            var regions = data[1];
+            var property = _.findWhere(properties, { code: propertyCode });
+            var region = null;
+            if (property) {
+              region = _.findWhere(regions, { code: property.regionCode });
+            }
+            // Parse the encoded JSON with the room information
+            rooms = mapRoomsForInfiniti(rooms);
+            // If there is no multi room data, assume single room booking and get values from url params
+            if (rooms.length === 0) {
+              rooms = mapRoomsForInfiniti([{
+                adults: urlParams.adults,
+                children: urlParams.children
+              }]);
+            }
+
+            var searchData = {
+              type: 'search_parameters',
+              checkIn: dates.from || '',
+              checkOut: dates.to || '',
+              corpCode: urlParams.corpCode || '',
+              groupCode: urlParams.groupCode || '',
+              rooms: rooms,
+              promoCode: urlParams.promoCode || '',
+              property: property && region ? mapPropertyForInfiniti(region, property) : {}
+            };
+            trackEvent('hi_search_parameters', searchData);
+          });
+      }
+    }
+
+    function trackResults(rooms) {
+      if (hospitalityEnabled) {
+        var urlParams = bookingService.getParams();
+        _.each(rooms, function (room) {
+          var resultData = {
+            type: 'result',
+            roomName: room.name,
+            roomCode: room.code,
+            fromPrice: room.priceFrom,
+            propCode: bookingService.getCodeFromSlug(urlParams.propertySlug),
+            tags: []
+          };
+          trackEvent('hi_result', resultData);
+        });
+      }
+    }
+
+    function trackRates(rates, otaRate, room, category) {
+      if (hospitalityEnabled) {
+        var urlParams = bookingService.getParams();
+        var dates = bookingService.datesFromString(urlParams.dates);
+        _.each(rates, function (rate) {
+          var rateData = {
+            type: 'rate',
+            name: rate.name,
+            category: category || '',
+            roomCode: room.code,
+            code: rate.code,
+            cancelationAllowed: !! _.findWhere(rate.policies, { type: 'cancellation' }),
+            breakfastIncluded: false, // cant do this at the moment
+            memberRate: rate.memberOnly,
+            loyaltyRate: rate.allowPointsBooking,
+            hiddenRate: rate.productHidden,
+            strikeThrough: rate.price.formatting === 'slashthrough',
+            comparisonRate: otaRate,
+            pricePerNight: rate.price.totalBaseAfterPricingRules,
+            pricePerStay: rate.price.totalBaseAfterPricingRules * diffDates(dates.to, dates.from),
+            taxShown: false, // we never show tax,
+            tags: []
+          };
+          trackEvent('hi_rate', rateData);
+        });
+      }
+    }
+
+    function diffDates(to, from) {
+      to = new Date(to);
+      from = new Date(from);
+      var timeDiff = Math.abs(to.getTime() - from.getTime());
+      return Math.ceil(timeDiff / (1000 * 3600 * 24));
+    }
+
+    function stripPurchasePolicies(policies) {
+      return _.map(policies, function (policy) {
+        return {
+          type: policy.type,
+          value: policy.value
+        };
+      });
+    }
+
+    // FIXME: this is duplicating most of what already gets sent as an ecommerce event......
+    function trackBuy(trackingData, priceData, scopeData, stateParams) {
+      if (hospitalityEnabled) {
+        var roomData = bookingService.getMultiRoomData(stateParams.rooms);
+        var dates = bookingService.datesFromString(stateParams.dates);
+        var lengthOfStay = diffDates(dates.to, dates.from);
+        var leadTime = diffDates(dates.from, new Date().toDateString());
+        var purchaseData = {};
+        var numRooms = roomData ? roomData.length : 1;
+        if (numRooms === 0) {
+          numRooms++;
+        }
+
+        for (var i = 0; i < numRooms; i++) {
+          purchaseData = {
+            type: 'purchase',
+            "roomCode": scopeData.allRooms[i].code,
+            "rateCode": scopeData.allRooms[i]._selectedProduct.code,
+            "dailyRate": (priceData.totalAfterTaxAfterPricingRules / lengthOfStay) / numRooms,
+            "leadTime": leadTime,
+            "lengthOfStay": lengthOfStay,
+            "noOfOccupants": scopeData.moreRoomData[i].adults + scopeData.moreRoomData[i].children,
+            "paymentType": trackingData.paymentInfo.paymentMethod,
+            "points": null, // @todo As sandman does not have a loyalty program, we will just send null for now
+            "policies": stripPurchasePolicies(scopeData.allRooms[i]._selectedProduct.policies)
+          };
+          trackEvent('hi_purchase', purchaseData);
+        }
+      }
     }
 
     function buildGenericData(chainData) {
@@ -151,7 +371,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         'uuid': sessionCookie.sessionData.sessionId
       };
 
-      customerObject.infinitiId = cookieFactory('CustomerID') ? cookieFactory('CustomerID') : 0;
+      customerObject.infinitiId = user.getTrackingId() !== null ? user.getTrackingId().toString() : null;
       customerObject.id = user.getCustomerId() !== null ? user.getCustomerId().toString() : null;
 
       infinitiApeironData.customer = customerObject;
@@ -224,7 +444,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
             'price': roomData._selectedProduct.price.totalAfterTaxAfterPricingRules,
             'priceBeforeTax': roomData._selectedProduct.price.totalBaseAfterPricingRules,
             'tax': '',
-            'revenue': '',
+            'revenue': ''
           }
         };
         rooms.push(room);
@@ -232,12 +452,12 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
 
       infinitiApeironData.items = rooms;
 
-      var totalDiscount = priceData.totalDiscount * -1; //Discounts come through as negative values
+      var totalDiscount = -priceData.totalDiscount; //Discounts come through as negative values
       var totalPrice = priceData.breakdownTotalBaseAfterPricingRules;
 
       var discountCode = stateParams.promoCode ? stateParams.promoCode : null;
-      discountCode = stateParams.groupCode ? stateParams.groupCode : null;
-      discountCode = stateParams.corpCode ? stateParams.corpCode : null;
+      discountCode = discountCode || stateParams.groupCode ? stateParams.groupCode : null;
+      discountCode = discountCode || stateParams.corpCode ? stateParams.corpCode : null;
 
       infinitiApeironData.transaction = {
         'transactionType': 'purchase',
@@ -325,7 +545,7 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
         };
       }
 
-      customerObject.infinitiId = cookieFactory('CustomerID') ? cookieFactory('CustomerID') : 0;
+      customerObject.infinitiId = user.getTrackingId() !== null ? user.getTrackingId().toString() : null;
       customerObject.id = user.getCustomerId() !== null ? user.getCustomerId().toString() : null;
 
       infinitiApeironData.customer = customerObject;
@@ -466,6 +686,10 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
     return {
       trackPurchase: trackPurchase,
       trackSearch: trackSearch,
+      trackSearchParams: trackSearchParams,
+      trackResults: trackResults,
+      trackRates: trackRates,
+      trackBuy: trackBuy,
       trackCampaignDisplay: trackCampaignDisplay,
       trackCampaignPurchase: trackCampaignPurchase,
       trackPageView: trackPageView,

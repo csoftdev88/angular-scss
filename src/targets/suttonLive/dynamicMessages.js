@@ -28,9 +28,12 @@ angular.module('mobiusApp.dynamicMessages', [])
     'promo_code_applied':'Promo code applied successfully',
     'corp_code_applied':'Corp code applied successfully',
     'group_code_applied':'Group code applied successfully',
-    'promo_code':'Promo code',
-    'corp_code':'Corp code',
-    'group_code':'Group code'
+    'promo_code': 'Promo code',
+    'corp_code': 'Corp code',
+    'group_code': 'Group code',
+    'apply_code': 'Enter a code',
+    'select_property': 'Find Your Hotel',
+    'find_your_hotel': 'Find Your Hotel'
   },
   'de':{
     'your_reservation':'<div>Ihre Reservierung <strong>',

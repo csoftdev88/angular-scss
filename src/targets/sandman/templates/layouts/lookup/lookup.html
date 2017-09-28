@@ -1,0 +1,69 @@
+<hero-slider ng-if="!config || !config.hideHeroSlider" content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
+
+<breadcrumbs stickable="main-header"></breadcrumbs>
+
+<main class="grid-wrapper lookup-page">
+
+  <div class="preloader" ng-show="preloader.visible"></div>
+
+  <contacts-page grid-row class="reservation-lookup">
+    <div grid="8">
+      <h1 ng-bind-html="'_reservation_lookup_page_title_' | mainHeaderStyle"></h1>
+
+      <form name="form" ng-submit="form.$valid" ng-show="!isSent">
+        <div>
+          <p>_reservation_lookup_page_desc_</p>
+          <hr>
+        </div>
+
+        <form-element ng-if="auth && !auth.isLoggedIn()">
+          <label for="email">
+            <input type="email" id="email" required
+              placeholder="_email_placeholder_"
+              ng-model="formData.fields.email" email-check
+              name="email"
+              ng-class="{'ng-submitted': form.$submitted && form.email.$error.required}"/>
+            <span>_email_label_</span>
+          </label>
+        </form-element>
+
+        <form-element>
+          <label for="reservation-number">
+            <input type="text" id="reservation-number" required
+              placeholder="_reservation_number_placeholder_"
+              ng-model="formData.fields.subject" ng-minlength="3"
+              name="reservationNumber"
+              ng-class="{'ng-submitted': form.$submitted && (form.subject.$error.required || form.subject.$error.pattern)}"
+              ng-pattern="$root.generalValidationPattern"/>
+            <span>
+              <span ng-hide="form.reservationNumber.$error">_reservation_number_label_</span>
+              <span ng-show="form.reservationNumber.$error.pattern">_letters_pattern_error_</span>
+            </span>
+          </label>
+        </form-element>
+
+        <div>
+          <label class="form-errors" ng-if="form.$invalid && form.$submitted">
+            _missing_fields_message_
+          </label>
+        </div>
+
+        <div>
+          <button-submit role="button" tabindex="0" ng-click="find()">_find_reservation_</button-submit>
+        </div>
+        <div ng-show="showErrorMsg">_reservation_number_error_</div>
+      </form>
+    </div>
+
+    <contact-list grid="4">
+      <contact-item ng-repeat="contact in chain.contacts">
+        <h2>{{contact.name}}</h2>
+        <p class="tel-item"><a href="tel:{{contact.tel.split(' ').join('')}}">{{contact.tel}}</a</p>
+        <p class="email-item"><a href="mailto:{{contact.email}}">{{contact.email}}</a></p>
+      </contact-item>
+    </contact-list>
+  </contacts-page>
+
+  <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>
+</main>
+<div ng-include="'layouts/siteMap.html'" class="site-map" ng-if="footerConfig.displaySitemap"></div>

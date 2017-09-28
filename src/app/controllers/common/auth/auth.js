@@ -41,8 +41,10 @@ angular
       }
     }
 
+    console.log('AuthCtrl running: the auth promise is', user.authPromise);
     // Set the callback to run once authenticated
     user.authPromise.then(function (isMobiusUser) {
+      console.log('AuthCtrl the auth promise called in user', isMobiusUser);
       if (_.isFunction(config.onAuthorized)) {
         return config.onAuthorized(isMobiusUser);
       }
@@ -119,6 +121,11 @@ angular
       $scope.incorrectEmailPasswordError = false;
       $scope.notRegisteredEmailError = false;
       $scope.passwordResetSuccess = false;
+      $scope.error = false;
+      $scope.userRegisteredError = false;
+      $scope.genericError = false;
+      $scope.missingFieldsError = false;
+      $scope.submitted = false;
     };
 
     // Assign the API to a scope variable

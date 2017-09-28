@@ -62,13 +62,27 @@ angular.module('mobiusApp.config', [])
       'live': ''
     }
   },
+  'hospitalityEvents': {
+    'development': {
+      'enable': true
+    },
+    'integration': {
+      'enable': true
+    },
+    'staging': {
+      'enable': true
+    },
+    'live': {
+      'enable': true
+    }
+  },
   'infinitiApeironTracking': {
     'local': {
       'enable':false,
       'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
+      'scriptUrl':'apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-local',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
@@ -78,7 +92,7 @@ angular.module('mobiusApp.config', [])
       'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
+      'scriptUrl':'apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-development',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
@@ -88,7 +102,7 @@ angular.module('mobiusApp.config', [])
       'enableDuplication': false,
       'endpoint':'https://0vafuvdy4f.execute-api.us-west-2.amazonaws.com/int/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.4-rc5/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-integration',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
@@ -100,7 +114,7 @@ angular.module('mobiusApp.config', [])
       'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.4-rc5/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
@@ -112,7 +126,7 @@ angular.module('mobiusApp.config', [])
       'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
@@ -122,7 +136,7 @@ angular.module('mobiusApp.config', [])
       'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
-      'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.4-rc5/infiniti-track2.min.js',
+      'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-live',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
@@ -192,7 +206,7 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
+        'url':'https://wxi3vsykv4.execute-api.us-west-2.amazonaws.com/int/event/create'
       },
       'staging': {
         'id': 'sandman-staging',
@@ -360,6 +374,9 @@ angular.module('mobiusApp.config', [])
     'campaigns': {
       display:true
     },
+    'alternateBookingFlow': {
+      'enabled': false
+    },
     'instagramFeed': {
       'images': [
         { url: '/static/images/lbe/insta-1.png'},
@@ -377,6 +394,9 @@ angular.module('mobiusApp.config', [])
       'searchInSessionCookieName':'MobiusSearchInSession',
       'maxSearches':3
     },
+    'membersRate': {
+      'defaultSize': 'large'
+    },
     'funnelRetention':{
       'enable':false,
       'cookieName': 'MobiusFunnelRetention',
@@ -390,13 +410,6 @@ angular.module('mobiusApp.config', [])
     'chains': ['SIGN', 'SAND'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
-    },
-    'bookingBar': {
-      'maxAdults': 8,
-      'maxChildren': 8,
-      'dateFormat': 'dd MM yy',
-      'defaultSize': 'large',
-      'useTommorowDefault': true
     },
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
@@ -509,6 +522,7 @@ angular.module('mobiusApp.config', [])
         'hotels': false,
         'location': true
       },
+      'scrollToRates': 20,
       //List of rooms and their products
       'defaultNumberOfRooms': 2,
       'defaultNumberOfRoomsMobile':10,
@@ -890,7 +904,7 @@ angular.module('mobiusApp.config', [])
       'checkOfferAvailabilityOnChange': false,
       'displayPropertiesMegamenu': true,
       'displaySelectAllHotelsAction':false,
-      'hasMutiroomTab': true,
+      'hasMultiroomTab': false,
       'hasRatesSelection': true,
       'timezone':'America/Vancouver',
       //searchOffset stops user from searching availability past a certain date (today + searchOffset.days)
@@ -962,6 +976,8 @@ angular.module('mobiusApp.config', [])
           'regex': /^3[47][0-9]{13}$/
         }
       },
+      'emailOptinUnderOverview': true,
+      'voucherInBillingSection': true,
       //Is billing state a required field?
       'billingStateRequired': true,
       //price breakdown
@@ -1089,6 +1105,7 @@ angular.module('mobiusApp.config', [])
         'hasViewMore': true,
         'hasTitle': true,
         'scrollToOffset': 50,
+        'showSubNav': false,
         'hotelInfo': {
           'descriptionGrid': 7,
           'sidebarGrid': 5

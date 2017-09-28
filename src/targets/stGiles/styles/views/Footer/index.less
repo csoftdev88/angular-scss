@@ -1,0 +1,155 @@
+@import "./mobile";
+
+footer.main {
+  height: 400px;
+  background-color: #000;
+  text-align: initial;
+  width: initial;
+  h1, h2, h3, p, span, small, li {
+    color: #fff;
+    font-family: @ff-primary;
+  }
+}
+
+.Footer__button {
+  background: transparent;
+  border: solid 2px white;
+  border-radius: 0;
+  color: #fff;
+  font-size: 17px;
+  line-height: 20px;
+  text-transform: uppercase;
+  padding: 0 46px;
+}
+
+.Footer__title {
+  text-transform: uppercase;
+  font-size: 25px;
+  letter-spacing: 0.3px;
+  line-height: 30px;
+}
+
+.Footer__text {
+  display: block;
+  font-size: 13px;
+  letter-spacing: 0;
+  font-family: @ff-secondary;
+  margin-top: 15px;
+}
+
+.Footer__signup {
+  width: 50%;
+  float: left;
+  .Footer__text {
+    margin-bottom: 17px;
+  }
+}
+
+.Footer__inner {
+  max-width: 1212px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.Footer__tagline {
+  margin-left: 50%;
+  padding-left: 130px;
+  h3 {
+    padding-left: 10px;
+    font-family: @ff-primary;
+    font-size: 25px;
+    line-height: 30px;
+    &:before {
+      .fa;
+      position: absolute;
+      color: @c-secondary;
+      font-size: 25px;
+      content: @fa-var-heart;
+      left: calc(~'50% + 105px');
+      padding-top: 3px;
+    }
+  }
+}
+
+.Footer__nav {
+  float: left;
+  width: 100%;
+  margin-top: 42px;
+}
+
+.Footer__nav--item {
+  text-transform: uppercase;
+  font-size: 13px;
+  line-height: 18px;
+  padding-right: 21px;
+}
+
+.Footer__social {
+  margin-top: 110px;
+}
+
+.Footer__social--icons {
+  width: 50%;
+  float: left;
+  li {
+    display: inline;
+  }
+  span {
+    margin-right: 40px;
+  }
+  span:before {
+    .fa;
+    position: absolute;
+    color: #fff;
+    font-size: 25px;
+  }
+  .facebook:before {
+    content: @fa-var-facebook-square;
+  }
+  .twitter:before {
+    content: @fa-var-twitter;
+  }
+  .instagram:before {
+    content: @fa-var-instagram;
+  }
+  .linkedin:before {
+    content: @fa-var-linkedin-square;
+  }
+  .youtube:before {
+    content: @fa-var-youtube;
+  }
+}
+
+.Footer__nav--item {
+  display: inline;
+}
+
+.Footer__apps {
+  width: 50%;
+  margin-left: 50%;
+  padding-left: 100px;
+}
+
+.Footer__apps--downloads {
+  margin-top: 17px;
+  img {
+    width: 133px;
+    height: 40px;
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+}
+
+.Footer__phone {
+  position: absolute;
+  bottom: 0;
+  right: calc(~'(100vw - 1212px) / 2');
+  img {
+    width: 208px;
+    height: 222px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+}

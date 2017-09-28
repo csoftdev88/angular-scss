@@ -1,0 +1,166 @@
+
+.RewardsPage {
+
+  .RewardsBalance {
+    width: 40%;
+    float: left;
+    .viewport-mobile & {
+      width: 100%;
+      float: initial;
+      text-align: center;
+      margin-top: 32px;
+      h3 {
+        font-size: 13px;
+        line-height: 16px;
+      }
+      h1 {
+        font-size: 26px;
+        line-height: 32px;
+      }
+    }
+    h1, h3 {
+      font-family: @ff-secondary;
+    }
+    h3 {
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 16px;
+      line-height: 19px;
+    }
+    h1 {
+      color: @lbe-c-primary;
+      font-size: 26px;
+      line-height: 44px;
+      text-transform: none;
+    }
+  }
+
+  rewards-list {
+    margin-top: 112px;
+    background-color: rgba(0, 0, 0, 0.75);
+    .backdrop-filter-blur(20px);
+    min-height: 800px;
+    padding: 0 32px;
+
+    reward-item {
+      flex: 0 0 calc(~'50% - 22px');
+      border: none;
+      height: 276px;
+
+      img {
+        max-height: initial;
+        height: 100%;
+      }
+
+      .RewardItem__info {
+        position: absolute;
+        top: 13px;
+        width: initial;
+        padding: 10px;
+        background-color: rgba(0, 0, 0, 0.75);
+        .backdrop-filter-blur(20px);
+        &:after {
+          content: none;
+        }
+
+        h2 {
+          color: #fff;
+          font-family: @ff-primary;
+          text-transform: uppercase;
+          font-size: 23px;
+          text-align: left;
+          line-height: 26px;
+        }
+
+      }
+
+      .RewardItem__description,
+      .RewardItem__more {
+        display: none;
+      }
+
+      .RewardItem__points {
+        text-align: left;
+        color: #fff;
+        font-size: 22px;
+        font-family: @ff-secondary;
+        line-height: 27px;
+        padding: 0 22px;
+      }
+
+    }
+
+    .products-not-available {
+      background: initial;
+      h3 {
+        font-family: @ff-primary;
+        color: #fff;
+      }
+      a {
+        font-family: @ff-primary;
+        color: @lbe-c-primary;
+      }
+      button-submit {
+        background: @lbe-c-primary;
+      }
+      .viewport-mobile & {
+        width: initial;
+      }
+    }
+
+    nav {
+      margin-top: 49px;
+      margin-bottom: 68px;
+
+      ul {
+        text-align: right;
+        padding-right: 72px;
+
+        .viewport-mobile & {
+          text-align: center;
+          padding-right: 0;
+          padding-top: 20px;
+        }
+
+        li.active {
+          a {
+            color: @lbe-c-primary;
+            border-bottom: 2px solid @lbe-c-primary;
+          }
+        }
+
+        li {
+          font-family: @ff-primary;
+          a {
+            color: #fff;
+          }
+        }
+
+      }
+    }
+  }
+
+  .viewport-mobile & {
+    margin-top: 0 !important;
+  }
+
+}
+
+.alt-room-display {
+  button-submit {
+    background: @lbe-c-primary !important;
+    .viewport-mobile & {
+      background: @lbe-c-primary !important;
+    }
+  }
+}
+
+.RewardsPage__bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('@{img-prefix}/rewards-bg.png');
+  background-size: cover;
+}

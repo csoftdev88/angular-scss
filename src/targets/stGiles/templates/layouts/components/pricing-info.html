@@ -1,0 +1,15 @@
+<div ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1 && room.priceFrom">
+  <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
+    _price_from_ <span class="value">{{getValuePer(room.priceFrom) | i18nCurrency: $root.currencyCode}}</span>
+  </p>
+</div>
+
+<div class="not-available" ng-if="availableRooms.indexOf(room.code) === -1 && hasDates() && ratesLoaded">
+  <p>_not_available_on_dates_title_</p>
+</div>
+
+<div class="not-available" ng-if="!hasDates()">
+  <button-submit ng-click="selectDates()">_select_dates_</button-submit>
+</div>
+
+<button class="button" ng-click="displayRoomRates(room, 'rates'+$index)" ng-if="!room._displayRates && availableRooms.indexOf(room.code) > -1 && room.priceFrom && (!isMobile || (isMobile && !roomsConfig.mobileHideRates))">_view_rates_</button>

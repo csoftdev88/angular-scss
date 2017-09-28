@@ -5,7 +5,7 @@
  * ensure you use keystone, this should only be kept for legacy support.
  *
  * @see Auth
- * @tenants Meandall, national
+ * @tenants Meandall, national, Excelsior
  * @author Bryan Kneis
  */
 (function () {
@@ -15,7 +15,7 @@
     .module('mobiusApp.services.auth.mobius', [])
     .service( 'mobiusAuthStrategy', MobiusAuthStrategy);
 
-  function MobiusAuthStrategy($rootScope, $q, $timeout, $state, user, apiService, userObject, $log) {
+  function MobiusAuthStrategy($rootScope, $window, $state, user, apiService, userObject) {
 
     // The header's attributes name
     var AUTH_HEADER = 'mobius-authentication';
@@ -88,25 +88,15 @@
      * @see apiService
      */
     this.logout = function () {
-      $rootScope.$evalAsync(function() {
-        userObject = {};
-        $state.go('home', {}, {reload: true});
-      });
+      console.log('logging out');
       // Removing auth headers
       var headers = {};
       headers[AUTH_HEADER] = undefined;
       apiService.setHeaders(headers);
       user.clearStoredUser();
 
-      // Create a new auth promise
-      // @todo Why do we need to do this ?
-      user.authPromise = $q.defer();
-
-      // Submit a login event that updates the base ctrl's function isLoggedIn
-      // @todo again, why the hell do we do this?
-      $timeout(function () {
-        $rootScope.$broadcast('MOBIUS_USER_LOGIN_EVENT');
-      });
+      // Do a full reload! Fixes subtle issues after logout that we don't want to fix as Keystone is the go-forward SSO
+      $window.location.reload();
     };
 
     /**
@@ -143,11 +133,8 @@
       }
     };
 
-    /**
-     * @todo Needs investigating, why is this not supported?
-     */
     this.register = function () {
-      $log.warn('Register function is not supported by mobius auth');
+      $rootScope.showRegisterDialog = !$rootScope.showRegisterDialog;
     };
 
     /**

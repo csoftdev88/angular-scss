@@ -1,0 +1,152 @@
+@import "./mobile";
+
+.OffersPage {
+
+  margin-top: @header-height;
+
+  .OffersGrid {
+    margin-top: 51px;
+
+  }
+
+  .OffersGrid__item--details {
+    display: none;
+  }
+
+  .highlight {
+    width: calc(~'100% - 387px');
+    box-sizing: border-box;
+    .viewport-mobile & {
+      width: 100%;
+      padding: 28px 5px 15px 15px;
+    }
+  }
+
+  offer-detail {
+    margin-bottom: 40px;
+    .viewport-mobile & {
+      margin-top: 20px;
+    }
+    h1 {
+      font-size: 40px;
+      letter-spacing: 0;
+      font-family: @ff-primary;
+      line-height: 57px;
+      text-transform: uppercase;
+      color: #000;
+      font-weight: normal;
+    }
+    div[grid="12"] {
+      margin: 0;
+      button-back {
+        display: none;
+      }
+    }
+    .offer-content {
+      min-height: 300px;
+      width: calc(~'100% - 387px');
+      .viewport-mobile & {
+        min-height: initial;
+        width: 100%;
+      }
+    }
+  }
+
+  .Offer__book-now {
+    text-transform: uppercase;
+    color: #902325;
+    font-size: 25px;
+    font-family: @ff-primary;
+    letter-spacing: 0;
+    margin-bottom: 20px;
+  }
+
+  .OffersGrid__item {
+    height: 262px;
+    border: none;
+    .read-more,
+    .banner {
+      display: none;
+    }
+  }
+
+  .OffersGrid__item--title {
+    position: absolute;
+    background-color: rgba(26, 26, 26, 0.8);
+    .backdrop-filter-blur(20px);
+    top: 23px;
+    height: 72px;
+    line-height: 72px;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 21px;
+    letter-spacing: 0;
+    padding: 0 10px;
+  }
+
+  .OffersGrid__title {
+    text-align: center;
+    text-transform: uppercase;
+    font-family: @ff-primary;
+    font-size: 31px;
+    color: #000;
+    font-weight: bold;
+    margin-bottom: 57px;
+    &:after {
+      content: url('@{img-prefix}/lbe/divider-orange.png');
+      display: block;
+    }
+  }
+
+  .OffersGrid__image {
+    height: 100%;
+    max-height: initial;
+  }
+
+}
+
+.OffersBreadcrumbs {
+  .breadcrumbs {
+    background: #fff;
+  }
+  .wrapper {
+    width: 1212px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &.hide {
+    display: none;
+  }
+}
+
+.Offer__about {
+  width: 70%;
+  .Highlight__title {
+    color: @c-primary;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-family: @ff-primary;
+    letter-spacing: 0;
+    line-height: 24px;
+  }
+  ul {
+    padding-left: 30px;
+    list-style: initial;
+    font-family: @ff-secondary;
+    color: rgba(0,0,0,0.75);
+    line-height: 32px;
+  }
+}
+
+.Offer__properties {
+  width: 30%;
+  margin-left: 70%;
+  height: 120px;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
