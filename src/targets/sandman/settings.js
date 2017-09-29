@@ -139,7 +139,8 @@ angular.module('mobiusApp.config', [])
       'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-live',
       'username': 'sandman',
-      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
+      'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
+      'singlePageApp': true
     }
   },
   'derbysoftTracking' : {
