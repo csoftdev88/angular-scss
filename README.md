@@ -21,12 +21,29 @@ Front end application for mobius booking engine
 
 ### How do I deploy to a live environment
 
-1. Change to root `sudo su -`
-1. Follow installation steps 1-4 described above.
-1. Run `npm run build.sandman-live` (replace sandman and live with correct tenant and env)
+####Live/Staging
+1. ssh into the right web host (see AWS EC2 or ask Pete if you don't have the IPs and/or need userify access)
+1. become root `sudo su -`
+1. `cd /home/ubuntu/mobius-web/`
+1. `git pull --rebase`
     1. For Keystone enabled tenants it is imperative that you are including the correct Keystone `status` script in the index.html. All environments are included - and all but integration have a suffix to the tenant name in the script path such as `https://scripts.infiniti.io/sandman-staging/status.js`. Note, _non_-Keystone-enabled tenants do NOT need this script.
-1. Run `pm2 restart WEB` (If pm2 says there is no instance of WEB running do `NODE_ENV=production pm2 start server.js --name "WEB" -- --tenant=sandman --environment=live --port=900*` where the port number is as dicated in [this document](https://docs.google.com/document/d/1rVjFPY9p3MIj5ubjXt5kFhqGFwNCSzyrfEN1IkYhf_A))
-1. Clear cloudflare cache visit `https://webservice.mobiuswebservices.com/cloudflare/clearcache?site=mobiusbookingengine`
+1. `npm cache clean`
+1. `npm i`
+1. `bower install --allow-root`
+1. `grunt production --tenant=<tenant> --environment=<env>`
+1. `pm2 l` # Check that the WEB process is running
+1. `pm2 restart WEB`
+1. Clear cloudflare cache visit the appropriate link. e.g. for non-live sandman `https://webservice.mobiuswebservices.com/cloudflare/clearcache?site=mobiusbookingengine` (see slack pinned items in slack for more links)
+
+####Integration
+Integration is using the new multi-environment in a single box model.
+1. ssh into the water-integration host
+1. become root `sudo su -`
+1. become mobius-deploy `sudo su - mobiusdeploy`
+1. `cd scripts`
+1. run the appropriate script for the tenant. e.g. for Sandman run the `deploy-sandman.sh` script
+1. clear the cloudflare cache `https://webservice.mobiuswebservices.com/cloudflare/clearcache?site=mobiusbookingengine`
+
 
 #### Trouble shooting
 
