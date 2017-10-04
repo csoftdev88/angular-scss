@@ -21,7 +21,7 @@ Front end application for mobius booking engine
 
 ### How do I deploy to a live environment
 
-####Live/Staging
+#### Live/Staging
 1. ssh into the right web host (see AWS EC2 or ask Pete if you don't have the IPs and/or need userify access)
 1. become root `sudo su -`
 1. `cd /home/ubuntu/mobius-web/`
@@ -35,7 +35,7 @@ Front end application for mobius booking engine
 1. `pm2 restart WEB`
 1. Clear cloudflare cache visit the appropriate link. e.g. for non-live sandman `https://webservice.mobiuswebservices.com/cloudflare/clearcache?site=mobiusbookingengine` (see slack pinned items in slack for more links)
 
-####Integration
+#### Integration
 Integration is using the new multi-environment in a single box model.
 1. ssh into the water-integration host
 1. become root `sudo su -`
