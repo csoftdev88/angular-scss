@@ -29,6 +29,9 @@ angular.module('mobius.controllers.reservation', [])
   $scope.profile.userPassword = '';
   $scope.userPasswordInvalid = false;
   $scope.userPasswordRequired = false;
+  $scope.useAlternateBookingFlow = Settings.authType === 'keystone' &&
+    Settings.UI.alternateBookingFlow &&
+    Settings.UI.alternateBookingFlow.enabled;
 
   var clickedSubmit = false;
 
@@ -746,6 +749,11 @@ angular.module('mobius.controllers.reservation', [])
             trackProductCheckout(2);
           };
 
+          if (!$scope.useAlternateBookingFlow) {
+            proceed();
+            break;
+          }
+
           var mappedUser = mapDataToKeystoneRegister();
           if ($scope.auth.isLoggedIn()) {
             // Update Keystone profile in the background
@@ -786,8 +794,6 @@ angular.module('mobius.controllers.reservation', [])
             }
             proceed();
           }
-
-
         } else {
           scrollToDetails('reservationDetailsForm');
         }
