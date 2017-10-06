@@ -128,6 +128,7 @@ angular
     'mobiusApp.factories.template',
     'mobiusApp.factories.preloader',
     'mobiusApp.factories.cookie',
+    'mobiusApp.factories.spinner',
 
     // Custom components
     'mobiusApp.directives.layout',
@@ -156,6 +157,7 @@ angular
     'mobiusApp.directives.socialLinks',
     'mobiusApp.directives.taTeaser',
     'mobiusApp.directives.stickyHeader',
+    'mobiusApp.directives.spinner',
 
     // Common controllers
     'mobius.controllers.reservation.directive',
