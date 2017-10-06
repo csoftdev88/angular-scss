@@ -155,7 +155,7 @@
 
             <div class="table-container">
             <table class="data">
-              <tbody ng-if="!config.useSingleRowData">
+              <tbody ng-if="!config.useSingleRowData" class="single-row-data">
                 <tr ng-if="config.showGuestName" class="guest-name">
                   <th>_guest_name_:</th>
                   <td>{{ reservation.rooms[0].firstName }} {{ reservation.rooms[0].lastName }}</td>
