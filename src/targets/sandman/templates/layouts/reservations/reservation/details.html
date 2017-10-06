@@ -1,6 +1,16 @@
 <reservation-details-form id="reservationDetailsForm">
   <div>
-    <h3 ng-bind-html="'_reservation_page_details_title_' | mainHeaderStyle"></h3>
+    <h3 ng-if="settings.authType === 'keystone' &&
+            !auth.isLoggedIn() &&
+            !$stateParams.reservation &&
+            settings.UI.alternateBookingFlow &&
+            settings.UI.alternateBookingFlow.enabled" ng-bind-html="'_alternate_reservation_page_details_title_' | mainHeaderStyle"></h3>
+
+    <h3 ng-if="settings.authType !== 'keystone' ||
+            auth.isLoggedIn() ||
+            $stateParams.reservation ||
+            !settings.UI.alternateBookingFlow ||
+            !settings.UI.alternateBookingFlow.enabled" ng-bind-html="'_reservation_page_details_title_' | mainHeaderStyle"></h3>
 
     <!--
     <div id="form-errors" class="form-errors" ng-if="forms.details.$invalid  && forms.details.$submitted">
@@ -412,6 +422,10 @@
     </p>
     <p class="CreateUser__error" ng-show="userPasswordRequired">
       _create_account_error_
+    </p>
+    <!--TODO: wire userPasswordIncorrect in-->
+    <p class="CreateUser__error" ng-show="userPasswordIncorrect">
+      _login_error_
     </p>
 
   </div>

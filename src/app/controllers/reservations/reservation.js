@@ -8,8 +8,10 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings, $log,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q, cookieFactory, sessionDataService,
-  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, contentService, apiService, userObject, chainService, previousSearchesService,
-  metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService, infinitiApeironService, routerService, channelService, campaignsService, locationService, roomUpgradesService) {
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, contentService, apiService,
+  userObject, chainService, previousSearchesService, metaInformationService, $location, stateService,
+  mobiusTrackingService, infinitiEcommerceService, infinitiApeironService, routerService, channelService,
+  campaignsService, locationService, roomUpgradesService, spinnerService) {
 
   $controller('RatesCtrl', {
     $scope: $scope
@@ -552,7 +554,6 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.isValid = function () {
-    $log.info('checking the validity', $scope.allRooms);
     if (!$scope.allRooms || !$scope.allRooms.length) {
       return false;
     }
@@ -773,23 +774,42 @@ angular.module('mobius.controllers.reservation', [])
                 Password: mappedUser.Password
               };
 
-              var loginOrRegister = window.KS.$me.login(loginDetails).then(function () {
-                $log.info('User logged in successfully!');
-                proceed();
-              }, function () {
-                $log.info('Logging in failed, attempting register');
-                return window.KS.$me.register(mappedUser).then(function () {
-                  $log.info('User registered successfully!');
+              // Attempt both login and register in parallel to accelerate the UX in the register case
+              var loginP = window.KS.$me.login(loginDetails)
+                .then(function () {
+                  // User logged-in successfully
+                  spinnerService.stopSpinner();
                   proceed();
-                }, function (error) {
-                  $log.warn('Registering failed with error, check if email is taken, prompt user to verify their password', error);
+                  return true;
+                }, function () {
+                  // login failed
+                  return false;
                 });
-              });
+
+              var registerP = window.KS.$me.register(mappedUser)
+                .then(function () {
+                  // User registered successfully
+                  spinnerService.stopSpinner();
+                  proceed();
+                  return true;
+                }, function () {
+                  // register failed
+                  return false;
+                });
+
+              var loginOrRegister = $q.all({login: loginP, register: registerP})
+                .then(function (results) {
+                  if (results.login || results.register) {
+                    // already handled
+                    return;
+                  }
+                  // Both failed, meaning the account exists and the password is wrong
+                  spinnerService.stopSpinner();
+                  $log.warn('Registering failed with error, check if email is taken, prompt user to verify their password');
+                });
+
               console.log('Showing preloader...');
-              preloaderFactory(loginOrRegister);
-              loginOrRegister.finally(function () {
-                console.log('Hiding preloader');
-              });
+              spinnerService.startSpinner('Checking your account information');
               return loginOrRegister;
             }
             proceed();
