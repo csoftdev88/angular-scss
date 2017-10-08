@@ -588,6 +588,10 @@
         "create_account_text_required": "Entrez un nouveau mot de passe pour créer un compte ou bien connectez-vous ci-dessous si vous êtes déjà membre",
         "create_account_error": "Ce tarif est réservé aux client membres. Connectez-vous ou créez un compte pour continuer. Sinon cliquez le bouton Retour et sélectionnez un tarif different.",
         "login_error": "Cette addresse email est déjà enregistrée mais le mot de passe est incorrect. Entrez le bon mot de passe ou <span ng-click='showResetPassword()' class=\"reset-password-link\">réinitialisez votre mot de passe ici</span> avant de continuer.",
-        "create_account_invalid": "Votre mot de passe doit comporter au moins 8 caractères dont une majuscule, une minuscule et un chiffre"
+        "create_account_invalid": "Votre mot de passe doit comporter au moins 8 caractères dont une majuscule, une minuscule et un chiffre",
+        "existing_members_login": "connexion membres",
+        "must_confirm_password": "Vous devez confirmer votre mot de passe",
+        "password_mismatch": "La confirmation du mot de passe ne correspond pas",
+        "login_prompt": "Connectez-vous en entrant votre addresse email et votre mot de passe"
   }
 }

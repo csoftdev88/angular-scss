@@ -17,7 +17,7 @@ function fullScreenSpinner($rootScope) {
   }
 
   function stopSpinner() {
-    $rootScope.spinner.message = '';
     $rootScope.spinner.show = false;
+    $rootScope.spinner.message = '';
   }
 }
