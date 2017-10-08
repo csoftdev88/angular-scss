@@ -31,6 +31,7 @@ angular.module('mobius.controllers.reservation', [])
   $scope.profile.userPassword = '';
   $scope.userPasswordInvalid = false;
   $scope.userPasswordRequired = false;
+  $scope.userPasswordIncorrect = false;
   $scope.useAlternateBookingFlow = Settings.authType === 'keystone' &&
     Settings.UI.alternateBookingFlow &&
     Settings.UI.alternateBookingFlow.enabled;
@@ -38,6 +39,10 @@ angular.module('mobius.controllers.reservation', [])
   var clickedSubmit = false;
 
   $scope.isValidKeystonePassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
+
+  $scope.showResetPassword = function () {
+    window.dispatchEvent(new CustomEvent('parent.request.forgotten-password', {detail: {email: $scope.userDetails.email}}));
+  };
 
   //If steps are at top of page we scroll to them, if they are in the widget we just scroll to top of page
   $scope.scrollReservationStepsPosition = $scope.bookingConfig.bookingStepsNav.showInReservationWidget ? 'top' : 'reservation-steps';
@@ -775,6 +780,7 @@ angular.module('mobius.controllers.reservation', [])
               };
 
               // Attempt both login and register in parallel to accelerate the UX in the register case
+              $scope.userPasswordIncorrect = false;
               var loginP = window.KS.$me.login(loginDetails)
                 .then(function () {
                   // User logged-in successfully
@@ -805,6 +811,7 @@ angular.module('mobius.controllers.reservation', [])
                   }
                   // Both failed, meaning the account exists and the password is wrong
                   spinnerService.stopSpinner();
+                  $scope.userPasswordIncorrect = true;
                   $log.warn('Registering failed with error, check if email is taken, prompt user to verify their password');
                 });
 
