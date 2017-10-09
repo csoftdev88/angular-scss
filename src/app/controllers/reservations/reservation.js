@@ -803,7 +803,6 @@ angular.module('mobius.controllers.reservation', [])
                   if ($scope.loginPasswordIncorrect) {
                     // Clear out the incorrect password
                     $scope.$apply(function () {
-                      console.log('Clearing incorrect pw');
                       $scope.userDetails.loginPassword = '';
                     });
 
