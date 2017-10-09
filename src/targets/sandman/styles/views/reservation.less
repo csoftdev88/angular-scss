@@ -46,7 +46,53 @@ reservation-widget {
     margin-top: 23px !important;
   }
 
-  .CreateUser__title {
+  .MemberLogin {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
+  .MemberLogin__panel {
+    display: flex;
+    flex-flow: row nowrap;
+    .viewport-mobile & {
+      flex-flow: column nowrap;
+    }
+  }
+
+  .MemberLogin__fields {
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
+  .MemberLogin__login {
+    flex: none;
+    align-self: center;
+    margin-left: 20px;
+    opacity: 1;
+    transition: opacity 200ms linear;
+    .viewport-mobile & {
+      margin-left: 0;
+      margin-bottom: 10px;
+    }
+  }
+
+  button[disabled='disabled'].MemberLogin__login {
+    box-shadow: none;
+    outline: none;
+    background: #ccc;
+    border: 1px solid #ccc;
+    color: white;
+    opacity: 0;
+  }
+
+  .MemberLogin__error {
+    color: @c-red;
+    font-weight: bold;
+  }
+
+  .MemberLogin__title {
+    margin-top: 20px;
     line-height: 19px;
     font-size: 14px;
     font-weight: 600;
@@ -55,19 +101,27 @@ reservation-widget {
     text-transform: uppercase;
   }
 
-  .CreateUser__text {
-    line-height: 18px;
-    font-size: 13px;
-    color: #585858;
-    margin-top: 0;
+  .CreateUser__explanation {
+    font-weight: bold;
   }
 
-  .CreateUser__logo {
-    float: left;
+  .MemberLogin__subtitle {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .MemberLogin__logo {
+    flex: 0 0 auto;
     margin: 0 16px 5px 0;
+    width: 72px;
+    height: 72px;
+
+    @media @tablet-portrait-max {
+      display: none;
+    }
   }
 
-  input.CreateUser__password {
+  input.MemberLogin__password {
     line-height: 45px;
     height: 45px;
     border: solid 1px #d9d9d9;
@@ -75,13 +129,44 @@ reservation-widget {
     margin: 5px 0 0 0;
   }
 
+  .MemberLogin__forgot-password {
+    width: 100%;
+    float: left;
+    text-align: end;
+    cursor: pointer;
+    font-weight: bold;
+    color: @c-secondary;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  input.CreateUser__password,
+  input.CreateUser__password-confirmation {
+    line-height: 45px;
+    height: 45px;
+    border: solid 1px #d9d9d9;
+    border-radius: 0;
+    margin: 5px 0 0 0;
+  }
+
+  label.CreateUser__password-confirmation {
+    padding-top: 0;
+  }
 
   .CreateUser__error {
     font-size: 13px;
     letter-spacing: -0px;
-    color: #d0021b;
+    color: @c-red;
     line-height: 18px;
-    padding: 14px;
+
+    .reset-password-link {
+      font-weight: bold;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   h3{
