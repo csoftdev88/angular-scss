@@ -69,10 +69,21 @@ reservation-widget {
     flex: none;
     align-self: center;
     margin-left: 20px;
+    opacity: 1;
+    transition: opacity 200ms linear;
     .viewport-mobile & {
       margin-left: 0;
       margin-bottom: 10px;
     }
+  }
+
+  button[disabled='disabled'].MemberLogin__login {
+    box-shadow: none;
+    outline: none;
+    background: #ccc;
+    border: 1px solid #ccc;
+    color: white;
+    opacity: 0;
   }
 
   .MemberLogin__error {

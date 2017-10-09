@@ -53,6 +53,9 @@ angular.module('mobius.controllers.reservation', [])
       Email: $scope.userDetails.email,
       Password: $scope.userDetails.loginPassword
     };
+    if (!loginDetails.Email || !loginDetails.Password) {
+      return;
+    }
     $scope.loginPasswordIncorrect = false;
     var message = dynamicMessages ? dynamicMessages.logging_in : 'Logging you in';
     spinnerService.startSpinner(message);

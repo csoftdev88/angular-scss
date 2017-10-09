@@ -296,6 +296,7 @@
           </div>
         </div>
         <button class="button MemberLogin__login"
+                ng-disabled="!userDetails.email || !userDetails.loginPassword"
                 ng-click="attemptLogin()">
           _login_
         </button>
