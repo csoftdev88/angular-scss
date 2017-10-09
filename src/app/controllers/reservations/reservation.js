@@ -11,11 +11,15 @@ angular.module('mobius.controllers.reservation', [])
   creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, contentService, apiService,
   userObject, chainService, previousSearchesService, metaInformationService, $location, stateService,
   mobiusTrackingService, infinitiEcommerceService, infinitiApeironService, routerService, channelService,
-  campaignsService, locationService, roomUpgradesService, spinnerService) {
+  campaignsService, locationService, roomUpgradesService, DynamicMessages, spinnerService) {
 
   $controller('RatesCtrl', {
     $scope: $scope
   });
+
+  // Get dynamic translations :'(
+  var appLang = stateService.getAppLanguageCode();
+  var dynamicMessages = appLang && DynamicMessages && DynamicMessages[appLang];
 
   $scope.chain = {};
   $scope.chainName = Settings.UI.hotelDetails.chainPrefix;
@@ -50,7 +54,8 @@ angular.module('mobius.controllers.reservation', [])
       Password: $scope.userDetails.loginPassword
     };
     $scope.loginPasswordIncorrect = false;
-    spinnerService.startSpinner('Logging you in');
+    var message = dynamicMessages ? dynamicMessages.logging_in : 'Logging you in';
+    spinnerService.startSpinner(message);
     return window.KS.$me.login(loginDetails)
       .catch(function () {
         $scope.loginPasswordIncorrect = true;
@@ -854,13 +859,16 @@ angular.module('mobius.controllers.reservation', [])
               // Attempt both login and register in case the email is already registered and the password matches
               // We do this in parallel to accelerate the UX in the more common register case
               $scope.userPasswordIncorrect = false;
-              spinnerService.startSpinner('Creating your Sandman account');
+
+              var message = dynamicMessages ? dynamicMessages.registering : 'Creating your account';
+              spinnerService.startSpinner(message);
 
               var loginP = window.KS.$me.login(loginDetails)
                 .then(function () {
                   // User logged-in successfully
                   $scope.$apply(function () {
-                    spinnerService.startSpinner('Updating your Sandman account');
+                    var message = dynamicMessages ? dynamicMessages.updating_account : 'Updating your account';
+                    spinnerService.startSpinner(message);
                   });
                   var updatePayload = mapDataToUpdateKeystone();
                   return window.KS.$me.update(updatePayload).then(function () {
