@@ -747,10 +747,17 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   function memberOnlyAndSubmitted() {
-    if (!$scope.forms || !$scope.forms.details) {
+    if (!formSubmitted()) {
       return false;
     }
     return $scope.forms.details.$submitted && $scope.memberOnlyBooking;
+  }
+
+  function formSubmitted() {
+    if (!$scope.forms || !$scope.forms.details) {
+      return false;
+    }
+    return $scope.forms.details.$submitted;
   }
 
   $scope.userPasswordRequired = function () {
@@ -761,6 +768,9 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.userPasswordInvalid = function () {
+    if (!formSubmitted()) {
+      return false;
+    }
     if (!$scope.forms.details.$submitted) {
       return false;
     }
@@ -768,6 +778,9 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.userPasswordConfirmationRequired = function () {
+    if (!formSubmitted()) {
+      return false;
+    }
     if (!$scope.forms.details.$submitted) {
       return false;
     }
@@ -778,6 +791,9 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.userPasswordMismatch = function () {
+    if (!formSubmitted()) {
+      return false;
+    }
     if (!$scope.forms.details.$submitted) {
       return false;
     }
