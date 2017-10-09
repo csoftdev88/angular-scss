@@ -737,6 +737,9 @@ angular.module('mobius.controllers.reservation', [])
    * Whether to show a hint on password requirements before submitting the form
    * */
   $scope.userPasswordInvalidHint = function () {
+    if (!$scope.forms || !$scope.forms.details) {
+      return false;
+    }
     if ($scope.forms.details.$submitted || $scope.profile.userPassword === '') {
       return false;
     }
@@ -744,6 +747,9 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   function memberOnlyAndSubmitted() {
+    if (!$scope.forms || !$scope.forms.details) {
+      return false;
+    }
     return $scope.forms.details.$submitted && $scope.memberOnlyBooking;
   }
 
