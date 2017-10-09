@@ -12,7 +12,7 @@
       // Use an inlined template to avoid having to replicate across all targets
       template: '<div id="fullscreen-spinner" ng-show="vm.spinner.show">' +
       '  <div class="fullscreen-spinner__message">{{ vm.spinner.message }}</div>' +
-      '  <div class="fullscreen-spinner__spinner sk-three-bounce">' +
+      '  <div class="fullscreen-spinner__spinner">' +
       '    <div class="fullscreen-spinner__dot dot1"></div>' +
       '    <div class="fullscreen-spinner__dot dot2"></div>' +
       '    <div class="fullscreen-spinner__dot dot3"></div>' +
