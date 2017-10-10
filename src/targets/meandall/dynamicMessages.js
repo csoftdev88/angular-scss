@@ -39,7 +39,7 @@ angular.module('mobiusApp.dynamicMessages', [])
     'you_have_added_passbook': '<div>Sie haben Ihre Reservierung zum Passbook erfolgreich hinzugefügt.</div>',
     'sorry_could_not_add_passbook':'<div>Entschuldigung, wir konnten keine Reservierung zum Sparbuch hinzufügen, bitte versuchen Sie es erneut.</div>',
     'exact_dates':'Genaue Daten',
-    'days':'tage',
+    'days':'Tage',
     'cancel':'Stornierung',
     'cancellation':'Stornierung',
     'checkinout':'Einchecken / Auschecken',
