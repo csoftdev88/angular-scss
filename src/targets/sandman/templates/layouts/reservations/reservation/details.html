@@ -1,4 +1,22 @@
 <reservation-details-form id="reservationDetailsForm">
+  <div class="FlowTypeSelector"
+       ng-if="useAlternateBookingFlow &&
+              !auth.isLoggedIn() &&
+              !$stateParams.reservation">
+    <label>
+      <input type="radio"
+             ng-model="flowType.showLogin"
+             ng-value="false" />
+      New user
+    </label>
+    <label>
+      <input type="radio"
+             ng-model="flowType.showLogin"
+             ng-change="flowTypeChanged()"
+             ng-value="true" />
+      Existing member
+    </label>
+  </div>
   <div>
     <h3 ng-if="useAlternateBookingFlow &&
             !auth.isLoggedIn() &&
@@ -196,9 +214,20 @@
         <span ng-show="forms.details.$submitted && forms.details.country.$error">_country_label_</span>
       </label>
 
-      <div class="CreateUser__password-container"
-           ng-if="useAlternateBookingFlow && !auth.isLoggedIn() && !$stateParams.reservation && memberOnlyBooking">
-        <div class="CreateUser__explanation">_create_account_title_required_ _create_account_text_required_</div>
+      <div ng-if="!auth.isLoggedIn()"
+           class="CreateUser__password-container">
+        <div ng-if="useAlternateBookingFlow &&
+                    !$stateParams.reservation &&
+                    memberOnlyBooking"
+             class="CreateUser__explanation">
+          _create_account_title_required_. _create_account_text_required_
+        </div>
+        <div ng-if="!useAlternateBookingFlow ||
+                    $stateParams.reservation ||
+                    !memberOnlyBooking"
+             class="CreateUser__explanation">
+          _create_account_title_. _create_account_text_
+        </div>
         <label for="password">
           <input class="CreateUser__password"
                  id="password"
@@ -255,53 +284,5 @@
 
       <input type="submit" id="submit" value="_submit_" ng-hide="true"/>
     </form>
-
-    <div ng-if="!auth.isLoggedIn() && !$stateParams.reservation"
-         class="MemberLogin__title">
-      _existing_members_login_
-    </div>
-
-    <form class="MemberLogin"
-          novalidate
-          ng-if="!auth.isLoggedIn() && !$stateParams.reservation">
-
-      <div class="MemberLogin__subtitle">_login_prompt_</div>
-      <div class="MemberLogin__panel">
-        <img class="MemberLogin__logo" src="/static/images/apple-touch-icon-72x72.png">
-
-        <div class="MemberLogin__fields">
-          <input type="email"
-                 id="email-login"
-                 required
-                 placeholder="_email_label_"
-                 ng-model="userDetails.loginEmail"
-                 autocomplete="email"
-                 ng-class="{'invalid-input': loginPasswordIncorrect}"
-                 name="email"
-                 email-check/>
-
-          <input class="MemberLogin__password"
-                 type="password"
-                 ng-class="{'invalid-input': loginPasswordIncorrect}"
-                 placeholder="_password_label_"
-                 ng-model="userDetails.loginPassword">
-
-          <div class="MemberLogin__forgot-password"
-               ng-click="showResetPassword()">
-            _forgot_password_label_
-          </div>
-        </div>
-        <button class="button MemberLogin__login"
-                ng-disabled="!userDetails.email || !userDetails.loginPassword"
-                ng-click="attemptLogin()">
-          _login_
-        </button>
-      </div>
-      <div class="MemberLogin__error"
-           ng-show="loginPasswordIncorrect">
-        _incorrect_email_password_error_
-      </div>
-    </form>
-
   </div>
 </reservation-details-form>

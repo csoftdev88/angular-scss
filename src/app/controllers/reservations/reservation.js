@@ -37,6 +37,25 @@ angular.module('mobius.controllers.reservation', [])
   $scope.profile.userPassword = '';
   $scope.profile.userPasswordConfirmation = '';
 
+  // Flow type controls whether we show the login modal
+  $scope.flowType = {
+    showLogin: false
+  };
+  $scope.showLoginModal = function () {
+    $scope.flowType.showLogin = true;
+    window.dispatchEvent(new CustomEvent('parent.request.login'));
+  };
+
+  $scope.flowTypeChanged = function () {
+    if ($scope.flowType.showLogin) {
+      $scope.showLoginModal();
+    }
+  };
+  function onKeystoneModalDismissed() {
+    $scope.flowType.showLogin = false;
+  }
+  $window.addEventListener('keystone.modal.dismissed', onKeystoneModalDismissed);
+
   $scope.requiredFieldsMissingError = false;
   $scope.userPasswordIncorrect = false;
   $scope.useAlternateBookingFlow = Settings.authType === 'keystone' &&
@@ -531,6 +550,7 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.$on('$destroy', function() {
     $stateChangeStartUnWatch();
+    $window.removeEventListener('keystone.modal.dismissed', onKeystoneModalDismissed);
   });
 
   $scope.state = $state;
