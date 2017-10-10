@@ -98,6 +98,8 @@ module.exports = {
         // jquery is a dependency on a lot of other scripts, ensure it is always loaded first
         'bower_components/jquery/dist/jquery.min.js',
         'bower_components/jquery-ui/dist/jquery-ui.js',
+        // include jquery-ui datepicker German translation file
+        'bower_components/jquery-ui/ui/i18n/datepicker-de.js',
         'vendors/chosen/chosen.jquery.min.js',
         'bower_components/circliful/js/jquery.circliful.min.js',
         'bower_components/raven-js/dist/raven.min.js',
