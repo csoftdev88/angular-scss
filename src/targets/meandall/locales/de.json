@@ -500,7 +500,7 @@
         "page_not_found_cta": "Klicken Sie hier, um zur  <a href='/'>Startseite</a> zurückzukehren",
         "hotels_page_title": "Unsere Hotels",
         "hotels_page_login_prompt_desc": "Sparen Sie bis zu 20 %, indem Sie sich <a href ng-click=‘auth.login()‘‘>anmelden</a> oder <a ng-click=‘auth.register()‘‘>registrieren</a>!",
-        "reservation_confirmation_message_desc": "Ihr Reservierungsnummer lautet {reservationNumber}.",
+        "reservation_confirmation_message_desc": "Ihre Reservierungsnummer lautet {reservationNumber}.",
         "reservation_confirmation_message_title": "Vielen Dank für Ihre Reservierung bei {hotelName}!<br/>Sie werden in Kürze eine E-Mail mit Ihrer Reservierungsnummer erhalten.",
         "reservaion_in_past_message": "Um diese Reservierung zu ändern kontaktieren Sie uns unter +49 211 54259 0 oder <a href='mailto:booking.duesseldorf@meandallhotels.com'>booking.duesseldorf@meandallhotels.com</a>",
         "footer_links_jobs": "Jobs",
