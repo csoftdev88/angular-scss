@@ -29,7 +29,10 @@ angular.module('mobius.controllers.reservation', [])
   $scope.canPayWithPoints = true;
   $scope.$stateParams = $stateParams;
   $scope.settings = Settings;
+
+  // FIXME: this state parameter is lost on page refresh! We need to re-evaluate this from the product code instead!
   $scope.memberOnlyBooking = $stateParams.memberOnly;
+
   $scope.profile = {};
   $scope.profile.userPassword = '';
   $scope.profile.userPasswordConfirmation = '';
@@ -50,7 +53,7 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.attemptLogin = function () {
     var loginDetails = {
-      Email: $scope.userDetails.email,
+      Email: $scope.userDetails.loginEmail,
       Password: $scope.userDetails.loginPassword
     };
     if (!loginDetails.Email || !loginDetails.Password) {
@@ -376,23 +379,27 @@ angular.module('mobius.controllers.reservation', [])
     }
     if (!Object.keys($scope.userDetails).length || isMobius) {
       // No fields are touched yet, prefiling
+      // Not true, actually the fields might have been touched here if the user logs in after filling the form...
       //waiting for countries
       $scope.$watch('profileCountries', function() {
         //overriding country name from /locales data using user data iso3 as infiniti country name doesn't match /locales country names
         var userCountry = getUserCountry(userData);
-        _.extend($scope.userDetails, {
-          title: userData.title || null,
-          firstName: userData.firstName || '',
-          lastName: userData.lastName || '',
-          email: userData.email || '',
-          address: userData.address1 || '',
-          city: userData.city || '',
-          stateProvince: userData.state,
-          localeCode: userCountry ? userCountry.code : '',
-          localeId: userCountry ? userCountry.id : '',
-          country: userCountry && userCountry.name || null,
-          zip: userData.zip || '',
-          phone: userData.tel1 || userData.tel2 || ''
+        // Use defaults with undefined (nulls are not handled the same by _.defaults)
+        // to ensure that any details manually input by the user are preserved
+        // but any untouched fields are populated
+        _.defaults($scope.userDetails, {
+          title: userData.title || undefined,
+          firstName: userData.firstName || undefined,
+          lastName: userData.lastName || undefined,
+          email: userData.email || undefined,
+          address: userData.address1 || undefined,
+          city: userData.city || undefined,
+          stateProvince: userData.state || undefined,
+          localeCode: userCountry ? userCountry.code : undefined,
+          localeId: userCountry ? userCountry.id : undefined,
+          country: userCountry && userCountry.name || undefined,
+          zip: userData.zip || undefined,
+          phone: userData.tel1 || userData.tel2 || undefined
         });
         $scope.userDetails.emailFromApi = !!userData.email;
       });
@@ -746,18 +753,18 @@ angular.module('mobius.controllers.reservation', [])
     return !$scope.isValidKeystonePassword.test($scope.profile.userPassword);
   };
 
-  function memberOnlyAndSubmitted() {
-    if (!formSubmitted()) {
-      return false;
-    }
-    return $scope.forms.details.$submitted && $scope.memberOnlyBooking;
-  }
-
   function formSubmitted() {
     if (!$scope.forms || !$scope.forms.details) {
       return false;
     }
     return $scope.forms.details.$submitted;
+  }
+
+  function memberOnlyAndSubmitted() {
+    if (!formSubmitted()) {
+      return false;
+    }
+    return $scope.forms.details.$submitted && $scope.memberOnlyBooking;
   }
 
   $scope.userPasswordRequired = function () {
@@ -771,17 +778,11 @@ angular.module('mobius.controllers.reservation', [])
     if (!formSubmitted()) {
       return false;
     }
-    if (!$scope.forms.details.$submitted) {
-      return false;
-    }
     return $scope.profile.userPassword !== '' && !$scope.isValidKeystonePassword.test($scope.profile.userPassword);
   };
 
   $scope.userPasswordConfirmationRequired = function () {
     if (!formSubmitted()) {
-      return false;
-    }
-    if (!$scope.forms.details.$submitted) {
       return false;
     }
     if ($scope.profile.userPassword === '') {
@@ -792,9 +793,6 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.userPasswordMismatch = function () {
     if (!formSubmitted()) {
-      return false;
-    }
-    if (!$scope.forms.details.$submitted) {
       return false;
     }
     if ($scope.profile.userPassword === '') {
@@ -820,7 +818,7 @@ angular.module('mobius.controllers.reservation', [])
               $scope.userPasswordMismatch()) {
 
               // If they filled in the email and password for login and clicked continue, attempt login first
-              if ($scope.userDetails.email && $scope.userDetails.loginPassword) {
+              if ($scope.userDetails.loginEmail && $scope.userDetails.loginPassword) {
                 $scope.attemptLogin().then(function () {
                   if ($scope.loginPasswordIncorrect) {
                     // Clear out the incorrect password

@@ -490,7 +490,7 @@
         "reservation_page_billing_title": "Complétez vos informations de facturation",
         "register_page_title": "Créez votre profil",
         "reservation_page_details_title": "COMPLÉTEZ VOS INFORMATIONS DE CLIENT",
-        "alternate_reservation_page_details_title": "Complétez vos informations de client ou Identifiez-vous",
+        "reservation_page_details_title_logged_out": "Complétez vos informations de client ou Identifiez-vous",
         "reservation_page_loginprompt_title": "Déjà inscrit?",
         "reservation_page_nextstay_title": "Votre prochain séjour",
         "reservation_page_futurestays_title": "Vos futurs séjours",

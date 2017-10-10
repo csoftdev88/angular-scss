@@ -492,7 +492,7 @@
     "register_page_title": "Create your Profile",
     "reservation_page_billing_title": "Fill out your billing information",
     "reservation_page_details_title": "FILL OUT YOUR GUEST INFORMATION",
-    "alternate_reservation_page_details_title": "Fill out your guest information or login below",
+    "reservation_page_details_title_logged_out": "Fill out your guest information or login below",
     "reservation_page_loginprompt_title": "Already Registered?",
     "reservation_page_nextstay_title": "Your Next Stay",
     "reservation_page_futurestays_title": "Your Future Stays",

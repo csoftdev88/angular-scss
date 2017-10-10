@@ -1,16 +1,14 @@
 <reservation-details-form id="reservationDetailsForm">
   <div>
-    <h3 ng-if="settings.authType === 'keystone' &&
+    <h3 ng-if="useAlternateBookingFlow &&
             !auth.isLoggedIn() &&
-            !$stateParams.reservation &&
-            settings.UI.alternateBookingFlow &&
-            settings.UI.alternateBookingFlow.enabled" ng-bind-html="'_alternate_reservation_page_details_title_' | mainHeaderStyle"></h3>
+            !$stateParams.reservation"
+        ng-bind-html="'_reservation_page_details_title_logged_out_' | mainHeaderStyle"></h3>
 
-    <h3 ng-if="settings.authType !== 'keystone' ||
+    <h3 ng-if="!useAlternateBookingFlow ||
             auth.isLoggedIn() ||
-            $stateParams.reservation ||
-            !settings.UI.alternateBookingFlow ||
-            !settings.UI.alternateBookingFlow.enabled" ng-bind-html="'_reservation_page_details_title_' | mainHeaderStyle"></h3>
+            $stateParams.reservation"
+        ng-bind-html="'_reservation_page_details_title_' | mainHeaderStyle"></h3>
 
     <!--
     <div id="form-errors" class="form-errors" ng-if="forms.details.$invalid  && forms.details.$submitted">
@@ -198,8 +196,8 @@
         <span ng-show="forms.details.$submitted && forms.details.country.$error">_country_label_</span>
       </label>
 
-      <div class="password-wrapper"
-           ng-if="useAlternateBookingFlow && !auth.isLoggedIn() && !$stateParams.reservation">
+      <div class="CreateUser__password-container"
+           ng-if="useAlternateBookingFlow && !auth.isLoggedIn() && !$stateParams.reservation && memberOnlyBooking">
         <div class="CreateUser__explanation">_create_account_title_required_ _create_account_text_required_</div>
         <label for="password">
           <input class="CreateUser__password"
@@ -258,14 +256,14 @@
       <input type="submit" id="submit" value="_submit_" ng-hide="true"/>
     </form>
 
-    <div ng-if="useAlternateBookingFlow && !auth.isLoggedIn() && !$stateParams.reservation"
+    <div ng-if="!auth.isLoggedIn() && !$stateParams.reservation"
          class="MemberLogin__title">
       _existing_members_login_
     </div>
 
     <form class="MemberLogin"
           novalidate
-          ng-if="useAlternateBookingFlow && !auth.isLoggedIn() && !$stateParams.reservation">
+          ng-if="!auth.isLoggedIn() && !$stateParams.reservation">
 
       <div class="MemberLogin__subtitle">_login_prompt_</div>
       <div class="MemberLogin__panel">
@@ -276,7 +274,7 @@
                  id="email-login"
                  required
                  placeholder="_email_label_"
-                 ng-model="userDetails.email"
+                 ng-model="userDetails.loginEmail"
                  autocomplete="email"
                  ng-class="{'invalid-input': loginPasswordIncorrect}"
                  name="email"
