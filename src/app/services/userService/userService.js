@@ -175,6 +175,9 @@ angular.module('mobiusApp.services.user', [])
             var headers = {};
             headers[HEADER_INFINITI_SSO] = getStoredUser().token;
             apiService.setHeaders(headers);
+
+            // Allow controllers to react to the login event
+            $rootScope.$broadcast('USER_LOGIN_EVENT');
             return authPromise.resolve(true);
           });
       } else {var customerId = getCustomerId();

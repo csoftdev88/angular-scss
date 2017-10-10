@@ -1,5 +1,6 @@
 //Service to store translations that need to be accessed by JS (all other translations are compiled into HTML from locales)
 
+// FIXME: this is so poor, please use ng-translate i18n...
 'use strict';
 
 angular.module('mobiusApp.dynamicMessages', [])
@@ -35,7 +36,10 @@ angular.module('mobiusApp.dynamicMessages', [])
       'group_code': 'Group code',
       'apply_code': 'Enter a code',
       'select_property': 'Find Your Hotel',
-      'find_your_hotel': 'Find Your Hotel'
+      'find_your_hotel': 'Find Your Hotel',
+      'logging_in': 'Logging you in',
+      'registering': 'Creating your Sandman account',
+      'updating_account': 'Updating your Sandman account'
     },
     'de': {
       'your_reservation': '<div>Ihre Reservierung <strong>',
@@ -95,6 +99,9 @@ angular.module('mobiusApp.dynamicMessages', [])
       'group_code': 'Code groupe',
       'apply_code': 'Enter a code',
       'select_property': 'Find Your Hotel',
-      'find_your_hotel': 'Trouver votre hôtel'
+      'find_your_hotel': 'Trouver votre hôtel',
+      'logging_in': 'Connexion en cours',
+      'registering': 'Compte Sandman en cours de création',
+      'updating_account': 'Mise à jour de votre compte Sandman'
     }
   });

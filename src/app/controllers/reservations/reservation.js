@@ -8,12 +8,18 @@ angular.module('mobius.controllers.reservation', [])
   $controller, $window, $state, bookingService, Settings, $log,
   reservationService, preloaderFactory, modalService, user,
   $rootScope, userMessagesService, propertyService, $q, cookieFactory, sessionDataService,
-  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, contentService, apiService, userObject, chainService, previousSearchesService,
-  metaInformationService, $location, stateService, mobiusTrackingService, infinitiEcommerceService, infinitiApeironService, routerService, channelService, campaignsService, locationService, roomUpgradesService) {
+  creditCardTypeService, breadcrumbsService, _, scrollService, $timeout, dataLayerService, contentService, apiService,
+  userObject, chainService, previousSearchesService, metaInformationService, $location, stateService,
+  mobiusTrackingService, infinitiEcommerceService, infinitiApeironService, routerService, channelService,
+  campaignsService, locationService, roomUpgradesService, DynamicMessages, spinnerService) {
 
   $controller('RatesCtrl', {
     $scope: $scope
   });
+
+  // Get dynamic translations :'(
+  var appLang = stateService.getAppLanguageCode();
+  var dynamicMessages = appLang && DynamicMessages && DynamicMessages[appLang];
 
   $scope.chain = {};
   $scope.chainName = Settings.UI.hotelDetails.chainPrefix;
@@ -22,13 +28,14 @@ angular.module('mobius.controllers.reservation', [])
   $scope.isMobile = stateService.isMobile();
   $scope.canPayWithPoints = true;
   $scope.$stateParams = $stateParams;
-  $scope.requiredFieldsMissingError = false;
   $scope.settings = Settings;
   $scope.memberOnlyBooking = $stateParams.memberOnly;
   $scope.profile = {};
   $scope.profile.userPassword = '';
-  $scope.userPasswordInvalid = false;
-  $scope.userPasswordRequired = false;
+  $scope.profile.userPasswordConfirmation = '';
+
+  $scope.requiredFieldsMissingError = false;
+  $scope.userPasswordIncorrect = false;
   $scope.useAlternateBookingFlow = Settings.authType === 'keystone' &&
     Settings.UI.alternateBookingFlow &&
     Settings.UI.alternateBookingFlow.enabled;
@@ -36,6 +43,31 @@ angular.module('mobius.controllers.reservation', [])
   var clickedSubmit = false;
 
   $scope.isValidKeystonePassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
+
+  $scope.showResetPassword = function () {
+    window.dispatchEvent(new CustomEvent('parent.request.forgotten-password', {detail: {email: $scope.userDetails.email}}));
+  };
+
+  $scope.attemptLogin = function () {
+    var loginDetails = {
+      Email: $scope.userDetails.email,
+      Password: $scope.userDetails.loginPassword
+    };
+    if (!loginDetails.Email || !loginDetails.Password) {
+      return;
+    }
+    $scope.loginPasswordIncorrect = false;
+    var message = dynamicMessages ? dynamicMessages.logging_in : 'Logging you in';
+    spinnerService.startSpinner(message);
+    return window.KS.$me.login(loginDetails)
+      .catch(function () {
+        $scope.loginPasswordIncorrect = true;
+      }).finally(function() {
+        $scope.$apply(function() {
+          spinnerService.stopSpinner();
+        });
+      });
+  };
 
   //If steps are at top of page we scroll to them, if they are in the widget we just scroll to top of page
   $scope.scrollReservationStepsPosition = $scope.bookingConfig.bookingStepsNav.showInReservationWidget ? 'top' : 'reservation-steps';
@@ -109,6 +141,10 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.$on('USER_LOGIN_EVENT', function() {
+    // Reset all errors
+    $scope.forms.details.$submitted = false;
+    $scope.userPasswordIncorrect = false;
+    $scope.invalidFormData.email = null;
     prefillUserDetails($scope.auth && $scope.auth.isLoggedIn() ? user.getUser() : {
       email: $stateParams.email
     }, true);
@@ -117,7 +153,7 @@ angular.module('mobius.controllers.reservation', [])
   function onAuthorized() {
     // Getting room/products data
     //
-    var roomsPromises = [];
+    var roomsPromises;
     var rooms;
     $scope.allRooms = [];
 
@@ -552,7 +588,6 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.isValid = function () {
-    $log.info('checking the validity', $scope.allRooms);
     if (!$scope.allRooms || !$scope.allRooms.length) {
       return false;
     }
@@ -698,6 +733,76 @@ angular.module('mobius.controllers.reservation', [])
     return updatePayload;
   }
 
+  /**
+   * Whether to show a hint on password requirements before submitting the form
+   * */
+  $scope.userPasswordInvalidHint = function () {
+    if (!$scope.forms || !$scope.forms.details) {
+      return false;
+    }
+    if ($scope.forms.details.$submitted || $scope.profile.userPassword === '') {
+      return false;
+    }
+    return !$scope.isValidKeystonePassword.test($scope.profile.userPassword);
+  };
+
+  function memberOnlyAndSubmitted() {
+    if (!formSubmitted()) {
+      return false;
+    }
+    return $scope.forms.details.$submitted && $scope.memberOnlyBooking;
+  }
+
+  function formSubmitted() {
+    if (!$scope.forms || !$scope.forms.details) {
+      return false;
+    }
+    return $scope.forms.details.$submitted;
+  }
+
+  $scope.userPasswordRequired = function () {
+    if (!memberOnlyAndSubmitted()) {
+      return false;
+    }
+    return $scope.profile.userPassword === '';
+  };
+
+  $scope.userPasswordInvalid = function () {
+    if (!formSubmitted()) {
+      return false;
+    }
+    if (!$scope.forms.details.$submitted) {
+      return false;
+    }
+    return $scope.profile.userPassword !== '' && !$scope.isValidKeystonePassword.test($scope.profile.userPassword);
+  };
+
+  $scope.userPasswordConfirmationRequired = function () {
+    if (!formSubmitted()) {
+      return false;
+    }
+    if (!$scope.forms.details.$submitted) {
+      return false;
+    }
+    if ($scope.profile.userPassword === '') {
+      return false;
+    }
+    return $scope.profile.userPasswordConfirmation === '';
+  };
+
+  $scope.userPasswordMismatch = function () {
+    if (!formSubmitted()) {
+      return false;
+    }
+    if (!$scope.forms.details.$submitted) {
+      return false;
+    }
+    if ($scope.profile.userPassword === '') {
+      return false;
+    }
+    return $scope.profile.userPassword !== $scope.profile.userPasswordConfirmation;
+  };
+
   $scope.continue = function() {
     switch ($state.current.name) {
       case 'reservation.details':
@@ -709,26 +814,28 @@ angular.module('mobius.controllers.reservation', [])
         // Ensure that the user has filled in a password and that it is valid for member only bookings
         // If it is a usual booking, then ensure that if a password has optionally been given, it is valid
         if (!$scope.auth.isLoggedIn()) {
-          if ($scope.memberOnlyBooking) {
-            if ($scope.profile.userPassword === '') {
-              $scope.userPasswordInvalid = false;
-              $scope.userPasswordRequired = true;
+            if ($scope.userPasswordRequired() ||
+              $scope.userPasswordInvalid() ||
+              $scope.userPasswordConfirmationRequired() ||
+              $scope.userPasswordMismatch()) {
+
+              // If they filled in the email and password for login and clicked continue, attempt login first
+              if ($scope.userDetails.email && $scope.userDetails.loginPassword) {
+                $scope.attemptLogin().then(function () {
+                  if ($scope.loginPasswordIncorrect) {
+                    // Clear out the incorrect password
+                    $scope.$apply(function () {
+                      $scope.userDetails.loginPassword = '';
+                    });
+
+                  }
+                });
+              }
               return;
-            }
-            if (!$scope.isValidKeystonePassword.test($scope.profile.userPassword)) {
-              $scope.userPasswordInvalid = true;
-              $scope.userPasswordRequired = false;
-              return;
-            }
-            $scope.userPasswordInvalid = false;
-            $scope.userPasswordRequired = false;
           } else {
-            $scope.userPasswordRequired = false;
-            if ($scope.profile.userPassword !== '' && !$scope.isValidKeystonePassword.test($scope.profile.userPassword)) {
-              $scope.userPasswordInvalid = true;
+            if ($scope.userPasswordInvalid() || $scope.userPasswordMismatch()) {
               return;
             }
-            $scope.userPasswordInvalid = false;
           }
         }
 
@@ -773,24 +880,63 @@ angular.module('mobius.controllers.reservation', [])
                 Password: mappedUser.Password
               };
 
-              var loginOrRegister = window.KS.$me.login(loginDetails).then(function () {
-                $log.info('User logged in successfully!');
-                proceed();
-              }, function () {
-                $log.info('Logging in failed, attempting register');
-                return window.KS.$me.register(mappedUser).then(function () {
-                  $log.info('User registered successfully!');
-                  proceed();
-                }, function (error) {
-                  $log.warn('Registering failed with error, check if email is taken, prompt user to verify their password', error);
+              // Attempt both login and register in case the email is already registered and the password matches
+              // We do this in parallel to accelerate the UX in the more common register case
+              $scope.userPasswordIncorrect = false;
+
+              var message = dynamicMessages ? dynamicMessages.registering : 'Creating your account';
+              spinnerService.startSpinner(message);
+
+              var loginP = window.KS.$me.login(loginDetails)
+                .then(function () {
+                  // User logged-in successfully
+                  $scope.$apply(function () {
+                    var message = dynamicMessages ? dynamicMessages.updating_account : 'Updating your account';
+                    spinnerService.startSpinner(message);
+                  });
+                  var updatePayload = mapDataToUpdateKeystone();
+                  return window.KS.$me.update(updatePayload).then(function () {
+                    $log.info('Successfully updated Keystone profile');
+                    return true;
+                  }, function (error) {
+                    $log.warn('Updating keystone profile failed!', error);
+                    return true;
+                  }).finally(function () {
+                    // Profile updates are optional, proceed in all cases
+                    $scope.$apply(function () {
+                      spinnerService.stopSpinner();
+                      proceed();
+                    });
+                  });
+                }, function () {
+                  // login failed
+                  return false;
                 });
+
+              var registerP = window.KS.$me.register(mappedUser)
+                .then(function () {
+                  // User registered successfully
+                  spinnerService.stopSpinner();
+                  proceed();
+                  return true;
+                }, function () {
+                  // register failed
+                  return false;
+                });
+
+              // Note that both promises have an error handler that resolves so no .catch() is needed here
+              return $q.all({
+                login: loginP,
+                register: registerP
+              }).then(function (results) {
+                if (results.login || results.register) {
+                  // already handled
+                  return;
+                }
+                // Both failed, meaning the account exists and the password is wrong
+                spinnerService.stopSpinner();
+                $scope.userPasswordIncorrect = true;
               });
-              console.log('Showing preloader...');
-              preloaderFactory(loginOrRegister);
-              loginOrRegister.finally(function () {
-                console.log('Hiding preloader');
-              });
-              return loginOrRegister;
             }
             proceed();
           }
