@@ -845,7 +845,7 @@ angular.module('mobius.controllers.reservation', [])
         }
 
         $scope.requiredFieldsMissingError = $scope.forms.details.$error &&
-                                            $scope.forms.details.required &&
+                                            $scope.forms.details.$error.required &&
                                             $scope.forms.details.$error.required.length > 0;
 
         if ($scope.isValid()) {
