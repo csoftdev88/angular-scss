@@ -70,27 +70,6 @@ angular.module('mobius.controllers.reservation', [])
     window.dispatchEvent(new CustomEvent('parent.request.forgotten-password', {detail: {email: $scope.userDetails.email}}));
   };
 
-  $scope.attemptLogin = function () {
-    var loginDetails = {
-      Email: $scope.userDetails.loginEmail,
-      Password: $scope.userDetails.loginPassword
-    };
-    if (!loginDetails.Email || !loginDetails.Password) {
-      return;
-    }
-    $scope.loginPasswordIncorrect = false;
-    var message = dynamicMessages ? dynamicMessages.logging_in : 'Logging you in';
-    spinnerService.startSpinner(message);
-    return window.KS.$me.login(loginDetails)
-      .catch(function () {
-        $scope.loginPasswordIncorrect = true;
-      }).finally(function() {
-        $scope.$apply(function() {
-          spinnerService.stopSpinner();
-        });
-      });
-  };
-
   //If steps are at top of page we scroll to them, if they are in the widget we just scroll to top of page
   $scope.scrollReservationStepsPosition = $scope.bookingConfig.bookingStepsNav.showInReservationWidget ? 'top' : 'reservation-steps';
 
@@ -836,19 +815,6 @@ angular.module('mobius.controllers.reservation', [])
               $scope.userPasswordInvalid() ||
               $scope.userPasswordConfirmationRequired() ||
               $scope.userPasswordMismatch()) {
-
-              // If they filled in the email and password for login and clicked continue, attempt login first
-              if ($scope.userDetails.loginEmail && $scope.userDetails.loginPassword) {
-                $scope.attemptLogin().then(function () {
-                  if ($scope.loginPasswordIncorrect) {
-                    // Clear out the incorrect password
-                    $scope.$apply(function () {
-                      $scope.userDetails.loginPassword = '';
-                    });
-
-                  }
-                });
-              }
               return;
           } else {
             if ($scope.userPasswordInvalid() || $scope.userPasswordMismatch()) {
