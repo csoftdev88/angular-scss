@@ -6,7 +6,7 @@
     "angular-bootstrap": "=0.13.0",
     "angular-growl-v2": "~0.6.1",
     "angular-ui-router": "~0.2.14",
-    "angular-chosen-js": "^1.3.3",
+    "angular-chosen-js": "https://github.com/2PVentures/angular-chosen/archive/1.4.0.tar.gz",
     "jquery": "~2.1.4",
     "jquery-ui": "git://github.com/2PVentures/jquery-ui#master",
     "moment": "~2.10.3",

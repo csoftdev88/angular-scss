@@ -183,7 +183,8 @@
                 ng-model="userDetails.localeId"
                 name="country"
                 autocomplete="country-name"
-                chosen>
+                chosen
+                search-contains="false">
           <option value="">_country_label_</option>
         </select>
         <span ng-hide="forms.details.$submitted && forms.details.country.$error">_country_label_</span>
@@ -366,7 +367,8 @@
                 ng-model="userDetails.localeId"
                 name="country"
                 autocomplete="country-name"
-                chosen>
+                chosen
+                search-contains="false">
         </select>
         <span ng-hide="forms.details.$submitted && forms.details.country.$error">_country_label_</span>
         <span ng-show="forms.details.$submitted && forms.details.country.$error">_country_label_</span>
