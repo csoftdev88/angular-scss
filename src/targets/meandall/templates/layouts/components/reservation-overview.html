@@ -122,7 +122,7 @@
         <tr class="breakdown-toggle" ng-show="bookingConfig.priceBreakdownExtended">
           <th><button ng-if="bookingConfig.backButtonInForm" class="back" ng-click="goBack()">_back_</button></th>
           <td>
-            <a ng-if="bookingConfig.policiesLinkBottom" ng-href="{{bookingConfig.termsAndConditionsLink}}" ng-click="readPolicies()" target="_blank">_policies_</a>
+            <a ng-if="bookingConfig.policiesLinkBottom" href="_terms_and_conditions_link_" ng-click="readPolicies()" target="_blank">_policies_</a>
             <span ng-show="!noBreakdown">
               <span class="separator" ng-if="bookingConfig.policiesLinkBottom"> | </span>
               <a href ng-click="breakdownExtended = !breakdownExtended">
@@ -155,7 +155,7 @@
   <div ng-if="!bookingConfig.detailsBeforeForm && state.includes('reservation.confirmation')">
     <label for="agreement1" class="input-checkbox">
       <input type="checkbox" id="agreement1" ng-model="additionalInfo.agree"/>
-      _i_agree_to_ <a ng-href="{{bookingConfig.termsAndConditionsLink}}" ng-click="readPolicies()" target="_blank">_terms_conditions_</a>
+      _i_agree_to_ <a href="_terms_and_conditions_link_" ng-click="readPolicies()" target="_blank">_terms_conditions_</a>
     </label>
     <label for="agreement2" class="input-checkbox">
       <input type="checkbox" id="agreement2" ng-model="additionalInfo.optedIn"/>

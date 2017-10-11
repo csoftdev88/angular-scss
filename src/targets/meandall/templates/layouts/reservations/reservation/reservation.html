@@ -105,7 +105,7 @@
             <div ng-if="bookingConfig.detailsBeforeForm && state.includes('reservation.confirmation')">
               <label for="agreement1" class="input-checkbox">
                 <input type="checkbox" id="agreement1" ng-model="additionalInfo.agree"/>
-                _i_agree_to_ <a ng-href="{{bookingConfig.termsAndConditionsLink}}" class="terms-link" ng-click="readPolicies()" target="_blank">_terms_conditions_</a>
+                _i_agree_to_ <a href="_terms_and_conditions_link_" class="terms-link" ng-click="readPolicies()" target="_blank">_terms_conditions_</a>
               </label>
               <label ng-if="!bookingConfig.hideNewsletterCheckboxIfSelected || (bookingConfig.hideNewsletterCheckboxIfSelected && !additionalInfo.optedIn)" for="agreement2" class="input-checkbox">
                 <input type="checkbox" id="agreement2" ng-model="additionalInfo.optedIn"/>
