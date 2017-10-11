@@ -212,6 +212,20 @@
         </div>
 
         <div ng-if="!billingDetails.useGuestAddress && uiConfig.reservations.tempHackBillingFormReorder">
+          <label for="company" ng-if="bookingConfig.includeCompanyForBilling">
+            <input type="text"
+                   id="company"
+                   placeholder="_company_placeholder_"
+                   ng-model="billingDetails.company"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="company"/>
+            <span>
+                <span ng-hide="forms.billing.$submitted && forms.billing.company.$error">_company_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.company.$error && !forms.billing.company.$error.pattern">_company_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.company.$error.pattern">_company_pattern_error_</span>
+              </span>
+          </label>
+
           <label for="address">
             <input type="text"
                    id="address"
@@ -224,20 +238,6 @@
                 <span ng-hide="forms.billing.$submitted && forms.billing.address.$error">_address_label_</span>
                 <span ng-show="forms.billing.$submitted && forms.billing.address.$error && !forms.billing.address.$error.pattern">_address_label_</span>
                 <span ng-show="forms.billing.$submitted && forms.billing.address.$error.pattern">_address_pattern_error_</span>
-              </span>
-          </label>
-
-          <label for="company" ng-if="bookingConfig.includeCompanyForBilling">
-            <input type="text"
-                   id="company"
-                   placeholder="_company_placeholder_"
-                   ng-model="billingDetails.company"
-                   ng-pattern="$root.generalValidationPattern"
-                   name="company"/>
-            <span>
-                <span ng-hide="forms.billing.$submitted && forms.billing.company.$error">_company_label_</span>
-                <span ng-show="forms.billing.$submitted && forms.billing.company.$error && !forms.billing.company.$error.pattern">_company_label_</span>
-                <span ng-show="forms.billing.$submitted && forms.billing.company.$error.pattern">_company_pattern_error_</span>
               </span>
           </label>
 
