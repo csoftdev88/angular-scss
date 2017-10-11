@@ -256,7 +256,7 @@
             </span>
           </label>
 
-          <label for="city"class="input-right">
+          <label for="city" class="input-right">
             <input type="text"
                    id="city"
                    required
@@ -268,21 +268,6 @@
                 <span ng-hide="forms.billing.$submitted && forms.billing.city.$error">_city_label_</span>
                 <span ng-show="forms.billing.$submitted && forms.billing.city.$error && !forms.billing.city.$error.pattern">_city_label_</span>
                 <span ng-show="forms.billing.$submitted && forms.billing.city.$error.pattern">_city_pattern_error_</span>
-              </span>
-          </label>
-
-          <label for="state">
-            <input type="text"
-                   id="state"
-                   ng-required="bookingConfig.billingStateRequired"
-                   placeholder="_state_placeholder_"
-                   ng-model="billingDetails.stateProvince"
-                   ng-pattern="$root.generalValidationPattern"
-                   name="state"/>
-            <span>
-                <span ng-hide="forms.billing.$submitted && forms.billing.state.$error">_state_label_</span>
-                <span ng-show="forms.billing.$submitted && forms.billing.state.$error && !forms.billing.state.$error.pattern">_state_label_</span>
-                <span ng-show="forms.billing.$submitted && forms.billing.state.$error.pattern">_state_pattern_error_</span>
               </span>
           </label>
 
