@@ -131,7 +131,7 @@
 
     <header ng-if="!isMobile && viewSettings.compareView && viewSettings.compareView.displayHeader" class="compare-rooms-header" ng-attr-id="{{viewSettings.scrollToCompare ? 'jsRooms' : undefined}}">
       <h2 ng-bind-html="'_rooms_title_' | mainHeaderStyle"></h2>
-      <button-submit ng-click="selectDates()">
+      <button-submit ng-click="selectDates()" class="button-border-white">
         <span ng-if="!hasDates()">_select_dates_</span>
         <span ng-if="hasDates()">_change_dates_</span>
       </button-submit>

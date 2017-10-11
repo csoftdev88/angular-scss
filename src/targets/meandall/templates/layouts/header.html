@@ -468,7 +468,7 @@
             <li><a href="" ui-sref="register" ng-click="auth.clearErrors(); auth.login(); retentionClick()">_register_now_</a></li>
           </ul>
 
-          <button-submit role="button" tabindex="0" ng-click="doLogin(loginForm, loginData); retentionClick()">_login_</button-submit>
+          <button-submit role="button" tabindex="0" ng-click="doLogin(loginForm, loginData); retentionClick()" class="button-border-white">_login_</button-submit>
         </form>
 
         <form name="resetForm" class="reset-form" novalidate>
@@ -487,7 +487,7 @@
 
           </fieldset>
 
-          <button-submit role="button" tabindex="0" ng-click="auth.reset(resetForm, resetData); retentionClick()">_reset_password_</button-submit>
+          <button-submit role="button" tabindex="0" ng-click="auth.reset(resetForm, resetData); retentionClick()" class="button-border-white">_reset_password_</button-submit>
         </form>
 
       </div>
