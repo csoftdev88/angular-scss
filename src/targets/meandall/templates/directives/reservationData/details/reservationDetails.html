@@ -94,15 +94,10 @@
                 <!-- <th>Room Charges: {{reservation.paymentMethod}}</th> -->
                 <th>_room_charges_: </th>
                 <td>{{getPrice() | i18nCurrency: currencyCode}}</td>
-                <th rowspan="3" class="total">_total_:</th>
-
-                <td rowspan="3" class="total-value">
-                  {{getPriceAfterTax() | i18nCurrency: currencyCode}}
-                </td>
               </tr>
 
               <!-- Additional taxes -->
-              <tr>
+              <tr ng-if="getTax() > 0">
                 <th class="tax">_taxes_:</th>
                 <td class="tax">{{getTax() | i18nCurrency: currencyCode}}</td>
               </tr>
@@ -111,6 +106,13 @@
               <tr ng-if="reservation.discount">
                 <th>_discount_:</th>
                 <td>{{reservation.discount | i18nCurrency: currencyCode}}</td>
+              </tr>
+
+              <tr>
+                <th class="total">_total_:</th>
+                <td class="total-value">
+                  {{getPriceAfterTax() | i18nCurrency: currencyCode}}
+                </td>
               </tr>
             </tbody>
 
