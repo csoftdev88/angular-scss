@@ -1,8 +1,19 @@
 'use strict';
 
 angular.module('mobiusApp.directives.growlAlerts', [])
-  .directive('growlAlerts', ['growl', '$rootScope', '$timeout', '$location', 'modalService', 'Settings', 'dataLayerService', 'stateService', 'DynamicMessages',
-    function(growl, $rootScope, $timeout, $location, modalService, Settings, dataLayerService, stateService, DynamicMessages) {
+  .directive('growlAlerts', ['_', 'growl', '$rootScope', '$timeout', '$location', 'modalService', 'Settings', 'dataLayerService', 'stateService', 'DynamicMessages',
+    function(_, growl, $rootScope, $timeout, $location, modalService, Settings, dataLayerService, stateService, DynamicMessages) {
+
+      // NOTE: As we navigate pages, the new growAlerts controller runs before the old one is destroyed
+      // This means we need to proactively remove event handlers from the previous controller
+      // instead of relying on angular tidying up for us
+      var removeCodeAddedListener = function () {};
+      var removeRetentionGrowlListener = function () {};
+      var removeStatsGrowlListener = function () {};
+      var removeAlternateProductListener = function () {};
+      var removeLanguageGrowlListener = function () {};
+      var removeRoomUpgradeListener = function () {};
+
       return {
         restrict: 'E',
         scope: {
@@ -30,10 +41,11 @@ angular.module('mobiusApp.directives.growlAlerts', [])
         },
         templateUrl: 'directives/growlAlerts/growlAlerts.html',
 
-        link: function(scope) {
+        controller: function($scope) {
+
           var bookingStatsConfig = {
-            referenceId: scope.positionReference ? scope.positionReference : 0,
-            ttl: scope.displayTime ? scope.displayTime : 10000,
+            referenceId: $scope.positionReference ? $scope.positionReference : 0,
+            ttl: $scope.displayTime ? $scope.displayTime : 10000,
             disableIcons: true
           };
 
@@ -69,11 +81,12 @@ angular.module('mobiusApp.directives.growlAlerts', [])
           var dynamicMessages = appLang && DynamicMessages && DynamicMessages[appLang] ? DynamicMessages[appLang] : null;
 
           //add statistics growl alert listener
-          scope.$on('STATS_GROWL_ALERT', function (event, statistic) {
-            if(scope.displayDelay){
+          removeStatsGrowlListener();
+          removeStatsGrowlListener = $scope.$on('STATS_GROWL_ALERT', function (event, statistic) {
+            if($scope.displayDelay){
               $timeout(function(){
                 growl.info(getStatsIcon(statistic) + '<p>' + formatStatsMessage(statistic) + '</p>', bookingStatsConfig);
-              }, scope.displayDelay);
+              }, $scope.displayDelay);
             }
             else {
               $timeout(function () {
@@ -84,44 +97,39 @@ angular.module('mobiusApp.directives.growlAlerts', [])
 
           $rootScope.retentionAlertFired = false;
 
-          //add retention growl alert listener
-          scope.$on('RETENTION_GROWL_ALERT_BROADCAST', function (event, retentionMessage) {
-            //Prevent alert displaying twice
-            destroyRetentionGrowlListener();
 
+
+          //add retention growl alert listener
+          removeRetentionGrowlListener();
+          removeRetentionGrowlListener = $scope.$on('RETENTION_GROWL_ALERT_BROADCAST', function (event, retentionMessage) {
             if(!$rootScope.retentionAlertFired) {
               $rootScope.retentionAlertFired = true;
               if(retentionMessage && retentionMessage.telephone){
                 $timeout(function () {
-                  scope.retentionMessage = scope.retentionMessage.split('(singlequote)').join('&#39;'); //This is the only way to pass through apostrophe's
-                  growl.info('<i class="fa fa-phone"></i>' + '<p>' + scope.retentionMessage + ' ' + retentionMessage.telephone + '</p>', retentionPromptConfig);
+                  $scope.retentionMessage = $scope.retentionMessage.split('(singlequote)').join('&#39;'); //This is the only way to pass through apostrophe's
+                  growl.info('<i class="fa fa-phone"></i>' + '<p>' + $scope.retentionMessage + ' ' + retentionMessage.telephone + '</p>', retentionPromptConfig);
                 });
               }
             }
           });
 
-          scope.$on('$destroy', function() {
-            destroyRetentionGrowlListener();
-          });
-
-          //destroy existing alt products growl alert listeners
-          scope.$on('ALTERNATIVE_PRODUCT_ALERT_BROADCAST', function (){});
-
           //add alt products growl alert listener
-          scope.$on('ALTERNATIVE_PRODUCT_ALERT_BROADCAST', function(event, room, product, products) {
-            if(product){
-              $timeout(function () {
-                altProductsPromptConfig.variables = {};
-                altProductsPromptConfig.variables.room = room;
-                altProductsPromptConfig.variables.product = product;
-                altProductsPromptConfig.variables.products = products;
-                growl.info('<i class="fa fa-check-circle"></i><p>' + scope.altProductsMessage + '</p>', altProductsPromptConfig);
+          removeAlternateProductListener();
+          removeAlternateProductListener = $scope.$on('ALTERNATIVE_PRODUCT_ALERT_BROADCAST',
+            function (event, room, product, products) {
+              if (product) {
+                $timeout(function () {
+                  altProductsPromptConfig.variables = {};
+                  altProductsPromptConfig.variables.room = room;
+                  altProductsPromptConfig.variables.product = product;
+                  altProductsPromptConfig.variables.products = products;
+                  growl.info('<i class="fa fa-check-circle"></i><p>' + $scope.altProductsMessage + '</p>', altProductsPromptConfig);
 
-                //Track the display of alt products notifcation in dataLayer
-                dataLayerService.trackAltDisplayNotification('Rates');
-              });
-            }
-          });
+                  //Track the display of alt products notifcation in dataLayer
+                  dataLayerService.trackAltDisplayNotification('Rates');
+                });
+              }
+            });
 
           //It's not ideal using rootScope for this but it avoids making changes to the bower angular-growl directive as it has an isolated scope
           //Also means this is more likely to be futureproof if angular-growl bower is updated
@@ -130,35 +138,38 @@ angular.module('mobiusApp.directives.growlAlerts', [])
           };
 
           //If french override enabled and we are on a quebec page add our language growl alert listener
+          removeLanguageGrowlListener();
+          removeLanguageGrowlListener = function () {};
           if(Settings.sandmanFrenchOverride) {
             var currentURL = $location.path();
             if(currentURL.indexOf('/locations/quebec') !== -1) {
-              scope.$on('LANGUAGE_GROWL_ALERT', function () {
+              removeLanguageGrowlListener = $scope.$on('LANGUAGE_GROWL_ALERT', function () {
                 $timeout(function(){
-                  growl.info('<i class="fa fa-check-circle"></i>' + '<p>' + scope.languagesMessage + '</p>', languagePromptConfig);
+                  growl.info('<i class="fa fa-check-circle"></i>' + '<p>' + $scope.languagesMessage + '</p>', languagePromptConfig);
                 });
               });
             }
           }
 
-          scope.$on('ROOM_UPGRADE_GROWL_ALERT', function (event, type){
+          removeRoomUpgradeListener();
+          removeRoomUpgradeListener = $scope.$on('ROOM_UPGRADE_GROWL_ALERT', function (event, type) {
             var upgradeMessage = '';
             var icon = 'fa-check-circle';
 
             //Retrieve our upgrade message based on the notification type
             switch(type) {
               case 'success':
-                upgradeMessage = scope.roomUpgradeSuccess;
+                upgradeMessage = $scope.roomUpgradeSuccess;
                 break;
               case 'failure':
                 icon = 'fa-exclamation-circle';
-                upgradeMessage = scope.roomUpgradeFailure;
+                upgradeMessage = $scope.roomUpgradeFailure;
                 break;
               case 'increase':
-                upgradeMessage = scope.roomUpgradeIncrease;
+                upgradeMessage = $scope.roomUpgradeIncrease;
                 break;
               case 'decrease':
-                upgradeMessage = scope.roomUpgradeDecrease;
+                upgradeMessage = $scope.roomUpgradeDecrease;
                 break;
               default:
                 upgradeMessage = '';
@@ -170,11 +181,8 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             });
           });
 
-          //destroy existing code alert growl alert listeners
-          scope.$on('CODE_ADDED_GROWL_ALERT_BROADCAST', function (){});
-
           //Growl alert for when promo / corp / group codes are added
-          scope.$on('CODE_ADDED_GROWL_ALERT_BROADCAST', function (event, type){
+          var onCodeAdded = function (event, type) {
             var message = '';
             if(dynamicMessages){
               if(type === 'groupCode'){
@@ -190,14 +198,16 @@ angular.module('mobiusApp.directives.growlAlerts', [])
                 growl.success('<i class="fa fa-check"></i><p>' + message + '</p>', bookingCodeAddedPromptConfig);
               });
             }
-          });
+          };
 
-          function destroyRetentionGrowlListener(){
-            //destroy existing retention growl alert listeners
-            scope.$on('RETENTION_GROWL_ALERT_BROADCAST', function (){});
-          }
+          removeCodeAddedListener();
 
-          function getStatsIcon(statistic){
+          // Debounce this as there are many code paths emitting the CODE_ADDED_GROWL_ALERT_BROADCAST
+          // event in a rapid succession
+          var onCodeAddedDebounced = _.debounce(onCodeAdded, 150);
+          removeCodeAddedListener = $scope.$on('CODE_ADDED_GROWL_ALERT_BROADCAST', onCodeAddedDebounced);
+
+          function getStatsIcon(statistic) {
             var iconHtml = '';
             switch(statistic.type) {
               case 'booking':
@@ -212,21 +222,21 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             return iconHtml;
           }
 
-          function getStatsUnit(statistic){
+          function getStatsUnit(statistic) {
             var unit = '';
             if(statistic.time.period === 1){
               switch(statistic.time.unit) {
                 case 'minutes':
-                  unit = scope.minute;
+                  unit = $scope.minute;
                   break;
                 case 'hours':
-                  unit = scope.hour;
+                  unit = $scope.hour;
                   break;
                 case 'days':
-                  unit = scope.day;
+                  unit = $scope.day;
                   break;
                 case 'weeks':
-                  unit = scope.week;
+                  unit = $scope.week;
                   break;
                 default:
                   unit = '';
@@ -235,16 +245,16 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             else{
               switch(statistic.time.unit) {
                 case 'minutes':
-                  unit = scope.minutes;
+                  unit = $scope.minutes;
                   break;
                 case 'hours':
-                  unit = scope.hours;
+                  unit = $scope.hours;
                   break;
                 case 'days':
-                  unit = scope.days;
+                  unit = $scope.days;
                   break;
                 case 'weeks':
-                  unit = scope.weeks;
+                  unit = $scope.weeks;
                   break;
                 default:
                   unit = '';
@@ -253,17 +263,17 @@ angular.module('mobiusApp.directives.growlAlerts', [])
             return unit;
           }
 
-          function formatStatsMessage(statistic){
+          function formatStatsMessage(statistic) {
             var message = '';
             switch(statistic.type) {
               case 'booking':
-                message = scope.bookingMessage;
+                message = $scope.bookingMessage;
                 break;
               case 'view':
-                message = scope.viewsMessage;
+                message = $scope.viewsMessage;
                 break;
               case 'search':
-                message = scope.searchesMessage;
+                message = $scope.searchesMessage;
                 break;
               default:
                 message = 'No message';

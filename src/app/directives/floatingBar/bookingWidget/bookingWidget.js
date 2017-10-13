@@ -516,7 +516,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         }
       }
 
-      $rootScope.$on('DATE_PICKER_MONTH_CHANGED', function(e, data){
+      var dateMonthChangedListener = $rootScope.$on('DATE_PICKER_MONTH_CHANGED', function(e, data) {
         var year = data.selectedYear;
         var month = (parseInt(data.selectedMonth, 10) + 1).toString();
         month = month.length === 1 ? '0' + month : month;
@@ -528,7 +528,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         scope.checkAvailability();
       });
 
-      $rootScope.$on('DATE_PICKER_BEFORE_SHOW_DAY', function(e, day){
+      var dateBeforeShowDayListener = $rootScope.$on('DATE_PICKER_BEFORE_SHOW_DAY', function(e, day) {
         if(scope.selectedOffer && scope.settings.checkOfferAvailabilityOnChange && scope.availability){
           if(!$window.moment(day).isBetween($window.moment(scope.selectedOffer.availableFrom).subtract(1, 'd'), scope.selectedOffer.availableTo, null, '[]')){
             scope.availability[$window.moment(day).format('YYYY-MM-DD')] = CLASS_NOT_AVAILABLE;
@@ -928,12 +928,14 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         scope.selected.property = undefined;
       });
 
-      scope.$on('$destroy', function(){
+      scope.$on('$destroy', function() {
         routeChangeListener();
         prefillListener();
         openMRBTabListener();
         selectAllPropertiesListener();
         openSRBTabListener();
+        dateMonthChangedListener();
+        dateBeforeShowDayListener();
       });
 
       function onPrefill(settings){
