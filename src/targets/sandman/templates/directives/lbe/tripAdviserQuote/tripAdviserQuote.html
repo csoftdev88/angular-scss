@@ -1,14 +1,16 @@
-<article class="TripAdviserQuote">
+<article ng-if="testimonial.review"
+         class="TripAdviserQuote">
 
-  <div class="TripAdviserQuote__author">
+  <div ng-if="testimonial.reviewer"
+       class="TripAdviserQuote__author">
 
     <div class="thumbnail">
-      <img ng-src="{{testimonial.reviewer.avatar}}" alt="review avatar">
+      <img ng-src="{{ testimonial.reviewer.avatar }}" alt="review avatar">
     </div>
 
     <div class="author-details">
-      <div class="name">{{testimonial.reviewer.name}}</div>
-      <div class="city">{{testimonial.reviewer.location}}</div>
+      <div class="name">{{ testimonial.reviewer.name }}</div>
+      <div class="city">{{ testimonial.reviewer.location }}</div>
     </div>
 
   </div>

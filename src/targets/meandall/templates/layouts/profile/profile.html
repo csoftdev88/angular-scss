@@ -191,7 +191,7 @@
 
       </fieldset>
 
-      <fieldset ng-if="config.tempMeandallFormHack">
+      <fieldset>
 
         <!-- email cannot be changed at present
         <form-element>
@@ -298,120 +298,6 @@
                   chosen
                   disable-search="true"
                   ng-required="config.formRequirments.contactMethod"
-                  placeholder-text-single="_prefered_contact_label_"
-                  ng-model="profileData.preferredContactMethodCode"
-                  ng-options="contact.id as contact.name for contact in profileContacts">
-          </select>
-        </form-element>
-
-      </fieldset>
-
-      <h2>_profile_page_contact_title_</h2>
-
-      <fieldset ng-if="!config.tempMeandallFormHack">
-
-        <!-- email cannot be changed at present
-        <form-element>
-          <label for="profileEmail">_email_label_</label>
-          <input
-            type="email"
-            id="profileEmail"
-            name="profileEmail"
-            ng-model="profileData.email"
-            email-check
-            ng-class="{'ng-submitted': form.$submitted && form.profileEmail.$error.emailCheck}"
-            readonly/>
-        </form-element>
-        -->
-
-        <form-element>
-          <label for="profileAddress1">_address_one_label_</label>
-          <input
-            type="text"
-            id="profileAddress1"
-            name="profileAddress1"
-            class="ProfileForm__input"
-            ng-model="profileData.address1"
-            ng-class="{'ng-submitted': form.$submitted && form.profileAddress1.$error.required}"
-            ng-pattern="$root.generalValidationPattern"/>
-        </form-element>
-
-        <form-element class="profile-address2">
-          <label for="profileAddress2">_address_two_label_</label>
-          <input
-            type="text"
-            id="profileAddress2"
-            name="profileAddress2"
-            class="ProfileForm__input"
-            ng-model="profileData.address2"
-            ng-class="{'ng-submitted': form.$submitted && form.profileAddress2.$error.required}"
-            ng-pattern="$root.generalValidationPattern"/>
-        </form-element>
-
-        <form-element>
-          <label for="profileCity">_city_label_</label>
-          <input
-            type="text"
-            id="profileCity"
-            name="profileCity"
-            class="ProfileForm__input"
-            ng-model="profileData.city"
-            ng-class="{'ng-submitted': form.$submitted && form.profileCity.$error.required}"
-            ng-pattern="$root.generalValidationPattern"/>
-        </form-element>
-
-        <form-element>
-          <label for="profileState">_state_label_</label>
-          <input
-            type="text"
-            id="profileState"
-            name="profileState"
-            class="ProfileForm__input"
-            ng-model="profileData.state"
-            ng-class="{'ng-submitted': form.$submitted && form.profileState.$error.required}"
-            ng-pattern="$root.generalValidationPattern"/>
-        </form-element>
-
-        <form-element ng-if="profileCountries">
-          <label for="profileCountry">_country_label_</label>
-          <select name="profileCountry" chosen
-                  disable-search="true"
-                  data-placeholder=""
-                  class="ProfileForm__input"
-                  ng-model="profileData.localeId"
-                  ng-options="country.id as country.name for country in profileCountries | orderBy:'name'">
-          </select>
-        </form-element>
-
-        <form-element>
-          <label for="profileZip">_postcode_label_</label>
-          <input
-            type="text"
-            id="profileZip"
-            name="profileZip"
-            class="ProfileForm__input"
-            ng-model="profileData.zip"
-            ng-class="{'ng-submitted': form.$submitted && form.profileZip.$error.required}"
-            ng-pattern="$root.generalValidationPattern"/>
-        </form-element>
-
-        <form-element>
-          <label for="profileTel">_phone_label_</label>
-          <input
-            type="text"
-            id="profileTel"
-            name="profileTel"
-            class="ProfileForm__input"
-            ng-model="profileData.tel1"
-            ng-class="{'ng-submitted': form.$submitted && form.profileTel.$error.required}"
-            ng-pattern="$root.generalValidationPattern"/>
-        </form-element>
-
-        <form-element ng-if="profileContacts">
-          <label for="profileContact">_prefered_contact_label_</label>
-          <select name="profileContact" required chosen
-                  disable-search="true"
-                  class="ProfileForm__input"
                   placeholder-text-single="_prefered_contact_label_"
                   ng-model="profileData.preferredContactMethodCode"
                   ng-options="contact.id as contact.name for contact in profileContacts">

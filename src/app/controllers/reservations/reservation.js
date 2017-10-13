@@ -1141,7 +1141,6 @@ angular.module('mobius.controllers.reservation', [])
       reservationData.billingAddress = $scope.billingDetails.address;
       reservationData.billingCity = $scope.billingDetails.city;
       reservationData.billingZip = $scope.billingDetails.zip;
-      reservationData.billingStateProvince = $scope.billingDetails.stateProvince;
       reservationData.billingPhone = $scope.billingDetails.phone;
       reservationData.billingCountry = $scope.billingDetails.country;
     }

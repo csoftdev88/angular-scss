@@ -57,7 +57,7 @@
     "continue_as_guest": "Continue as Guest",
     "reset_password": "Reset Password",
     "save_password": "Save Password",
-    "continue": "> Continue",
+    "continue": "Continue",
     "view_more": "View more",
     "view_room": "View Room",
     "read_more": "Read More",
@@ -558,6 +558,7 @@
     "faq": "Faq",
     "filter_dates": "Dates",
     "rate_not_available": "Sorry, the rate you are searching for is not available on these dates. Please select from one of the below rates.",
-    "book_now_floating_bar": "Book now"
+    "book_now_floating_bar": "Book now",
+    "terms_and_conditions_link": "https://duesseldorf.meandallhotels.com/en/general-terms-and-conditions.html"
   }
 }

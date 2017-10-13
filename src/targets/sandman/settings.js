@@ -376,7 +376,7 @@ angular.module('mobiusApp.config', [])
       display:true
     },
     'alternateBookingFlow': {
-      'enabled': true
+      'enabled': false
     },
     'instagramFeed': {
       'images': [
