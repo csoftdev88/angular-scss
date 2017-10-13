@@ -633,11 +633,15 @@ angular.module('mobiusApp.directives.hotels', [])
         scope.mapSettings.bounds = new google.maps.LatLngBounds();
         scope.mapSettings.zoom = 7;
 
-        $rootScope.$on('mapInitialized', function(evt,map) {
+        var mapInitializedListener = $rootScope.$on('mapInitialized', function(evt,map) {
           if(scope.isLocationPage && scope.config.displayMap && scope.hotelViewMode === 'tiles' && scope.filteredHotels && scope.filteredHotels.length){
             initMap(evt,map);
             addEventListeners();
           }
+        });
+
+        scope.$on('$destroy', function () {
+          mapInitializedListener();
         });
 
         scope.showMarker = function(evt, markerId) {

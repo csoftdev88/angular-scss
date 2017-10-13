@@ -166,7 +166,7 @@ angular.module('mobius.controllers.common.content', [])
 
       code = bookingService.getCodeFromSlug(code);
       var selectedOfferIndex = _.findIndex($scope.offers, {code: code});
-      
+
       //If we don't have a propery query param set
       var propertyCode = null;
       //Get the property slug from url
@@ -180,7 +180,23 @@ angular.module('mobius.controllers.common.content', [])
         var availability = _.find($scope.offers[selectedOfferIndex].offerAvailability, function(availability){
           return availability.property === propertyCode;
         });
-        stateParams.promoCode = availability && availability.promoCode ? availability.promoCode : $scope.offers[selectedOfferIndex].promoCode;
+        var offer = $scope.offers[selectedOfferIndex];
+        switch(true) {
+          case availability && !!availability.promoCode:
+            stateParams.promoCode = availability.promoCode;
+            break;
+          case !!offer.promoCode:
+            stateParams.promoCode = offer.promoCode;
+            break;
+          case !!offer.corpCode:
+            stateParams.corpCode = offer.corpCode;
+            break;
+          case !!offer.groupCode:
+            stateParams.groupCode = offer.groupCode;
+            break;
+          default:
+            console.log('Been asked to broadcast a code but did not find which to apply');
+        }
       }
     }
 
@@ -285,7 +301,7 @@ angular.module('mobius.controllers.common.content', [])
         $scope.content = _.chain(content).sortBy($scope.settings.sort).map(function(item) {
           var availability = null;
           var availabilitySlug = null;
-          var propertySlug = bookingService.getParams().propertySlug;     
+          var propertySlug = bookingService.getParams().propertySlug;
           //Only filter by property if there is a property slug in the current URL
           if(!$scope.settings.chainWideOnly && propertySlug){
             //Get the property code from the slug and assign to the selected item in the booking bar;
@@ -332,7 +348,7 @@ angular.module('mobius.controllers.common.content', [])
           return availability.property === propertyCode;
         });
       }
-  
+
       return availability ? true : false;
     } else {
       return true;
