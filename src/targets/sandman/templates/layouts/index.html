@@ -14,3 +14,6 @@
 
 <footer class="main" ng-if="!hideFooter" ng-class="{'special-footer': $state.includes('hotel') || $state.includes('reservationDetail') || $state.includes('reservation') || $state.includes('reservations'), 'no-booking-bar': $state.includes('reservation') || $state.includes('error')}" ng-include="'layouts/footer.html'">
 </footer>
+
+<!--Full Screen busy indicator with optional message-->
+<fullscreen-spinner></fullscreen-spinner>

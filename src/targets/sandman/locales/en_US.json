@@ -492,6 +492,7 @@
     "register_page_title": "Create your Profile",
     "reservation_page_billing_title": "Fill out your billing information",
     "reservation_page_details_title": "FILL OUT YOUR GUEST INFORMATION",
+    "reservation_page_details_title_logged_out": "Fill out your guest information or login below",
     "reservation_page_loginprompt_title": "Already Registered?",
     "reservation_page_nextstay_title": "Your Next Stay",
     "reservation_page_futurestays_title": "Your Future Stays",
@@ -569,9 +570,14 @@
     "rate_not_available": "Sorry, the rate you are searching for is not available on these dates. Please select from one of the below rates.",
     "create_account_title": "Register for an optional Sandman Hotel account",
     "create_account_text": "Create your Sandman Hotel Account to access great offers, just enter a password in the field below or enter your password if you’re already a member",
-    "create_account_title_required": "To confirm this reservation you need to create an account",
-    "create_account_text_required": "Create your Sandman Hotel Account to access great offers, just enter a password in the field below or enter your password if you’re already a member to log in",
-    "create_account_error": "You are booking a member’s only rate, which requires an active account with Sandman Hotels.  Please login or register to continue or hit the back button below to select a public rate.",
-    "create_account_invalid": "Your password should have at least 8 characters and contain 1 number, 1 uppercase and 1 lowercase letter"
+    "create_account_title_required": "To confirm this reservation you need to have an account.",
+    "create_account_text_required": "Simply enter a new password to register or login below if you're already a member",
+    "create_account_error": "You are booking a member’s only rate, which requires an active account with Sandman Hotels.  Please login or register to continue or hit the back button below to select a different rate.",
+    "login_error": "This email has already been registered but the password was incorrect. Please enter the correct password to continue or <span ng-click='showResetPassword()' class=\"reset-password-link\">reset your password</span> and try again.",
+    "create_account_invalid": "Your password should have at least 8 characters and contain 1 number, 1 uppercase and 1 lowercase letter",
+    "existing_members_login": "existing members login",
+    "must_confirm_password": "You must confirm your password",
+    "password_mismatch": "Password confirmation doesn't match",
+    "login_prompt": "Login by entering your email address and password"
   }
 }

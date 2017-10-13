@@ -1,0 +1,55 @@
+#fullscreen-spinner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  z-index: 99999999999; // make damn sure it's above everything else
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(0, 0, 0, 0.86);
+
+  // Spinner CSS based on SpinKit
+  .fullscreen-spinner__spinner {
+    margin: 25px 0 0 0;
+    width: 80px;
+    text-align: center;
+  }
+
+  .fullscreen-spinner__message {
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  .fullscreen-spinner__spinner .fullscreen-spinner__dot {
+    width: 20px;
+    height: 20px;
+    background-color: #fefefe;
+    border-radius: 100%;
+    display: inline-block;
+    animation: fullscreen-spinner-bounce 1.4s ease-in-out 0s infinite both;
+  }
+  .fullscreen-spinner__spinner .dot1 {
+    animation-delay: -0.32s;
+  }
+  .fullscreen-spinner__spinner .dot2 {
+    animation-delay: -0.16s;
+  }
+
+  @keyframes fullscreen-spinner-bounce {
+    0%, 80%, 100% {
+      transform: scale(0);
+    }
+    40% {
+      transform: scale(1);
+    }
+  }
+
+}
+

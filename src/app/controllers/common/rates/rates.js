@@ -57,7 +57,7 @@ angular.module('mobius.controllers.common.rates', [])
     }
   }
 
-  $rootScope.$on(EVENT_EXTRA_FILTER_REMOVED, function(){
+  var removeExtraFilterHandler = $rootScope.$on(EVENT_EXTRA_FILTER_REMOVED, function() {
     var stateParams = $stateParams;
     stateParams.rate = null;
     stateParams.promoCode = null;
@@ -65,5 +65,9 @@ angular.module('mobius.controllers.common.rates', [])
     stateParams.groupCode = null;
     // Updating current state excluding rate
     $state.go($state.current.name, stateParams);
+  });
+
+  $scope.$on('$destroy', function () {
+    removeExtraFilterHandler();
   });
 });

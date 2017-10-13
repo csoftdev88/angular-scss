@@ -16,5 +16,11 @@ register-page {
       background: #fff;
       color: #000;
     }
+    .mandatory-field {
+      &::before {
+        content: '*';
+        display: inline;
+      }
+    }
   }
 }

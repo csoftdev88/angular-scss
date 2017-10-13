@@ -138,7 +138,7 @@ main.reservation-page {
         padding-top: 13px;
         margin: 0 0 15px 0;
         text-align: left;
-        font-size: 12px;
+        font-size: @size--2;
         color: @c-secondary;
         .viewport-mobile & {
           text-align: left;
@@ -209,7 +209,7 @@ main.reservation-page {
         padding: 0 15px;
         margin: 0 0 5px 0;
         line-height: 1em;
-        text-transform: initial;
+        text-transform: capitalize;
         font-weight: normal;
         font-size: @size-0;
         font-family: @ff-default;
@@ -539,15 +539,20 @@ reservation-hotel-details {
         min-height: 145px;
       }
       tbody {
-        display: block;
+        &.single-row-data {
+          tr {
+            th,
+            td {
+              width: 50%;
+              display: block;
+              float: left;
+            }
+          }
+        }
         tr {
-          display: block;
           th,
           td {
-            display: block;
-            width: 50%;
             padding: 0;
-            float: left;
             box-sizing: border-box;
           }
           td {

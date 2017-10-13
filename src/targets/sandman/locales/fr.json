@@ -490,6 +490,7 @@
         "reservation_page_billing_title": "Complétez vos informations de facturation",
         "register_page_title": "Créez votre profil",
         "reservation_page_details_title": "COMPLÉTEZ VOS INFORMATIONS DE CLIENT",
+        "reservation_page_details_title_logged_out": "Complétez vos informations de client ou Identifiez-vous",
         "reservation_page_loginprompt_title": "Déjà inscrit?",
         "reservation_page_nextstay_title": "Votre prochain séjour",
         "reservation_page_futurestays_title": "Vos futurs séjours",
@@ -580,6 +581,17 @@
         "promo_code_applied": "Code Promo appliqu\u00e9 avec succ\u00e8s",
         "corp_code_applied": "Code Corp appliqu\u00e9 avec succ\u00e8s",
         "group_code_applied": "Code Groupe appliqu\u00e9 avec succ\u00e8s",
-        "rate_not_available": "Désolé, le taux que vous recherchez n'est pas disponible à ces dates. Sélectionnez l'un des taux ci-dessous."
+        "rate_not_available": "Désolé, le tarif que vous recherchez n'est pas disponible à ces dates. Sélectionnez l'un des tarifs ci-dessous.",
+        "create_account_title": "Créer un compte Sandman Hotel facultatif",
+        "create_account_text": "Créer un compte Sandman Hotel pour accéder à des offres spéciales. Entrez votre mot de passe dans le champ ci-dessous pour créer votre compte",
+        "create_account_title_required": "Vous devez posséder un compte client pour confirmer cette réservation",
+        "create_account_text_required": "Entrez un nouveau mot de passe pour créer un compte ou bien connectez-vous ci-dessous si vous êtes déjà membre",
+        "create_account_error": "Ce tarif est réservé aux client membres. Connectez-vous ou créez un compte pour continuer. Sinon cliquez le bouton Retour et sélectionnez un tarif different.",
+        "login_error": "Cette addresse email est déjà enregistrée mais le mot de passe est incorrect. Entrez le bon mot de passe ou <span ng-click='showResetPassword()' class=\"reset-password-link\">réinitialisez votre mot de passe ici</span> avant de continuer.",
+        "create_account_invalid": "Votre mot de passe doit comporter au moins 8 caractères dont une majuscule, une minuscule et un chiffre",
+        "existing_members_login": "connexion membres",
+        "must_confirm_password": "Vous devez confirmer votre mot de passe",
+        "password_mismatch": "La confirmation du mot de passe ne correspond pas",
+        "login_prompt": "Connectez-vous en entrant votre addresse email et votre mot de passe"
   }
 }

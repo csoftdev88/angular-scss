@@ -15,9 +15,9 @@ angular.module('mobiusApp.services.scroll', [])
       ignoreScrollTo = ignoreScrollTo || null;
 
       //safari/chrome on mac don't like animating body,html
-      var safari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
-      var chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
-      var toAnimate = safari || chrome ? angular.element('body') : angular.element('html, body');
+      var isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
+
+      var toAnimate = isSafari ? angular.element('body') : angular.element('html, body');
 
       if(target === 'top'){
         toAnimate.stop().animate({
