@@ -121,9 +121,9 @@
                 {{ roomDetails.name }}
                 <a href ng-click="openOtherRoomsDialog()"
                    ng-if="reservation.rooms.length > 1">
-                  + {{ reservation.rooms.length - 1 }} other
+                  + {{ reservation.rooms.length - 1 }} _other_room_
                   <ng-pluralize count="reservation.rooms.length"
-                                when="{'2': 'room', 'other': 'rooms'}">
+                                when="{'2': '_room_', 'other': '_rooms_'}">
                   </ng-pluralize>
                 </a>
               </h3>
