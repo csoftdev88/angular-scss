@@ -112,13 +112,6 @@
                 _receive_offer_label_
               </label>
             </div>
-            <button-submit class="continue-btn" ng-click="continue()" ng-disabled="isContinueDisabled()">
-              <i class="fa fa-chevron-right"
-                 aria-hidden="true"
-                 ng-if="(continueName === 'continue') && uiConfig.buttonSubmit.continueBtn"></i>
-              <span ng-if="continueName === 'continue'">_continue_</span>
-              <span ng-if="continueName === 'confirm'">_confirm_</span>
-            </button-submit>
             <button ng-if="bookingConfig.backButtonUnderContinue" class="back" ng-click="goBack()">_back_</button>
           </div>
         </div>
@@ -127,6 +120,13 @@
                class="ReservationDetails__overview"
                ng-include="'layouts/components/reservation-overview.html'">
         </aside>
+        <button-submit class="continue-btn" ng-click="continue()" ng-disabled="isContinueDisabled()">
+          <i class="fa fa-chevron-right"
+             aria-hidden="true"
+             ng-if="(continueName === 'continue') && uiConfig.buttonSubmit.continueBtn"></i>
+          <span ng-if="continueName === 'continue'">_continue_</span>
+          <span ng-if="continueName === 'confirm'">_confirm_</span>
+        </button-submit>
       </div>
 
       <label ng-if="!bookingConfig.detailsBeforeForm" for="agreement3" class="input-checkbox" ng-show="state.includes('reservation.details') || state.includes('reservation.billing')">
