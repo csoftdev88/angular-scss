@@ -660,10 +660,6 @@ angular.module('mobiusApp.config', [])
     },
 
     'reservations': {
-      // temp hacks for meandall
-      'tempHackGuestFormReorder': true,
-      'tempHackBillingFormReorder': true,
-      'tempHackInfoFormReorder': true,
       //override per hotel confirmation number per hotel
       'displayConfirmationNumberOnAllHotels': true,
       //confirmation label display
