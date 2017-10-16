@@ -110,7 +110,7 @@
             type="password"
             id="registerPassword"
             name="registerPassword"
-            placeholder="_password_label_"
+            placeholder="_password_pattern_placeholder_"
             ng-model="registerData.password"
             ng-pattern="/^(?=.*[a-zA-Z\d].*)[a-zA-Z\d!@#$%&£^*_()+=-]{8,}$/"
             required
@@ -124,7 +124,6 @@
             type="password"
             id="registerPasswordConfirm"
             name="registerPasswordConfirm"
-            placeholder="_password_label_"
             ng-model="registerData.passwordConf"
             required
             equals="registerData.password"

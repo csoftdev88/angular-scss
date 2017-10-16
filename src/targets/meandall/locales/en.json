@@ -409,6 +409,7 @@
     "departure_time_placeholder": "Departure Time",
     "letters_pattern_error": "Please only enter letters in this field",
     "password_pattern_error": "The password must contain at least 8 characters",
+    "password_pattern_placeholder": "At least 8 characters",
     "phone_pattern_error": "Please enter a valid phone number",
     "address_pattern_error": "Please enter a valid address",
     "city_pattern_error": "Please enter a valid city",
