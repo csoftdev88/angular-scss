@@ -10,6 +10,7 @@ angular.module('mobiusApp.config', [])
   'loyaltyProgramEnabled': false,
   'newUrlStructure': false,
   'inputValidationPattern':/^[\u0020-\u02AF\r\n]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
+  'showEUCookieDisclaimer':true,
   'infiniti': {
     'enable': false,
     'development': '',
@@ -659,10 +660,6 @@ angular.module('mobiusApp.config', [])
     },
 
     'reservations': {
-      // temp hacks for meandall
-      'tempHackGuestFormReorder': true,
-      'tempHackBillingFormReorder': true,
-      'tempHackInfoFormReorder': true,
       //override per hotel confirmation number per hotel
       'displayConfirmationNumberOnAllHotels': true,
       //confirmation label display

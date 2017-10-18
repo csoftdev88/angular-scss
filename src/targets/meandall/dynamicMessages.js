@@ -25,11 +25,16 @@ angular.module('mobiusApp.dynamicMessages', [])
     'pet':'Pet',
     'from':'From',
     'tax':'tax',
+    'no_adults': 'no adults',
+    'adult': 'adult',
     'adults': 'adults',
+    'no_children': 'no children',
+    'child': 'child',
     'children': 'children',
     'promo_code': 'Promo code',
     'corp_code': 'Corp code',
-    'group_code': 'Group code'
+    'group_code': 'Group code',
+    'room': 'Room'
   },
   'de':{
     'your_reservation':'<div>Ihre Reservierung <strong>',
@@ -51,10 +56,15 @@ angular.module('mobiusApp.dynamicMessages', [])
     'pet':'Haustier',
     'from':'Von',
     'tax':'Steuer',
+    'no_adults': 'kein Erwachsener',
+    'adult': 'Erwachsener',
     'adults': 'Erwachsene',
+    'no_children': 'keine Kinder',
+    'child': 'Kind',
     'children': 'Kinder',
     'promo_code': 'Promo code',
     'corp_code': 'Corp code',
-    'group_code': 'Group code'
+    'group_code': 'Group code',
+    'room': 'Zimmer'
   }
 });

@@ -99,7 +99,7 @@ main.reservation-page {
     }
     input[required] ~ span,
     select[required] ~ span {
-      &:before {
+      &:after {
         content: '*';
         display: inline;
       }
@@ -162,6 +162,11 @@ main.reservation-page {
           margin-bottom:15px;
         }
       }
+    }
+    .continue-btn {
+      margin-top: 20px;
+      margin-right: 20px;
+      float: right;
     }
     .detail-links {
       a {
@@ -682,14 +687,6 @@ reservation-hotel-details {
         text-align: left;
         font-weight: normal;
         text-transform: capitalize;
-      }
-      .total,
-      .total-value {
-        position: relative;
-        top: 33px;
-      }
-      .tax {
-        margin: -33px 0 33px 0;
       }
     }
     .modify-buttons {
