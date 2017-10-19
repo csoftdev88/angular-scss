@@ -257,11 +257,11 @@ hotel-detail {
           width: 100%;
           border-color: #c6beb5;
 
-          .viewport-mobile &{
+          .viewport-mobile & {
             border-bottom: none;
             padding-top: 16px;
 
-            &:fist-of-type {
+            &:first-of-type {
               border-top: none;
               padding-top: 0px;
             }
@@ -391,7 +391,11 @@ hotel-detail {
             box-sizing: border-box;
             border-top: none;
 
-            &.rates-displayed{
+            .viewport-mobile & {
+              display:none;
+            }
+
+            &.rates-displayed {
               border-left: none;
               border-bottom: none;
             }
@@ -420,10 +424,6 @@ hotel-detail {
 
             .our-rates {
               display: none;
-            }
-
-            .viewport-mobile & {
-              display:none;
             }
 
             + .not-available {
@@ -568,16 +568,10 @@ hotel-detail {
                     content: none;
                   }
                 }
-
-
-
               }
             }
           }
-
-
         }
-
       }
     }
   }
@@ -732,9 +726,9 @@ hotel-detail {
     }
   }
   room-products {
-    .viewport-mobile & {
-      display:none;
-    }
+    //.viewport-mobile & {
+    //  display:none;
+    //}
   }
   .reveal-trigger {
     margin-top: 20px;
@@ -813,6 +807,7 @@ hotel-detail .hotel-detail__rooms-compare {
       margin-bottom: 4px;
       min-width: 180px;
       box-shadow: none;
+
       ul.chosen-results li {
         padding-left: @drop-down-padding;
         padding-right: @drop-down-padding;
