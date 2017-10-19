@@ -655,13 +655,27 @@ hotel-detail {
                 margin-top: 10px;
               }
             }
-            a.button,
-            a.button:hover,
-            button-submit,
-            button-submit:hover {
-              border-radius: 0;
+
+            a.button {
+              box-shadow: none;
+              background: @c-secondary;
+              background: #e34e3f;
+              text-transform: uppercase;
+              height: 50px;
+              color: #fff;
               font-family: @ff-primary;
-              background: @lbe-c-primary;
+              font-size: 16px;
+              font-weight: bold;
+              line-height: 50px;
+              text-align: center;
+              text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+              border: 1px solid #d24335;
+              border-radius: 4px;
+              &:hover {
+                box-shadow: none;
+                background: darken(#e34e3f, 10%);
+              }
+              transition: background 200ms;
             }
           }
         }
