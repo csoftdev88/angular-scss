@@ -474,7 +474,7 @@ angular.module('mobiusApp.config', [])
         // Room Rates
         'rates': {
           'bookNowButtonText': 'Select', //This config value doesn't appear to be used anywhere, but will retain for now anyway.
-          'ratesPerRoomOnDesktop': 3,
+          'ratesPerRoomOnDesktop': 5,
           'ratesPerRoomOnMobile': 2,
           'showTagline': true,
           'showDescription': true,
