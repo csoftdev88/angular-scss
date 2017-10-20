@@ -451,9 +451,9 @@ room-products {
                 line-height: normal;
                 font-style: italic;
                 font-weight: 300;
-                align-self: stretch;
+                flex: 0 0 100%;
                 // bring unit label closer to the number of points
-                margin-top: -8px;
+                margin-top: -6px;
               }
             }
 
@@ -482,6 +482,15 @@ room-products {
           .price-form.points {
             top: 0;
             margin-right: 5px;
+            display: flex;
+            flex-flow: row nowrap;
+            & > * {
+              margin-right: 5px;
+            }
+            .viewport-mobile & {
+              flex-wrap: wrap;
+              justify-content: flex-end;
+            }
           }
         }
         .action-buttons {
@@ -532,7 +541,9 @@ room-products {
     border-radius: 6px;
     background-color: #fff;
     box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
-    min-width: fit-content;
+    .viewport-mobile & {
+      min-width: fit-content;
+    }
   }
 }
 
