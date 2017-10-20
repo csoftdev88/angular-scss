@@ -46,12 +46,30 @@ room-products {
           background-color: rgba(185, 135, 70, 0.025);
         }
 
+        .mobile-click-handler {
+          display: none;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border-radius: 6px;
+          z-index: 1;
+          .viewport-mobile & {
+            display: initial;
+          }
+        }
+
         .viewport-mobile & {
-          border: 1px solid #dedede;
+          // sadly I have to use !important because the main style uses it...
+          border: 1px solid #dedede !important;
           box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
           border-radius: 6px;
           margin-top: 10px;
           min-height: 80px;
+          &:last-of-type {
+            margin-bottom: 10px;
+          }
         }
       }
 
@@ -78,20 +96,26 @@ room-products {
           border-right: 1px #EEEAEA dashed;
 
           .PointsEarned {
-            flex: 0 0 24px;
+            flex: 0 0 auto;
+            min-height: 24px;
+            height: auto;
             align-self: stretch;
             border-radius: 0 0 0 6px;
+            border-bottom: none;
+            border-left: none;
+            border-right: none;
             border-right: none;
             align-items: center;
-            padding: 0 12px;
+            padding: 3px 5px;
             margin: 0;
 
             .star-icon {
               font-size: 14px;
+              line-height: normal;
               margin-top: 0;
             }
             .text-content {
-              flex-direction: row;
+              flex-flow: row wrap;
               align-items: baseline;
               justify-content: flex-start;
 
@@ -256,26 +280,30 @@ room-products {
 				.desc {}
 				.sub-desc {}
 			}
-			.rate-description {
+      .rate-description {
         width: 70%;
-				h4 {
+        h4 {
           font-family: @ff-primary;
           font-size: 16px;
           letter-spacing: 1px;
           color: @c-primary;
-					> span {
+          .viewport-mobile & {
+            line-height: 15px;
+          }
+          > span {
             font-family: @ff-primary;
             font-size: 16px;
             color: @c-primary;
-						text-transform: uppercase;
+            text-transform: uppercase;
             font-weight: bold;
             .viewport-mobile & {
               font-weight: normal;
               color: #4A4A4A;
               font-size: 11px;
               letter-spacing: normal;
+              line-height: normal;
             }
-					}
+          }
 					a.info {
 						float: left;
 					}
@@ -373,6 +401,7 @@ room-products {
           .viewport-mobile & {
             flex-direction: column-reverse;
             width: auto;
+            min-width: 90px;
           }
 
           .price-form {
@@ -419,12 +448,16 @@ room-products {
                 text-transform: lowercase;
                 color: #B98747;
                 font-size: 11px;
+                line-height: normal;
                 font-style: italic;
                 font-weight: 300;
                 align-self: stretch;
+                // bring unit label closer to the number of points
+                margin-top: -8px;
               }
             }
 
+            // The order of points and cash prices is swapped on mobile
             .or-money {
               .viewport-mobile & {
                 display: none;
@@ -434,6 +467,8 @@ room-products {
               display: none;
               .viewport-mobile & {
                 display: initial;
+                font-size: 11px;
+                font-weight: 300;
               }
             }
 
@@ -448,8 +483,8 @@ room-products {
             top: 0;
             margin-right: 5px;
           }
-				}
-				.action-buttons {
+        }
+        .action-buttons {
           display: flex;
           flex-flow: row nowrap;
           align-items: center;
@@ -457,14 +492,35 @@ room-products {
           width: auto;
           flex: none;
           margin-right: 8px;
-					.viewport-mobile & {
+          .viewport-mobile & {
             display: none;
           }
-				}
-				.viewport-mobile & {}
-			}
-		}
-	}
+        }
+      }
+
+      .mobile-button {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        align-self: stretch;
+        background-color: @c-secondary;
+        // 1px stretch to fill parent border
+        margin-top: -1px;
+        margin-bottom: -1px;
+        border-radius: 0 6px 6px 0;
+        flex: 0 0 23px;
+
+        color: #fff;
+        font-size: 27px;
+        line-height: 27px;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+
+        .viewport-mobile & {
+          display: flex;
+        }
+      }
+    }
+  }
 }
 
 .list-item-container {
@@ -476,6 +532,7 @@ room-products {
     border-radius: 6px;
     background-color: #fff;
     box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
+    min-width: fit-content;
   }
 }
 

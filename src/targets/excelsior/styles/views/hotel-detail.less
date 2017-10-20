@@ -170,8 +170,7 @@ hotel-detail {
         .viewport-mobile & {
           border-bottom: 1px solid #dedede;
           margin-bottom: 20px;
-          box-sizing:border-box;
-          padding:0 30px 10px 0;
+          box-sizing: border-box;
         }
 
         .item-header {
@@ -773,6 +772,7 @@ hotel-detail .hotel-detail__rooms-compare {
     padding: 0;
     height: 76px;
     width: 100vw;
+    box-sizing: border-box;
     margin-left: calc(~'50% - 50vw');
 
     .viewport-mobile & {
@@ -792,6 +792,11 @@ hotel-detail .hotel-detail__rooms-compare {
       display: flex;
       flex-flow: row nowrap;
       align-items: center;
+      order-switch > select {
+        .viewport-mobile & {
+          height: 35px;
+        }
+      }
     }
 
     pricing-switch a {
