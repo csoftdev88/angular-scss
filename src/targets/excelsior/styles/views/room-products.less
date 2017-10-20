@@ -51,6 +51,7 @@ room-products {
           box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
           border-radius: 6px;
           margin-top: 10px;
+          min-height: 80px;
         }
       }
 
@@ -65,6 +66,48 @@ room-products {
       }
       &:not(:first-child) {
         border-top: 1px dashed #EEEAEA;
+      }
+
+      .description-and-points-earned {
+        display: flex;
+        flex-flow: row nowrap;
+        flex: 1 1 auto;
+
+        .viewport-mobile & {
+          flex-direction: column;
+          border-right: 1px #EEEAEA dashed;
+
+          .PointsEarned {
+            flex: 0 0 24px;
+            align-self: stretch;
+            border-radius: 0 0 0 6px;
+            border-right: none;
+            align-items: center;
+            padding: 0 12px;
+            margin: 0;
+
+            .star-icon {
+              font-size: 14px;
+              margin-top: 0;
+            }
+            .text-content {
+              flex-direction: row;
+              align-items: baseline;
+              justify-content: flex-start;
+
+              > span {
+                white-space: nowrap;
+              }
+
+              .earn-points {
+                color: #898989;
+                font-size: 8px;
+                font-weight: bold;
+                margin-right: 5px;
+              }
+            }
+          }
+        }
       }
 
       .rate-description {
@@ -86,9 +129,21 @@ room-products {
         }
         .ProductInfo {
           padding: 15px 0;
+
+          .original-price-mobile {
+            display: none;
+            color: @c-secondary;
+            font-size: 11px;
+            font-weight: 300;
+            text-decoration: line-through;
+          }
+
           .viewport-mobile & {
             .tagline {
               display: none;
+            }
+            .original-price-mobile {
+              display: initial;
             }
           }
         }
@@ -114,9 +169,6 @@ room-products {
 			&.is-highlighted, &.is-member-only, &.is-member-only-disabled {
 				pricing-details {
 					top: 0;
-					.viewport-mobile & {
-						padding-top:40px;
-					}
 					.action-buttons {
 						/*padding-top:60px;
 						.viewport-mobile & {
@@ -217,6 +269,12 @@ room-products {
             color: @c-primary;
 						text-transform: uppercase;
             font-weight: bold;
+            .viewport-mobile & {
+              font-weight: normal;
+              color: #4A4A4A;
+              font-size: 11px;
+              letter-spacing: normal;
+            }
 					}
 					a.info {
 						float: left;
@@ -303,7 +361,7 @@ room-products {
           width: auto;
           height: 100%;
         }
-				.price-details {
+        .price-details {
           justify-self: stretch;
           width: auto;
           flex: none;
@@ -311,15 +369,24 @@ room-products {
           align-items: center;
           padding-top: 0;
           padding-right: 10px;
-					.price-form {
+
+          .viewport-mobile & {
+            flex-direction: column-reverse;
+            width: auto;
+          }
+
+          .price-form {
             position: relative;
             width: 100%;
             float: right;
-						text-align: right;
+            text-align: right;
             margin: 0;
 
             .original-price {
               top: 4px;
+              .viewport-mobile & {
+                display: none;
+              }
             }
 
             &.points,
@@ -338,15 +405,49 @@ room-products {
             &.points .value {
               font-weight: bold;
             }
+
+            .value {
+              .viewport-mobile & {
+                float: none;
+                clear: none;
+                font-size: 18px;
+              }
+            }
+
+            .points-unit {
+              .viewport-mobile & {
+                text-transform: lowercase;
+                color: #B98747;
+                font-size: 11px;
+                font-style: italic;
+                font-weight: 300;
+                align-self: stretch;
+              }
+            }
+
+            .or-money {
+              .viewport-mobile & {
+                display: none;
+              }
+            }
+            .or-points {
+              display: none;
+              .viewport-mobile & {
+                display: initial;
+              }
+            }
+
           }
           &.with-slashed-price .price-form:not(.points) {
             top: -11px;
+            .viewport-mobile & {
+              top: 0;
+            }
           }
           .price-form.points {
             top: 0;
             margin-right: 5px;
           }
-					.viewport-mobile & {}
 				}
 				.action-buttons {
           display: flex;
@@ -356,7 +457,9 @@ room-products {
           width: auto;
           flex: none;
           margin-right: 8px;
-					.viewport-mobile & {}
+					.viewport-mobile & {
+            display: none;
+          }
 				}
 				.viewport-mobile & {}
 			}
