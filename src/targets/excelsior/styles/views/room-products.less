@@ -93,6 +93,7 @@ room-products {
 
         .viewport-mobile & {
           flex-direction: column;
+          align-self: stretch;
           border-right: 1px #EEEAEA dashed;
 
           .PointsEarned {
@@ -282,6 +283,11 @@ room-products {
 			}
       .rate-description {
         width: 70%;
+        .viewport-mobile & {
+          flex: 1 1 auto;
+          display: flex;
+          align-items: center;
+        }
         h4 {
           font-family: @ff-primary;
           font-size: 16px;
