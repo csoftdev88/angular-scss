@@ -1,7 +1,7 @@
 <list-items class="rooms-list" ng-if="(ratesLoaded || !isFromSearch) && !preloader.visible">
   <list-item ng-repeat="room in rooms | orderBy : currentOrder.sort | filter: roomsDisplayFilter | limitTo: numberOfRoomsDisplayed"
     data-hover-trigger="displayRoomRates(room)" ng-click="roomClick(room)" data-trigger-delay="hoverTriggerDelay">
-    <header class="item-header desktop">
+    <header class="item-header">
       <h3>
         <!--FIXME: Disable room link until the room pages are styled to our standard-->
         <!--<a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle" ng-class="{'hide-info-icon' : roomsConfig.hideShowInfoIcon}"></a>-->
@@ -42,16 +42,6 @@
 
           <!--<a class="room-see-more" ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-if="roomsConfig.hideShowInfoIcon">_see_more_information_</a>-->
 
-          <header class="item-header mobile">
-            <h3>
-              <!--FIXME: Disable room link until the room pages are styled to our standard-->
-              <!--<a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}"-->
-                 <!--ng-bind-html="room.name | mainHeaderStyle"></a>-->
-              <a ng-bind-html="room.name | mainHeaderStyle"></a>
-              <span class="sub-title" ng-if="roomsConfig.displayRoomSubtitle && room.subTitle">{{room.subTitle}}</span>
-            </h3>
-          </header>
-
           <div class="pricing-info" ng-include="'layouts/components/pricing-info.html'"></div>
 
           <ul class="amenities" ng-if="roomsConfig.displayAmenities && details && room.amenities.length > 0">
@@ -63,6 +53,7 @@
           </ul>
           <!--<a href ng-click="goToRoom(details.meta.slug, room.meta.slug)">Read More About this Room</a>-->
         </div>
+        <div class="mobile-description" ng-bind-html="sanitize(roomsConfig.showRoomHighlight ? (room.roomHighlight && room.roomHighlight !== '' ? room.roomHighlight : room.description) : room.description)"></div>
         <room-products
           ng-if="details && room._displayRates"
           ng-class="{'has-ota-products':roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0}"

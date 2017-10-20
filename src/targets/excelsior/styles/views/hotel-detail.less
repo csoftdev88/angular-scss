@@ -177,8 +177,7 @@ hotel-detail {
         .item-header {
           margin-bottom: 5px;
           .viewport-mobile & {
-            padding-left:115px;
-            box-sizing:border-box;
+            box-sizing: border-box;
           }
 
           h3 {
@@ -269,14 +268,13 @@ hotel-detail {
 
           div.list-item-info {
             box-sizing: border-box;
-            width: 37%;
             padding: 0;
 
             .viewport-mobile & {
-              width: 100%;
+              width: 70px;
+              height: 70px;
               padding: 0;
               position: relative;
-              min-height: 100px;
             }
 
             .room-image-placeholder {
@@ -380,6 +378,22 @@ hotel-detail {
             display: flex;
             flex-flow: row nowrap;
             align-items: flex-start;
+
+            .viewport-mobile & {
+              flex-wrap: wrap;
+              .mobile-description {
+                display: initial;
+              }
+            }
+
+            .mobile-description {
+              display: none;
+              margin-left: 15px;
+              flex: 1 1 0px;
+              color: #848484;
+              font-family: @ff-primary;
+              font-size: 13px;
+            }
           }
 
           room-details {
@@ -485,7 +499,7 @@ hotel-detail {
                 overflow: visible;
                 height: 150px;
                 .viewport-mobile & {
-                  height:100px;
+                  height: 70px;
                 }
 
                 .content-inner {
@@ -726,9 +740,12 @@ hotel-detail {
     }
   }
   room-products {
-    //.viewport-mobile & {
-    //  display:none;
-    //}
+    .viewport-mobile & {
+      margin-left: 0;
+      flex: 0 0 100%;
+      border: none;
+      box-shadow: none;
+    }
   }
   .reveal-trigger {
     margin-top: 20px;

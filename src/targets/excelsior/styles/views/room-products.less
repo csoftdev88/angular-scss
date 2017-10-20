@@ -45,6 +45,13 @@ room-products {
         &:hover {
           background-color: rgba(185, 135, 70, 0.025);
         }
+
+        .viewport-mobile & {
+          border: 1px solid #dedede;
+          box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
+          border-radius: 6px;
+          margin-top: 10px;
+        }
       }
 
       &:first-child {
@@ -79,6 +86,11 @@ room-products {
         }
         .ProductInfo {
           padding: 15px 0;
+          .viewport-mobile & {
+            .tagline {
+              display: none;
+            }
+          }
         }
       }
 
