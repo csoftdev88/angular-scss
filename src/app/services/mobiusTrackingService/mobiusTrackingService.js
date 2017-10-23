@@ -78,7 +78,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
         defaultData.customer.loyaltyMember = Settings.authType === 'infiniti';
         defaultData.customer.phone = userObject.tel1 || '';
         defaultData.customer.country.code = userObject.iso3 || '';
-        defaultData.customer.country.name = userObject.country || '';   
+        defaultData.customer.country.name = userObject.country || '';
         if(userObject.id){ //If we have a userObject id, set this as the customer infinitiId value
           defaultData.customer.infinitiId = userObject.id.toString();
         }
@@ -104,13 +104,13 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
       //region
       defaultData.region = {
         code: propertyData.regionCode,
-        name: localeData[1].trim()
+        name: localeData[1] && localeData[1].trim()
       };
       //province
       //TODO: API needs to return province code, for now we use name toUpperCase as needed by tracking
       defaultData.province = {
-        code: localeData[1].trim().split(' ').join('').toUpperCase(),
-        name: localeData[1].trim()
+        code: localeData[1] && localeData[1].trim().split(' ').join('').toUpperCase(),
+        name: localeData[1] && localeData[1].trim()
       };
       //property
       defaultData.property = {
@@ -129,7 +129,7 @@ angular.module('mobiusApp.services.mobiusTrackingService', []).service('mobiusTr
 
       //copy our product data
       var products = angular.copy(productData);
-      
+
       if (!searchEnabled || $state.includes('reservation') || !products.length) {
         return;
       }
