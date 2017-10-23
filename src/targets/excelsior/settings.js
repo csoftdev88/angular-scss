@@ -39,7 +39,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'integration': '',
       'staging': '',
       'uat':'',
-      'live': '',
+      'live': ''
     }
   },
   'infinitiEcommerceTracking': {
@@ -124,7 +124,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     }
   },
   'derbysoftTracking' : {
-    'enable': true,
+    'enable': false,
     'accountCode':'2p'
   },
   'googleAnalytics': {
@@ -134,14 +134,14 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
   'googleTagManager': {
     'enable': true,
     'trackUserId': true,
-    'id': 'GTM-56G27K'
+    'id': 'GTM-T6VB8R8'
   },
   'hotjar': {
-    'enable': true,
+    'enable': false,
     'id': '294639'
   },
   'rumScript': {
-    'enable': true,
+    'enable': false,
     'id': '5910613c8a112b33c9d2e6c7'
   },
   'API': {
@@ -155,7 +155,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'integration': '//integration-www-excelsior.mobiusbookingengine.com/api/4.0/',
       'staging': '//integration-www-excelsior.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
-      'live': ''
+      'live': 'https://excelsior.mobiusbookingengine.com/api/4.0/'
     },
     'mobiusTracking': {
       'development': {
