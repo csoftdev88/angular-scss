@@ -155,7 +155,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'integration': '//integration-www-excelsior.mobiusbookingengine.com/api/4.0/',
       'staging': '//integration-www-excelsior.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
-      'live': ''
+      'live': 'https://api-excelsior.mobiusbookingengine.com/api/4.0/'
     },
     'mobiusTracking': {
       'development': {
