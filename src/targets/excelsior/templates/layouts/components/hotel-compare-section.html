@@ -34,8 +34,6 @@
           <div class="description" ng-bind-html="sanitize(roomsConfig.showRoomHighlight ? (room.roomHighlight && room.roomHighlight !== '' ? room.roomHighlight : room.description) : room.description)"></div>
         </div>
 
-        <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" class="read-more">_read_more_</a>
-
         <div ng-if="(!viewSettings.compareView || !viewSettings.compareView.amenitiesTop) && roomsConfig.displayAmenities && details && room.amenities.length > 0"
           ng-include="'layouts/components/amenities.html'"></div>
       </div>

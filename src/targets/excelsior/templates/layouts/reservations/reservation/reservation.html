@@ -143,11 +143,8 @@
           <!-- SUBVIEWS -->
           <ui-view>
           </ui-view>
-          <div ng-if="bookingConfig.detailsBeforeForm" class="form-bottom">
-            <label for="agreement3" class="input-checkbox newsletter-signup" ng-show="state.includes('reservation.details') || (!bookingConfig.hideNewsletterCheckboxIfSelected && state.includes('reservation.billing')) || (bookingConfig.hideNewsletterCheckboxIfSelected && !additionalInfo.optedIn && state.includes('reservation.billing'))">
-              <input type="checkbox" id="agreement3" ng-model="additionalInfo.optedIn"/>
-              <i ng-bind-html='"_email_optin_label_" | stringLocaleReplace:chainName'></i>
-            </label>
+          <!--Excelsior customers always opt-in, using ng-init trick here to avoid changing the global controller-->
+          <div ng-if="bookingConfig.detailsBeforeForm" class="form-bottom" ng-init="additionalInfo.optedIn = true">
             <div ng-if="bookingConfig.detailsBeforeForm && state.includes('reservation.confirmation')">
               <label for="agreement1" class="input-checkbox">
                 <input type="checkbox" id="agreement1" ng-model="additionalInfo.agree"/>
