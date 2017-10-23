@@ -4,12 +4,9 @@
 </section>
 
 <section class="room-data">
+  <a ng-if="bookingConfig.policiesLinkBottom" href="_terms_and_conditions_link_" ng-click="readPolicies()" target="_blank" class="policies-link">_policies_</a>
   <h4>{{property.nameLong}}</h4>
-
-  <div class="room-data-details">
-    <span class="chain-logo"></span>
-    <p class="desc" ng-bind-html="allRooms[0]._selectedProduct.name"></p>
-  </div>
+  <div class="clear"></div>
 
   <h3>
     {{allRooms[0].name | lowercase}}
@@ -21,6 +18,11 @@
       </ng-pluralize>
     </a>
   </h3>
+
+  <div class="room-data-details">
+    <span class="chain-logo"></span>
+    <p class="desc" ng-bind-html="allRooms[0]._selectedProduct.name"></p>
+  </div>
 
   <div class="image-wrapper" ng-if="allRooms[0].images[0].uri">
     <img ng-src="{{allRooms[0].images[0].uri | cloudinaryImage : 380 : 120 : 'fill'}}" alt="{{allRooms[0].name}}">
@@ -130,7 +132,6 @@
         <tr class="breakdown-toggle" ng-show="bookingConfig.priceBreakdownExtended">
           <th><button ng-if="bookingConfig.backButtonInForm" class="back" ng-click="goBack()">_back_</button></th>
           <td>
-            <a ng-if="bookingConfig.policiesLinkBottom" href="_terms_and_conditions_link_" ng-click="readPolicies()" target="_blank">_policies_</a>
             <span ng-show="!noBreakdown">
               <span class="separator" ng-if="bookingConfig.policiesLinkBottom"> | </span>
               <a href ng-click="breakdownExtended = !breakdownExtended">

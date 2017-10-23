@@ -562,7 +562,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         //Show room highlight text instead of description
         'showRoomHighlight': true,
         'desktopDisplayRatesOnLoad': true,
-        'mobileHideRates':true,
+        'mobileHideRates': false,
         'displayAmenities': true,
         'displayRoomDetails': true,
         'displayRoomSubtitle': true,
@@ -575,7 +575,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'includeSlider': true,
         'sliderHasThumbnails': true,
         'includeTripAdvisorPreloader': false,
-        'roomsAsLinks': true,
+        'roomsAsLinks': false,
         // Room Rates
         'rates': {
           'bookNowButtonText': 'Select', //This config value doesn't appear to be used anywhere, but will retain for now anyway.
