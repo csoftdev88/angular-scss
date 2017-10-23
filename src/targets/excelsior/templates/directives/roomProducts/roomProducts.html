@@ -9,7 +9,10 @@
 </room-ota-products>
 
 <ul ng-if="products">
-  <div ng-if="!isRequestedRateReturned" class="msg-box msg-rate">_rate_not_available_</div>
+  <!--This commented out div can be used to show a message when the requested rates are not available-->
+  <!--Pete decided to remove this for now-->
+  <!--<div ng-if="!isRequestedRateReturned" class="msg-box msg-rate">_rate_not_available_</div>-->
+
   <!-- HIGHLIGHTED/MEMBERS ONLY PRODUCTS -->
   <li class="product-container"
       ng-class="{'is-highlighted': product.highlighted || ($first && !product.memberOnly && settings.highlightFirstRate),
