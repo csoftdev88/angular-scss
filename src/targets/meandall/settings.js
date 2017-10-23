@@ -143,7 +143,7 @@ angular.module('mobiusApp.config', [])
       'integration': '//integration-www-meandall.mobiusbookingengine.com/api/4.0/',
       'staging': '//staging-www-meandall.mobiusbookingengine.com/api/4.0/',
       'uat': '//staging-lindner-node.mobiuswebservices.com/api/4.0/',
-      'live': '//meandallhotels.com/api/4.0/'
+      'live': 'https://api-meandall.mobiusbookingengine.com/api/4.0/'
     },
     'mobiusTracking': {
       'search': {
