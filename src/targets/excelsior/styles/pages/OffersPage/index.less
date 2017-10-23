@@ -25,7 +25,7 @@
     display: flex;
     flex-flow: row nowrap;
     .viewport-mobile & {
-      flex-direction: column;
+      flex-direction: column-reverse;
     }
   }
 
@@ -39,14 +39,21 @@
     flex: 1 1 0px;
     margin-right: 30px;
     .viewport-mobile & {
+      flex: 0 0 auto;
       margin-right: 0;
+      margin-top: 15px;
     }
   }
+
   .offer-detail-right {
     flex: 0 0 475px;
+    .viewport-mobile & {
+      flex: 0 0 auto;
+    }
   }
 
   .offer-image {
+    align-self: center;
     width: auto;
     height: auto;
     max-width: 100%;
@@ -62,10 +69,11 @@
   }
 
   offer-detail {
-    margin-top: 30px;
-    margin-bottom: 40px;
+    margin: 30px 15px 40px;
+    display: flex;
+    flex-flow: column nowrap;
     .viewport-mobile & {
-      margin-top: 20px;
+      margin-top: 50px;
     }
     h1 {
       text-transform: uppercase;
@@ -75,6 +83,7 @@
       line-height: 37px;
       font-weight: bold;
       letter-spacing: 1px;
+      margin-bottom: 0;
     }
     div[grid="12"] {
       margin: 0;
@@ -93,6 +102,25 @@
       .viewport-mobile & {
         min-height: initial;
       }
+    }
+    button-submit {
+      box-shadow: none;
+      background: @c-secondary;
+      background: #e34e3f;
+      text-transform: uppercase;
+      color: #fff;
+      font-family: @ff-primary;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+      border: 1px solid #d24335;
+      border-radius: 4px;
+      &:hover {
+        box-shadow: none;
+        background: darken(#e34e3f, 10%);
+      }
+      transition: background 200ms;
     }
   }
 
