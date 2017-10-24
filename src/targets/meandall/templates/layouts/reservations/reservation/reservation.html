@@ -40,8 +40,8 @@
       <ul>
         <li><a class="button" href="" ng-click="goToRoom()">1<span class="dot">.</span> <span class="text">_choose_your_room_</span></a></li>
         <li ng-class="{'current': isCurrentBookingStep('reservation.details')}"><a class="button" href="" ng-click="goToBookingStep($event, 'reservation.details')">2<span class="dot">.</span> <span class="text">_guest_details_</span></a></li>
-        <li ng-class="{'current': isCurrentBookingStep('reservation.billing')}"><a class="button" href="" ng-disabled="isBookingStepDisabled('reservation.billing')" ng-click="goToBookingStep($event, 'reservation.billing')">3<span class="dot">.</span> <span class="text">_billing_information_</span></a></li>
-        <li ng-class="{'current': isCurrentBookingStep('reservation.confirmation')}"><a class="button" href="" ng-disabled="isBookingStepDisabled('reservation.confirmation')" ng-click="goToBookingStep($event, 'reservation.confirmation')">4<span class="dot">.</span> <span class="text">_confirm_your_reservation_</span></a></li>
+        <li ng-class="{'current': isCurrentBookingStep('reservation.billing')}" ng-if="!skipCreditCardStep"><a class="button" href="" ng-disabled="isBookingStepDisabled('reservation.billing')" ng-click="goToBookingStep($event, 'reservation.billing')">3<span class="dot">.</span> <span class="text">_billing_information_</span></a></li>
+        <li ng-class="{'current': isCurrentBookingStep('reservation.confirmation')}"><a class="button" href="" ng-disabled="isBookingStepDisabled('reservation.confirmation')" ng-click="goToBookingStep($event, 'reservation.confirmation')">{{skipCreditCardStep ? '3' : '4'}}<span class="dot">.</span> <span class="text">_confirm_your_reservation_</span></a></li>
       </ul>
     </nav>
 

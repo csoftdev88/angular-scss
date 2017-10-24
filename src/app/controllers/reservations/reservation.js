@@ -313,6 +313,9 @@ angular.module('mobius.controllers.reservation', [])
           $scope.canPayWithPoints = false;
         }
 
+        // Check if we should skip credit card step, and provide fake one
+        $scope.skipCreditCardStep = (product.guarantees.cc === false) ? true : false;
+
         //If we have a stored upgrade with an increased price, and room and pricing are set
         if(storedUpgrade && storedUpgrade.increased && storedUpgrade.room && storedUpgrade.email){
           if(room.roomID === storedUpgrade.room.code) { //If the current room id matches the stored upgrade
@@ -804,7 +807,6 @@ angular.module('mobius.controllers.reservation', [])
   $scope.continue = function() {
     switch ($state.current.name) {
       case 'reservation.details':
-
         if ($scope.forms.details && !$scope.forms.details.$submitted) {
           $scope.forms.details.$submitted = true;
         }
@@ -849,9 +851,16 @@ angular.module('mobius.controllers.reservation', [])
         if ($scope.isValid()) {
 
           var proceed = function () {
-            $state.go('reservation.billing');
-            $scope.autofillSync();
-            trackProductCheckout(2);
+            if (!$scope.skipCreditCardStep) {
+              $state.go('reservation.billing');
+              $scope.autofillSync();
+              trackProductCheckout(2);
+            } else {
+              $scope.billingDetails.card.number = '9999999999999999';
+              $scope.billingDetails.card.securityCode = '999';
+              $state.go('reservation.confirmation');
+              trackProductCheckout(3);
+            }
           };
 
           if (!$scope.useAlternateBookingFlow) {
@@ -1042,7 +1051,7 @@ angular.module('mobius.controllers.reservation', [])
           if(paymentInfo) {
             if(paymentInfo === 'cc')
             {
-              var typeCode = $scope.getCreditCardDetails($scope.billingDetails.card.number).name;
+              var typeCode = $scope.getCreditCardDetails($scope.billingDetails.card.number, $scope.skipCreditCardStep).name;
               if(typeCode){
                 actionField.option = typeCode;
               }
@@ -1149,7 +1158,7 @@ angular.module('mobius.controllers.reservation', [])
         expirationDate: $scope.getCardExpirationDate(),
         // TODO: Change input type
         securityCode: parseInt($scope.billingDetails.card.securityCode, 10),
-        typeCode: $scope.getCreditCardDetails($scope.billingDetails.card.number).code
+        typeCode: $scope.getCreditCardDetails($scope.billingDetails.card.number, $scope.skipCreditCardStep).code
       };
     }
 
