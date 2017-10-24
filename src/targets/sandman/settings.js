@@ -123,7 +123,7 @@ angular.module('mobiusApp.config', [])
     },
     'live': {
       'enable':true,
-      'endpoint':'https://tbxyx9kc88.execute-api.us-east-1.amazonaws.com/live/ecommerce',
+      'endpoint':'https://webservice.mobiuswebservices.com/infiniti_ingest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-live',
       'username': 'sandman',
