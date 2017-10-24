@@ -79,9 +79,7 @@ angular.module('mobiusApp.config', [])
   'infinitiApeironTracking': {
     'local': {
       'enable':false,
-      'enableDuplication': false,
-      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
+      'endpoint':'https://0vafuvdy4f.execute-api.us-west-2.amazonaws.com/int/ecommerce',
       'scriptUrl':'apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-local',
       'username': 'sandman',
@@ -89,9 +87,7 @@ angular.module('mobiusApp.config', [])
     },
     'development': {
       'enable':false,
-      'enableDuplication': false,
-      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
+      'endpoint':'https://0vafuvdy4f.execute-api.us-west-2.amazonaws.com/int/ecommerce',
       'scriptUrl':'apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-development',
       'username': 'sandman',
@@ -99,9 +95,7 @@ angular.module('mobiusApp.config', [])
     },
     'integration': {
       'enable':true,
-      'enableDuplication': false,
       'endpoint':'https://0vafuvdy4f.execute-api.us-west-2.amazonaws.com/int/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-integration',
       'username': 'sandman',
@@ -111,9 +105,7 @@ angular.module('mobiusApp.config', [])
     },
     'staging': {
       'enable':true,
-      'enableDuplication': false,
-      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
+      'endpoint':'https://0vafuvdy4f.execute-api.us-west-2.amazonaws.com/int/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
@@ -123,9 +115,7 @@ angular.module('mobiusApp.config', [])
     },
     'uat': {
       'enable':true,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
@@ -133,9 +123,7 @@ angular.module('mobiusApp.config', [])
     },
     'live': {
       'enable':true,
-      'enableDuplication': false,
-      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
+      'endpoint':'https://tbxyx9kc88.execute-api.us-east-1.amazonaws.com/live/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-live',
       'username': 'sandman',

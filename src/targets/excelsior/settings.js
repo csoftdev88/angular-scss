@@ -70,9 +70,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
   'infinitiApeironTracking': {
     'development': {
       'enable':false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sandman-development',
       'username': 'sandman',
@@ -80,9 +78,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     },
     'integration': {
       'enable':false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sandman-integration',
       'username': 'sandman',
@@ -92,9 +88,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     },
     'staging': {
       'enable':false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
@@ -104,9 +98,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     },
     'uat': {
       'enable': false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
@@ -114,9 +106,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     },
     'live': {
       'enable': false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sandman-live',
       'username': 'sandman',
