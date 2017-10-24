@@ -72,7 +72,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'sandman-development',
+      'id':'excelsior-development',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     },
@@ -80,7 +80,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'sandman-integration',
+      'id':'excelsior-integration',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
       'segmentWriteId': 'ufGF40hZthWnYEeH6q09RzrKiusmuWQe',
@@ -90,7 +90,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'sandman-staging',
+      'id':'excelsior-staging',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
       'segmentWriteId': 'ufGF40hZthWnYEeH6q09RzrKiusmuWQe',
@@ -100,7 +100,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'enable': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'sandman-staging',
+      'id':'excelsior-staging',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     },
@@ -108,7 +108,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'enable': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'sandman-live',
+      'id':'excelsior-live',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     }
