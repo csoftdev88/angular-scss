@@ -115,7 +115,7 @@ angular.module('mobiusApp.config', [])
     },
     'uat': {
       'enable':true,
-      'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
+      'endpoint':'https://0vafuvdy4f.execute-api.us-west-2.amazonaws.com/int/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
