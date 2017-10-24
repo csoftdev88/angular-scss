@@ -79,7 +79,7 @@ angular.module('mobiusApp.config', [])
   'infinitiApeironTracking': {
     'local': {
       'enable':false,
-      'endpoint':'https://0vafuvdy4f.execute-api.us-west-2.amazonaws.com/int/ecommerce',
+      'endpoint':'https://webservice.infiniti.io/infiniti-ingester/ecommerce',
       'scriptUrl':'apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-local',
       'username': 'sandman',
@@ -87,7 +87,7 @@ angular.module('mobiusApp.config', [])
     },
     'development': {
       'enable':false,
-      'endpoint':'https://0vafuvdy4f.execute-api.us-west-2.amazonaws.com/int/ecommerce',
+      'endpoint':'https://webservice.infiniti.io/infiniti-ingester/ecommerce',
       'scriptUrl':'apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-development',
       'username': 'sandman',
@@ -95,7 +95,7 @@ angular.module('mobiusApp.config', [])
     },
     'integration': {
       'enable':true,
-      'endpoint':'https://0vafuvdy4f.execute-api.us-west-2.amazonaws.com/int/ecommerce',
+      'endpoint':'https://webservice.infiniti.io/infiniti-ingester/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-integration',
       'username': 'sandman',
@@ -105,7 +105,7 @@ angular.module('mobiusApp.config', [])
     },
     'staging': {
       'enable':true,
-      'endpoint':'https://0vafuvdy4f.execute-api.us-west-2.amazonaws.com/int/ecommerce',
+      'endpoint':'https://webservice.infiniti.io/infiniti-ingester/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
@@ -115,7 +115,7 @@ angular.module('mobiusApp.config', [])
     },
     'uat': {
       'enable':true,
-      'endpoint':'https://0vafuvdy4f.execute-api.us-west-2.amazonaws.com/int/ecommerce',
+      'endpoint':'https://webservice.infiniti.io/infiniti-ingester/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
       'id':'sandman-staging',
       'username': 'sandman',
