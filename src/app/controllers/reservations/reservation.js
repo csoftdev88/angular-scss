@@ -313,6 +313,7 @@ angular.module('mobius.controllers.reservation', [])
           $scope.canPayWithPoints = false;
         }
 
+        $scope.formatting = roomData._selectedProduct.price.formatting;
         // Check if we should skip credit card step, and provide fake one
         $scope.skipCreditCardStep = (product.guarantees.cc === false) ? true : false;
 
