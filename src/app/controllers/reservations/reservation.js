@@ -859,6 +859,8 @@ angular.module('mobius.controllers.reservation', [])
             } else {
               $scope.billingDetails.card.number = '9999999999999999';
               $scope.billingDetails.card.securityCode = '999';
+              $scope.cardExpiration.selectedYear = $window.moment().year() + 1;
+              $scope.cardExpiration.selectedMonth = { name: 'January', id: 0 };
               $state.go('reservation.confirmation');
               trackProductCheckout(3);
             }
