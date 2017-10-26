@@ -74,7 +74,7 @@
         </header>
 
         <div class="tables">
-          <figure ng-switch="isEditable && reservation.status !== 'Cancelled'">
+          <figure>
 
             <img ng-if="!config.largeRoomImage && roomDetails.images[0].uri"
                  class="RoomImage"
@@ -89,24 +89,24 @@
             <div ng-if="!roomDetails.images[0].uri"
                  class="room-image-placeholder">
             </div>
-            <!-- TODO: Add actions to buttons -->
-            <button ng-switch-when="true"
-                    class="button"
-                    ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()"
-                    ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}"
-                    ng-if="!reservation.isInThePast && showActionButtons"
-                    ng-disabled="!reservation.canModify">
-              _modify_
-            </button>
 
-            <button ng-switch-when="true"
-                    class="button-gray"
-                    ng-click="reservation.pointValue ? modifyCancelPointsReservation() : openCancelReservationDialog()"
-                    ng-class="{disabled: reservation.canCancel === false && !reservation.pointValue}"
-                    ng-if="!reservation.isInThePast && showActionButtons"
-                    ng-disabled="!reservation.canCancel">
-              _cancel_
-            </button>
+            <div ng-if="reservation.status !== 'Cancelled'">
+              <button class="button"
+                      ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()"
+                      ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}"
+                      ng-if="!reservation.isInThePast"
+                      ng-disabled="!reservation.canModify">
+                _modify_
+              </button>
+
+              <button class="button-gray"
+                      ng-click="reservation.pointValue ? modifyCancelPointsReservation() : openCancelReservationDialog()"
+                      ng-class="{disabled: reservation.canCancel === false && !reservation.pointValue}"
+                      ng-if="!reservation.isInThePast"
+                      ng-disabled="!reservation.canCancel">
+                _cancel_
+              </button>
+            </div>
           </figure>
 
           <div>
