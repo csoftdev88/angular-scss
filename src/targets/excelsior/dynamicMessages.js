@@ -27,8 +27,10 @@ angular.module('mobiusApp.dynamicMessages', [])
       'pet': 'Pet',
       'from': 'From',
       'tax': 'tax',
+      'no_adults': 'No adults',
       'adult': 'Adult',
       'adults': 'Adults',
+      'no_children': 'No children',
       'child': 'Child',
       'children': 'Children',
       'apply_code': 'Enter a code',
@@ -50,8 +52,10 @@ angular.module('mobiusApp.dynamicMessages', [])
       'missing_country': 'Please select your country',
       'corp_code': 'Corporate Code',
       'group_code': 'Group Code',
-      'promo_code': 'Promo Code'
+      'promo_code': 'Promo Code',
+      'room': 'Room'
     },
+    // NOTE: Excelsior is English only currently
     'de': {
       'your_reservation': '<div>Ihre Reservierung <strong>',
       'was_successfully_cancelled': '</strong> wurde erfolgreich storniert.</div>',
@@ -76,6 +80,7 @@ angular.module('mobiusApp.dynamicMessages', [])
       'corp_code_applied':'Corp code applied successfully',
       'group_code_applied':'Group code applied successfully'
     },
+    // NOTE: Excelsior is English only currently
     'fr': {
       'your_reservation': '<div>Votre réservation <strong>',
       'was_successfully_cancelled': '</strong> a été annulée avec succès.</div>',
