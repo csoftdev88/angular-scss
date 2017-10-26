@@ -627,7 +627,7 @@ angular.module('mobius.controllers.reservation', [])
       return !$scope.isValid();
     }
 
-    return !$scope.isValid() && !$state.is('reservation.details') && !$state.is('reservation.billing');
+    return !$scope.isValid() && !$state.is('reservation.details') && !$state.is('reservation.billing') && !$state.is('reservation.confirmation');
   };
 
   function mapDataToKeystoneRegister() {
@@ -978,6 +978,9 @@ angular.module('mobius.controllers.reservation', [])
         }
         break;
       case 'reservation.confirmation':
+        if ($scope.forms.additionalInfo && !$scope.forms.additionalInfo.$submitted) {
+          $scope.forms.additionalInfo.$submitted = true;
+        }
         if ($scope.isValid()) {
           $scope.isMakingReservation = true;
           $scope.makeReservation();
