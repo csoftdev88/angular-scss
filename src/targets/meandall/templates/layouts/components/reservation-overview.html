@@ -24,7 +24,6 @@
     <p class="desc" ng-bind-html="allRooms[0]._selectedProduct.name"></p>
   </div>
 
-  <h3>{{allRooms[0].name | lowercase}}<a href ng-click="openOtherRoomsDialog()" ng-if="allRooms.length > 1">+ {{allRooms.length - 1}} _more_ <ng-pluralize count="allRooms.length" when="{'2': '_room_', 'other': '_rooms_'}"> </ng-pluralize></a></h3>
   <div class="image-wrapper" ng-if="allRooms[0].images[0].uri">
     <img ng-src="{{allRooms[0].images[0].uri | cloudinaryImage : 380 : 120 : 'fill'}}" alt="{{allRooms[0].name}}">
   </div>
