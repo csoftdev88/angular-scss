@@ -189,10 +189,7 @@ main.reservation-page {
         }
       }
       a {
-        color: #000;
-        &:hover {
-          color: #000;
-        }
+        color: @c-light-grey;
       }
       .room-data-details {
         padding: 0 15px;
@@ -347,6 +344,13 @@ main.reservation-page {
     }
   }
   reservation-billing {
+    .payment-methods {
+      margin-bottom: 20px;
+      i {
+        width: 54px;
+        height: 35px;
+      }
+    }
     >div {
       margin: 0;
       padding: 0;
@@ -947,6 +951,16 @@ reservation-finished {
     margin-bottom:0;
     @media print {
       padding-bottom:0;
+    }
+  }
+}
+
+profile-page,
+register-page {
+  .feedback-msg {
+    &.error {
+      color: @c-white !important;
+      font-style: italic;
     }
   }
 }

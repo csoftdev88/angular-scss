@@ -151,7 +151,7 @@
       <fieldset>
 
         <form-element ng-if="profileTitles">
-          <label for="profileTitle">_title_label_</label>
+          <label class="mandatory-field" for="profileTitle">_title_label_</label>
           <select name="profileTitle"
                   required
                   chosen
@@ -164,7 +164,7 @@
         </form-element>
 
         <form-element>
-          <label for="profileFname">_first_name_label_</label>
+          <label class="mandatory-field" for="profileFname">_first_name_label_</label>
           <input
             type="text"
             id="profileFname"
@@ -177,7 +177,7 @@
         </form-element>
 
         <form-element>
-          <label for="profileLname">_last_name_label_</label>
+          <label class="mandatory-field" for="profileLname">_last_name_label_</label>
           <input
             type="text"
             id="profileLname"
@@ -208,7 +208,7 @@
         -->
 
         <form-element>
-          <label for="profileAddress1">_address_one_label_</label>
+          <label class="mandatory-field" for="profileAddress1">_address_one_label_</label>
           <input
             type="text"
             id="profileAddress1"
@@ -220,7 +220,7 @@
         </form-element>
 
         <form-element>
-          <label for="profileZip">_postcode_label_</label>
+          <label class="mandatory-field" for="profileZip">_postcode_label_</label>
           <input
             type="text"
             id="profileZip"
@@ -244,7 +244,7 @@
         </form-element>
 
         <form-element>
-          <label for="profileCity">_city_label_</label>
+          <label class="mandatory-field" for="profileCity">_city_label_</label>
           <input
             type="text"
             id="profileCity"
@@ -256,7 +256,7 @@
         </form-element>
 
         <form-element>
-          <label for="profileState">_state_label_</label>
+          <label class="mandatory-field" for="profileState">_state_label_</label>
           <input
             type="text"
             id="profileState"
@@ -268,7 +268,7 @@
         </form-element>
 
         <form-element ng-if="profileCountries">
-          <label for="profileCountry">_country_label_</label>
+          <label class="mandatory-field" for="profileCountry">_country_label_</label>
           <select name="profileCountry"
                   chosen
                   disable-search="true"
@@ -280,7 +280,7 @@
         </form-element>
 
         <form-element>
-          <label for="profileTel">_phone_label_</label>
+          <label class="mandatory-field" for="profileTel">_phone_label_</label>
           <input
             type="text"
             id="profileTel"
@@ -292,7 +292,7 @@
         </form-element>
 
         <form-element ng-if="profileContacts">
-          <label for="profileContact">_prefered_contact_label_</label>
+          <label class="mandatory-field" for="profileContact">_prefered_contact_label_</label>
           <select name="profileContact"
                   required
                   chosen
@@ -326,7 +326,7 @@
         <span ng-if="missingFieldsError">_missing_fields_message_</span>
       </p>
 
-      <button-submit role="button" tabindex="0" ng-click="update(form, profileData)">_save_</button-submit>
+      <button-submit role="button" tabindex="0" ng-click="update(form, profileData)" class="button-border-white">_save_</button-submit>
 
     </form>
 

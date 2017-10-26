@@ -25,16 +25,25 @@ angular.module('mobiusApp.dynamicMessages', [])
       'pet': 'Pet',
       'from': 'From',
       'tax': 'tax',
+      'no_adults': 'No adults',
+      'adult': 'Adult',
       'adults': 'Adults',
+      'no_children': 'No children',
+      'child': 'Child',
       'children': 'Children',
+      'promo_code': 'Promo code',
+      'corp_code': 'Corp code',
+      'group_code': 'Group code',
       'apply_code': 'Enter a code',
       'select_property': 'Find Your Hotel',
       'promo_code_applied':'Promo code applied successfully',
       'corp_code_applied':'Corp code applied successfully',
       'group_code_applied':'Group code applied successfully',
       'enter_valid_choice': 'Please provide a valid option',
-      'answer_the_question': 'Answer the following question to earn XX points'
+      'answer_the_question': 'Answer the following question to earn XX points',
+      'room': 'Room'
     },
+    // NOTE: St Giles is dead and not in German anyway
     'de': {
       'your_reservation': '<div>Ihre Reservierung <strong>',
       'was_successfully_cancelled': '</strong> wurde erfolgreich storniert.</div>',
@@ -59,6 +68,7 @@ angular.module('mobiusApp.dynamicMessages', [])
       'corp_code_applied':'Corp code applied successfully',
       'group_code_applied':'Group code applied successfully'
     },
+    // NOTE: St Giles is dead and not in French anyway
     'fr': {
       'your_reservation': '<div>Votre réservation <strong>',
       'was_successfully_cancelled': '</strong> a été annulée avec succès.</div>',

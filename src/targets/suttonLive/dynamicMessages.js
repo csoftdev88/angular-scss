@@ -25,6 +25,12 @@ angular.module('mobiusApp.dynamicMessages', [])
     'pet':'Pet',
     'from':'From',
     'tax':'tax',
+    'no_adults': 'No adults',
+    'adult': 'Adult',
+    'adults': 'Adults',
+    'no_children': 'No children',
+    'child': 'Child',
+    'children': 'Children',
     'promo_code_applied':'Promo code applied successfully',
     'corp_code_applied':'Corp code applied successfully',
     'group_code_applied':'Group code applied successfully',
@@ -33,8 +39,10 @@ angular.module('mobiusApp.dynamicMessages', [])
     'group_code': 'Group code',
     'apply_code': 'Enter a code',
     'select_property': 'Find Your Hotel',
-    'find_your_hotel': 'Find Your Hotel'
+    'find_your_hotel': 'Find Your Hotel',
+    'room': 'Room'
   },
+  // NOTE: Sutton is English only currently
   'de':{
     'your_reservation':'<div>Ihre Reservierung <strong>',
     'was_successfully_cancelled':'</strong> wurde erfolgreich storniert.</div>',
@@ -55,8 +63,15 @@ angular.module('mobiusApp.dynamicMessages', [])
     'pet':'Haustier',
     'from':'Von',
     'tax':'Steuer',
+    'no_adults': 'kein Erwachsener',
+    'adult': 'Erwachsener',
+    'adults': 'Erwachsene',
+    'no_children': 'keine Kinder',
+    'child': 'Kind',
+    'children': 'Kinder',
     'promo_code_applied':'Promo code applied successfully',
     'corp_code_applied':'Corp code applied successfully',
-    'group_code_applied':'Group code applied successfully'
+    'group_code_applied':'Group code applied successfully',
+    'room': 'Zimmer'
   }
 });

@@ -46,9 +46,10 @@
             <h3>
               {{ reservation.rooms[0].roomTypeName }}
               <a href ng-if="reservation.rooms.length > 1">
-                + {{reservation.rooms.length - 1}} other
-                <ng-pluralize count="reservation.rooms.length"
-                              when="{'2': 'room', 'other': 'rooms'}">
+                + {{reservation.rooms.length - 1}} _other_room_
+                <ng-pluralize
+                  count="reservation.rooms.length"
+                  when="{'2': '_room_', 'other': '_rooms_'}">
                 </ng-pluralize>
               </a>
             </h3>

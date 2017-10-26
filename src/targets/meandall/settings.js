@@ -115,13 +115,13 @@ angular.module('mobiusApp.config', [])
     'accountCode':'2p'
   },
   'googleAnalytics': {
-    'enable': false,
-    'id': ''
+    'enable': true,
+    'id': 'UA-108560457-1'
   },
   'googleTagManager': {
-    'enable': false,
+    'enable': true,
     'trackUserId': true,
-    'id': ''
+    'id': 'GTM-N5VPM86'
   },
   'hotjar': {
     'enable': false,
