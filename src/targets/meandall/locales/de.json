@@ -252,7 +252,7 @@
         "click_here_to": "Hier klicken, um",
         "not_enough_points_to_purchase": "Leider haben Sie nicht genügend Punkte, um diesen Kauf durchzuführen.",
         "payment_not_authorized": "Leider gab es ein Problem mit Ihren Zahlungsdaten",
-        "user_already_registered": "Ihre E-Mail-Adresse ist mit einem ‚Me and All Hotels‘-Konto verbunden. <br/>Bitte melden Sie sich an, um zu buchen und Punkte und tolle Prämien zu verdienen, oder fahren Sie mit Ihrer Buchung mit einer anderen E-Mail-Adresse fort.",
+        "user_already_registered": "hre E-Mail-Adresse ist bereits registriert. Bitte melden Sie sich oben an, um Ihre Buchung fortzusetzen oder nutzen Sie eine andere E-Mail-Adresse.",
         "generic_reservation_error": "Wir können Ihre Reservierung zu diesem Zeitpunkt nicht bearbeiten. Bitte versuchen Sie es erneut oder kontaktieren Sie das Hotel direkt",
         "payment_not_authorized_card_name": "Name des Karteninhabers ist ungültig",
         "payment_not_authorized_expiry_date": "Ablaufdatum ist ungültig",
