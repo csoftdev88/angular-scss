@@ -21,7 +21,7 @@
 
   <div class="room-data-details">
     <span class="chain-logo"></span>
-    <p class="desc" ng-bind-html="allRooms[0]._selectedProduct.name"></p>
+    <p class="desc">{{ allRooms[0]._selectedProduct.name | lowercase }}</p>
   </div>
 
   <div class="image-wrapper" ng-if="allRooms[0].images[0].uri">
