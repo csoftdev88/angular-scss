@@ -252,7 +252,7 @@
     "click_here_to": "Click here to",
     "not_enough_points_to_purchase": "Sorry, you don't have enough points to perform this purchase.",
     "payment_not_authorized": "We are sorry there was a problem with your payment details",
-    "user_already_registered": "Your email address is associated with a me and all hotels account.<br/>Please sign in to continue your booking or continue your booking with a different email address.",
+    "user_already_registered": "Your e-mail address is already registered. Please log in to continue your booking or use a different e-mail address.",
     "generic_reservation_error": "We are unable to process your booking at this time. Please try again, or contact the hotel directly",
     "payment_not_authorized_card_name": "Cardholder Name is invalid",
     "payment_not_authorized_payment_type": "Payment Type is invalid",
