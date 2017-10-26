@@ -10,6 +10,7 @@ angular.module('mobiusApp.config', [])
   'loyaltyProgramEnabled': false,
   'newUrlStructure': false,
   'inputValidationPattern':/^[\u0020-\u02AF\r\n]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
+  'showEUCookieDisclaimer':true,
   'infiniti': {
     'enable': false,
     'development': '',
@@ -142,7 +143,7 @@ angular.module('mobiusApp.config', [])
       'integration': '//integration-www-meandall.mobiusbookingengine.com/api/4.0/',
       'staging': '//staging-www-meandall.mobiusbookingengine.com/api/4.0/',
       'uat': '//staging-lindner-node.mobiuswebservices.com/api/4.0/',
-      'live': '//meandallhotels.com/api/4.0/'
+      'live': 'https://meandall.mobiusbookingengine.com/api/4.0/'
     },
     'mobiusTracking': {
       'search': {
@@ -659,10 +660,6 @@ angular.module('mobiusApp.config', [])
     },
 
     'reservations': {
-      // temp hacks for meandall
-      'tempHackGuestFormReorder': true,
-      'tempHackBillingFormReorder': true,
-      'tempHackInfoFormReorder': true,
       //override per hotel confirmation number per hotel
       'displayConfirmationNumberOnAllHotels': true,
       //confirmation label display

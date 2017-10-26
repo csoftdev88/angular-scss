@@ -101,7 +101,7 @@
         "generic_error_message": "Es ist leider ein Fehler aufgetreten. Bitte versuchen Sie es erneut",
         "profile_updated_success_message": "Vielen Dank, Ihr Profil wurde aktualisiert",
         "email_not_registered_error": "Die von die Ihnen eingegebene E-Mail-Adresse ist nicht registriert",
-        "incorrect_email_password_error": "Die von Ihnen eingegegbene E-Mail_Adresse und/oder das Passwort ist falsch",
+        "incorrect_email_password_error": "Die von Ihnen eingegebene E-Mail-Adresse und/oder das Passwort ist falsch",
         "BOOKING BAR": "//////////////////////////////////////////////////////////////////////////////////////////////////////",
         "select_hotel": "Ihr Hotel auswählen",
         "select_all_hotels": "Alle Hotels auswählen",
@@ -262,7 +262,7 @@
         "payment_not_authorized_cc_number_invalid": "Kartennummer ist ungültig",
         "check_in": "Anreise",
         "check_out": "Abreise",
-        "room_charges": "Zimmergebühren",
+        "room_charges": "Zimmerpreis",
         "print": "Drucken",
         "i_agree_to": "Ich akzeptiere die",
         "share_via": "Teilen über",
@@ -296,7 +296,7 @@
         "show_more": "Mehr anzeigen",
         "show_less": "Weniger anzeigen",
         "see_all": "Alle anzeigen",
-        "cancelled": "Abgebrochen",
+        "cancelled": "Storniert",
         "members_only_rate": "Preis nur für Mitglieder",
         "earn": "Verdienen",
         "most_booked_package": "Meist gebuchtes Paket",
@@ -483,7 +483,7 @@
         "offers_page_no_offers_desc": "Wählen Sie ein Hotel, um Angebote dafür zu sehen, oder versuchen Sie es später noch einmal",
         "hot_deals_page_description": "Auf der Suche nach einem Last-Minute-Angebot? Schauen Sie regelmäßig hier vorbei, um zeitlich begrenzte Angebote für Unterkünfte an allen unseren Standorten in ganz Deutschland zu sehen! Scrollen Sie nach unten zu unseren aktuellen Top-Angeboten!",
         "profile_page_title": "Ihr Profil",
-        "profile_page_desc": "Wir geben Ihre Daten nicht an Dritte weiter. Für weitere Details lesen Sie bitte unsere <a target='_blank'' href='https://www.lindner.de/datenschutz.html'>Datenschutzbestimmungen</a>",
+        "profile_page_desc": "Wir geben Ihre Daten nicht an Dritte weiter. Für weitere Details lesen Sie bitte unsere <a target='_blank'' href='//duesseldorf.meandallhotels.com/datenschutz.html'>Datenschutzbestimmungen</a>.",
         "profile_page_about_title": "ÜBER SIE",
         "profile_page_password_title": "PASSWORT ÄNDERN",
         "profile_page_newletter_title": "NEWSLETTER-EINSTELLUNGEN",
@@ -560,6 +560,7 @@
         "filter_dates": "Daten",
         "rate_not_available": "Der Preis, den Sie suchen, ist an diesen Terminen nicht verfügbar. Bitte wählen Sie aus einer der unten angegebenen Preise.",
         "book_now_floating_bar": "Buche jetzt",
-        "terms_and_conditions_link": "https://duesseldorf.meandallhotels.com/agb.html"
+        "terms_and_conditions_link": "https://duesseldorf.meandallhotels.com/agb.html",
+        "other_room": "weiteres"
     }
 }

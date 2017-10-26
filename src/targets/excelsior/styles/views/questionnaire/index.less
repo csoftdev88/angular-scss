@@ -125,14 +125,16 @@ questionnaire {
       display: flex;
       flex-flow: row nowrap;
       align-items: center;
+      margin-right: 20px;
     }
     .tier-text {
-      margin-left: 10px;
+      margin: 0 10px;
       display: flex;
       flex-flow: column nowrap;
       .tier-label {
         color: #9B9B9B;
         font-size: 16px;
+        line-height: normal;
         font-weight: 300;
       }
       .current-tier {
@@ -147,13 +149,15 @@ questionnaire {
         }
         font-family: @ff-serif;
         font-size: 28px;
+        line-height: normal;
         font-weight: bold;
       }
     }
     .points-amount {
       display: flex;
-      flex-flow: row nowrap;
+      flex-flow: row wrap;
       align-items: center;
+      justify-content: flex-end;
 
       .points {
         color: #4A4A4A;
@@ -479,6 +483,7 @@ questionnaire {
     padding: 30px;
     display: flex;
     flex-flow: column nowrap;
+    justify-content: center;
   }
 
   .addon-wrapper {

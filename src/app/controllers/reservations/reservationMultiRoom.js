@@ -2,9 +2,10 @@
 /*
  * This module controlls reservation update flow
  */
-angular.module('mobius.controllers.reservationMultiRoom', [])
+angular.module('mobius.controllers.reservationMultiRoom', ['mobiusApp.dynamicMessages'])
   .controller('ReservationMultiRoomCtrl', function($scope, $state, $filter, $location, $stateParams, Settings, $window,
-                                                   notificationService, bookingService, validationService, stateService){
+                                                   notificationService, bookingService, validationService, stateService,
+                                                   DynamicMessages){
     var isMultiRoomMode = false;
 
     var EVENT_MULTIROOM_CANCELED = 'EVENT-MULTIROOM-CANCELED';
@@ -81,6 +82,8 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
     });
 
     function showNotification(rooms, currentRoomIndex, dates){
+      var appLang = stateService.getAppLanguageCode();
+
       var currentRoom = rooms[currentRoomIndex];
 
       currentRoomIndex++;
@@ -91,14 +94,19 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
         notification =
           '<div class="multiroom-notification">' +
             '<div class="number-of-rooms">' +
-              '<p>Room ' + currentRoomIndex + ' of ' + rooms.length +'</p>' +
+              '<p>' + DynamicMessages[appLang].room + ' ' + currentRoomIndex + ' of ' + rooms.length +'</p>' +
             '</div>' +
           '</div>';
       } else {
+        // Set moment locale to be same as appLang
+        //
+        // TODO: Set moment locale globally on app run?
+        //
+        $window.moment.locale(appLang);
         notification =
           '<div class="multiroom-notification">' +
             '<div class="rooms">' +
-              '<p>Room</p>' +
+              '<p>' + DynamicMessages[appLang].room + '</p>' +
               '<p>' + currentRoomIndex + ' of ' + rooms.length +'</p>' +
             '</div>' +
             '<div class="details">' +
@@ -124,20 +132,22 @@ angular.module('mobius.controllers.reservationMultiRoom', [])
     }
 
     function getAdultsCount(room){
+      var appLang = stateService.getAppLanguageCode();
       var rules = {
-        '0': 'no adults',
-        '1': '{} adult',
-        'plural': '{} adults'
+        '0': DynamicMessages[appLang].no_adults,
+        '1': '{} ' + DynamicMessages[appLang].adult,
+        'plural': '{} ' + DynamicMessages[appLang].adults
       };
 
       return $filter('pluralization')(room.adults, rules);
     }
 
     function getChildrenCount(room){
+      var appLang = stateService.getAppLanguageCode();
       var rules = {
-        '0': 'no children',
-        '1': '{} child',
-        'plural': '{} children'
+        '0': DynamicMessages[appLang].no_children,
+        '1': '{} ' + DynamicMessages[appLang].child,
+        'plural': '{} ' + DynamicMessages[appLang].children
       };
 
       return $filter('pluralization')(room.children, rules);

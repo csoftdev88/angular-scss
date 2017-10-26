@@ -207,7 +207,13 @@ booking-bar {
       line-height: 52px;
       padding-left: 20px;
       cursor: pointer;
-      width: calc(~'100% - 24px');
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding-right: 35px;
+      box-sizing: border-box;
+      width: 100%;
+
       .fa-calendar {
         position: absolute;
         top: 16px;

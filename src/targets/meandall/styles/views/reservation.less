@@ -60,7 +60,6 @@ main.reservation-page {
     aside {
       box-sizing: border-box;
       border: solid 2px black;
-      padding: 10px;
       &:before {
         display: none;
       }
@@ -99,7 +98,7 @@ main.reservation-page {
     }
     input[required] ~ span,
     select[required] ~ span {
-      &:before {
+      &:after {
         content: '*';
         display: inline;
       }
@@ -163,6 +162,11 @@ main.reservation-page {
         }
       }
     }
+    .continue-btn {
+      margin-top: 20px;
+      margin-right: 5px;
+      float: right;
+    }
     .detail-links {
       a {
         text-decoration: none;
@@ -173,6 +177,17 @@ main.reservation-page {
       }
     }
     .room-data {
+      background-color: @c-black;
+      color: @c-white;
+      padding-bottom: 10px;
+      .policies-link {
+        float: right;
+        color: @c-white;
+        padding: 15px 15px 0 0;
+        &:hover {
+          color: @c-white;
+        }
+      }
       a {
         color: #000;
         &:hover {
@@ -185,8 +200,8 @@ main.reservation-page {
           display: none;
         }
         p.desc {
-          color: @c-secondary;
-          font-size: 24px;
+          color: @c-white;
+          font-size: @size-3;
           font-weight: normal;
           margin: 0;
           line-height: 28px;
@@ -211,14 +226,13 @@ main.reservation-page {
         line-height: 1em;
         text-transform: capitalize;
         font-weight: normal;
-        font-size: @size-0;
+        font-size:@size-4;
         font-family: @ff-default;
       }
       >h4 {
         padding: 15px 15px 0 15px;
-        color: @c-secondary;
         font-family: @ff-default;
-        font-size: 24px;
+        font-size: @size-4;
         font-weight: normal;
         margin: 0;
         line-height: 28px;
@@ -321,12 +335,12 @@ main.reservation-page {
         color: @c-primary;
         th,
         td {
-          padding: 5px;
+          padding: 5px 15px 5px 15px;
         }
       }
       tr.breakdown-toggle {
         td {
-          padding: 20px 0 0 0;
+          padding: 20px 10px 10px 0;
           font-size: @size--1;
         }
       }
@@ -682,14 +696,6 @@ reservation-hotel-details {
         text-align: left;
         font-weight: normal;
         text-transform: capitalize;
-      }
-      .total,
-      .total-value {
-        position: relative;
-        top: 33px;
-      }
-      .tax {
-        margin: -33px 0 33px 0;
       }
     }
     .modify-buttons {

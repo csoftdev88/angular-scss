@@ -144,7 +144,7 @@ angular.module('mobiusApp.services.booking', [])
     return !!(queryParams[API_PARAM_FROM] && queryParams[API_PARAM_TO]);
   }
 
-  function getCodeParamName() {   
+  function getCodeParamName() {
     return Settings.API.promoCodes.promoCode;
   }
 
