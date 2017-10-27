@@ -22,6 +22,10 @@ angular.module('mobiusApp.services.api', [])
   cookieExpiryDate.setTime(cookieExpiryDate.getTime() + (expiryMins * 60 * 1000));
 
   function get(url, params, cacheParam) {
+    //Fix for exact matching on server side, see #718
+    if (params && params.email){
+      params.email = params.email.toLowerCase();
+    }
 
     // Promise to return
     var defer = $q.defer();
