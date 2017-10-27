@@ -127,10 +127,9 @@
         </div>
       </highlight>
 
-      <trip-adviser-quote ng-if="!isMobile"></trip-adviser-quote>
-
-      <div class="offer-content">
+      <div class="offer-content" ng-show="selectedOffer.image">
         <img ng-if="!config.displayOfferImageInHeroSlider"
+             class="fixed-width-height-image"
              ng-src="{{selectedOffer.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}"
              alt="{{selectedOffer.image.uri}}"/>
 
