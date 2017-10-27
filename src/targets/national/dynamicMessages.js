@@ -5,7 +5,7 @@
 angular.module('mobiusApp.dynamicMessages', [])
 
 .constant('DynamicMessages', {
-  'en-us':{
+  'en':{
     'your_reservation':'<div>Your Reservation <strong>',
     'was_successfully_cancelled':'</strong> was successfully cancelled.</div>',
     'you_have_added':'<div>You have added ',

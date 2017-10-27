@@ -4,26 +4,35 @@ angular.module('mobiusApp.services.creditCardType', [])
   .service('creditCardTypeService', function(Settings) {
 
     // see https://en.wikipedia.org/wiki/Bank_card_number
-    function getCreditCardDetails(creditCardNumber) {
-      creditCardNumber = normalizeCreditCardNumber(creditCardNumber);
+    function getCreditCardDetails(creditCardNumber, skipCardCheck) {
+      if (skipCardCheck) {
+        // If we are skipping credit card check (providing fake one), assume it is Visa.
+        return {
+          icon: 'visa',
+          code: 'VI',
+          name: 'Visa'
+        };
+      } else {
+        creditCardNumber = normalizeCreditCardNumber(creditCardNumber);
 
-      if (creditCardNumber && luhnCheck(creditCardNumber)) {
-        var cardTypes = Settings.UI.booking.cardTypes;
-        for (var type in cardTypes) {
-          if (cardTypes.hasOwnProperty(type)) {
-            var cardDetails = cardTypes[type];
-            var regexObj = cardDetails.regex;
-            if (regexObj.test(creditCardNumber)) {
-              return {
-                icon: cardDetails.icon,
-                code: cardDetails.code,
-                name: cardDetails.name
-              };
+        if (creditCardNumber && luhnCheck(creditCardNumber)) {
+          var cardTypes = Settings.UI.booking.cardTypes;
+          for (var type in cardTypes) {
+            if (cardTypes.hasOwnProperty(type)) {
+              var cardDetails = cardTypes[type];
+              var regexObj = cardDetails.regex;
+              if (regexObj.test(creditCardNumber)) {
+                return {
+                  icon: cardDetails.icon,
+                  code: cardDetails.code,
+                  name: cardDetails.name
+                };
+              }
             }
           }
+          // uncomment to accept all card numbers passing luhn check
+          // return {};
         }
-        // uncomment to accept all card numbers passing luhn check
-        // return {};
       }
 
       return null;

@@ -40,7 +40,9 @@
     </tab>
 
     <!-- CREDIT CARD BILLING DETAILS -->
-    <tab heading="_billing_details_" ng-if="billingDetails.paymentMethod === 'cc'">
+    <tab
+      heading="_billing_details_"
+      ng-if="billingDetails.paymentMethod === 'cc' && !skipCreditCardStep">
       <table>
         <tbody>
           <tr>

@@ -249,7 +249,8 @@
                             reservation &&
                             !config.useSidetable &&
                             reservation.rooms[0].priceDetail &&
-                            !reservation.pointValue">
+                            !reservation.pointValue &&
+                            reservation.formatting !== 'suppressRate'">
 
                 <thead ng-switch="billingDetails.paymentMethod">
                   <tr class="main">
@@ -339,9 +340,9 @@
               </div>
 
               <div class="extended-total"
-                   ng-if="config.reservationDetailPriceBreakdownExtended && reservation.rooms[0].priceDetail">
+                   ng-if="config.reservationDetailPriceBreakdownExtended && reservation.rooms[0].priceDetail && reservation.formatting !== 'suppressRate'">
 
-                <span class="total">_total_:</span>
+                <span class="total">_total_: reservation.formatting: {{reservation.formatting}}</span>
 
                 <span class="total-value"
                       ng-if="!reservation.pointValue">
