@@ -129,7 +129,7 @@
 
       <div class="offer-content" ng-show="selectedOffer.image">
         <img ng-if="!config.displayOfferImageInHeroSlider"
-             style="width:482px;height:280px;"
+             class="fixed-width-height-image"
              ng-src="{{selectedOffer.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}"
              alt="{{selectedOffer.image.uri}}"/>
 
