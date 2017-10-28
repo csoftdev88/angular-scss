@@ -627,7 +627,7 @@ angular
 .run(function(user, $rootScope, $state, breadcrumbsService, stateService, apiService, $window, $location, Settings,
               propertyService, track404sService, sessionDataService, infinitiApeironService, _) {
 
-  $rootScope.$on('$stateChangeStart', function(event, next) {
+  $rootScope.$on('$stateChangeStart', function(event, next, toParams) {
     if(next.name === 'unknown'){ //If the page we are navigating to is not recognised
       if(Settings.API.track404s && Settings.API.track404s.enable) {  //This segment tracks any 404s and sends to our 404 tracking service
         var fromPath = null;
@@ -644,6 +644,14 @@ angular
     } else { //Otherwise set as 200 ok
       $('link[rel="canonical"]').first().attr('href', $location.protocol() + '://' + $location.host() + $location.path());
       $rootScope.prerenderStatusCode = '200';
+    }
+
+    if (Settings.autoPopulateDates && next.name === 'hotel') {
+      toParams.adults = (toParams.adults) ? toParams.adults : 2;
+      toParams.children = (toParams.children) ? toParams.children : 0;
+      toParams.dates = (toParams.dates) ? toParams.dates : $window.moment().add(1, 'day').format('YYYY-MM-DD') + '_' + $window.moment().add(2, 'days').format('YYYY-MM-DD');
+      toParams.fromSearch = (toParams.fromSearch) ? toParams.fromSearch : 1;
+      toParams.scrollTo = (toParams.scrollTo) ? toParams.scrollTo : 'jsRooms';
     }
   });
 
