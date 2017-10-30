@@ -1,0 +1,68 @@
+<list-items class="rooms-list" ng-if="ratesLoaded || !isFromSearch" vertilize-container>
+  <list-item ng-repeat="room in filteredCompareRooms | orderBy : currentOrder.sort | limitTo:(comparisonIndex - (filteredCompareRooms.length)) | limitTo:compareRoomLimit">
+    <div class="list-item-container">
+      <!-- Room info -->
+      <div class="list-item-info">
+        <div ng-if="viewSettings.compareView && viewSettings.compareView.amenitiesTop && roomsConfig.displayAmenities && details && room.amenities.length > 0"
+          ng-include="'layouts/components/amenities.html'"></div>
+        <header ng-if="viewSettings.compareView && viewSettings.compareView.headingTop" class="item-header">
+          <h3>
+            <!--FIXME: Disable room link until the room pages are styled to our standard-->
+            <!--<a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle"></a>-->
+            <a ng-bind-html="room.name | mainHeaderStyle"></a>
+          </h3>
+        </header>
+        <hero-slider data-has-notification-bar="false" data-auto-play="false" on-room-click="openRoomGallery" data-room="{{room}}"
+          data-counter-type="none" content="room.images" ng-if="room.images && room.images.length > 0" data-has-thumbnails="{{roomsConfig.sliderHasThumbnails}}"
+          thumb-width="viewSettings.compareView && viewSettings.compareView.thumbWidth ? viewSettings.compareView.thumbWidth : 68"
+          thumb-height="viewSettings.compareView && viewSettings.compareView.thumbHeight? viewSettings.compareView.thumbHeight: 46"
+          slide-width="viewSettings.compareView && viewSettings.compareView.slideWidth ? viewSettings.compareView.slideWidth : 262"
+          slide-height="viewSettings.compareView && viewSettings.compareView.slideHeight? viewSettings.compareView.slideHeight : 150">
+        </hero-slider>
+
+        <div class="room-image-placeholder" ng-if="room.images.length == 0"></div>
+
+        <div class="room-content" vertilize>
+          <header ng-if="!viewSettings.compareView || !viewSettings.compareView.headingTop" class="item-header">
+            <h3>
+              <!--FIXME: Disable room link until the room pages are styled to our standard-->
+              <!--<a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle"></a>-->
+              <a ng-bind-html="room.name | mainHeaderStyle"></a>
+            </h3>
+          </header>
+
+          <div class="description" ng-bind-html="sanitize(roomsConfig.showRoomHighlight ? (room.roomHighlight && room.roomHighlight !== '' ? room.roomHighlight : room.description) : room.description)"></div>
+        </div>
+
+        <div ng-if="(!viewSettings.compareView || !viewSettings.compareView.amenitiesTop) && roomsConfig.displayAmenities && details && room.amenities.length > 0"
+          ng-include="'layouts/components/amenities.html'"></div>
+      </div>
+
+      <div class="pricing-info">
+        <div ng-if="hasDates() && (!availableRooms || availableRooms.indexOf(room.code) > -1 && room.priceFrom)">
+          <p class="price-form" ng-if="room.priceFrom" itemprop="priceRange">
+            <a class="button" ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-if="!availableRooms || availableRooms.indexOf(room.code) > -1 && room.priceFrom">_price_from_ {{getValuePer(room.priceFrom) | i18nCurrency: $root.currencyCode}}</a>
+          </p>
+        </div>
+        <div class="not-available" ng-if="availableRooms.indexOf(room.code) === -1 && hasDates() && ratesLoaded">
+          <p>_not_available_on_dates_title_</p>
+        </div>
+        <div class="not-available" ng-if="!hasDates()">
+          <button-submit ng-click="selectDates()">_select_dates_</button-submit>
+        </div>
+      </div>
+      <room-products ng-if="details && room._displayRates" ng-class="{'has-ota-products':roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0}"
+        id="{{'rates'+$index}}"></room-products>
+      <button class="fa fa-close room-hide-btn" ng-click="hideRoom(room)"></button>
+    </div>
+    <!-- //list-item-container -->
+  </list-item>
+</list-items>
+<button class="compare-direction-btn" ng-click="shiftRoomCarousel(false)" ng-disabled="!(comparisonIndex > 0)" ng-if="filteredCompareRooms.length">&lt;</button>
+<button class="compare-direction-btn" ng-click="shiftRoomCarousel(true)" ng-disabled="!(comparisonIndex < (filteredCompareRooms.length - compareRoomLimit))"
+  ng-if="filteredCompareRooms.length">&gt;</button>
+<div ng-if="!filteredCompareRooms.length && ((!altRoomDatesAvailable || !altRoomDatesAvailable.length) && (!altProperties || !altProperties.length))"
+  class="compare-no-rooms">
+  <h2>_no_rooms_found_</h2>
+  <a href ng-click="resetCompareRooms()">_show_all_rooms_</a>
+</div>
