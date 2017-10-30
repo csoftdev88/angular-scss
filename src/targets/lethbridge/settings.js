@@ -429,7 +429,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'inactivityPeriodInterval':1000, //The interval at which inactivity checks are made (Milliseconds)
       'displayExitModal':false
     },
-    'chains': ['EXC'],
+    'chains': ['SAND'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
     },
