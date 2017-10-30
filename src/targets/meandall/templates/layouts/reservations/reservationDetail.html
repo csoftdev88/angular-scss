@@ -208,15 +208,16 @@
               </tbody>
             </table>
 
-            <div class="extended-charges">
-              <table ng-class="{'extended': breakdownExtended}"
-                     ng-init="breakdownExtended = false"
-                     ng-if="config.reservationDetailPriceBreakdownExtended &&
+            <div
+              class="extended-charges"
+              ng-if="config.reservationDetailPriceBreakdownExtended &&
                             reservation &&
                             !config.useSidetable &&
                             reservation.rooms[0].priceDetail &&
                             !reservation.pointValue &&
-                            reservation.formatting !== 'suppressRate'">
+                            !formatting">
+              <table ng-class="{'extended': breakdownExtended}"
+                     ng-init="breakdownExtended = false">
 
                 <thead ng-switch="billingDetails.paymentMethod">
                   <tr class="main">
