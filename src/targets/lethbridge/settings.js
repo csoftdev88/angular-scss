@@ -158,7 +158,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
-    'chainCode': 'EXC',
+    'chainCode': 'SAND',
     'trackUsage': true,
     'languageInPath': true,
     'baseURL': {
