@@ -1,0 +1,30 @@
+/////////////////////////////////////////////////
+// USER MESSAGES                               //
+// - shown as list in stripe under page header //
+/////////////////////////////////////////////////
+
+user-messages {
+  top: 118px;
+  background: @c-secondary;
+  .viewport-mobile & {
+    top: 0;
+  }
+  ul {
+    li {
+      > div {
+        padding:10px 0;
+        .message-content {
+          font-size:18px;
+          span.desc {
+            font-weight:bold;
+            padding-top:20px;
+          }
+        }
+      }
+    }
+  }
+  .message-close {
+    font-weight:bold;
+    font-size:18px;
+  }
+}

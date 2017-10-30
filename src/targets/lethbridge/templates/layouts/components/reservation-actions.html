@@ -1,0 +1,13 @@
+<div class="share" ng-if="config.confirmationPageSharing.socialSharing">
+  _share_via_:
+  <a ng-if="shareConfig.facebook" href="" title="Share on Facebook" target="_blank" class="icon-fb" fb-like="facebookShare.url"></a>
+  <a ng-if="shareConfig.twitter" href="" ng-href="https://twitter.com/intent/tweet?source={{shareURL}}&text={{shareURL}}&via={{shareConfig.twitterUsername}}"
+    title="Tweet" target="_blank" class="icon-twitter"></a>
+  <a ng-if="shareConfig.googleplus" href="" ng-href="https://plus.google.com/share?url={{shareURL}}" title="Share on Google+"
+    target="_blank" class="icon-gplus"></a>
+  <a ng-if="shareConfig.mail" href="" ng-href="mailto:?body={{shareURL}}" title="Email" target="_blank" class="icon-email"></a>
+</div>
+<div class="passbook">
+  <a href="" class="button-print" ng-click="printPage()" ng-if="config.confirmationPageSharing.print"><span>_print_</span></a>
+  <a href ng-click="sendToPassbook()" class="button-passbook" ng-if="config.confirmationPageSharing.passbook"><span>_add_to_passbook_</span></a>
+</div>

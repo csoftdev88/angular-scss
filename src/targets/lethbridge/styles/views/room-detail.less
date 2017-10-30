@@ -1,0 +1,353 @@
+/////////////////////
+//// ROOM DETAIL ////
+/////////////////////
+
+hotel-room {
+
+  .header {
+    .viewport-mobile & {
+      margin-bottom:0;
+    }
+    h1 {
+      .viewport-mobile & {
+        margin-bottom:15px;
+      }
+      .chain-sand &{
+        font-size: 24px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: @c-grey;
+      }
+    }
+  }
+
+
+  .wide-button {
+    button-submit {
+      background: @c-green;
+    }
+  }
+
+  h2{
+    font-size: 18px;
+    color: @c-grey;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .controls{
+
+    order-switch {
+
+      .chosen-container {
+        width: 150px !important;
+        border: none;
+      }
+
+      .chosen-container-single {
+        .chosen-single {
+          border-radius: 4px;
+          background: #f2f2f2;
+          background: -moz-linear-gradient(top, #f2f2f2 0%, #d4d4d4 100%);
+          background: -webkit-linear-gradient(top, #f2f2f2 0%,#d4d4d4 100%);
+          background: linear-gradient(to bottom, #f2f2f2 0%,#d4d4d4 100%);
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#d4d4d4',GradientType=0 );
+          border: 1px solid @c-light-grey;
+          span{
+            color: @c-grey;
+          }
+        }
+      }
+
+      //icon
+      .chosen-container-single .chosen-single div b {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 26px;
+        height: 100%;
+        background: none;
+        &:after {
+          .fa;
+          position: absolute;
+          color: @c-grey;
+          font-size: 14px;
+          content: @fa-var-sort;
+          right: 10px;
+          top: 8px;
+        }
+
+      }
+
+      .viewport-mobile & {
+        width: 100%;
+        margin: 10px 0px;
+        display:block;
+
+        .chosen-container {
+          width: 100% !important;
+        }
+      }
+    }
+
+    pricing-switch{
+      .viewport-mobile & {
+        display:block;
+      }
+      a{
+        &.is-active{
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+  .room-gallery {
+
+    li {
+      width: 205px;
+      //- Image
+      figure {
+        max-height: 124px;
+      }
+    }
+  }
+
+
+  list-items {
+    list-item {
+      padding:30px 210px 30px 19%;
+      border-top:1px solid #ddd;
+      &:first-child {
+        border-top:0px none;
+      }
+      .viewport-mobile & {
+        padding:20px 30px 20px 120px;
+      }
+      &.without-image {
+        padding-left: 20px;
+        .viewport-mobile & {
+          padding-left:0px;
+          &.is-member-only {
+            padding-left:20px;
+            padding-right:30px;
+          }
+        }
+      }
+      .product-image {
+        position: absolute;
+        left: 15px;
+        top: 30px;
+        width: 15%;
+        .viewport-mobile & {
+          width:105px;
+          height:100px;
+          left:0;
+          top:20px;
+          border: solid 2px #bbbbbb;
+          box-sizing:border-box;
+        }
+      }
+
+      .list-item-highlight-label {
+        padding-bottom:@baseline / 2;
+      }
+
+      h2 {
+        padding-top:0;
+        .viewport-mobile & {
+          width:100%;
+          font-size:16px !important;
+        }
+      }
+
+      description-info {
+        .viewport-mobile & {
+          width:100%;
+          margin-top:-25px;
+        }
+      }
+
+      > pricing-info {
+        .viewport-mobile & {
+          display:none;
+        }
+      }
+
+      pricing-info{
+        right:20px;
+        height:100%;
+        padding-top:15px;
+        box-sizing:border-box;
+        .viewport-mobile & {
+          height:auto;
+          padding-top:0;
+        }
+        p {
+          .value {
+            .viewport-mobile & {
+              font-weight:400;
+              font-size:15px;
+              color:@c-secondary;
+            }
+            .viewport-mobile.chain-sign & {
+              color:@c-menu-active-sign;
+            }
+          }
+        }
+        button-submit {
+          font-family: @ff-default;
+          .chain-sign &,
+          .chain-sand &{
+            font-family: @ff-default;
+          }
+          &:hover {
+            background:darken(@c-green, 10%);
+          }
+        }
+      }
+      > .product-link {
+        display:none;
+      }
+      @media only screen and @small-mobile-max {
+        .wide-button-room-details {
+          margin-left: 0px;
+        }
+      }
+    }
+  }
+
+
+  section.room-description {
+    margin-top: @baseline*2;
+    ul {
+      padding-left:17px;
+      list-style:disc;
+    }
+  }
+
+  .room-details-left {
+    width:50%;
+    float:left;
+    .viewport-mobile &, .viewport-tablet & {
+      width:100%;
+      float:none;
+    }
+    .room-description {
+      ul li {
+        margin-bottom:15px;
+      }
+    }
+  }
+
+  .room-details-right {
+    width:45%;
+    margin-left:5%;
+    float:left;
+    .viewport-mobile &, .viewport-tablet & {
+      width:100%;
+      margin-left:0;
+      float:none;
+    }
+  }
+
+  section.room-amenities {
+    background-color: #f9f9f9;
+    border: solid 1px #efefef;
+    margin-top: 20px;
+    padding: 20px;
+    .viewport-mobile & {
+      border:0px none;
+      background:none;
+      padding:0;
+    }
+    h2 {
+      .viewport-mobile & {
+        margin-bottom:20px;
+      }
+    }
+    amenity-item {
+      width:50%;
+      padding:0 10px;
+      min-height:60px;
+      .viewport-mobile &, .viewport-tablet & {
+        width:100%;
+        min-height: initial;
+        padding: 0;
+        margin-top: 20px;
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+    }
+    h2 {
+      font-size:13px;
+      font-weight:700;
+    }
+    span {
+      font-weight:300;
+    }
+  }
+
+}
+
+.other-rooms-title{
+  display: none;
+}
+
+.other-rooms-nav{
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 50px;
+  a{
+    position: relative;
+    font-size: 13px;
+    line-height: 42px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: @c-grey;
+    padding-right: 30px;
+    float: right;
+    max-width: 45%;
+    .chain-sign &{
+      font-family: @ff-heading-sign;
+    }
+    &:after{
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 24px;
+      height: 48px;
+      background: url('@{img-prefix}/arrow-right.png') no-repeat center;
+    }
+    &:first-child{
+      padding-right: 0;
+      padding-left: 30px;
+      float: left;
+      &:after{
+        background: url('@{img-prefix}/arrow-left.png') no-repeat center;
+        right: 0;
+        left: 0;
+      }
+    }
+  }
+}
+
+main.room-detail {
+
+  .ota-products {
+    > li {
+      .ota-rate-text {
+        img {
+          display: initial;
+        }
+        .viewport-mobile & {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+}
