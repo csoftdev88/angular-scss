@@ -82,7 +82,7 @@
               </tbody>
             </table>
 
-            <table class="charges" ng-switch="!!reservation.pointValue">
+            <table class="charges" ng-if="!reservation.productFormatting" ng-switch="!!reservation.pointValue">
               <tbody ng-switch-when="false">
                 <tr>
                   <!-- Do we know the payment method? -->
