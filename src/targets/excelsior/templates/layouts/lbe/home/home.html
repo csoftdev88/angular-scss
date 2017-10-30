@@ -248,13 +248,13 @@
 
 <main class="grid-wrapper About" ng-if="auth.isLoggedIn()">
 
-  <questionnaire></questionnaire>
-
   <div class="About__signup" ng-if="offers.length">
     <h1>_about_offer_title_</h1>
     <p>{{ offers[0].title }}</p>
     <button ng-click="gotoOffer(offers[0])">_view_more_</button>
   </div>
+
+  <questionnaire></questionnaire>
 
   <!--Excelsior do not have an instagram feed-->
   <!--<div class="About__instagram">-->
