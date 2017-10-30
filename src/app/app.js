@@ -805,7 +805,7 @@ angular
     };
   }
 
-  $scope.$on('$stateChangeStart', function(e, toState, toParams) {
+  $scope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
 
     // Re inject keystone plugin when the header gets recompiled
     if (Settings.authType === 'keystone' && window.KS && window.KS.$event) {
@@ -931,7 +931,12 @@ angular
       //Get our dynamic translations
       var appLang = stateService.getAppLanguageCode();
       if(toState.name !== 'reservation.details' && toParams.adults && toParams.dates && !toParams.rooms && !stateService.isMobile()) {
+        var editingNotification = '';
+        if(toParams.reservation && toState.data && toState.data.supportsEditMode && !fromParams.reservation) {
+          editingNotification = '<span>_you_are_currently_editing_ <strong>' + toParams.reservation + '</strong></span>';
+        }
         notificationService.show(
+          editingNotification +
           '<div class="singleroom-notification">' +
           '<div class="details">' +
           '<p>' + toParams.adults + ' ' + DynamicMessages[appLang].adults + '</p>' +
