@@ -437,8 +437,8 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
     'generics': {
-      'singleProperty': true,
-      'defaultPropertyCode': 'EXC',
+      'singleProperty': false,
+      'defaultPropertyCode': '',
       'facebookAppId': '',
       'disableMainHeaderStyle': true,
       'applyChainClassToBody': true,
@@ -447,7 +447,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'dontRedirectSinglePropertyHome': true,
       'header': {
         'logoLink': 'https://gooole.com',
-        'logoText': 'Excelsior Hotels',
+        'logoText': 'Lethbridge Hotels',
         'telephone': '+49 211 54259 0',
         'loginAsLink': true,
         'hideMobileHeader': true,
