@@ -372,6 +372,9 @@ main.reservation-page {
         color: @c-secondary;
       }
     }
+    .input-checkbox {
+      font-size: @size--2;
+    }
     .payment-card form .card-details .card-cvv {
       .help {
         color: @c-secondary !important;
@@ -750,6 +753,7 @@ reservation-hotel-details {
         }
       }
       h3 {
+        font-family: @ff-bold;
         font-size: @heading-2-size;
         font-weight: normal;
         margin-bottom: 15px;
@@ -762,7 +766,7 @@ reservation-hotel-details {
       h4 {
         font-family: @ff-bold;
         font-size: @size-0;
-        text-transform: uppercase;
+        text-transform: capitalize;
         span {
           .viewport-mobile & {
             display: block;
