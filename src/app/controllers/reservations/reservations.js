@@ -85,6 +85,20 @@
       };
       console.log('reservations', $scope.reservations);
 
+      if ($scope.reservations.nextStay) {
+        window.console.log($scope.reservations.nextStay.formatting);
+        if ($scope.reservations.nextStay.formatting === 'suppressRate') {
+          $scope.reservations.nextStay.productFormatting = true;
+        } else {
+          _.each($scope.reservations.nextStay.rooms, function (room) {
+            if (room.formatting === 'suppressRate') {
+              $scope.reservations.nextStay.productFormatting = true;
+              return false;
+            }
+          });
+        }
+      }
+
       $timeout(function(){
         scrollService.scrollTo('jsReservations');
       }, 500);
