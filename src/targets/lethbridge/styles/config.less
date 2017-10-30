@@ -2,34 +2,45 @@
 ////////////////
 
 /*Main style*/
-@c-primary:      #1a1919;
-@c-secondary:    #3eb1c2;
+@c-primary: #B98747;
+@c-secondary: #E34E3F;
+@c-tertiary: #585C58;
+
+@c-text: #3F3029;
 @c-secondary-transparent: rgba(62, 177, 194, 0.24);
 @c-secondary-transparent-dark: rgba(62, 177, 194, 0.3);
 @c-brown:    #7d6f5e;
 @c-light-brown: #ac7f49;
 @c-green: #37a744;
 @c-red: #cc0c39;
+@c-button-text: #9B9B9B;
+@c-button-border: #C4AB8B;
 
 @c-light-grey: #dedede;
-@c-grey: #606060;
-@c-mid-grey: #979797;
+@c-grey: @c-text;
+@c-mid-grey: #585C58;
+@c-alt-grey: #4A4A4A;
 @c-dark-grey: #1a1919;
 @c-dark-grey-transparent: rgba(26, 25, 25, 0.8);
 
-@c-text: @c-grey;
-@c-black: @c-dark-grey;
+@c-black: @c-text;
 
-@c-menu-active: #61cad8;
+@c-menu-active: #0d375c;
+
+// Fonts
+@ff-primary: "Open Sans";
+@ff-secondary: Arial;
+@ff-serif: Quattrocento;
 
 ///// Components /////
 //////////////////////
-@c-booking-widget: @c-brown;
-@c-booking-widget-active: @c-grey;
+@c-booking-widget: #F1E7DA;
+@c-booking-widget-active: #F1E7DA;
 @c-booking-widget-my-account: @c-light-brown;
+@c-bookingbar-bg: #F1E7DA;
 
-@c-datepicker: @c-dark-grey;
-@c-datepicker-unavailable: #d0021b;
+@c-datepicker: #fff;
+@c-datepicker-unavailable: #ccc;
 @c-datepicker-partially-available: #cf9a4d;
 
 /*Signature chain style*/
@@ -44,3 +55,20 @@
 /*Sandman chain style*/
 @c-primary-sand: #ac7f49;
 @c-menu-active-sand: #3eb1c2;
+
+@header-height: 100px;
+@mobile-header-height: @header-height / 2;
+
+.backdrop-filter-blur(@amount) {
+  // Work around for backdrop-filter blur, due ot its poor browser support
+  &::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    filter: blur(@amount);
+    z-index: -1;
+  }
+}

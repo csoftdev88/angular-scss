@@ -1,5 +1,3 @@
-<hero-slider ng-if="!config.hideHeroSlider" content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
-
 <breadcrumbs ng-if="!config.hideBreadcrumbs" stickable="main-header"></breadcrumbs>
 
 <main class="grid-wrapper ProfilePage" id="jsProfile">
@@ -199,6 +197,6 @@
 
   </profile-page>
 
-  <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>
+  <!--<scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>-->
 </main>
 <div ng-include="'layouts/siteMap.html'" class="site-map" ng-if="footerConfig.displaySitemap"></div>

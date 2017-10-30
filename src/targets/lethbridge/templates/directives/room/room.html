@@ -58,12 +58,12 @@
         <div class="controls">
           <order-switch ng-show="hasDates && products.length > 1">
             <select name="sorting" ng-model="currentOrder" disable-search="true" chosen ng-options="option.name for option in sortingOptions"
-                    placeholder-text-single="_sorting_filter_placeholder_" ng-change="orderSwitchChange(currentOrder)" ng-init="initSortingOptions({
+              placeholder-text-single="_sorting_filter_placeholder_" ng-change="orderSwitchChange(currentOrder)" ng-init="initSortingOptions({
               'priceLowToHigh': '_sort_by_' + ' _price_low_to_high_',
               'priceHighToLow': '_sort_by_' + ' _price_high_to_low_',
               'recommended': '_sort_by_' + ' _recommended_'
             })">
-            </select>
+          </select>
           </order-switch>
 
           <pricing-switch>
@@ -78,28 +78,36 @@
         </room-ota-products>
 
 
-        <list-item ng-repeat="product in products | orderBy : currentOrder.sort | limitTo: roomRatesLimit" ng-class="{'without-image':!config.showProductImage || (config.showProductImage && (!product.image || !product.image.uri)),'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice}">
+        <list-item ng-repeat="product in products | orderBy : currentOrder.sort | limitTo: roomRatesLimit"
+                   ng-class="{'without-image':!config.showProductImage,'is-highlighted': product.highlighted, 'is-member-only': product.memberOnly, 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(), 'slashthrough': product.price.formatting === 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice}">
           <img ng-src="{{product.image.uri | cloudinaryImage : productImageWidth : productImageHeight : 'fill'}}" alt="{{product.image.alt}}" class="product-image"
-               ng-if="config.showProductImage && product.image && product.image.uri" />
+            ng-if="config.showProductImage && product.image && product.image.uri" />
+          <img src="/static/images/product-img.png"
+               alt=""
+               class="product-image"
+               ng-if="config.showProductImage && !(product.image && product.image.uri)" />
+          <span ng-if="product.price.pointsEarned" class="ProductPointsEarned">
+            _earn_ {{getValuePer(product.price.pointsEarned, true).toFixed(0)}} _points_
+          </span>
           <div class="list-item-highlight-label member-ribbon" ng-if="product.memberOnly">_members_only_rate_</div>
           <div class="list-item-highlight-label highlight-ribbon" ng-if="product.highlighted">_most_booked_package_</div>
           <div class="list-item-header">
             <h2 class="product-title" ng-bind-html="product.name | mainHeaderStyle"></h2>
 
             <pricing-info>
-              <p>
-                <span class="original-price" ng-if="product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
+              <p ng-if="product.price.formatting !== 'suppressRate'">
+                <span class="original-price" ng-if="product.price.formatting === 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
                 <span class="value">{{getValuePer(product.price.totalBaseAfterPricingRules, true) | i18nCurrency: currencyCode}}</span>
                 <span ng-if="pricePer === PP_NIGHT">_per_night_</span>
                 <span ng-if="pricePer === PP_STAY">_per_stay_</span>
 
-                <span ng-if="isUserLoggedIn() && product.price.pointsRequired && loyaltyProgramEnabled && product.allowPointsBooking">
-                <br />_or_ <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1)).toFixed(0)}}</span>                _points_
+                <span ng-if="product.price.pointsRequired && loyaltyProgramEnabled && product.allowPointsBooking">
+                _or_ <span class="value">{{(product.price.pointsRequired * (pricePer === PP_STAY ? days : 1)).toFixed(0)}}</span> _points_
                 </span>
               </p>
             </pricing-info>
 
-            <earned-points ng-if="isUserLoggedIn() &&
+            <!--<earned-points ng-if="isUserLoggedIn() &&
                                   product.price.pointsEarned &&
                                   loyaltyProgramEnabled &&
                                   product.productAwardPoints">
@@ -108,24 +116,25 @@
                             when="{'1': '{} point', 'other': '{} points'}">
               </ng-pluralize>
 
-            </earned-points>
+            </earned-points>-->
             <p class="noPointsAwarded" ng-if="isUserLoggedIn() && !product.productAwardPoints && loyaltyProgramEnabled">_no_points_rate_desc_</p>
           </div>
 
           <pricing-info>
-            <p>
-              <span class="original-price" ng-if="product.price.formatting = 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
+            <p ng-if="product.price.formatting !== 'suppressRate'">
+              <span class="original-price" ng-if="product.price.formatting === 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
               <span class="value">{{getValuePer(product.price.totalBaseAfterPricingRules, true) | i18nCurrency: currencyCode}}</span>
               <span class="pricing-filter-label" ng-if="pricePer === PP_NIGHT">_per_night_</span><span ng-if="pricePer === PP_STAY">_per_stay_</span>
-              <span ng-if="isUserLoggedIn() && product.price.pointsRequired && (loyaltyProgramEnabled || isLoyaltyEngine) && product.allowPointsBooking">
-              <br />_or_ <span class="value points">{{getValuePer(product.price.pointsRequired, true).toFixed(0)}}</span>              _points_
+              <span class="points-label" ng-if="isUserLoggedIn() && product.price.pointsRequired && (loyaltyProgramEnabled || isLoyaltyEngine) && product.allowPointsBooking">
+              _or_ <span class="value points">{{getValuePer(product.price.pointsRequired, true).toFixed(0)}}</span>              _points_
               </span>
             </p>
 
-            <button-submit role="button" tabindex="0" ng-click="selectProduct(product)">
+            <button-submit role="button" tabindex="0" ng-click="selectProduct(product)" ng-hide="product.memberOnly && !isUserLoggedIn()">
               _book_now_
             </button-submit>
 
+            <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="auth.login()">_login_to_book_</a>
           </pricing-info>
 
           <description-info>
@@ -167,21 +176,13 @@
                    ng-click="openRoomDetailsDialog(product)"
                    ng-if="openRoomDetailsDialog">
                   <span ng-if="!config.rateInfoIsTabbed">_read_more_</span>
-                  <span ng-if="config.rateInfoIsTabbed">_view_price_breakdown_policies_</span>
+                  <span ng-if="config.rateInfoIsTabbed">_read_more_</span>
                 </a>
 
               </p>
             </div>
           </description-info>
-          <div class="wide-button" ng-if="useAlternateBookingFlow">
-            <button-submit class="wide-button-room-details"
-                           role="button"
-                           tabindex="0"
-                           ng-click="selectProduct(product)">
-              _book_now_
-            </button-submit>
-          </div>
-          <div class="wide-button" ng-if="!useAlternateBookingFlow">
+          <div class="wide-button">
             <button-submit class="wide-button-room-details"
                            role="button"
                            tabindex="0"
@@ -280,31 +281,11 @@
     </section>
   </div>
 
-  <div class="room-details-right" ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
-    <section class="room-description" ng-show="roomDetails.description" ng-if="config.showDescriptionBottom">
-      <p ng-bind-html="sanitize(roomDetails.description)"></p>
-    </section>
-    <section ng-if="filteredAmenities.length && !viewSettings.showAmenitiesTop" class="room-amenities">
-      <h2 ng-bind-html="'_room_amenities_title_' | mainHeaderStyle"></h2>
-      <input ng-if="roomDetails && config.restrictAmenities" type="checkbox" class="amenities-reveal-state" id="room-amenities" />
-      <amenities-list ng-if="property" ng-class="{'restricted-amenities': config.restrictAmenities}">
-        <amenity-item ng-repeat="amenity in filteredAmenities" ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = property.chainCode">
-          <slug-img slug="amenity" type="room" width="15"></slug-img>
-          <span class="amenity-caption">{{amenity.name}}</span>
-        </amenity-item>
-      </amenities-list>
-      <label ng-if="roomDetails && config.restrictAmenities" for="room-amenities" class="amenities-reveal-trigger">_show_all_facilities_</label>
-    </section>
-  </div>
-  <hr/>
-  <h2 class="other-rooms-title" ng-if="!config.otherRooms.hide && property.nameLong && (!otherRooms || (otherRooms && otherRooms.length > 1)) "
-      ng-bind-html="'_other_rooms_title_' | stringLocaleReplace:property.nameLong | mainHeaderStyle"></h2>
+  <div ng-include="'directives/room/roomInfo.html'"></div>
 
-  <!-- Keeping this just in case
-  <div ng-if="!otherRooms && roomDetails && !otherRoomsLoading" class="load-more-rooms">
-    <button-submit ng-click="loadMoreRooms()">_view_more_rooms_</button-submit>
-  </div>
-  -->
+  <h2 class="other-rooms-title" ng-if="!config.otherRooms.hide && property.nameLong && (!otherRooms || (otherRooms && otherRooms.length > 1)) ">
+    <span ng-bind-html="'_other_rooms_title_' | stringLocaleReplace:property.nameLong | mainHeaderStyle"></span>
+  </h2>
 
   <div class="preloader relative" ng-show="!config.otherRooms.hide && otherRoomsLoading"></div>
 
@@ -325,7 +306,7 @@
       <list-item ng-repeat="otherRoom in otherRooms | orderBy:'priceFrom'" ng-click="onClickOnAssociatedRoom(otherRoom)" class="with-special-hover">
         <figure ng-show="otherRoom.image[0]">
           <img ng-src="{{otherRoom.image[0].uri | cloudinaryImage : config.otherRooms.thumbnails.width : config.otherRooms.thumbnails.height : 'fill'}}"
-               alt="{{otherRoom.name}}">
+            alt="{{otherRoom.name}}">
         </figure>
 
         <h2>{{otherRoom.name}}</h2>

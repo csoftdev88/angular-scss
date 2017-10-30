@@ -7,7 +7,9 @@
           ng-include="'layouts/components/amenities.html'"></div>
         <header ng-if="viewSettings.compareView && viewSettings.compareView.headingTop" class="item-header">
           <h3>
-            <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle"></a>
+            <!--FIXME: Disable room link until the room pages are styled to our standard-->
+            <!--<a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle"></a>-->
+            <a ng-bind-html="room.name | mainHeaderStyle"></a>
           </h3>
         </header>
         <hero-slider data-has-notification-bar="false" data-auto-play="false" on-room-click="openRoomGallery" data-room="{{room}}"
@@ -23,14 +25,14 @@
         <div class="room-content" vertilize>
           <header ng-if="!viewSettings.compareView || !viewSettings.compareView.headingTop" class="item-header">
             <h3>
-              <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle"></a>
+              <!--FIXME: Disable room link until the room pages are styled to our standard-->
+              <!--<a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle"></a>-->
+              <a ng-bind-html="room.name | mainHeaderStyle"></a>
             </h3>
           </header>
 
           <div class="description" ng-bind-html="sanitize(roomsConfig.showRoomHighlight ? (room.roomHighlight && room.roomHighlight !== '' ? room.roomHighlight : room.description) : room.description)"></div>
         </div>
-
-        <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" class="read-more">_read_more_</a>
 
         <div ng-if="(!viewSettings.compareView || !viewSettings.compareView.amenitiesTop) && roomsConfig.displayAmenities && details && room.amenities.length > 0"
           ng-include="'layouts/components/amenities.html'"></div>

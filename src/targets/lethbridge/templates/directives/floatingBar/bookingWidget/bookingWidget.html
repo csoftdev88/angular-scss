@@ -97,20 +97,38 @@
   <!-- ENTER YOUR CODE -->
   <form-element ng-if="!advanced" class="code" ng-class="{'code-input': selected.codeType}" title="_apply_code_">
     <select name="code"
-        required ng-model="selected.codeType"
-        disable-search="true"
-        chosen ng-options="code as code.title for code in codeTypes"
-        ng-change="onCodeTypeChanged()"
-        ng-disabled="$root.thirdparty"
-        placeholder-text-single="_apply_code_">
-      <option></option>
+            chosen
+            required ng-model="selected.codeType"
+            disable-search="true"
+            ng-options="code as code.title for code in codeTypes"
+            ng-change="onCodeTypeChanged()"
+            ng-disabled="$root.thirdparty"
+            placeholder-text-single="_apply_code_">
     </select>
 
-    <input type="text" class="booking-widget-promo-code" ng-disabled="$root.thirdparty" ng-show="selected.codeType.param === 'promoCode'" placeholder="_promo_code_" ng-model="selected.promoCode" ng-pattern="$root.generalValidationPattern">
+    <input type="text"
+           class="booking-widget-promo-code"
+           ng-disabled="$root.thirdparty"
+           ng-show="selected.codeType.param === 'promoCode'"
+           placeholder="_promo_code_"
+           ng-model="selected.promoCode"
+           ng-pattern="$root.generalValidationPattern">
 
-    <input type="text" class="booking-widget-promo-code" ng-disabled="$root.thirdparty" ng-show="selected.codeType.param === 'corpCode'" placeholder="_corp_code_" ng-model="selected.corpCode" ng-pattern="$root.generalValidationPattern">
+    <input type="text"
+           class="booking-widget-promo-code"
+           ng-disabled="$root.thirdparty"
+           ng-show="selected.codeType.param === 'corpCode'"
+           placeholder="_corp_code_"
+           ng-model="selected.corpCode"
+           ng-pattern="$root.generalValidationPattern">
 
-    <input type="text" class="booking-widget-promo-code" ng-disabled="$root.thirdparty" ng-show="selected.codeType.param === 'groupCode'" placeholder="_group_code_" ng-model="selected.groupCode" ng-pattern="$root.generalValidationPattern">
+    <input type="text"
+           class="booking-widget-promo-code"
+           ng-disabled="$root.thirdparty"
+           ng-show="selected.codeType.param === 'groupCode'"
+           placeholder="_group_code_"
+           ng-model="selected.groupCode"
+           ng-pattern="$root.generalValidationPattern">
     <form-label>{{selected.codeType.title}}</form-label>
 
     <remove-text ng-show="canRemoveCodes && !$root.thirdparty" role="button" class="remove" ng-click="removeCode()"></remove-text>

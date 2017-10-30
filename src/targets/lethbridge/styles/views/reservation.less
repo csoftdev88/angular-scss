@@ -3,7 +3,7 @@
 /////////////////////
 
 @c-gray-reservation:  #d7d7d7;
-@c-form-text:         #373535;
+@c-form-text:         @c-text;
 @c-brown-light:       #d7c6ae;
 @spacing:             20px;
 
@@ -14,17 +14,31 @@
 reservation-widget {
 
   margin-bottom: 70px;
+  padding: 24px 47px 24px 34px;
+  box-sizing: border-box;
   width: 100%;
-  .chain-sign &{
-    background:white;
+  background-color: #fff;
+  box-shadow: none;
+  border-radius: 0;
+
+  a {
+    cursor: pointer;
   }
-  .chain-sign.viewport-mobile & {
-    background:transparent;
+
+  .viewport-mobile & {
+    padding: 20px;
   }
+
+  // Override chosen styling for select boxes
+  .chosen-container-active.chosen-with-drop .chosen-single {
+    box-shadow: none;
+  }
+
   &.reservation-assurance-active {
-    margin-bottom:40px;
+    padding: 20px;
+    margin-bottom: 40px;
     .viewport-mobile & {
-      margin-bottom:0;
+      margin-bottom: 40px;
     }
   }
   form {
@@ -32,154 +46,72 @@ reservation-widget {
   }
   reservation-details-form{
     form{
-      padding: 20px 25px;
-      border: 1px solid #b98748;
-      border-radius: 3px;
-      background-color: #f2ece5;
+      padding: 0;
       margin-top: 25px;
       box-sizing: border-box;
     }
   }
 
-  // CreateUser is the from on reservation details to enter a password and create a user via a booking
-  .CreateUser {
-    margin-top: 23px !important;
-  }
-
-  .MemberLogin {
-    display: flex;
-    flex-flow: column nowrap;
-  }
-
-  .MemberLogin__panel {
-    display: flex;
-    flex-flow: row nowrap;
-    .viewport-mobile & {
-      flex-flow: column nowrap;
+  .continue-btn {
+    width: 246px;
+    span {
+      font-size: 12px;
+      letter-spacing: 1px;
+      font-weight: bold;
     }
-  }
-
-  .MemberLogin__fields {
-    flex: 1 1 auto;
-    display: flex;
-    flex-flow: column nowrap;
-  }
-
-  .MemberLogin__login {
-    flex: none;
-    align-self: center;
-    margin-left: 20px;
-    opacity: 1;
-    transition: opacity 200ms linear;
     .viewport-mobile & {
-      margin-left: 0;
-      margin-bottom: 10px;
-    }
-  }
-
-  button[disabled='disabled'].MemberLogin__login {
-    box-shadow: none;
-    outline: none;
-    background: #ccc;
-    border: 1px solid #ccc;
-    color: white;
-    opacity: 0;
-  }
-
-  .MemberLogin__error {
-    color: @c-red;
-    font-weight: bold;
-  }
-
-  .MemberLogin__title {
-    margin-top: 20px;
-    line-height: 19px;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: -0px;
-    color: #b98748;
-    text-transform: uppercase;
-  }
-
-  .CreateUser__explanation {
-    font-weight: bold;
-  }
-
-  .MemberLogin__subtitle {
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-
-  .MemberLogin__logo {
-    flex: 0 0 auto;
-    margin: 0 16px 5px 0;
-    width: 72px;
-    height: 72px;
-
-    @media @tablet-portrait-max {
       display: none;
     }
   }
 
-  input.MemberLogin__password {
-    line-height: 45px;
-    height: 45px;
-    border: solid 1px #d9d9d9;
-    border-radius: 0;
-    margin: 5px 0 0 0;
-  }
+  button.next {
+    background: @lbe-c-primary;
 
-  .MemberLogin__forgot-password {
-    width: 100%;
-    float: left;
-    text-align: end;
-    cursor: pointer;
-    font-weight: bold;
-    color: @c-secondary;
+    &:active,
+    &:focus,
     &:hover {
-      text-decoration: underline;
+      background: darken(@lbe-c-primary, 10%);
     }
-  }
 
-  .CreateUser__password-container {
-    float: left;
-  }
+    // Remove arrow side part
+    &:after {
+      content: none;
+    }
 
-  input.CreateUser__password,
-  input.CreateUser__password-confirmation {
-    line-height: 45px;
-    height: 45px;
-    border: solid 1px #d9d9d9;
+    span {
+      padding-left: 40px;
+    }
+
+    .viewport-mobile & {
+      width: 100%;
+    }
+
+    width: 245px;
     border-radius: 0;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 40px;
+    height: 40px;
+    text-shadow: none;
+    box-shadow: none;
+    text-transform: uppercase;
   }
 
-  label.CreateUser__password-confirmation {
-    padding-top: 0;
-  }
-
-  .CreateUser__error {
-    font-size: 13px;
-    letter-spacing: -0px;
-    color: @c-red;
-    line-height: 18px;
-
-    .reset-password-link {
-      font-weight: bold;
-      cursor: pointer;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
-  h3{
-    font-size: 14px;
-    font-weight: 700;
+  h3 {
+    margin-top: 30px;
+    font-size: 24px;
+    color: @c-text;
+    line-height: 29px;
+    font-weight: 300;
+    font-family: @ff-secondary;
     text-transform: uppercase;
     .viewport-mobile & {
       margin-top:20px;
     }
-    strong{
+    strong {
       font-weight: normal;
     }
   }
@@ -197,27 +129,51 @@ reservation-widget {
 
   input[type="text"],
   input[type="email"],
+  input[type="tel"],
   select,
   .chosen-container,
   .chosen-container .chosen-single,
   textarea {
-    height: 45px;
-    line-height: 45px;
+    height: 56px;
+    line-height: 56px;
+    border-radius: 4px;
     padding: 0 15px;
-    border-radius: 0;
-    border-color: @c-gray-reservation;
+    border: none;
+    background: #F7F7F7;
     color: @c-form-text;
     font-size: @size-0;
     font-weight: normal;
     transition: border-color 0.15s linear;
 
+    a, div {
+      padding-top: 6px;
+    }
+    .chosen-drop {
+      background: #fff;
+      border-radius: 0;
+    }
+    .chosen-results {
+      border: none;
+      border-radius: 0;
+      li.highlighted {
+        background-image: none;
+        background: @lbe-c-primary;
+      }
+    }
+
     &:focus {
-      box-shadow: inset 0 1px 3px fade(@c-form-text, 20%);
+      box-shadow: none;
     }
   }
 
   .chosen-container {
     padding: 0 7px 0 15px;
+    border: 1px solid #DEDEDE;
+
+    .chosen-single {
+      height: 54px;
+      line-height: 54px;
+    }
 
     .chosen-drop {
       border: 1px solid @c-gray-reservation;
@@ -254,7 +210,7 @@ reservation-widget {
 
   aside {
     section + section {
-      margin: @spacing 0;
+      margin: 0;
     }
     &:before {
       .grid-width(7);
@@ -265,7 +221,7 @@ reservation-widget {
       left: @width;
       top: 45px;
       bottom: 20px;
-      border-left: 1px dashed @c-gray-reservation;
+      border-left: none;
       @media only screen and @tablet-portrait-max {
         content: none;
       }
@@ -280,17 +236,23 @@ reservation-widget {
     }
 
     h3 {
-      color: @c-dark-grey;
-      font-weight: 400;
-      font-size: 13px;
-      text-transform:initial;
+      color: @c-text;
+      line-height: 19px;
+      text-transform: uppercase;
+      font-family: @ff-primary;
+      font-size: 18px;
+      font-weight: 300;
+      margin: 10px 0;
+      letter-spacing: 1px;
     }
 
-    h4{
-      font-size: 10px;
-      color: #585858;
+    h4 {
+      font-size: 22px;
+      line-height: 32px;
       text-transform: uppercase;
-      font-weight: 700;
+      font-family: @ff-serif;
+      letter-spacing: 1px;
+      color: @c-primary;
     }
 
     .room-data-details{
@@ -301,8 +263,12 @@ reservation-widget {
     }
 
     .desc {
-      color:@c-primary;
-      font-size:13px;
+      color: #E44D3F;
+      font-size: 16px;
+      letter-spacing: 0;
+      line-height: 19px;
+      text-transform: uppercase;
+      font-weight: bold;
     }
 
     .desc,
@@ -317,43 +283,45 @@ reservation-widget {
     }
 
     .price{
-      .chain-sand &{
-        color: @c-primary-sand;
+      color: #000;
+      font-family: @ff-secondary;
+      strong {
+        line-height: 35px;
+        font-weight: bold;
+        color: #4a4a4a;
+        font-family: @ff-primary;
+        font-size: 22px;
+
+        .viewport-mobile & {
+          font-size: 23px;
+          line-height: 28px;
+        }
       }
-      .chain-sign &{
-        color: @c-primary-sign;
+      em {
+        font-size: 14px;
+        letter-spacing: 0;
+        line-height: 17px;
+        font-style: normal;
       }
     }
 
     .chain-logo{
-      display: block;
-      top: 3px;
-      max-width: 25%;
-
-      .chain-sand &{
-        width: 98px;
-        height: 17px;
-        background: url('@{img-prefix}/sandman-logo-medium.png') no-repeat;
-        background-size: 100%;
-        top: 13px;
-      }
-      .chain-sign &{
-        width: 40px;
-        height: 26px;
-        background: url('@{img-prefix}/signature-logo-medium.png') no-repeat;
-        background-size: 100%;
-      }
+      display: none;
     }
 
     .image-wrapper {
       overflow: hidden;
+      // Make width of parent's container by adding the padding to width
+      width: calc(~'100% + 60px');
+      margin-left: -30px; // This needs to be parent's padding
+      margin-top: 30px;
 
       img {
         border-radius: 0;
         margin: @baseline/2 0;
         max-height: 117px;
         width: 100%;
-        border: 2px solid @c-light-grey;
+        border: none;
         .viewport-mobile & {
           max-height:initial;
         }
@@ -362,11 +330,9 @@ reservation-widget {
     .room-image-placeholder {
       width: 100%;
       height:210px;
-      margin-bottom: 14px;
       border-radius: 0;
       margin: 11px 0;
       max-height: 117px;
-      width: 100%;
       border: 2px solid #dedede;
       .chain-sand & {
         background:url('@{img-prefix}/sandman-placeholder-large.jpg') no-repeat;
@@ -383,9 +349,16 @@ reservation-widget {
 
   .reservation-data {
     color: #242424;
+    border: none;
 
     table {
       width: 100%;
+    }
+
+    tr {
+      font-size: 15px;
+      font-family: @ff-secondary;
+      color: #000;
     }
 
     th {
@@ -397,17 +370,21 @@ reservation-widget {
     td {
       font-weight: 700;
       padding: 0 5px;
+      float: right;
     }
 
     .data {
+      font-family: @ff-primary;
       margin: @spacing 0;
+      border: none;
     }
 
     .charges {
-      padding: 10px;
-      border: 1px solid @c-gray-reservation;
-      border-radius: 6px;
+      padding: 0;
+      border: none;
+      border-radius: 0;
       th {
+        text-align: left;
         font-weight: 400;
       }
       td {
@@ -416,14 +393,15 @@ reservation-widget {
       .breakdown-toggle{
         td {
           padding-top:10px;
+          .separator {
+            display: none;
+          }
+          span {
+            display: block;
+          }
         }
         a{
-          .chain-sand &{
-            color: @c-menu-active-sand;
-          }
-          .chain-sign &{
-            color: @c-menu-active-sign;
-          }
+          color: @c-menu-active-sand;
         }
       }
     }
@@ -435,8 +413,9 @@ reservation-widget {
   }
 
   label[for="agreement3"] {
-    margin: @spacing 0 0 0;
-    padding: 0px;
+    margin: 10px 0 41px 0;
+    color: @c-text;
+    padding: 0;
     line-height: 20px;
     text-align: left;
     display: block !important;
@@ -447,17 +426,15 @@ reservation-widget {
 
   .reservation-controls {
     text-align: center;
+    registration-call {
+      display: none;
+      .viewport-mobile &{
+        display: none;
+      }
+    }
 
     .viewport-mobile &{
       width: 100%;
-      registration-call {
-        margin-top: 20px;
-        clear: both;
-        float: left;
-        width: 100%;
-        display: inline-block;
-        margin-top: 20px;
-      }
     }
 
     h4 {
@@ -470,8 +447,8 @@ reservation-widget {
     .next {
       float: right;
       margin: 0 @spacing;
-      .viewport-mobile &{
-        margin: 0 0 0 @spacing/2;
+      .viewport-mobile & {
+        margin: 20px 0 0 @spacing/2;
       }
     }
 
@@ -543,6 +520,26 @@ reservation-widget {
   }
 }
 
+.ReservationDetails__overview {
+  padding: 30px;
+  box-sizing: border-box;
+  border: 1px solid #dedede;
+  border-radius: 6px;
+  background-color: #fff;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+.links {
+  margin: 9px 18px 0 0;
+  .breakdown, .policies {
+    float: right;
+    color: @c-secondary;
+    font-size: 11px;
+    line-height: 15px;
+    text-transform: uppercase;
+  }
+}
+
 ////////////////////////////////////////////////
 // Billing details form and payment w/ points //
 ////////////////////////////////////////////////
@@ -550,19 +547,13 @@ reservation-billing {
 
   // Wrapper
   > div {
-    margin: 10px 0 20px 0;
-    padding: 30px 40px;
-    border: 1px solid #b98748;
+    margin: 30px 0 20px 0;
+    padding: 0;
+    border: none;
     border-radius: 0;
-    background-color: #f2ece5;
+    background-color: transparent;
     .viewport-mobile &{
-      padding: 20px;
-    }
-    &.voucher-entry {
-      padding: 11px 20px;
-      button {
-        display: none;
-      }
+      padding: 0;
     }
   }
 
@@ -588,11 +579,10 @@ reservation-billing {
     i {
       display: block;
       opacity: 1;
-      width: 32px;
-      height: 30px;
+      width: 61px;
+      height: 61px;
       background-repeat: no-repeat;
       background-position: center center;
-      opacity: 0.5;
 
       &.selected {
         opacity: 1;
@@ -625,6 +615,12 @@ reservation-billing {
   .payment-points {
     margin-top: @spacing;
 
+    border: 1px solid @c-primary;
+    border-radius: 3px;
+    padding: 30px;
+    font-family: @ff-secondary;
+    font-weight: normal;
+
     th, td {
       padding: 10px 0;
       font-size: @size-1;
@@ -638,19 +634,34 @@ reservation-billing {
 
     td {
       color: @c-brown;
-      font-weight: bold;
       font-size: @size-2;
       text-align: right;
+      font-weight: normal;
     }
 
-    .earned {
-      color: @c-green;
+    .current td {
+      color: @c-primary;
+    }
+
+    .current th,
+    .cost th {
+      color: #751C14;
+    }
+
+    .cost td {
+      color: @c-red;
+    }
+
+    .cost {
+      th, td {
+        font-size: @size-2;
+      }
     }
 
     .balance {
-
       th, td {
-        font-size: @size-3;
+        font-size: @size-1;
+        color: @c-mid-grey;
       }
     }
 
@@ -666,13 +677,15 @@ reservation-billing {
     }
 
     registration-call {
-      display: none;
+      text-align: center;
+      display: block;
+      margin: 87px 0px;
     }
   }
 
   .chosen-container {
-    line-height: 45px;
-    height: 45px;
+    line-height: 56px;
+    height: 56px;
     border-radius: 0;
     border-color: #d7d7d7;
 
@@ -701,7 +714,7 @@ reservation-billing {
             line-height: 20px;
             font-weight: normal;
             display: inline-block;
-            background-color: #f2ece5;
+            background-color: transparent;
           }
 
           &:before {
@@ -714,7 +727,7 @@ reservation-billing {
             position: absolute;
             left: 0px;
             right: 10px;
-            top: 15px;
+            top: 25px;
           }
         }
 
@@ -790,26 +803,56 @@ reservation-billing {
 reservation-confirmation {
 
   > div {
+    border-radius: 0;
+    border: solid 2px #000;
+
     .viewport-mobile &{
       margin-top: 20px;
     }
   }
 
+  .tab-pane {
+    border-top: none;
+  }
+
+  .tab-pane.active,
+  .tab-pane.active {
+    background: transparent;
+  }
+
   // Tab headers (links)
   .nav-tabs {
-    a:hover {
-      .chain-sign &{
-        color: @c-menu-active-sign;
-      }
-      .chain-sand &{
-        color: @c-menu-active-sand;
+
+    li:first-of-type {
+      background: transparent;
+      color: @c-text;
+      a {
+        color: @c-text;
       }
     }
-    .active a {
-      color: @c-primary;
+
+    li:nth-of-type(2) {
+      background: lighten(@c-primary, 20%);
+      background-size: contain;
+      border-bottom: solid 1px #000;
+    }
+
+    li:last-of-type {
+      background: lighten(@c-secondary, 20%);
+      background-size: contain;
+      border-bottom: solid 1px #000;
+    }
+
+    a {
       font-weight: normal;
-      &:hover {
-        color: @c-primary;
+      text-transform: uppercase;
+      font-family: @ff-primary;
+    }
+
+    li.active {
+      a {
+        color: initial;
+        font-weight: bold;
       }
     }
 
@@ -821,14 +864,21 @@ reservation-confirmation {
   }
 
   table{
-    color: #242424;;
-    tr{
+    color: @c-text;
+    font-family: @ff-secondary;
+    letter-spacing: -0px;
+    font-weight: 300;
+    tr {
+      padding-bottom: 13px;
       th {
-        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 15px;
       }
-
       td {
-        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;
+        font-weight: 300;
+        padding: 5px 10px;
       }
     }
   }
@@ -841,15 +891,116 @@ reservation-confirmation {
 ////////////////////////////////
 reservation-finished {
 
-  margin-top: 120px;
+  margin-top: @header-height;
 
   .viewport-mobile &{
-    margin-top: 0px;
+    margin-top: 130px;
+    .RoomImage {
+      display: none;
+    }
+    .reservation-summary {
+      padding: 0 20px;
+      width: 100%;
+      padding-bottom: 40px !important;
+    }
+    .booking-details {
+      width: 100%;
+    }
+    .table-container {
+      width: 100%;
+    }
+  }
+
+  hr {
+    display: none;
+  }
+
+  hotel-location {
+    .map-wrapper {
+      width: 100vw;
+      margin-left: calc(~'-50vw + 50% - 10px');
+      height: 376px;
+      ng-map {
+        height: 376px;
+      }
+      .viewport-mobile & {
+        height: 326px;
+        margin-top: 120px;
+        margin-left: calc(~'-50vw + 50%');
+      }
+    }
+  }
+
+  .video-section {
+    width: 100vw;
+    margin-left: calc(~'50% - 50vw');
+    margin-top: 30px;
+    margin-bottom: 50px;
+    height: 500px;
+    .viewport-mobile & {
+      height: 172px;
+    }
+  }
+
+  .map-section {
+    width: 100vw;
+    margin-left: calc(~'50% - 50vw');
+    background-color: #fff;
+    hotel-location {
+      > header {
+        margin: 35px 0 25px 0;
+        position: relative;
+        .viewport-mobile & {
+          display: none;
+        }
+      }
+      .view-map-link {
+        display: none;
+      }
+      h2 {
+        text-transform: uppercase;
+        text-align: center;
+        color: @c-primary;
+        font-family: @ff-primary;
+        font-size: 19px;
+        font-weight: normal;
+        line-height: 22px;
+        span {
+          background: #fff;
+          padding: 0 15px;
+        }
+        &:before {
+          border-top: 1px solid @c-primary;
+          content:"";
+          margin: 0 auto; /* this centers the line to the full width specified */
+          position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
+          top: 50%; left: 0; right: 0; bottom: 0;
+          width: 95%;
+          z-index: -1;
+        }
+      }
+    }
   }
 
 
   // This part is specific for RESERVATION DETAIL page only
   .reservation-summary {
+
+    width: 100vw;
+    margin-left: calc(~'50% - 50vw');
+    padding: 70px 0;
+    padding-top: 70px !important;
+    background-color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 100px;
+    .viewport-mobile & {
+      margin-bottom: 20px;
+    }
+
+    .summary-container {
+      max-width: 1212px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
     // Block w/ PRINT and ADD TO PASSBOOK and SHARE buttons
     .actions {
@@ -862,8 +1013,43 @@ reservation-finished {
        display: none;
       }
 
+      .share {
+        float: initial;
+        display: block;
+        width: 100%;
+        color: #fff;
+        margin: 20px 0;
+
+        a {
+          &.icon-fb {
+            &:before {
+              content: @fa-var-facebook-square;
+              color: #fff;
+            }
+          }
+          &.icon-twitter {
+            &:before {
+              content: @fa-var-twitter;
+              color: #fff;
+            }
+          }
+          &.icon-gplus {
+            &:before {
+              content: @fa-var-google-plus;
+              color: #fff;
+            }
+          }
+          &.icon-email {
+            &:before {
+              content: @fa-var-envelope;
+              color: #fff;
+            }
+          }
+        }
+      }
+
       .passbook{
-        float: right;
+        float: left;
         a {
           display: block;
           margin-left: @spacing / 2;
@@ -873,6 +1059,7 @@ reservation-finished {
           width: 108px;
           height: 36px;
           float: right;
+          margin-left: 0;
         }
 
         .button-print {
@@ -919,13 +1106,51 @@ reservation-finished {
 
   // List of possible enhancements for users reservation
   .reservation-enhance {
+    margin-top: 174px;
+    text-align: center;
+
+    .Addons__title {
+      position: absolute;
+      left: 0;
+      top: 20px;
+      width: 60%;
+      padding: 5px 20px 5px 40px;
+      background-color: rgba(26, 26, 26, 0.8);
+      .backdrop-filter-blur(20px);
+      color: #fff;
+      text-transform: uppercase;
+      font-family: @ff-primary;
+      display: block;
+      font-size: 24px;
+      line-height: 35px;
+      text-align: left;
+      .Addons__subtitle {
+        text-transform: none;
+        display: inline;
+      }
+    }
+
+    h3 {
+      font-size: 31px;
+      font-family: @ff-primary;
+      font-weight: bold;
+      line-height: 36px;
+      text-transform: uppercase;
+      color: #fff;
+      text-shadow: 0 1px 10px #000;
+      &:after {
+        content: url('@{lbe-img-prefix}/divider-orange.png');
+        display: block;
+      }
+    }
+
     ul {
       .clearfix;
       margin: @spacing 0;
       padding: @spacing @spacing / 2;
-      border: 2px solid rgba(214, 185, 185, 0.4);
-      border-radius: 4px;
-      background-color: rgba(215, 198, 174, 0.2);
+      border: none;
+      border-radius: 0;
+      background-color: #fff;
     }
 
     li {
@@ -949,9 +1174,9 @@ reservation-finished {
       > div {
         cursor: pointer;
         padding-bottom: 5px;
-        border-radius: 4px;
+        border-radius: 0;
         background: #fff;
-        box-shadow: 0 2px 1px 0 fade(@c-black, 50%);
+        box-shadow: none;
         text-align: center;
         overflow: hidden;
 
@@ -1083,6 +1308,29 @@ reservation-finished {
 
     margin-bottom: 2*@baseline;
 
+    text-align: center;
+
+    list-item {
+      padding-right: 0;
+      min-height: initial;
+      pricing-info {
+        border-left: none;
+      }
+    }
+
+    h3 {
+      font-size: 31px;
+      font-family: @ff-primary;
+      font-weight: bold;
+      line-height: 36px;
+      text-transform: uppercase;
+      color: #000;
+      &:after {
+        content: url('@{lbe-img-prefix}/divider-orange.png');
+        display: block;
+      }
+    }
+
     .total {
       font-size: @size-2;
       font-weight: 600;
@@ -1117,6 +1365,14 @@ reservation-finished {
 ///
 reservation-finished,
 reservation-hotel-details {
+
+  .booking-details {
+    width: 50%;
+    float: left;
+    a {
+      color: @c-primary;
+    }
+  }
 
   .reservation-summary {
 
@@ -1192,6 +1448,35 @@ reservation-hotel-details {
   // Reservation data in tables
   .tables {
 
+    .table-container {
+      border: solid 1px white;
+      padding: 20px 20px;
+      border-radius: 6px;
+      box-sizing: border-box;
+      width: 50%;
+      float: right;
+      .viewport-mobile & {
+        width: 100%;
+      }
+    }
+
+    table {
+      margin-top: 0 !important;
+      float: right;
+      border: none;
+      display: table;
+      .price-breakdown {
+        color: @c-primary;
+      }
+      td {
+        font-weight: 300 !important;
+        padding-bottom: 10px;
+      }
+      tr {
+        padding-bottom: 6px !important;
+      }
+    }
+
     figure {
       width: 33.3333%;
       float: left;
@@ -1204,23 +1489,14 @@ reservation-hotel-details {
       img {
         width: 100%;
         margin-bottom: 14px;
+        height: 348px;
+        border-radius: 6px;
       }
 
       .room-image-placeholder {
         width: 100%;
         height:210px;
         margin-bottom: 14px;
-
-        .chain-sand & {
-          background:url('@{img-prefix}/sandman-placeholder-large.jpg') no-repeat;
-          background-size: cover;
-          background-position: center;
-        }
-        .chain-sign & {
-          background:url('@{img-prefix}/signature-placeholder-large.jpg') no-repeat;
-          background-size: cover;
-          background-position: center;
-        }
       }
 
       button,
@@ -1237,67 +1513,88 @@ reservation-hotel-details {
       }
 
       button.disabled {
-        background: @c-grey;
+        background: @lbe-c-primary;
+        display: none;
         &:active,
         &:focus,
         &:hover {
-          background: @c-grey;
+          background: @lbe-c-primary;
         }
       }
 
       button:first-of-type{
-        border-radius: 3px;
-        background: @c-green;
+        border-radius: 0;
+        background: @ff-primary;
         &:active,
         &:focus,
         &:hover {
-          background: @c-green;
+          background: @ff-primary;
         }
       }
 
       button + button {
         float: right;
+        background: transparent;
+        background-color: transparent;
+        border: solid 2px @lbe-c-primary;
+        border-radius: 0;
+        box-shadow: none;
+        &:hover {
+          background: transparent;
+          background-color: transparent;
+          box-shadow: none;
+        }
       }
     }
 
     > div {
-      padding-left: 100px;
+      padding-left: 50px;
     }
 
-    .chain-logo{
-      display: block;
-      max-width: 25%;
+    .chain-logo {
+      display: none;
+    }
 
-      &.sand{
-        width: 98px;
-        height: 17px;
-        background: url('@{img-prefix}/sandman-logo-medium.png') no-repeat;
-        background-size: 100%;
-      }
-      &.sign{
-        width: 40px;
-        height: 26px;
-        background: url('@{img-prefix}/signature-logo-medium.png') no-repeat;
-        background-size: 100%;
-      }
+    h1, h3, h4, .booking-date {
+      font-family: @ff-secondary;
+      color: @c-text;
+      text-transform: uppercase;
+      font-weight: 300;
+    }
+
+    span, tr, td {
+      font-family: @ff-secondary;
+      color: @c-text;
+      font-weight: 300;
+    }
+
+    h1 {
+      font-family: @ff-serif;
+      font-size: 34px;
+      line-height: 41px;
+      margin-bottom: 18px;
+      max-width: 75%;
     }
 
     h3 {
+      font-size: 24px;
+      line-height: 29px;
+      margin-bottom: 14px;
       max-width: 75%;
-      font-family: @ff-default;
-      font-size: 18px;
-      line-height: 24px;
-      color: @c-grey;
-      text-transform: uppercase;
     }
 
-    h4 {
-      max-width: 75%;
-      font-size: 14px;
-      color: @c-secondary;
-      text-transform: none;
-      font-weight: 300;
-      line-height: 20px;
+    h4, .booking-date {
+      font-size: 16px;
+      line-height: 19px;
+      margin-bottom: 14px;
+    }
+
+    .booking-policies {
+      display: block;
+      margin-top: 20px;
+      .booking-policies {
+        color: @lbe-c-primary;
+      }
     }
 
     table {
@@ -1334,31 +1631,40 @@ reservation-hotel-details {
     }
 
     .total-value {
-      font-size: 18px;
+      font-size: 14px;
       font-weight: 700;
     }
 
+    .extended-total {
+      text-align: right;
+    }
+
     .extended-charges{
-      table{
-        .breakdown-toggle{
-          a{
-            .chain-sand &{
-              color: @c-menu-active-sand;
-            }
-            .chain-sign &{
-              color: @c-menu-active-sign;
-            }
+      border: none;
+
+      table {
+        width: 100%;
+        td {
+          .viewport-mobile & {
+            text-align: right;
           }
         }
       }
+
       .past-booking-message {
-        display: none;
+        background:#daf3f6;
+        border:1px solid @c-menu-active;
+        padding:10px 5px;
+        text-align:center;
+        p {
+          color:@c-secondary;
+        }
       }
 
       .extended-total{
-        position: absolute;
-        bottom: 0;
-        right: 0;
+        position: initial;
+        width: 100%;
+        text-align: right;
         a{
           font-size: 12px;
           line-height: 14px;
@@ -1378,6 +1684,20 @@ reservation-hotel-details {
   }
 }
 
-registration-call {
-  display: none;
+.ConfirmationBackground {
+  background: url('@{img-prefix}/confirmation-bg.png');
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: -999;
+  background-size: cover;
+  .viewport-mobile & {
+    height: 1150px;
+  }
+}
+
+dialog.confirmation-dialog .ui-dialog {
+  overflow-x: hidden;
 }

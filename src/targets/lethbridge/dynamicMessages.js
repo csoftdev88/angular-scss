@@ -1,6 +1,7 @@
 //Service to store translations that need to be accessed by JS (all other translations are compiled into HTML from locales)
 
-// FIXME: this is so poor, please use ng-translate i18n...
+// FIXME: why reinvent the wheel?? Use a proper i18n library instead, ng-translate works well for example
+
 'use strict';
 
 angular.module('mobiusApp.dynamicMessages', [])
@@ -32,20 +33,29 @@ angular.module('mobiusApp.dynamicMessages', [])
       'no_children': 'No children',
       'child': 'Child',
       'children': 'Children',
+      'apply_code': 'Enter a code',
+      'select_property': 'Find Your Hotel',
       'promo_code_applied':'Promo code applied successfully',
       'corp_code_applied':'Corp code applied successfully',
       'group_code_applied':'Group code applied successfully',
-      'promo_code': 'Promo code',
-      'corp_code': 'Corp code',
-      'group_code': 'Group code',
-      'apply_code': 'Enter a code',
-      'select_property': 'Find Your Hotel',
-      'find_your_hotel': 'Find Your Hotel',
-      'logging_in': 'Logging you in',
-      'registering': 'Creating your Sandman account',
-      'updating_account': 'Updating your Sandman account',
+      'enter_valid_choice': 'Please provide a valid option',
+      'answer_the_question': 'Answer the following question to earn XX points',
+
+      // Excelsior register form validation errors
+      'invalid_email_message': 'Please enter a valid email address',
+      'email_match_error_message': 'The emails do not match',
+      'password_pattern_error': 'The password must contain at least 8 characters',
+      'password_match_error_message': 'The passwords do not match',
+      'missing_title': 'Please select your title',
+      'missing_fname': 'Please enter your first name',
+      'missing_lname': 'Please enter your last name',
+      'missing_country': 'Please select your country',
+      'corp_code': 'Corporate Code',
+      'group_code': 'Group Code',
+      'promo_code': 'Promo Code',
       'room': 'Room'
     },
+    // NOTE: Excelsior is English only currently
     'de': {
       'your_reservation': '<div>Ihre Reservierung <strong>',
       'was_successfully_cancelled': '</strong> wurde erfolgreich storniert.</div>',
@@ -66,23 +76,11 @@ angular.module('mobiusApp.dynamicMessages', [])
       'pet': 'Haustier',
       'from': 'Von',
       'tax': 'Steuer',
-      'no_adults': 'kein Erwachsener',
-      'adult': 'Erwachsener',
-      'adults': 'Erwachsene',
-      'no_children': 'keine Kinder',
-      'child': 'Kind',
-      'children': 'Kinder',
       'promo_code_applied':'Promo code applied successfully',
       'corp_code_applied':'Corp code applied successfully',
-      'group_code_applied':'Group code applied successfully',
-      'promo_code': 'Promo code',
-      'corp_code': 'Corp code',
-      'group_code': 'Group code',
-      'apply_code': 'Enter a code',
-      'select_property': 'Find Your Hotel',
-      'find_your_hotel': 'Finden Sie Ihr Hotel',
-      'room': 'Zimmer'
+      'group_code_applied':'Group code applied successfully'
     },
+    // NOTE: Excelsior is English only currently
     'fr': {
       'your_reservation': '<div>Votre réservation <strong>',
       'was_successfully_cancelled': '</strong> a été annulée avec succès.</div>',
@@ -103,24 +101,10 @@ angular.module('mobiusApp.dynamicMessages', [])
       'pet': 'Animal',
       'from': 'De',
       'tax': 'Taxes',
-      'no_adults': 'Pas d\'adultes',
-      'adult': 'Adulte',
-      'adults': 'Adultes',
-      'no_children': 'Pas d\'enfants',
-      'child': 'Enfant',
-      'children': 'Enfants',
       'promo_code_applied':'Promo code applied successfully',
       'corp_code_applied':'Corp code applied successfully',
       'group_code_applied':'Group code applied successfully',
-      'promo_code': 'Code promo',
-      'corp_code': 'Corp code',
-      'group_code': 'Code groupe',
-      'apply_code': 'Enter a code',
-      'select_property': 'Find Your Hotel',
-      'find_your_hotel': 'Trouver votre hôtel',
-      'logging_in': 'Connexion en cours',
-      'registering': 'Compte Sandman en cours de création',
-      'updating_account': 'Mise à jour de votre compte Sandman',
-      'room': 'Chambre'
+      'enter_valid_choice': 'Please provide a valid option',
+      'answer_the_question': 'Answer the following question to earn XX points'
     }
   });

@@ -1,38 +1,7 @@
-<hero-slider content="heroContent"
-             slide-width="uiConfig.heroSlider.slideWidth"
-             slide-height="uiConfig.heroSlider.slideHeight">
-</hero-slider>
-
-<div class="Home__hero--info show-desktop" ng-if="isLoyalty">
-  <h2 class="About__hero--tagline">_about_tagline_</h2>
-  <h1 class="About__hero--title">{{ offersList[0].title }}</h1>
-  <button ng-click="openBookingBar()" class="Home__hero--button">_search_</button>
-</div>
-
-<article class="HeroTitle" ng-if="isLoyalty && !showDetail">
-  <div class="HeroTitle__inner">
-    <img src="/static/images/v4/logo-icon@3x.png">
-    <div class="HeroTitle__title">
-      <h1>{{ offersList[0].meta.description }}</h1>
-    </div>
-    <a ng-href="{{offersList[0].url}}" class="HeroTitle__button">
-      _find_out_more_
-    </a>
-  </div>
-</article>
-
-<booking-bar class="Home__booking-bar"
-             size="small"
-             ng-if="isLoyalty">
-</booking-bar>
-
-<breadcrumbs stickable="main-header"
-             class="OffersBreadcrumbs">
-</breadcrumbs>
-
+<!--FIXME: this is bad, needs a complete rewrite from the ground up-->
 <main class="grid-wrapper OffersPage">
-
   <div class="preloader" ng-show="preloader.visible"></div>
+  <booking-bar id="bookingbar" ng-if="!isMobile" stickable="main-header" size="full-width"></booking-bar>
 
   <div grid="12" ng-if="isHotDeals && !showDetail">
     <p>_hot_deals_page_description_</p>
@@ -58,6 +27,13 @@
                 ng-if="offersList.length > 0"
                 class="OffersGrid__item">
       <a ng-href="{{offer.url}}">
+        <div class="OffersGrid__item--title"
+             ng-bind-html="offer.availability &&
+                           offer.availability.title &&
+                           offer.availability.title != ''  ?
+                           offer.availability.title :
+                           offer.title | wrapWordHtml : 'span' : 0 : config.offersThumbnailsTitlePattern : offer.propertyName">
+        </div>
         <div class="banner"
              ng-if="offer.merchandisingBanner"
              ng-style="{'background-color': offer.merchandisingBanner.bgColor, 'color': offer.merchandisingBanner.textColor}">
@@ -107,49 +83,44 @@
   <offer-detail id="offer-detail"
                 grid-row
                 ng-if="showDetail">
-    <div grid="12">
-      <h1 ng-bind-html="selectedOffer.availability &&
+    <h1 ng-bind-html="selectedOffer.availability &&
                         selectedOffer.availability.title !== '' ?
                         selectedOffer.availability.title :
                         selectedOffer.title | mainHeaderStyle">
-      </h1>
+    </h1>
+    <div grid="12" class="offer-detail-panel">
+      <div class="offer-detail-left">
+        <div class="offer-content">
+          <img ng-if="!config.displayOfferImageInHeroSlider"
+               ng-src="{{selectedOffer.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}"
+               alt="{{selectedOffer.image.uri}}"/>
 
-      <highlight ng-if="isLoyalty">
+          <span ng-bind-html="selectedOffer.availability &&
+                            selectedOffer.availability.text !== '<div></div>' &&
+                            selectedOffer.availability.text !== '' ?
+                            selectedOffer.availability.text :
+                            selectedOffer.text | trustAsHtml"
+                markdown-text-parser
+                ng-click="bindHtmlClick($event)"
+                class="markdown-content">
+        </span>
+
+          <a class="button login hide" ng-click="login()">
+            _login_register_
+          </a>
+        </div>
+      </div>
+
+      <div class="offer-detail-right">
+      <img ng-if="selectedOffer.image && selectedOffer.image.uri" class="offer-image" ng-src="{{ selectedOffer.image.uri }}"/>
+      <highlight icon="false" ng-if="isLoyalty">
         <div class="Offer__about">
           <h2 class="Highlight__title">
             _book_offer_to_receive_
           </h2>
           <span ng-bind-html="selectedOffer.subtitle | trustAsHtml"></span>
         </div>
-        <div class="Offer__properties">
-        </div>
       </highlight>
-
-      <trip-adviser-quote ng-if="!isMobile"></trip-adviser-quote>
-
-      <div class="offer-content">
-        <img ng-if="!config.displayOfferImageInHeroSlider"
-             ng-src="{{selectedOffer.image.uri | cloudinaryImage : 482 : 280 : 'fill'}}"
-             alt="{{selectedOffer.image.uri}}"/>
-
-        <span ng-bind-html="selectedOffer.availability &&
-                            selectedOffer.availability.text !== '<div></div>' &&
-                            selectedOffer.availability.text !== '' ?
-                            selectedOffer.availability.text :
-                            selectedOffer.text | trustAsHtml"
-              markdown-text-parser
-              ng-click="bindHtmlClick($event)"
-              class="markdown-content">
-        </span>
-
-        <a class="button login hide" ng-click="login()">
-          _login_register_
-        </a>
-      </div>
-
-      <trip-adviser-quote ng-if="isMobile"></trip-adviser-quote>
-
-      <members-rate rooms="memberRates" size="large"></members-rate>
 
       <div class="controls"
            ng-if="selectedOffer.availability ?
@@ -169,7 +140,6 @@
               ng-options="option.slug as option.name for option in offerAvailabilityProperties"
               placeholder-text-single="Choose your hotel"
               ng-change="prefillBookingWidgetProperty(selectedOfferAvailabilityData.selectedOfferAvailabilityProperty)">
-              <option value=""></option>
             </select>
           </div>
 
@@ -179,7 +149,7 @@
                                       offerAvailabilityProperties.length &&
                                       !selectedOfferAvailabilityData.selectedOfferAvailabilityProperty"
                          ng-show="hasDates">
-            _book_now_
+            _redeem_offer_
             <span ng-if="isHotDeals && selectedOffer.propertyName">
               at {{selectedOffer.propertyName}}
             </span>
@@ -193,10 +163,11 @@
                          ng-disabled="config.includeOfferAvailabilityPropertyDropdown &&
                                       offerAvailabilityProperties.length &&
                                       !selectedOfferAvailabilityData.selectedOfferAvailabilityProperty"
-                         ng-hide="hasDates">
+                         ng-show="!hasDates">
             _select_dates_
           </button-submit>
         </div>
+      </div>
       </div>
 
       <button-back role="button"
@@ -252,7 +223,7 @@
     </div>
 
   </offer-detail>
-  <scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>
+  <!--<scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>-->
 </main>
 
 <div ng-include="'layouts/siteMap.html'" class="site-map" ng-if="footerConfig.displaySitemap"></div>

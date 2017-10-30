@@ -4,7 +4,7 @@
 
 @import '../components/ribbons';
 
-@list-item-min-height: 187px;
+@list-item-min-height: 144px;
 
 list-items {
   margin-left:0;
@@ -31,7 +31,11 @@ pricing-switch {
 list-item {
 
   // Import ribbon mixin from ../components/ribbons
-  .use-ribbon();
+  .use-ribbon(28);
+  .member-ribbon {
+    right: -29px;
+    padding: 10px 35px 12px 20px !important;
+  }
 
   // Add padding to the top if a ribbon is present in the same container
   .member-ribbon ~ pricing-info {
@@ -42,26 +46,39 @@ list-item {
     padding-top: 30px;
   }
 
-  .member-ribbon + .list-item-header {
-    margin-top: 30px;
+  &.is-member-only {
+    background: initial;
+    &.is-member-only-disabled .button {
+      box-shadow: none !important;
+      border-radius: 0 !important;
+    }
   }
 
-  .highlight-ribbon + .list-item-header {
-    margin-top: 30px;
+  pricing-info {
+    p .value {
+      color: @c-primary;
+    }
+  }
+
+  earned-points {
+    margin-top: 10px;
+    &:before {
+      content: none;
+    }
   }
 
   h2{
     font-size: 18px !important;
     font-weight: 600 !important;
     color: @c-grey !important;
-    .chain-sign &{
-      font-weight: 400 !important;
-      font-family: @ff-heading-sign !important;
-    }
   }
 
   .list-item-header {
     //height: 30px;
+
+    .viewport-mobile & {
+      margin-top: 30px;
+    }
 
     pricing-info {
       display: none;
@@ -85,21 +102,31 @@ list-item {
   }
   pricing-info{
     p{
-      display: inline-block;
+      display: block;
       span:not(.points){
         float: none;
         clear: initial;
         padding-right: 5px;
       }
+      span.value {
+        font-size: 29px;
+        font-weight: bold;
+        line-height: 33px;
+        font-family: @ff-secondary;
+        color: #000;
+      }
+      span.currency {
+        color: #000;
+        font-family: @ff-primary;
+        line-height: 23px;
+        font-size: 16px;
+      }
     }
     button-submit{
       text-transform: uppercase;
       font-size: 14px;
-      background: @c-green;
-      border-radius: 2px;
-      .chain-sign &{
-        background: @c-green;
-      }
+      background: @c-secondary;
+      border-radius: 0;
     }
   }
 
@@ -118,11 +145,18 @@ list-item {
   &.slashthrough {
     pricing-info{
       p{
+        display: block;
         .original-price{
-          font-weight: 700;
+          display: none;
           .viewport-mobile & {
-            float:none;
-            margin-right:5px;
+            display: none;
+          }
+        }
+        span:not(.points) {
+          float: initial;
+          &:after {
+            left: initial;
+            width: 20%;
           }
         }
         .value{

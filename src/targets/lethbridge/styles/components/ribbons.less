@@ -1,5 +1,5 @@
 
-.use-ribbon {
+.use-ribbon(@amount) {
   .highlight-ribbon, .member-ribbon {
     width: 155px !important;
     position: absolute;
@@ -14,10 +14,6 @@
     font-weight: 400 !important;
     text-shadow: 1px 1px 1px rgba(55, 53, 53, 0.65);
     font-size: 11px;
-    .chain-sign & {
-      font-family:@ff-heading-it-sign;
-      font-size:12px;
-    }
     .viewport-mobile & {
       box-sizing: border-box;
       width: 160px !important;
@@ -27,22 +23,19 @@
   }
   .highlight-ribbon {
     width: 40% !important;
-    background: url("@{img-prefix}/orange-ribbon.svg") no-repeat center right;
+    background: url("@{img-prefix}/lbe/members-only-rate-bg@2x.png") no-repeat center right;
     background-size:100% 100%;
-    .chain-sign & {
-      background: url("@{img-prefix}/red-ribbon.svg") no-repeat center right;
-      background-size:100% 100%;
-    }
   }
   .member-ribbon {
-    background: url("@{img-prefix}/blue-ribbon.svg") no-repeat center right;
+    background: url("@{img-prefix}/banner-bg.svg") no-repeat center right;
     background-size:100% 100%;
+    z-index: 1;
     width: 150px !important;
     right: -6px;
+    top: @amount * 1px;
     padding: 10px 15px 12px 20px !important;
-    .chain-sign & {
-      background: url("@{img-prefix}/orange-ribbon.svg") no-repeat center right;
-      background-size:100% 100%;
+    .viewport-mobile & {
+      top: 5px;
     }
   }
 }

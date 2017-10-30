@@ -39,21 +39,17 @@
              data-force-end-date="true"
              input-text="inputDateText"
              bar-data="selected"
-             not-available-description="'_not_available_description_'">
-      <input-value class="dates-text">
-        {{ inputDateText }}
-      </input-value>
+             not-available-description="'_not_available_description_'"/>
+
+      <div class="input-value dates-text" ng-click="openDatePicker()">
+        {{ inputDateText || '_dates_' }}
+        <i class="fa fa-calendar"></i>
+      </div>
     </form-element>
 
     <form-element class="booking-bar__form--rooms"
                   ng-repeat="room in rooms"
-                  ng-class="{'inlineFormElement': room == rooms[0], 'margin-left': room !== rooms[0]}">
-
-      <a ng-click="removeRoom($index)"
-            ng-if="$index !== 0"
-            class="booking-bar__link remove-room">
-        _remove_room_
-      </a>
+                  ng-class="{'inlineFormElement':$first, 'margin-left': !$first}">
 
       <form-element class="booking-bar__form--guests adults">
         <select name="adults"
@@ -75,9 +71,18 @@
         </select>
       </form-element>
 
+      <a ng-click="removeRoom($index)"
+         ng-if="$index !== 0"
+         class="booking-bar__link remove-room">
+        _remove_room_
+      </a>
+
     </form-element>
 
-    <form-element ng-if="multiRoomSearch" class="booking-bar__form--add-room">
+    <form-element
+      ng-if="multiRoomSearch"
+      ng-show="canAddRoom"
+      class="booking-bar__form--add-room">
       <a ng-click="addRoom()" class="booking-bar__link add-room">
         _add_room_
       </a>
@@ -88,36 +93,41 @@
               chosen
               disable-search="true"
               ng-model="search.codeType"
-              ng-change="showCode = !showCode"
+              ng-change="showCode = true"
               placeholder-text-single="_apply_code_"
               ng-options="code.value as code.title for code in codes">
       </select>
     </form-element>
 
     <form-element ng-show="showCode && !multiRoomSearch" class="booking-bar__form--code">
-      <input type="text" ng-model="search.code">
+      <input type="text"
+             ng-model="search.code"
+             placeholder="{{ getCurrentCodeType() }}">
       <remove-text role="button"
                    class="remove"
-                   ng-click="showCode = !showCode">
+                   ng-click="removeCode()">
       </remove-text>
     </form-element>
 
-    <button type="submit"
-            ng-click="doSearch()"
-            class="booking-bar__submit">
-      _search_
-    </button>
+    <div class="search-button-positionner">
+      <button type="submit"
+              ng-click="doSearch()"
+              class="booking-bar__submit">
+        _search_
+      </button>
+      <!--Disabling these until we have a good design-->
+      <!--<a ng-click="switchSearchType()"-->
+         <!--ng-show="!multiRoomSearch"-->
+         <!--class="booking-bar__link advanced">-->
+        <!--_advanced_search_-->
+      <!--</a>-->
 
-    <a ng-click="switchSearchType()"
-       ng-show="!multiRoomSearch"
-       class="booking-bar__link advanced">
-      _advanced_search_
-    </a>
-    <a ng-click="switchSearchType()"
-       ng-show="multiRoomSearch"
-       class="booking-bar__link quick">
-      _quick_book_
-    </a>
+      <!--<a ng-click="switchSearchType()"-->
+         <!--ng-show="multiRoomSearch"-->
+         <!--class="booking-bar__link quick">-->
+        <!--_quick_book_-->
+      <!--</a>-->
+    </div>
 
   </form>
 

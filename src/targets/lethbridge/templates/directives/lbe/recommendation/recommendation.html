@@ -1,22 +1,26 @@
 <article class="recommendation">
+  <div class="recommendation-background"></div>
 
-  <div class="opening-quote"></div>
-
-  <h1 class="recommendation__text">
-    {{ recommendation.text }}
-  </h1>
-
-  <div class="closing-quote"></div>
-
-  <div class="recommendation__avatar">
-
-    <img ng-src="{{ recommendation.avatarUrl }}" />
-
-    <div class="recommendation__avatar-info">
-      <h2>{{ recommendation.name }}</h2>
-      <small>{{ recommendation.city }}</small>
+  <div class="recommendation-content-wrapper">
+    <div class="recommendation__text">
+      {{ recommendation.text }}
+      <div class="triangle-down-with-shadow"></div>
     </div>
 
-  </div>
+    <div class="recommendation__avatar">
+      <img ng-src="{{ recommendation.avatarUrl }}"/>
 
+      <div class="recommendation__avatar-info">
+        <h2>{{ recommendation.name }}</h2>
+        <small>{{ recommendation.city }}</small>
+      </div>
+
+      <!--Remove navigation dots since we currently have a single hardcoded feedback-->
+      <!--<div class="dots-container">-->
+        <!--<div class="dot dot-empty"></div>-->
+        <!--<div class="dot dot-full"></div>-->
+        <!--<div class="dot dot-empty"></div>-->
+      <!--</div>-->
+    </div>
+  </div>
 </article>

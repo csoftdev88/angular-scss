@@ -93,9 +93,6 @@
             </p>
           </pricing-info>
 
-          <earned-points ng-if="isUserLoggedIn() && product.price.pointsEarned && loyaltyProgramEnabled && product.productAwardPoints">_earn_
-            <ng-pluralize count="getValuePer(product.price.pointsEarned, true).toFixed(0)" when="{'1': '{} point', 'other': '{} points'}"></ng-pluralize>
-          </earned-points>
           <p class="noPointsAwarded" ng-if="isUserLoggedIn() && !product.productAwardPoints && loyaltyProgramEnabled">_no_points_rate_desc_</p>
         </div>
 
@@ -112,9 +109,11 @@
           <button-submit
             role="button" tabindex="0"
             ng-click="selectProduct(product)"
+            ng-hide="product.memberOnly && !isUserLoggedIn()">
             _book_now_
           </button-submit>
 
+          <a href class="button" ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()" ng-click="auth.register()">_login_to_book_</a>
         </pricing-info>
 
         <description-info>

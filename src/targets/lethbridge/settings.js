@@ -1,27 +1,21 @@
 'use strict';
 
-angular.module('mobiusApp.config', [])
+angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
 
 .constant('Settings', {
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
   'defaultProductRateId': 1,
-  'authType': 'keystone',
-  'loyaltyProgramEnabled': false,
+  'authType': 'mobius',
+  'engine': 'loyalty',
+  'loyaltyProgramEnabled': true,
   'newUrlStructure': true,
-  'sandmanFrenchOverride': true,
+  'sandmanFrenchOverride': false,
   'inputValidationPattern':/^[\u0020-\u02AF\r\n]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
   'showEUCookieDisclaimer':true,
   'enableHotDeals':true,
-  'keystone': {
-    'development': 'http://localhost:8080/status.0.0.1.js',
-    'integration': 'https://scripts.infiniti.io/sandman/status.js',
-    'staging': 'https://scripts.infiniti.io/sandman/status.js',
-    'live': 'https://scripts.infiniti.io/sandman/status.js'
-  },
   'infiniti': {
-    'enable': true,
-    'local': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
+    'enable': false,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
     'integration': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
     'staging': 'http://staging-infiniti-sandman.mobiusbookingengine.com/track/content/infiniti.js',
@@ -30,7 +24,6 @@ angular.module('mobiusApp.config', [])
   },
   'sentry': {
     'enable': true,
-    'local': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'development': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'integration': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
     'staging': 'https://630800a427394993b60f97aa3f0f2d4f@app.getsentry.com/53500',
@@ -42,19 +35,17 @@ angular.module('mobiusApp.config', [])
     'id': '',
     'bridge': '',
     'script': {
-      'local': '',
       'development': '',
       'integration': '',
       'staging': '',
       'uat':'',
-      'live': '',
+      'live': ''
     }
   },
   'infinitiEcommerceTracking': {
     'enable': false,
     'infinitiId': '',
     'endpoint': {
-      'local': '',
       'development': '',
       'integration': '',
       'staging': '',
@@ -70,10 +61,10 @@ angular.module('mobiusApp.config', [])
       'enable': true
     },
     'staging': {
-      'enable': true
+      'enable': false
     },
     'live': {
-      'enable': true
+      'enable': false
     }
   },
   'infinitiApeironTracking': {
@@ -144,7 +135,7 @@ angular.module('mobiusApp.config', [])
     }
   },
   'derbysoftTracking' : {
-    'enable': true,
+    'enable': false,
     'accountCode':'2p'
   },
   'googleAnalytics': {
@@ -152,43 +143,32 @@ angular.module('mobiusApp.config', [])
     'id': ''
   },
   'googleTagManager': {
-    'enable': true,
+    'enable': false,
     'trackUserId': true,
-    'id': 'GTM-56G27K'
+    'id': ''
   },
   'hotjar': {
-    'enable': true,
-    'id': '294639'
+    'enable': false,
+    'id': ''
   },
   'rumScript': {
-    'enable': true,
+    'enable': false,
     'id': '5910613c8a112b33c9d2e6c7'
   },
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
-    'chainCode': 'SAND',
+    'chainCode': 'EXC',
     'trackUsage': true,
     'languageInPath': true,
     'baseURL': {
-      'local': '//localhost:3010/api/4.0/',
       'development': '//integration-www-sandman.mobiusbookingengine.com/api/4.0/',
       'integration': '//integration-www-sandman.mobiusbookingengine.com/api/4.0/',
-      'staging': '//staging-www-sandman.mobiusbookingengine.com/api/4.0/',
+      'staging': '//integration-www-sandman.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
-      'live': 'https://www.sandmanhotels.com/api/4.0/'
+      'live': 'https://sandman.mobiusbookingengine.com/api/4.0/'
     },
     'mobiusTracking': {
-      'local': {
-        'id': 'sandman-local',
-        'search': {
-          'enable': true
-        },
-        'purchase': {
-          'enable': true
-        },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
-      },
       'development': {
         'id': 'sandman-development',
         'search': {
@@ -207,7 +187,7 @@ angular.module('mobiusApp.config', [])
         'purchase': {
           'enable': true
         },
-        'url':'https://wxi3vsykv4.execute-api.us-west-2.amazonaws.com/int/event/create'
+        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
       'staging': {
         'id': 'sandman-staging',
@@ -255,6 +235,11 @@ angular.module('mobiusApp.config', [])
       'adverts': {
         'adverts': 'contents/teasers',
         'random': 'contents/teasers/random'
+      },
+      'polls': {
+        'index': 'contents/polls/:pollId',
+        'all': 'contents/polls',
+        'answer': 'contents/polls/:pollId'
       }
     },
     'chain': {
@@ -327,7 +312,7 @@ angular.module('mobiusApp.config', [])
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-tenantId': '1',
+      'Mobius-tenantId': '6',
       'Mobius-channelId': [{
         'name': 'mobileWeb',
         'channelID': 23,
@@ -375,8 +360,44 @@ angular.module('mobiusApp.config', [])
     'campaigns': {
       display:true
     },
-    'alternateBookingFlow': {
-      'enabled': false
+    'partials': {
+      'menu': 'layouts/lbe/menu.html',
+      'header': 'layouts/lbe/header.html',
+      'footer': 'layouts/lbe/footer.html'
+    },
+    'currencyList': {
+      'showFlags': true
+    },
+    'contactList': {
+      'tel3': '1-212-685-1100 EXT 1308'
+    },
+    'recommendation': {
+      'avatarUrl': '/static/images/lbe/avatar@3x.png',
+      'text': '“20% off and a room upgrade, what more could I ask for!”',
+      'name': 'Laura Sandoval',
+      'city': 'New York'
+    },
+    'homePage': {
+      'showOffer': true
+    },
+    'hotelIntro': {
+      'title': 'What to expect when you visit',
+      'highlight': 'Committed to the idea that a life well-traveled is defined by a personal connection to the people, culture and lifestyles of the places we visit, the Excelsior Hotel offers discerning guests an authentic, residence-style experience in the heart of New York City’s Upper West Side.',
+      'description': 'To complement our fashionable surroundings, we’ve designed a delightfully affordable pied-a-terre distinguished by relaxed yet sophisticated ambiance and unpretentious style. The Excelsior is located within a beautifully restored landmark building, infusing classic design and architecture with contemporary comfort. In addition to swanky, Art Deco-inspired rooms, the hotel features a fitness center, Boardroom and Calle Ocho restaurant, which brings guests and neighborhood residents together for signature Latin fare and a locally famous weekend brunch complete with unlimited complimentary sangria.'
+    },
+    'datepicker': {
+      'showToday': false,
+      'dateFormat': 'DD. MMM YYYY'
+    },
+    'questionnaire': {
+
+    },
+    'bookingBar': {
+      'maxAdults': 8,
+      'maxChildren': 8,
+      'dateFormat': 'dd MM yy',
+      'defaultSize': 'large',
+      'useTommorowDefault': true
     },
     'instagramFeed': {
       'images': [
@@ -387,6 +408,12 @@ angular.module('mobiusApp.config', [])
         { url: '/static/images/lbe/insta-5.png'}
       ]
     },
+    'tagline': {
+      'showLogo': true
+    },
+    'highlight': {
+      'imageUrl': '/static/images/sun.png'
+    },
     'previousSearches': {
       'enable':true,
       'searchDataCookieName':'MobiusPreviousSearchData',
@@ -395,9 +422,6 @@ angular.module('mobiusApp.config', [])
       'searchInSessionCookieName':'MobiusSearchInSession',
       'maxSearches':3
     },
-    'membersRate': {
-      'defaultSize': 'large'
-    },
     'funnelRetention':{
       'enable':false,
       'cookieName': 'MobiusFunnelRetention',
@@ -405,30 +429,30 @@ angular.module('mobiusApp.config', [])
       'inactivityPeriodInterval':1000, //The interval at which inactivity checks are made (Milliseconds)
       'displayExitModal':false
     },
-    'highlight': {
-      'imageUrl': '/static/images/lbe/sun.png'
-    },
-    'chains': ['SIGN', 'SAND'],
+    'chains': ['EXC'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
     },
     'markdown':{
       'removeLinksWithString': ['Book Your Stay', 'Jetzt Buchen']
     },
-    'datepicker': {
-      'showToday': false,
-      'dateFormat': 'MMM Do'
-    },
-    'infoBar': {
-      'showForSingleBookings': false
-    },
     'generics': {
-      'singleProperty': false,
+      'singleProperty': true,
+      'defaultPropertyCode': 'EXC',
       'facebookAppId': '',
       'disableMainHeaderStyle': true,
       'applyChainClassToBody': true,
       'orderPropertiesByChain': true,
-      'longDateFormat': 'Do MMM YYYY'
+      'longDateFormat': 'Do MMM YYYY',
+      'dontRedirectSinglePropertyHome': true,
+      'header': {
+        'logoLink': 'https://gooole.com',
+        'logoText': 'Excelsior Hotels',
+        'telephone': '+49 211 54259 0',
+        'loginAsLink': true,
+        'hideMobileHeader': true,
+        'mainMenuAsOverlay': true
+      }
     },
     'contents':{
       'displayContentImageInHeroSlider': true
@@ -449,7 +473,7 @@ angular.module('mobiusApp.config', [])
       'animationDuration': 800,
       'preloadImages': true,
       'slideWidth': 1250,
-      'slideHeight': 393
+      'slideHeight': 658
     },
     'userMessages': {
       'image': {
@@ -493,18 +517,25 @@ angular.module('mobiusApp.config', [])
     // Social links
     'displaySocialLinks': true,
     'socialLinks': [
-      {'network': 'blog', 'link': 'https://sandmanhotelgroup.wordpress.com/'},
-      {'network': 'facebook', 'link': 'https://www.facebook.com/SandmanHotelGroup'},
-      {'network': 'twitter', 'link': 'https://twitter.com/sandmanhotels'},
-      {'network': 'instagram', 'link': 'https://www.instagram.com/sandmanhotels/'},
-      {'network': 'google', 'link': 'https://plus.google.com/+SandmanHotelGroup'}
+      {'network': 'blog', 'link': ''},
+      {'network': 'facebook', 'link': 'https://www.facebook.com/excelsiornyc'},
+      {'network': 'twitter', 'link': 'https://twitter.com/excelsiornyc'},
+      {'network': 'instagram', 'link': ''},
+      {'network': 'google', 'link': ''}
     ],
+    'socialLinksNew': {
+      'facebook': 'https://www.facebook.com/excelsiornyc',
+      'twitter': 'https://twitter.com/excelsiornyc',
+      'instagram': '',
+      'linkedIn': '',
+      'youtube': ''
+    },
     'shareLinks': {
       'facebook': true,
       'twitter': true,
-      'googleplus': true,
+      'googleplus': false,
       'mail': true,
-      'twitterUsername': 'SuttonPlaceHtl'
+      'twitterUsername': 'stgileshotels'
     },
     // NOTE: This is a temporary solution. Real images will
     // be provided by the PmobAI.
@@ -523,9 +554,9 @@ angular.module('mobiusApp.config', [])
         'hotels': false,
         'location': true
       },
-      'scrollToRates': 20,
+      'scrollToRates': 360,
       //List of rooms and their products
-      'defaultNumberOfRooms': 2,
+      'defaultNumberOfRooms': 5,
       'defaultNumberOfRoomsMobile':10,
       'numberOfRoomsAddedOnMobile': 2,
       //Allow subpages to redirect if specified in admin
@@ -541,12 +572,13 @@ angular.module('mobiusApp.config', [])
         'showRoomCount': true,
         //Show room highlight text instead of description
         'showRoomHighlight': true,
-        'desktopDisplayRatesOnLoad': false,
-        'mobileHideRates':true,
+        'desktopDisplayRatesOnLoad': true,
+        'mobileHideRates': false,
         'displayAmenities': true,
         'displayRoomDetails': true,
         'displayRoomSubtitle': true,
         'hideShowInfoIcon': true,
+        'displayEarnedPointsBelowDescription': true,
         'roomDetailThumbnailSize':{
           'width': 150,
           'height': 150
@@ -554,7 +586,7 @@ angular.module('mobiusApp.config', [])
         'includeSlider': true,
         'sliderHasThumbnails': true,
         'includeTripAdvisorPreloader': false,
-        'roomsAsLinks': true,
+        'roomsAsLinks': false,
         // Room Rates
         'rates': {
           'bookNowButtonText': 'Select', //This config value doesn't appear to be used anywhere, but will retain for now anyway.
@@ -592,10 +624,10 @@ angular.module('mobiusApp.config', [])
       },
       // Cache timeout in seconds
       'ratesCacheTimeout': 30 * 60,
-      'showLocalInfo': true,
+      'showLocalInfo': false,
       'removeScrollToRoomsOnFinish': true,
       'displayAmenitiesInHotelInfo': true,
-      'findOutMoreLinksBottomMobile':true, //Positions the find out more section to the bottom of the page on mobile
+      'findOutMoreLinksBottomMobile':false, //Positions the find out more section to the bottom of the page on mobile
       'headerPartial':{
         'logo':{
           'src': '/static/images/hotelHeaderLogo.png',
@@ -603,24 +635,27 @@ angular.module('mobiusApp.config', [])
         }
       },
       'partials':{
+        'hotelDescription': false,
+        'hotelBookingBar': true,
         'hotelHeader': false,
         'hotelDatesSelected': false,
-        'hotelInfo': true,
         'hotelServices': false,
         'hotelRooms': false,
         'hotelRoomsCompare': true,
-        'hotelLocation': true,
         'hotelOffers': true,
-        'hotelReadMoreMobile': true
+        'hotelInfo': true,
+        'hotelAmenities': false,
+        'hotelLocation': true,
+        'hotelReadMoreMobile': false
       },
       'bookingStatistics':{
-        'display': true,
+        'display': false,
         'displayDelay':5000,
         'displayTime':2000000, //The length that you wish the alerts to appear for
         'positionReference':2 //The position of alert,  0=top, 1=top-right, 2=right-center, 3=top-left
       },
       'restrictAmenities':true, //Only display amenities that's name begins with asterix
-      'hideViewMoreImagesMobile':true, //Hide the view more images on mobile
+      'hideViewMoreImagesMobile': false, //Hide the view more images on mobile
       'shortenDescriptionMobile':true //Shorten the description with read more on mobile
     },
     //rate lookup teasers
@@ -628,28 +663,39 @@ angular.module('mobiusApp.config', [])
     'hotelDetailsTestimonialsMaxNumStars': 5,
     'hotelDetailsTestimonialsCarousel': true,
     'hotelDetailsTestimonialsCarouselDelay': 4000,
-    'hotelDetailsTestimonials':[],
+    'hotelDetailsTestimonials': [{
+      'property': 'CCC',
+      'review': 'This hotel was in a great location and had amazing views of the city. Customer service was also very helpful. This hotel had everything we needed for a great stay in New York City',
+      'reviewer': {
+        'name': 'Brenda M.',
+        'avatar': '//res.cloudinary.com/dmh2cjswj/image/upload/q_auto,f_auto/v1450183019/SAN/rateLoading/denisek.jpg',
+        'location': 'Toronto, Canada'
+      },
+      'stars': 5
+    }],
     'roomDetails': {
       'displayRoomSubtitle': true,
-      'hasBreadcrumbsSecondaryNav': true,
+      'hasBreadcrumbsSecondaryNav': false,
       'hasReadMore': true,
       'numberOfRatesToShow': 5,
-      'showDescription': true,
+      'showDescription': false,
+      'showDescriptionBottom': false,
+      'displayBookingBar': true,
       //show room highlight before description
       'showRoomHighlight': true,
       'includeTripAdvisorPreloader': false,
       'rateInfoIsTabbed': true,
-      'showLocalInfo': true,
+      'showLocalInfo': false,
       'headerPartial':{
-        'display': false,
+        'display': true,
         'logo':{
           'src': '/static/images/hotelHeaderLogo.png',
           'alt': 'Worldhotels deluxe'
         }
       },
       'otherRooms':{
-        'useThumbnails': false,
-        'hide': true,
+        'useThumbnails': true,
+        'hide': false,
         'thumbnails':{
           'width': 150,
           'height': 100
@@ -668,7 +714,7 @@ angular.module('mobiusApp.config', [])
       'upsells': {
         'display': true
       },
-      'displayAltProduct':false,
+      'displayAltProduct':true,
       'showProductImage':true,
       'ratesAsLinks':false,
       'productImages': {
@@ -710,11 +756,26 @@ angular.module('mobiusApp.config', [])
         'passbook': true,
         'print': true
       },
-      'displayNewsletterCtaOnReservationDetail': true,
+      'displayPropertyNameInDetails':true,
+      'displayNewsletterCtaOnReservationDetail': false,
+      'displayConfirmationNumberInDetails':true,
+      'displayBookingDateInDetails': true,
+      'displayActionsInDetails':true,
+      'displayPoliciesInDetails':true,
+      'displayVideo': true,
+      'hideHeader':true,
+      'videoUrl': 'https://www.youtube.com/embed/xKRmh7AmOfI?rel=0',
+      'useBackground': true,
+      'useSingleRowData': true,
+      'useSidetable': false,
+      'displayInstagramFeed': false,
+      'modifyButtonsAfterDetails':false,
       'reservationDetailPriceBreakdownExtended': true,
-      'displayAddonVoucherEntry': true,
+      'displayAddonVoucherEntry': false,
       'displayAddonComments': false,
-      'hideHeroSliderOnReservations':true
+      'hideBreadcrumbs': true,
+      'hideHeroSliderOnReservations': true,
+      'largeRoomImage': true
     },
 
     'aboutHotel': {
@@ -786,7 +847,7 @@ angular.module('mobiusApp.config', [])
     ],
     // List of currencies and their display symbols
     'currencies': {
-      'default': 'CAD',
+      'default': 'USD',
 
       'GBP': {
         'code': 'GBP',
@@ -814,12 +875,14 @@ angular.module('mobiusApp.config', [])
         'shortFormat': '{{symbol}}{{amount}}',
       }
     },
-
+    'offersWidget': {
+      'numOffers': 6
+    },
     'offers':{
       'discountCodeCookieExpiryDays': 5,
       'displayPageHeading': true,
       'includeOfferAvailabilityPropertyDropdown': true,
-      'displayOfferImageInHeroSlider': false,
+      'displayOfferImageInHeroSlider': true,
       'height': 200,
       'width': 307,
       'scrollToBreadcrumbs': true,
@@ -906,7 +969,7 @@ angular.module('mobiusApp.config', [])
       'displayPropertiesMegamenu': true,
       'displaySelectAllHotelsAction':false,
       'hasMultiroomTab': false,
-      'hasRatesSelection': true,
+      'hasRatesSelection': false,
       'timezone':'America/Vancouver',
       //searchOffset stops user from searching availability past a certain date (today + searchOffset.days)
       'searchOffset' :{
@@ -932,7 +995,7 @@ angular.module('mobiusApp.config', [])
       'defaultAdultCount': 2,
       'maxRooms': 4,
       'availabilityOverview': {
-        'display':true
+        'display': false // @todo work out why this does not work in conjunction with single property
       },
       'flexibleDates': {
         'enable':true
@@ -977,14 +1040,14 @@ angular.module('mobiusApp.config', [])
           'regex': /^3[47][0-9]{13}$/
         }
       },
-      'emailOptinUnderOverview': true,
-      'voucherInBillingSection': true,
+      'detailsBeforeForm': true,
       //Is billing state a required field?
       'billingStateRequired': true,
       //price breakdown
       'priceBreakdownExtended': true,
       //display hero slider on booking page
       'displayHeroSlider': false,
+      'policiesLinkBottom': true,
       //display advanced header
       'headerPartial':{
         'display': false,
@@ -996,10 +1059,10 @@ angular.module('mobiusApp.config', [])
       //Booking steps navigation
       'bookingStepsNav':{
         'display': true,
-        'showInReservationWidget': true
+        'showInReservationWidget': false
       },
       //Default value for newsletter opt-in checkbox
-      'newsLetterOptedIn': false,
+      'newsLetterOptedIn': true,
       //Prompt to ask user to login
       'loginCta':{
         'display': true
@@ -1024,13 +1087,13 @@ angular.module('mobiusApp.config', [])
         }
       },
       'vouchers' : {
-        'enable':true
+        'enable':false
       },
       'reservationAssurance': {
         display: false,
-        payment: true,
-        price: true,
-        security: true
+        payment: false,
+        price: false,
+        security: false
       }
     },
     'myAccount' : {
@@ -1046,7 +1109,12 @@ angular.module('mobiusApp.config', [])
     // States layout
     'layout': {
       'home': [
-        'about-hotel'
+        'about',
+        'questionnaire',
+        'testimonial',
+        'offers',
+        'instagram-feed',
+        'hotel-info'
       ],
       'hotels': [
         'hotels'
@@ -1059,7 +1127,12 @@ angular.module('mobiusApp.config', [])
 
     // Widget names and their templates
     'templates': {
-      'about-hotel': '<about-hotel></about-hotel>',
+      'about': '<tagline ng-if="auth.isLoggedIn()" showLogo="true" text="Become a Excelsior Insider - Sign Up now and benefit immediately… It’s that simple."></tagline>',
+      'questionnaire': '<questionnaire ng-if="auth.isLoggedIn()"></questionnaire>',
+      'testimonial': '<recommendation></recommendation>',
+      'offers': '<offers></offers>',
+      'instagram-feed': '<instagram-feed></instagram-feed>',
+      'hotel-info': '<hotel-intro></hotel-intro>',
       'best-offers': '<best-offers></best-offers>',
       'best-hotels': '<best-hotels></best-hotels>',
       'hotels': '<hotels></hotels>',
@@ -1087,6 +1160,17 @@ angular.module('mobiusApp.config', [])
         'includePhoneField': true,
         'showStaticContactInfo': true
       },
+      'prestige': {
+        'hideHero': true,
+        'hideBreadCrumbs': true,
+        'useBackground': true
+      },
+      'rewards': {
+        'hideHero': true,
+        'hideBreadCrumbs': true,
+        'useBackground': true,
+        'showPointsInBanner': true
+      },
       'hotels': {
         'showRegionDescription': false,
         'showLocationDescription': true,
@@ -1103,19 +1187,99 @@ angular.module('mobiusApp.config', [])
         }
       },
       'hotelDetails':{
+        'hideBreadcrumbs': true,
+        'scrollToOffsetDesktop': 200,
         'hasViewMore': true,
-        'hasTitle': true,
-        'scrollToOffset': 50,
+        'hasTitle': false,
         'showSubNav': false,
+        // @todo make this multi lingual
+        'subNavLinks': [
+          {
+            'name': 'Points of interest',
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel1a'
+          },
+          {
+            'name': 'Meetings & events',
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel5a'
+          },
+          {
+            'name': 'Facilities',
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel4a'
+          },
+          {
+            'name': 'Rooms',
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel2a'
+          },
+          {
+            'name': 'Dining',
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel3a'
+          },
+          {
+            'name': 'FAQS',
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court/faq'
+          },
+          {
+            'name': 'Info',
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court/faq'
+          },
+          {
+            'name': 'Contact',
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel6a'
+          }
+        ],
         'hotelInfo': {
-          'descriptionGrid': 7,
-          'sidebarGrid': 5
+          'descriptionGrid': 6,
+          'sidebarGrid': 6,
+          'images': {
+            'width': '664',
+            'height': '583'
+          }
         }
+      },
+      'reservationDetails': {
+        'useAltAddons': true
       },
       'roomDetails':{
         'hasViewMore': true,
+        'hideBreadcrumbs': false,
         'showInclusions': false,
-        'showTagline': true,
+        'showTagline': false,
+        'showSubNav': true,
+        // @todo make this multi lingual
+        'subNavLinks': [
+          {
+            'name': 'Points of interest',
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel1a'
+          },
+          {
+            'name': 'Meetings & events',
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel5a'
+          },
+          {
+            'name': 'Facilities',
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel4a'
+          },
+          {
+            'name': 'Rooms',
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel2a'
+          },
+          {
+            'name': 'Dining',
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel3a'
+          },
+          {
+            'name': 'FAQS',
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court/faq'
+          },
+          {
+            'name': 'Info',
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court/faq'
+          },
+          {
+            'name': 'Contact',
+            'link': 'http://www.stgiles.com/hotels/united-states/new-york-city/the-court#panel6a'
+          }
+        ],
         'roomInfo': {
           'descriptionGrid': 7,
           'sidebarGrid': 5
@@ -1133,14 +1297,15 @@ angular.module('mobiusApp.config', [])
       },
       'breadcrumbsBar':{
         'displayBreadcrumbs': true,
-        'displayPropertyTitle': true,
+        'displayPropertyTitle': false,
         'displayStaticContent': false,
         'propertyHotDealsShowTitle': true
       },
       'locationMap':{
         'displayMainTitle': false,
         'displayGoogleMapsLink': true,
-        'displayIcons': true,
+        'displayIcons': false,
+        'displayContactInfo': false,
         'directionsLink':{
           'display': false,
           'link': ''
@@ -1179,7 +1344,7 @@ angular.module('mobiusApp.config', [])
         'code':'DEFAULT'
       }
     },
-    'defaultCountryCode': 'ca',
+    'defaultCountryCode': 'us',
     'preferredCountryCodes': 'ca,us,gb',
     'arrivalMethods': [
       {

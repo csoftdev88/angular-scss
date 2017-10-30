@@ -1,6 +1,8 @@
 <header>
   <h1 ng-if="config.displayMainTitle">_location_</h1>
-  <h2 ng-bind-html="'_mapLocationHeader_' | stringLocaleReplace: hotelDetails.nameShort : hotelDetails.nameLong | mainHeaderStyle"></h2>
+  <h2>
+    <span ng-bind-html="'_mapLocationHeader_' | stringLocaleReplace: hotelDetails.nameShort : hotelDetails.nameLong | mainHeaderStyle"></span>
+  </h2>
   <p class="view-map-link" ng-if="config.displayGoogleMapsLink">
     <a target="_blank"
        ng-if="position"
@@ -27,47 +29,52 @@
       position="{{position}}"
       title="{{hotelDetails.nameShort}}"></marker>
 
-  </ng-map>
+  </map>
 </div>
 
-<div class="contact-list" ng-if="!config.hideContactDetails">
+<span ng-if="config.displayMainTitle">
 
-  <div class="contact-item" ng-if="hotelDetails.email">
-    <div>
-      <i class="fa fa-envelope" ng-if="config.displayIcons"></i>
-      <strong>_hotel_map_email_label_:</strong>
-      <a ng-href="mailto:{{hotelDetails.email}}">{{hotelDetails.email}}</a>
-    </div>
-  </div>
+  <p>{{hotelDetails.locationDescription}}</p>
 
-  <div class="contact-item" ng-if="hotelDetails.tel1 || hotelDetails.tel2 || hotelDetails.fax">
-    <div ng-if="hotelDetails.tel1 || hotelDetails.tel2">
-      <i class="fa fa-phone" ng-if="config.displayIcons"></i>
-      <strong>_hotel_map_phone_label_:</strong>
-      <span ng-if="hotelDetails.tel1"><a href="tel:{{hotelDetails.tel1}}">{{hotelDetails.tel1}}</a></span>
-      <span ng-if="hotelDetails.tel2"><a href="tel:{{hotelDetails.tel2}}">{{hotelDetails.tel2}}</a></span>
-    </div>
-  </div>
+  <contact-list ng-if="!config.hideContactDetails">
 
-  <div class="contact-item">
-    <div>
-      <i class="fa fa-home" ng-if="config.displayIcons"></i>
-      <strong>_hotel_map_address_label_:</strong>
-      <address>
-        <span ng-if="hotelDetails.address1">{{hotelDetails.address1}},</span><br ng-if="hotelDetails.address1" />
-        <span ng-if="hotelDetails.address2">{{hotelDetails.address2}},</span><br ng-if="hotelDetails.address2" />
-        <span ng-if="hotelDetails.address3">{{hotelDetails.address3}},</span><br ng-if="hotelDetails.address3" />
-        <span>{{hotelDetails.city}}, {{hotelDetails.zip}}</span>
-      </address>
-    </div>
-  </div>
+    <contact-item ng-if="hotelDetails.email">
+      <div>
+        <i class="fa fa-envelope" ng-if="config.displayIcons"></i>
+        <strong>_hotel_map_email_label_:</strong>
+        <a ng-href="mailto:{{hotelDetails.email}}">{{hotelDetails.email}}</a>
+      </div>
+    </contact-item>
 
-  <div class="contact-item" ng-if="config.directionsLink.display">
-    <div>
-      <i class="fa fa-location-arrow" ng-if="config.displayIcons"></i>
-      <strong>_hotel_map_directions_label_:</strong>
-      <a ng-href="{{config.directionsLink.link}}" target="_blank">_hotel_map_directions_value_</a>
-    </div>
-  </div>
+    <contact-item ng-if="hotelDetails.tel1 || hotelDetails.tel2 || hotelDetails.fax">
+      <div ng-if="hotelDetails.tel1 || hotelDetails.tel2">
+        <i class="fa fa-phone" ng-if="config.displayIcons"></i>
+        <strong>_hotel_map_phone_label_:</strong>
+        <span ng-if="hotelDetails.tel1"><a href="tel:{{hotelDetails.tel1}}">{{hotelDetails.tel1}}</a></span>
+        <span ng-if="hotelDetails.tel2"><a href="tel:{{hotelDetails.tel2}}">{{hotelDetails.tel2}}</a></span>
+      </div>
+    </contact-item>
 
-</div>
+    <contact-item>
+      <div>
+        <i class="fa fa-home" ng-if="config.displayIcons"></i>
+        <strong>_hotel_map_address_label_:</strong>
+        <address>
+          <span ng-if="hotelDetails.address1">{{hotelDetails.address1}},</span><br ng-if="hotelDetails.address1" />
+          <span ng-if="hotelDetails.address2">{{hotelDetails.address2}},</span><br ng-if="hotelDetails.address2" />
+          <span ng-if="hotelDetails.address3">{{hotelDetails.address3}},</span><br ng-if="hotelDetails.address3" />
+          <span>{{hotelDetails.city}}, {{hotelDetails.zip}}</span>
+        </address>
+      </div>
+    </contact-item>
+
+    <contact-item ng-if="config.directionsLink.display">
+      <div>
+        <i class="fa fa-location-arrow" ng-if="config.displayIcons"></i>
+        <strong>_hotel_map_directions_label_:</strong>
+        <a ng-href="{{config.directionsLink.link}}" target="_blank">_hotel_map_directions_value_</a>
+      </div>
+    </contact-item>
+
+  </contact-list>
+</span>

@@ -12,10 +12,12 @@ reservation-hotel-details {
     .reference,
     .booked {
       margin: 0;
-      font-size: 18px;
-      line-height: 23px;
-      color: @c-grey;
-      font-weight: 600;
+      font-size: 34px;
+      line-height: 41px;
+      color: @c-text;
+      font-weight: 300;
+      font-family: @ff-serif;
+      padding-bottom: 23px;
     }
 
     .booked{
@@ -24,36 +26,49 @@ reservation-hotel-details {
   }
 
   .tables {
+    figure {
+      .viewport-mobile & {
+        display: none;
+      }
+    }
     h3{
-      font-size: 18px;
-      line-height: 23px;
-      color: @c-grey;
-      font-weight: 600;
+      font-size: 24px;
+      line-height: 29px;
+      font-weight: normal;
       max-width: 75%;
+      text-transform: uppercase;
+      font-family: @ff-primary;
+      color: @c-primary;
+      padding-bottom: 11px;
     }
     h4{
-      font-size: 14px;
-      color: @c-grey;
+      font-size: 16px;
+      line-height: 19px;
+      color: @c-text;
       font-weight: 300;
       max-width: 75%;
-      text-transform: none;
+      text-transform: uppercase;
+      font-family: @ff-secondary;
 
+    }
+    .booking-date {
+      color: @c-text;
+    }
+    table tr, td {
+      color: @c-text;
+    }
+    span {
+      color: @c-text;
     }
     .chain-logo{
       display: block;
       top: 0;
       max-width: 25%;
-      
+
       &.sand{
         width: 98px;
         height: 17px;
         background: url('@{img-prefix}/sandman-logo-medium.png') no-repeat;
-        background-size: 100%;
-      }
-      &.sign{
-        width: 40px;
-        height: 26px;
-        background: url('@{img-prefix}/signature-logo-medium.png') no-repeat;
         background-size: 100%;
       }
     }
@@ -62,12 +77,70 @@ reservation-hotel-details {
   .room-types + .room-types {
     margin-top: @baseline;
   }
+
+  .room-types:last-of-type {
+    margin-bottom: @baseline;
+  }
 }
 
 //////////////////////////
 // List of FUTURE STAYS //
 //////////////////////////
+.ReservationsBackground {
+  background: url('@{img-prefix}/confirmation-bg.png');
+  background-size: cover;
+  position: absolute;
+  height: 900px;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: -999;
+  .viewport-mobile & {
+    height: 100vh;
+    background-size: cover;
+  }
+}
+
 .reservations {
+
+  margin-top: 189px;
+
+  .viewport-mobile & {
+    margin-top: 109px;
+  }
+
+  .ReservationsNextStay__container {
+    width: 100vw;
+    margin-left: calc(~'50% - 50vw - 15px');
+    background-color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 220px;
+    .viewport-mobile & {
+      margin-left: calc(~'50% - 50vw');
+      margin-bottom: 0;
+    }
+  }
+
+  .ReservationsNextStay {
+    max-width: 1212px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 72px;
+    .viewport-mobile & {
+      padding: 40px 20px;
+    }
+    .noNextStay {
+      font-size: 41px;
+      line-height: 49px;
+      font-family: @ff-primary;
+    }
+    &.empty {
+      height: 273px;
+    }
+  }
+
+  .ReservationsNextStay__title {
+    display: none;
+  }
 
   hr{
     display: none;
@@ -102,11 +175,13 @@ reservation-hotel-details {
         h2 {
           font-size: 18px;
           font-weight: 600;
-          color: @c-grey;
+          color: @c-text;
+          width: 100%;
         }
         span{
           font-size: 14px;
           font-weight: 300;
+          float: initial;
         }
       }
 
@@ -220,5 +295,13 @@ reservation-hotel-details {
         font-weight: normal;
       }
     }
+  }
+}
+
+.reservations-not-available {
+  background-color: #fff;
+  h3, p {
+    color: @c-primary;
+    font-family: @ff-primary;
   }
 }

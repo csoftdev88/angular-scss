@@ -6,8 +6,8 @@
       <h1>_would_you_like_to_upgrade_</h1>
       <div class="description" ng-bind-html="data.upsell.displayDescription"></div>
       <div class="button-strip">
-        <a class="button" href ng-click="goToReservationDetails(data.upsell.roomCode)">_upgrade_my_room_</a>
         <a class="button ghost" href ng-click="goToReservationDetails()">_continue_without_upgrading_</a>
+        <a class="button" href ng-click="goToReservationDetails(data.upsell.roomCode)">_upgrade_my_room_</a>
       </div>
     </div>
   </main>

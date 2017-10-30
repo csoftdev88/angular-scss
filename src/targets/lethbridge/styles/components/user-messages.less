@@ -4,27 +4,57 @@
 /////////////////////////////////////////////////
 
 user-messages {
-  top: 118px;
-  background: @c-secondary;
+  top: 70px;
+  background: @c-primary;
+  position: absolute;
+
+  &.reservation-confirmation {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    box-shadow: none;
+    .viewport-mobile & {
+      margin-top: 0;
+      top: 100px;
+      width: 100%;
+    }
+  }
+
   .viewport-mobile & {
     top: 0;
   }
+
   ul {
     li {
+      .viewport-mobile & {
+        padding: 11px 0;
+      }
       > div {
         padding:10px 0;
         .message-content {
+          font-family: @ff-secondary;
           font-size:18px;
           span.desc {
             font-weight:bold;
             padding-top:20px;
+            text-transform: uppercase;
+          }
+
+          .viewport-mobile & {
+            font-size: 16px;
+            span.desc {
+              padding-top: 10px;
+            }
           }
         }
       }
     }
   }
+
   .message-close {
     font-weight:bold;
     font-size:18px;
   }
+
 }
