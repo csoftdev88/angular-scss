@@ -1,5 +1,5 @@
 <section class="detail-links">
-  <span ng-if="!bookingConfig.priceBreakdownExtended"><a href ng-click="openPriceBreakdownInfo()">_view_price_breakdown_</a> | </span>
+  <span ng-if="!bookingConfig.priceBreakdownExtended && formatting !== 'suppressRate'"><a href ng-click="openPriceBreakdownInfo()">_view_price_breakdown_</a> | </span>
   <a ng-if="!bookingConfig.policiesLinkBottom" ng-href="{{bookingConfig.termsAndConditionsLink}}" ng-click="readPolicies()" target="_blank">_policies_</a>
 </section>
 
@@ -9,7 +9,7 @@
   <div class="room-data-details">
     <span class="chain-logo"></span>
     <p class="desc" ng-bind-html="allRooms[0]._selectedProduct.name"></p>
-    <p class="price"><strong>{{getProductPricePerNight(getTotal('totalBaseAfterPricingRules')) | i18nCurrency: currencyCode}}</strong> <em>_per_night_</em></p>
+    <p class="price" ng-if="formatting !== 'suppressRate'"><strong>{{getProductPricePerNight(getTotal('totalBaseAfterPricingRules')) | i18nCurrency: currencyCode}}</strong> <em>_per_night_</em></p>
   </div>
 
   <h3>{{allRooms[0].name}} <a href ng-click="openOtherRoomsDialog()" ng-if="allRooms.length > 1">+ {{allRooms.length - 1}} _more_ <ng-pluralize count="allRooms.length" when="{'2': '_room_', 'other': '_rooms_'}"> </ng-pluralize></a></h3>
@@ -68,7 +68,11 @@
     </table>
   </div>
 
-  <div class="charges" ng-class="{'extended': breakdown.extended}" ng-init="breakdown.extended = false">
+  <div
+    class="charges"
+    ng-class="{'extended': breakdown.extended}"
+    ng-init="breakdown.extended = false"
+    ng-if="formatting !== 'suppressRate'">
     <table>
       <thead ng-switch="billingDetails.paymentMethod">
         <tr class="main" ng-if="getTotal('totalAfterTaxAfterPricingRules') !== getBreakdownTotalBaseAfterPricingRules()">
