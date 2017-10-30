@@ -54,7 +54,7 @@
               </a>
             </h3>
 
-            <h4 ng-bind-html="reservation.rooms[0].productName"></h4>
+            <h4>{{ reservation.rooms[0].productName | lowercase }}</h4>
             <h4 ng-if="config.displayConfirmationNumberInDetails">
               _booking_reference_: <span>{{ reservationCode }}</span>
             </h4>
