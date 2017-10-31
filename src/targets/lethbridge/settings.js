@@ -74,7 +74,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
-      'id':'lethbrideg-local',
+      'id':'lethbridge-local',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     },
@@ -84,7 +84,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
-      'id':'lethbrideg-development',
+      'id':'lethbridge-development',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     },
@@ -94,7 +94,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'endpoint':'https://0vafuvdy4f.execute-api.us-west-2.amazonaws.com/int/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
-      'id':'lethbrideg-integration',
+      'id':'lethbridge-integration',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
       'segmentWriteId': 'ufGF40hZthWnYEeH6q09RzrKiusmuWQe',
@@ -106,7 +106,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
-      'id':'lethbrideg-staging',
+      'id':'lethbridge-staging',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
       'segmentWriteId': 'ufGF40hZthWnYEeH6q09RzrKiusmuWQe',
@@ -118,7 +118,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
-      'id':'lethbrideg-staging',
+      'id':'lethbridge-staging',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     },
@@ -128,7 +128,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/infiniti-tracking/1.0.5-rc3/infiniti.min.js',
-      'id':'lethbrideg-live',
+      'id':'lethbridge-live',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
       'singlePageApp': true
