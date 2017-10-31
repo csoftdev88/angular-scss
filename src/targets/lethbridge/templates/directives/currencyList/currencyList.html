@@ -1,0 +1,38 @@
+<div class="dropdown CurrencyList"
+     ng-show="currencies.length > 1"
+     ng-switch on="currentCurrency.code">
+
+  <i ng-switch-when="USD" class="fa fa-usd"></i>
+  <i ng-switch-when="CAD" class="fa fa-usd"></i>
+  <i ng-switch-when="EUR" class="fa fa-eur"></i>
+  <i ng-switch-when="GBP" class="fa fa-gbp"></i>
+
+  <a href title="Currency" class="CurrencyList__current">
+    <span class="current-currency">
+      {{ currentCurrency.code }}
+    </span>
+    <span class="change-currency">
+      _change_currency_ ({{ currentCurrency.code }})
+    </span>
+  </a>
+
+  <ul class="dropdown-menu submenu CurrencyList__list"
+      ng-show="currencies.length > 1">
+
+    <li ng-repeat="currency in currencies | orderBy:'code':true"
+        ng-switch on="currency.code"
+        ng-click="changeCurrency(currency)">
+      <i ng-switch-when="USD" class="fa fa-usd"></i>
+      <i ng-switch-when="CAD" class="fa fa-usd"></i>
+      <i ng-switch-when="EUR" class="fa fa-eur"></i>
+      <i ng-switch-when="GBP" class="fa fa-gbp"></i>
+      <a class="currency"
+         href
+         title="{{currency.name}}">
+        {{ currency.code }}
+      </a>
+    </li>
+
+    <div class="triangle-with-shadow"></div>
+  </ul>
+</div>
