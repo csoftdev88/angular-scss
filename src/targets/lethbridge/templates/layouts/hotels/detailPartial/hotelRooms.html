@@ -1,0 +1,121 @@
+<!-- New layout - Delete old layout below when this is complete -->
+<section class="hotel-detail__rooms" ng-if="rooms.length" grid-row>
+  <hr />
+  <div grid="12" id="jsRooms">
+    <header class="section-header">
+
+      <h2 ng-bind-html="'_rooms_title_' | mainHeaderStyle"></h2>
+
+      <!--<p ng-if="availableRooms && availableRooms.length === 0">_no_room_available_</p>-->
+
+      <order-switch ng-show="hasDates() && availableRooms && availableRooms.length">
+        <select
+          name="sorting"
+          ng-model="currentOrder"
+          disable-search="true"
+          chosen
+          ng-options="option.name for option in sortingOptions"
+          placeholder-text-single="_sorting_filter_placeholder_"
+          ng-change="orderSwitchChange(currentOrder)"
+          ng-init="initSortingOptions({
+            'priceLowToHigh': '_price_low_to_high_',
+            'priceHighToLow': '_price_high_to_low_',
+            'recommended': '_recommended_'
+          })">
+        </select>
+      </order-switch>
+
+      <!-- search details -->
+      <div class="search-details" ng-if="roomsConfig.showRoomCount">
+        <ng-pluralize class="room-counter" count="(rooms|filter:roomsDisplayFilter).length" when="{'1': '1 _room_found_', 'other': '{} _rooms_found_'}"></ng-pluralize>
+      </div>
+
+      <div class="products-not-available" ng-if="((!altRoomDatesAvailable || !altRoomDatesAvailable.length) && (!altProperties || !altProperties.length)) && availableRooms && availableRooms.length === 0">
+        <h3>_rooms_not_available_on_dates_title_</h3>
+        <!-- USER SPECIFIES DATES -->
+        <button-submit ng-click="selectDates()">_select_new_dates_</button-submit>
+      </div>
+
+      <alt-room-properties class="alt-room-display alt-room-properties" ng-if="(!availableRooms || availableRooms.length === 0) && altProperties && altProperties.length" properties="altProperties"></alt-room-properties>
+      <alt-room-dates class="alt-room-display alt-room-dates" ng-if="(!availableRooms || availableRooms.length === 0) && (!altProperties || !altProperties.length) && altRoomDatesAvailable && altRoomDatesAvailable.length" dates="altRoomDates" length-of-stay="lengthOfStay" select-dates="selectDates"></alt-room-dates>
+    </header>
+
+    <ta-teaser ng-show="!ratesLoaded && isFromSearch && roomsConfig.includeTripAdvisorPreloader"></ta-teaser>
+
+    <list-items class="rooms-list" ng-if="ratesLoaded || !isFromSearch">
+      <list-item ng-repeat="room in rooms | orderBy : currentOrder.sort | filter: roomsDisplayFilter | limitTo: numberOfRoomsDisplayed" data-hover-trigger="displayRoomRates(room)" data-trigger-delay="hoverTriggerDelay" ng-click="listItemClick()">
+        <header class="item-header desktop">
+          <h3>
+            <!--FIXME: Disable room link until the room pages are styled to our standard-->
+            <!--<a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle" ng-class="{'hide-info-icon' : roomsConfig.hideShowInfoIcon}"></a>-->
+            <!--<a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" class="view-more">_view_full_details_</a>-->
+            <a ng-bind-html="room.name | mainHeaderStyle" ng-class="{'hide-info-icon' : roomsConfig.hideShowInfoIcon}"></a>
+            <span class="sub-title" ng-if="roomsConfig.displayRoomSubtitle && room.subTitle">{{room.subTitle}}</span>
+          </h3>
+          <pricing-switch ng-if="$first">
+            <a href ng-class="{'is-active': pricePer === PP_NIGHT}" ng-click="setPricePer(PP_NIGHT)">_per_night_</a>
+            |
+            <a href
+               ng-class="{'is-active': pricePer === PP_STAY, 'is-disabled': !days}"
+               ng-click="days && setPricePer(PP_STAY)"
+               title="{{ days ? '': 'Please select dates to enable per stay pricing'}}">
+              _per_stay_
+            </a>
+          </pricing-switch>
+        </header>
+
+        <div class="list-item-container">
+          <!-- Room info -->
+          <div class="description" ng-bind-html="sanitize(roomsConfig.showRoomHighlight ? (room.roomHighlight && room.roomHighlight !== '' ? room.roomHighlight : room.description) : room.description)"></div>
+
+          <!-- Room info -->
+          <div class="list-item-info">
+
+            <hero-slider data-has-notification-bar="false" data-auto-play="false" on-room-click="openRoomGallery" data-room="{{room}}" data-counter-type="none" content="room.images" ng-if="roomsConfig.includeSlider && room.images && room.images.length > 0" data-has-thumbnails="{{roomsConfig.sliderHasThumbnails}}" slide-width="400" slide-height="400"></hero-slider>
+            <div class="room-image-placeholder" ng-if="room.images.length == 0"></div>
+            <img class="room-image desktop" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : roomsConfig.roomDetailThumbnailSize.width : roomsConfig.roomDetailThumbnailSize.height : 'fill'}}" alt="{{room.name}}" ng-if="!roomsConfig.includeSlider">
+            <img class="room-image mobile" ng-click="goToRoom(details.meta.slug, room.meta.slug)" ng-src="{{room.images[0].uri | cloudinaryImage : roomImageWidth : roomImageHeight : 'fill'}}" alt="{{room.name}}" ng-if="!roomsConfig.includeSlider">
+
+            <a class="room-see-more" ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-if="roomsConfig.hideShowInfoIcon">_see_more_information_</a>
+
+            <header class="item-header mobile">
+              <h3>
+                <!--FIXME: Disable room link until the room pages are styled to our standard-->
+                <!--<a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" ng-bind-html="room.name | mainHeaderStyle"></a>-->
+                <!--<a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" class="view-more">_view_full_details_</a>-->
+                <a ng-bind-html="room.name | mainHeaderStyle"></a>
+                <span class="sub-title" ng-if="roomsConfig.displayRoomSubtitle && room.subTitle">{{room.subTitle}}</span>
+              </h3>
+            </header>
+
+            <div class="pricing-info" ng-include="'layouts/components/pricing-info.html'"></div>
+
+            <ul class="amenities" ng-if="roomsConfig.displayAmenities && details">
+              <li class="amenity" ng-repeat="amenity in room.amenities | limitTo:numberOfAmenities" ng-init="amenity.chainCode = details.chainCode">
+                <slug-img slug="amenity" type="room" width="15"></slug-img>
+                <span class="amenity-caption">{{amenity.name}}</span>
+              </li>
+            </ul>
+
+          </div>
+
+          <room-details ng-if="roomsConfig.displayRoomDetails" ng-class="{'rates-displayed': room._displayRates}">
+
+            <div class="pricing-info" ng-include="'layouts/components/pricing-info.html'"></div>
+
+            <p class="our-rates" ng-if="details && room._displayRates">_our_rates_</p>
+          </room-details>
+          <room-products ng-if="details && room._displayRates" ng-class="{'has-ota-products':roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0}" id="{{'rates'+$index}}"></room-products>
+        </div>
+        <!-- //list-item-container -->
+      </list-item>
+
+      <a href class="display-all-rooms" ng-if="numberOfRoomsDisplayed && numberOfRoomsDisplayed < (rooms|filter:roomsDisplayFilter).length" ng-click="displayAllRooms()">_view_all_rooms_</a>
+
+      <a href class="display-more-rooms" ng-if="numberOfRoomsDisplayed && numberOfRoomsDisplayed < (rooms|filter:roomsDisplayFilter).length" ng-click="displayMoreRooms()">_view_more_rooms_</a>
+
+
+    </list-items>
+    <h2 ng-if="!rooms.length">_no_room_found_</h2>
+  </div>
+</section>

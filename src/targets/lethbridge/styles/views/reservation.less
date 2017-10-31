@@ -1,0 +1,1703 @@
+/////////////////////
+// Local Variables //
+/////////////////////
+
+@c-gray-reservation:  #d7d7d7;
+@c-form-text:         @c-text;
+@c-brown-light:       #d7c6ae;
+@spacing:             20px;
+
+
+////////////////////////////////////////////////////
+// Global namespace for whole reservation process //
+////////////////////////////////////////////////////
+reservation-widget {
+
+  margin-bottom: 70px;
+  padding: 24px 47px 24px 34px;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: none;
+  border-radius: 0;
+
+  a {
+    cursor: pointer;
+  }
+
+  .viewport-mobile & {
+    padding: 20px;
+  }
+
+  // Override chosen styling for select boxes
+  .chosen-container-active.chosen-with-drop .chosen-single {
+    box-shadow: none;
+  }
+
+  &.reservation-assurance-active {
+    padding: 20px;
+    margin-bottom: 40px;
+    .viewport-mobile & {
+      margin-bottom: 40px;
+    }
+  }
+  form {
+    margin-top:10px !important;
+  }
+  reservation-details-form{
+    form{
+      padding: 0;
+      margin-top: 25px;
+      box-sizing: border-box;
+    }
+  }
+
+  .continue-btn {
+    width: 246px;
+    span {
+      font-size: 12px;
+      letter-spacing: 1px;
+      font-weight: bold;
+    }
+    .viewport-mobile & {
+      display: none;
+    }
+  }
+
+  button.next {
+    background: @lbe-c-primary;
+
+    &:active,
+    &:focus,
+    &:hover {
+      background: darken(@lbe-c-primary, 10%);
+    }
+
+    // Remove arrow side part
+    &:after {
+      content: none;
+    }
+
+    span {
+      padding-left: 40px;
+    }
+
+    .viewport-mobile & {
+      width: 100%;
+    }
+
+    width: 245px;
+    border-radius: 0;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 40px;
+    height: 40px;
+    text-shadow: none;
+    box-shadow: none;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    margin-top: 30px;
+    font-size: 24px;
+    color: @c-text;
+    line-height: 29px;
+    font-weight: 300;
+    font-family: @ff-secondary;
+    text-transform: uppercase;
+    .viewport-mobile & {
+      margin-top:20px;
+    }
+    strong {
+      font-weight: normal;
+    }
+  }
+
+  label {
+    color: @c-form-border-grey;
+    a{
+      color: @c-form-border-grey;
+      text-decoration: underline;
+      &:hover{
+        text-decoration: none;
+      }
+    }
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select,
+  .chosen-container,
+  .chosen-container .chosen-single,
+  textarea {
+    height: 56px;
+    line-height: 56px;
+    border-radius: 4px;
+    padding: 0 15px;
+    border: none;
+    background: #F7F7F7;
+    color: @c-form-text;
+    font-size: @size-0;
+    font-weight: normal;
+    transition: border-color 0.15s linear;
+
+    a, div {
+      padding-top: 6px;
+    }
+    .chosen-drop {
+      background: #fff;
+      border-radius: 0;
+    }
+    .chosen-results {
+      border: none;
+      border-radius: 0;
+      li.highlighted {
+        background-image: none;
+        background: @lbe-c-primary;
+      }
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  .chosen-container {
+    padding: 0 7px 0 15px;
+    border: 1px solid #DEDEDE;
+
+    .chosen-single {
+      height: 54px;
+      line-height: 54px;
+    }
+
+    .chosen-drop {
+      border: 1px solid @c-gray-reservation;
+    }
+
+    .chosen-results {
+      padding: 2px 0;
+    }
+
+    .chosen-single, .chosen-single span {
+      padding: 0;
+    }
+
+  }
+
+  textarea {
+    min-height: 3 * 45px;
+  }
+
+  .input-checkbox {
+    font-weight: normal;
+  }
+
+  .detail-links,
+  .detail-links a {
+    font-size: 12px;
+    .chain-sand &{
+      color: @c-menu-active-sand;
+    }
+    .chain-sign &{
+      color: @c-menu-active-sign;
+    }
+  }
+
+  aside {
+    section + section {
+      margin: 0;
+    }
+    &:before {
+      .grid-width(7);
+      position: absolute;
+      content: '';
+      display: block;
+      width: 0;
+      left: @width;
+      top: 45px;
+      bottom: 20px;
+      border-left: none;
+      @media only screen and @tablet-portrait-max {
+        content: none;
+      }
+    }
+
+  }
+
+  .room-data {
+
+    h3, h4, p {
+      line-height: 1.6em;
+    }
+
+    h3 {
+      color: @c-text;
+      line-height: 19px;
+      text-transform: uppercase;
+      font-family: @ff-primary;
+      font-size: 18px;
+      font-weight: 300;
+      margin: 10px 0;
+      letter-spacing: 1px;
+    }
+
+    h4 {
+      font-size: 22px;
+      line-height: 32px;
+      text-transform: uppercase;
+      font-family: @ff-serif;
+      letter-spacing: 1px;
+      color: @c-primary;
+    }
+
+    .room-data-details{
+      display: block;
+      width: 100%;
+      position: relative;
+      .clearfix;
+    }
+
+    .desc {
+      color: #E44D3F;
+      font-size: 16px;
+      letter-spacing: 0;
+      line-height: 19px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .desc,
+    .price{
+      display: inline;
+      float: left;
+      max-width: 75%;
+      &.price{
+        clear: left;
+        margin-top: 0;
+      }
+    }
+
+    .price{
+      color: #000;
+      font-family: @ff-secondary;
+      strong {
+        line-height: 35px;
+        font-weight: bold;
+        color: #4a4a4a;
+        font-family: @ff-primary;
+        font-size: 22px;
+
+        .viewport-mobile & {
+          font-size: 23px;
+          line-height: 28px;
+        }
+      }
+      em {
+        font-size: 14px;
+        letter-spacing: 0;
+        line-height: 17px;
+        font-style: normal;
+      }
+    }
+
+    .chain-logo{
+      display: none;
+    }
+
+    .image-wrapper {
+      overflow: hidden;
+      // Make width of parent's container by adding the padding to width
+      width: calc(~'100% + 60px');
+      margin-left: -30px; // This needs to be parent's padding
+      margin-top: 30px;
+
+      img {
+        border-radius: 0;
+        margin: @baseline/2 0;
+        max-height: 117px;
+        width: 100%;
+        border: none;
+        .viewport-mobile & {
+          max-height:initial;
+        }
+      }
+    }
+    .room-image-placeholder {
+      width: 100%;
+      height:210px;
+      border-radius: 0;
+      margin: 11px 0;
+      max-height: 117px;
+      border: 2px solid #dedede;
+      .chain-sand & {
+        background:url('@{img-prefix}/sandman-placeholder-large.jpg') no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+      .chain-sign & {
+        background:url('@{img-prefix}/signature-placeholder-large.jpg') no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+    }
+  }
+
+  .reservation-data {
+    color: #242424;
+    border: none;
+
+    table {
+      width: 100%;
+    }
+
+    tr {
+      font-size: 15px;
+      font-family: @ff-secondary;
+      color: #000;
+    }
+
+    th {
+      font-weight: normal;
+      text-align: left;
+      padding: 0 5px;
+    }
+
+    td {
+      font-weight: 700;
+      padding: 0 5px;
+      float: right;
+    }
+
+    .data {
+      font-family: @ff-primary;
+      margin: @spacing 0;
+      border: none;
+    }
+
+    .charges {
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      th {
+        text-align: left;
+        font-weight: 400;
+      }
+      td {
+        font-weight: 700;
+      }
+      .breakdown-toggle{
+        td {
+          padding-top:10px;
+          .separator {
+            display: none;
+          }
+          span {
+            display: block;
+          }
+        }
+        a{
+          color: @c-menu-active-sand;
+        }
+      }
+    }
+
+  }
+
+  label[for="agreement2"] {
+    display: none;
+  }
+
+  label[for="agreement3"] {
+    margin: 10px 0 41px 0;
+    color: @c-text;
+    padding: 0;
+    line-height: 20px;
+    text-align: left;
+    display: block !important;
+    .viewport-mobile &{
+      margin-left: 0;
+    }
+  }
+
+  .reservation-controls {
+    text-align: center;
+    registration-call {
+      display: none;
+      .viewport-mobile &{
+        display: none;
+      }
+    }
+
+    .viewport-mobile &{
+      width: 100%;
+    }
+
+    h4 {
+      font-size: @size-4;
+      color: @c-link;
+      margin-bottom: @baseline/4;
+      font-weight: 100;
+    }
+
+    .next {
+      float: right;
+      margin: 0 @spacing;
+      .viewport-mobile & {
+        margin: 20px 0 0 @spacing/2;
+      }
+    }
+
+    .back {
+      float: left;
+      margin: 0 @spacing 0 0;
+      text-shadow: none;
+      .viewport-mobile &{
+        padding: 0;
+        margin: 0 @spacing/2 0 0;
+      }
+    }
+  }
+
+
+  @media screen and @large-mobile-min and @large-mobile-max {
+    width: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  @media screen and @tablet-portrait-min {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+
+
+@media only screen and @large-mobile-min {
+
+}
+
+// DESKTOPS and TABLETS in LANDSCAPE orientation
+@media only screen and @tablet-portrait-min {
+
+  reservation-widget {
+
+    .input-left,
+    .input-right {
+      box-sizing: border-box;
+      clear: none;
+      width: 50%;
+
+      &.wide {    width: 75%; }
+      &.narrow {  width: 25%; }
+    }
+
+    .input-left {
+      float: left;
+      padding-right: 10px;
+    }
+
+    .input-right {
+      float: right;
+      padding-left: 10px;
+    }
+  }
+
+  reservation-buttons {
+
+    .button {
+      &.back,
+      &.next {
+        .grid-width(2);
+        width: @width;
+      }
+    }
+  }
+}
+
+.ReservationDetails__overview {
+  padding: 30px;
+  box-sizing: border-box;
+  border: 1px solid #dedede;
+  border-radius: 6px;
+  background-color: #fff;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+.links {
+  margin: 9px 18px 0 0;
+  .breakdown, .policies {
+    float: right;
+    color: @c-secondary;
+    font-size: 11px;
+    line-height: 15px;
+    text-transform: uppercase;
+  }
+}
+
+////////////////////////////////////////////////
+// Billing details form and payment w/ points //
+////////////////////////////////////////////////
+reservation-billing {
+
+  // Wrapper
+  > div {
+    margin: 30px 0 20px 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    .viewport-mobile &{
+      padding: 0;
+    }
+  }
+
+  .payment-methods {
+    cursor: pointer;
+
+    li {
+      display: inline-block;
+      vertical-align: middle;
+      &.points{
+        float: right;
+      }
+    }
+
+    li + li {
+      margin-left: 10px;
+    }
+
+    .divider {
+      display: none;
+    }
+
+    i {
+      display: block;
+      opacity: 1;
+      width: 61px;
+      height: 61px;
+      background-repeat: no-repeat;
+      background-position: center center;
+
+      &.selected {
+        opacity: 1;
+      }
+
+      &.visa {
+        background-image: url('@{img-prefix}/card-icons/visa.png');
+      }
+
+      &.master {
+        background-image: url('@{img-prefix}/card-icons/mastercard.png');
+      }
+
+      &.amex {
+        background-image: url('@{img-prefix}/card-icons/amex.png');
+      }
+
+      &.discover {
+        background-image: url('@{img-prefix}/card-icons/discover.png');
+      }
+
+      &.points {
+        width: 80px;
+        background-image: url('@{img-prefix}/card-icons/points.png');
+      }
+    }
+  }
+
+  // Payment with users points
+  .payment-points {
+    margin-top: @spacing;
+
+    border: 1px solid @c-primary;
+    border-radius: 3px;
+    padding: 30px;
+    font-family: @ff-secondary;
+    font-weight: normal;
+
+    th, td {
+      padding: 10px 0;
+      font-size: @size-1;
+    }
+
+    th {
+      width: 75%;
+      text-align: left;
+      font-weight: normal;
+    }
+
+    td {
+      color: @c-brown;
+      font-size: @size-2;
+      text-align: right;
+      font-weight: normal;
+    }
+
+    .current td {
+      color: @c-primary;
+    }
+
+    .current th,
+    .cost th {
+      color: #751C14;
+    }
+
+    .cost td {
+      color: @c-red;
+    }
+
+    .cost {
+      th, td {
+        font-size: @size-2;
+      }
+    }
+
+    .balance {
+      th, td {
+        font-size: @size-1;
+        color: @c-mid-grey;
+      }
+    }
+
+    // Negative value
+    .not-enough {
+      color: @c-red;
+    }
+
+    // "Not enough points..."
+    .error {
+      margin-top: @spacing;
+      color: @c-red;
+    }
+
+    registration-call {
+      text-align: center;
+      display: block;
+      margin: 87px 0px;
+    }
+  }
+
+  .chosen-container {
+    line-height: 56px;
+    height: 56px;
+    border-radius: 0;
+    border-color: #d7d7d7;
+
+    a {
+      font-size: 14px;
+      font-weight: normal;
+      padding-left: 10px;
+    }
+  }
+
+  .payment-card {
+    form {
+      width: 100%;
+
+      .card-details {
+        .expiry-title {
+          width: 70%;
+          position: relative;
+          text-align: center;
+          .viewport-mobile &{
+            width: 100%;
+          }
+
+          label {
+            padding: 5px;
+            line-height: 20px;
+            font-weight: normal;
+            display: inline-block;
+            background-color: transparent;
+          }
+
+          &:before {
+            content: '';
+            display: block;
+            border-left: 1px solid @c-light-grey;
+            border-right: 1px solid @c-light-grey;
+            border-top: 1px solid @c-light-grey;
+            height: 10px;
+            position: absolute;
+            left: 0px;
+            right: 10px;
+            top: 25px;
+          }
+        }
+
+        .card-expiry {
+          float: left;
+          width: 70%;
+
+          .viewport-mobile &{
+            width: 100%;
+          }
+
+          > label {
+            padding-top: 5px;
+          }
+        }
+
+        .card-cvv {
+          float: left;
+          width: 30%;
+          position: relative;
+
+          .viewport-mobile &{
+            width: 100%;
+          }
+
+          > label {
+            padding-top: 5px;
+
+            span {
+              top: -10px;
+            }
+          }
+
+          .help {
+            cursor: pointer;
+            position: absolute;
+            border-radius: 30px;
+            border: 1px solid @c-light-grey;
+            right: -28px;
+            top: 18px;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            .viewport-mobile &{
+              right: 5px;
+            }
+          }
+        }
+
+        &.invalid {
+          .expiry-title {
+            label {
+              color: @c-red;
+            }
+
+            &:before {
+              border-color: @c-red;
+            }
+          }
+
+          .chosen-container {
+            border-color: @c-red;
+          }
+        }
+      }
+    }
+  }
+}
+
+//////////////////////////////////////////////
+// Confirmation step of reservation process //
+//////////////////////////////////////////////
+reservation-confirmation {
+
+  > div {
+    border-radius: 0;
+    border: solid 2px #000;
+
+    .viewport-mobile &{
+      margin-top: 20px;
+    }
+  }
+
+  .tab-pane {
+    border-top: none;
+  }
+
+  .tab-pane.active,
+  .tab-pane.active {
+    background: transparent;
+  }
+
+  // Tab headers (links)
+  .nav-tabs {
+
+    li:first-of-type {
+      background: transparent;
+      color: @c-text;
+      a {
+        color: @c-text;
+      }
+    }
+
+    li:nth-of-type(2) {
+      background: lighten(@c-primary, 20%);
+      background-size: contain;
+      border-bottom: solid 1px #000;
+    }
+
+    li:last-of-type {
+      background: lighten(@c-secondary, 20%);
+      background-size: contain;
+      border-bottom: solid 1px #000;
+    }
+
+    a {
+      font-weight: normal;
+      text-transform: uppercase;
+      font-family: @ff-primary;
+    }
+
+    li.active {
+      a {
+        color: initial;
+        font-weight: bold;
+      }
+    }
+
+    li{
+      .viewport-mobile &{
+        min-height: 90px;
+      }
+    }
+  }
+
+  table{
+    color: @c-text;
+    font-family: @ff-secondary;
+    letter-spacing: -0px;
+    font-weight: 300;
+    tr {
+      padding-bottom: 13px;
+      th {
+        text-transform: uppercase;
+        font-size: 15px;
+      }
+      td {
+        font-size: 16px;
+        line-height: 19px;
+        font-weight: 300;
+        padding: 5px 10px;
+      }
+    }
+  }
+}
+
+
+////////////////////////////////
+// Reservation Finished page  //
+//  - after succesful payment //
+////////////////////////////////
+reservation-finished {
+
+  margin-top: @header-height;
+
+  .viewport-mobile &{
+    margin-top: 130px;
+    .RoomImage {
+      display: none;
+    }
+    .reservation-summary {
+      padding: 0 20px;
+      width: 100%;
+      padding-bottom: 40px !important;
+    }
+    .booking-details {
+      width: 100%;
+    }
+    .table-container {
+      width: 100%;
+    }
+  }
+
+  hr {
+    display: none;
+  }
+
+  hotel-location {
+    .map-wrapper {
+      width: 100vw;
+      margin-left: calc(~'-50vw + 50% - 10px');
+      height: 376px;
+      ng-map {
+        height: 376px;
+      }
+      .viewport-mobile & {
+        height: 326px;
+        margin-top: 120px;
+        margin-left: calc(~'-50vw + 50%');
+      }
+    }
+  }
+
+  .video-section {
+    width: 100vw;
+    margin-left: calc(~'50% - 50vw');
+    margin-top: 30px;
+    margin-bottom: 50px;
+    height: 500px;
+    .viewport-mobile & {
+      height: 172px;
+    }
+  }
+
+  .map-section {
+    width: 100vw;
+    margin-left: calc(~'50% - 50vw');
+    background-color: #fff;
+    hotel-location {
+      > header {
+        margin: 35px 0 25px 0;
+        position: relative;
+        .viewport-mobile & {
+          display: none;
+        }
+      }
+      .view-map-link {
+        display: none;
+      }
+      h2 {
+        text-transform: uppercase;
+        text-align: center;
+        color: @c-primary;
+        font-family: @ff-primary;
+        font-size: 19px;
+        font-weight: normal;
+        line-height: 22px;
+        span {
+          background: #fff;
+          padding: 0 15px;
+        }
+        &:before {
+          border-top: 1px solid @c-primary;
+          content:"";
+          margin: 0 auto; /* this centers the line to the full width specified */
+          position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
+          top: 50%; left: 0; right: 0; bottom: 0;
+          width: 95%;
+          z-index: -1;
+        }
+      }
+    }
+  }
+
+
+  // This part is specific for RESERVATION DETAIL page only
+  .reservation-summary {
+
+    width: 100vw;
+    margin-left: calc(~'50% - 50vw');
+    padding: 70px 0;
+    padding-top: 70px !important;
+    background-color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 100px;
+    .viewport-mobile & {
+      margin-bottom: 20px;
+    }
+
+    .summary-container {
+      max-width: 1212px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    // Block w/ PRINT and ADD TO PASSBOOK and SHARE buttons
+    .actions {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 20px;
+
+      @media print {
+       display: none;
+      }
+
+      .share {
+        float: initial;
+        display: block;
+        width: 100%;
+        color: #fff;
+        margin: 20px 0;
+
+        a {
+          &.icon-fb {
+            &:before {
+              content: @fa-var-facebook-square;
+              color: #fff;
+            }
+          }
+          &.icon-twitter {
+            &:before {
+              content: @fa-var-twitter;
+              color: #fff;
+            }
+          }
+          &.icon-gplus {
+            &:before {
+              content: @fa-var-google-plus;
+              color: #fff;
+            }
+          }
+          &.icon-email {
+            &:before {
+              content: @fa-var-envelope;
+              color: #fff;
+            }
+          }
+        }
+      }
+
+      .passbook{
+        float: left;
+        a {
+          display: block;
+          margin-left: @spacing / 2;
+        }
+        .button-passbook {
+          background: url('@{img-prefix}/v4/btn-passbook.png');
+          width: 108px;
+          height: 36px;
+          float: right;
+          margin-left: 0;
+        }
+
+        .button-print {
+          background: url('@{img-prefix}/v4/btn-print.png');
+          width: 37px;
+          height: 36px;
+          float: right;
+        }
+
+        .viewport-mobile &{
+          clear: both;
+          float: left;
+          .button-print {
+            margin-left: 0;
+            margin-right: @spacing / 2;
+          }
+          .button-passbook {
+            margin-left: 0;
+            margin-right: @spacing / 2;
+          }
+        }
+      }
+
+      span {
+        visibility: hidden;
+      }
+    }
+
+
+    footer {
+      text-align: right;
+      float: right;
+      padding: 0;
+      line-height: 20px;
+      a{
+        font-size: 12px;
+        color: @c-secondary;
+        &:hover{
+          color: @c-secondary;
+        }
+      }
+    }
+  }
+
+  // List of possible enhancements for users reservation
+  .reservation-enhance {
+    margin-top: 174px;
+    text-align: center;
+
+    .Addons__title {
+      position: absolute;
+      left: 0;
+      top: 20px;
+      width: 60%;
+      padding: 5px 20px 5px 40px;
+      background-color: rgba(26, 26, 26, 0.8);
+      .backdrop-filter-blur(20px);
+      color: #fff;
+      text-transform: uppercase;
+      font-family: @ff-primary;
+      display: block;
+      font-size: 24px;
+      line-height: 35px;
+      text-align: left;
+      .Addons__subtitle {
+        text-transform: none;
+        display: inline;
+      }
+    }
+
+    h3 {
+      font-size: 31px;
+      font-family: @ff-primary;
+      font-weight: bold;
+      line-height: 36px;
+      text-transform: uppercase;
+      color: #fff;
+      text-shadow: 0 1px 10px #000;
+      &:after {
+        content: url('@{lbe-img-prefix}/divider-orange.png');
+        display: block;
+      }
+    }
+
+    ul {
+      .clearfix;
+      margin: @spacing 0;
+      padding: @spacing @spacing / 2;
+      border: none;
+      border-radius: 0;
+      background-color: #fff;
+    }
+
+    li {
+      display: inline-block;
+      box-sizing: border-box;
+      padding: 0 @spacing / 2;
+
+      &.half {
+        width: 50%;
+        .viewport-mobile &{
+          width: 100%;
+        }
+      }
+      &.third {
+        width: 33.3333%;
+        .viewport-mobile &{
+          width: 100%;
+        }
+      }
+
+      > div {
+        cursor: pointer;
+        padding-bottom: 5px;
+        border-radius: 0;
+        background: #fff;
+        box-shadow: none;
+        text-align: center;
+        overflow: hidden;
+
+        a.eye-icon{
+          position : relative;
+          display: block;
+
+          img{
+            display: block;
+          }
+
+          &:before {
+            content: '';
+            display: block;
+            background: @c-black;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            .transition(opacity, .3s, ease-in-out);
+          }
+
+          &:after {
+            .fa;
+            content: @fa-var-eye;
+            background: transparent;
+            color: #fff;
+            font-size: 48px;
+            line-height: 27px;
+            position: absolute;
+            width: 48px;
+            height: 30px;
+            left: 50%;
+            top: 50%;
+            margin-left: -24px;
+            margin-top: -18px;
+            opacity: 0;
+            .transition(opacity, .3s, ease-in-out);
+          }
+
+          &:hover {
+            &:after{
+              opacity: 1;
+            }
+            &:before{
+              opacity: .3;
+            }
+          }
+
+          &.disabled{
+            cursor: default;
+            pointer-events: none;
+          }
+        }
+
+        h4 {
+          color: @c-primary;
+        }
+      }
+    }
+
+    h4, p, i {
+      padding: 0 @spacing / 2;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    h4 {
+      margin: @baseline 0;
+      font-size: @size-2;
+      text-transform: uppercase;
+      font-weight: normal;
+      span{
+        font-weight: normal;
+      }
+    }
+
+    i {
+      display: block;
+      color: @c-primary;
+      font-size: @size--1;
+      line-height: @baseline;
+      text-align: left;
+      font-weight: 700;
+      padding: 0 14px;
+    }
+
+    p {
+      margin: @baseline 0;
+
+      a {
+        font-weight: 600;
+      }
+    }
+
+    .button {
+      margin: @spacing / 2 0;
+      padding: 0 @spacing / 2;
+      width: 45%;
+
+      small {
+        font-size: 0.75em;
+        font-style: italic;
+        font-weight: normal;
+        opacity: 0.75;
+      }
+    }
+
+    .button + .button {
+      margin-left: @spacing / 2;
+    }
+  }
+
+  .newsletter-cta{
+    a{
+      display: block;
+      img{
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        display: inline-block;
+      }
+    }
+  }
+
+  .reservation-enhancements {
+
+    margin-bottom: 2*@baseline;
+
+    text-align: center;
+
+    list-item {
+      padding-right: 0;
+      min-height: initial;
+      pricing-info {
+        border-left: none;
+      }
+    }
+
+    h3 {
+      font-size: 31px;
+      font-family: @ff-primary;
+      font-weight: bold;
+      line-height: 36px;
+      text-transform: uppercase;
+      color: #000;
+      &:after {
+        content: url('@{lbe-img-prefix}/divider-orange.png');
+        display: block;
+      }
+    }
+
+    .total {
+      font-size: @size-2;
+      font-weight: 600;
+      text-align: right;
+      color: @c-link;
+    }
+
+    list-item {
+      border-top: 0;
+    }
+  }
+
+  .button.disabled {
+    .button-colors(gray, @colorButtonGray, @colorButtonGrayHover);
+  }
+
+  @media print {
+    margin-top:0;
+  }
+}
+
+
+///////////////////////////////////////////////
+// Common code for:                          //
+//  - RESERVATIONS page                      //
+//  - RESERVATION DETAIL page                //
+//                                           //
+//  Code specific only for RESERVATIONS page //
+//  is placed in file                        //
+//  `src/styles/views/reservations.less`     //
+///////////////////////////////////////////////
+///
+reservation-finished,
+reservation-hotel-details {
+
+  .booking-details {
+    width: 50%;
+    float: left;
+    a {
+      color: @c-primary;
+    }
+  }
+
+  .reservation-summary {
+
+    padding-top: 0;
+
+    header {
+      .clearfix;
+      margin: 0 0 2 * @spacing 0;
+      float: left;
+      width: 100%;
+
+      h1,
+      div > div {
+        float: left;
+        width: 33.3333%;
+        .viewport-mobile & {
+          width: 100%;
+          float: none;
+        }
+      }
+    }
+
+    h1 {
+      color: @c-grey;
+      font-size: 18px;
+      line-height:26px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .reference {
+      font-size: 18px;
+      padding-left:100px;
+      text-align:left;
+      p{
+        color: @c-grey;
+        font-weight: 700;
+        line-height:26px;
+        margin-top:0;
+      }
+
+      p + p{
+        color: @c-grey;
+        font-weight: 300;
+      }
+
+      strong {
+        font-size: 18px;
+        font-weight: 400;
+      }
+
+      &.reference-visible {
+        visibility: visible;
+      }
+
+      .viewport-mobile & {
+        text-align: left;
+        padding: 0;
+        p{
+          display: inline;
+        }
+      }
+    }
+
+    .booked {
+      color: @c-grey;
+      font-size: 18px;
+      line-height:26px;
+      font-weight: 600;
+    }
+  }
+
+  // Reservation data in tables
+  .tables {
+
+    .table-container {
+      border: solid 1px white;
+      padding: 20px 20px;
+      border-radius: 6px;
+      box-sizing: border-box;
+      width: 50%;
+      float: right;
+      .viewport-mobile & {
+        width: 100%;
+      }
+    }
+
+    table {
+      margin-top: 0 !important;
+      float: right;
+      border: none;
+      display: table;
+      .price-breakdown {
+        color: @c-primary;
+      }
+      td {
+        font-weight: 300 !important;
+        padding-bottom: 10px;
+      }
+      tr {
+        padding-bottom: 6px !important;
+      }
+    }
+
+    figure {
+      width: 33.3333%;
+      float: left;
+
+      .viewport-mobile & {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      img {
+        width: 100%;
+        margin-bottom: 14px;
+        height: 348px;
+        border-radius: 6px;
+      }
+
+      .room-image-placeholder {
+        width: 100%;
+        height:210px;
+        margin-bottom: 14px;
+      }
+
+      button,
+      button.disabled {
+        height: 39px;
+        line-height: 39px;
+        width: 48%;
+        font-size: 14px;
+        text-transform: uppercase;
+
+        @media print {
+         display: none;
+        }
+      }
+
+      button.disabled {
+        background: @lbe-c-primary;
+        display: none;
+        &:active,
+        &:focus,
+        &:hover {
+          background: @lbe-c-primary;
+        }
+      }
+
+      button:first-of-type{
+        border-radius: 0;
+        background: @ff-primary;
+        &:active,
+        &:focus,
+        &:hover {
+          background: @ff-primary;
+        }
+      }
+
+      button + button {
+        float: right;
+        background: transparent;
+        background-color: transparent;
+        border: solid 2px @lbe-c-primary;
+        border-radius: 0;
+        box-shadow: none;
+        &:hover {
+          background: transparent;
+          background-color: transparent;
+          box-shadow: none;
+        }
+      }
+    }
+
+    > div {
+      padding-left: 50px;
+    }
+
+    .chain-logo {
+      display: none;
+    }
+
+    h1, h3, h4, .booking-date {
+      font-family: @ff-secondary;
+      color: @c-text;
+      text-transform: uppercase;
+      font-weight: 300;
+    }
+
+    span, tr, td {
+      font-family: @ff-secondary;
+      color: @c-text;
+      font-weight: 300;
+    }
+
+    h1 {
+      font-family: @ff-serif;
+      font-size: 34px;
+      line-height: 41px;
+      margin-bottom: 18px;
+      max-width: 75%;
+    }
+
+    h3 {
+      font-size: 24px;
+      line-height: 29px;
+      margin-bottom: 14px;
+      max-width: 75%;
+    }
+
+    h4, .booking-date {
+      font-size: 16px;
+      line-height: 19px;
+      margin-bottom: 14px;
+    }
+
+    .booking-policies {
+      display: block;
+      margin-top: 20px;
+      .booking-policies {
+        color: @lbe-c-primary;
+      }
+    }
+
+    table {
+      margin-top: @baseline;
+      width: 100%;
+      color: @c-grey;
+      font-size: 14px;
+    }
+
+    th, td {
+      width: 25%;
+
+      &[rowspan] {
+        vertical-align: bottom;
+      }
+    }
+
+    th {
+      font-weight: 300;
+      text-align: left;
+    }
+
+    td {
+      font-weight: 700;
+      text-align: right;
+    }
+
+    th:not(:first-child) {
+      padding-left: 2 * @spacing;
+    }
+
+    .total {
+      font-weight: 300;
+    }
+
+    .total-value {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .extended-total {
+      text-align: right;
+    }
+
+    .extended-charges{
+      border: none;
+
+      table {
+        width: 100%;
+        td {
+          .viewport-mobile & {
+            text-align: right;
+          }
+        }
+      }
+
+      .past-booking-message {
+        background:#daf3f6;
+        border:1px solid @c-menu-active;
+        padding:10px 5px;
+        text-align:center;
+        p {
+          color:@c-secondary;
+        }
+      }
+
+      .extended-total{
+        position: initial;
+        width: 100%;
+        text-align: right;
+        a{
+          font-size: 12px;
+          line-height: 14px;
+          color: @c-secondary;
+          &:hover{
+            color: @c-secondary;
+          }
+        }
+      }
+    }
+  }
+}
+
+.reservation-summary {
+  &[ng-click] {
+    cursor: pointer;
+  }
+}
+
+.ConfirmationBackground {
+  background: url('@{img-prefix}/confirmation-bg.png');
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: -999;
+  background-size: cover;
+  .viewport-mobile & {
+    height: 1150px;
+  }
+}
+
+dialog.confirmation-dialog .ui-dialog {
+  overflow-x: hidden;
+}
