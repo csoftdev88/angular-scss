@@ -282,6 +282,9 @@ angular.module('mobiusApp.services.user', [])
       clearStoredUser();
 
       authPromise = $q.defer();
+
+      // Do a full reload! Fixes subtle issues after logout that we don't want to fix as Keystone is the go-forward SSO
+      $window.location.reload();
     }
 
     function logout() {
