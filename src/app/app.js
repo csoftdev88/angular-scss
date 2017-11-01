@@ -63,6 +63,7 @@ angular
     'mobius.controllers.staticContent',
     'mobius.controllers.thirdParties',
     'mobius.controllers.roomUpgrades',
+    'mobius.controllers.doubleOptin',
 
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
@@ -603,6 +604,14 @@ angular
     parent: 'root',
     url: '/upgrade/:upgradeGuid/:roomID',
     controller: 'RoomUpgradesCtrl'
+  })
+
+  // Double-optin page, for verifying email address
+  .state('double-optin', {
+    parent: 'root',
+    url: '/double-optin/:token/',
+    controller: 'DoubleOptinCtrl',
+    templateUrl: 'layouts/doubleOptin/doubleOptin.html',
   })
 
   // 404 page
