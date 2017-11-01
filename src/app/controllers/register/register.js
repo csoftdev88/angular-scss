@@ -56,6 +56,9 @@ angular.module('mobius.controllers.register', [])
 
           registerData.localeCode = selectedCountry && selectedCountry.code;
         }
+        if (Settings.API.sendAcceptedTermsAndConditions) {
+          registerData.termsAndConditionsAccepted = (registerData.termsAndConditionsAccepted) ? true : false;
+        }
         // Make sure any previous user session data is cleared before registering
         user.clearStoredUser();
 		    apiService.post(apiService.getFullURL('customers.register'), registerData).then(function(response){

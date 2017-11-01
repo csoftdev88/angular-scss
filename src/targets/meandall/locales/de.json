@@ -561,6 +561,11 @@
         "rate_not_available": "Der Preis, den Sie suchen, ist an diesen Terminen nicht verfügbar. Bitte wählen Sie aus einer der unten angegebenen Preise.",
         "book_now_floating_bar": "Buche jetzt",
         "terms_and_conditions_link": "https://duesseldorf.meandallhotels.com/agb.html",
-        "other_room": "weiteres"
+        "other_room": "weiteres",
+        "terms_and_conditions_text": "Terms and conditions translation goes here.",
+        "terms_and_conditions_label": "Ich akzeptiere die Allgemeinen Geschäftsbedingungen",
+        "terms_and_conditions_error": "Sie müssen Bedingungen akzeptieren, um fortzufahren.",
+        "terms_and_conditions_header_error": "Sie müssen Bedingungen akzeptieren, um fortfahren zu können.",
+        "reset_password_header_error": "Bitte setzen Sie Ihr Passwort unten zurück."
     }
 }
