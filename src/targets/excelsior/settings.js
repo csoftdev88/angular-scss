@@ -3,6 +3,7 @@
 angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
 
 .constant('Settings', {
+  'autoPopulateDates': true,
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
   'defaultProductRateId': 1,
@@ -39,7 +40,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'integration': '',
       'staging': '',
       'uat':'',
-      'live': '',
+      'live': ''
     }
   },
   'infinitiEcommerceTracking': {
@@ -70,21 +71,17 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
   'infinitiApeironTracking': {
     'development': {
       'enable':false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'sandman-development',
+      'id':'excelsior-development',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     },
     'integration': {
       'enable':false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'sandman-integration',
+      'id':'excelsior-integration',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
       'segmentWriteId': 'ufGF40hZthWnYEeH6q09RzrKiusmuWQe',
@@ -92,11 +89,9 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     },
     'staging': {
       'enable':false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'sandman-staging',
+      'id':'excelsior-staging',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
       'segmentWriteId': 'ufGF40hZthWnYEeH6q09RzrKiusmuWQe',
@@ -104,27 +99,23 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     },
     'uat': {
       'enable': false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'sandman-staging',
+      'id':'excelsior-staging',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     },
     'live': {
       'enable': false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
-      'duplicationEndpoint':'https://icq6o001z8.execute-api.us-east-1.amazonaws.com/dev/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'sandman-live',
+      'id':'excelsior-live',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     }
   },
   'derbysoftTracking' : {
-    'enable': true,
+    'enable': false,
     'accountCode':'2p'
   },
   'googleAnalytics': {
@@ -134,14 +125,14 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
   'googleTagManager': {
     'enable': true,
     'trackUserId': true,
-    'id': 'GTM-56G27K'
+    'id': 'GTM-T6VB8R8'
   },
   'hotjar': {
-    'enable': true,
+    'enable': false,
     'id': '294639'
   },
   'rumScript': {
-    'enable': true,
+    'enable': false,
     'id': '5910613c8a112b33c9d2e6c7'
   },
   'API': {
@@ -155,7 +146,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'integration': '//integration-www-excelsior.mobiusbookingengine.com/api/4.0/',
       'staging': '//integration-www-excelsior.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
-      'live': ''
+      'live': 'https://excelsior.mobiusbookingengine.com/api/4.0/'
     },
     'mobiusTracking': {
       'development': {
@@ -562,7 +553,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         //Show room highlight text instead of description
         'showRoomHighlight': true,
         'desktopDisplayRatesOnLoad': true,
-        'mobileHideRates':true,
+        'mobileHideRates': false,
         'displayAmenities': true,
         'displayRoomDetails': true,
         'displayRoomSubtitle': true,
@@ -575,7 +566,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'includeSlider': true,
         'sliderHasThumbnails': true,
         'includeTripAdvisorPreloader': false,
-        'roomsAsLinks': true,
+        'roomsAsLinks': false,
         // Room Rates
         'rates': {
           'bookNowButtonText': 'Select', //This config value doesn't appear to be used anywhere, but will retain for now anyway.

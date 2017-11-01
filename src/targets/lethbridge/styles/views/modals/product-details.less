@@ -1,0 +1,339 @@
+.dialog-product-details {
+  max-height: 80%;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  /*Not tabbed*/
+  main {
+    padding: 0px;
+    overflow-y: auto;
+    max-height: 500px;
+
+    .viewport-mobile &{
+      margin-top: 0 !important;
+      padding-top: 0;
+    }
+
+    section {
+      border-bottom: none;
+      padding: 10px 9px 20px 0;
+      font-size: 14px;
+      color: @c-dark-grey;
+      padding-right: 9px;
+      p {
+        color: @c-dark-grey;
+      }
+
+      article {
+        padding: 0;
+      }
+
+      &.terms-and-conditions {
+        accordion{
+          margin-top: 0px;
+
+          .panel-group{
+            .panel{
+              .panel-heading{
+                display: none;
+              }
+            }
+          }
+        }
+
+        > ul {
+          overflow-y: auto;
+          max-height: 400px;
+          box-sizing: border-box;
+          border: 1px solid #ccc;
+          padding: 10px;
+        }
+
+        li {
+          border-bottom: 0;
+          padding: @baseline/2 0;
+
+          h3 {
+            color: @c-grey;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: none;
+            border: 1px solid @c-light-grey;
+            background: #f9f9f9;
+            line-height: 30px;
+            margin-bottom: 10px;
+            padding-left: 9px;
+          }
+
+          > p {
+            padding-left: 9px;
+          }
+
+          p {
+            color: @c-dark-grey;
+          }
+
+          ul {
+            margin: @baseline 0 @baseline @baseline / 2;
+            list-style-type: disc;
+          }
+
+          li {
+            margin-left: 2em;
+          }
+
+          &:last-child {
+            border-bottom: 0;
+          }
+        }
+      }
+
+      &.price-breakdown {
+        table {
+          width: 450px;
+          margin: 0 auto;
+          max-width: 100%;
+
+          .viewport-mobile &{
+            font-size: 12px;
+            width: initial;
+          }
+
+          thead {
+            border-top: 1px solid @c-light-grey;
+            border-bottom: 1px solid @c-light-grey;
+          }
+
+          tfoot {
+            border-top: 2px solid @c-light-grey;
+            tr{
+              th:first-child{
+                padding-right: 10px;
+              }
+            }
+          }
+
+          th, td {
+            text-align: left;
+          }
+
+          td {
+            padding: 5px 0px;
+          }
+
+          .price-breakdown-content {
+            th {
+              padding: @baseline/2 0 @baseline/2 0;
+            }
+
+            th:last-child {
+              text-align: right;
+            }
+
+            th:nth-child(1), th:nth-child(2) {
+              width: 30%;
+            }
+
+            th:nth-child(2), th:nth-child(3) {
+              padding-left: @baseline/2;
+            }
+
+            td {
+              padding: @baseline @baseline/2 @baseline @baseline/2;
+              .viewport-mobile &{
+                padding: @baseline @baseline/10;
+              }
+            }
+
+            td:last-child {
+              text-align: right;
+            }
+
+            tbody {
+              tr:nth-child(even) {
+                background: #efefef;
+              }
+
+              tr:nth-child(odd) {
+                background: #ffffff;
+              }
+            }
+          }
+
+          [colspan="4"] {
+            text-align: right;
+          }
+        }
+      }
+    }
+  }
+
+  /*Tabbed*/
+  &.tabbed{
+    width: 700px;
+    padding: 0px 20px;
+    box-sizing: border-box;
+
+    .viewport-mobile &{
+      padding: 0px;
+    }
+
+    button-close{
+      position: absolute;
+      top: 5px;
+      right: 3px;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+      z-index: 9;
+      &:before{
+        font-size: 18px;
+        color: #000;
+      }
+    }
+
+    main{
+      .viewport-mobile &{
+        padding: 0px;
+      }
+      section{
+        &.price-breakdown{
+          table{
+            tr{
+              th{
+                width: 75%;
+              }
+              td{
+                text-align: right;
+              }
+              &.main{
+                font-size: 14px;
+                color: @c-dark-grey;
+                th{
+                  .chain-sign &{
+                    font-family: @ff-heading-it-sign;
+                    font-weight: 400;
+                  }
+                }
+                td{
+                  font-weight: 700;
+                }
+              }
+              &.breakdown{
+                font-size: 13px;
+                color: #ccc;
+                th{
+                  font-weight: 400;
+                }
+                .info{
+                  font-size: 12px;
+                  font-weight: bold;
+                  padding: 0 4px;
+                  cursor: pointer;
+                  .chain-sign &{
+                    color: @c-primary-sign;
+                  }
+                  .chain-sand &{
+                    color: @c-primary-sand;
+                  }
+                }
+                tooltip{
+                  margin-right: -4px;
+                }
+              }
+              &.last{
+                border-bottom: 1px solid @c-light-grey;
+              }
+            }
+
+          }
+        }
+      }
+    }
+
+    ///////////////////////////////////////////////
+    // Styles for tabs from Angular Bootstrap UI //
+    ///////////////////////////////////////////////
+
+    // Tab headers (links)
+    .nav-tabs {
+      .clearfix;
+      padding: 15px 0 0;
+      position: relative;
+      display: inline-block;
+      width: 100%;
+
+      li {
+        padding: 0 5px;
+      }
+
+      li + li {
+        border-left: 1px solid @c-light-grey;
+      }
+
+      a {
+        padding: 10px 0;
+        font-size: 21px;
+
+        .viewport-mobile &{
+          font-size: 14px;
+        }
+
+        .chain-sign &{
+          font-family: @ff-heading-it-sign;
+          color: @c-menu-active-sign;
+        }
+        .chain-sand &{
+          font-family: @ff-heading;
+          color: @c-menu-active-sand;
+        }
+      }
+
+      .active a {
+
+        font-weight: 400;
+        .chain-sign &,
+        .chain-sand &{
+          color: @c-grey;
+        }
+      }
+
+      .viewport-mobile &{
+        li{
+          height: 60px;
+          display: table;
+          a{
+            display: table-cell;
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+
+    // Tab content
+    .tab-pane {
+      display: none;
+      padding: 0;
+      border-top: 1px solid @c-light-grey;
+
+      &.active {
+        display: block;
+      }
+
+      .points-balance {
+        th {
+          width: 60%;
+        }
+
+        td {
+          text-align: right;
+
+          &.earned {
+            color: @lbe-c-primary;
+          }
+        }
+      }
+    }
+  }
+
+}

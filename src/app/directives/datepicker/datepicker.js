@@ -58,12 +58,13 @@
         var isStartDateSelected;
         var counterDatesRules;
 
-var config = Settings.UI.datepicker;      if(hasCounter){
-        counterPluralizationRules = scope.$eval(attrs.counterPluralization) || {};
-      }
-      if(counterHasDates){
-        counterDatesRules = scope.$eval(attrs.counterDates) || {};
-      }
+        var config = Settings.UI.datepicker;
+        if (hasCounter) {
+          counterPluralizationRules = scope.$eval(attrs.counterPluralization) || {};
+        }
+        if (counterHasDates) {
+          counterDatesRules = scope.$eval(attrs.counterDates) || {};
+        }
 
         scope.lengthOfStay = 1;
         scope.availabilityOverviewEnabled = Settings.UI.bookingWidget.availabilityOverview && Settings.UI.bookingWidget.availabilityOverview.display && ((scope.barData && scope.barData.property && scope.barData.property.code) || singleProperty);

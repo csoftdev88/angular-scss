@@ -8,6 +8,12 @@ profile-page, register-page {
   .profile-address2 {
     display: none;
   }
+  .mandatory-field {
+    &::after {
+      content: '*';
+      display: inline;
+    }
+  }
 }
 
 register-page {
@@ -15,12 +21,6 @@ register-page {
     button-submit {
       background: #fff;
       color: #000;
-    }
-    .mandatory-field {
-      &::after {
-        content: '*';
-        display: inline;
-      }
     }
   }
 }

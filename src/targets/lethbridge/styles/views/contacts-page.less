@@ -1,0 +1,299 @@
+///////////////////////
+//// CONTACTS PAGE ////
+///////////////////////
+
+contacts-page {
+
+  h1{
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  select,
+  textarea {
+    height: 45px;
+    padding: 0 15px;
+    border-radius: 0;
+    border-color: @c-gray-reservation;
+    color: @c-form-text;
+    font-size: @size-0;
+    transition: border-color 0.15s linear;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 3px fade(@c-form-text, 20%);
+
+    &:focus {
+      box-shadow: inset 0 1px 3px fade(@c-form-text, 20%);
+    }
+
+    &.ng-touched.ng-invalid,
+    &.ng-submitted.ng-invalid {
+      border-color: @c-red;
+    }
+  }
+
+  textarea {
+    min-height: 3 * 45px;
+    height: auto;
+    padding: 15px;
+    resize: vertical;
+    box-shadow: inset 0 1px 3px fade(@c-form-text, 20%)!important;
+  }
+
+  .chosen-container{
+    border-radius: 3px;
+    height: 44px;
+    box-shadow: inset 0 1px 3px fade(@c-form-text, 20%);
+  }
+
+  //- Form
+  form {
+    display: inline-block;
+    margin-bottom: @baseline;
+
+    // Columns
+    fieldset {
+      box-sizing: border-box;
+      width: 100%;
+      float: left;
+
+      &:first-of-type {
+        padding-right: 0;
+      }
+
+      &:last-of-type {
+        padding-left: 0;
+      }
+
+      // MOBILE SPECIFIC STYLES
+      .viewport-mobile & {
+        width: 100%;
+        float: left;
+        &:first-of-type,
+        &:last-of-type {
+          padding: 0;
+        }
+      }
+
+      &:first-of-type{
+        form-element{
+          width: 50%;
+          float: left;
+          box-sizing: border-box;
+          &:nth-child(odd){
+            padding-right: 15px;
+          }
+          &:nth-child(even){
+            padding-left: 15px;
+          }
+          .viewport-mobile &{
+            width: 100%;
+            float: none;
+            padding: 0;
+          }
+        }
+      }
+    }
+
+    > div {
+      flex: 2 0 100%;
+      width: 100%;
+
+
+      // Submit button
+      button-submit {
+        background: @lbe-c-primary;
+        border-radius: 2px;
+        box-shadow: inset 0 -1px 0 0 #1e7232;
+        &:hover{
+          background: @lbe-c-primary;
+          box-shadow: inset 0 -1px 0 0 #1e7232;
+        }
+      }
+    }
+
+    // Inputs adjustment
+    form-element {
+      margin-bottom: 15px;
+      .viewport-mobile & {
+        margin-bottom: 0;
+      }
+
+      form-label {
+        font-size: @size-0;
+        line-height: @baseline;
+      }
+
+      input[type=text],
+      input[type=email] {
+        height: @baseline * 2;
+
+        line-height: @baseline * 2;
+      }
+
+      textarea {
+        height: 200px;
+      }
+
+      error-message {
+        position: absolute;
+
+        color: @c-error;
+      }
+    }
+  }
+
+  //- List of Contact
+  contact-list{
+    float: left;
+
+    contact-item {
+      display: inline;
+      width: 33%;
+      float: left;
+      margin-bottom: @baseline;
+      font-size: @size--1;
+
+      .viewport-mobile &{
+        width: 100%;
+        float: none;
+      }
+
+      // Name of place
+      h2 {
+        font-weight: 700;
+        color: @c-grey;
+        font-size: 14px;
+      }
+
+      p:before {
+        color: @c-secondary;
+        margin-right: 10px;
+      }
+
+      // Telephone
+      p:nth-of-type(1):before {
+        .fa;
+
+        padding-right: @baseline / 5;
+
+        content: @fa-var-phone;
+      }
+
+      // Email
+      p:nth-of-type(2):before {
+        .fa;
+
+        padding-right: @baseline / 5;
+
+        content: @fa-var-envelope;
+      }
+
+      a {
+        text-decoration: none;
+        color: @c-grey;
+        font-size: 14px;
+        font-weight: 300;
+        &:hover{
+          color: @c-secondary;
+        }
+      }
+    }
+
+  }
+
+  hotel-location{
+    header {
+      h2{
+        display: inline;
+        font-size: @size-2;
+        .viewport-mobile & {
+          display: block;
+        }
+      }
+      p{
+        margin: 0;
+      }
+    }
+    contact-list{
+      float: none;
+      contact-item {
+        font-size: @size-0;
+      }
+    }
+  }
+
+  &.contact-page{
+    contact-list {
+      display: flex;
+      flex-flow: wrap;
+      text-align: center;
+      margin-bottom:22px;
+    }
+    contact-item {
+      position: relative;
+      padding-left:20px;
+      box-sizing: border-box;
+      -webkit-box-flex: 1;
+      -ms-flex: 1 0 33%;
+      flex: 1 0 33%;
+      display: block;
+      width: 33%;
+      text-align:left;
+      font-size:13px;
+      .viewport-mobile & {
+        width:100%;
+        -ms-flex: 1 0 100%;
+        flex: 1 0 100%;
+      }
+      i {
+        color:@c-secondary;
+      }
+      strong, a {
+        font-size:13px;
+        color:@c-primary;
+      }
+      a {
+        color:@c-secondary;
+      }
+      address {
+        font-size:13px;
+      }
+      span {
+        padding-left:15px;
+      }
+    }
+    // Email
+    contact-item:nth-of-type(1) div {
+      padding-left: 0 !important;
+      text-align: left !important;
+    }
+
+  }
+
+  .message-sent {
+    margin-top: 2 * @baseline;
+    margin-bottom: 2 * @baseline;
+    color: @c-text-light;
+    text-align: center;
+
+    h1 {
+      font-size: @size-2;
+      font-weight: 300;
+    }
+
+    p {
+      font-size: @size-0;
+    }
+  }
+}
+
+.reservation-lookup {
+
+  form-element,
+  contact-list contact-item {
+    width: 100%;
+  }
+}

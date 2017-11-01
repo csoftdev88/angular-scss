@@ -4,12 +4,9 @@
 </section>
 
 <section class="room-data">
+  <a ng-if="bookingConfig.policiesLinkBottom" href="_terms_and_conditions_link_" ng-click="readPolicies()" target="_blank" class="policies-link">_policies_</a>
   <h4>{{property.nameLong}}</h4>
-
-  <div class="room-data-details">
-    <span class="chain-logo"></span>
-    <p class="desc" ng-bind-html="allRooms[0]._selectedProduct.name"></p>
-  </div>
+  <div class="clear"></div>
 
   <h3>
     {{allRooms[0].name | lowercase}}
@@ -21,6 +18,11 @@
       </ng-pluralize>
     </a>
   </h3>
+
+  <div class="room-data-details">
+    <span class="chain-logo"></span>
+    <p class="desc">{{ allRooms[0]._selectedProduct.name | lowercase }}</p>
+  </div>
 
   <div class="image-wrapper" ng-if="allRooms[0].images[0].uri">
     <img ng-src="{{allRooms[0].images[0].uri | cloudinaryImage : 380 : 120 : 'fill'}}" alt="{{allRooms[0].name}}">
@@ -121,18 +123,19 @@
           <td>{{getTotal('totalDiscount') | i18nCurrency: $root.currencyCode}}</td>
         </tr>
 
-        <tr class="main">
+        <tr class="main"
+            ng-if="formatting !== 'suppressRate'">
           <th>_total_:</th>
           <td ng-switch-when="cc">{{getTotal('totalAfterTaxAfterPricingRules') | i18nCurrency: $root.currencyCode}}</td>
           <td ng-switch-when="point" ng-if="loyaltyProgramEnabled">{{getTotal('pointsRequired')}} _points_</td>
           <td ng-switch-default>{{getTotal('totalAfterTaxAfterPricingRules') | i18nCurrency: $root.currencyCode}}<span ng-if="loyaltyProgramEnabled && canPayWithPoints"> _or_ {{getTotal('pointsRequired')}} _points_</span></td>
         </tr>
-        <tr class="breakdown-toggle" ng-show="bookingConfig.priceBreakdownExtended">
+        <tr class="breakdown-toggle"
+            ng-show="bookingConfig.priceBreakdownExtended && !noBreakdown"
+            ng-if="formatting !== 'suppressRate'">
           <th><button ng-if="bookingConfig.backButtonInForm" class="back" ng-click="goBack()">_back_</button></th>
           <td>
-            <a ng-if="bookingConfig.policiesLinkBottom" href="_terms_and_conditions_link_" ng-click="readPolicies()" target="_blank">_policies_</a>
-            <span ng-show="!noBreakdown">
-              <span class="separator" ng-if="bookingConfig.policiesLinkBottom"> | </span>
+            <span>
               <a href ng-click="breakdownExtended = !breakdownExtended">
                 <span ng-if="!breakdownExtended">_view_price_breakdown_</span>
                 <span ng-if="breakdownExtended">_hide_price_breakdown_</span>

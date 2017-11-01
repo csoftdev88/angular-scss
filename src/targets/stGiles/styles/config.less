@@ -26,6 +26,12 @@
 @ff-primary: Raleway;
 @ff-secondary: Lato;
 
+// Build fails if @ff-serif is undefined
+//
+// TODO: Find out if this variable is needed, or we can safely remove/replace it
+//
+@ff-serif: @ff-primary;
+
 ///// Components /////
 //////////////////////
 @c-booking-widget: #1a1a1a;

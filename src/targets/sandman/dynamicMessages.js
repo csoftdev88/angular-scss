@@ -26,7 +26,11 @@ angular.module('mobiusApp.dynamicMessages', [])
       'pet': 'Pet',
       'from': 'From',
       'tax': 'tax',
+      'no_adults': 'No adults',
+      'adult': 'Adult',
       'adults': 'Adults',
+      'no_children': 'No children',
+      'child': 'Child',
       'children': 'Children',
       'promo_code_applied':'Promo code applied successfully',
       'corp_code_applied':'Corp code applied successfully',
@@ -39,7 +43,8 @@ angular.module('mobiusApp.dynamicMessages', [])
       'find_your_hotel': 'Find Your Hotel',
       'logging_in': 'Logging you in',
       'registering': 'Creating your Sandman account',
-      'updating_account': 'Updating your Sandman account'
+      'updating_account': 'Updating your Sandman account',
+      'room': 'Room'
     },
     'de': {
       'your_reservation': '<div>Ihre Reservierung <strong>',
@@ -61,6 +66,12 @@ angular.module('mobiusApp.dynamicMessages', [])
       'pet': 'Haustier',
       'from': 'Von',
       'tax': 'Steuer',
+      'no_adults': 'kein Erwachsener',
+      'adult': 'Erwachsener',
+      'adults': 'Erwachsene',
+      'no_children': 'keine Kinder',
+      'child': 'Kind',
+      'children': 'Kinder',
       'promo_code_applied':'Promo code applied successfully',
       'corp_code_applied':'Corp code applied successfully',
       'group_code_applied':'Group code applied successfully',
@@ -69,7 +80,8 @@ angular.module('mobiusApp.dynamicMessages', [])
       'group_code': 'Group code',
       'apply_code': 'Enter a code',
       'select_property': 'Find Your Hotel',
-      'find_your_hotel': 'Finden Sie Ihr Hotel'
+      'find_your_hotel': 'Finden Sie Ihr Hotel',
+      'room': 'Zimmer'
     },
     'fr': {
       'your_reservation': '<div>Votre réservation <strong>',
@@ -91,6 +103,12 @@ angular.module('mobiusApp.dynamicMessages', [])
       'pet': 'Animal',
       'from': 'De',
       'tax': 'Taxes',
+      'no_adults': 'Pas d\'adultes',
+      'adult': 'Adulte',
+      'adults': 'Adultes',
+      'no_children': 'Pas d\'enfants',
+      'child': 'Enfant',
+      'children': 'Enfants',
       'promo_code_applied':'Promo code applied successfully',
       'corp_code_applied':'Corp code applied successfully',
       'group_code_applied':'Group code applied successfully',
@@ -102,6 +120,7 @@ angular.module('mobiusApp.dynamicMessages', [])
       'find_your_hotel': 'Trouver votre hôtel',
       'logging_in': 'Connexion en cours',
       'registering': 'Compte Sandman en cours de création',
-      'updating_account': 'Mise à jour de votre compte Sandman'
+      'updating_account': 'Mise à jour de votre compte Sandman',
+      'room': 'Chambre'
     }
   });
