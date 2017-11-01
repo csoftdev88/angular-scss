@@ -279,7 +279,8 @@ angular.module('mobiusApp.config', [])
     },
     'thirdparties': {
       'get': 'thirdparties/:code'
-    }
+    },
+    'sendAcceptedTermsAndConditions': true
   },
   'UI': {
     'previousSearches': {
