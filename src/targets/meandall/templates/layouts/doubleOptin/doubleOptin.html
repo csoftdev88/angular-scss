@@ -1,0 +1,28 @@
+<breadcrumbs ng-if="!config.hideBreadcrumbs" stickable="main-header"></breadcrumbs>
+
+<main class="double-optin" id="jsDoubleOptin">
+
+  <div class="grid-wrapper">
+    <div class="preloader" ng-show="preloader.visible"></div>
+
+    <div
+      grid-row
+      ng-hide="preloader.visible">
+      <header
+        grid="12"
+        ng-if="success">
+        <h1>_success_header_</h1>
+        <p class="success">_success_message_</p>
+      </header>
+
+      <header
+        grid="12"
+        ng-if="!success">
+        <h1>_error_header_</h1>
+        <p class="error">_error_message_</p>
+      </header>
+    </div>
+  </div>
+
+
+</main>
