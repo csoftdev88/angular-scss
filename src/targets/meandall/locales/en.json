@@ -16,6 +16,10 @@
     "home_page_offer_two": "",
     "home_page_offer_three": "",
     "home": "Home",
+    "success_header": "Success",
+    "success_message": "You have successfully verified your email.",
+    "error_header": "Error",
+    "error_message": "There was an error processing your request. Please try again later.",
     "hotels": "Find a Hotel",
     "hotel": "Hotel",
     "offers_deals": "Specials & Rewards",
@@ -152,7 +156,7 @@
     "remove_room": "Remove Room",
     "search_now": "Search Now",
     "search": "Search",
-    "go": "Go",
+    "go": "Search",
     "submit": "Submit",
     "view_details": "View Details",
     "reload_rates": "Reload Rates",
@@ -252,7 +256,7 @@
     "click_here_to": "Click here to",
     "not_enough_points_to_purchase": "Sorry, you don't have enough points to perform this purchase.",
     "payment_not_authorized": "We are sorry there was a problem with your payment details",
-    "user_already_registered": "Your email address is associated with a me and all hotels account.<br/>Please sign in to continue your booking or continue your booking with a different email address.",
+    "user_already_registered": "Your e-mail address is already registered. Please log in to continue your booking or use a different e-mail address.",
     "generic_reservation_error": "We are unable to process your booking at this time. Please try again, or contact the hotel directly",
     "payment_not_authorized_card_name": "Cardholder Name is invalid",
     "payment_not_authorized_payment_type": "Payment Type is invalid",
@@ -560,6 +564,11 @@
     "rate_not_available": "Sorry, the rate you are searching for is not available on these dates. Please select from one of the below rates.",
     "book_now_floating_bar": "Book now",
     "terms_and_conditions_link": "https://duesseldorf.meandallhotels.com/en/general-terms-and-conditions.html",
-    "other_room": "other"
+    "other_room": "other",
+    "terms_and_conditions_text": "Terms and conditions translation goes here.",
+    "terms_and_conditions_label": "I accept Terms and Conditions",
+    "terms_and_conditions_error": "Please accept terms and conditions to proceed.",
+    "terms_and_conditions_header_error": "You need to accept terms and conditions to proceed.",
+    "reset_password_header_error": "Please reset your password below."
   }
 }

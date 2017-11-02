@@ -11,6 +11,17 @@
     <header grid="12" ng-if="!config.headerPartial.display">
       <h1 ng-bind-html="'_profile_page_title_' | mainHeaderStyle"></h1>
       <p>_profile_page_desc_</p>
+
+      <p
+        class="error"
+        ng-if="sections.termsAndConditions.showError">
+        _terms_and_conditions_header_error_
+      </p>
+      <p
+        class="error"
+        ng-if="sections.resetPassword.showError">
+        _reset_password_header_error_
+      </p>
     </header>
 
     <section grid="12" class="hotel-detail__header" ng-if="config.headerPartial.display">
@@ -146,165 +157,265 @@
 
     <form name="form" grid="8" ng-if="!config.displaySummary || config.displaySummary && !showSummary" ng-class="{'submitted': submitted}">
 
-      <h2>_profile_page_about_title_</h2>
+      <div ng-if="sections.aboutYou.visible">
+        <h2
+          class="white-border"
+          ng-click="toggleSection(sections.aboutYou);"
+          ng-class="{ 'expanded': sections.aboutYou.expanded }">
+          _profile_page_about_title_
+          <i
+            class="fa"
+            ng-class="sections.aboutYou.expanded ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h2>
 
-      <fieldset>
+        <div
+          ng-show="sections.aboutYou.expanded"
+          class="white-border">
+          <fieldset>
 
-        <form-element ng-if="profileTitles">
-          <label for="profileTitle">_title_label_</label>
-          <select name="profileTitle"
-                  required
-                  chosen
-                  disable-search="true"
-                  class="ProfileForm__input"
-                  placeholder-text-single="_title_label_"
-                  ng-model="profileData.title"
-                  ng-options="title.id as title.name for title in profileTitles">
-          </select>
-        </form-element>
+            <form-element ng-if="profileTitles">
+              <label class="mandatory-field" for="profileTitle">_title_label_</label>
+              <select name="profileTitle"
+                      required
+                      chosen
+                      disable-search="true"
+                      class="ProfileForm__input"
+                      placeholder-text-single="_title_label_"
+                      ng-model="profileData.title"
+                      ng-options="title.id as title.name for title in profileTitles">
+              </select>
+            </form-element>
 
-        <form-element>
-          <label for="profileFname">_first_name_label_</label>
-          <input
-            type="text"
-            id="profileFname"
-            name="profileFname"
-            class="ProfileForm__input"
-            ng-model="profileData.firstName"
-            ng-required="config.formRequirments.firstname"
-            ng-class="{'ng-submitted': form.$submitted && form.profileFname.$error.required}"
-            ng-pattern="$root.generalValidationPattern"/>
-        </form-element>
+            <form-element>
+              <label class="mandatory-field" for="profileFname">_first_name_label_</label>
+              <input
+                type="text"
+                id="profileFname"
+                name="profileFname"
+                class="ProfileForm__input"
+                ng-model="profileData.firstName"
+                ng-required="config.formRequirments.firstname"
+                ng-class="{'ng-submitted': form.$submitted && form.profileFname.$error.required}"
+                ng-pattern="$root.generalValidationPattern"/>
+            </form-element>
 
-        <form-element>
-          <label for="profileLname">_last_name_label_</label>
-          <input
-            type="text"
-            id="profileLname"
-            name="profileLname"
-            class="ProfileForm__input"
-            ng-model="profileData.lastName"
-            ng-required="config.formRequirments.lastname"
-            ng-class="{'ng-submitted': form.$submitted && form.profileLname.$error.required}"
-            ng-pattern="$root.generalValidationPattern"/>
-        </form-element>
+            <form-element>
+              <label class="mandatory-field" for="profileLname">_last_name_label_</label>
+              <input
+                type="text"
+                id="profileLname"
+                name="profileLname"
+                class="ProfileForm__input"
+                ng-model="profileData.lastName"
+                ng-required="config.formRequirments.lastname"
+                ng-class="{'ng-submitted': form.$submitted && form.profileLname.$error.required}"
+                ng-pattern="$root.generalValidationPattern"/>
+            </form-element>
 
-      </fieldset>
+          </fieldset>
 
-      <fieldset>
+          <fieldset>
 
-        <!-- email cannot be changed at present
-        <form-element>
-          <label for="profileEmail">_email_label_</label>
-          <input
-            type="email"
-            id="profileEmail"
-            name="profileEmail"
-            ng-model="profileData.email"
-            email-check
-            ng-class="{'ng-submitted': form.$submitted && form.profileEmail.$error.emailCheck}"
-            readonly/>
-        </form-element>
-        -->
+            <!-- email cannot be changed at present
+            <form-element>
+              <label for="profileEmail">_email_label_</label>
+              <input
+                type="email"
+                id="profileEmail"
+                name="profileEmail"
+                ng-model="profileData.email"
+                email-check
+                ng-class="{'ng-submitted': form.$submitted && form.profileEmail.$error.emailCheck}"
+                readonly/>
+            </form-element>
+            -->
 
-        <form-element>
-          <label for="profileAddress1">_address_one_label_</label>
-          <input
-            type="text"
-            id="profileAddress1"
-            name="profileAddress1"
-            ng-model="profileData.address1"
-            ng-required="config.formRequirments.address_one"
-            ng-class="{'ng-submitted': form.$submitted && form.profileAddress1.$error.required}"
-            ng-pattern="$root.generalValidationPattern"/>
-        </form-element>
+            <form-element>
+              <label class="mandatory-field" for="profileAddress1">_address_one_label_</label>
+              <input
+                type="text"
+                id="profileAddress1"
+                name="profileAddress1"
+                ng-model="profileData.address1"
+                ng-required="config.formRequirments.address_one"
+                ng-class="{'ng-submitted': form.$submitted && form.profileAddress1.$error.required}"
+                ng-pattern="$root.generalValidationPattern"/>
+            </form-element>
 
-        <form-element>
-          <label for="profileZip">_postcode_label_</label>
-          <input
-            type="text"
-            id="profileZip"
-            name="profileZip"
-            ng-model="profileData.zip"
-            ng-required="config.formRequirments.postcode"
-            ng-class="{'ng-submitted': form.$submitted && form.profileZip.$error.required}"
-            ng-pattern="$root.generalValidationPattern"/>
-        </form-element>
+            <form-element>
+              <label class="mandatory-field" for="profileZip">_postcode_label_</label>
+              <input
+                type="text"
+                id="profileZip"
+                name="profileZip"
+                ng-model="profileData.zip"
+                ng-required="config.formRequirments.postcode"
+                ng-class="{'ng-submitted': form.$submitted && form.profileZip.$error.required}"
+                ng-pattern="$root.generalValidationPattern"/>
+            </form-element>
 
-        <form-element class="profile-address2">
-          <label for="profileAddress2">_address_two_label_</label>
-          <input
-            type="text"
-            id="profileAddress2"
-            name="profileAddress2"
-            ng-model="profileData.address2"
-            ng-required="config.formRequirments.address_two"
-            ng-class="{'ng-submitted': form.$submitted && form.profileAddress2.$error.required}"
-            ng-pattern="$root.generalValidationPattern"/>
-        </form-element>
+            <form-element class="profile-address2">
+              <label for="profileAddress2">_address_two_label_</label>
+              <input
+                type="text"
+                id="profileAddress2"
+                name="profileAddress2"
+                ng-model="profileData.address2"
+                ng-required="config.formRequirments.address_two"
+                ng-class="{'ng-submitted': form.$submitted && form.profileAddress2.$error.required}"
+                ng-pattern="$root.generalValidationPattern"/>
+            </form-element>
 
-        <form-element>
-          <label for="profileCity">_city_label_</label>
-          <input
-            type="text"
-            id="profileCity"
-            name="profileCity"
-            ng-model="profileData.city"
-            ng-required="config.formRequirments.city"
-            ng-class="{'ng-submitted': form.$submitted && form.profileCity.$error.required}"
-            ng-pattern="$root.generalValidationPattern"/>
-        </form-element>
+            <form-element>
+              <label class="mandatory-field" for="profileCity">_city_label_</label>
+              <input
+                type="text"
+                id="profileCity"
+                name="profileCity"
+                ng-model="profileData.city"
+                ng-required="config.formRequirments.city"
+                ng-class="{'ng-submitted': form.$submitted && form.profileCity.$error.required}"
+                ng-pattern="$root.generalValidationPattern"/>
+            </form-element>
 
-        <form-element>
-          <label for="profileState">_state_label_</label>
-          <input
-            type="text"
-            id="profileState"
-            name="profileState"
-            ng-model="profileData.state"
-            ng-required="config.formRequirments.state"
-            ng-class="{'ng-submitted': form.$submitted && form.profileState.$error.required}"
-            ng-pattern="$root.generalValidationPattern"/>
-        </form-element>
+            <form-element>
+              <label class="mandatory-field" for="profileState">_state_label_</label>
+              <input
+                type="text"
+                id="profileState"
+                name="profileState"
+                ng-model="profileData.state"
+                ng-required="config.formRequirments.state"
+                ng-class="{'ng-submitted': form.$submitted && form.profileState.$error.required}"
+                ng-pattern="$root.generalValidationPattern"/>
+            </form-element>
 
-        <form-element ng-if="profileCountries">
-          <label for="profileCountry">_country_label_</label>
-          <select name="profileCountry"
-                  chosen
-                  disable-search="true"
-                  data-placeholder=""
-                  ng-model="profileData.localeId"
-                  ng-required="config.formRequirments.country"
-                  ng-options="country.id as country.name for country in profileCountries | orderBy:'name'">
-          </select>
-        </form-element>
+            <form-element ng-if="profileCountries">
+              <label class="mandatory-field" for="profileCountry">_country_label_</label>
+              <select name="profileCountry"
+                      chosen
+                      disable-search="true"
+                      data-placeholder=""
+                      ng-model="profileData.localeId"
+                      ng-required="config.formRequirments.country"
+                      ng-options="country.id as country.name for country in profileCountries | orderBy:'name'">
+              </select>
+            </form-element>
 
-        <form-element>
-          <label for="profileTel">_phone_label_</label>
-          <input
-            type="text"
-            id="profileTel"
-            name="profileTel"
-            ng-model="profileData.tel1"
-            ng-required="config.formRequirments.phone"
-            ng-class="{'ng-submitted': form.$submitted && form.profileTel.$error.required}"
-            ng-pattern="$root.generalValidationPattern"/>
-        </form-element>
+            <form-element>
+              <label class="mandatory-field" for="profileTel">_phone_label_</label>
+              <input
+                type="text"
+                id="profileTel"
+                name="profileTel"
+                ng-model="profileData.tel1"
+                ng-required="config.formRequirments.phone"
+                ng-class="{'ng-submitted': form.$submitted && form.profileTel.$error.required}"
+                ng-pattern="$root.generalValidationPattern"/>
+            </form-element>
 
-        <form-element ng-if="profileContacts">
-          <label for="profileContact">_prefered_contact_label_</label>
-          <select name="profileContact"
-                  required
-                  chosen
-                  disable-search="true"
-                  ng-required="config.formRequirments.contactMethod"
-                  placeholder-text-single="_prefered_contact_label_"
-                  ng-model="profileData.preferredContactMethodCode"
-                  ng-options="contact.id as contact.name for contact in profileContacts">
-          </select>
-        </form-element>
+            <form-element ng-if="profileContacts">
+              <label class="mandatory-field" for="profileContact">_prefered_contact_label_</label>
+              <select name="profileContact"
+                      required
+                      chosen
+                      disable-search="true"
+                      ng-required="config.formRequirments.contactMethod"
+                      placeholder-text-single="_prefered_contact_label_"
+                      ng-model="profileData.preferredContactMethodCode"
+                      ng-options="contact.id as contact.name for contact in profileContacts">
+              </select>
+            </form-element>
 
-      </fieldset>
+          </fieldset>
+        </div>
+      </div>
+
+      <div ng-if="sections.resetPassword.visible">
+        <h2
+          class="white-border"
+          ng-click="toggleSection(sections.resetPassword);"
+          ng-class="{ 'expanded': sections.resetPassword.expanded }">
+          _profile_page_password_title_
+          <i
+            class="fa"
+            ng-class="sections.resetPassword.expanded ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h2>
+
+        <div
+          ng-show="sections.resetPassword.expanded"
+          class="white-border">
+          <fieldset>
+
+            <form-element>
+              <label for="password">_new_password_label_</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                ng-model="passwordData.password"
+                class="ProfileForm__input"
+                ng-class="{'ng-submitted': form.$submitted && form.password.$error.required}"
+                ng-pattern="$root.generalValidationPattern"
+                ng-required="passwordData.password.length"/>
+            </form-element>
+
+            <form-element>
+              <label for="passwordConfirm">_confirm_password_label_</label>
+              <input
+                type="password"
+                id="passwordConfirm"
+                name="passwordConfirm"
+                class="ProfileForm__input"
+                ng-model="passwordData.passwordConfirm"
+                equals="passwordData.password"
+                ng-class="{'ng-submitted': form.$submitted && (form.passwordConfirm.$error.required || form.passwordConfirm.$error.equals)}"
+                ng-required="passwordData.password.length"/>
+                <span class="error" ng-if="form.$submitted && form.passwordConfirm.$error.equals">_password_match_error_message_</span>
+            </form-element>
+
+          </fieldset>
+        </div>
+      </div>
+
+      <div ng-if="sections.termsAndConditions.visible">
+        <h2
+          class="white-border"
+          ng-click="toggleSection(sections.termsAndConditions);"
+          ng-class="{ 'expanded': sections.termsAndConditions.expanded }">
+          _terms_conditions_
+          <i
+            class="fa"
+            ng-class="sections.termsAndConditions.expanded ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </h2>
+
+        <div
+          ng-show="sections.termsAndConditions.expanded"
+          class="white-border">
+          <p>_terms_and_conditions_text_</p>
+
+          <fieldset>
+
+            <form-element>
+              <label
+                for="termsAndConditions"
+                class="input-checkbox">
+                <input
+                  type="checkbox"
+                  id="termsAndConditions"
+                  name="termsAndConditions"
+                  ng-model="profileData.termsAndConditionsAccepted"
+                  ng-class="{'ng-submitted': form.$submitted && form.termsAndConditions.$error.required}"
+                  ng-required="true"/>
+                _terms_and_conditions_label_
+                <br>
+                <span class="error" ng-if="form.$submitted && profileData.termsAndConditionsAccepted !== true">_terms_and_conditions_error_</span>
+              </label>
+            </form-element>
+
+          </fieldset>
+        </div>
+      </div>
 
       <h2>_profile_page_newletter_title_</h2>
 
@@ -326,7 +437,7 @@
         <span ng-if="missingFieldsError">_missing_fields_message_</span>
       </p>
 
-      <button-submit role="button" tabindex="0" ng-click="update(form, profileData)">_save_</button-submit>
+      <button-submit role="button" tabindex="0" ng-click="update(form, profileData)" class="button-border-white">_save_</button-submit>
 
     </form>
 
