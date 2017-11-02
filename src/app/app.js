@@ -63,6 +63,7 @@ angular
     'mobius.controllers.staticContent',
     'mobius.controllers.thirdParties',
     'mobius.controllers.roomUpgrades',
+    'mobius.controllers.doubleOptin',
 
     'mobius.controllers.modals.generic',
     'mobius.controllers.modals.data',
@@ -593,7 +594,7 @@ angular
   .state('resetPassword', {
     parent: 'root',
     templateUrl: 'layouts/resetPassword/resetPassword.html',
-    url: '/changePassword',
+    url: '/changePassword?key&resetcode',
     controller: 'ResetPasswordCtrl'
   })
 
@@ -603,6 +604,14 @@ angular
     parent: 'root',
     url: '/upgrade/:upgradeGuid/:roomID',
     controller: 'RoomUpgradesCtrl'
+  })
+
+  // Double-optin page, for verifying email address
+  .state('double-optin', {
+    parent: 'root',
+    url: '/double-optin?key',
+    controller: 'DoubleOptinCtrl',
+    templateUrl: 'layouts/doubleOptin/doubleOptin.html',
   })
 
   // 404 page
@@ -806,6 +815,15 @@ angular
   }
 
   $scope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
+    if (toState.name !== 'profile' && $scope.auth && $scope.auth.isLoggedIn()) {
+      // Using timeout, because user data is not populated at the time we try to access it
+      $timeout(function () {
+        var userData = user.getUser();
+        if (userData.termsAndConditionsAccepted === false || userData.passwordResetRequired === true) {
+          $state.go('profile');
+        }
+      }, 2000);
+    }
 
     // Re inject keystone plugin when the header gets recompiled
     if (Settings.authType === 'keystone' && window.KS && window.KS.$event) {

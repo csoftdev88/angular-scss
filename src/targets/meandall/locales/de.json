@@ -16,6 +16,10 @@
         "home_page_offer_one": "<a ui-sref='offers'><img src='/static/images/gift.jpg' class='grid-img' alt='Great Offers'><h2>Tolle Angebote</h2><p>Nutzen Sie unsere tollen Angebote und Aktionen, um Ihren Aufenthalt noch angenehmer zu machen!</p></a>",
         "home_page_offer_three": "<a ui-sref='aboutUs({code: <a ui-sref='aboutUs({code: &quot;sandman-mobile-app-mobile&quot;})'><img src='/static/images/mobile-app.jpg' class='grid-img' alt='Exciting News'><h2>MOBILE APP</h2><p>Egal, wohin Sie gehen, die Sandman-App gibt Ihnen immer den absolut besten Preis. Garantiert.</p></a>",
         "home": "Startseite",
+        "success_header": "Erfolg",
+        "success_message": "Sie haben Ihre E-Mail-Adresse erfolgreich bestätigt.",
+        "error_header": "Fehler",
+        "error_message": "There was an error processing your request. Please try again later.",
         "hotels": "Ein Hotel finden",
         "hotel": "Hotel",
         "HEADER": "////////////////////////////////////////////////////////////////////////////////////////////////////////////",
@@ -562,6 +566,11 @@
         "rate_not_available": "Der Preis, den Sie suchen, ist an diesen Terminen nicht verfügbar. Bitte wählen Sie aus einer der unten angegebenen Preise.",
         "book_now_floating_bar": "Buche jetzt",
         "terms_and_conditions_link": "https://duesseldorf.meandallhotels.com/agb.html",
-        "other_room": "weiteres"
+        "other_room": "weiteres",
+        "terms_and_conditions_text": "Terms and conditions translation goes here.",
+        "terms_and_conditions_label": "Ich akzeptiere die Allgemeinen Geschäftsbedingungen",
+        "terms_and_conditions_error": "Sie müssen Bedingungen akzeptieren, um fortzufahren.",
+        "terms_and_conditions_header_error": "Sie müssen Bedingungen akzeptieren, um fortfahren zu können.",
+        "reset_password_header_error": "Bitte setzen Sie Ihr Passwort unten zurück."
     }
 }
