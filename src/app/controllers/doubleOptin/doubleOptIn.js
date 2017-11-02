@@ -10,12 +10,12 @@
     $scope.success = false;
     $scope.preloader.visible = true;
 
-    if (!$stateParams.token) {
+    if (!$stateParams.key) {
       $state.go('home');
     }
 
     apiService
-      .post(apiService.getFullURL('customers.doubleOptin'), { token: $stateParams.token })
+      .post(apiService.getFullURL('customers.doubleOptin'), { token: $stateParams.key })
       .then(function () {
         $scope.success = true;
         $scope.preloader.visible = false;
