@@ -165,6 +165,23 @@
           </select>
         </form-element>
 
+        <form-element>
+          <label
+            for="termsAndConditions"
+            class="input-checkbox">
+            <input
+              type="checkbox"
+              id="termsAndConditions"
+              name="termsAndConditions"
+              ng-model="registerData.termsAndConditionsAccepted"
+              ng-class="{'ng-submitted': form.$submitted && form.termsAndConditions.$error.required}"
+              ng-required="true"/>
+            _terms_and_conditions_label_
+            <br>
+            <span class="error" ng-if="submitted && registerData.termsAndConditionsAccepted !== true">_terms_and_conditions_error_</span>
+          </label>
+        </form-element>
+
       </fieldset>
 
       <p class="feedback-msg error" ng-if="error">

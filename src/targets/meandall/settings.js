@@ -213,7 +213,8 @@ angular.module('mobiusApp.config', [])
       'forgotPassword':  'customers/actions/forgotPassword',
       'changePassword':  'customers/actions/changePassword',
       'register':  'customers/',
-      'transactions': 'customers/:customerId/transactions'
+      'transactions': 'customers/:customerId/transactions',
+      'doubleOptin': 'customers/double-optin'
     },
     // NOTE: Loyalties API will change - check apiary specs
     'loyalties': {
@@ -279,7 +280,8 @@ angular.module('mobiusApp.config', [])
     },
     'thirdparties': {
       'get': 'thirdparties/:code'
-    }
+    },
+    'sendAcceptedTermsAndConditions': true
   },
   'UI': {
     'previousSearches': {
