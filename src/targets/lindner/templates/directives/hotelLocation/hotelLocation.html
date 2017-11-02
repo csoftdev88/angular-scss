@@ -27,14 +27,14 @@
       position="{{position}}"
       title="{{hotelDetails.nameShort}}"></marker>
 
-  </map>
+  </ng-map>
 </div>
 
 <span ng-if="config.displayMainTitle">
 
   <p>{{hotelDetails.locationDescription}}</p>
 
-  <contact-list ng-if="!config.hideContactDetails">
+  <contact-list class="contact-list" ng-if="!config.hideContactDetails">
 
     <contact-item ng-if="hotelDetails.email">
       <div>
