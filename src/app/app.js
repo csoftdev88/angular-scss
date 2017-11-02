@@ -609,7 +609,7 @@ angular
   // Double-optin page, for verifying email address
   .state('double-optin', {
     parent: 'root',
-    url: '/double-optin/:token/',
+    url: '/double-optin?key',
     controller: 'DoubleOptinCtrl',
     templateUrl: 'layouts/doubleOptin/doubleOptin.html',
   })
