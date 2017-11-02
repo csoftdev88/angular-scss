@@ -594,7 +594,7 @@ angular
   .state('resetPassword', {
     parent: 'root',
     templateUrl: 'layouts/resetPassword/resetPassword.html',
-    url: '/changePassword',
+    url: '/changePassword?key&resetcode',
     controller: 'ResetPasswordCtrl'
   })
 
