@@ -25,8 +25,13 @@
 
     <!--In the mobile layout we want the whole row to be clickable-->
     <div class="mobile-click-handler"
-         ng-click="selectProduct(room.code, product.code, null, null, product.upSell, $event)">
+         ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()"
+         ng-click="auth.login()">
     </div>
+    <div class="mobile-click-handler"
+      ng-show="!product.memberOnly || isUserLoggedIn() || isModifyingAsAnonymous()"
+      ng-click="selectProduct(room.code, product.code, null, null, product.upSell, $event)">
+  </div>
 
     <div class="list-item-highlight-label highlight-ribbon"
          ng-if="product.highlighted">
