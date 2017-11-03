@@ -325,9 +325,18 @@ main.reservation-page {
             }
           }
         }
+        .border-bottom {
+          border-bottom: 1px solid #dfdfdf;
+        }
+        tr {
+          &.room-charges {
+            th, td {
+              padding: 5px 15px 5px 15px;
+            }
+          }
+        }
       }
-      tr.main,
-      tr.last {
+      tr.main {
         background: @c-secondary;
         color: @c-primary;
         th,

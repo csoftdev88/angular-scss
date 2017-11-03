@@ -74,23 +74,33 @@
     </table>
   </div>
 
-  <div class="charges" ng-class="{'extended': breakdownExtended}" ng-init="breakdownExtended = false">
+  <div
+    class="charges"
+    ng-class="{'extended': breakdown.extended}"
+    ng-if="formatting !== 'suppressRate'">
     <table>
       <thead ng-switch="billingDetails.paymentMethod">
-        <tr class="main" ng-if="getTotal('totalAfterTaxAfterPricingRules') !== getBreakdownTotalBaseAfterPricingRules()">
+        <tr
+          class="main breakdown"
+          ng-if="(getTotal('totalAfterTaxAfterPricingRules') !== getBreakdownTotalBaseAfterPricingRules()) || allRooms.length">
           <th>_room_charges_:</th>
           <td ng-show="allRooms.length">
             {{getBreakdownTotalBaseAfterPricingRules() | i18nCurrency: currencyCode}}
           </td>
         </tr>
 
-        <tr class="breakdown" ng-repeat="breakdown in allRooms[0]._selectedProduct.price.breakdowns | orderBy:'date'" ng-class="{'last': $last}">
+        <tr
+          class="breakdown room-charges"
+          ng-repeat="breakdown in allRooms[0]._selectedProduct.price.breakdowns | orderBy:'date'"
+          ng-class="{'last': $last}">
           <th>{{formatDate(breakdown.date, 'DD MMM YYYY')}}:</th>
           <td>{{getBreakdownTotalDate(breakdown.date) | i18nCurrency: $root.currencyCode}}</td>
         </tr>
 
         <!-- Only display if value is bigger than 0 -->
-        <tr class="main" ng-if="getBreakdownTotalTaxes(false) > 0">
+        <tr
+          class="breakdown main taxes-column"
+          ng-if="getBreakdownTotalTaxes(false) > 0">
           <th>_taxes_:</th>
           <!-- old tax number
                   <td>{{getBreakdown('totalTax') | i18nCurrency: $root.currencyCode}}</td>
@@ -98,33 +108,58 @@
           <td ng-show="allRooms.length">{{getBreakdownTotalTaxes(false) | i18nCurrency: $root.currencyCode}}</td>
         </tr>
 
-        <tr class="breakdown" ng-repeat="taxItem in allRooms[0]._selectedProduct.price.taxDetails.policyTaxItemDetails" ng-class="{'last': $last}"
+        <tr
+          class="breakdown room-charges"
+          ng-repeat="taxItem in allRooms[0]._selectedProduct.price.taxDetails.policyTaxItemDetails"
+          ng-class="{'last': $last}"
           ng-if="!taxItem.policyTaxItemIsFee">
-          <th>{{taxItem.policyTaxItem.policyTaxItemCode}}<span class="info" ng-if="taxItem.policyTaxItem.policyTaxItemDescription && taxItem.policyTaxItem.policyTaxItemDescription !== ''"
-              tooltips tooltip-side="top" tooltip-template="{{taxItem.policyTaxItem.policyTaxItemDescription}}">?</span></th>
+          <th>{{taxItem.policyTaxItem.policyTaxItemCode}}
+            <span
+              class="info"
+              ng-if="taxItem.policyTaxItem.policyTaxItemDescription && taxItem.policyTaxItem.policyTaxItemDescription !== ''"
+              tooltips
+              tooltip-side="top"
+              tooltip-template="{{taxItem.policyTaxItem.policyTaxItemDescription}}">?</span>
+            </th>
           <td>{{getBreakdownTotalTax(taxItem.policyTaxItem.policyTaxItemCode) | i18nCurrency: $root.currencyCode}}</td>
         </tr>
 
         <!-- Only display if value is bigger than 0 -->
-        <tr class="main" ng-if="getBreakdownTotalTaxes(true) > 0">
-          <th>_applicable_fees_:<span class="info" ng-if="bookingConfig.displayStaticFeesTooltip" tooltips tooltip-side="top"
-              tooltip-template="{{'_fees_tooltip_'}}">&nbsp;?</span></th>
+        <tr
+          class="breakdown room-charges"
+          ng-if="getBreakdownTotalTaxes(true) > 0">
+          <th>_applicable_fees_:
+            <span
+              class="info"
+              ng-if="bookingConfig.displayStaticFeesTooltip"
+              tooltips tooltip-side="top"
+              tooltip-template="{{'_fees_tooltip_'}}">&nbsp;?</span>
+            </th>
           <td ng-show="allRooms.length">{{getBreakdownTotalTaxes(true) | i18nCurrency: $root.currencyCode}}</td>
         </tr>
 
-        <tr class="breakdown" ng-repeat="taxItem in allRooms[0]._selectedProduct.price.feeDetails.policyTaxItemDetails" ng-class="{'last': $last}">
-          <th>{{taxItem.policyTaxItem.policyTaxItemCode}}<span class="info" ng-if="taxItem.policyTaxItem.policyTaxItemDescription && taxItem.policyTaxItem.policyTaxItemDescription !== ''"
-              tooltips tooltip-side="top" tooltip-template="{{taxItem.policyTaxItem.policyTaxItemDescription}}">?</span></th>
+        <tr
+          class="breakdown room-charges"
+          ng-repeat="taxItem in allRooms[0]._selectedProduct.price.feeDetails.policyTaxItemDetails"
+          ng-class="{'last': $last}">
+          <th>{{taxItem.policyTaxItem.policyTaxItemCode}}
+            <span
+              class="info"
+              ng-if="taxItem.policyTaxItem.policyTaxItemDescription && taxItem.policyTaxItem.policyTaxItemDescription !== ''"
+              tooltips
+              tooltip-side="top"
+              tooltip-template="{{taxItem.policyTaxItem.policyTaxItemDescription}}">?</span></th>
           <td>{{getBreakdownTotalFee(taxItem.policyTaxItem.policyTaxItemCode) | i18nCurrency: $root.currencyCode}}</td>
         </tr>
 
-        <tr ng-if="getTotal('totalDiscount')">
+        <tr
+          class="breakdown main border-bottom"
+          ng-if="getTotal('totalDiscount')">
           <th>_discount_:</th>
           <td>{{getTotal('totalDiscount') | i18nCurrency: $root.currencyCode}}</td>
         </tr>
 
-        <tr class="main"
-            ng-if="formatting !== 'suppressRate'">
+        <tr class="main">
           <th>_total_:</th>
           <td ng-switch-when="cc">{{getTotal('totalAfterTaxAfterPricingRules') | i18nCurrency: $root.currencyCode}}</td>
           <td ng-switch-when="point" ng-if="loyaltyProgramEnabled">{{getTotal('pointsRequired')}} _points_</td>
@@ -136,9 +171,9 @@
           <th><button ng-if="bookingConfig.backButtonInForm" class="back" ng-click="goBack()">_back_</button></th>
           <td>
             <span>
-              <a href ng-click="breakdownExtended = !breakdownExtended">
-                <span ng-if="!breakdownExtended">_view_price_breakdown_</span>
-                <span ng-if="breakdownExtended">_hide_price_breakdown_</span>
+              <a href ng-click="breakdown.extended = !breakdown.extended">
+                <span ng-if="!breakdown.extended">_view_price_breakdown_</span>
+                <span ng-if="breakdown.extended">_hide_price_breakdown_</span>
               </a>
             </span>
           </td>
