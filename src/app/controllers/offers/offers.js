@@ -308,6 +308,8 @@ angular.module('mobius.controllers.offers', [])
 
           _.each($scope.offersList, function(offer) {
             setOfferUrl(offer);
+            // explicitly state that we don't want to hide from the extra offers list
+            offer.hideFromExtraOffers = !!(offer.hideFromExtraOffers);
           });
 
           if ($stateParams.code) {
