@@ -249,7 +249,7 @@ angular.module('mobiusApp.services.user', [])
 
       customerId = customerId || getCustomerId();
 
-      if (!customerId){
+      if (!customerId) {
         return $q.when([]);
       }
 
@@ -272,7 +272,7 @@ angular.module('mobiusApp.services.user', [])
 
       customerId = customerId || getCustomerId();
 
-      if (!customerId){
+      if (!customerId) {
         return $q.when([]);
       }
 
