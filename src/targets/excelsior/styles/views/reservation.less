@@ -804,7 +804,6 @@ reservation-confirmation {
 
   > div {
     border-radius: 0;
-    border: solid 2px #000;
 
     .viewport-mobile &{
       margin-top: 20px;
@@ -832,15 +831,13 @@ reservation-confirmation {
     }
 
     li:nth-of-type(2) {
-      background: lighten(@c-primary, 20%);
+      background-color: @c-light-grey;
       background-size: contain;
-      border-bottom: solid 1px #000;
     }
 
     li:last-of-type {
-      background: lighten(@c-secondary, 20%);
+      background-color: #e6e6e6;
       background-size: contain;
-      border-bottom: solid 1px #000;
     }
 
     a {
@@ -871,8 +868,8 @@ reservation-confirmation {
     tr {
       padding-bottom: 13px;
       th {
-        text-transform: uppercase;
         font-size: 15px;
+        width: 40%;
       }
       td {
         font-size: 16px;
