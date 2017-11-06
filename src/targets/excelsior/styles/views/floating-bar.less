@@ -17,22 +17,53 @@
 floating-bar {
   .viewport-mobile & {
     // Override display none on the element to ensure transitions happen
+    height: 270px;
+    position: fixed;
+    top: 100%;
+    margin-top: -270px;
+    z-index: 99;
+    // Override display none on the element to ensure transitions happen
     display: block !important;
-    transform: translate3d(0, 100vh, 0);
-    height: calc(~'100vh - @{mobile-header-height}');
-    opacity: 0;
-    transition: transform @slide-animation-duration ease-in, opacity @appear-animation-duration linear;
-    &.active {
-      opacity: 1;
-      // Override display none on the element to ensure transitions happen
-      display: block !important;
-      transform: translate3d(0, 0, 0);
-      transition: transform @slide-animation-duration ease-out, opacity @appear-animation-duration linear;
-      height: calc(~'100vh - @{mobile-header-height}');
-      bottom: initial;
-      top: @mobile-header-height;
-      > ul {
-        display: table;
+    bottom: initial;
+    > ul {
+      display: table;
+    }
+    &.hide {
+      display: none !important;
+      &.force-show {
+        display: block !important;
+      }
+    }
+    select, #booking-widget-date-range {
+      border-radius: 4px;
+      border: 1px solid #E6D4BD !important;
+      font-size: 15px;
+      font-weight: 100;
+      color: #a5a5a5;
+    }
+    input-value {
+      font-size: 15px;
+      font-weight: 100;
+      color: #a5a5a5;
+      i {
+        position: absolute;
+        right: 0;
+        top: 4px;
+      }
+    }
+    booking-widget-search {
+      .persons {
+        width: 48%;
+        float: left;
+      }
+      .persons-children {
+        margin-left: 4%;
+      }
+      .code {
+        clear: left;
+      }
+      form-element:before {
+        display: none;
       }
     }
   }
@@ -116,6 +147,11 @@ floating-bar {
             .mobile{
 
             }
+          }
+        }
+        .viewport-mobile & {
+          .active-booking {
+            display: none;
           }
         }
       }

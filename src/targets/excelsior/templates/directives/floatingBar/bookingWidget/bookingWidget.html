@@ -57,9 +57,13 @@
             input-text="inputDateText"
             ng-change="checkAvailability()"
             bar-data="selected"
-            not-available-description="'_not_available_description_'">
+            not-available-description="'_not_available_description_'"
+            >
     <form-label>_enter_your_dates_</form-label>
-    <input-value>{{inputDateText || '_dates_'}}</input-value>
+    <input-value>
+    {{inputDateText || '_dates_'}}
+    <i class="fa fa-calendar"></i>
+  </input-value>
   </form-element>
 
   <!-- NUMBER OF ADULTS -->
@@ -79,7 +83,7 @@
   </form-element>
 
   <!-- NUMBER OF CHILDREN -->
-  <form-element class="persons" ng-if="!advanced">
+  <form-element class="persons persons-children" ng-if="!advanced">
     <select name="children"
             required ng-model="selected.children"
             disable-search="true"
@@ -161,7 +165,6 @@
       </select>
       <form-label>_number_of_adults_</form-label>
     </form-element>
-
     <form-element class="persons">
       <select name="children"
               required ng-model="room.children"
@@ -188,5 +191,5 @@
   ng-click="isSearchable() && onSearch()"
   ng-disabled="!isSearchable()">
   <i class="fa fa-chevron-right" aria-hidden="true" ng-if="uiConfig.buttonSubmit.floatingBar"></i>
-  {{hasMultiroomTab? '_search_now_':'_go_'}}
+  _search_now_
 </button-submit>
