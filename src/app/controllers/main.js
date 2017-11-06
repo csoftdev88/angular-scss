@@ -208,6 +208,9 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
         filledEmail: false
       };
       $scope.registerData = {};
+      if (Settings.UI.registerPage.defaultOptInNewsletter) {
+        $scope.registerData.optedIn = true;
+      }
 
       $scope.userObject = userObject;
 
