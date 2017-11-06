@@ -28,8 +28,13 @@
 
         var config;
         var pollId;
+        var pollPoints;
         var appLang;
         var dynamicMessages;
+
+        scope.poll = {
+          choiceId: 0
+        };
 
         // Get all the polls available then display the first with options in the directive
         var selectPoll = function () {
@@ -41,8 +46,9 @@
                   .then(function (data) {
                     scope.question = data.question;
                     scope.options = data.choices;
-                    scope.choiceId = data.choices[0].id;
+                    scope.poll.choiceId = data.choices[0].id;
                     scope.reward = dynamicMessages.answer_the_question.replace('XX', data.points);
+                    pollPoints = data.points;
                   });
               }
               $log.info('No polls available, maybe the user answered all of them');
@@ -251,10 +257,14 @@
            * Function used to answer the poll
            */
           scope.answer = function () {
-            if (scope.choiceId) {
+            if (scope.poll.choiceId) {
               scope.errorMsg = false;
-              pollsService.answer(pollId, scope.choiceId)
+              pollsService.answer(pollId, scope.poll.choiceId)
                 .then(function (data) {
+                  if (data.rightAnswer) {
+                    userObject.loyalties.amount += pollPoints;
+                    scope.points = userObject.loyalties.amount;
+                  }
                   $log.info('Poll successfully submitted', data);
                   selectPoll();
                 });
@@ -264,7 +274,7 @@
           };
 
           // Scoped variable used within the directive
-          scope.choiceId = 0;
+          scope.poll.choiceId = 0;
           scope.numStaysToNextTier = 4;
           scope.reward = '';
           scope.question = '';
