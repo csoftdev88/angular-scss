@@ -268,11 +268,17 @@ angular.module('mobiusApp.services.user', [])
 
       customerId = customerId || getCustomerId();
 
-      return rewardsService.getMy(customerId).then(function(rewards){
-        userObject.rewards = rewards;
+      if (customerId){
+        return rewardsService.getMy(customerId).then(function(rewards){
+          userObject.rewards = rewards;
 
-        return rewards;
-      });
+          return rewards;
+        });
+      } else {
+        var defer = $q.defer();
+        defer.resolve([]);
+        return defer.promise;
+      }
     }
 
     function logoutCleanup() {
@@ -282,9 +288,6 @@ angular.module('mobiusApp.services.user', [])
       clearStoredUser();
 
       authPromise = $q.defer();
-
-      // Do a full reload! Fixes subtle issues after logout that we don't want to fix as Keystone is the go-forward SSO
-      $window.location.reload();
     }
 
     function logout() {
