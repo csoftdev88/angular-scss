@@ -249,21 +249,19 @@ angular.module('mobiusApp.services.user', [])
 
       customerId = customerId || getCustomerId();
 
-      if (customerId) {
-        return loyaltyService.getAll(customerId).then(function (loyalties) {
-          if (loyalties && loyalties.amount === undefined) {
-            loyalties.amount = 0;
-          }
-
-          userObject.loyalties = loyalties;
-
-          return loyalties;
-        });
-      } else {
-        var defer = $q.defer();
-        defer.resolve([]);
-        return defer.promise;
+      if (!customerId){
+        return $q.when([]);
       }
+
+      return loyaltyService.getAll(customerId).then(function (loyalties) {
+        if (loyalties && loyalties.amount === undefined) {
+          loyalties.amount = 0;
+        }
+
+        userObject.loyalties = loyalties;
+
+        return loyalties;
+      });
     }
 
     function loadRewards(customerId){
@@ -274,17 +272,15 @@ angular.module('mobiusApp.services.user', [])
 
       customerId = customerId || getCustomerId();
 
-      if (customerId){
-        return rewardsService.getMy(customerId).then(function(rewards){
-          userObject.rewards = rewards;
-
-          return rewards;
-        });
-      } else {
-        var defer = $q.defer();
-        defer.resolve([]);
-        return defer.promise;
+      if (!customerId){
+        return $q.when([]);
       }
+
+      return rewardsService.getMy(customerId).then(function(rewards){
+        userObject.rewards = rewards;
+
+        return rewards;
+      });
     }
 
     function logoutCleanup() {
