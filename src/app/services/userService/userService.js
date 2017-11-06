@@ -249,15 +249,21 @@ angular.module('mobiusApp.services.user', [])
 
       customerId = customerId || getCustomerId();
 
-      return loyaltyService.getAll(customerId).then(function(loyalties){
-        if(loyalties && loyalties.amount === undefined){
-          loyalties.amount = 0;
-        }
+      if (customerId) {
+        return loyaltyService.getAll(customerId).then(function (loyalties) {
+          if (loyalties && loyalties.amount === undefined) {
+            loyalties.amount = 0;
+          }
 
-        userObject.loyalties = loyalties;
+          userObject.loyalties = loyalties;
 
-        return loyalties;
-      });
+          return loyalties;
+        });
+      } else {
+        var defer = $q.defer();
+        defer.resolve([]);
+        return defer.promise;
+      }
     }
 
     function loadRewards(customerId){
