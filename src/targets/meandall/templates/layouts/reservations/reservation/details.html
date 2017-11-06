@@ -2,202 +2,10 @@
   <div>
     <h3 ng-bind-html="'_reservation_page_details_title_' | mainHeaderStyle"></h3>
 
-    <!--
-    <div id="form-errors" class="form-errors" ng-if="forms.details.$invalid  && forms.details.$submitted">
-      <div>_missing_fields_message_</div>
-      <div ng-if="forms.details.firstName.$error.pattern || forms.details.lastName.$error.pattern">_letters_pattern_error_</div>
-      <div ng-if="forms.details.email.$error.emailCheck">_invalid_email_message_</div>
-    </div>
-    -->
-
-    <!-- TEMP HACK TO REORDER FORM FOR MEANDALL -->
     <form name="forms.details"
           novalidate
           ng-submit="continue()"
           autocomplete="on"
-          ng-if="!uiConfig.reservations.tempHackGuestFormReorder"
-          ng-class="{'ng-submitted': forms.details.$submitted}">
-
-      <label for="title" class="input-left small">
-        <select type="text"
-                id="title"
-                required
-                placeholder="_title_label_"
-                placeholder-text-single="_title_label_"
-                ng-options="title.id as title.name for title in profileTitles"
-                ng-if="!isMobile && profileTitles"
-                ng-model="userDetails.title"
-                name="title"
-                disable-search="true"
-                autocomplete="honorific-prefix"
-                chosen>
-          <option value="">_title_label_</option>
-        </select>
-        <select type="text" id="title" required
-          placeholder="_title_label_"
-          placeholder-text-single="_title_label_"
-          ng-options="title.id as title.name for title in profileTitles"
-          ng-if="isMobile" disable-search="true"
-          ng-model="userDetails.title" autocomplete="honorific-prefix"
-          name="title">
-          <option value="">_title_label_</option>
-        </select>
-        <span ng-hide="forms.details.$submitted && forms.details.title.$error">_title_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.title.$error">_title_label_</span>
-      </label>
-
-      <label for="first-name" class="input-center medium">
-        <input type="text"
-               id="first-name"
-               required
-               placeholder="_first_name_label_"
-               ng-model="userDetails.firstName"
-               name="firstName"
-               autocomplete="given-name"
-               ng-pattern="$root.generalValidationPattern"/>
-        <span>
-          <span ng-hide="forms.details.$submitted && forms.details.firstName.$error">_first_name_label_</span>
-          <span ng-show="forms.details.$submitted && forms.details.firstName.$error && !forms.details.firstName.$error.pattern">_first_name_label_</span>
-          <span ng-show="forms.details.$submitted && forms.details.firstName.$error.pattern">_letters_pattern_error_</span>
-        </span>
-      </label>
-
-      <label for="last-name" class="input-right medium">
-        <input type="text"
-               id="last-name"
-               required
-               placeholder="_last_name_label_"
-               ng-model="userDetails.lastName"
-               name="lastName"
-               autocomplete="family-name"
-               ng-pattern="$root.generalValidationPattern"/>
-        <span>
-          <span ng-hide="forms.details.$submitted && forms.details.lastName.$error">_last_name_label_</span>
-          <span ng-show="forms.details.$submitted && forms.details.lastName.$error && !forms.details.lastName.$error.pattern">_last_name_label_</span>
-          <span ng-show="forms.details.$submitted && forms.details.lastName.$error.pattern">_letters_pattern_error_</span>
-        </span>
-      </label>
-
-      <label for="email" class="input-left">
-        <input type="email"
-               id="email"
-               required
-               placeholder="_email_label_"
-               ng-model="userDetails.email"
-               ng-disabled="userDetails.emailFromApi"
-               autocomplete="email"
-               name="email"
-               email-check/>
-        <span>
-          <span ng-hide="forms.details.$submitted && forms.details.email.$error">_email_label_</span>
-          <span ng-show="forms.details.$submitted && forms.details.email.$error && !forms.details.email.$error.emailCheck">_email_label_</span>
-          <span ng-show="forms.details.$submitted && forms.details.email.$error.emailCheck">_invalid_email_message_</span>
-        </span>
-      </label>
-
-      <label for="telephone" class="input-right">
-      <!--
-        <input type="text" id="telephone" national-mode="false" default-country="{{defaultCountryCode || 'ca'}}" international-phone-number
-          preferred-countries="{{preferredCountryCodes || 'ca'}}"
-          ng-model="userDetails.phone"
-          ng-change="countryPhoneChanged()"
-          name="phone"
-          placeholder="_phone_label_"/>
-          -->
-          <input type="tel"
-                 id="telephone"
-                 ng-model="userDetails.phone"
-                 name="phone"
-                 placeholder="_phone_label_"
-                 autocomplete="tel"
-                 ng-pattern="$root.generalValidationPattern"/>
-        <span>
-          <span ng-hide="forms.details.$submitted && forms.details.phone.$error">_phone_label_</span>
-          <span ng-show="forms.details.$submitted && forms.details.phone.$error && !forms.details.phone.$error.pattern">_phone_label_</span>
-          <span ng-show="forms.details.$submitted && forms.details.phone.$error.pattern">_phone_pattern_error_</span>
-        </span>
-      </label>
-
-      <label for="address">
-        <input type="text"
-               id="address"
-               required
-               placeholder="_address_label_"
-               ng-model="userDetails.address"
-               name="address"
-               autocomplete="address-line1"
-               ng-pattern="$root.generalValidationPattern"/>
-        <span ng-hide="forms.details.$submitted && forms.details.address.$error">_address_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.address.$error && !forms.details.address.$error.pattern">_address_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.address.$error.pattern">_address_pattern_error_</span>
-      </label>
-
-      <label for="city" class="input-left">
-        <input type="text"
-               id="city"
-               required
-               placeholder="_city_label_"
-               ng-model="userDetails.city"
-               name="city"
-               autocomplete="city"
-               ng-pattern="$root.generalValidationPattern"/>
-        <span ng-hide="forms.details.$submitted && forms.details.city.$error">_city_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.city.$error && !forms.details.city.$error.pattern">_city_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.city.$error.pattern">_city_pattern_error_</span>
-      </label>
-
-      <label for="state" class="input-right">
-        <input type="text"
-               id="state"
-               placeholder="_state_label_"
-               ng-model="userDetails.stateProvince"
-               name="stateProvince"
-               autocomplete="state"
-               ng-pattern="$root.generalValidationPattern"/>
-        <span ng-hide="forms.details.$submitted && forms.details.stateProvince.$error">_state_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.stateProvince.$error && !forms.details.stateProvince.$error.pattern">_state_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.stateProvince.$error.pattern">_state_pattern_error_</span>
-      </label>
-
-      <label for="postal-code" class="input-left">
-        <input type="text"
-               id="postal-code"
-               required
-               placeholder="_postcode_label_"
-               ng-model="userDetails.zip"
-               name="zip"
-               autocomplete="postal-code"
-               ng-pattern="$root.generalValidationPattern"/>
-        <span ng-hide="forms.details.$submitted && forms.details.zip.$error">_postcode_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.zip.$error && !forms.details.zip.$error.pattern">_postcode_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.zip.$error.pattern">_postcode_pattern_error_</span>
-      </label>
-
-      <label for="country" class="input-right" ng-if="profileCountries">
-        <select type="text"
-                id="country"
-                required
-                placeholder="_country_label_"
-                placeholder-text-single="_country_label_"
-                ng-options="country.id as country.name for country in profileCountries"
-                ng-model="userDetails.localeId"
-                name="country"
-                autocomplete="country-name"
-                chosen
-                search-contains="false">
-          <option value="">_country_label_</option>
-        </select>
-        <span ng-hide="forms.details.$submitted && forms.details.country.$error">_country_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.country.$error">_country_label_</span>
-      </label>
-      <input type="submit" id="submit" value="_submit_" ng-hide="true" />
-    </form>
-
-    <form name="forms.details"
-          novalidate
-          ng-submit="continue()"
-          autocomplete="on"
-          ng-if="uiConfig.reservations.tempHackGuestFormReorder"
           ng-class="{'ng-submitted': forms.details.$submitted}">
 
       <p class="error" ng-if="requiredFieldsMissingError">_missing_fields_message_</p>
@@ -316,21 +124,7 @@
         <span ng-show="forms.details.$submitted && forms.details.address.$error.pattern">_address_pattern_error_</span>
       </label>
 
-      <label for="postal-code" class="input-left">
-        <input type="text"
-               id="postal-code"
-               required
-               placeholder="_postcode_label_"
-               ng-model="userDetails.zip"
-               name="zip"
-               autocomplete="postal-code"
-               ng-pattern="$root.generalValidationPattern"/>
-        <span ng-hide="forms.details.$submitted && forms.details.zip.$error">_postcode_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.zip.$error && !forms.details.zip.$error.pattern">_postcode_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.zip.$error.pattern">_postcode_pattern_error_</span>
-      </label>
-
-      <label for="city" class="input-right">
+      <label for="city" class="input-left">
         <input type="text"
                id="city"
                required
@@ -344,20 +138,21 @@
         <span ng-show="forms.details.$submitted && forms.details.city.$error.pattern">_city_pattern_error_</span>
       </label>
 
-      <label for="state" class="input-left">
+      <label for="postal-code" class="input-right">
         <input type="text"
-               id="state"
-               placeholder="_state_label_"
-               ng-model="userDetails.stateProvince"
-               name="stateProvince"
-               autocomplete="state"
+               id="postal-code"
+               required
+               placeholder="_postcode_label_"
+               ng-model="userDetails.zip"
+               name="zip"
+               autocomplete="postal-code"
                ng-pattern="$root.generalValidationPattern"/>
-        <span ng-hide="forms.details.$submitted && forms.details.stateProvince.$error">_state_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.stateProvince.$error && !forms.details.stateProvince.$error.pattern">_state_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.stateProvince.$error.pattern">_state_pattern_error_</span>
+        <span ng-hide="forms.details.$submitted && forms.details.zip.$error">_postcode_label_</span>
+        <span ng-show="forms.details.$submitted && forms.details.zip.$error && !forms.details.zip.$error.pattern">_postcode_label_</span>
+        <span ng-show="forms.details.$submitted && forms.details.zip.$error.pattern">_postcode_pattern_error_</span>
       </label>
 
-      <label for="country" class="input-right" ng-if="profileCountries">
+      <label for="country" class="input-left" ng-if="profileCountries">
         <select type="text"
                 id="country"
                 required

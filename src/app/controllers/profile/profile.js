@@ -21,6 +21,27 @@
 
     $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
 
+    $scope.sections = {
+      aboutYou: {
+        visible: true,
+        expanded: true
+      },
+      resetPassword: {
+        visible: true,
+        expanded: false,
+        showError: false
+      },
+      termsAndConditions: {
+        visible: true,
+        expanded: false,
+        showError: false
+      }
+    };
+
+    $scope.toggleSection = function (section) {
+      section.expanded = !section.expanded;
+    };
+
     // If we are using keystone, the alternative keystoneProfile layout will be used that contains
     // the keystone-profile div. We now need to tell keystone to inject the profile page into it
     if (Settings.authType === 'keystone' && window.KS) {
@@ -127,13 +148,35 @@
 
     $timeout(function(){
       $scope.profileData = user.getUser();
+      if ($scope.profileData.termsAndConditionsAccepted === false) {
+        $scope.sections.termsAndConditions.expanded = true;
+        $scope.sections.termsAndConditions.showError = true;
+      }
+      if ($scope.profileData.passwordResetRequired === true) {
+        $scope.sections.resetPassword.expanded = true;
+        $scope.sections.resetPassword.showError = true;
+      }
       $scope.profileData.userCountry = contentService.getCountryByID($scope.profileData.localeCode, $scope.profileCountries);
     }, 2000);
 
     $scope.update = function(form, profileData){
       clearErrorMsg();
       $scope.submitted = true;
+      form.$submitted = true;
+
+      // Open sections if they are closed and has errors
+      if (form.termsAndConditions.$invalid && $scope.sections.termsAndConditions.visible && !$scope.sections.termsAndConditions.expanded) {
+        $scope.toggleSection($scope.sections.termsAndConditions);
+      }
+      if ((form.password.$invalid || form.passwordConfirm.$invalid) && $scope.sections.resetPassword.visible && !$scope.sections.resetPassword.expanded) {
+        $scope.toggleSection($scope.sections.resetPassword);
+      }
+
       if(form.$valid){
+        if (Settings.API.sendAcceptedTermsAndConditions) {
+          profileData.termsAndConditionsAccepted = (profileData.termsAndConditionsAccepted) ? true : false;
+        }
+
         var data = _.omit(profileData, _.isNull);
         data = _.omit(data, ['id','token','email', 'languageCode']);
 
@@ -172,6 +215,8 @@
           clearErrorMsg();
           userObject = _.extend(userObject, data);
           $scope.passwordResetSuccess = true;
+          $scope.sections.resetPassword.showError = false;
+          $scope.sections.termsAndConditions.showError = false;
           if($scope.config.displaySummary){
             $scope.showSummary = true;
           }

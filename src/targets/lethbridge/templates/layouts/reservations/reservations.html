@@ -1,0 +1,167 @@
+<div class="ReservationsBackground" ng-if="config.reservations.useBackground"></div>
+
+<hero-slider ng-if="!config.reservations.hideHeroSliderOnReservations"
+             content="heroContent"
+             slide-width="uiConfig.heroSlider.slideWidth"
+             slide-height="uiConfig.heroSlider.slideHeight">
+</hero-slider>
+
+<section-image ng-if="config.reservations.sectionImages &&
+                      config.reservations.sectionImages[0] &&
+                      reservations.nextStay"
+               id="room-header-image"
+               section="config.reservations.sectionImages[0]"
+               when="'enter'"
+               from="1"
+               to="1.5"
+               show-logo="false"
+               hide-header-logo="false">
+</section-image>
+
+<breadcrumbs stickable="main-header" ng-if="!config.reservations.hideBreadcrumbs"></breadcrumbs>
+
+<main class="reservation-overview"
+      id="jsReservations"
+      ng-class="{'reservations-no-hero': config.reservations.hideHeroSliderOnReservations,
+                 'grid-wrapper':!viewSettings.fullWidthSections,
+                 'no-reservations':!reservations.nextStay &&
+                                    reservations.futureStays.length === 0 &&
+                                    reservations.pastStays.length === 0}">
+
+  <div class="preloader" ng-show="preloader.visible"></div>
+
+  <div ui-view>
+
+    <div class="reservations"
+         ng-attr-grid="{{!viewSettings.fullWidthSections ? 12 : undefined}}">
+
+      <div ng-if="!reservations.nextStay &&
+                  reservations.futureStays.length === 0 &&
+                  reservations.pastStays.length === 0"
+           class="reservations-not-available">
+
+        <div>
+          <h3>_reservation_list_empty_</h3>
+          <p>_please_make_reservation_</p>
+          <button-submit ng-if="!isLoyaltyEngine"
+                         ng-click="selectDates()">
+            _select_dates_
+          </button-submit>
+          <button-submit ng-if="isLoyaltyEngine"
+                         ng-click="$state.go('hotels', { scrollTo: 'jsAbout'})">
+            _select_hotel_
+          </button-submit>
+        </div>
+
+      </div>
+
+      <div class="ReservationsNextStay__container">
+        <div ng-if="reservations.nextStay" class="ReservationsNextStay">
+          <!-- TODO SAME AS BOOKING COMPLETE PREVIEW -->
+          <h1 class="ReservationsNextStay__title" ng-bind-html="'_reservation_page_nextstay_title_' | mainHeaderStyle"></h1>
+
+          <reservation-item>
+
+            <div class="table-wrap">
+
+              <reservation-details currency-code="defaultCurrencyCode"
+                                   reservation="reservations.nextStay"
+                                   property="properties[reservations.nextStay.property.code]">
+              </reservation-details>
+
+            </div>
+
+          </reservation-item>
+          <hr/>
+        </div>
+        <div ng-if="!reservations.nextStay && (reservations.pastStays.length || reservations.futureStays.length)"
+             class="ReservationsNextStay empty">
+          <h3 class="noNextStay">
+            Looks like you don’t have any upcoming stays, {{ user.firstName }}
+          </h3>
+        </div>
+      </div>
+
+      <section-image ng-if="isMobile &&
+                            config.reservations.sectionImages &&
+                            config.reservations.sectionImages[3] &&
+                            reservations.nextStay"
+                     section="config.reservations.sectionImages[3]"
+                     when="'enter'"
+                     from="1"
+                     to="1.5"
+                     show-logo="false">
+      </section-image>
+
+      <div ng-if="reservations.futureStays.length" class="future-stays">
+
+        <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
+
+          <h1 ng-bind-html="'_reservation_page_futurestays_title_' | mainHeaderStyle"></h1>
+
+          <reservation-item ng-repeat="reservation in reservations.futureStays | orderBy:'bookingDate' : true">
+
+            <div class="table-wrap">
+
+              <reservation-data currency-code="defaultCurrencyCode"
+                                reservation="reservation"
+                                property="properties[reservation.property.code]">
+              </reservation-data>
+
+            </div>
+
+            <hr class="dividerWithoutImage"/>
+
+          </reservation-item>
+
+        </div>
+
+      </div>
+
+      <section-image ng-if="config.reservations.sectionImages &&
+                            config.reservations.sectionImages[1] &&
+                            reservations.nextStay"
+                     section="config.reservations.sectionImages[1]"
+                     when="'enter'"
+                     from="1"
+                     to="1.5"
+                     show-logo="false">
+      </section-image>
+
+      <div ng-if="reservations.pastStays.length" class="past-stays">
+
+        <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
+
+          <h1 ng-bind-html="'_reservation_page_paststays_title_' | mainHeaderStyle"></h1>
+
+          <reservation-item ng-repeat="reservation in reservations.pastStays | orderBy:'bookingDate' : true">
+
+            <div class="table-wrap inactive">
+              <reservation-data currency-code="defaultCurrencyCode"
+                                reservation="reservation"
+                                property="properties[reservation.property.code]"
+                                class="inactive">
+              </reservation-data>
+            </div>
+
+            <hr/>
+          </reservation-item>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <section-image ng-if="config.reservations.sectionImages &&
+                        config.reservations.sectionImages[2] &&
+                        reservations.nextStay"
+                 section="config.reservations.sectionImages[2]"
+                 when="'enter'"
+                 from="1"
+                 to="1.5"
+                 show-logo="false">
+  </section-image>
+
+  <!--<scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>-->
+</main>

@@ -5,7 +5,7 @@
 angular.module('mobiusApp.dynamicMessages', [])
 
 .constant('DynamicMessages', {
-  'en-us':{
+  'en':{
     'your_reservation':'<div>Your Reservation <strong>',
     'was_successfully_cancelled':'</strong> was successfully cancelled.</div>',
     'you_have_added':'<div>You have added ',
@@ -24,7 +24,17 @@ angular.module('mobiusApp.dynamicMessages', [])
     'noshow':'No Show',
     'pet':'Pet',
     'from':'From',
-    'tax':'tax'
+    'tax':'tax',
+    'no_adults': 'No adults',
+    'adult': 'Adult',
+    'adults': 'Adults',
+    'no_children': 'No children',
+    'child': 'Child',
+    'children': 'Children',
+    'promo_code': 'Promo code',
+    'corp_code': 'Corp code',
+    'group_code': 'Group code',
+    'room': 'Room'
   },
   'de':{
     'your_reservation':'<div>Ihre Reservierung <strong>',
@@ -45,6 +55,16 @@ angular.module('mobiusApp.dynamicMessages', [])
     'noshow':'Keine Show',
     'pet':'Haustier',
     'from':'Von',
-    'tax':'Steuer'
+    'tax':'Steuer',
+    'no_adults': 'kein Erwachsener',
+    'adult': 'Erwachsener',
+    'adults': 'Erwachsene',
+    'no_children': 'keine Kinder',
+    'child': 'Kind',
+    'children': 'Kinder',
+    'promo_code': 'Promo code',
+    'corp_code': 'Corp code',
+    'group_code': 'Group code',
+    'room': 'Zimmer'
   }
 });

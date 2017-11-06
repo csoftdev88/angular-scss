@@ -10,6 +10,7 @@ angular.module('mobiusApp.config', [])
   'loyaltyProgramEnabled': false,
   'newUrlStructure': false,
   'inputValidationPattern':/^[\u0020-\u02AF\r\n]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
+  'showEUCookieDisclaimer':true,
   'infiniti': {
     'enable': false,
     'development': '',
@@ -66,7 +67,6 @@ angular.module('mobiusApp.config', [])
   'infinitiApeironTracking': {
     'development': {
       'enable':false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-development',
@@ -75,7 +75,6 @@ angular.module('mobiusApp.config', [])
     },
     'integration': {
       'enable':false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-integration',
@@ -86,7 +85,6 @@ angular.module('mobiusApp.config', [])
     },
     'staging': {
       'enable':false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-staging',
@@ -97,7 +95,6 @@ angular.module('mobiusApp.config', [])
     },
     'uat': {
       'enable':false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-staging',
@@ -106,7 +103,6 @@ angular.module('mobiusApp.config', [])
     },
     'live': {
       'enable':false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.2/infiniti-track2.min.js',
       'id':'meandall-live',
@@ -119,13 +115,13 @@ angular.module('mobiusApp.config', [])
     'accountCode':'2p'
   },
   'googleAnalytics': {
-    'enable': false,
-    'id': ''
+    'enable': true,
+    'id': 'UA-108560457-1'
   },
   'googleTagManager': {
-    'enable': false,
+    'enable': true,
     'trackUserId': true,
-    'id': ''
+    'id': 'GTM-N5VPM86'
   },
   'hotjar': {
     'enable': false,
@@ -142,7 +138,7 @@ angular.module('mobiusApp.config', [])
       'integration': '//integration-www-meandall.mobiusbookingengine.com/api/4.0/',
       'staging': '//staging-www-meandall.mobiusbookingengine.com/api/4.0/',
       'uat': '//staging-lindner-node.mobiuswebservices.com/api/4.0/',
-      'live': '//meandallhotels.com/api/4.0/'
+      'live': 'https://meandall.mobiusbookingengine.com/api/4.0/'
     },
     'mobiusTracking': {
       'search': {
@@ -217,7 +213,8 @@ angular.module('mobiusApp.config', [])
       'forgotPassword':  'customers/actions/forgotPassword',
       'changePassword':  'customers/actions/changePassword',
       'register':  'customers/',
-      'transactions': 'customers/:customerId/transactions'
+      'transactions': 'customers/:customerId/transactions',
+      'doubleOptin': 'customers/double-optin'
     },
     // NOTE: Loyalties API will change - check apiary specs
     'loyalties': {
@@ -283,7 +280,8 @@ angular.module('mobiusApp.config', [])
     },
     'thirdparties': {
       'get': 'thirdparties/:code'
-    }
+    },
+    'sendAcceptedTermsAndConditions': true
   },
   'UI': {
     'previousSearches': {
@@ -659,10 +657,6 @@ angular.module('mobiusApp.config', [])
     },
 
     'reservations': {
-      // temp hacks for meandall
-      'tempHackGuestFormReorder': true,
-      'tempHackBillingFormReorder': true,
-      'tempHackInfoFormReorder': true,
       //override per hotel confirmation number per hotel
       'displayConfirmationNumberOnAllHotels': true,
       //confirmation label display

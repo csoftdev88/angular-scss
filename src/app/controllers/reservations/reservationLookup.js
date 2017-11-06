@@ -52,7 +52,7 @@ angular.module('mobius.controllers.reservationLookup', [])
         // Redirecting to reservation details
         var stateParams = {
           reservationCode: data.reservationCode,
-          showActionButtons: false
+          showActionButtons: true
         };
 
         if($scope.formData.fields.email){

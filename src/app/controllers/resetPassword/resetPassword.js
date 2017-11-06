@@ -4,7 +4,7 @@
  */
 angular.module('mobius.controllers.resetPassword', [])
 
-  .controller('ResetPasswordCtrl', function($scope, $location, breadcrumbsService, apiService){
+  .controller('ResetPasswordCtrl', function($scope, $stateParams, breadcrumbsService, apiService){
 
     breadcrumbsService.addBreadCrumb('Reset Password');
 
@@ -13,8 +13,9 @@ angular.module('mobius.controllers.resetPassword', [])
 		  $scope.formError = false;
 			form.$submitted = true;
 		  if(form.$valid){
+		  	var token = ($stateParams.resetcode) ? $stateParams.resetcode : $stateParams.key;
 				var data = {
-					'token': $location.search().resetcode,
+					'token': token,
 					'password': resetData.password
 				};
 		    apiService.post(apiService.getFullURL('customers.changePassword'), data).then(function(){
@@ -29,5 +30,5 @@ angular.module('mobius.controllers.resetPassword', [])
 				$scope.formError = true;
 		  }
 		};
-		 
+
   });

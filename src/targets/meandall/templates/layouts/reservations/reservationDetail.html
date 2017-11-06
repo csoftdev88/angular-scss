@@ -74,43 +74,9 @@
         </header>
 
         <div class="tables">
-          <figure ng-switch="isEditable && reservation.status !== 'Cancelled'">
 
-            <img ng-if="!config.largeRoomImage && roomDetails.images[0].uri"
-                 class="RoomImage"
-                 ng-src="{{roomDetails.images[0].uri}}"
-                 alt="{{ roomDetails.name }}">
-
-            <img ng-if="config.largeRoomImage && roomDetails.images[0].uri"
-                 class="RoomImage"
-                 ng-src="{{ roomDetails.images[0].uri | cloudinaryImage : 355 : 415 : 'fill' }}"
-                 alt="{{ roomDetails.name }}">
-
-            <div ng-if="!roomDetails.images[0].uri"
-                 class="room-image-placeholder">
-            </div>
-            <!-- TODO: Add actions to buttons -->
-            <button ng-switch-when="true"
-                    class="button"
-                    ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()"
-                    ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}"
-                    ng-if="!reservation.isInThePast && showActionButtons"
-                    ng-disabled="!reservation.canModify">
-              _modify_
-            </button>
-
-            <button ng-switch-when="true"
-                    class="button-gray"
-                    ng-click="reservation.pointValue ? modifyCancelPointsReservation() : openCancelReservationDialog()"
-                    ng-class="{disabled: reservation.canCancel === false && !reservation.pointValue}"
-                    ng-if="!reservation.isInThePast && showActionButtons"
-                    ng-disabled="!reservation.canCancel">
-              _cancel_
-            </button>
-          </figure>
-
-          <div>
-            <div class="booking-details">
+          <div gird-row>
+            <div class="booking-details" grid="7">
               <span class="chain-logo {{ property.chainCode.toLowerCase() }}"></span>
 
               <h1 ng-if="config.displayPropertyNameInDetails">
@@ -121,14 +87,14 @@
                 {{ roomDetails.name }}
                 <a href ng-click="openOtherRoomsDialog()"
                    ng-if="reservation.rooms.length > 1">
-                  + {{ reservation.rooms.length - 1 }} other
+                  + {{ reservation.rooms.length - 1 }} _other_room_
                   <ng-pluralize count="reservation.rooms.length"
-                                when="{'2': 'room', 'other': 'rooms'}">
+                                when="{'2': '_room_', 'other': '_rooms_'}">
                   </ng-pluralize>
                 </a>
               </h3>
 
-              <h4 ng-bind-html="reservation.rooms[0].productName"></h4>
+              <h4>{{reservation.rooms[0].productName | lowercase}}</h4>
 
               <h4 ng-if="config.displayConfirmationNumberInDetails">
                 _booking_reference_: <span>{{ reservationCode }}</span>
@@ -153,7 +119,7 @@
 
             </div>
 
-            <div class="table-container">
+            <div class="table-container" grid="5">
             <table class="data">
               <tbody ng-if="!config.useSingleRowData" class="single-row-data">
                 <tr ng-if="config.showGuestName" class="guest-name">
@@ -242,14 +208,16 @@
               </tbody>
             </table>
 
-            <div class="extended-charges">
-              <table ng-class="{'extended': breakdownExtended}"
-                     ng-init="breakdownExtended = false"
-                     ng-if="config.reservationDetailPriceBreakdownExtended &&
+            <div
+              class="extended-charges"
+              ng-if="config.reservationDetailPriceBreakdownExtended &&
                             reservation &&
                             !config.useSidetable &&
                             reservation.rooms[0].priceDetail &&
-                            !reservation.pointValue">
+                            !reservation.pointValue &&
+                            !formatting">
+              <table ng-class="{'extended': breakdownExtended}"
+                     ng-init="breakdownExtended = false">
 
                 <thead ng-switch="billingDetails.paymentMethod">
                   <tr class="main">
@@ -329,6 +297,17 @@
                       </a>
                     </td>
                   </tr>
+                  <tr>
+                    <th>_total_:</th>
+                    <td>
+                      <span ng-if="!reservation.pointValue">
+                        {{getCountPriceDetail('totalAfterTaxAfterPricingRules') | i18nCurrency: defaultCurrencyCode}}
+                      </span>
+                      <span ng-if="reservation.pointValue && loyaltyProgramEnabled">
+                        {{reservation.pointValue}} _points_
+                      </span>
+                    </td>
+                  </tr>
                 </thead>
               </table>
             </div>
@@ -338,30 +317,49 @@
                 <p>_reservaion_in_past_message_</p>
               </div>
 
-              <div class="extended-total"
-                   ng-if="config.reservationDetailPriceBreakdownExtended && reservation.rooms[0].priceDetail">
-
-                <span class="total">_total_:</span>
-
-                <span class="total-value"
-                      ng-if="!reservation.pointValue">
-                  {{getCountPriceDetail('totalAfterTaxAfterPricingRules') | i18nCurrency: defaultCurrencyCode}}
-                </span>
-
-                <span class="total-value"
-                      ng-if="reservation.pointValue"
-                      ng-if="loyaltyProgramEnabled">
-                  {{reservation.pointValue}} _points_
-                </span>
-
+              <div class="extended-total" ng-if="config.reservationDetailPriceBreakdownExtended && reservation.rooms[0].priceDetail">
                 <a ng-if="!config.displayPoliciesInDetails || (config.displayPoliciesInDetails && isMobile)"
                    href
                    class="booking-policies"
                    ng-click="openPoliciesInfo()">
                   _view_policies_
                 </a>
-
               </div>
+
+              <figure class="modify-buttons-container">
+
+                <img ng-if="!config.largeRoomImage && roomDetails.images[0].uri"
+                     class="RoomImage"
+                     ng-src="{{roomDetails.images[0].uri}}"
+                     alt="{{ roomDetails.name }}">
+
+                <img ng-if="config.largeRoomImage && roomDetails.images[0].uri"
+                     class="RoomImage"
+                     ng-src="{{ roomDetails.images[0].uri | cloudinaryImage : 355 : 415 : 'fill' }}"
+                     alt="{{ roomDetails.name }}">
+
+                <div ng-if="!roomDetails.images[0].uri"
+                     class="room-image-placeholder">
+                </div>
+
+                <div ng-if="reservation.status !== 'Cancelled'">
+                  <button class="button"
+                          ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()"
+                          ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}"
+                          ng-if="!reservation.isInThePast"
+                          ng-disabled="!reservation.canModify">
+                    _modify_
+                  </button>
+
+                  <button class="button-gray"
+                          ng-click="reservation.pointValue ? modifyCancelPointsReservation() : openCancelReservationDialog()"
+                          ng-class="{disabled: reservation.canCancel === false && !reservation.pointValue}"
+                          ng-if="!reservation.isInThePast"
+                          ng-disabled="!reservation.canCancel">
+                    _cancel_
+                  </button>
+                </div>
+              </figure>
             </div>
 
             <div ng-if="config.modifyButtonsAfterDetails && isMobile"
@@ -540,12 +538,6 @@
       <a href="" ng-click="auth.profile()">
         <img src="/static/images/newsletter-banner.jpg" alt="Newsletter signup">
       </a>
-    </section>
-
-    <section grid-row="" class="map-section">
-      <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
-        <hotel-location hotel-details="property" ng-if="property"></hotel-location>
-      </div>
     </section>
 
     <section grid-row

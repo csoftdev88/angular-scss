@@ -1,0 +1,309 @@
+<h3 id="reservationBillingForm" class="reservation-billing-form" ng-bind-html="'_reservation_page_billing_title_' | mainHeaderStyle"></h3>
+<reservation-billing>
+  <div ng-switch="billingDetails.paymentMethod">
+    <ul class="payment-methods">
+      <li ng-repeat="cardIcon in creditCardsIcons" ng-click="selectPaymentMethod('cc')">
+        <i class="{{cardIcon}}" ng-class="{selected: getCreditCardDetails(billingDetails.card.number).icon === cardIcon}"></i>
+      </li>
+      <li class="divider" ng-if="loyaltyProgramEnabled && canPayWithPoints"></li>
+      <li ng-click="selectPaymentMethod('point')" ng-if="loyaltyProgramEnabled && canPayWithPoints && auth.isLoggedIn()" class="points">
+        <i class="points" ng-class="{selected: billingDetails.paymentMethod == 'point'}"></i>
+      </li>
+    </ul>
+    <section class="payment-points" ng-switch-when="point">
+      <!-- Points details only for logged in user -->
+      <table ng-if="auth && auth.isLoggedIn()">
+        <tr class="current">
+          <th>_current_points_</th>
+          <td>{{pointsData.currentPoints}}</td>
+        </tr>
+        <tr class="cost">
+          <th>_points_required_booking_</th>
+          <td>-{{pointsData.pointsRequired}}</td>
+        </tr>
+        <tr class="balance">
+          <th>_balance_after_booking_</th>
+          <td ng-class="{'not-enough': pointsData.pointsAfterBooking < 0}">{{pointsData.pointsAfterBooking}}</td>
+        </tr>
+      </table>
+
+      <div ng-if="auth && !auth.isLoggedIn()">
+        <registration-call>
+          <h4>_feature_available_registered_</h4>
+          <p>_click_here_to_ <a href ng-click="auth.login()">_login_register_</a>.</p>
+        </registration-call>
+      </div>
+
+      <div class="error" ng-show="pointsData.pointsAfterBooking < 0">_not_enough_points_to_purchase_</div>
+
+    </section>
+    <section class="payment-card" ng-switch-default>
+      <form name="forms.billing" novalidate ng-submit="forms.billing.$valid && continue()" ng-class="{'ng-submitted': forms.billing.$submitted}">
+
+        <label for="form-card-number">
+          <input type="text" id="form-card-number" credit-card-check required
+            placeholder="xxxx-xxxx-xxxx-xxxx"
+            ng-model="billingDetails.card.number"
+            name="creditcard"/>
+          <span>
+            <span ng-hide="forms.billing.$submitted && forms.billing.creditcard.$error.creditCardCheck">_card_number_label_</span>
+            <span ng-show="forms.billing.$submitted && forms.billing.creditcard.$error.creditCardCheck">_card_number_error_</span>
+          </span>
+        </label>
+
+        <label for="form-name-on-card">
+          <input type="text" id="form-name-on-card" required
+            placeholder="_card_name_placeholder_"
+            ng-model="billingDetails.card.holderName"
+            name="holderName"
+            ng-pattern="$root.generalValidationPattern"/>
+            <span>
+              <span ng-hide="forms.billing.$submitted && forms.billing.holderName.$error">_card_name_label_</span>
+              <span ng-show="forms.billing.$submitted && forms.billing.holderName.$error && !forms.billing.holderName.$error.pattern">_card_name_label_</span>
+              <span ng-show="forms.billing.$submitted && forms.billing.holderName.$error.pattern">_letters_pattern_error_</span>
+            </span>
+        </label>
+
+        <div class="card-details" ng-class="{invalid: forms.billing.$submitted && !getCardExpirationDate()}">
+          <div class="expiry-title">
+            <label>_card_expiry_label_ </label>
+          </div>
+
+          <div class="card-expiry">
+            <!-- EXP MONTH -->
+            <label for="form-expires-month" class="input-left">
+              <select id="form-expires-month" name="form-expires-month"
+                required ng-model="cardExpiration.selectedMonth"
+                ng-change="onExpirationMonthChange()"
+                chosen ng-options="month.name for month in cardExpiration.months"
+                placeholder-text-single="_card_expiry_month_label_">
+                <option></option>
+              </select>
+            </label>
+
+            <!-- EXP YEAR -->
+            <label for="form-expires-year" class="input-left">
+              <select id="form-expires-year" name="form-expires-year"
+                required ng-model="cardExpiration.selectedYear"
+                ng-change="onExpirationYearChange()"
+                chosen ng-options="year for year in cardExpiration.years"
+                placeholder-text-single="_card_expiry_year_label_">
+                <option></option>
+              </select>
+            </label>
+          </div>
+
+          <div class="card-cvv">
+            <label for="form-cvv">
+              <input type="text" id="form-cvv" required
+                placeholder="_card_cvv_placeholder_"
+                ng-min="100"
+                ng-max="999"
+                ng-model="billingDetails.card.securityCode"
+                ng-pattern="/^[0-9]{3,4}$/"
+                name="cvv"/>
+              <span>_card_cvv_label_</span>
+            </label>
+            <span class="help" ng-click="!bookingConfig.ccvAsTooltip ? openCCVInfo() : undefined">?<span class="tooltiptext" ng-if="!isMobile && bookingConfig.ccvAsTooltip">_cvv_modal_desc_</span></span>
+          </div>
+        </div>
+
+        <label for="form-guest-address" class="input-checkbox">
+          <input type="checkbox" id="form-guest-address"
+            ng-model="billingDetails.useGuestAddress" ng-true-value="{{bookingConfig.billingAddress.reverseCheckboxLogic ? 'false' : 'true'}}" ng-false-value="{{bookingConfig.billingAddress.reverseCheckboxLogic ? 'true' : 'false'}}"/>
+          _use_guest_address_label_
+        </label>
+
+        <div ng-if="!billingDetails.useGuestAddress && !uiConfig.reservations.tempHackBillingFormReorder">
+          <label for="address">
+            <input type="text"
+                   id="address"
+                   required
+                   placeholder="_address_placeholder_"
+                   ng-model="billingDetails.address"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="address"/>
+              <span>
+                <span ng-hide="forms.billing.$submitted && forms.billing.address.$error">_address_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.address.$error.pattern">_address_pattern_error_</span>
+              </span>
+          </label>
+
+          <label for="city" class="input-left">
+            <input type="text" id="city" required
+              placeholder="_city_placeholder_"
+              ng-model="billingDetails.city"
+              ng-pattern="$root.generalValidationPattern"
+              name="city"/>
+              <span>
+                <span ng-hide="forms.billing.$submitted && forms.billing.city.$error">_city_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.city.$error.pattern">_city_pattern_error_</span>
+              </span>
+          </label>
+
+          <label for="state" class="input-right">
+            <input type="text" id="state" ng-required="bookingConfig.billingStateRequired"
+              placeholder="_state_placeholder_"
+              ng-model="billingDetails.stateProvince"
+              ng-pattern="$root.generalValidationPattern"
+              name="state"/>
+              <span>
+                <span ng-hide="forms.billing.$submitted && forms.billing.state.$error">_state_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.state.$error.pattern">_state_pattern_error_</span>
+              </span>
+          </label>
+
+          <label for="postal-code" class="input-left">
+            <input type="text"
+                   id="postal-code"
+                   required
+                   placeholder="_postcode_placeholder_"
+                   ng-model="billingDetails.zip"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="zip"/>
+            <span>
+              <span ng-hide="forms.billing.$submitted && forms.billing.zip.$error">_postcode_label_</span>
+              <span ng-show="forms.billing.$submitted && forms.billing.zip.$error.pattern">_postcode_pattern_error_</span>
+            </span>
+          </label>
+
+          <label for="telephone" class="input-right">
+            <!--<input type="text" ng-intl-tel-input id="telephone"
+              placeholder="_phone_placeholder_"
+              data-default-country="ca"
+              data-preferred-countries="ca, us, gb"
+              ng-model="billingDetails.phone"
+              placeholder="Phone"/>-->
+              <input type="tel"
+                     id="telephone"
+                     placeholder="_phone_placeholder_"
+                     ng-model="billingDetails.phone"
+                     ng-pattern="$root.generalValidationPattern"
+                     name="zip"/>
+            <span>_phone_label_</span>
+          </label>
+
+          <label for="country" ng-if="profileCountries">
+            <select type="text"
+                    id="country"
+                    required
+                    placeholder="_country_label_"
+                    placeholder-text-single="_country_label_"
+                    ng-model="billingDetails.country"
+                    chosen
+                    ng-options="country.id as country.name for country in profileCountries">
+            </select>
+            <span>_country_label_</span>
+          </label>
+        </div>
+
+        <div ng-if="!billingDetails.useGuestAddress && uiConfig.reservations.tempHackBillingFormReorder">
+          <label for="address">
+            <input type="text"
+                   id="address"
+                   required
+                   placeholder="_address_placeholder_"
+                   ng-model="billingDetails.address"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="address"/>
+            <span>
+                <span ng-hide="forms.billing.$submitted && forms.billing.address.$error">_address_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.address.$error && !forms.billing.address.$error.pattern">_address_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.address.$error.pattern">_address_pattern_error_</span>
+              </span>
+          </label>
+
+          <label for="company" ng-if="bookingConfig.includeCompanyForBilling">
+            <input type="text"
+                   id="company"
+                   placeholder="_company_placeholder_"
+                   ng-model="billingDetails.company"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="company"/>
+            <span>
+                <span ng-hide="forms.billing.$submitted && forms.billing.company.$error">_company_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.company.$error && !forms.billing.company.$error.pattern">_company_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.company.$error.pattern">_company_pattern_error_</span>
+              </span>
+          </label>
+
+          <label for="postal-code" class="input-left">
+            <input type="text"
+                   id="postal-code"
+                   required
+                   placeholder="_postcode_placeholder_"
+                   ng-model="billingDetails.zip"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="zip"/>
+            <span>
+              <span ng-hide="forms.billing.$submitted && forms.billing.zip.$error">_postcode_label_</span>
+              <span ng-show="forms.billing.$submitted && forms.billing.zip.$error && !forms.billing.zip.$error.pattern">_postcode_label_</span>
+              <span ng-show="forms.billing.$submitted && forms.billing.zip.$error.pattern">_postcode_pattern_error_</span>
+            </span>
+          </label>
+
+          <label for="city"class="input-right">
+            <input type="text"
+                   id="city"
+                   required
+                   placeholder="_city_placeholder_"
+                   ng-model="billingDetails.city"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="city"/>
+            <span>
+                <span ng-hide="forms.billing.$submitted && forms.billing.city.$error">_city_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.city.$error && !forms.billing.city.$error.pattern">_city_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.city.$error.pattern">_city_pattern_error_</span>
+              </span>
+          </label>
+
+          <label for="state">
+            <input type="text"
+                   id="state"
+                   ng-required="bookingConfig.billingStateRequired"
+                   placeholder="_state_placeholder_"
+                   ng-model="billingDetails.stateProvince"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="state"/>
+            <span>
+                <span ng-hide="forms.billing.$submitted && forms.billing.state.$error">_state_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.state.$error && !forms.billing.state.$error.pattern">_state_label_</span>
+                <span ng-show="forms.billing.$submitted && forms.billing.state.$error.pattern">_state_pattern_error_</span>
+              </span>
+          </label>
+
+          <label for="country" ng-if="profileCountries">
+            <select type="text"
+                    id="country"
+                    required
+                    placeholder="_country_label_"
+                    placeholder-text-single="_country_label_"
+                    ng-model="billingDetails.country"
+                    chosen ng-options="country.id as country.name for country in profileCountries">
+            </select>
+            <span>_country_label_</span>
+          </label>
+
+          <label for="telephone">
+            <!--<input type="text" ng-intl-tel-input id="telephone"
+              placeholder="_phone_placeholder_"
+              data-default-country="ca"
+              data-preferred-countries="ca, us, gb"
+              ng-model="billingDetails.phone"
+              placeholder="Phone"/>-->
+            <input type="tel"
+                   id="telephone"
+                   placeholder="_phone_placeholder_"
+                   ng-model="billingDetails.phone"
+                   ng-pattern="$root.generalValidationPattern"
+                   name="zip"/>
+            <span>_phone_label_</span>
+          </label>
+
+        </div>
+
+        <input type="submit" id="submit" value="_submit_" ng-hide="true" />
+      </form>
+    </section>
+  </div>
+</reservation-billing>

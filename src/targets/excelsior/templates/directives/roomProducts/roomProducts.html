@@ -9,7 +9,10 @@
 </room-ota-products>
 
 <ul ng-if="products">
-  <div ng-if="!isRequestedRateReturned" class="msg-box msg-rate">_rate_not_available_</div>
+  <!--This commented out div can be used to show a message when the requested rates are not available-->
+  <!--Pete decided to remove this for now-->
+  <!--<div ng-if="!isRequestedRateReturned" class="msg-box msg-rate">_rate_not_available_</div>-->
+
   <!-- HIGHLIGHTED/MEMBERS ONLY PRODUCTS -->
   <li class="product-container"
       ng-class="{'is-highlighted': product.highlighted || ($first && !product.memberOnly && settings.highlightFirstRate),
@@ -20,65 +23,70 @@
                                  product.price.totalBaseAfterPricingRules < product.price.originalPrice}"
       ng-repeat="product in products | limitTo: getRatesLimit()">
 
-    <!--For LBE all products are members only-->
-    <!--<div class="list-item-highlight-label member-ribbon"-->
-         <!--ng-if="product.memberOnly">-->
-      <!--_members_only_rate_-->
-    <!--</div>-->
+    <!--In the mobile layout we want the whole row to be clickable-->
+    <div class="mobile-click-handler"
+         ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()"
+         ng-click="auth.login()">
+    </div>
+    <div class="mobile-click-handler"
+      ng-show="!product.memberOnly || isUserLoggedIn() || isModifyingAsAnonymous()"
+      ng-click="selectProduct(room.code, product.code, null, null, product.upSell, $event)">
+  </div>
 
     <div class="list-item-highlight-label highlight-ribbon"
          ng-if="product.highlighted">
       _most_booked_package_
     </div>
 
-    <div class="rate-description">
-      <div class="ProductInfo">
-        <h4>
-          <span ng-bind-html="product.name | mainHeaderStyle"></span>
-          <a class="info"
-             href
+    <div class="description-and-points-earned">
+      <div class="rate-description">
+        <div class="ProductInfo">
+          <h4>
+            <span ng-bind-html="product.name | mainHeaderStyle"></span>
+            <span class="original-price-mobile"
+                  ng-if="product.price.formatting === 'slashThrough' &&
+                         settings.showSlashThrough === true &&
+                         product.price.totalBaseAfterPricingRules < product.price.originalPrice">
+              {{ getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode }}
+        </span>
+            <a class="info"
+               href
+               ng-click="openProductDetailsDialog(product)"
+               ng-if="settings.showRateInfoIcon">
+            </a>
+
+            <p class="noPointsAwarded"
+               ng-if="isUserLoggedIn() && !product.productAwardPoints && loyaltyProgramEnabled">
+              _no_points_rate_desc_
+            </p>
+          </h4>
+
+          <a href=""
+             class="tagline"
+             ng-if="settings.showTagline && product.tagline && product.tagline !== ''"
              ng-click="openProductDetailsDialog(product)"
-             ng-if="settings.showRateInfoIcon">
+             ng-bind-html="product.tagline">
           </a>
 
-          <p class="noPointsAwarded"
-             ng-if="isUserLoggedIn() && !product.productAwardPoints && loyaltyProgramEnabled">
-            _no_points_rate_desc_
+          <p class="full-description"
+             ng-if="settings.showDescription"
+             ng-bind-html="sanitize(product.descriptionShort || product.description)">
           </p>
-        </h4>
 
-        <a href=""
-           class="tagline"
-           ng-if="settings.showTagline && product.tagline && product.tagline !== ''"
-           ng-click="openProductDetailsDialog(product)"
-           ng-bind-html="product.tagline">
-        </a>
+          <inclusions ng-if="settings.showInclusions && product.inclusions"
+                      class="product-inclusions"
+                      inclusions="product.inclusions">
+          </inclusions>
 
-        <p class="full-description"
-           ng-if="settings.showDescription"
-           ng-bind-html="sanitize(product.descriptionShort || product.description)">
-        </p>
-
-        <inclusions ng-if="settings.showInclusions && product.inclusions"
-                    class="product-inclusions"
-                    inclusions="product.inclusions">
-        </inclusions>
-
-        <a class="info mobile"
-           href
-           ng-click="openProductDetailsDialog(product)">
-          _view_details_
-        </a>
+        </div>
       </div>
-    </div>
 
-    <div ng-if="product.price.pointsEarned" class="PointsEarned">
-    <!--<div class="PointsEarned">-->
-      <i class="star-icon fa fa-star-o"></i>
-      <div class="text-content">
-        <span class="earn-points">_earn_ {{getValuePer(product.price.pointsEarned, true).toFixed(0)}} _points_</span>
-        <!--<span class="earn-points">_earn_ 150 _points_</span>-->
-        <span class="with-this-booking">_with_this_booking_</span>
+      <div ng-if="product.price.pointsEarned" class="PointsEarned">
+        <i class="star-icon fa fa-star-o"></i>
+        <div class="text-content">
+          <span class="earn-points">_earn_ {{getValuePer(product.price.pointsEarned, true).toFixed(0)}} _points_</span>
+          <span class="with-this-booking">_with_this_booking_</span>
+        </div>
       </div>
     </div>
 
@@ -98,12 +106,15 @@
                     isUserLoggedIn() &&
                     loyaltyProgramEnabled &&
                     product.allowPointsBooking">
-            <span class="value demotest">
+            <span class="or-points"> _lowercase_or_</span>
+            <span class="value">
               {{ getValuePer(product.price.pointsRequired, true).toFixed(0) }}
             </span>
-            _points_ _lowercase_or_
+            <div class="points-unit">
+              _points_
+            </div>
+            <span class="or-money"> _lowercase_or_</span>
           </div>
-
           <p class="price-form"
              ng-if="room.priceFrom"
              itemprop="priceRange">
@@ -158,6 +169,11 @@
         </span>
       </p>
     </pricing-details>
+
+    <!--This is in fact a fake button since the click handler is on the whole rate widget-->
+    <div class="mobile-button">
+      <i class="fa fa-angle-right"></i>
+    </div>
   </li>
 
 

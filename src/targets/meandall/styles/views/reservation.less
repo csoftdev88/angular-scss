@@ -60,7 +60,6 @@ main.reservation-page {
     aside {
       box-sizing: border-box;
       border: solid 2px black;
-      padding: 10px;
       &:before {
         display: none;
       }
@@ -99,7 +98,7 @@ main.reservation-page {
     }
     input[required] ~ span,
     select[required] ~ span {
-      &:before {
+      &:after {
         content: '*';
         display: inline;
       }
@@ -163,6 +162,11 @@ main.reservation-page {
         }
       }
     }
+    .continue-btn {
+      margin-top: 20px;
+      margin-right: 5px;
+      float: right;
+    }
     .detail-links {
       a {
         text-decoration: none;
@@ -173,11 +177,19 @@ main.reservation-page {
       }
     }
     .room-data {
-      a {
-        color: #000;
+      background-color: @c-black;
+      color: @c-white;
+      padding-bottom: 10px;
+      .policies-link {
+        float: right;
+        color: @c-white;
+        padding: 15px 15px 0 0;
         &:hover {
-          color: #000;
+          color: @c-white;
         }
+      }
+      a {
+        color: @c-light-grey;
       }
       .room-data-details {
         padding: 0 15px;
@@ -185,8 +197,8 @@ main.reservation-page {
           display: none;
         }
         p.desc {
-          color: @c-secondary;
-          font-size: 24px;
+          color: @c-white;
+          font-size: @size-3;
           font-weight: normal;
           margin: 0;
           line-height: 28px;
@@ -211,14 +223,13 @@ main.reservation-page {
         line-height: 1em;
         text-transform: capitalize;
         font-weight: normal;
-        font-size: @size-0;
+        font-size:@size-4;
         font-family: @ff-default;
       }
       >h4 {
         padding: 15px 15px 0 15px;
-        color: @c-secondary;
         font-family: @ff-default;
-        font-size: 24px;
+        font-size: @size-4;
         font-weight: normal;
         margin: 0;
         line-height: 28px;
@@ -321,18 +332,25 @@ main.reservation-page {
         color: @c-primary;
         th,
         td {
-          padding: 5px;
+          padding: 5px 15px 5px 15px;
         }
       }
       tr.breakdown-toggle {
         td {
-          padding: 20px 0 0 0;
+          padding: 20px 10px 10px 0;
           font-size: @size--1;
         }
       }
     }
   }
   reservation-billing {
+    .payment-methods {
+      margin-bottom: 20px;
+      i {
+        width: 54px;
+        height: 35px;
+      }
+    }
     >div {
       margin: 0;
       padding: 0;
@@ -353,6 +371,9 @@ main.reservation-page {
         background: @c-primary;
         color: @c-secondary;
       }
+    }
+    .input-checkbox {
+      font-size: @size--2;
     }
     .payment-card form .card-details .card-cvv {
       .help {
@@ -498,6 +519,7 @@ reservation-hotel-details {
   .tables {
     line-height: 1.6em;
     > div {
+      width: 100%;
       @media print {
         width:100%;
       }
@@ -523,14 +545,11 @@ reservation-hotel-details {
       }
     }
     .data {
-      width: 45%;
-      float: right;
       margin-top: 0;
       display: block;
       border: 2px solid @c-secondary;
       box-sizing: border-box;
-      padding: 15px 20px 40px 20px;
-      border-bottom: 0px none;
+      padding: 15px 20px 15px 20px;
       .viewport-mobile & {
         width: 100%;
         float: none;
@@ -564,7 +583,6 @@ reservation-hotel-details {
           }
           .adults,
           .children {
-            top: 40px;
             position: relative;
           }
         }
@@ -572,7 +590,6 @@ reservation-hotel-details {
     }
     .extended-charges,
     .charges {
-      width: 45%;
       float: right;
       margin-top: 0;
       box-sizing: border-box;
@@ -683,14 +700,6 @@ reservation-hotel-details {
         font-weight: normal;
         text-transform: capitalize;
       }
-      .total,
-      .total-value {
-        position: relative;
-        top: 33px;
-      }
-      .tax {
-        margin: -33px 0 33px 0;
-      }
     }
     .modify-buttons {
       text-align: center;
@@ -715,9 +724,6 @@ reservation-hotel-details {
     }
     .booking-details,
     .room-types {
-      float: left;
-      width: 55%;
-      padding: 0 20px;
       box-sizing: border-box;
       color: @c-secondary;
       a {
@@ -740,6 +746,7 @@ reservation-hotel-details {
         }
       }
       h3 {
+        font-family: @ff-bold;
         font-size: @heading-2-size;
         font-weight: normal;
         margin-bottom: 15px;
@@ -752,7 +759,7 @@ reservation-hotel-details {
       h4 {
         font-family: @ff-bold;
         font-size: @size-0;
-        text-transform: uppercase;
+        text-transform: capitalize;
         span {
           .viewport-mobile & {
             display: block;
@@ -933,6 +940,45 @@ reservation-hotel-details {
 }
 
 reservation-finished {
+  .tables {
+    .data,
+    .extended-charges {
+      width: 100%;
+      float: none;
+    }
+    .extended-charges {
+      padding-bottom: 0;
+      background-color: #000;
+      color: #fff;
+      table {
+        margin-top: 0;
+      }
+    }
+    .modify-buttons-container {
+      padding-top: 20px;
+      width: 100%;
+      float: none;
+    }
+  }
+}
+reservation-hotel-details {
+  .tables {
+    .charges {
+      background-color: #000;
+      color: #fff;
+      padding-top: 5px;
+    }
+  }
+}
+
+.extended-total {
+  text-align: right;
+  a {
+    color: #000;
+  }
+}
+
+reservation-finished {
   margin-top: 0;
   hr {
     display: none;
@@ -941,6 +987,16 @@ reservation-finished {
     margin-bottom:0;
     @media print {
       padding-bottom:0;
+    }
+  }
+}
+
+profile-page,
+register-page {
+  .feedback-msg {
+    &.error {
+      color: @c-white !important;
+      font-style: italic;
     }
   }
 }

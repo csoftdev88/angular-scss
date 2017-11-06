@@ -1,6 +1,6 @@
 {
   "name": "mobius",
-  "version": "4.13.2",
+  "version": "4.13.3",
   "private": true,
   "scripts": {
     "server.sandman": "NODE_ENV=development node server.js --tenant=sandman --environment=integration",
@@ -10,6 +10,7 @@
     "server.excelsior": "NODE_ENV=development node server.js --tenant=excelsior --environment=integration",
     "server.national": "NODE_ENV=development node server.js --tenant=national --environment=integration",
     "server.lindner": "NODE_ENV=development node server.js --tenant=lindner --environment=integration",
+    "server.lethbridge": "NODE_ENV=development node server.js --tenant=lethbridge --environment=integration",
     "watch.sandman": "grunt development --tenant=sandman --environment=integration",
     "watch.sutton": "grunt development --tenant=suttonLive --environment=integration",
     "watch.meandall": "grunt development --tenant=meandall --environment=integration",
@@ -17,6 +18,7 @@
     "watch.excelsior": "grunt development --tenant=excelsior --environment=integration",
     "watch.national": "grunt development --tenant=national --environment=integration",
     "watch.lindner": "grunt development --tenant=lindner --environment=integration",
+    "watch.lethbridge": "grunt development --tenant=lethbridge --environment=integration",
     "build.sandman-live": "NODE_ENV=production grunt production --tenant=sandman --environment=live",
     "build.sutton-live": "NODE_ENV=production grunt production --tenant=suttonLive --environment=live",
     "build.meandall-live": "NODE_ENV=production grunt production --tenant=meandall --environment=live",
@@ -24,6 +26,7 @@
     "build.excelsior-live": "NODE_ENV=production grunt production --tenant=excelsior --environment=live",
     "build.national-live": "NODE_ENV=production grunt production --tenant=national --environment=live",
     "build.lindner-live": "NODE_ENV=production grunt production --tenant=lindner --environment=live",
+    "build.lethbridge-live": "NODE_ENV=production grunt production --tenant=lethbridge --environment=live",
     "build.sandman-integration": "NODE_ENV=production grunt production --tenant=sandman --environment=integration",
     "build.sutton-integration": "NODE_ENV=production grunt production --tenant=suttonLive --environment=integration",
     "build.meandall-integration": "NODE_ENV=production grunt production --tenant=meandall --environment=integration",
@@ -31,13 +34,15 @@
     "build.excelsior-integration": "NODE_ENV=production grunt production --tenant=excelsior --environment=integration",
     "build.national-integration": "NODE_ENV=production grunt production --tenant=national --environment=integration",
     "build.lindner-integration": "NODE_ENV=production grunt production --tenant=lindner --environment=integration",
+    "build.lethbridge-integration": "NODE_ENV=production grunt production --tenant=lethbridge --environment=integration",
     "build.sandman-staging": "NODE_ENV=production grunt production --tenant=sandman --environment=staging",
     "build.sutton-staging": "NODE_ENV=production grunt production --tenant=suttonLive --environment=staging",
     "build.meandall-staging": "NODE_ENV=production grunt production --tenant=meandall --environment=staging",
     "build.stGiles-staging": "NODE_ENV=production grunt production --tenant=stGiles --environment=staging",
     "build.excelsior-staging": "NODE_ENV=production grunt production --tenant=excelsior --environment=staging",
     "build.national-staging": "NODE_ENV=production grunt production --tenant=national --environment=staging",
-    "build.lindner-staging": "NODE_ENV=production grunt production --tenant=lindner --environment=staging"
+    "build.lindner-staging": "NODE_ENV=production grunt production --tenant=lindner --environment=staging",
+    "build.lethbridge-staging": "NODE_ENV=production grunt production --tenant=lethbridge --environment=staging"
   },
   "engines": {
     "node": "=0.10.22"

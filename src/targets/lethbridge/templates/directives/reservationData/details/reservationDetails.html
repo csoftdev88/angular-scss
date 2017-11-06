@@ -1,0 +1,141 @@
+<reservation-hotel-details ng-class="{'inactive': !reservation.active}">
+
+  <section grid-row
+           class="reservation-summary"
+           ng-click="$state.go('reservationDetail', {reservationCode: reservation.reservationCode, showActionButtons: true})">
+
+    <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
+
+      <header ng-if="!config.hideHeader">
+
+        <h1>{{ property.nameLong }}</h1>
+
+        <div class="reference"
+             ng-class="{'reference-visible': displayConfirmationNumber}">
+
+          <p ng-if="config.displayConfirmationNumberLabel">_booking_reference_:</p>
+          <p><strong>{{ reservation.reservationCode }}</strong></p>
+        </div>
+
+        <div class="booked">
+          _booked_: {{reservation.bookingDate | dateTime: 'D MMM YYYY'}}
+        </div>
+      </header>
+
+      <div class="tables">
+        <figure>
+          <img ng-if="!config.largePropertyImage"
+               ng-src="{{property.images[0].uri | cloudinaryImage : 320 : 160 : 'fill'}}"
+               err-source="/static/images/hotel.jpg"
+               alt="{{property.nameShort}}">
+
+          <img ng-if="config.largePropertyImage"
+               ng-src="{{property.images[0].uri | cloudinaryImage : 355 : 415 : 'fill'}}"
+               err-source="/static/images/hotel.jpg"
+               alt="{{property.nameShort}}">
+        </figure>
+
+        <div>
+          <div class="room-types">
+
+            <span class="chain-logo {{ property.chainCode.toLowerCase() }}"></span>
+            <h1 ng-if="config.displayPropertyNameInDetails">
+              {{ property.nameLong }}
+            </h1>
+
+            <h3>
+              {{ reservation.rooms[0].roomTypeName }}
+              <a href ng-if="reservation.rooms.length > 1">
+                + {{reservation.rooms.length - 1}} other
+                <ng-pluralize count="reservation.rooms.length"
+                              when="{'2': 'room', 'other': 'rooms'}">
+                </ng-pluralize>
+              </a>
+            </h3>
+
+            <h4 ng-bind-html="reservation.rooms[0].productName"></h4>
+            <h4 ng-if="config.displayConfirmationNumberInDetails">
+              _booking_reference_: <span>{{ reservation.reservationCode }}</span>
+            </h4>
+            <span ng-if="config.displayBookingDateInDetails"
+                  class="booking-date">
+              _booked_:
+              <span>{{ reservation.bookingDate | dateTime }}</span>
+            </span>
+            <a ng-if="config.displayPoliciesInDetails && !isMobile"
+               href
+               ng-click="openPoliciesInfo()">
+              _view_policies_
+            </a>
+
+          </div>
+
+          <table class="data">
+            <tbody>
+              <tr>
+                <th>_check_in_:</th>
+                <td>{{reservation.arrivalDate | dateTime}}</td>
+                <th class="adults">_adults_:</th>
+                <td class="adults">{{getAdultsCount()}}</td>
+              </tr>
+              <tr>
+                <th class="check-out">_check_out_:</th>
+                <td class="check-out">{{reservation.departureDate | dateTime}}</td>
+                <th class="children">_children_:</th>
+                <td class="children">{{getChildrenCount()}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="charges" ng-switch="!!reservation.pointValue">
+            <tbody ng-switch-when="false">
+              <tr>
+                <!-- Do we know the payment method? -->
+                <!-- <th>Room Charges: {{reservation.paymentMethod}}</th> -->
+                <th>_room_charges_: </th>
+                <td>{{getPrice() | i18nCurrency: currencyCode}}</td>
+                <th rowspan="3" class="total">_total_:</th>
+
+                <td rowspan="3" class="total-value">
+                  {{getPriceAfterTax() | i18nCurrency: currencyCode}}
+                </td>
+              </tr>
+
+              <!-- Additional taxes -->
+              <tr>
+                <th class="tax">_taxes_:</th>
+                <td class="tax">{{getTax() | i18nCurrency: currencyCode}}</td>
+              </tr>
+
+              <!-- Discount -->
+              <tr ng-if="reservation.discount">
+                <th>_discount_:</th>
+                <td>{{reservation.discount | i18nCurrency: currencyCode}}</td>
+              </tr>
+            </tbody>
+
+            <tbody ng-switch-when="true">
+              <tr>
+                <th rowspan="3" class="total">_total_:</th>
+                <td rowspan="3" class="total-value">
+                  <ng-pluralize count="reservation.pointValue"
+                                when="{'1': '{} _point_', 'other': '{} _points_'}">
+                  </ng-pluralize>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <a ng-if="!config.displayPoliciesInDetails || (config.displayPoliciesInDetails && isMobile)"
+             class="policy-link"
+             href
+             ng-click="openPoliciesInfo()">
+            _view_policies_
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+</reservation-hotel-details>

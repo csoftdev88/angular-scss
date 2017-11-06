@@ -8,6 +8,43 @@ profile-page, register-page {
   .profile-address2 {
     display: none;
   }
+  .mandatory-field {
+    &::after {
+      content: '*';
+      display: inline;
+    }
+  }
+  .white-border {
+    cursor: pointer;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #fff;
+    .fa {
+      float: right;
+      margin-right: 20px;
+    }
+  }
+  div {
+    &.white-border {
+      margin-bottom: 20px;
+    }
+  }
+  .expanded {
+    border-bottom: 0 none;
+  }
+  form {
+    fieldset {
+      form-element {
+        .error {
+          color: #fff;
+          font-style: italic;
+        }
+      }
+    }
+  }
+  .error {
+    color: #fff;
+    font-style: italic;
+  }
 }
 
 register-page {
@@ -15,12 +52,6 @@ register-page {
     button-submit {
       background: #fff;
       color: #000;
-    }
-    .mandatory-field {
-      &::before {
-        content: '*';
-        display: inline;
-      }
     }
   }
 }

@@ -101,6 +101,17 @@
         $scope.reservation.packages = $scope.reservation.packageItemCodes || []; // API workaround
         var defaultRoom = $scope.reservation.rooms[0];
 
+        if ($scope.reservation.formatting === 'suppressRate') {
+          $scope.formatting = true;
+        } else {
+          _.each($scope.reservation.rooms, function (room) {
+            if (room.formatting === 'suppressRate') {
+              $scope.formatting = true;
+              return false;
+            }
+          });
+        }
+
         $scope.openPoliciesInfo = function() {
           var products = $scope.reservation.rooms.map(function(room) {
             var policies = {};

@@ -66,7 +66,6 @@ angular.module('mobiusApp.config', [])
   'infinitiApeironTracking': {
     'development': {
       'enable':false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sutton-development',
@@ -75,7 +74,6 @@ angular.module('mobiusApp.config', [])
     },
     'integration': {
       'enable':false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sutton-integration',
@@ -84,7 +82,6 @@ angular.module('mobiusApp.config', [])
     },
     'staging': {
       'enable':false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sutton-staging',
@@ -93,7 +90,6 @@ angular.module('mobiusApp.config', [])
     },
     'uat': {
       'enable': false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sutton-staging',
@@ -102,7 +98,6 @@ angular.module('mobiusApp.config', [])
     },
     'live': {
       'enable':false,
-      'enableDuplication': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
       'id':'sutton-live',
@@ -474,7 +469,7 @@ angular.module('mobiusApp.config', [])
         // Room Rates
         'rates': {
           'bookNowButtonText': 'Select', //This config value doesn't appear to be used anywhere, but will retain for now anyway.
-          'ratesPerRoomOnDesktop': 3,
+          'ratesPerRoomOnDesktop': 5,
           'ratesPerRoomOnMobile': 2,
           'showTagline': true,
           'showDescription': true,

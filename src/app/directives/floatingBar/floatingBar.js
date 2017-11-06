@@ -58,9 +58,9 @@ angular.module('mobiusApp.directives.floatingBar', [
 
         scope.closeWidget = function() {
           scope.isCollapsed = true;
+          scope.setActive(false, false);
           if (Settings.engine === 'loyalty') {
             $('floating-bar').css('display', 'none');
-            scope.setActive(false, false);
           }
         };
 

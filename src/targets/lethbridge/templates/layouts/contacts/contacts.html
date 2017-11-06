@@ -1,0 +1,175 @@
+<hero-slider content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
+
+<breadcrumbs stickable="main-header"></breadcrumbs>
+
+<main class="grid-wrapper">
+
+  <div class="preloader" ng-show="preloader.visible"></div>
+
+  <contacts-page grid-row id="jsForm" class="contact-page">
+
+    <h1 grid="12" ng-bind-html="'_contact_page_title_' | mainHeaderStyle"></h1>
+
+    <form name="form" ng-submit="form.$valid" grid="{{viewSettings.formGrid}}" ng-show="!isSent">
+
+      <div ng-if="viewSettings.hasDescription">
+        <p>_contact_page_desc_</p>
+        <hr>
+      </div>
+
+      <fieldset>
+        <form-element>
+          <label for="name" class="input-left">
+            <input type="text" id="name" required
+              placeholder="_name_placeholder_"
+              ng-model="formData.fields.name" ng-pattern="/^([ \u00c0-\u01ffa-zA-Z'\-.])+$/"
+              name="name"
+              ng-class="{'ng-submitted': form.$submitted && (form.name.$error.required || form.name.$error.pattern)}"/>
+            <span>_name_label_</span>
+          </label>
+        </form-element>
+
+        <form-element ng-if="viewSettings.includePhoneField">
+          <label for="phone" class="input-left">
+            <input type="text" id="phone" required
+              placeholder="_phone_placeholder_"
+              ng-model="formData.fields.phone"
+              name="phone"
+              ng-class="{'ng-submitted': form.$submitted && (form.phone.$error.required)}"
+              ng-pattern="$root.generalValidationPattern"/>
+            <span>
+              <span ng-hide="form.phone.$error">_phone_placeholder_</span>
+              <span ng-show="form.phone.$error.pattern">_letters_pattern_error_</span>
+            </span>
+          </label>
+        </form-element>
+
+        <form-element>
+          <label for="email" class="input-left">
+            <input type="email" id="email" required
+              placeholder="_email_placeholder_"
+              ng-model="formData.fields.email" email-check
+              name="email"
+              ng-class="{'ng-submitted': form.$submitted && form.email.$error.required}"/>
+            <span>
+              <span ng-hide="form.$submitted && form.email.$error.emailCheck">_email_label_</span>
+              <span ng-show="form.$submitted && form.email.$error.emailCheck">_invalid_email_message_</span>
+            </span>
+          </label>
+        </form-element>
+
+        <form-element ng-if="subjectOptions">
+          <label for="subject" class="input-left">
+
+              <select name="subject"
+                      required ng-model="formData.fields.subject"
+                      disable-search="true"
+                      chosen ng-options="option.key for option in subjectOptions"
+                      placeholder-text-single="_subject_placeholder_">
+
+              </select>
+            <span>_subject_label_</span>
+          </label>
+        </form-element>
+      </fieldset>
+
+      <fieldset>
+        <form-element>
+          <label for="message" class="input-left">
+
+            <textarea id="message" ng-model="formData.fields.message" placeholder="_message_placeholder_"
+              required name="message"
+              ng-class="{'ng-submitted': form.$submitted && form.message.$error.required}"
+              ng-pattern="$root.generalValidationPattern"
+              ></textarea>
+              <span>
+                <span ng-hide="form.message.$error">_message_label_</span>
+                <span ng-show="form.message.$error.pattern">_letters_pattern_error_</span>
+              </span>
+          </label>
+        </form-element>
+      </fieldset>
+
+      <div>
+        <label class="form-errors" ng-if="form.$invalid && form.$submitted">
+          _missing_fields_message_
+        </label>
+      </div>
+
+      <div>
+        <button-submit role="button" tabindex="0" ng-click="sendForm()">_send_</button-submit>
+      </div>
+      <div ng-show="showErrorMsg">_form_send_error_</div>
+    </form>
+
+    <div grid="{{viewSettings.formGrid}}" class="message-sent" id="message-sent" ng-if="isSent">
+      <h1>_form_send_success_</h1>
+      <p>_form_send_success_desc_</p>
+    </div>
+
+
+    <contact-list grid="{{viewSettings.contactDetailsGrid}}" ng-if="viewSettings.hasContactDetails && !viewSettings.showStaticContactInfo">
+      <contact-item ng-repeat="contact in chain.contacts">
+        <h2>{{contact.name}}</h2>
+        <p><a href="tel:{{contact.tel}}">{{contact.tel}}</a></p>
+        <p><a href="mailto:{{contact.email}}">{{contact.email}}</a></p>
+      </contact-item>
+    </contact-list>
+
+    <contact-list grid="{{viewSettings.contactDetailsGrid}}" ng-if="viewSettings.hasContactDetails && viewSettings.showStaticContactInfo">
+      <contact-item>
+        <div>
+          <i class="fa fa-phone"></i>
+          <strong>Telephone:</strong><br/>
+          <span>Canada and USA only: (1 800)726-3626</span><br/>
+          <span>| (1 800)SANDMAN</span><br/>
+          <span>Direct: (604)276-1160</span>
+        </div>
+      </contact-item>
+      <contact-item>
+        <div>
+          <i class="fa fa-envelope"></i>
+          <strong>Email:</strong><br/>
+          <span>Group Inquiries:</span><br/>
+          <span><a href="mailto:groups@sandman.ca">groups@sandman.ca</a></span><br/>
+          <span>Meetings &amp; Banquets:</span><br/>
+          <span><a href="mailto:meetings@sandman.ca">meetings@sandman.ca</a></span><br/>
+          <span>Request Technical Support:</span><br/>
+          <span><a href="mailto:it@sandman.ca">it@sandman.ca</a></span><br/>
+          <span>Provide Comments &amp; Feedback:</span><br/>
+          <span><a href="mailto:guestrelations@sandman.ca">guestrelations@sandman.ca</a></span><br/>
+          <span>Request Information:</span><br/>
+          <span><a href="mailto:info@sandman.ca">info@sandman.ca</a></span><br/>
+          <span>Sponsorship Opportunities:</span><br/>
+          <span><a href="mailto:marketing@sandman.ca">marketing@sandman.ca</a></span><br/>
+        </div>
+      </contact-item>
+      <contact-item>
+        <div>
+          <i class="fa fa-home"></i>
+          <strong>Address:</strong>
+          <address>
+            <span>Head Office - Sandman Hotel Group</span><br/>
+            <span>310 - 1755 West Broadway</span><br/>
+            <span>Vancouver, British Columbia</span><br/>
+            <span>Canada V6J 4S5</span><br/>
+            <span>Tel: (604)730-6600</span><br/>
+            <span>Fax: (604)730-4645</span>
+          </address>
+        </div>
+      </contact-item>
+    </contact-list>
+
+    <section ng-if="details && viewSettings.hasMap">
+        <div grid="12">
+            <hotel-location id="jsLocation" hotel-details="details"></hotel-location>
+        </div>
+    </section>
+
+  </contacts-page>
+
+  <!--<scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>-->
+</main>
+
+
+<div ng-include="'layouts/siteMap.html'" class="site-map" ng-if="footerConfig.displaySitemap"></div>
