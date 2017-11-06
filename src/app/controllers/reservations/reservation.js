@@ -37,6 +37,25 @@ angular.module('mobius.controllers.reservation', [])
   $scope.profile.userPassword = '';
   $scope.profile.userPasswordConfirmation = '';
 
+  // Flow type controls whether we show the login modal
+  $scope.flowType = {
+    showLogin: false
+  };
+  $scope.showLoginModal = function () {
+    $scope.flowType.showLogin = true;
+    window.dispatchEvent(new CustomEvent('parent.request.login'));
+  };
+
+  $scope.flowTypeChanged = function () {
+    if ($scope.flowType.showLogin) {
+      $scope.showLoginModal();
+    }
+  };
+  function onKeystoneModalDismissed() {
+    $scope.flowType.showLogin = false;
+  }
+  $window.addEventListener('keystone.modal.dismissed', onKeystoneModalDismissed);
+
   $scope.requiredFieldsMissingError = false;
   $scope.userPasswordIncorrect = false;
   $scope.useAlternateBookingFlow = Settings.authType === 'keystone' &&
@@ -49,27 +68,6 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.showResetPassword = function () {
     window.dispatchEvent(new CustomEvent('parent.request.forgotten-password', {detail: {email: $scope.userDetails.email}}));
-  };
-
-  $scope.attemptLogin = function () {
-    var loginDetails = {
-      Email: $scope.userDetails.loginEmail,
-      Password: $scope.userDetails.loginPassword
-    };
-    if (!loginDetails.Email || !loginDetails.Password) {
-      return;
-    }
-    $scope.loginPasswordIncorrect = false;
-    var message = dynamicMessages ? dynamicMessages.logging_in : 'Logging you in';
-    spinnerService.startSpinner(message);
-    return window.KS.$me.login(loginDetails)
-      .catch(function () {
-        $scope.loginPasswordIncorrect = true;
-      }).finally(function() {
-        $scope.$apply(function() {
-          spinnerService.stopSpinner();
-        });
-      });
   };
 
   //If steps are at top of page we scroll to them, if they are in the widget we just scroll to top of page
@@ -535,6 +533,7 @@ angular.module('mobius.controllers.reservation', [])
 
   $scope.$on('$destroy', function() {
     $stateChangeStartUnWatch();
+    $window.removeEventListener('keystone.modal.dismissed', onKeystoneModalDismissed);
   });
 
   $scope.state = $state;
@@ -819,19 +818,6 @@ angular.module('mobius.controllers.reservation', [])
               $scope.userPasswordInvalid() ||
               $scope.userPasswordConfirmationRequired() ||
               $scope.userPasswordMismatch()) {
-
-              // If they filled in the email and password for login and clicked continue, attempt login first
-              if ($scope.userDetails.loginEmail && $scope.userDetails.loginPassword) {
-                $scope.attemptLogin().then(function () {
-                  if ($scope.loginPasswordIncorrect) {
-                    // Clear out the incorrect password
-                    $scope.$apply(function () {
-                      $scope.userDetails.loginPassword = '';
-                    });
-
-                  }
-                });
-              }
               return;
           } else {
             if ($scope.userPasswordInvalid() || $scope.userPasswordMismatch()) {

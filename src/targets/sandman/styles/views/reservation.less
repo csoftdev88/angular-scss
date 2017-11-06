@@ -41,6 +41,20 @@ reservation-widget {
     }
   }
 
+  .FlowTypeSelector {
+    display: flex;
+    flex-flow: row nowrap;
+    margin-bottom: 10px;
+    label {
+      font-weight: normal;
+      font-size: 18px;
+      cursor: pointer;
+      &:not(:last-child) {
+        margin-right: 30px;
+      }
+    }
+  }
+
   // CreateUser is the from on reservation details to enter a password and create a user via a booking
   .CreateUser {
     margin-top: 23px !important;
@@ -102,7 +116,14 @@ reservation-widget {
   }
 
   .CreateUser__explanation {
-    font-weight: bold;
+    font-weight: normal;
+    .emphasize {
+      font-weight: bold;
+    }
+    .login-link:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
   }
 
   .MemberLogin__subtitle {
