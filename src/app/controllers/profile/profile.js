@@ -157,6 +157,10 @@
         $scope.sections.resetPassword.showError = true;
       }
       $scope.profileData.userCountry = contentService.getCountryByID($scope.profileData.localeCode, $scope.profileCountries);
+
+      if (Settings.UI.registerPage.defaultOptInNewsletter) {
+        $scope.profileData.optedIn = true;
+      }
     }, 2000);
 
     $scope.update = function(form, profileData){

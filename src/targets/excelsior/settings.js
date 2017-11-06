@@ -887,7 +887,8 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
           'src': '/static/images/hotelHeaderLogo.png',
           'alt': 'Worldhotels deluxe'
         }
-      }
+      },
+      'defaultOptInNewsletter': true
     },
     'profilePage':{
       'headerPartial':{
