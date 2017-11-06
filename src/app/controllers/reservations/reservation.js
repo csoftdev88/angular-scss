@@ -393,7 +393,6 @@ angular.module('mobius.controllers.reservation', [])
           title: userData.title || undefined,
           firstName: userData.firstName || undefined,
           lastName: userData.lastName || undefined,
-          email: userData.email || undefined,
           address: userData.address1 || undefined,
           city: userData.city || undefined,
           stateProvince: userData.state || undefined,
@@ -403,6 +402,7 @@ angular.module('mobius.controllers.reservation', [])
           zip: userData.zip || undefined,
           phone: userData.tel1 || userData.tel2 || undefined
         });
+        $scope.userDetails.email = userData.email;
         $scope.userDetails.emailFromApi = !!userData.email;
       });
 
