@@ -2,8 +2,16 @@
     <div class="hotel-info-details" grid="{{(hasViewMore)? viewSettings.hotelInfo.descriptionGrid : 12}}">
 
       <input ng-if="config.shortenDescriptionMobile && details.description" type="checkbox" class="reveal-state" id="hotel-description" />
-      <p ng-bind-html="details.description | trustAsHtml" class="hotel-description markdown-content"
-      ng-class="{'reveal-section': config.shortenDescriptionMobile}" markdown-text-parser></p>
+      <p
+        class="hotel-description markdown-content"
+        ng-class="{'reveal-section': config.shortenDescriptionMobile}">
+        <div>
+          <h2 id="welcome-to-the-excelsior-hotel" class="HotelInfo__details--title">WELCOME TO THE EXCELSIOR HOTEL</h2>
+          <p class="HotelInfo__details--highlight">Committed to the idea that a life well-traveled is defined by a personal connection to the people, culture and lifestyles of the places we visit, the Excelsior Hotel offers discerning guests an authentic, residence-style experience in the heart of New York City’s Upper West Side. To complement our fashionable surroundings, we’ve designed a delightfully affordable pied-a-terre distinguished by relaxed yet sophisticated ambiance and unpretentious style.</p>
+          <p>The Excelsior is located within a beautifully restored landmark building, infusing classic design and architecture with contemporary comfort. In addition to swanky, Art Deco-inspired rooms, the hotel features a fitness center, Boardroom and Calle Ocho restaurant, which brings guests and neighborhood residents together for signature Latin fare and a locally famous weekend brunch complete with unlimited complimentary sangria.</p>
+          <p>Our hotel overlooks Central Park, the American Museum of Natural History and the spectacular, glass-encased Rose Center for Earth and Space and is walking distance from Lincoln Center and the 1, B and C subway lines. A leisurely stroll through Central Park leads to chic Upper East Side restaurants, the luxurious boutiques of Madison Avenue, the Metropolitan Museum of Art, and the Guggenheim and Whitney Museums.</p>
+        </div>
+      </p>
       <label ng-if="config.shortenDescriptionMobile && details.description" for="hotel-description" class="reveal-trigger">_read_more_</label>
 
       <div ng-if="config.displayAmenitiesInHotelInfo && filteredAmenities && filteredAmenities.length" class="hotel-info-amenities">
