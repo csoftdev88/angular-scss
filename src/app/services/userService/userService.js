@@ -86,7 +86,7 @@ angular.module('mobiusApp.services.user', [])
     }
 
     function storeUserId(id) {
-      $window.document.cookie = 'MobiusId' + '=' + id + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
+      $window.document.cookie = 'MobiusId=' + id + '; expires=' + cookieExpiryDate.toUTCString() + '; path=/';
     }
 
     function getStoredUser() {
