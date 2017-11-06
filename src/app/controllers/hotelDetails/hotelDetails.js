@@ -73,7 +73,7 @@ angular.module('mobius.controllers.hotel.details', [
 
   $scope.openBookingBar = function () {
     if ($scope.loyaltyEngine) {
-      angular.element('floating-bar').css('display', 'block');
+      angular.element('floating-bar').removeClass('hide').css('display', 'block');
     }
     $rootScope.$broadcast('BOOKING_BAR_OPEN_SRB_TAB');
   };

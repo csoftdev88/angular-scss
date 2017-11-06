@@ -46,20 +46,45 @@
   }
 
   .HeroBenefits__subtitle {
-    width: 100%;
-    font-size: 18px;
-  }
-
-  .HeroBenefits__benefits {
     display: none;
   }
 
-  .HeroBenefits__signup {
-    right: initial;
-    left: 0;
-    box-sizing: border-box;
+  .HeroBenefits__benefits {
+    position: relative;
     width: 100%;
-    height: 100%;
+    display: block;
+    .HeroBenefit__background {
+      height: 112px;
+      .HeroBenefits__benefit {
+        display: block;
+        .HeroBenefits__icon-wrapper {
+          width: 25%;
+          float: left;
+          text-align: left;
+          .HeroBenefits__icon-positionner img {
+            width: 55px;
+          }
+        }
+        .HeroBenefits__text-wrapper {
+          width: 75%;
+          float: left;
+          display: block;
+          h2 {
+            padding: 0 20px 0 0;
+            color: white;
+            float: left;
+
+          }
+          p {
+            clear: left;
+            color: #E4D5C4;
+            font-size: 17px;
+            padding-left: 0;
+            text-align: left;
+          }
+        }
+      }
+    }
   }
 
   .HeroBenefits__benefit {

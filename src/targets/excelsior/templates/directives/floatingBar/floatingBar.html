@@ -1,7 +1,7 @@
 <ul>
   <li class="floating-bar--tab-booking main-mobile-toggle" ng-class="{'is-active': active === BOOKING, 'mobile-is-open': !isCollapsed}" ng-hide="mobileMenuOpen">
     <div class="glass-filter"></div>
-    <a href="" ng-click="setActive(BOOKING, true);" ng-class="{'with-search-params' : hasSearchParams() && hasDates()}">
+    <a href="" ng-click="setActive(BOOKING, true);" ng-class="{'with-search-params' : hasSearchParams() && hasDates()}" class="active-booking">
       <div class="desktop" ng-bind-html="'_make_your_booking_' | mainHeaderStyle"></div>
       <div class="mobile">
         <div ng-show="hasSearchParams() && !hasDates()" class="book-now-button" ng-bind-html="'_select_dates_' | mainHeaderStyle" ng-click="openDatePicker()"></div>
