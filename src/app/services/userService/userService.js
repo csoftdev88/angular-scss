@@ -249,8 +249,12 @@ angular.module('mobiusApp.services.user', [])
 
       customerId = customerId || getCustomerId();
 
-      return loyaltyService.getAll(customerId).then(function(loyalties){
-        if(loyalties && loyalties.amount === undefined){
+      if (!customerId) {
+        return $q.when([]);
+      }
+
+      return loyaltyService.getAll(customerId).then(function (loyalties) {
+        if (loyalties && loyalties.amount === undefined) {
           loyalties.amount = 0;
         }
 
@@ -267,6 +271,10 @@ angular.module('mobiusApp.services.user', [])
       }
 
       customerId = customerId || getCustomerId();
+
+      if (!customerId) {
+        return $q.when([]);
+      }
 
       return rewardsService.getMy(customerId).then(function(rewards){
         userObject.rewards = rewards;
