@@ -21,6 +21,7 @@
   top: 245px;
   right: calc(~'50% - 180px');
   box-sizing: border-box;
+  border-radius: 6px;
 
   .options li {
     &:not(:first-child) a {
@@ -69,6 +70,8 @@
         text-transform: uppercase;
         letter-spacing: 1.8px;
         box-shadow: none;
+        border: 1px solid #79af41;
+        border-radius: 4px !important;
       }
       fieldset {
         padding: 0;
@@ -81,8 +84,20 @@
       input {
         height: 40px !important;
         line-height: 40px !important;
-        background-color: #eef3f6;
+        background-color: #f7f7f7;
         color: #000 !important;
+        border-radius: 4px !important;
+
+      }
+      .chosen-container {
+        background-color: #f7f7f7;
+        border-radius: 4px !important;
+        padding-left: 15px !important;
+        height: 40px !important;
+        padding-top: 5px;
+        a div {
+          margin-top: -3px;
+        }
       }
     }
   }
