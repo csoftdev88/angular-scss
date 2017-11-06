@@ -571,7 +571,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'rates': {
           'bookNowButtonText': 'Select', //This config value doesn't appear to be used anywhere, but will retain for now anyway.
           'ratesPerRoomOnDesktop': 3,
-          'ratesPerRoomOnMobile': 2,
+          'ratesPerRoomOnMobile': 3,
           'showTagline': true,
           'showDescription': true,
           'showDescriptionToggle': false,
