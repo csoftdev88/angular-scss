@@ -12,6 +12,14 @@
     // We are looking for this cookie in order to detect SSO
     var KEY_CUSTOMER_PROFILE = 'CustomerProfile';
 
+    // The infiniti script doesn't return a promise for logout so use the event
+    var EVENT_CUSTOMER_LOGGED_OUT = 'infiniti.customer.logged.out';
+
+    $window.addEventListener(EVENT_CUSTOMER_LOGGED_OUT, function() {
+      // Do a full reload! Fixes subtle issues after logout that we don't want to fix as Keystone is the go-forward SSO
+      $window.location.reload();
+    });
+
     function isSSOReady () {
       return $window.infiniti && $window.infiniti.api;
     }
