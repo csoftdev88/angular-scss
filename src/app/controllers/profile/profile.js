@@ -98,6 +98,7 @@
 
     $scope.submitted = false;
     $scope.profileData = {};
+    $scope.passwordData = {};
 
     //Config
     $scope.config = Settings.UI.profilePage;
@@ -169,8 +170,9 @@
       }
     }, 2000);
 
-    $scope.update = function(form, profileData){
+    $scope.update = function(form, profileData, passwordData){
       clearErrorMsg();
+      window.console.log(passwordData);
       if (!$scope.editingDisabled) {
         $scope.submitted = true;
         form.$submitted = true;
@@ -192,6 +194,9 @@
           data = _.omit(data, ['id','token','email', 'languageCode']);
 
           data.userCountry = contentService.getCountryByID(data.localeId, $scope.profileCountries);
+
+          data.password = (passwordData.password) ? passwordData.password : '';
+          data.confirmPassword = (passwordData.confirmPassword) ? passwordData.confirmPassword : '';
 
           if(data.userCountry) {
             data.country = data.userCountry.code;

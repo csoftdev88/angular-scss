@@ -366,7 +366,7 @@
                 id="passwordConfirm"
                 name="passwordConfirm"
                 class="ProfileForm__input"
-                ng-model="passwordData.passwordConfirm"
+                ng-model="passwordData.confirmPassword"
                 equals="passwordData.password"
                 ng-class="{'ng-submitted': form.$submitted && (form.passwordConfirm.$error.required || form.passwordConfirm.$error.equals)}"
                 ng-required="passwordData.password.length"
@@ -445,7 +445,7 @@
       <button-submit
         role="button"
         tabindex="0"
-        ng-click="update(form, profileData)"
+        ng-click="update(form, profileData, passwordData)"
         class="button-border-white"
         ng-disabled="editingDisabled">
         _save_
