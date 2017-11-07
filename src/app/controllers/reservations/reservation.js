@@ -563,7 +563,11 @@ angular.module('mobius.controllers.reservation', [])
         $scope.autofillSync();
         break;
       case 'reservation.confirmation':
-        return $state.go('reservation.billing');
+        if ($scope.skipCreditCardStep) {
+          return $state.go('reservation.details');
+        } else {
+          return $state.go('reservation.billing');
+        }
     }
     setMetaInformation();
   };
