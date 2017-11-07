@@ -6,7 +6,12 @@
     .module('mobius.controllers.doubleOptin', [])
     .controller('DoubleOptinCtrl', DoubleOptinCtrl);
 
-  function DoubleOptinCtrl ($scope, $state, $stateParams, apiService) {
+  function DoubleOptinCtrl ($scope, $state, $stateParams, apiService, $controller) {
+    $controller('AuthCtrl', {
+      $scope: $scope,
+      config: {}
+    });
+
     $scope.success = false;
     $scope.preloader.visible = true;
 
@@ -19,6 +24,7 @@
       .then(function () {
         $scope.success = true;
         $scope.preloader.visible = false;
+        $scope.auth.login();
       }, function () {
         $scope.success = false;
         $scope.preloader.visible = false;
