@@ -521,6 +521,12 @@ angular.module('mobiusApp.services.modal', [])
     });
   }
 
+  function openEditingDisabledDialogue(){
+    return openDialog('reservation-modification', 'layouts/modals/edittingDisabled.html', CONTROLLER_DEFAULT, {
+      windowClass: 'details reservation-modification'
+    });
+  }
+
   // Public methods
   return {
     // Reservations
@@ -560,6 +566,8 @@ angular.module('mobiusApp.services.modal', [])
     openPasswordDialog: openPasswordDialog,
     openPreviousSearchesDialog: openPreviousSearchesDialog,
     openFunnelRetentionExitDialog: openFunnelRetentionExitDialog,
-    openAltProductDialog: openAltProductDialog
+    openAltProductDialog: openAltProductDialog,
+    // Profile
+    openEditingDisabledDialogue: openEditingDisabledDialogue
   };
 });

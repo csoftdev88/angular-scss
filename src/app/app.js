@@ -819,7 +819,7 @@ angular
       // Using timeout, because user data is not populated at the time we try to access it
       $timeout(function () {
         var userData = user.getUser();
-        if (userData.termsAndConditionsAccepted === false || userData.passwordResetRequired === true) {
+        if (userData.termsAndConditionsAccepted === false || userData.passwordResetRequired === true || userData.doubleOptInConfirmed === false) {
           $state.go('profile');
         }
       }, 2000);

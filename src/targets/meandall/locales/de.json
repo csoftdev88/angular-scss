@@ -572,6 +572,8 @@
         "terms_and_conditions_header_error": "Sie müssen Bedingungen akzeptieren, um fortfahren zu können.",
         "reset_password_header_error": "Bitte setzen Sie Ihr Passwort unten zurück.",
         "_other_room_": "weiteres",
-        "_other_rooms_": "weitere"
+        "_other_rooms_": "weitere",
+        "editting_disabled_modal_title": "Bearbeitungsdetails deaktiviert",
+        "editting_disabled_modal_desc": "Um Ihre Daten zu bearbeiten, überprüfen Sie bitte Ihr Konto."
     }
 }
