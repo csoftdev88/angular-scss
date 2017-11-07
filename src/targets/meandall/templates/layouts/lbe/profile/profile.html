@@ -119,18 +119,6 @@
               ng-pattern="$root.generalValidationPattern"/>
           </form-element>
 
-          <form-element>
-            <label for="profileState">_state_label_</label>
-            <input
-              type="text"
-              id="profileState"
-              name="profileState"
-              class="ProfileForm__input"
-              ng-model="profileData.state"
-              ng-class="{'ng-submitted': form.$submitted && form.profileState.$error.required}"
-              ng-pattern="$root.generalValidationPattern"/>
-          </form-element>
-
           <form-element ng-if="profileCountries">
             <label for="profileCountry">_country_label_</label>
             <select name="profileCountry" chosen
