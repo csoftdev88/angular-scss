@@ -22,7 +22,9 @@
       </h2>
       <span>_booked_: {{reservation.bookingDate | dateTime }}</span>
       <div ng-if="config.descriptionUnderTitle" class="desc">
-        <h3 class="value">{{reservation.rooms[0].roomTypeName}}<a href ng-if="reservation.rooms.length > 1"> + {{reservation.rooms.length - 1}} other <ng-pluralize count="reservation.rooms.length" when="{'2': '_room_', 'other': '_rooms_'}"></ng-pluralize></a></h3>
+        <h3 class="value">{{reservation.rooms[0].roomTypeName}}<a href ng-if="reservation.rooms.length > 1"> + {{reservation.rooms.length - 1}}
+        <ng-pluralize count="reservation.rooms.length" when="{'2': '_other_room_', 'other': '_other_rooms_'}"></ng-pluralize>  
+        <ng-pluralize count="reservation.rooms.length" when="{'2': '_room_', 'other': '_rooms_'}"></ng-pluralize></a></h3>
         <p class="value" ng-bind-html="reservation.rooms[0].productName"></p>
       </div>
     </div>
@@ -55,7 +57,9 @@
       </div>
 
       <div ng-if="!config.descriptionUnderTitle" class="desc">
-        <p class="value">{{reservation.rooms[0].roomTypeName}}<a href ng-if="reservation.rooms.length > 1"> + {{reservation.rooms.length - 1}} other <ng-pluralize count="reservation.rooms.length" when="{'2': '_room_', 'other': '_rooms_'}"></ng-pluralize></a></p>
+        <p class="value">{{reservation.rooms[0].roomTypeName}}<a href ng-if="reservation.rooms.length > 1"> + {{reservation.rooms.length - 1}}
+          <ng-pluralize count="reservation.rooms.length" when="{'2': '_other_room_', 'other': '_other_rooms_'}"></ng-pluralize>
+          <ng-pluralize count="reservation.rooms.length" when="{'2': '_room_', 'other': '_rooms_'}"></ng-pluralize></a></p>
         <p class="value" ng-bind-html="reservation.rooms[0].productName"></p>
       </div>
     </div>

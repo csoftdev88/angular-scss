@@ -296,7 +296,7 @@
     "view_price_breakdown": "View Price Breakdown",
     "hide_price_breakdown": "Hide Price Breakdown",
     "policies": "View Policies",
-    "view_price_breakdown_policies": "Price Details",
+    "view_price_breakdown_policies": "Price Details & policies",
     "show_more": "Show More",
     "show_less": "Show Less",
     "see_all": "See all",
@@ -569,6 +569,8 @@
     "terms_and_conditions_label": "I accept Terms and Conditions",
     "terms_and_conditions_error": "Please accept terms and conditions to proceed.",
     "terms_and_conditions_header_error": "You need to accept terms and conditions to proceed.",
-    "reset_password_header_error": "Please reset your password below."
+    "reset_password_header_error": "Please reset your password below.",
+    "_other_room_": "other",
+    "_other_rooms_": "other"
   }
 }

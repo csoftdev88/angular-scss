@@ -256,7 +256,7 @@
         "click_here_to": "Hier klicken, um",
         "not_enough_points_to_purchase": "Leider haben Sie nicht genügend Punkte, um diesen Kauf durchzuführen.",
         "payment_not_authorized": "Leider gab es ein Problem mit Ihren Zahlungsdaten",
-        "user_already_registered": "hre E-Mail-Adresse ist bereits registriert. Bitte melden Sie sich oben an, um Ihre Buchung fortzusetzen oder nutzen Sie eine andere E-Mail-Adresse.",
+        "user_already_registered": "Ihre E-Mail-Adresse ist bereits registriert. Bitte melden Sie sich oben an, um Ihre Buchung fortzusetzen oder nutzen Sie eine andere E-Mail-Adresse.",
         "generic_reservation_error": "Wir können Ihre Reservierung zu diesem Zeitpunkt nicht bearbeiten. Bitte versuchen Sie es erneut oder kontaktieren Sie das Hotel direkt",
         "payment_not_authorized_card_name": "Name des Karteninhabers ist ungültig",
         "payment_not_authorized_expiry_date": "Ablaufdatum ist ungültig",
@@ -296,7 +296,7 @@
         "view_price_breakdown": "Preisdetails",
         "hide_price_breakdown": "Preisdetails ausblenden",
         "policies": "Bedingungen",
-        "view_price_breakdown_policies": "Preisdetails",
+        "view_price_breakdown_policies": "Preisdetails & Bedingungen",
         "show_more": "Mehr anzeigen",
         "show_less": "Weniger anzeigen",
         "see_all": "Alle anzeigen",
@@ -349,7 +349,7 @@
         "invalid_email_message": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
         "name_placeholder": "Name",
         "confirm_email_label": "E-Mail-Adresse bestätigen",
-        "additional_email_label": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+        "additional_email_label": "Zusätzliche E-Mail-Adresse",
         "email_placeholder": "E-Mail-Adresse",
         "email_match_error_message": "Die E-Mail-Adressen stimmen nicht überein",
         "subject_label": "Betreff",
@@ -570,6 +570,8 @@
         "terms_and_conditions_label": "Ich akzeptiere die Allgemeinen Geschäftsbedingungen",
         "terms_and_conditions_error": "Sie müssen Bedingungen akzeptieren, um fortzufahren.",
         "terms_and_conditions_header_error": "Sie müssen Bedingungen akzeptieren, um fortfahren zu können.",
-        "reset_password_header_error": "Bitte setzen Sie Ihr Passwort unten zurück."
+        "reset_password_header_error": "Bitte setzen Sie Ihr Passwort unten zurück.",
+        "_other_room_": "weiteres",
+        "_other_rooms_": "weitere"
     }
 }
