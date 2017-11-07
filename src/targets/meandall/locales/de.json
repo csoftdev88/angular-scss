@@ -570,6 +570,8 @@
         "terms_and_conditions_label": "Ich akzeptiere die Allgemeinen Geschäftsbedingungen",
         "terms_and_conditions_error": "Sie müssen Bedingungen akzeptieren, um fortzufahren.",
         "terms_and_conditions_header_error": "Sie müssen Bedingungen akzeptieren, um fortfahren zu können.",
-        "reset_password_header_error": "Bitte setzen Sie Ihr Passwort unten zurück."
+        "reset_password_header_error": "Bitte setzen Sie Ihr Passwort unten zurück.",
+        "_other_room_": "weiteres",
+        "_other_rooms_": "weitere"
     }
 }

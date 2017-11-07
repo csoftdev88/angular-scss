@@ -11,11 +11,9 @@
   <h3>
     {{allRooms[0].name | lowercase}}
     <a href ng-click="openOtherRoomsDialog()" ng-if="allRooms.length > 1">
-      + {{allRooms.length - 1}} _other_room_
-      <ng-pluralize
-        count="allRooms.length"
-        when="{'2': '_room_', 'other': '_rooms_'}">
-      </ng-pluralize>
+      + {{allRooms.length - 1}}
+      <ng-pluralize count="reservation.rooms.length" when="{'2': '_other_room_', 'other': '_other_rooms_'}"></ng-pluralize>
+      <ng-pluralize count="allRooms.length" when="{'2': '_room_', 'other': '_rooms_'}"></ng-pluralize>
     </a>
   </h3>
 

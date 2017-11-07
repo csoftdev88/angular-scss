@@ -34,7 +34,8 @@ angular.module('mobiusApp.dynamicMessages', [])
     'promo_code': 'Promo code',
     'corp_code': 'Corp code',
     'group_code': 'Group code',
-    'room': 'Room'
+    'room': 'Room',
+    'of': 'of'
   },
   'de':{
     'your_reservation':'<div>Ihre Reservierung <strong>',
@@ -65,6 +66,7 @@ angular.module('mobiusApp.dynamicMessages', [])
     'promo_code': 'Promo code',
     'corp_code': 'Corp code',
     'group_code': 'Group code',
-    'room': 'Zimmer'
+    'room': 'Zimmer',
+    'of': 'von'
   }
 });

@@ -89,12 +89,14 @@ angular.module('mobius.controllers.reservationMultiRoom', ['mobiusApp.dynamicMes
       currentRoomIndex++;
 
       var notification = '';
+      // TODO: add translation to all projects
+      var offTranslation = (typeof DynamicMessages[appLang].of !== 'undefined') ? DynamicMessages[appLang].of : 'of';
 
       if (stateService.isMobile()) {
         notification =
           '<div class="multiroom-notification">' +
             '<div class="number-of-rooms">' +
-              '<p>' + DynamicMessages[appLang].room + ' ' + currentRoomIndex + ' of ' + rooms.length +'</p>' +
+              '<p>' + DynamicMessages[appLang].room + ' ' + currentRoomIndex + ' ' + offTranslation + ' ' + rooms.length +'</p>' +
             '</div>' +
           '</div>';
       } else {
@@ -107,7 +109,7 @@ angular.module('mobius.controllers.reservationMultiRoom', ['mobiusApp.dynamicMes
           '<div class="multiroom-notification">' +
             '<div class="rooms">' +
               '<p>' + DynamicMessages[appLang].room + '</p>' +
-              '<p>' + currentRoomIndex + ' of ' + rooms.length +'</p>' +
+              '<p>' + currentRoomIndex + ' ' + offTranslation + ' ' + rooms.length +'</p>' +
             '</div>' +
             '<div class="details">' +
               '<p>' + getAdultsCount(currentRoom) + '</p>' +

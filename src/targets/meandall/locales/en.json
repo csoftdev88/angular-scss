@@ -569,6 +569,8 @@
     "terms_and_conditions_label": "I accept Terms and Conditions",
     "terms_and_conditions_error": "Please accept terms and conditions to proceed.",
     "terms_and_conditions_header_error": "You need to accept terms and conditions to proceed.",
-    "reset_password_header_error": "Please reset your password below."
+    "reset_password_header_error": "Please reset your password below.",
+    "_other_room_": "other",
+    "_other_rooms_": "other"
   }
 }
