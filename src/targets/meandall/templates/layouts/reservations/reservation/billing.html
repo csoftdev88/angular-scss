@@ -116,7 +116,9 @@
                 ng-model="billingDetails.card.securityCode"
                 ng-pattern="/^[0-9]{3,4}$/"
                 name="cvv"/>
-              <span>_card_cvv_label_</span>
+              <span>
+                <span>_card_cvv_label_</span>
+              </span>
             </label>
             <span class="help" ng-click="!bookingConfig.ccvAsTooltip ? openCCVInfo() : undefined">?<span class="tooltiptext" ng-if="!isMobile && bookingConfig.ccvAsTooltip">_cvv_modal_desc_</span></span>
           </div>
