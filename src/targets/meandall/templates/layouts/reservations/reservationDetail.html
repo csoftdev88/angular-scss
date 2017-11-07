@@ -539,6 +539,12 @@
       </a>
     </section>
 
+   <section grid-row="" class="map-section">
+    <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
+      <hotel-location hotel-details="property" ng-if="property"></hotel-location>
+    </div>
+  </section>
+
     <section grid-row
              ng-if="config.displayVideo"
              class="video-section">
