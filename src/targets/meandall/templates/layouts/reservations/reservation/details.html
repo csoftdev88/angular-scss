@@ -34,8 +34,10 @@
                 name="title">
           <option value="">_title_label_</option>
         </select>
-        <span ng-hide="forms.details.$submitted && forms.details.title.$error">_title_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.title.$error">_title_label_</span>
+        <span>
+          <span ng-hide="forms.details.$submitted && forms.details.title.$error">_title_label_</span>
+          <span ng-show="forms.details.$submitted && forms.details.title.$error">_title_label_</span>
+        </span>
       </label>
 
       <label for="first-name" class="input-center medium">
@@ -119,9 +121,11 @@
                name="address"
                autocomplete="address-line1"
                ng-pattern="$root.generalValidationPattern"/>
-        <span ng-hide="forms.details.$submitted && forms.details.address.$error">_address_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.address.$error && !forms.details.address.$error.pattern">_address_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.address.$error.pattern">_address_pattern_error_</span>
+        <span>
+          <span ng-hide="forms.details.$submitted && forms.details.address.$error">_address_label_</span>
+          <span ng-show="forms.details.$submitted && forms.details.address.$error && !forms.details.address.$error.pattern">_address_label_</span>
+          <span ng-show="forms.details.$submitted && forms.details.address.$error.pattern">_address_pattern_error_</span>
+        </span>
       </label>
 
       <label for="city" class="input-left">
@@ -133,9 +137,11 @@
                name="city"
                autocomplete="city"
                ng-pattern="$root.generalValidationPattern"/>
-        <span ng-hide="forms.details.$submitted && forms.details.city.$error">_city_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.city.$error && !forms.details.city.$error.pattern">_city_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.city.$error.pattern">_city_pattern_error_</span>
+        <span>
+          <span ng-hide="forms.details.$submitted && forms.details.city.$error">_city_label_</span>
+          <span ng-show="forms.details.$submitted && forms.details.city.$error && !forms.details.city.$error.pattern">_city_label_</span>
+          <span ng-show="forms.details.$submitted && forms.details.city.$error.pattern">_city_pattern_error_</span>
+        </span>
       </label>
 
       <label for="postal-code" class="input-right">
@@ -147,9 +153,11 @@
                name="zip"
                autocomplete="postal-code"
                ng-pattern="$root.generalValidationPattern"/>
-        <span ng-hide="forms.details.$submitted && forms.details.zip.$error">_postcode_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.zip.$error && !forms.details.zip.$error.pattern">_postcode_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.zip.$error.pattern">_postcode_pattern_error_</span>
+        <span>
+          <span ng-hide="forms.details.$submitted && forms.details.zip.$error">_postcode_label_</span>
+          <span ng-show="forms.details.$submitted && forms.details.zip.$error && !forms.details.zip.$error.pattern">_postcode_label_</span>
+          <span ng-show="forms.details.$submitted && forms.details.zip.$error.pattern">_postcode_pattern_error_</span>
+        </span>
       </label>
 
       <label for="country" class="input-left" ng-if="profileCountries">
@@ -165,8 +173,10 @@
                 chosen
                 search-contains="false">
         </select>
-        <span ng-hide="forms.details.$submitted && forms.details.country.$error">_country_label_</span>
-        <span ng-show="forms.details.$submitted && forms.details.country.$error">_country_label_</span>
+        <span>
+          <span ng-hide="forms.details.$submitted && forms.details.country.$error">_country_label_</span>
+          <span ng-show="forms.details.$submitted && forms.details.country.$error">_country_label_</span>
+        </span>
       </label>
       <input type="submit" id="submit" value="_submit_" ng-hide="true" />
     </form>

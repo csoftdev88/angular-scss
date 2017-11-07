@@ -98,9 +98,12 @@ main.reservation-page {
     }
     input[required] ~ span,
     select[required] ~ span {
+      span {
+        float:left;
+      }
       &:after {
         content: '*';
-        display: inline;
+        float:left;
       }
     }
     input[type="text"],
