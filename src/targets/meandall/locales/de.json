@@ -349,7 +349,7 @@
         "invalid_email_message": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
         "name_placeholder": "Name",
         "confirm_email_label": "E-Mail-Adresse bestätigen",
-        "additional_email_label": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+        "additional_email_label": "Zusätzliche E-Mail-Adresse",
         "email_placeholder": "E-Mail-Adresse",
         "email_match_error_message": "Die E-Mail-Adressen stimmen nicht überein",
         "subject_label": "Betreff",
