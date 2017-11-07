@@ -55,3 +55,18 @@ register-page {
     }
   }
 }
+
+profile-page {
+  input {
+    &[disabled] {
+      background-color: @c-light-grey;
+      border-color: @c-grey !important;
+      cursor: not-allowed;
+    }
+  }
+  .chosen-disabled {
+    span {
+      cursor: not-allowed;
+    }
+  }
+}

@@ -571,6 +571,8 @@
     "terms_and_conditions_header_error": "You need to accept terms and conditions to proceed.",
     "reset_password_header_error": "Please reset your password below.",
     "_other_room_": "other",
-    "_other_rooms_": "other"
+    "_other_rooms_": "other",
+    "editting_disabled_modal_title": "Editing details disabled",
+    "editting_disabled_modal_desc": "To edit your details, please finish verifying your account."
   }
 }

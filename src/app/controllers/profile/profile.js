@@ -10,7 +10,7 @@
 
   function Profile($scope, $controller, $state, breadcrumbsService, contentService, apiService, userObject, user,
                    $timeout, _, chainService, metaInformationService, $location, Settings, propertyService,
-                   scrollService, UrlService, $rootScope, $log) {
+                   scrollService, UrlService, $rootScope, $log, modalService) {
 
     //check if user is logged in
     function onAuthorized() {
@@ -41,6 +41,8 @@
     $scope.toggleSection = function (section) {
       section.expanded = !section.expanded;
     };
+
+    $scope.editingDisabled = false;
 
     // If we are using keystone, the alternative keystoneProfile layout will be used that contains
     // the keystone-profile div. We now need to tell keystone to inject the profile page into it
@@ -156,6 +158,10 @@
         $scope.sections.resetPassword.expanded = true;
         $scope.sections.resetPassword.showError = true;
       }
+      if ($scope.profileData.doubleOptInConfirmed === false) {
+        $scope.editingDisabled = true;
+        modalService.openEditingDisabledDialogue();
+      }
       $scope.profileData.userCountry = contentService.getCountryByID($scope.profileData.localeCode, $scope.profileCountries);
 
       if (Settings.UI.registerPage.defaultOptInNewsletter) {
@@ -165,46 +171,50 @@
 
     $scope.update = function(form, profileData){
       clearErrorMsg();
-      $scope.submitted = true;
-      form.$submitted = true;
+      if (!$scope.editingDisabled) {
+        $scope.submitted = true;
+        form.$submitted = true;
 
-      // Open sections if they are closed and has errors
-      if (form.termsAndConditions.$invalid && $scope.sections.termsAndConditions.visible && !$scope.sections.termsAndConditions.expanded) {
-        $scope.toggleSection($scope.sections.termsAndConditions);
-      }
-      if ((form.password.$invalid || form.passwordConfirm.$invalid) && $scope.sections.resetPassword.visible && !$scope.sections.resetPassword.expanded) {
-        $scope.toggleSection($scope.sections.resetPassword);
-      }
-
-      if(form.$valid){
-        if (Settings.API.sendAcceptedTermsAndConditions) {
-          profileData.termsAndConditionsAccepted = (profileData.termsAndConditionsAccepted) ? true : false;
+        // Open sections if they are closed and has errors
+        if (form.termsAndConditions.$invalid && $scope.sections.termsAndConditions.visible && !$scope.sections.termsAndConditions.expanded) {
+          $scope.toggleSection($scope.sections.termsAndConditions);
+        }
+        if ((form.password.$invalid || form.passwordConfirm.$invalid) && $scope.sections.resetPassword.visible && !$scope.sections.resetPassword.expanded) {
+          $scope.toggleSection($scope.sections.resetPassword);
         }
 
-        var data = _.omit(profileData, _.isNull);
-        data = _.omit(data, ['id','token','email', 'languageCode']);
-
-        data.userCountry = contentService.getCountryByID(data.localeId, $scope.profileCountries);
-
-        if(data.userCountry) {
-          data.country = data.userCountry.code;
-          data.localeCode = data.userCountry.code;
-        }
-
-        apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), data).then(function(){
-          userObject = _.extend(userObject, data);
-          $scope.success = true;
-          if($scope.config.displaySummary){
-            $scope.showSummary = true;
+        if(form.$valid){
+          if (Settings.API.sendAcceptedTermsAndConditions) {
+            profileData.termsAndConditionsAccepted = (profileData.termsAndConditionsAccepted) ? true : false;
           }
-        }, function(){
+
+          var data = _.omit(profileData, _.isNull);
+          data = _.omit(data, ['id','token','email', 'languageCode']);
+
+          data.userCountry = contentService.getCountryByID(data.localeId, $scope.profileCountries);
+
+          if(data.userCountry) {
+            data.country = data.userCountry.code;
+            data.localeCode = data.userCountry.code;
+          }
+
+          apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), data).then(function(){
+            userObject = _.extend(userObject, data);
+            $scope.success = true;
+            if($scope.config.displaySummary){
+              $scope.showSummary = true;
+            }
+          }, function(){
+            $scope.error = true;
+            $scope.genericError = true;
+          });
+        }
+        else {
+          $scope.missingFieldsError = true;
           $scope.error = true;
-          $scope.genericError = true;
-        });
-      }
-      else {
-        $scope.missingFieldsError = true;
-        $scope.error = true;
+        }
+      } else {
+        modalService.openEditingDisabledDialogue();
       }
     };
 

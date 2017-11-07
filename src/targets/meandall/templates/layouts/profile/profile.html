@@ -182,7 +182,8 @@
                       class="ProfileForm__input"
                       placeholder-text-single="_title_label_"
                       ng-model="profileData.title"
-                      ng-options="title.id as title.name for title in profileTitles">
+                      ng-options="title.id as title.name for title in profileTitles"
+                      ng-disabled="editingDisabled">
               </select>
             </form-element>
 
@@ -196,7 +197,8 @@
                 ng-model="profileData.firstName"
                 ng-required="config.formRequirments.firstname"
                 ng-class="{'ng-submitted': form.$submitted && form.profileFname.$error.required}"
-                ng-pattern="$root.generalValidationPattern"/>
+                ng-pattern="$root.generalValidationPattern"
+                ng-disabled="editingDisabled"/>
             </form-element>
 
             <form-element>
@@ -209,7 +211,8 @@
                 ng-model="profileData.lastName"
                 ng-required="config.formRequirments.lastname"
                 ng-class="{'ng-submitted': form.$submitted && form.profileLname.$error.required}"
-                ng-pattern="$root.generalValidationPattern"/>
+                ng-pattern="$root.generalValidationPattern"
+                ng-disabled="editingDisabled"/>
             </form-element>
 
           </fieldset>
@@ -239,7 +242,8 @@
                 ng-model="profileData.address1"
                 ng-required="config.formRequirments.address_one"
                 ng-class="{'ng-submitted': form.$submitted && form.profileAddress1.$error.required}"
-                ng-pattern="$root.generalValidationPattern"/>
+                ng-pattern="$root.generalValidationPattern"
+                ng-disabled="editingDisabled"/>
             </form-element>
 
             <form-element>
@@ -251,7 +255,8 @@
                 ng-model="profileData.zip"
                 ng-required="config.formRequirments.postcode"
                 ng-class="{'ng-submitted': form.$submitted && form.profileZip.$error.required}"
-                ng-pattern="$root.generalValidationPattern"/>
+                ng-pattern="$root.generalValidationPattern"
+                ng-disabled="editingDisabled"/>
             </form-element>
 
             <form-element class="profile-address2">
@@ -263,7 +268,8 @@
                 ng-model="profileData.address2"
                 ng-required="config.formRequirments.address_two"
                 ng-class="{'ng-submitted': form.$submitted && form.profileAddress2.$error.required}"
-                ng-pattern="$root.generalValidationPattern"/>
+                ng-pattern="$root.generalValidationPattern"
+                ng-disabled="editingDisabled"/>
             </form-element>
 
             <form-element>
@@ -275,7 +281,8 @@
                 ng-model="profileData.city"
                 ng-required="config.formRequirments.city"
                 ng-class="{'ng-submitted': form.$submitted && form.profileCity.$error.required}"
-                ng-pattern="$root.generalValidationPattern"/>
+                ng-pattern="$root.generalValidationPattern"
+                ng-disabled="editingDisabled"/>
             </form-element>
 
             <form-element ng-if="profileCountries">
@@ -286,7 +293,8 @@
                       data-placeholder=""
                       ng-model="profileData.localeId"
                       ng-required="config.formRequirments.country"
-                      ng-options="country.id as country.name for country in profileCountries | orderBy:'name'">
+                      ng-options="country.id as country.name for country in profileCountries | orderBy:'name'"
+                      ng-disabled="editingDisabled">
               </select>
             </form-element>
 
@@ -299,7 +307,8 @@
                 ng-model="profileData.tel1"
                 ng-required="config.formRequirments.phone"
                 ng-class="{'ng-submitted': form.$submitted && form.profileTel.$error.required}"
-                ng-pattern="$root.generalValidationPattern"/>
+                ng-pattern="$root.generalValidationPattern"
+                ng-disabled="editingDisabled"/>
             </form-element>
 
             <form-element ng-if="profileContacts">
@@ -311,7 +320,8 @@
                       ng-required="config.formRequirments.contactMethod"
                       placeholder-text-single="_prefered_contact_label_"
                       ng-model="profileData.preferredContactMethodCode"
-                      ng-options="contact.id as contact.name for contact in profileContacts">
+                      ng-options="contact.id as contact.name for contact in profileContacts"
+                      ng-disabled="editingDisabled">
               </select>
             </form-element>
 
@@ -345,7 +355,8 @@
                 class="ProfileForm__input"
                 ng-class="{'ng-submitted': form.$submitted && form.password.$error.required}"
                 ng-pattern="$root.generalValidationPattern"
-                ng-required="passwordData.password.length"/>
+                ng-required="passwordData.password.length"
+                ng-disabled="editingDisabled"/>
             </form-element>
 
             <form-element>
@@ -358,7 +369,8 @@
                 ng-model="passwordData.passwordConfirm"
                 equals="passwordData.password"
                 ng-class="{'ng-submitted': form.$submitted && (form.passwordConfirm.$error.required || form.passwordConfirm.$error.equals)}"
-                ng-required="passwordData.password.length"/>
+                ng-required="passwordData.password.length"
+                ng-disabled="editingDisabled"/>
                 <span class="error" ng-if="form.$submitted && form.passwordConfirm.$error.equals">_password_match_error_message_</span>
             </form-element>
 
@@ -394,7 +406,8 @@
                   name="termsAndConditions"
                   ng-model="profileData.termsAndConditionsAccepted"
                   ng-class="{'ng-submitted': form.$submitted && form.termsAndConditions.$error.required}"
-                  ng-required="true"/>
+                  ng-required="true"
+                  ng-disabled="editingDisabled"/>
                 _terms_and_conditions_label_
                 <br>
                 <span class="error" ng-if="form.$submitted && profileData.termsAndConditionsAccepted !== true">_terms_and_conditions_error_</span>
@@ -411,7 +424,11 @@
 
         <form-element>
           <label for="profileOptedIn" class="input-checkbox">
-            <input type="checkbox" id="profileOptedIn" ng-model="profileData.optedIn"/>
+            <input
+              type="checkbox"
+              id="profileOptedIn"
+              ng-model="profileData.optedIn"
+              ng-disabled="editingDisabled"/>
             _subscribe_label_
           </label>
         </form-element>
@@ -425,7 +442,14 @@
         <span ng-if="missingFieldsError">_missing_fields_message_</span>
       </p>
 
-      <button-submit role="button" tabindex="0" ng-click="update(form, profileData)" class="button-border-white">_save_</button-submit>
+      <button-submit
+        role="button"
+        tabindex="0"
+        ng-click="update(form, profileData)"
+        class="button-border-white"
+        ng-disabled="editingDisabled">
+        _save_
+      </button-submit>
 
     </form>
 
