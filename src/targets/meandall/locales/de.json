@@ -413,6 +413,7 @@
         "departure_time_label": "Abfahrtszeit",
         "departure_time_placeholder": "Abfahrtszeit",
         "password_pattern_error": "Das Passwort muss aus mindestens 8 Zeichen bestehen",
+        "password_pattern_placeholder": "Mindestens 8 Zeichen",
         "letters_pattern_error": "Bitte nur Buchstaben in dieses Feld eingeben",
         "phone_pattern_error": "Bitte geben Sie eine gültige Telefonnummer ein",
         "address_pattern_error": "Bitte geben Sie eine gültige Adresse ein",
