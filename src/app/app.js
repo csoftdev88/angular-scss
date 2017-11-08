@@ -814,14 +814,36 @@ angular
     };
   }
 
+  /**
+   * Redirect users to the profile page if:
+   * - they have not accepted the terms and conditions or
+   * - they are forced to reset their password
+   * */
+  function conditionalRedirect() {
+    if (Settings.conditionalRedirect !== true) {
+      return false;
+    }
+    if (!user.isLoggedIn()) {
+      return false;
+    }
+    var userData = user.getUser();
+    if (userData.termsAndConditionsAccepted === false || userData.passwordResetRequired === true) {
+      $state.go('profile');
+      return true;
+    }
+    return false;
+  }
+
+  $scope.$on('MOBIUS_USER_LOGIN_EVENT', function() {
+    conditionalRedirect();
+  });
+
   $scope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
     if (toState.name !== 'profile' && toState.name !== 'double-optin') {
-      user.authPromise.then(function () {
-        var userData = user.getUser();
-        if (userData.termsAndConditionsAccepted === false || userData.passwordResetRequired === true || userData.doubleOptInConfirmed === false) {
-          $state.go('profile');
-        }
-      });
+      if (conditionalRedirect()) {
+        e.preventDefault();
+        return;
+      }
     }
 
     // Re inject keystone plugin when the header gets recompiled

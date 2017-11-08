@@ -11,6 +11,7 @@ angular.module('mobiusApp.config', [])
   'newUrlStructure': false,
   'inputValidationPattern':/^[\u0020-\u02AF\r\n]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
   'showEUCookieDisclaimer':true,
+  'conditionalRedirect': true,
   'infiniti': {
     'enable': false,
     'development': '',
