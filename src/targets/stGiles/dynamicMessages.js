@@ -41,7 +41,10 @@ angular.module('mobiusApp.dynamicMessages', [])
       'group_code_applied':'Group code applied successfully',
       'enter_valid_choice': 'Please provide a valid option',
       'answer_the_question': 'Answer the following question to earn XX points',
-      'room': 'Room'
+      'room': 'Room',
+      'password': 'Password',
+      'confirm_password': 'Confirm Password',
+      'optional': 'Optional'
     },
     // NOTE: St Giles is dead and not in German anyway
     'de': {

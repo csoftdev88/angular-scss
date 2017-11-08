@@ -53,7 +53,11 @@ angular.module('mobiusApp.dynamicMessages', [])
       'corp_code': 'Corporate Code',
       'group_code': 'Group Code',
       'promo_code': 'Promo Code',
-      'room': 'Room'
+      'room': 'Room',
+
+      'password': 'Password',
+      'confirm_password': 'Confirm Password',
+      'optional': 'Optional'
     },
     // NOTE: Excelsior is English only currently
     'de': {

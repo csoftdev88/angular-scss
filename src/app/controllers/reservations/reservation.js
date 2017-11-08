@@ -808,6 +808,26 @@ angular.module('mobius.controllers.reservation', [])
     return $scope.profile.userPassword !== $scope.profile.userPasswordConfirmation;
   };
 
+  $scope.getPasswordPlaceholder = function () {
+    if (!dynamicMessages) {
+      return '';
+    }
+    if ($scope.memberOnlyBooking) {
+      return dynamicMessages.password;
+    }
+    return dynamicMessages.password + ' (' + dynamicMessages.optional + ')';
+  };
+
+  $scope.getPasswordConfirmationPlaceholder = function () {
+    if (!dynamicMessages) {
+      return '';
+    }
+    if ($scope.memberOnlyBooking) {
+      return dynamicMessages.confirm_password;
+    }
+    return dynamicMessages.confirm_password + ' (' + dynamicMessages.optional + ')';
+  };
+
   $scope.continue = function() {
     switch ($state.current.name) {
       case 'reservation.details':
