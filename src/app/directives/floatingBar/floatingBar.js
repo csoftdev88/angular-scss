@@ -187,9 +187,10 @@ angular.module('mobiusApp.directives.floatingBar', [
       }
     };
   // Generic controller for booking tabs - defines numbers of guests
-  }]).controller('GuestsCtrl', function($scope, $filter, Settings, bookingService, _){
+  }]).controller('GuestsCtrl', function($scope, $filter, Settings, bookingService, _, DynamicMessages, stateService){
     var numberToListFilter = $filter('numberToList');
     var settings = Settings.UI.bookingWidget;
+    var translations = DynamicMessages[stateService.getAppLanguageCode()];
 
     $scope.setAdultsOptions = function(options){
       var adultOptions =  numberToListFilter([], settings.adults.min, settings.adults.max,
@@ -224,7 +225,6 @@ angular.module('mobiusApp.directives.floatingBar', [
 
     $scope.setChildrenOptions = function(options){
       var childrenOptions =  numberToListFilter([], settings.children.min, settings.children.max,
-          // TODO: Localize
           {
             '1': '{} ' + options.child,
             'plural': '{} ' + options.children
@@ -234,20 +234,17 @@ angular.module('mobiusApp.directives.floatingBar', [
         value: parseInt(bookingService.getAPIParams(true).children, 10) || 0
       });
     };
-
     $scope.guestsOptions = {
       adults: numberToListFilter([], settings.adults.min, settings.adults.max,
-        // TODO: Localize
         {
-          '1': '{} Adult',
-          'plural': '{} Adults'
+          '1': '{} ' + translations.adult,
+          'plural': '{} ' + translations.adults
         }),
         children: numberToListFilter([], settings.children.min, settings.children.max,
-          // TODO: Localize
           {
-            '0': 'Children',
-            '1': '{} Child',
-            'plural': '{} Children'
+            '0': translations.children,
+            '1': '{} ' + translations.child,
+            'plural': '{} ' + translations.children
           })
         };
 
