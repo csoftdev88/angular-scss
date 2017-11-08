@@ -236,6 +236,7 @@ angular.module('mobiusApp.services.user', [])
         } else {
           //If for whatever reason we do not have a customerId, clear the stored user and reject the auth
           clearStoredUser();
+          authPromise.resolve(false);
           return $q.reject({});
         }
       }
