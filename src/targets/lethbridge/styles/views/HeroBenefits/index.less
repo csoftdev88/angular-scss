@@ -24,14 +24,14 @@
   left: 0;
   width: 1182px;
   height: 125px;
-  color: #FFFFFF;
+  color: @c-white;
   font-family: @ff-primary;
   font-size: 28px;
   font-weight: 300;
   line-height: 38px;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
-  border-radius: 6px 6px 0 0;
-  background: linear-gradient(90deg, @c-alt-grey 0%, #676767 100%);
+  border-radius: @c-border-radius @c-border-radius 0 0;
+  background-color: @c-black;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -49,14 +49,13 @@
   left: 0;
   width: 808px;
   height: 441px;
-
-  color: #FFFFFF;
+  color: @c-white;
   font-family: @ff-primary;
   font-size: 28px;
   font-weight: 300;
   line-height: 38px;
   text-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.3);
-  border-radius: 0 0 0 6px;
+  border-radius: 0 0 0 @c-border-radius;
   overflow: hidden;
   display: flex;
   flex-flow: row nowrap;
@@ -69,7 +68,7 @@
   right: 0;
   width: 304px;
   height: 381px;
-  border-radius: 0 0 6px 0;
+  border-radius: 0 0 @c-border-radius 0;
   background-color: #fff;
   padding: 30px 35px;
   display: flex;
@@ -77,14 +76,12 @@
   justify-content: space-between;
   align-items: stretch;
 
-  select,
-  input,
-  .chosen-container {
-    margin-bottom: 10px;
-  }
-
   .emphasis {
     font-weight: 700;
+  }
+
+  .booking-bar__title {
+    display: none;
   }
 
   .error-message {

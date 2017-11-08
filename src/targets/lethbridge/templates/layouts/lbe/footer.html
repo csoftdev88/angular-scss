@@ -1,42 +1,18 @@
 <div class="Footer__inner">
 
   <div class="Footer__social">
-    <ul class="Footer__social--icons">
-
-      <li ng-if="uiConfig.socialLinksNew.facebook">
-        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.facebook }}">
-          <span class="facebook"></span>
-        </a>
-      </li>
-      <li ng-if="uiConfig.socialLinksNew.twitter">
-        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.twitter }}">
-          <span class="twitter"></span>
-        </a>
-      </li>
-      <li ng-if="uiConfig.socialLinksNew.instagram">
-        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.instagram }}">
-          <span class="instagram"></span>
-        </a>
-      </li>
-      <li ng-if="uiConfig.socialLinksNew.linkedIn">
-        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.linkedIn }}">
-          <span class="linkedin"></span>
-        </a>
-      </li>
-      <li ng-if="uiConfig.socialLinksNew.youtube">
-        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.youtube }}">
-          <span class="youtube"></span>
-        </a>
-      </li>
-
-    </ul>
-
+    <a ui-sref="home">
+      <img class="Header__logo desktop"
+           src="/static/images/v4/go-lethbridge-logo-white@2x.png"
+           alt="Lethbridge logo"
+           width="200px">
+    </a>
   </div>
 
   <div class="Footer__nav">
     <ul class="Footer__nav--items">
       <li class="Footer__nav--item">
-        <a target="_blank" href="_footer_nav_one_link_">_footer_nav_one_</a>
+        <span>_footer_copyright_text_</span>
       </li>
     </ul>
   </div>

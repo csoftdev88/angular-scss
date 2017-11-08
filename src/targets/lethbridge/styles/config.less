@@ -2,42 +2,49 @@
 ////////////////
 
 /*Main style*/
-@c-primary: #B98747;
-@c-secondary: #E34E3F;
-@c-tertiary: #585C58;
+@c-primary: #0065c9;
+@c-secondary: #000000;
 
-@c-text: #3F3029;
+@c-text: #000000;
+@c-green: #00aa14;
+@c-red: #eb1916;
+@c-white: #ffffff;
+@c-dark-white: #E5E5E5;
+@c-black: #000000;
+@c-grey: #e5e5e5;
+@c-dark-grey: #919191;
+
+@c-button-text: @c-white;
+@c-button-border: @c-primary;
+@c-border-radius: 10px;
+@c-button-height: 56px;
+@c-button-border-radius: @c-button-height / 2;
+
+
+// TODO: find out if these variables are really needed
+@c-tertiary: #585C58;
 @c-secondary-transparent: rgba(62, 177, 194, 0.24);
 @c-secondary-transparent-dark: rgba(62, 177, 194, 0.3);
 @c-brown:    #7d6f5e;
 @c-light-brown: #ac7f49;
-@c-green: #37a744;
-@c-red: #cc0c39;
-@c-button-text: #9B9B9B;
-@c-button-border: #C4AB8B;
-
 @c-light-grey: #dedede;
-@c-grey: @c-text;
 @c-mid-grey: #585C58;
 @c-alt-grey: #4A4A4A;
-@c-dark-grey: #1a1919;
 @c-dark-grey-transparent: rgba(26, 25, 25, 0.8);
-
-@c-black: @c-text;
-
 @c-menu-active: #0d375c;
 
+
 // Fonts
-@ff-primary: "Open Sans";
-@ff-secondary: Arial;
-@ff-serif: Quattrocento;
+@ff-primary: 'Lato', 'Helvetica', 'Arial', 'sans-serif';
+@ff-secondary: @ff-primary;
+@ff-serif: @ff-primary;
 
 ///// Components /////
 //////////////////////
-@c-booking-widget: #F1E7DA;
-@c-booking-widget-active: #F1E7DA;
+@c-booking-widget: @c-primary;
+@c-booking-widget-active: @c-primary;
 @c-booking-widget-my-account: @c-light-brown;
-@c-bookingbar-bg: #F1E7DA;
+@c-bookingbar-bg: @c-primary;
 
 @c-datepicker: #fff;
 @c-datepicker-unavailable: #ccc;
@@ -48,9 +55,9 @@
 @c-secondary-sign: #903938;
 @c-menu-active-sign: #e6781e;
 
-@ff-heading-sign: 'MinionPro-Regular', serif;
-@ff-heading-it-sign: 'MinionPro-It', serif;
-@ff-heading-bold-sign: 'MinionPro-Bold', serif;
+@ff-heading-sign: @ff-primary;
+@ff-heading-it-sign: @ff-primary;
+@ff-heading-bold-sign: @ff-primary;
 
 /*Sandman chain style*/
 @c-primary-sand: #ac7f49;
@@ -60,7 +67,7 @@
 @mobile-header-height: @header-height / 2;
 
 .backdrop-filter-blur(@amount) {
-  // Work around for backdrop-filter blur, due ot its poor browser support
+  // Work around for backdrop-filter blur, due to its poor browser support
   &::before {
     content: '';
     position: absolute;

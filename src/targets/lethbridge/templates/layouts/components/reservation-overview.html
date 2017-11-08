@@ -1,27 +1,29 @@
-<section class="detail-links">
-  <span ng-if="!bookingConfig.priceBreakdownExtended && formatting !== 'suppressRate'"><a href ng-click="openPriceBreakdownInfo()">_view_price_breakdown_</a> | </span>
-  <a ng-if="!bookingConfig.policiesLinkBottom" ng-href="{{bookingConfig.termsAndConditionsLink}}" ng-click="readPolicies()" target="_blank">_policies_</a>
-</section>
-
 <section class="room-data">
-  <h4>{{property.nameLong}}</h4>
+  <div class="section-padding">
+    <h4>{{property.nameLong}}</h4>
 
-  <div class="room-data-details">
-    <span class="chain-logo"></span>
-    <p class="desc" ng-bind-html="allRooms[0]._selectedProduct.name"></p>
-    <p class="price" ng-if="formatting !== 'suppressRate'"><strong>{{getProductPricePerNight(getTotal('totalBaseAfterPricingRules')) | i18nCurrency: currencyCode}}</strong> <em>_per_night_</em></p>
+    <h3>
+      {{allRooms[0].name}}
+      <a href ng-click="openOtherRoomsDialog()" ng-if="allRooms.length > 1">
+        + {{allRooms.length - 1}} _more_
+        <ng-pluralize count="allRooms.length" when="{'2': '_room_', 'other': '_rooms_'}"></ng-pluralize>
+      </a>
+    </h3>
+
+    <div class="room-data-details">
+      <span class="chain-logo"></span>
+      <p class="desc" ng-bind-html="allRooms[0]._selectedProduct.name"></p>
+      <p class="price" ng-if="formatting !== 'suppressRate'"><strong>{{getProductPricePerNight(getTotal('totalBaseAfterPricingRules')) | i18nCurrency: currencyCode}}</strong> <em>_per_night_</em></p>
+    </div>
   </div>
-
-  <h3>{{allRooms[0].name}} <a href ng-click="openOtherRoomsDialog()" ng-if="allRooms.length > 1">+ {{allRooms.length - 1}} _more_ <ng-pluralize count="allRooms.length" when="{'2': '_room_', 'other': '_rooms_'}"> </ng-pluralize></a></h3>
 
   <div class="image-wrapper" ng-if="allRooms[0].images[0].uri">
     <img ng-src="{{allRooms[0].images[0].uri | cloudinaryImage : 380 : 120 : 'fill'}}" alt="{{allRooms[0].name}}">
   </div>
-  <div ng-if="!allRooms[0].images[0].uri" class="room-image-placeholder">
-  </div>
+  <div ng-if="!allRooms[0].images[0].uri" class="room-image-placeholder"></div>
 </section>
 
-<section class="reservation-data">
+<section class="reservation-data section-padding">
   <div ng-if="!bookingConfig.dataOverviewSingleLine" class="data">
     <table>
       <tbody>
@@ -74,7 +76,7 @@
     ng-init="breakdown.extended = false"
     ng-if="formatting !== 'suppressRate'">
     <table>
-      <thead ng-switch="billingDetails.paymentMethod">
+      <thead>
         <tr class="main" ng-if="getTotal('totalAfterTaxAfterPricingRules') !== getBreakdownTotalBaseAfterPricingRules()">
           <th>_room_charges_:</th>
           <td ng-show="allRooms.length">
@@ -120,18 +122,6 @@
           <th>_discount_:</th>
           <td>{{getTotal('totalDiscount') | i18nCurrency: $root.currencyCode}}</td>
         </tr>
-
-        <tr class="main">
-          <th>_total_:</th>
-          <td ng-switch-when="cc">{{getTotal('totalAfterTaxAfterPricingRules') | i18nCurrency: $root.currencyCode}}</td>
-          <td ng-switch-when="point" ng-if="loyaltyProgramEnabled">{{getTotal('pointsRequired')}} _points_</td>
-          <td ng-switch-default>{{getTotal('totalAfterTaxAfterPricingRules') | i18nCurrency: $root.currencyCode}}<span ng-if="loyaltyProgramEnabled && canPayWithPoints"> _or_ {{getTotal('pointsRequired')}} _points_</span></td>
-        </tr>
-        <tr class="breakdown-toggle" ng-show="bookingConfig.priceBreakdownExtended">
-          <th></th>
-          <td>
-          </td>
-        </tr>
       </thead>
       <tbody>
         <!-- Additional taxes
@@ -147,7 +137,6 @@
                   <td>{{getTotal('totalAdditionalFees') | i18nCurrency: $root.currencyCode}}</td>
                 </tr>
                 -->
-
       </tbody>
     </table>
   </div>
@@ -184,3 +173,40 @@
     </div>
   </div>
 </section>
+
+<div
+  class="total-price-container"
+  ng-if="formatting !== 'suppressRate'">
+  <table class="total-table">
+    <tbody>
+      <tr
+        ng-switch="billingDetails.paymentMethod">
+        <th>_total_:</th>
+        <td ng-switch-when="cc">{{getTotal('totalAfterTaxAfterPricingRules') | i18nCurrency: $root.currencyCode}}</td>
+        <td ng-switch-when="point" ng-if="loyaltyProgramEnabled">{{getTotal('pointsRequired')}} _points_</td>
+        <td ng-switch-default>
+          {{getTotal('totalAfterTaxAfterPricingRules') | i18nCurrency: $root.currencyCode}}
+          <span ng-if="loyaltyProgramEnabled && canPayWithPoints">
+            _or_ {{getTotal('pointsRequired')}} _points_
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="links">
+    <a ng-click="goBack()" class="back">< _back_</a>
+    <span class="separator" ng-if="bookingConfig.policiesLinkBottom"> | </span>
+    <span ng-show="!noBreakdown" ng-if="formatting !== 'suppressRate'">
+      <a href ng-click="breakdown.extended = !breakdown.extended">
+        <span ng-if="!breakdown.extended">_view_price_breakdown_</span>
+        <span ng-if="breakdown.extended">_hide_price_breakdown_</span>
+      </a>
+      <span class="separator" ng-if="bookingConfig.policiesLinkBottom"> | </span>
+    </span>
+    <a ng-href="{{bookingConfig.termsAndConditionsLink}}"
+       ng-click="readPolicies()"
+       target="_blank">
+      _policies_
+    </a>
+  </div>
+</div>

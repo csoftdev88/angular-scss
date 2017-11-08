@@ -6,7 +6,6 @@
   display: inline-block;
   width: 100%;
   margin: 0;
-  background-color: #423B33;
   text-align: center;
 
   .label {
@@ -18,8 +17,8 @@
     height: 153px;
     float: none;
     display: inline-block;
-    padding: 33px 86px;
-    width: initial;
+    padding: 33px 0;
+    width: 100%;
     box-sizing: border-box;
 
     .viewport-mobile & {
@@ -32,12 +31,42 @@
       display: inline;
       float: left;
       width: auto;
-      margin-left: 70px;
+      margin-left: 105px;
       box-sizing: border-box;
 
       .step-number {
         position: relative;
         top: -2px;
+        color: @c-primary;
+        font-weight: bold;
+      }
+
+      .fa-check {
+        display: none;
+        color: @c-white;
+      }
+
+      &.past {
+        .fa-check {
+          display: inline-block;
+          font-size: 25px;
+        }
+        a {
+          background-color: @c-green;
+          border-color: @c-green;
+          .step-number {
+            color: @c-green;
+            display: none;
+          }
+          &:hover {
+            .step-number {
+              display: inline;
+            }
+            .fa-check {
+              display: none;
+            }
+          }
+        }
       }
 
       &:first-child{
@@ -49,9 +78,9 @@
         padding: 0;
         min-width: 0;
         border-radius: 50%;
-        line-height: 50px;
-        height: 50px;
-        width: 50px;
+        line-height: 60px;
+        height: 60px;
+        width: 60px;
         border: 2px solid #D8D8D8;
         box-shadow: none;
         text-shadow: none;
@@ -59,7 +88,7 @@
         background: transparent;
         font-weight: 400;
         color: #D8D8D8;
-        font-size: 15px;
+        font-size: 18px;
 
         .viewport-mobile & {
           line-height: 40px;
@@ -92,12 +121,12 @@
         }
 
         .text {
-          color: #ffffff;
+          color: @c-dark-grey;
           font-size: 13px;
           line-height: 15px;
           display: block;
-          width: 82px;
-          margin-left: -17px;
+          width: 97px;
+          margin-left: -22px;
           padding-top: 5px;
           font-family: @ff-primary;
           font-weight: normal;
@@ -105,6 +134,9 @@
       }
 
       &.current{
+        .step-number {
+          color: @c-white;
+        }
         .button{
           cursor: default;
           padding: 0;
@@ -116,7 +148,6 @@
             color: @c-primary;
           }
         }
-
       }
     }
   }

@@ -7,16 +7,21 @@
 .button,
 input[type="submit"],
 button-submit {
-  height: 56px;
-  line-height: 56px;
   width: 100%;
-  border: 1px solid #79AF41;
-  border-radius: 4px;
-  background-color: #87C34A;
+  text-transform: uppercase;
+  height: @c-button-height !important;
+  border: 0 none;
+  border-radius: @c-button-border-radius !important;
+  font-family: @ff-primary;
+  background-color: @c-green;
+  color: @c-white;
   font-size: 18px;
   font-weight: bold;
-  letter-spacing: 1px;
+  line-height: 56px !important;
+  text-align: center;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  transition: background-color 200ms;
+  box-shadow: none;
   &:hover {
     background-color: #79AF41;
   }
@@ -24,7 +29,9 @@ button-submit {
     background-color: #79AF41;
     outline: none;
   }
-  box-shadow: none;
+  &.mid-button {
+    width: 250px;
+  }
 }
 
 button-submit[disabled="disabled"] {
@@ -35,9 +42,9 @@ button-submit[disabled="disabled"] {
 
 button.back {
   &:hover {
-    color: #fff;
+    color: @c-white;
     &:before {
-      border-color: #fff;
+      border-color: @c-white;
     }
   }
 }

@@ -8,7 +8,7 @@
   position: fixed;
   top: 0;
   z-index: 999;
-  background-color: #fff;
+  background-color: @c-white;
 }
 
 .Header__buttons {
@@ -81,11 +81,11 @@
 }
 
 .Header__button {
-  height: 50px;
+  height: @c-button-height;
   box-sizing: border-box;
-  background: #fff;
+  background: @c-white;
 
-  color: @c-button-text;
+  color: @c-secondary;
   line-height: 35px;
   font-family: @ff-primary;
   font-size: 16px;
@@ -93,7 +93,7 @@
   letter-spacing: normal;
 
   border: 1px solid @c-button-border;
-  border-radius: 4px;
+  border-radius: @c-button-border-radius;
   margin: 0 5px 0 0;
   padding: 0;
   text-shadow: none;

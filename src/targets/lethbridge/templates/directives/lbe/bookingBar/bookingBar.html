@@ -88,27 +88,6 @@
       </a>
     </form-element>
 
-    <form-element ng-show="!showCode && !multiRoomSearch" class="booking-bar__form--code">
-      <select name="code"
-              chosen
-              disable-search="true"
-              ng-model="search.codeType"
-              ng-change="showCode = true"
-              placeholder-text-single="_apply_code_"
-              ng-options="code.value as code.title for code in codes">
-      </select>
-    </form-element>
-
-    <form-element ng-show="showCode && !multiRoomSearch" class="booking-bar__form--code">
-      <input type="text"
-             ng-model="search.code"
-             placeholder="{{ getCurrentCodeType() }}">
-      <remove-text role="button"
-                   class="remove"
-                   ng-click="removeCode()">
-      </remove-text>
-    </form-element>
-
     <div class="search-button-positionner">
       <button type="submit"
               ng-click="doSearch()"

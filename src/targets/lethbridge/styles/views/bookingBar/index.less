@@ -28,7 +28,7 @@ booking-bar {
 
   .booking-bar__form--guests .chosen-container {
     // Urrgh! Someone (who doesn't understand CSS specificity) put !important on the master style sheet!
-    width: 160px !important;
+    width: 145px !important;
   }
 
   p, span, label {
@@ -36,18 +36,15 @@ booking-bar {
   }
 
   &.booking-bar__size-small {
-    width: 301px;
-    padding: 31px 28px 19px 28px;
+    width: 100%;
     .booking-bar__form {
       form-element {
         display: block;
         padding: 0 0 25px 0;
       }
-      .dates {
+      .dates,
+      .booking-bar__form--room {
         width: 100%;
-      }
-      .booking-bar__form--guests {
-        width: 50%;
       }
       .booking-bar__title {
         font-size: 13px;
@@ -65,6 +62,7 @@ booking-bar {
       }
       .booking-bar__form--dates.check-in,
       .booking-bar__form--guests.adults {
+        margin-right: 10px;
         float: left;
       }
       .booking-bar__form--dates.check-out,
@@ -72,7 +70,7 @@ booking-bar {
         float: right;
       }
       .booking-bar__submit {
-        width: 245px;
+        width: 100%;
       }
     }
   }
@@ -169,10 +167,10 @@ booking-bar {
     margin-left: calc(~'50% - 50vw');
     display: flex;
     justify-content: center;
-    border: 1px solid #E6D4BD;
     border-left: none;
     border-right: none;
     background-color: @c-bookingbar-bg;
+    min-height: 100px;
 
     .booking-bar__form {
       width: 1212px;
@@ -182,11 +180,12 @@ booking-bar {
   .booking-bar__form {
 
     span, input {
-      color: #3C3C3C;
+      color: @c-dark-grey;
       font-family: @ff-primary;
     }
 
-    .dates {
+    .dates,
+    .booking-bar__form--room {
       width: 294px;
       input[type="text"] {
         color: #3C3C3C;
@@ -199,8 +198,9 @@ booking-bar {
       position: absolute;
       top: 2px;
       left: 2px;
-      color: #3C3C3C;
-      background: #fff;
+      right: 2px;
+      color: @c-dark-grey;
+      background: @c-white;
       font-size: 15px;
       font-weight: 300;
       height: 52px;
@@ -212,13 +212,13 @@ booking-bar {
       text-overflow: ellipsis;
       padding-right: 35px;
       box-sizing: border-box;
-      width: 100%;
+      border-radius: 27px;
 
       .fa-calendar {
         position: absolute;
         top: 16px;
         right: 16px;
-        color: #C8C8C8;
+        color: @c-black;
         font-size: 17px;
       }
     }
@@ -230,10 +230,6 @@ booking-bar {
 
     .booking-bar__form--dates {
       width: 115px;
-    }
-
-    .booking-bar__form--room {
-      width: 245px;
     }
 
     .booking-bar__form--code {
@@ -271,14 +267,13 @@ booking-bar {
     }
 
     .booking-bar__submit {
+      width: 100%;
       text-transform: uppercase;
-      height: 56px;
-      width: 203px;
-      border: 1px solid #79AF41;
-      border-radius: 4px;
+      height: @c-button-height;
+      border-radius: @c-button-border-radius;
       font-family: @ff-primary;
-      background-color: #87C34A;
-      color: #fff;
+      background-color: @c-green;
+      color: @c-white;
       font-size: 18px;
       font-weight: bold;
       line-height: 24px;
