@@ -815,14 +815,13 @@ angular
   }
 
   $scope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
-    if (toState.name !== 'profile' && $scope.auth && $scope.auth.isLoggedIn()) {
-      // Using timeout, because user data is not populated at the time we try to access it
-      $timeout(function () {
+    if (toState.name !== 'profile' && toState.name !== 'double-optin') {
+      user.authPromise.then(function () {
         var userData = user.getUser();
         if (userData.termsAndConditionsAccepted === false || userData.passwordResetRequired === true || userData.doubleOptInConfirmed === false) {
           $state.go('profile');
         }
-      }, 2000);
+      });
     }
 
     // Re inject keystone plugin when the header gets recompiled
