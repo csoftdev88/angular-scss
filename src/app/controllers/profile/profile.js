@@ -151,18 +151,20 @@
 
     user.authPromise.then(function () {
       $scope.profileData = user.getUser();
-      if ($scope.profileData.termsAndConditionsAccepted === false) {
-        $scope.sections.termsAndConditions.expanded = true;
-        $scope.sections.termsAndConditions.showError = true;
-      }
-      if ($scope.profileData.passwordResetRequired === true) {
-        $scope.sections.resetPassword.expanded = true;
-        $scope.sections.resetPassword.showError = true;
-      }
-      if ($scope.profileData.doubleOptInConfirmed === false) {
-        $scope.sections.aboutYou.expanded = false;
-        $scope.editingDisabled = true;
-        modalService.openEditingDisabledDialogue();
+      if (Settings.conditionalRedirect === true) {
+        if ($scope.profileData.termsAndConditionsAccepted === false) {
+          $scope.sections.termsAndConditions.expanded = true;
+          $scope.sections.termsAndConditions.showError = true;
+        }
+        if ($scope.profileData.passwordResetRequired === true) {
+          $scope.sections.resetPassword.expanded = true;
+          $scope.sections.resetPassword.showError = true;
+        }
+        if ($scope.profileData.doubleOptInConfirmed === false) {
+          $scope.sections.aboutYou.expanded = false;
+          $scope.editingDisabled = true;
+          modalService.openEditingDisabledDialogue();
+        }
       }
       $scope.profileData.userCountry = contentService.getCountryByID($scope.profileData.localeCode, $scope.profileCountries);
 
