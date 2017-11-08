@@ -226,14 +226,14 @@
                     $stateParams.reservation ||
                     !memberOnlyBooking"
              class="CreateUser__explanation">
-          _create_account_title_. _create_account_text_
+          _create_account_title_
         </div>
         <label for="password">
           <input class="CreateUser__password"
                  id="password"
                  type="password"
                  ng-class="{'invalid-input': userPasswordRequired() || userPasswordInvalid()}"
-                 placeholder="_password_label_"
+                 placeholder="{{ getPasswordPlaceholder() }}"
                  ng-model="profile.userPassword">
         </label>
 
@@ -243,7 +243,7 @@
                  id="password-confirmation"
                  type="password"
                  ng-class="{'invalid-input': userPasswordConfirmationRequired() || userPasswordMismatch()}"
-                 placeholder="_confirm_password_label_"
+                 placeholder="{{ getPasswordConfirmationPlaceholder() }}"
                  ng-model="profile.userPasswordConfirmation">
         </label>
       </div>

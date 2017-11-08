@@ -40,7 +40,10 @@ angular.module('mobiusApp.dynamicMessages', [])
     'apply_code': 'Enter a code',
     'select_property': 'Find Your Hotel',
     'find_your_hotel': 'Find Your Hotel',
-    'room': 'Room'
+    'room': 'Room',
+    'password': 'Password',
+    'confirm_password': 'Confirm Password',
+    'optional': 'Optional'
   },
   // NOTE: Sutton is English only currently
   'de':{
@@ -72,6 +75,9 @@ angular.module('mobiusApp.dynamicMessages', [])
     'promo_code_applied':'Promo code applied successfully',
     'corp_code_applied':'Corp code applied successfully',
     'group_code_applied':'Group code applied successfully',
-    'room': 'Zimmer'
+    'room': 'Zimmer',
+    'password': 'Passwort',
+    'confirm_password': 'Passwort bestätigen',
+    'optional': 'freiwillig'
   }
 });
