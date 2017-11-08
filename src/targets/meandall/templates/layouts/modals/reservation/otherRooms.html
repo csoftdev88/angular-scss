@@ -15,7 +15,8 @@
           <h3>{{room.name}}</h3>
 
           <span class="guests">
-            <ng-pluralize count="room._adults" when="{'0': '{} _adults_', '1': '{} _adult_', 'other': '{} _adults_'}"></ng-pluralize>, {{room._children}} _children_</span>
+            <ng-pluralize count="room._adults" when="{'0': '{} _adults_', '1': '{} _adult_', 'other': '{} _adults_'}"></ng-pluralize>,
+            <ng-pluralize count="room._children" when="{'0': '{} _no_children_', '1': '{} _child_', 'other': '{} _children_'}"></ng-pluralize> </span>
         </div>
       </li>
     </ul>
