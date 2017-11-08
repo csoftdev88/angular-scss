@@ -809,6 +809,9 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.getPasswordPlaceholder = function () {
+    if (!dynamicMessages) {
+      return '';
+    }
     if ($scope.memberOnlyBooking) {
       return dynamicMessages.password;
     }
@@ -816,6 +819,9 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.getPasswordConfirmationPlaceholder = function () {
+    if (!dynamicMessages) {
+      return '';
+    }
     if ($scope.memberOnlyBooking) {
       return dynamicMessages.confirm_password;
     }
