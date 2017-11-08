@@ -149,7 +149,7 @@
       });
     }
 
-    $timeout(function(){
+    user.authPromise.then(function () {
       $scope.profileData = user.getUser();
       if ($scope.profileData.termsAndConditionsAccepted === false) {
         $scope.sections.termsAndConditions.expanded = true;
@@ -160,6 +160,7 @@
         $scope.sections.resetPassword.showError = true;
       }
       if ($scope.profileData.doubleOptInConfirmed === false) {
+        $scope.sections.aboutYou.expanded = false;
         $scope.editingDisabled = true;
         modalService.openEditingDisabledDialogue();
       }
@@ -168,11 +169,10 @@
       if (Settings.UI.registerPage.defaultOptInNewsletter) {
         $scope.profileData.optedIn = true;
       }
-    }, 2000);
+    });
 
     $scope.update = function(form, profileData, passwordData){
       clearErrorMsg();
-      window.console.log(passwordData);
       if (!$scope.editingDisabled) {
         $scope.submitted = true;
         form.$submitted = true;
