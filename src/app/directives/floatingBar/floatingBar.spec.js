@@ -125,6 +125,21 @@ describe('GuestsCtrl', function() {
           return true;
         }
       });
+
+      $provide.value('DynamicMessages', {
+        'en': {
+          'adult': 'Adult',
+          'adults': 'Adults',
+          'child': 'Child',
+          'children': 'Children'
+        }
+      });
+
+      $provide.value('stateService', {
+        getAppLanguageCode: function(){
+          return 'en';
+        }
+      });
     });
   });
 
