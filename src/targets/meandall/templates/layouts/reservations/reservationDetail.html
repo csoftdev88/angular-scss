@@ -300,10 +300,12 @@
                                hasPriceBreakdown()">
                     <th></th>
                     <td>
-                      <a href ng-click="breakdownExtended = !breakdownExtended">
-                        <span class="price-breakdown" ng-if="!breakdownExtended">_view_price_breakdown_</span>
-                        <span class="price-breakdown" ng-if="breakdownExtended">_hide_price_breakdown_</span>
-                      </a>
+                      <div class="table-expand">
+                        <a href ng-click="breakdownExtended = !breakdownExtended">
+                          <span class="price-breakdown" ng-if="!breakdownExtended">_view_price_breakdown_</span>
+                          <span class="price-breakdown" ng-if="breakdownExtended">_hide_price_breakdown_</span>
+                        </a>
+                      </div>
                     </td>
                   </tr>
                 </thead>
