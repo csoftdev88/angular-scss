@@ -206,6 +206,13 @@
           }
 
           apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), data).then(function(){
+            if (Settings.conditionalRedirect === true) {
+              $scope.sections.termsAndConditions.showError = false;
+              $scope.sections.resetPassword.showError = false;
+              data.passwordResetRequired = false;
+              data.termsAndConditionsAccepted = true;
+            }
+
             userObject = _.extend(userObject, data);
             $scope.success = true;
             if($scope.config.displaySummary){
