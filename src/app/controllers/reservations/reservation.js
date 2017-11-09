@@ -408,6 +408,10 @@ angular.module('mobius.controllers.reservation', [])
 
     }
 
+    _.extend($scope.additionalInfo, {
+      optedIn: userData.optedIn || false
+    });
+
     if (!Object.keys($scope.additionalInfo).length || isMobius) {
       // No fields are touched yet, prefiling
       _.extend($scope.additionalInfo, {
