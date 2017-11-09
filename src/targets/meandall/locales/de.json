@@ -418,7 +418,7 @@
         "phone_pattern_error": "Bitte geben Sie eine gültige Telefonnummer ein",
         "address_pattern_error": "Bitte geben Sie eine gültige Adresse ein",
         "state_pattern_error": "Bitte geben Sie eine gültige Region/Bundesland/Provinz ein",
-        "receive_offer_label": "Ich möchte gerne Angebote per E-Mail erhalten",
+        "receive_offer_label": "Ich bin damit einverstanden, Neuigkeiten von den me and all hotels zu erhalten",
         "city_pattern_error": "Bitte geben Sie eine gültige Stadt ein",
         "postcode_pattern_error": "Bitte geben Sie eine gültige Postleitzahl ein",
         "email_optin_label": "Ich bin damit einverstanden, Neuigkeiten von den me and all hotels zu erhalten",
