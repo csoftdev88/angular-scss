@@ -170,10 +170,13 @@ angular.module('mobiusApp.directives.floatingBar', [
           }
         });
 
-        scope.initialShow = function(){
+        scope.initialShow = function(activeType){
           //Delay the initial show bar animation by 2 seconds
           $timeout(function() {
             scope.showAfterLoad = true;
+            if (activeType === 'advancedBooking') {
+              $('floating-bar').addClass('multi-room');
+            }
             //Toggle css trasition classes
             $('booking-widget').on('transitionend webkitTransitionEnd otransitionend MSTransitionEnd', function() {
               $('booking-widget').addClass('transEnd');
@@ -182,6 +185,7 @@ angular.module('mobiusApp.directives.floatingBar', [
             $('my-account').on('transitionend webkitTransitionEnd otransitionend MSTransitionEnd', function() {
               $('my-account').addClass('transEnd');
             });
+
           }, 2000);
         };
       }
