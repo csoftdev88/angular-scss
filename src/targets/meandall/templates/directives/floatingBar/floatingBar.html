@@ -42,7 +42,7 @@
 </ul>
 <div>
   <booking-widget
-    ng-init="initialShow()"
+    ng-init="initialShow(active)"
     ng-class="{'multiroom-mode': showAfterLoad && active === ADVANCED_BOOKING, 'is-open': !isCollapsed && showAfterLoad && (active === BOOKING || active === ADVANCED_BOOKING)}"
     open-booking-tab="openBookingTab"
     hide-bar="setActive(active)"
