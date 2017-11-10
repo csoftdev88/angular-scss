@@ -3,22 +3,9 @@
 /////////////////////////
 
 hr {
-
-	height: 20px;
-
-  &,
-  &.dividerWithoutImage{
-    background: url('@{img-prefix}/lbe/divider-orange.png') center center no-repeat;
-  }
-
-  &:after ,
-  &:before {
-    border-top: 1px solid #eaeaea;
-    z-index: -1;
-    .chain-sand &,
-    .chain-sign &{
-      width: 50%;
-    }
-  }
-
+  border-top: 1px solid #eaeaea;
+  border-bottom: 0;
+  position: relative;
+  width: 200%;
+  margin-left: -50%;
 }

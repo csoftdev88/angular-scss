@@ -2,140 +2,49 @@
 //// BREADCRUMBS ////
 /////////////////////
 breadcrumbs {
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
+
 .breadcrumbs {
+  margin-top: 10px;
+  margin-bottom: 10px;
   background: #fff;
   padding: 10px 15px;
-  .sticky & {
-    padding: 9px;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
-  }
-
-  h1{
-    display: inline;
-    float: left;
-    font-size: 24px;
-    line-height: 33px;
-    color: @c-grey;
-    font-weight: 600;
-    font-family: @ff-heading;
-    max-width: 56%;
-    .viewport-tablet &{
-      max-width: 50%;
-    }
-    .chain-sign &{
-      font-size: 26px;
-      font-family: @ff-heading-it-sign;
-      font-weight: normal;
-      text-transform: none;
-      .viewport-tablet &{
-        font-size: 18px;
-      }
-    }
-    .chain-sand &{
-      font-weight: 700;
-      text-transform: uppercase;
-      .viewport-tablet &{
-        font-size: 18px;
-      }
-    }
-    .sticky & {
-      .chain-sand & {
-        font-weight:600;
-        font-size:17px;
-        line-height:24px;
-      }
-      .chain-sign & {
-        font-size:22px;
-      }
-    }
-  }
+  padding-left: 0; 
 
   .crumbs{
-    clear: both;
-    max-width:50%;
     li:last-of-type {
       span {
-        color: #000;
+        line-height: 14px;
+        font-size: 14px;
+        color: @c-mid-grey;
       }
     }
     li {
-      line-height: 21px;
-      .sticky & {
-        font-size:10px;
-      }
       a {
-        color: @c-primary;
-        span {
-          color: @c-primary;
-          font-family: @ff-primary;
-        }
-        line-height: 15px;
+        font-size: 14px;
+        line-height: 14px;
+        color: @c-dark-grey;
         font-weight: 300;
         &:after{
           color: #000;
-          font-size: 18px;
+          font-size: 22px;
         }
         &:hover {
-          color: @lbe-c-primary;
-          text-decoration: underline;
+          color: @c-mid-grey;
         }
+      }
+      > span, a {
+        margin-right: 10px;
+      }
+      > span:after, a:after {
+        vertical-align: top;
+        content: ">";
+        font-weight: 500;
+        margin-left: 10px;
+        color: @c-primary;
       }
     }
-  }
-
-  .alt-nav{
-    position: relative;
-    top:2px;
-    z-index: 9;
-    li{
-      .viewport-tablet &{
-        margin-left: 8px;
-        padding-left: 8px;
-      }
-      border-left-color: @c-menu-active-sand;
-      .chain-sign &{
-        border-left-color: @c-menu-active-sign;
-      }
-      a{
-        font-weight: 600;
-        font-size: 14px;
-        color: @c-menu-active-sand;
-        &:hover {
-          text-decoration:underline;
-        }
-        .viewport-tablet &{
-          font-size: 13px;
-        }
-        &:after{
-          border-color: @c-menu-active-sand;
-        }
-        .sticky & {
-          font-size:12px;
-        }
-        .chain-sign &{
-          line-height: 14px;
-          text-transform: uppercase;
-          color: @c-menu-active-sign;
-          &:after{
-            border-color: @c-menu-active-sign;
-          }
-        }
-      }
-    }
-  }
-
-  .inner{
-    display: inline-block;
-    width: 100%;
-  }
-
-  h1 + .crumbs + .alt-nav {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translate3d(0px, -50%, 0px);
   }
 
 }
