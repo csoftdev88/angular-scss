@@ -315,15 +315,15 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'Mobius-tenantId': '6',
       'Mobius-channelId': [{
         'name': 'mobileWeb',
-        'channelID': 23,
+        'channelID': 100,
         'contentLength': 'short'
       }, {
         'name': 'web',
-        'channelID': 6,
+        'channelID': 100,
         'contentLength': 'long'
       }, {
         'name': 'meta',
-        'channelID': 24,
+        'channelID': 100,
         'contentLength': 'long'
       }]
     },

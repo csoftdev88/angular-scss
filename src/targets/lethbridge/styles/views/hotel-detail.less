@@ -186,7 +186,7 @@ hotel-detail {
               font-weight: bold;
               letter-spacing: 1px;
               line-height: 37px;
-              color: @c-primary;
+              color: @c-black;
               text-transform: uppercase;
               .viewport-mobile & {
                 font-size: 18px;
@@ -497,6 +497,7 @@ hotel-detail {
               .hero-slide {
                 overflow: visible;
                 height: 150px;
+                border-radius: @c-border-radius;
                 .viewport-mobile & {
                   height: 70px;
                 }
@@ -818,7 +819,7 @@ hotel-detail .hotel-detail__rooms-compare {
       font-size: 16px;
       font-weight: 300;
       &.is-active {
-        color: #B98747;
+        color: @c-primary;
         font-weight: normal;
       }
     }
@@ -855,7 +856,7 @@ hotel-detail .hotel-detail__rooms-compare {
         height: 31px;
         line-height: 31px;
         span {
-          color: #B98747;
+          color: @c-primary;
           font-size: 15px;
           font-weight: normal;
         }

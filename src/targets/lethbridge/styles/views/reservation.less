@@ -44,6 +44,10 @@ reservation-widget {
     width: 305px;
     height: 100px;
     border-bottom-left-radius: @c-border-radius;
+    .viewport-mobile & {
+      right: 0;
+      width: auto;
+    }
     .total-table {
       font-size: 22px;
       th {
@@ -65,7 +69,7 @@ reservation-widget {
   }
 
   .ReservationDetails__sidebar-container {
-    padding-bottom: 100px;
+    padding-bottom: 130px;
     float: left;
     width: 375px;
     .viewport-mobile & {
@@ -574,6 +578,19 @@ reservation-widget {
 .ReservationDetails__overview {
   .section-padding {
     padding: 0 30px;
+  }
+  .viewport-mobile & {
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-bottom: 90px;
+    .room-data {
+      border-top-left-radius: 0;
+    }
+    table {
+      th {
+        text-align: left !important;
+      }
+    }
   }
 }
 
