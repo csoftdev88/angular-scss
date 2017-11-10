@@ -75,13 +75,14 @@
         </form-element>
 
       </fieldset>
-
-      <button-submit role="button"
-                     tabindex="0"
-                     type="submit"
-                     ng-click="doLogin(loginForm, loginData); retentionClick()">
-        _login_
-      </button-submit>
+      <div class="button-center">
+        <button-submit role="button"
+                      tabindex="0"
+                      type="submit"
+                      ng-click="doLogin(loginForm, loginData); retentionClick()">
+          _login_
+        </button-submit>
+      </div>
 
       <ul class="options">
         <li>
@@ -115,12 +116,13 @@
         </form-element>
 
       </fieldset>
-
-      <button-submit role="button"
-                     tabindex="0"
-                     ng-click="auth.reset(resetForm, resetData); retentionClick()">
-        _reset_password_
-      </button-submit>
+      <div class="button-center">
+        <button-submit role="button"
+                      tabindex="0"
+                      ng-click="auth.reset(resetForm, resetData); retentionClick()">
+          _reset_password_
+        </button-submit>
+      </div>
 
     </form>
 
