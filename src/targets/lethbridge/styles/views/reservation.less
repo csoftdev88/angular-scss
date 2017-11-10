@@ -93,6 +93,16 @@ reservation-widget {
         display: inline-block;
       }
     }
+    .padding-top {
+      padding-top: 40px;
+    }
+    .map-section {
+      padding-top: 40px;
+      h2 {
+        color: @c-black;
+        font-size: 18px;
+      }
+    }
   }
 
   // Override chosen styling for select boxes
@@ -1752,7 +1762,7 @@ reservation-hotel-details {
 }
 
 .ConfirmationBackground {
-  background: url('@{img-prefix}/confirmation-bg.png');
+  background: url('@{img-prefix}/reservation-bg.png');
   position: absolute;
   height: 100vh;
   width: 100vw;
@@ -1767,4 +1777,108 @@ reservation-hotel-details {
 
 dialog.confirmation-dialog .ui-dialog {
   overflow-x: hidden;
+}
+
+.booking-confirmation-container {
+  border: 1px solid @c-grey;
+  background-color: #fafafa;
+  padding: 50px;
+  text-align: center;
+  border-radius: @c-border-radius;
+  h4 {
+    .h1
+  }
+  h4 {
+    text-transform: none;
+    span {
+      font-weight: normal;
+    }
+  }
+  .booking-date {
+    color: @c-primary;
+  }
+}
+
+.actions {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 20px;
+
+  @media print {
+   display: none;
+  }
+
+  .share {
+    float: initial;
+    display: block;
+    width: 100%;
+    margin: 20px 0;
+
+    a {
+      &.icon-fb {
+        &:before {
+          content: @fa-var-facebook-square;
+          color: #fff;
+        }
+      }
+      &.icon-twitter {
+        &:before {
+          content: @fa-var-twitter;
+          color: #fff;
+        }
+      }
+      &.icon-gplus {
+        &:before {
+          content: @fa-var-google-plus;
+          color: #fff;
+        }
+      }
+      &.icon-email {
+        &:before {
+          content: @fa-var-envelope;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .passbook{
+    float: left;
+    a {
+      display: block;
+      margin-left: @spacing / 2;
+    }
+    .button-passbook {
+      background: url('@{img-prefix}/v4/btn-passbook.png');
+      width: 108px;
+      height: 36px;
+      float: right;
+      margin-left: 0;
+    }
+
+    .button-print {
+      background: url('@{img-prefix}/v4/btn-print.png');
+      width: 37px;
+      height: 36px;
+      float: right;
+    }
+
+    .viewport-mobile &{
+      clear: both;
+      float: left;
+      .button-print {
+        margin-left: 0;
+        margin-right: @spacing / 2;
+      }
+      .button-passbook {
+        margin-left: 0;
+        margin-right: @spacing / 2;
+      }
+    }
+  }
+
+  span {
+    visibility: hidden;
+  }
 }
