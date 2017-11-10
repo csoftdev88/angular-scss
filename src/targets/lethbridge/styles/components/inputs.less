@@ -62,7 +62,7 @@ input {
   &::before {
     font-family: FontAwesome;
     content: "\f107";
-    color: rgba(101, 101, 101, 0.27);
+    color: @c-black;
     font-size: 27px;
     line-height: 27px;
   }
@@ -79,7 +79,7 @@ select.with-icon + .chosen-container-single .chosen-single div b {
     line-height: 38px;
     padding: 0 20px;
     &.highlighted {
-      background: #87C34A none;
+      background: @c-primary none;
     }
   }
 }
@@ -106,4 +106,28 @@ select.with-icon + .chosen-container-single .chosen-single div b {
   margin: 5px;
   box-shadow: none;
   width: calc(~'100% - 10px');
+}
+
+select,
+input[type=text],
+input[type=number],
+input[type=date],
+input[type=email],
+input[type=password],
+input[type=tel],
+input:not([type=radio]):not([type=checkbox]),
+.chosen-container {
+  height: 56px;
+  border-radius: 27px !important;
+  border: 1px solid @c-grey !important;
+  color: @c-dark-grey !important;
+}
+
+textarea {
+  border: 1px solid @c-grey !important;
+  border-radius: 27px !important;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.02);
+  &:focus {
+    box-shadow: none;
+  }
 }

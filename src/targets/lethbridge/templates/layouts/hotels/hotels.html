@@ -1,15 +1,19 @@
-<hero-slider content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
+<div class="members-only-banner">
+  <div class="members-only-banner__labels-positionner">
+    <div class="members-only-banner__label">
+      _menu_hotels_
+    </div>
+  </div>
+</div>
 
-<breadcrumbs stickable="main-header"></breadcrumbs>
+<main class="grid-wrapper no-margin">
 
-<main class="grid-wrapper">
+  <booking-bar class="roombar" size="full-width" stickable="main-header"></booking-bar>
+
+  <breadcrumbs stickable="main-header"></breadcrumbs>
+  <hr />
 
   <div class="preloader" ng-show="preloader.visible"></div>
 
   <hotels></hotels>
-
-  <!--<scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>-->
 </main>
-<!--
-<div dynamic-layout><div>
- -->

@@ -41,6 +41,14 @@ floating-bar {
 floating-bar {
   display: none;
   color: #4A4A4A;
+  background-color: @c-primary;
+
+  form-element {
+    form-label {
+      top: -40px !important;
+      color: @c-white;
+    }
+  }
 
   &.multi-room{
     background: @c-booking-widget-active;

@@ -12,14 +12,13 @@
 // Global namespace for whole reservation process //
 ////////////////////////////////////////////////////
 reservation-widget {
-
   margin-bottom: 70px;
   padding: 24px 47px 24px 34px;
   box-sizing: border-box;
   width: 100%;
   background-color: #fff;
   box-shadow: none;
-  border-radius: 0;
+  border-radius: @c-border-radius;
 
   a {
     cursor: pointer;
@@ -29,14 +28,91 @@ reservation-widget {
     padding: 20px;
   }
 
+  .form-bottom {
+    button-submit {
+      margin-top: 15px;
+    }
+  }
+
+  .total-price-container {
+    padding: 30px 35px 0 35px;
+    background-color: @c-black;
+    color: @c-white;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 305px;
+    height: 100px;
+    border-bottom-left-radius: @c-border-radius;
+    .viewport-mobile & {
+      right: 0;
+      width: auto;
+    }
+    .total-table {
+      font-size: 22px;
+      th {
+        text-align: left;
+        color: @c-dark-white;
+        font-weight: normal;
+      }
+      td {
+        text-align: right;
+        font-weight: bold;
+      }
+    }
+    a {
+      color: @c-dark-white;
+      &:hover {
+        color: @c-white;
+      }
+    }
+  }
+
+  .ReservationDetails__sidebar-container {
+    padding-bottom: 130px;
+    float: left;
+    width: 375px;
+    .viewport-mobile & {
+      display: none;
+    }
+  }
+
+  .ReservationDetails__container {
+    margin-left: 375px;
+    .viewport-mobile & {
+      margin-left: 0;
+    }
+    .side-shadow {
+      padding:0 70px 40px 70px;
+      box-shadow: -5px 0px 15px -4px @c-dark-white;
+      .viewport-mobile & {
+        padding: 0 0 40px 0;
+        box-shadow: none;
+      }
+      .input-checkbox {
+        display: inline-block;
+      }
+    }
+    .padding-top {
+      padding-top: 40px;
+    }
+    .map-section {
+      padding-top: 40px;
+      h2 {
+        color: @c-black;
+        font-size: 18px;
+      }
+    }
+  }
+
   // Override chosen styling for select boxes
   .chosen-container-active.chosen-with-drop .chosen-single {
     box-shadow: none;
   }
 
   &.reservation-assurance-active {
-    padding: 20px;
-    margin-bottom: 40px;
+    padding: 0;
+    margin-bottom: 0px;
     .viewport-mobile & {
       margin-bottom: 40px;
     }
@@ -105,9 +181,8 @@ reservation-widget {
     font-size: 24px;
     color: @c-text;
     line-height: 29px;
-    font-weight: 300;
+    font-weight: bold;
     font-family: @ff-secondary;
-    text-transform: uppercase;
     .viewport-mobile & {
       margin-top:20px;
     }
@@ -139,7 +214,6 @@ reservation-widget {
     border-radius: 4px;
     padding: 0 15px;
     border: none;
-    background: #F7F7F7;
     color: @c-form-text;
     font-size: @size-0;
     font-weight: normal;
@@ -230,15 +304,17 @@ reservation-widget {
   }
 
   .room-data {
+    background-color: @c-primary;
+    border-top-left-radius: @c-border-radius;
+    padding-top: 30px;
 
     h3, h4, p {
       line-height: 1.6em;
     }
 
     h3 {
-      color: @c-text;
+      color: @c-dark-white;
       line-height: 19px;
-      text-transform: uppercase;
       font-family: @ff-primary;
       font-size: 18px;
       font-weight: 300;
@@ -247,12 +323,12 @@ reservation-widget {
     }
 
     h4 {
+      color: @c-white;
       font-size: 22px;
       line-height: 32px;
       text-transform: uppercase;
-      font-family: @ff-serif;
+      font-family: @ff-primary;
       letter-spacing: 1px;
-      color: @c-primary;
     }
 
     .room-data-details{
@@ -263,12 +339,10 @@ reservation-widget {
     }
 
     .desc {
-      color: #E44D3F;
+      color: @c-dark-white;
       font-size: 16px;
       letter-spacing: 0;
       line-height: 19px;
-      text-transform: uppercase;
-      font-weight: bold;
     }
 
     .desc,
@@ -283,12 +357,11 @@ reservation-widget {
     }
 
     .price{
-      color: #000;
-      font-family: @ff-secondary;
+      color: @c-dark-white;
       strong {
         line-height: 35px;
         font-weight: bold;
-        color: #4a4a4a;
+        color: @c-white;
         font-family: @ff-primary;
         font-size: 22px;
 
@@ -310,15 +383,11 @@ reservation-widget {
     }
 
     .image-wrapper {
-      overflow: hidden;
-      // Make width of parent's container by adding the padding to width
-      width: calc(~'100% + 60px');
-      margin-left: -30px; // This needs to be parent's padding
-      margin-top: 30px;
-
+      margin-top: 20px;
+      max-height: 117px;
       img {
+        margin: 0;
         border-radius: 0;
-        margin: @baseline/2 0;
         max-height: 117px;
         width: 100%;
         border: none;
@@ -328,12 +397,11 @@ reservation-widget {
       }
     }
     .room-image-placeholder {
+      margin-top: 20px;
       width: 100%;
       height:210px;
       border-radius: 0;
-      margin: 11px 0;
       max-height: 117px;
-      border: 2px solid #dedede;
       .chain-sand & {
         background:url('@{img-prefix}/sandman-placeholder-large.jpg') no-repeat;
         background-size: cover;
@@ -375,7 +443,7 @@ reservation-widget {
 
     .data {
       font-family: @ff-primary;
-      margin: @spacing 0;
+      margin: @spacing 0 0 0;
       border: none;
     }
 
@@ -406,10 +474,6 @@ reservation-widget {
       }
     }
 
-  }
-
-  label[for="agreement2"] {
-    display: none;
   }
 
   label[for="agreement3"] {
@@ -486,6 +550,7 @@ reservation-widget {
 @media only screen and @tablet-portrait-min {
 
   reservation-widget {
+    position: relative;
 
     .input-left,
     .input-right {
@@ -521,12 +586,22 @@ reservation-widget {
 }
 
 .ReservationDetails__overview {
-  padding: 30px;
-  box-sizing: border-box;
-  border: 1px solid #dedede;
-  border-radius: 6px;
-  background-color: #fff;
-  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
+  .section-padding {
+    padding: 0 30px;
+  }
+  .viewport-mobile & {
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-bottom: 90px;
+    .room-data {
+      border-top-left-radius: 0;
+    }
+    table {
+      th {
+        text-align: left !important;
+      }
+    }
+  }
 }
 
 .links {
@@ -803,8 +878,8 @@ reservation-billing {
 reservation-confirmation {
 
   > div {
-    border-radius: 0;
-    border: solid 2px #000;
+    border-radius: @c-border-radius;
+    border: solid 1px @c-grey;
 
     .viewport-mobile &{
       margin-top: 20px;
@@ -813,6 +888,7 @@ reservation-confirmation {
 
   .tab-pane {
     border-top: none;
+    padding: 60px 20px 20px 20px;
   }
 
   .tab-pane.active,
@@ -823,33 +899,35 @@ reservation-confirmation {
   // Tab headers (links)
   .nav-tabs {
 
-    li:first-of-type {
-      background: transparent;
+    &:after {
+      clear: none;
+    }
+
+    li {
+      background: @c-grey;
       color: @c-text;
+      border-bottom: solid 1px @c-grey;
       a {
         color: @c-text;
       }
     }
 
-    li:nth-of-type(2) {
-      background: lighten(@c-primary, 20%);
-      background-size: contain;
-      border-bottom: solid 1px #000;
+    li:first-of-type {
+      border-top-left-radius: @c-border-radius;
     }
 
     li:last-of-type {
-      background: lighten(@c-secondary, 20%);
-      background-size: contain;
-      border-bottom: solid 1px #000;
+      border-top-right-radius: @c-border-radius;
     }
 
     a {
       font-weight: normal;
-      text-transform: uppercase;
       font-family: @ff-primary;
     }
 
     li.active {
+      border: 0 none;
+      background: transparent;
       a {
         color: initial;
         font-weight: bold;
@@ -871,7 +949,6 @@ reservation-confirmation {
     tr {
       padding-bottom: 13px;
       th {
-        text-transform: uppercase;
         font-size: 15px;
       }
       td {
@@ -1685,7 +1762,7 @@ reservation-hotel-details {
 }
 
 .ConfirmationBackground {
-  background: url('@{img-prefix}/confirmation-bg.png');
+  background: url('@{img-prefix}/reservation-bg.png');
   position: absolute;
   height: 100vh;
   width: 100vw;
@@ -1700,4 +1777,108 @@ reservation-hotel-details {
 
 dialog.confirmation-dialog .ui-dialog {
   overflow-x: hidden;
+}
+
+.booking-confirmation-container {
+  border: 1px solid @c-grey;
+  background-color: #fafafa;
+  padding: 50px;
+  text-align: center;
+  border-radius: @c-border-radius;
+  h4 {
+    .h1
+  }
+  h4 {
+    text-transform: none;
+    span {
+      font-weight: normal;
+    }
+  }
+  .booking-date {
+    color: @c-primary;
+  }
+}
+
+.actions {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 20px;
+
+  @media print {
+   display: none;
+  }
+
+  .share {
+    float: initial;
+    display: block;
+    width: 100%;
+    margin: 20px 0;
+
+    a {
+      &.icon-fb {
+        &:before {
+          content: @fa-var-facebook-square;
+          color: #fff;
+        }
+      }
+      &.icon-twitter {
+        &:before {
+          content: @fa-var-twitter;
+          color: #fff;
+        }
+      }
+      &.icon-gplus {
+        &:before {
+          content: @fa-var-google-plus;
+          color: #fff;
+        }
+      }
+      &.icon-email {
+        &:before {
+          content: @fa-var-envelope;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .passbook{
+    float: left;
+    a {
+      display: block;
+      margin-left: @spacing / 2;
+    }
+    .button-passbook {
+      background: url('@{img-prefix}/v4/btn-passbook.png');
+      width: 108px;
+      height: 36px;
+      float: right;
+      margin-left: 0;
+    }
+
+    .button-print {
+      background: url('@{img-prefix}/v4/btn-print.png');
+      width: 37px;
+      height: 36px;
+      float: right;
+    }
+
+    .viewport-mobile &{
+      clear: both;
+      float: left;
+      .button-print {
+        margin-left: 0;
+        margin-right: @spacing / 2;
+      }
+      .button-passbook {
+        margin-left: 0;
+        margin-right: @spacing / 2;
+      }
+    }
+  }
+
+  span {
+    visibility: hidden;
+  }
 }

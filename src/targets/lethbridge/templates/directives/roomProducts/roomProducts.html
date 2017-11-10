@@ -127,13 +127,6 @@
         </div>
 
         <div class="action-buttons">
-          <div class="label">
-            <span ng-if="$first && !product.memberOnly && !product.memberOnly && settings.highlightFirstRate"
-                  class="highlight-ribbon">
-              _best_value_
-            </span>
-          </div>
-
           <a ng-if="!room.priceFrom"
              ng-click="goToRoom(details.meta.slug, room.meta.slug)"
              class="button">

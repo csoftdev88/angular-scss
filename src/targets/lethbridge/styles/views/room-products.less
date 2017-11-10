@@ -29,6 +29,7 @@ room-products {
       padding: 0;
       border: none;
       background-color: #fff;
+      min-height: 150px;
 
       &.is-member-only {
         background-color: #fff;
@@ -64,7 +65,7 @@ room-products {
           // sadly I have to use !important because the main style uses it...
           border: 1px solid #dedede !important;
           box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
-          border-radius: 6px;
+          border-radius: @c-border-radius;
           margin-top: 10px;
           min-height: 80px;
           &:last-of-type {
@@ -74,13 +75,13 @@ room-products {
       }
 
       &:first-child {
-        border-radius: 6px 6px 0 0;
+        border-radius: @c-border-radius @c-border-radius 0 0;
       }
       &:last-child {
-        border-radius: 0 0 6px 6px;
+        border-radius: 0 0 @c-border-radius @c-border-radius;
       }
       &:only-child {
-        border-radius: 6px;
+        border-radius: @c-border-radius;
       }
       &:not(:first-child) {
         border-top: 1px dashed #EEEAEA;
@@ -101,7 +102,7 @@ room-products {
             min-height: 24px;
             height: auto;
             align-self: stretch;
-            border-radius: 0 0 0 6px;
+            border-radius: 0 0 0 @c-border-radius;
             border-bottom: none;
             border-left: none;
             border-right: none;
@@ -175,9 +176,9 @@ room-products {
       }
 
 			&.is-highlighted {
-				background: rgba(229, 119, 26, 0.17);
+				background-color: @c-white;
 				.chain-sign & {
-					background:rgba(253, 125, 13, 0.11);
+          background-color: @c-white;
 				}
 			}
 			&.is-member-only.is-member-only-disabled {
@@ -304,7 +305,7 @@ room-products {
             font-weight: bold;
             .viewport-mobile & {
               font-weight: normal;
-              color: #4A4A4A;
+              color: #1764C4;
               font-size: 11px;
               letter-spacing: normal;
               line-height: normal;
@@ -518,7 +519,7 @@ room-products {
         align-items: center;
         justify-content: center;
         align-self: stretch;
-        background-color: @c-secondary;
+        background-color: red;
         // 1px stretch to fill parent border
         margin-top: -1px;
         margin-bottom: -1px;

@@ -115,7 +115,8 @@ module.exports = function(grunt) {
           sourceMapFileName: '<%= config.build %>/style.css.map',
           sourceMapURL: '/static/targets/' + target + '/styles/style.css.map',
           sourceMapBasepath: 'static',
-          sourceMapRootpath: '/'
+          sourceMapRootpath: '/',
+          dumpLineNumbers: 'comments'
         },
         expand: true,
         cwd: '<%= config.client %>/',

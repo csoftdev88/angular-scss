@@ -3,39 +3,13 @@
   <a ui-sref="home">
     <img class="Header__logo desktop"
          src="/static/images/v4/logo@3x.png"
-         alt="Mobius logo">
+         alt="Lethbridge logo">
   </a>
 
   <div class="Header__buttons">
 
     <div class="Header__buttons--auth">
 
-      <button class="Header__button login"
-              ng-if="!isUserLoggedIn()"
-              ng-click="auth.login()">
-        <i class="fa fa-sign-in"></i>
-        _login_
-      </button>
-
-      <button class="Header__button register"
-              ng-if="!auth.isLoggedIn()"
-              ng-click="auth.register()">
-        <i class="fa fa-user-plus"></i>
-        _register_
-      </button>
-
-      <div class="Header__profile" ng-if="auth.isLoggedIn()">
-        <img class="avatar" src="/static/images/lbe/avatar-placeholder.png">
-        <div class="name">
-          {{ userObject.firstName }} {{ userObject.lastName }}
-        </div>
-        <span class="pipe-splitter"></span>
-        <div class="loyalty-points">
-          <span class="emphasise">{{ userObject.loyalties.amount }}</span> _points_
-        </div>
-      </div>
-
-      <!--FIXME: I believe this is not currently shown/used-->
       <ul dropdown-group class="Header__buttons--preferences">
         <li has-dropdown="click"
             currency-list
@@ -46,12 +20,13 @@
         </li>
       </ul>
 
-    <div class="Header__menu">
-      <img src="/static/images/menu-icon@3x.png"
-           ng-click="toggleMenuOverlay()"
-           class="Header__menu--hamburger">
+      <div class="Header__menu">
+        <img src="/static/images/menu-icon@3x.png"
+             ng-click="toggleMenuOverlay()"
+             class="Header__menu--hamburger">
 
-      <span ng-click="toggleMenuOverlay()" class="Header__menu--close"></span>
+        <span ng-click="toggleMenuOverlay()" class="Header__menu--close"></span>
+      </div>
     </div>
   </div>
 </div>

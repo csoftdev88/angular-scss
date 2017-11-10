@@ -11,78 +11,13 @@
       class="Menu__items--item">
     _home_
   </div>
-  <div ng-click="$state.go('hotels', { scrollTo: 'jsAbout'})"
-      ng-if="isSingleProperty"
+  <div ng-click="$state.go('aboutUs')"
       class="Menu__items--item">
-    _menu_our_hotel_
+    _about_
   </div>
-
-
-  <div class="Menu__items--divider"></div>
-
-  <div class="Menu__items--highlight">
-    _menu_name_
-  </div>
-
-  <div class="Menu__sublinks-wrapper" dropdown-group>
-    <div class="equal-split-box">
-      <div ui-sref="reservations"
-           ng-if="auth.isLoggedIn()"
-           class="Menu__items--subitem">
-        _menu_reservations_
-      </div>
-      <div ui-sref="rewards"
-           ng-if="auth.isLoggedIn()"
-           class="Menu__items--subitem">
-        _menu_rewards_
-      </div>
-    </div>
-
-    <div class="equal-split-box">
-      <div ui-sref="prestige"
-           ng-if="auth.isLoggedIn()"
-           class="Menu__items--subitem">
-        _menu_loyalty_
-      </div>
-      <div ui-sref="profile"
-           ng-if="auth.isLoggedIn()"
-           class="Menu__items--subitem">
-        _menu_profile_
-      </div>
-    </div>
-
-    <div has-dropdown="click"
-         class="Menu__items--subitem"
-         currency-list
-         ng-show="isMobile &&
-                 !$state.includes('reservation') &&
-                 !$state.includes('reservationDetail') &&
-                 !$state.includes('reservations')">
-    </div>
-    <div ng-show="isMobile"
-         has-dropdown="click"
-         class="Menu__items--subitem"
-         ng-if="false"
-         language-list>
-    </div>
-
-    <div class="equal-split-box">
-      <div ng-click="toggleMenuOverlay(); auth.register(); retentionClick();"
-           ng-if="!auth.isLoggedIn()"
-           class="Menu__items--subitem">
-        _register_
-      </div>
-      <div ng-click="auth.logout(); retentionClick();"
-           ng-if="auth.isLoggedIn()"
-           class="Menu__items--subitem">
-        _logout_
-      </div>
-      <div ng-click="toggleMenuOverlay(); auth.login(); retentionClick();"
-           ng-if="!auth.isLoggedIn()"
-           class="Menu__items--subitem">
-        _login_
-      </div>
-    </div>
+  <div ng-click="$state.go('allHotels')"
+      class="Menu__items--item">
+    _menu_hotels_
   </div>
 
 </div>

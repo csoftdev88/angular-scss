@@ -37,7 +37,7 @@
   .ui-datepicker-prev,
   .ui-datepicker-next {
     font-size: 16px;
-    color: #b98747;
+    color: @c-primary;
   }
 
   .ui-datepicker-buttonpane {
@@ -114,12 +114,12 @@
         a,
         span {
           color: white !important;
-          background: darken(#87C34A, 10%);
+          background: darken(@c-primary, 10%);
           cursor: default;
         }
 
         &:before {
-          background: #87C34A;
+          background: @c-primary;
         }
 
         &:after {
@@ -142,7 +142,7 @@
         }
 
         a {
-          background: #87C34A;
+          background: @c-primary;
           color: white;
         }
       }
@@ -175,7 +175,7 @@
 
         &.date-range-selected {
           a {
-            background: rgba(208, 2, 27, 0.7);
+            background-color: rgba(208, 2, 27, 0.7);
             color: white;
           }
         }
@@ -251,10 +251,13 @@
   }
 
   button.ui-datepicker-close {
-    background: #87C34A;
+    height: 35px !important;
+    line-height: 30px !important;
+    background: @c-primary;
     font-size: 15px;
     color: #fff;
     text-transform: uppercase;
     width: auto;
+    border-radius: 17px !important;
   }
 }
