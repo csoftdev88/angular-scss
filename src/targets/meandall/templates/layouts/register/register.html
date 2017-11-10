@@ -116,6 +116,8 @@
             required
             ng-class="{'ng-submitted': form.$submitted && (form.registerPassword.$error.required || form.registerPassword.$error.pattern)}"
             ng-pattern="$root.generalValidationPattern"/>
+
+          <span class="error" ng-if="form.registerPassword.$error.pattern">_password_pattern_error_</span>
         </form-element>
 
         <form-element>
