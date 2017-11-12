@@ -271,9 +271,129 @@ hotels, .alt-hotels {
     .entries--list .item {
       border-bottom: 1px dashed #ccc;
       margin-bottom: 25px;
+      padding-right: 0 !important;
+      padding-left: 25% !important;
+      min-height: 217px !important;
+
+      .viewport-mobile & {
+        padding-left: 0 !important;
+        padding-bottom: 0px;
+        min-height: 100px !important;
+        padding-top: 0px;
+        position: relative;
+      }
+
+      .mobile-click-handler {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        z-index: 1;
+      }
+
+      pricing-info {
+        position: relative;
+        width: 200px;
+
+      }
 
       .viewport-mobile & {
         border: none;
+      }
+
+      .hotel-details-wrapper {
+        border: 1px solid gray;
+        border-radius: 10px;
+
+        .clear {
+          clear: both;
+        }
+      }
+
+      .hotel-details {
+        float: left;
+        width: 58%;
+        padding-left: 25px;
+        padding-top: 25px;
+        border-right: 1px solid gray;
+        min-height: 167px;
+
+        .viewport-mobile & {
+          padding-left: 10px;
+          padding-top: 10px;
+          min-height: 80px;
+        }
+
+        .item-image {
+          width: 110px !important;
+          float: left;
+          padding-right: 10px;
+        }
+
+        h2 {
+          .viewport-mobile & {
+            font-size: 10px;
+            color: black;
+          }
+        }
+
+      }
+
+      .hotel-pricing {
+        float: left;
+        width: 34%;
+        padding-left: 40px;
+        padding-top: 30px;
+        position: relative;
+
+        .viewport-mobile & {
+          width: 28%;
+          padding-left: 10px;
+          padding-top: 10px;
+        }
+
+        pricing-info p {
+          font-size: 17px;
+          margin-top: 20px;
+
+          .viewport-mobile & {
+            margin-top: 0;
+          }
+
+          &.not-available-hotel {
+            .viewport-mobile & {
+              margin-top: 16px;
+            }
+          }
+
+          .value {
+            font-size: 23px;
+            .viewport-mobile & {
+              font-size: 16px;
+              display: block;
+            }
+          }
+        }
+
+        button-submit {
+          position: absolute;
+          top: 30px;
+          left: 100px;
+          .viewport-mobile & {
+            top: -11px;
+            left: 103px;
+            width: 30px;
+            border-radius: 0 11px 11px 0 !important;
+            height: 92px !important;
+            background-color: red;
+          }
+        }
+      }
+
+      .item-image {
+        width: 24% !important;
       }
     }
   }
@@ -483,5 +603,16 @@ hotels, .alt-hotels {
         }
       }
     }
+  }
+}
+
+.extend-background {
+  background-color: #0065c9;
+  margin-left: -20px;
+  padding-left: 40px;
+  width: 100%;
+
+  button {
+    margin-left: -20px !important;
   }
 }

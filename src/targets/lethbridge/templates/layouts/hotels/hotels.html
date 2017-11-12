@@ -8,7 +8,13 @@
 
 <main class="grid-wrapper no-margin">
 
-  <booking-bar class="roombar" size="full-width" stickable="main-header"></booking-bar>
+  <booking-bar ng-if="!isMobile" class="roombar" size="full-width" stickable="main-header"></booking-bar>
+
+  <div ng-if="isMobile" class="extend-background">
+    <button class="HotelDetails__search" ng-click="openBookingBar()">
+      _find_your_room_
+    </button>
+  </div>
 
   <breadcrumbs stickable="main-header"></breadcrumbs>
   <hr />
