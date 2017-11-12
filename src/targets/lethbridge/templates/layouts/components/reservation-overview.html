@@ -194,19 +194,20 @@
     </tbody>
   </table>
   <div class="links">
-    <a ng-click="goBack()" class="back">< _back_</a>
-    <span class="separator" ng-if="bookingConfig.policiesLinkBottom"> | </span>
-    <span ng-show="!noBreakdown" ng-if="formatting !== 'suppressRate'">
+    <div>
+      <span ng-show="!noBreakdown" ng-if="formatting !== 'suppressRate'">
       <a href ng-click="breakdown.extended = !breakdown.extended">
         <span ng-if="!breakdown.extended">_view_price_breakdown_</span>
         <span ng-if="breakdown.extended">_hide_price_breakdown_</span>
       </a>
-      <span class="separator" ng-if="bookingConfig.policiesLinkBottom"> | </span>
     </span>
-    <a ng-href="{{bookingConfig.termsAndConditionsLink}}"
+    </div>
+    <div>
+      <a ng-href="{{bookingConfig.termsAndConditionsLink}}"
        ng-click="readPolicies()"
        target="_blank">
       _policies_
     </a>
+    </div>
   </div>
 </div>

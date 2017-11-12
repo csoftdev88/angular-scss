@@ -847,7 +847,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     ],
     // List of currencies and their display symbols
     'currencies': {
-      'default': 'USD',
+      'default': 'CAD',
 
       'GBP': {
         'code': 'GBP',
@@ -1094,7 +1094,9 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         payment: false,
         price: false,
         security: false
-      }
+      },
+      //No scrolling on checkout desktop
+      'checkoutNoScrollingDesktop':true
     },
     'myAccount' : {
       'displaySettings' : {
