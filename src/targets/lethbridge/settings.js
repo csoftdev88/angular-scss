@@ -139,13 +139,13 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     'accountCode':'2p'
   },
   'googleAnalytics': {
-    'enable': false,
-    'id': ''
+    'enable': true,
+    'id': 'UA-109449499-1'
   },
   'googleTagManager': {
-    'enable': false,
+    'enable': true,
     'trackUserId': true,
-    'id': ''
+    'id': 'GTM-MH8X5J6'
   },
   'hotjar': {
     'enable': false,
@@ -847,7 +847,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     ],
     // List of currencies and their display symbols
     'currencies': {
-      'default': 'USD',
+      'default': 'CAD',
 
       'GBP': {
         'code': 'GBP',
@@ -1094,7 +1094,9 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         payment: false,
         price: false,
         security: false
-      }
+      },
+      //No scrolling on checkout desktop
+      'checkoutNoScrollingDesktop':true
     },
     'myAccount' : {
       'displaySettings' : {
