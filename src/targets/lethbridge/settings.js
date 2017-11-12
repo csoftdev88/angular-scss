@@ -139,13 +139,13 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     'accountCode':'2p'
   },
   'googleAnalytics': {
-    'enable': false,
-    'id': ''
+    'enable': true,
+    'id': 'UA-109449499-1'
   },
   'googleTagManager': {
-    'enable': false,
+    'enable': true,
     'trackUserId': true,
-    'id': ''
+    'id': 'GTM-MH8X5J6'
   },
   'hotjar': {
     'enable': false,
