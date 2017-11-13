@@ -238,6 +238,10 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
 
       var heroSliderData;
       $scope.updateHeroContent = function(data, forceDefault) {
+        if (Settings.forceCustomHeroContent === true && Settings.customHeroContent) {
+          $rootScope.heroContent = Settings.customHeroContent;
+          return;
+        }
         if ($rootScope.thirdparty) {
           $rootScope.heroContent = $rootScope.thirdparty.heroContent;
           return;

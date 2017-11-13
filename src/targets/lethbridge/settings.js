@@ -15,6 +15,18 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
   'showEUCookieDisclaimer':true,
   'enableHotDeals':false,
   'enableStaticOffer':true,
+  'forceCustomHeroContent': true,
+  'customHeroContent': [
+    {
+      uri: '/static/images/slider-1@2x.png'
+    },
+    {
+      uri: '/static/images/slider-2@2x.png'
+    },
+    {
+      uri: '/static/images/slider-3@2x.png'
+    }
+  ],
   'infiniti': {
     'enable': false,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
