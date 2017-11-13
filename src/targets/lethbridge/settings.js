@@ -179,7 +179,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'integration': '//integration-www-sandman.mobiusbookingengine.com/api/4.0/',
       'staging': '//integration-www-sandman.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
-      'live': 'https://sandman.mobiusbookingengine.com/api/4.0/'
+      'live': 'https://www.golethbridge.com/api/4.0/'
     },
     'mobiusTracking': {
       'development': {
