@@ -95,10 +95,15 @@
     </div>
   </section>
 
+  <hr />
 
-  <ng-bind-html
-  ng-bind-html="hotels[0].description">
-</ng-bind-html>
+  <ng-bind-html class="Hotels__text"
+    ng-bind-html="hotels[0].description">
+  </ng-bind-html>
+
+  <div class="Hotels__picture" ng-show="hotels.length > 0">
+    <img src="/static/images/Lethbridge_downtown.jpg" alt="Lethbridge downtown" class="hero_small"></img>
+  </div>
 
   <!-- Growl notifications -->
   <growl-alerts class="growl-alerts-dir" booking-message="'_statistics_booking_message_'" views-message="'_statistics_views_message_'" searches-message="'_statistics_searches_message_'" languages-message="'_languages_message_'" retention-message="'_retention_message_'" minute="'_minute_'" minutes="'_minutes_'" hour="'_hour_'" hours="'_hours_'" day="'_day_'" days="'_days_'" week="'_week_'" weeks="'_weeks_'" position-reference="config.bookingStatistics.positionReference" display-time="config.bookingStatistics.displayTime" display-delay="config.bookingStatistics.displayDelay"></growl-alerts>

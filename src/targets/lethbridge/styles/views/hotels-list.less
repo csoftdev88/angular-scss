@@ -30,6 +30,8 @@ hotels, .alt-hotels {
   .hotels-counter {
     color: @c-dark-grey;
     font-style: normal;
+    font-size: 16px;
+    line-height: 32px;
   }
 
   //icon
@@ -117,6 +119,9 @@ hotels, .alt-hotels {
 
           &:first-child {
             border-top: none;
+          }
+          &:last-child {
+            border-bottom: none;
           }
         }
         // image container
@@ -269,11 +274,15 @@ hotels, .alt-hotels {
     }
 
     .entries--list .item {
-      border-bottom: 1px dashed #ccc;
+      border-bottom: 1px dashed @c-light-grey;
       margin-bottom: 25px;
       padding-right: 0 !important;
       padding-left: 25% !important;
       min-height: 217px !important;
+
+      &:last-child {
+        border-bottom: none;
+      }
 
       .viewport-mobile & {
         padding-left: 0 !important;
@@ -304,7 +313,7 @@ hotels, .alt-hotels {
       }
 
       .hotel-details-wrapper {
-        border: 1px solid gray;
+        border: 2px solid @c-grey;
         border-radius: 10px;
 
         .clear {
@@ -317,7 +326,7 @@ hotels, .alt-hotels {
         width: 58%;
         padding-left: 25px;
         padding-top: 25px;
-        border-right: 1px solid gray;
+        border-right: 1px solid @c-grey;
         min-height: 167px;
 
         .viewport-mobile & {
@@ -337,6 +346,12 @@ hotels, .alt-hotels {
             font-size: 10px;
             color: black;
           }
+        }
+
+        h5 {
+          color: @c-black;
+          font-size: 16px;
+          font-weight: bold;
         }
 
       }
@@ -381,13 +396,13 @@ hotels, .alt-hotels {
           position: absolute;
           top: 30px;
           left: 100px;
+          background-color: red;
           .viewport-mobile & {
             top: -11px;
             left: 103px;
             width: 30px;
             border-radius: 0 11px 11px 0 !important;
             height: 92px !important;
-            background-color: red;
           }
         }
       }
@@ -604,6 +619,44 @@ hotels, .alt-hotels {
       }
     }
   }
+
+  .Hotels__text {
+    margin: 50px 0;
+    font-family: @ff-primary;
+    display: inline-block;
+    float:left;
+    width: 60%;
+    @media only screen and @large-mobile-max {
+      width: 100%;
+    }
+    h1 {
+      margin-bottom: 25px;
+      font-size: 28px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+    p {
+      font-size: 18px;
+      line-height: 26px;
+      color: @c-mid-grey;
+    }
+  }
+  
+  .Hotels__picture {
+    margin-top: 50px;
+    margin-left: 50px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: center;
+    width: 30%;
+    img {
+      max-width: 400px;
+      border-radius: @c-border-radius;
+      @media only screen and @large-mobile-max {
+        width: 0;
+      }
+    }
+  }
 }
 
 .extend-background {
@@ -615,4 +668,8 @@ hotels, .alt-hotels {
   button {
     margin-left: -20px !important;
   }
+}
+
+.preloader.Hotels__preloader {
+  position: relative;
 }
