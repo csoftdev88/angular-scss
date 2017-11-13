@@ -11,11 +11,11 @@
       class="Menu__items--item">
     _home_
   </div>
-  <div ng-click="$state.go('aboutUs')"
+  <div ng-click="$state.go('aboutUs', $stateParams, { reload: true })"
       class="Menu__items--item">
     _our_promotions_
   </div>
-  <div ng-click="$state.go('allHotels')"
+  <div ng-click="$state.go('allHotels', $stateParams, { reload: true })"
       class="Menu__items--item">
     _our_hotels_
   </div>
