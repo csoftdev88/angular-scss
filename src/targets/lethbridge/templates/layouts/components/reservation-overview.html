@@ -118,8 +118,13 @@
           <td>{{getBreakdownTotalFee(taxItem.policyTaxItem.policyTaxItemCode) | i18nCurrency: $root.currencyCode}}</td>
         </tr>
 
+        <tr ng-if="getTotal('totalAfterTax')">
+          <th>_total_:</th>
+          <td>{{getTotal('totalAfterTax') | i18nCurrency: $root.currencyCode}}</td>
+        </tr>
+
         <tr ng-if="getTotal('totalDiscount')">
-          <th>_discount_:</th>
+          <th>_gift_card_value_:</th>
           <td>{{getTotal('totalDiscount') | i18nCurrency: $root.currencyCode}}</td>
         </tr>
       </thead>
@@ -181,7 +186,7 @@
     <tbody>
       <tr
         ng-switch="billingDetails.paymentMethod">
-        <th>_total_:</th>
+        <th>_your_price_:</th>
         <td ng-switch-when="cc">{{getTotal('totalAfterTaxAfterPricingRules') | i18nCurrency: $root.currencyCode}}</td>
         <td ng-switch-when="point" ng-if="loyaltyProgramEnabled">{{getTotal('pointsRequired')}} _points_</td>
         <td ng-switch-default>

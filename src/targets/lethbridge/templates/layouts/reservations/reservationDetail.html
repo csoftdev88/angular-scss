@@ -152,9 +152,14 @@
                       </td>
                     </tr>
 
+                    <tr ng-if="getTotal('totalAfterTax')">
+                      <th>_total_:</th>
+                      <td>{{getTotal('totalAfterTax') | i18nCurrency: $root.currencyCode}}</td>
+                    </tr>
+
                     <!-- Discount -->
                     <tr class="main" ng-if="getCountPriceDetail('totalDiscount') != 0">
-                      <th>_discount_:</th>
+                      <th>_gift_card_value_:</th>
                       <td>{{getCountPriceDetail('totalDiscount') | i18nCurrency: defaultCurrencyCode}}</td>
                     </tr>
                   </thead>
@@ -183,7 +188,7 @@
               <table class="total-table">
                 <tbody>
                   <tr>
-                    <th>_total_:</th>
+                    <th>_your_price_:</th>
                     <td ng-if="reservation.pointValue && loyaltyProgramEnabled">{{reservation.pointValue}} _points_</td>
                     <td ng-if="!reservation.pointValue">{{getCountPriceDetail('totalAfterTaxAfterPricingRules') | i18nCurrency: defaultCurrencyCode}}</td>
                   </tr>
@@ -374,9 +379,14 @@
                       </td>
                     </tr>
 
+                    <tr ng-if="getTotal('totalAfterTax')">
+                      <th>_total_:</th>
+                      <td>{{getTotal('totalAfterTax') | i18nCurrency: $root.currencyCode}}</td>
+                    </tr>
+
                     <!-- Discount -->
                     <tr class="main" ng-if="getCountPriceDetail('totalDiscount') != 0">
-                      <th>_discount_:</th>
+                      <th>_gift_card_value_:</th>
                       <td>{{getCountPriceDetail('totalDiscount') | i18nCurrency: defaultCurrencyCode}}</td>
                     </tr>
                   </thead>
@@ -405,7 +415,7 @@
               <table class="total-table">
                 <tbody>
                   <tr>
-                    <th>_total_:</th>
+                    <th>_your_price_:</th>
                     <td ng-if="reservation.pointValue && loyaltyProgramEnabled">{{reservation.pointValue}} _points_</td>
                     <td ng-if="!reservation.pointValue">{{getCountPriceDetail('totalAfterTaxAfterPricingRules') | i18nCurrency: defaultCurrencyCode}}</td>
                   </tr>
@@ -637,7 +647,7 @@
                    ng-if="!config.reservationDetailPriceBreakdownExtended && !config.useSidetable">
               <tbody ng-switch-when="false">
                 <tr>
-                  <th>_room_charges_:aaaaaaaaaaaaaaaaaaaaaaaaaa {{billingDetails.paymentMethod}}</th>
+                  <th>_room_charges_: {{billingDetails.paymentMethod}}</th>
                   <td>{{getCount('price') | i18nCurrency: defaultCurrencyCode}}</td>
                   <th rowspan="3" class="total">Total:</th>
                   <td rowspan="3" class="total-value">
@@ -659,14 +669,14 @@
 
                 <!-- Discount -->
                 <tr ng-if="reservation.rooms[0].priceDetail.discount">
-                  <th>_discount_:</th>
+                  <th>_gift_card_value_:</th>
                   <td>{{reservation.rooms[0].priceDetail.discount | i18nCurrency: defaultCurrencyCode}}</td>
                 </tr>
               </tbody>
 
               <tbody ng-switch-when="true">
                 <tr>
-                  <th rowspan="3" class="total">_total_:</th>
+                  <th rowspan="3" class="total">_your_price_:</th>
                   <td rowspan="3" class="total-value">
                     <ng-pluralize count="reservation.pointValue"
                                   when="{'1': '{} point', 'other': '{} points'}">
@@ -745,9 +755,14 @@
                     </td>
                   </tr>
 
+                  <tr ng-if="getTotal('totalAfterTax')">
+                    <th>_total_:</th>
+                    <td>{{getTotal('totalAfterTax') | i18nCurrency: $root.currencyCode}}</td>
+                  </tr>
+
                   <!-- Discount -->
                   <tr class="main" ng-if="getCountPriceDetail('totalDiscount') != 0">
-                    <th>_discount_:</th>
+                    <th>_gift_card_value_:</th>
                     <td>{{getCountPriceDetail('totalDiscount') | i18nCurrency: defaultCurrencyCode}}</td>
                   </tr>
 
@@ -775,7 +790,7 @@
               <div class="extended-total"
                    ng-if="config.reservationDetailPriceBreakdownExtended && reservation.rooms[0].priceDetail">
 
-                <span class="total">_total_:</span>
+                <span class="total">_your_price_:</span>
 
                 <span class="total-value"
                       ng-if="!reservation.pointValue">
