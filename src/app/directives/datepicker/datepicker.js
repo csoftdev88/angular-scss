@@ -46,7 +46,11 @@
 
         var maxDate = null;
         if (Settings.UI.bookingWidget.searchOffset.enable) {
-          maxDate = Settings.UI.bookingWidget.searchOffset.days;
+          if (Settings.UI.bookingWidget.searchOffset.days) {
+            maxDate = Settings.UI.bookingWidget.searchOffset.days;
+          } else if (Settings.UI.bookingWidget.searchOffset.maxDate) {
+            maxDate = new Date(Settings.UI.bookingWidget.searchOffset.maxDate);
+          }
         }
 
         var hasCounter = Settings.UI.bookingWidget.datePickerHasCounter;
