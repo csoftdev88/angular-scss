@@ -515,6 +515,14 @@ angular
     }
   }
 
+  if(Settings.enableStaticOffer){
+    $stateProvider.state('staticOffer', {
+      parent: 'root',
+      templateUrl: 'layouts/static/offer.html',
+      url: '/static-offer'
+    });
+  }
+
   // Rewards page
   $stateProvider.state('rewards', {
     parent: 'root',

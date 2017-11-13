@@ -13,7 +13,8 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
   'sandmanFrenchOverride': false,
   'inputValidationPattern':/^[\u0020-\u02AF\r\n]+$/i, //Using http://jrgraphix.net/research/unicode_blocks.php Allowed characters from Basic Latin to IPA Extensions
   'showEUCookieDisclaimer':true,
-  'enableHotDeals':true,
+  'enableHotDeals':false,
+  'enableStaticOffer':true,
   'infiniti': {
     'enable': false,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
@@ -974,7 +975,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       //searchOffset stops user from searching availability past a certain date (today + searchOffset.days)
       'searchOffset' :{
         'enable': true,
-        'days': 730
+        'maxDate': '2018-02-28'
       },
       // Suggest MRB when number of adults is higher
       // than this value and server returns no products
