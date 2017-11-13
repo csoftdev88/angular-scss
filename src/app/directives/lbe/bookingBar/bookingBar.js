@@ -138,6 +138,15 @@
         propertyService.getAll()
           .then(function (properties) {
             $scope.properties = _.extend($scope.properties, properties);
+
+            if ($stateParams.propertySlug) {
+              var property = _.find($scope.properties, function(property) {
+                return property.meta.slug === $stateParams.propertySlug;
+              });
+              if (property) {
+                $scope.search.property = property.id;
+              }
+            }
             // @todo Investigate why this needs to be wrapped in a timeOut
             setTimeout(function () {
               $("select[name='property']").trigger("chosen:updated");
