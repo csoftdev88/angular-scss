@@ -71,11 +71,14 @@
 
 .members-only-banner {
   width: 100%;
-  height: 191px;
   position: relative;
+  min-height: 450px;
   margin-top: @header-height;
   background: url('@{img-prefix}/rewards-bg.png') center no-repeat;
   background-size: cover;
+  .viewport-mobile & {
+    min-height: 191px;
+  }
 
   .glass-filter {
     width: 100%;
