@@ -121,23 +121,44 @@ hotels, .alt-hotels {
           }
         }
         // image container
-        .item-image {
-          border-radius: @radius/2;
-          background: lighten(@c-light-grey, 10%);
-          position: relative;
-          cursor: pointer;
+        .hotel-images {
+          float: left;
 
-          img {
-            display: block;
-            width: 100%;
-            color: @c-base;
-            border-radius: @c-border-radius;
+          .hotel-small-images-container {
+            margin-top: 10px;
+            .item-image-small {
+              img {
+                display: inline-block;
+                width: 125px;
+                border-radius: 10px;
+              }
+
+              &.item-image-small-margin {
+                img {
+                  margin-left: 8px;
+                }
+              }
+            }
           }
 
-          .star-rating {
-            position: absolute;
-            bottom: @baseline/6;
-            right: @baseline/3;
+          .item-image {
+            border-radius: @radius/2;
+            background: lighten(@c-light-grey, 10%);
+            position: relative;
+            cursor: pointer;
+
+            img {
+              display: block;
+              width: 397px;
+              color: @c-base;
+              border-radius: @c-border-radius;
+            }
+
+            .star-rating {
+              position: absolute;
+              bottom: @baseline/6;
+              right: @baseline/3;
+            }
           }
         }
 
@@ -259,9 +280,11 @@ hotels, .alt-hotels {
     }
 
     .entries--tiles .item {
-      .item-image {
-        width: 100%;
-        margin-bottom: @baseline/2;
+      .hotel-images {
+
+        .item-image {
+          width: 200px;
+        }
       }
 
       &:nth-child(3n + 1) {
@@ -273,8 +296,9 @@ hotels, .alt-hotels {
       border-bottom: 1px dashed @c-light-grey;
       margin-bottom: 25px;
       padding-right: 0 !important;
-      padding-left: 25% !important;
+      padding-left: 0 !important;
       min-height: 217px !important;
+      padding-bottom: 25px;
 
       &:last-child {
         border-bottom: none;
@@ -311,30 +335,48 @@ hotels, .alt-hotels {
       .hotel-details-wrapper {
         border: 2px solid @c-grey;
         border-radius: 10px;
+        float: left;
+        width: 800px;
+        margin-left: 10px;
+
+        .viewport-mobile & {
+          height: 90px;
+          width: 96%;
+        }
 
         .clear {
           clear: both;
         }
+
+        .viewport-mobile & {
+          width: 100%;
+          margin-right: 20px;
+        }
       }
 
       .hotel-details {
-        float: left;
-        width: 58%;
-        padding-left: 25px;
-        padding-top: 25px;
-        border-right: 1px solid @c-grey;
+        width: 94%;
+        padding: 25px;
         min-height: 167px;
+        border-bottom: 2px solid #e5e5e5;
 
         .viewport-mobile & {
-          padding-left: 10px;
-          padding-top: 10px;
+          padding: 0;
           min-height: 80px;
+          width: 55% !important;
+          border-bottom: 0px;
+          float: left;
         }
 
         .item-image {
           width: 110px !important;
           float: left;
           padding-right: 10px;
+          img {
+            width: 110px;
+            border-radius: 10px;
+            margin: 8px 0 0 5px;
+          }
         }
 
         h2 {
@@ -354,20 +396,27 @@ hotels, .alt-hotels {
 
       .hotel-pricing {
         float: left;
-        width: 34%;
-        padding-left: 40px;
-        padding-top: 30px;
+        width: 94%;
+        padding: 25px;
         position: relative;
 
         .viewport-mobile & {
-          width: 28%;
+          width: 35%;
           padding-left: 10px;
           padding-top: 10px;
         }
-
+        pricing-info {
+          width: 100%;
+        }
         pricing-info p {
           font-size: 17px;
+          float: left;
           margin-top: 20px;
+
+          &.unavailable {
+            float: right;
+            margin-top: 0px;
+          }
 
           .viewport-mobile & {
             margin-top: 0;
@@ -389,13 +438,11 @@ hotels, .alt-hotels {
         }
 
         button-submit {
-          position: absolute;
-          top: 30px;
-          left: 100px;
           background-color: red;
           .viewport-mobile & {
+            position: absolute;
             top: -11px;
-            left: 103px;
+            left: 127px;
             width: 30px;
             border-radius: 0 11px 11px 0 !important;
             height: 92px !important;
