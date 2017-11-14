@@ -247,10 +247,17 @@ main.hotel-detail {
 
   .amenity-item {
     margin-bottom: 0;
+    &:before {
+      /* Unicode bullet symbol */
+      content: '\2022 ';
+      color: @c-secondary;
+      padding-right: 5px;
+    }
     .amenity-caption {
-      padding-left: 33px;
+      display: inline;
       font-size: 14px;
-      color: @c-tertiary;
+      color: @c-secondary;
+      font-weight: bold;
       font-family: @ff-primary;
       line-height: 19px;
     }

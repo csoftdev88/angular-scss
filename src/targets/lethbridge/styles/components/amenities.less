@@ -6,7 +6,6 @@
 amenities-list,
 .amenities-list {
   .clearfix;
-  margin: 2 * @baseline 0;
   display: block;
   .viewport-mobile & {
     margin:@baseline 0;
@@ -16,9 +15,8 @@ amenities-list,
 //- Amenity
 amenity-item,
 .amenity-item {
-  padding: 0 @baseline * 2;
   display: block;
-  width: 33.3333%;
+  width: 25%;
   float: left;
   box-sizing: border-box;
   min-height: 70px;
@@ -39,9 +37,9 @@ amenity-item,
 amenity-item,
 .amenity-item {
   color: @c-grey;
-  min-height:45px;
+  min-height:35px;
+  padding: 0;
   .viewport-mobile & {
-    padding:0;
     min-height:35px;
   }
 
