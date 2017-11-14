@@ -27,6 +27,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       uri: '/static/images/slider-3@2x.png'
     }
   ],
+  'modifiedAboutUsStateParams' : true,
   'infiniti': {
     'enable': false,
     'development': 'http://integration-sandman.infiniti.io/track/content/infiniti.js',
