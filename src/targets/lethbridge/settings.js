@@ -648,15 +648,15 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         }
       },
       'partials':{
-        'hotelDescription': false,
         'hotelBookingBar': true,
-        'hotelHeader': false,
+        'hotelHeader': true,
+        'hotelDescription': true,
         'hotelDatesSelected': false,
-        'hotelServices': false,
+        'hotelServices': true,
         'hotelRooms': false,
         'hotelRoomsCompare': true,
-        'hotelOffers': true,
-        'hotelInfo': true,
+        'hotelOffers': false,
+        'hotelInfo': false,
         'hotelAmenities': false,
         'hotelLocation': true,
         'hotelReadMoreMobile': false
