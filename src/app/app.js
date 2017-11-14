@@ -523,6 +523,22 @@ angular
     });
   }
 
+  if (Settings.modifiedAboutUsStateParams) {
+    $stateProvider.state('aboutUs', {
+      parent: 'root',
+      templateUrl: aboutLayout,
+      url: '/about/:propertySlug',
+      controller: 'AboutUsCtrl'
+    });
+  } else {
+    $stateProvider.state('aboutUs', {
+      parent: 'root',
+      templateUrl: aboutLayout,
+      url: '/about/:code',
+      controller: 'AboutUsCtrl'
+    });
+  }
+
   // Rewards page
   $stateProvider.state('rewards', {
     parent: 'root',
@@ -553,14 +569,6 @@ angular
     templateUrl: 'layouts/contacts/contacts.html',
     url: '/contacts',
     controller: 'ContactsCtrl'
-  })
-
-  // About Us oage
-  .state('aboutUs', {
-    parent: 'root',
-    templateUrl: aboutLayout,
-    url: '/about/:code',
-    controller: 'AboutUsCtrl'
   })
 
   // Reservation Lookup page
