@@ -1,8 +1,8 @@
-<div class="members-only-banner search-banner">
-  <div class="members-only-banner__labels-positionner">
-    <div class="members-only-banner__label"></div>
-  </div>
-</div>
+<hero-slider ng-if="!viewSettings.hideHeroSlider"
+             content="details.images"
+             slide-width="uiConfig.heroSlider.slideWidth"
+             slide-height="uiConfig.heroSlider.slideHeight">
+</hero-slider>
 
 <section-image ng-if="config.sectionImages && config.sectionImages[0]"
                id="hotel-header-image"

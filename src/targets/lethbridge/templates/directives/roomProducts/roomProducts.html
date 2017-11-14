@@ -179,7 +179,7 @@
         </span>
         <span ng-if="!isDateRangeSelected() && !roomsConfig.hideSelectDatesMessage"
               class="desc">
-          _select_dates_for_prices_title_
+          <strong>_select_dates_for_prices_title_</strong>
         </span>
         <span ng-if="isDateRangeSelected()"
               class="sub-desc"
@@ -187,7 +187,7 @@
           _not_available_on_dates_sub_title_
         </span>
 
-        <button-submit ng-click="selectDates()" class="alt">
+        <button-submit ng-click="selectDates()" class="alt thin">
           <span ng-if="hasDates()">_select_new_dates_</span>
           <span ng-if="!hasDates()">_select_dates_</span>
         </button-submit>

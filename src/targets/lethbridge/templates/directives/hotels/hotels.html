@@ -89,7 +89,7 @@
                     <br />_or_ <span class="value">{{hotel.minPointsRequired}}</span> _points_
                   </span>
                 </p>
-                <p class="price unavailable" ng-class="{'not-available-hotel' : !hotel.available}" ng-if="!hasDates()">
+                <p class="price unavailable" ng-class="{'not-available-hotel' : !hotel.available}">
                   <button-submit ng-click="navigateToHotel(hotel)">{{(isMobile) ? '>' : '_book_now_'}}</button-submit>
                 </p>
 
