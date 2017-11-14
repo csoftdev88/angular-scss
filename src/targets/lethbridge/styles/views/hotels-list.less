@@ -123,19 +123,20 @@ hotels, .alt-hotels {
         // image container
         .hotel-images {
           float: left;
+          width: 32%;
 
           .hotel-small-images-container {
             margin-top: 10px;
             .item-image-small {
               img {
                 display: inline-block;
-                width: 125px;
+                width: 32%;
                 border-radius: 10px;
               }
 
               &.item-image-small-margin {
                 img {
-                  margin-left: 8px;
+                  margin-left: 1%;
                 }
               }
             }
@@ -149,7 +150,7 @@ hotels, .alt-hotels {
 
             img {
               display: block;
-              width: 397px;
+              width: 100%;
               color: @c-base;
               border-radius: @c-border-radius;
             }
@@ -336,8 +337,16 @@ hotels, .alt-hotels {
         border: 2px solid @c-grey;
         border-radius: 10px;
         float: left;
-        width: 800px;
+        width: 66%;
         margin-left: 10px;
+        position: relative;
+
+        .sandman-logo {
+          position: absolute;
+          top: 25px;
+          right: 30px;
+          width: 100px;
+        }
 
         .viewport-mobile & {
           height: 90px;
@@ -349,7 +358,7 @@ hotels, .alt-hotels {
         }
 
         .viewport-mobile & {
-          width: 100%;
+          width: 97%;
           margin-right: 20px;
         }
       }
@@ -442,7 +451,7 @@ hotels, .alt-hotels {
           .viewport-mobile & {
             position: absolute;
             top: -11px;
-            left: 127px;
+            right: -61px;
             width: 30px;
             border-radius: 0 11px 11px 0 !important;
             height: 92px !important;
