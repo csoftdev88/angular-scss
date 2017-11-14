@@ -69,7 +69,7 @@
             </div>
           </div>
           <div class="hotel-details-wrapper">
-            <img src="/static/images/sandman-logo.png" alt="Sandman logo" class="sandman-logo">
+            <img ng-if="!isMobile" src="/static/images/sandman-logo.png" alt="Sandman logo" class="sandman-logo">
             <div ng-if="!isMobile" class="sandman-logo"></div>
             <div class="hotel-details">
                 <a class="item-image" ng-href="{{hotel.url}}" ng-click="navigateToHotel(hotel)" ng-if="isMobile">
