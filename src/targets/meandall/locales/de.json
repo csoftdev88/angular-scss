@@ -578,6 +578,7 @@
         "_other_room_": "weiteres",
         "_other_rooms_": "weitere",
         "editting_disabled_modal_title": "Bearbeitungsdetails deaktiviert",
-        "editting_disabled_modal_desc": "Um Ihre Daten zu bearbeiten, überprüfen Sie bitte Ihr Konto."
+        "editting_disabled_modal_desc": "Um Ihre Daten zu bearbeiten, überprüfen Sie bitte Ihr Konto.",
+        "manual_cancel_modify": "Um Ihre Reservierung zu ändern oder zu stornieren, schreiben Sie uns bitte eine E-Mail an booking.duesseldorf@meandallhotels.com oder rufen Sie uns an unter +49 211 54259 110."
     }
 }

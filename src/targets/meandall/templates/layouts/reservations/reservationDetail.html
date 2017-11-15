@@ -333,7 +333,7 @@
                      class="room-image-placeholder">
                 </div>
 
-                <div ng-if="reservation.status !== 'Cancelled'">
+                <div ng-if="reservation.status !== 'Cancelled' && reservation.noOfRooms === 1">
                   <button class="button"
                           ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()"
                           ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}"
@@ -351,6 +351,11 @@
                   </button>
                 </div>
               </figure>
+
+              <div class="multiroom-modify-cancel"
+                   ng-if="reservation.status !== 'Cancelled' && !isMobile && reservation.noOfRooms > 1">
+                <p>_manual_cancel_modify_</p>
+              </div>
             </div>
 
             <div ng-if="config.modifyButtonsAfterDetails && isMobile"
@@ -361,7 +366,7 @@
                       class="button"
                       ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()"
                       ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}"
-                      ng-if="!reservation.isInThePast && showActionButtons"
+                      ng-if="reservation.noOfRooms === 1 && !reservation.isInThePast && showActionButtons"
                       ng-disabled="!reservation.canModify">
                 _modify_
               </button>
@@ -370,11 +375,14 @@
                       class="button-gray"
                       ng-click="reservation.pointValue ? modifyCancelPointsReservation() : openCancelReservationDialog()"
                       ng-class="{disabled: reservation.canCancel === false && !reservation.pointValue}"
-                      ng-if="!reservation.isInThePast && showActionButtons"
+                      ng-if="reservation.noOfRooms === 1 && !reservation.isInThePast && showActionButtons"
                       ng-disabled="!reservation.canCancel">
                 _cancel_
               </button>
-
+              <div class="multiroom-modify-cancel"
+                   ng-if="reservation.status !== 'Cancelled' && isMobile && reservation.noOfRooms > 1">
+                <p class="mobile">_manual_cancel_modify_</p>
+              </div>
             </div>
           </div>
 
