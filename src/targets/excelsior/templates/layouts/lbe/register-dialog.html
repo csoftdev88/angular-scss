@@ -1,3 +1,10 @@
+<a
+  href=""
+  ng-click="$event.stopPropagation(); auth.clearErrors(); auth.register(); retentionClick()"
+  class="close-modal-btn">
+  <i class="fa fa-times-circle-o"></i>
+</a>
+
 <div class="login-dialog register"
      ng-click="$event.stopPropagation()">
 
@@ -10,10 +17,14 @@
       _back_
     </a>
 
-    <a href="" ng-click="auth.clearErrors(); auth.register(); retentionClick()" class="close-btn"></a>
-    <figure class="logo">
-      <img src="/static/images/v4/logo-dark.png" alt="logo">
-    </figure>
+    <div class="register-promo-container">
+      <img class="promo-icon" src="/static/images/lbe/get-rewarded.png">
+      <p class="promo-title">_register_promo_title_</p>
+      <p class="promo-container">_register_promo_text_</p>
+    </div>
+
+    <h1>_login_register_modal_title_</h1>
+    <p class="subtitle">_login_register_modal_subtitle_</p>
 
     <p class="error-msg error" ng-if="error">
           <span ng-if="userRegisteredError">
@@ -45,13 +56,17 @@
             required
             email-check
             placeholder="_email_label_"
+            class="with-icon"
             ng-class="{'ng-submitted': form.$submitted &&
                                            (form.registerEmail.$error.required ||
                                            form.registerEmail.$error.emailCheck)}"/>
+          <div class="input-icon-wrapper">
+            <i class="input-icon fa fa-envelope-o"></i>
+          </div>
           <span class="error"
                 ng-if="form.$submitted && form.registerEmailConfirm.$error.emailCheck">
                 _invalid_email_message_
-              </span>
+          </span>
         </form-element>
 
         <form-element>
@@ -64,19 +79,23 @@
             email-check
             equals="registerData.email"
             placeholder="_confirm_email_label_"
+            class="with-icon"
             ng-class="{'ng-submitted': form.$submitted &&
                                        (form.registerEmailConfirm.$error.required ||
                                        form.registerEmailConfirm.$error.emailCheck ||
                                        form.registerEmailConfirm.$error.equals)}"/>
+          <div class="input-icon-wrapper">
+            <i class="input-icon fa fa-envelope-o"></i>
+          </div>
           <span class="error"
                 ng-if="form.$submitted && form.registerEmailConfirm.$error.emailCheck">
                 _invalid_email_message_
-              </span>
+          </span>
 
           <span class="error"
                 ng-if="form.$submitted && form.registerEmailConfirm.$error.equals">
                 _email_match_error_message_
-              </span>
+          </span>
         </form-element>
 
         <form-element>
@@ -88,10 +107,14 @@
             ng-pattern="/^(?=.*[a-zA-Z\d].*)[a-zA-Z\d!@#$%&£^*_()+=-]{8,}$/"
             required
             placeholder="_password_label_"
+            class="with-icon"
             ng-class="{'ng-submitted': form.$submitted &&
                                        (form.registerPassword.$error.required ||
                                        form.registerPassword.$error.pattern)}"
             ng-pattern="$root.generalValidationPattern"/>
+            <div class="input-icon-wrapper">
+              <i class="input-icon fa fa-lock"></i>
+            </div>
         </form-element>
 
         <form-element>
@@ -103,9 +126,13 @@
             required
             equals="registerData.password"
             placeholder="_confirm_password_label_"
+            class="with-icon"
             ng-class="{'ng-submitted': form.$submitted &&
                                        (form.registerPasswordConfirm.$error.required ||
                                        form.registerPasswordConfirm.$error.equals)}"/>
+          <div class="input-icon-wrapper">
+            <i class="input-icon fa fa-lock"></i>
+          </div>
           <span class="error"
                 ng-if="form.$submitted && form.registerPasswordConfirm.$error.equals">
                 _password_match_error_message_
@@ -153,6 +180,7 @@
         <form-element ng-if="registerCountries">
           <select type="text"
                   id="country"
+                  class="with-icon"
                   required
                   placeholder="_country_label_"
                   placeholder-text-single="_country_label_"
@@ -162,6 +190,7 @@
                   chosen>
             <option value="">_country_label_</option>
           </select>
+          <i class="country-icon fa fa-globe"></i>
         </form-element>
       </fieldset>
 
