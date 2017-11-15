@@ -36,6 +36,7 @@
 
         $scope.uiConfig = Settings.UI;
         var appLang = stateService.getAppLanguageCode();
+        $scope.dimSearchButton = ($stateParams.fromSearch === '1') ? true : false;
         // Default search params, this is the object the booking form is bound to
         $scope.search = {
           adults: 1,
