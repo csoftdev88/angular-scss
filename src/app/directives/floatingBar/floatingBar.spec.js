@@ -172,7 +172,7 @@ describe('GuestsCtrl', function() {
       expect(_scope.guestsOptions.children[0].value).equal(0);
 
       expect(_scope.guestsOptions.adults[0].title).equal('1 Adult');
-      expect(_scope.guestsOptions.children[0].title).equal('Children');
+      expect(_scope.guestsOptions.children[0].title).equal('0 Children');
     });
 
   });

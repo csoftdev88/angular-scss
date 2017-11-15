@@ -230,6 +230,7 @@ angular.module('mobiusApp.directives.floatingBar', [
     $scope.setChildrenOptions = function(options){
       var childrenOptions =  numberToListFilter([], settings.children.min, settings.children.max,
           {
+            '0': '{} ' + options.children,
             '1': '{} ' + options.child,
             'plural': '{} ' + options.children
           });
@@ -246,7 +247,7 @@ angular.module('mobiusApp.directives.floatingBar', [
         }),
         children: numberToListFilter([], settings.children.min, settings.children.max,
           {
-            '0': translations.children,
+            '0': '{} ' + translations.children,
             '1': '{} ' + translations.child,
             'plural': '{} ' + translations.children
           })
