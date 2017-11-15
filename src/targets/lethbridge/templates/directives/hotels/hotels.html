@@ -76,8 +76,8 @@
                     <div class="banner" ng-if="hotel.merchandisingBanner" ng-style="{'background-color': hotel.merchandisingBanner.bgColor, 'color': hotel.merchandisingBanner.textColor}">{{hotel.merchandisingBanner.text}}</div>
                     <img ng-src="{{hotel.images[0].uri}}" alt="Mobius hotel {{hotel.name}} photo"/>
                   </a>
-              <h2 ng-if="hotelViewMode === 'list'" ng-click="navigateToHotel(hotel)"><strong>{{hotel.nameShort}}</strong></h2>
-              <h2 ng-if="hotelViewMode === 'tiles' && !isMobile" ng-click="navigateToHotel(hotel)"><strong>{{hotel.nameShort}}</strong></h2>
+              <h2 ng-if="hotelViewMode === 'list'" ng-click="navigateToHotel(hotel)"><strong>{{hotel.nameLong}}</strong></h2>
+              <h2 ng-if="hotelViewMode === 'tiles' && !isMobile" ng-click="navigateToHotel(hotel)"><strong>{{hotel.nameLong}}</strong></h2>
               <h5 class="region-name" ng-if="config.displayHotelRegionName && hotelViewMode === 'tiles' && hotel.regionName && !isMobile">{{hotel.regionName}}</h5>
               <p ng-if="!isMobile" class="description" ng-bind-html="hotel.descriptionShort"></p>
             </div>
