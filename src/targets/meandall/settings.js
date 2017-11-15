@@ -963,11 +963,11 @@ angular.module('mobiusApp.config', [])
       'includeLocationsOnMobile': false,
       'adults': {
         'min': 1,
-        'max': 8
+        'max': 2
       },
       'children': {
         'min': 0,
-        'max': 8
+        'max': 1
       },
       'defaultAdultCount': 2,
       'maxRooms': 4,
