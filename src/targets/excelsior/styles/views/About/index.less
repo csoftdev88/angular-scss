@@ -6,8 +6,9 @@
   margin-top: 0;
 }
 .About__hero {
+  padding-top: 100px;
   width: 100%;
-  height: 758px;
+  min-height: 2758px;
   background: url('@{img-prefix}/rewards-bg.png');
   background-size: cover;
   &.fullscreen {
@@ -16,6 +17,133 @@
     position: fixed;
     overflow-x: hidden;
     overflow-y: hidden;
+  }
+
+  .register_space {
+    width: 100%;
+    min-height: 610px;
+
+    hero-slider .slider-controls {
+      background-color: black;
+      opacity: 0.4;
+    }
+
+    .promotion-text-container {
+      position: absolute;
+      left: 150px;
+      top: 350px;
+      color: white;
+      z-index: 9;
+      margin-bottom: 17px;
+      width: 290px;
+
+      .promotion-text-container-title {
+        clear: both;
+        display: block;
+        font-size: 45px;
+        margin-bottom: 15px;
+      }
+
+      .promotion-text-container-text {
+        font-size: 22px;
+      }
+    }
+
+    .register_container {
+      right: 40px;
+      margin: 70px;
+      padding: 20px;
+      background-color: #AA7B44;
+      position: absolute;
+      width: 260px;
+      border-radius: 10px;
+      z-index: 9;
+
+      form {
+        width: 260px;
+      }
+
+      .signup-title {
+        color: white;
+        font-size: 18px;
+        margin-bottom: 15px;
+      }
+
+      input {
+        margin-bottom: 20px;
+
+        &.ng-invalid {
+          i {
+            color: @c-red;
+          }
+        }
+      }
+
+      .error-message {
+        color: @c-error;
+        font-size: 17px;
+      }
+
+      input.ng-touched.ng-dirty.ng-invalid + .input-icon-wrapper {
+        color: @c-red;
+      }
+      input.ng-touched.ng-dirty.ng-valid + .input-icon-wrapper {
+        color: @c-green;
+      }
+
+      .input-icon-wrapper {
+        height: 56px;
+        width: 50px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        color: rgba(101, 101, 101, 0.27);
+        font-size: 20px;
+        text-align: center;
+
+        i {
+          padding-top: 17px;
+        }
+      }
+
+      form.ng-invalid {
+        color: @c-red;
+      }
+    }
+  }
+
+  .hotel-description-container {
+    width: 100%;
+    min-height: 300px;
+    background-color: white;
+    padding: 0 20px;
+
+    .hotel-info-details {
+      float: left;
+    }
+
+    .gallery-link, .slide-button {
+      display: none;
+    }
+
+    .hotel-info-amenities {
+      clear: both;
+      width: 550px;
+      float: right;
+    }
+
+    view-more-images {
+      width: 510px !important;
+      height: 300px;
+    }
+    main {
+      margin-top: 0px;
+    }
+
+    .hotel-description-container-content {
+      margin: 25px;
+    }
   }
 }
 

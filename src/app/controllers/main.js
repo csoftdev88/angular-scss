@@ -34,6 +34,21 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
 
       }
 
+      $scope.viewSettings = Settings.UI.viewsSettings.hotelDetails;
+      propertyService.getPropertyDetails('EXC', {'includes': 'amenities', 'propertySlug': 'excelsior-hotel-exc', 'productGroupId': 1})
+      .then(function(details){
+        $scope.details = details;
+        var amenities = $scope.details.amenities;
+        if($scope.config.restrictAmenities && stateService.isMobile()){ //If viewing mobile and hotel amenities are restricted on mobile
+          propertyService.highlightAsterixAmenities(amenities); //Highlight amenities with asterix at the beginning of the name
+        }
+        $scope.filteredAmenities = propertyService.sanitizeAmenities(amenities); //Process our amenities and add to scope.
+        $scope.previewImages = contentService.getLightBoxContent(
+          details.images, 300, 150, 'fill');
+        $scope.hasViewMore = true;
+        });
+
+
       contentService.getTitles().then(function(data) {
         $scope.registerTitles = data;
       });
@@ -272,6 +287,7 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
 
         // Displaying the offers available on all the properties
         propertyService.getAll().then(function(properties){
+          console.log('properties', properties);
           propertyCodes = _.pluck(properties, 'code');
 
           contentService.getOffers().then(function(offers) {
