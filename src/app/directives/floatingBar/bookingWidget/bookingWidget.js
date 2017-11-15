@@ -458,7 +458,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             //_.forEach(region.locations, function(location) {
             //  scope.propertyRegionList.push({name: location.nameShort, type: 'location', code: location.code});
             _.forEach(region.properties, function(property) {
-              scope.propertyRegionList.push({name: property.nameShort, type: 'property', code: property.code});
+              scope.propertyRegionList.push({name: property.nameLong, type: 'property', code: property.code});
             });
           });
         }
@@ -471,7 +471,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
             //_.forEach(region.locations, function(location) {
             //  scope.propertyRegionList.push({name: location.nameShort, type: 'location', code: location.code});
             _.forEach(location.properties, function(property) {
-              scope.propertyRegionList.push({name: property.nameShort, type: 'property', code: property.code});
+              scope.propertyRegionList.push({name: property.nameLong, type: 'property', code: property.code});
             });
           });
         }
@@ -480,7 +480,7 @@ angular.module('mobiusApp.directives.floatingBar.bookingWidget', [])
         if (!scope.settings.includeLocations && !scope.settings.includeRegions && !scope.isMobile() || !scope.settings.includeLocationsOnMobile && !scope.settings.includeRegionsOnMobile && scope.isMobile()) {
           _.forEach(regionsProperties, function(property) {
             if(regionsProperties.length > 1){
-              scope.propertyRegionList.push({name: property.nameShort, type: 'property', code: property.code});
+              scope.propertyRegionList.push({name: property.nameLong, type: 'property', code: property.code});
             }
           });
         }
