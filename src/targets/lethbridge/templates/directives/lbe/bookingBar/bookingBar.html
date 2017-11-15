@@ -91,7 +91,8 @@
     <div class="search-button-positionner">
       <button type="submit"
               ng-click="doSearch()"
-              class="booking-bar__submit">
+              class="booking-bar__submit"
+              ng-class="{'dimmed-button': dimSearchButton}">
         _search_
       </button>
       <!--Disabling these until we have a good design-->
