@@ -352,10 +352,11 @@
                 name="password"
                 ng-model="passwordData.password"
                 class="ProfileForm__input"
-                ng-class="{'ng-submitted': form.$submitted && form.password.$error.required}"
-                ng-pattern="$root.generalValidationPattern"
-                ng-required="passwordData.password.length"
+                ng-class="{'ng-submitted': form.$submitted && (form.password.$error.required || form.password.$error.pattern)}"
+                ng-pattern="$root.passwordValidationPattern"
+                ng-required="{{passwordData.password.length > 0}}"
                 ng-disabled="editingDisabled"/>
+                <span class="error" ng-if="form.password.$error.pattern">_password_pattern_error_</span>
             </form-element>
 
             <form-element>

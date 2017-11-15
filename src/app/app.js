@@ -705,6 +705,9 @@ angular
   {
     $rootScope.generalValidationPattern = Settings.inputValidationPattern;
   }
+  if (Settings.passwordValidationPattern) {
+    $rootScope.passwordValidationPattern = Settings.passwordValidationPattern;
+  }
 
   function encodeQueryData(data) {
     var ret = [];
