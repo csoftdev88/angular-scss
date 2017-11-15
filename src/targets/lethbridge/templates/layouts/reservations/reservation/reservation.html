@@ -133,8 +133,7 @@
             <!-- SUBVIEWS -->
             <ui-view>
             </ui-view>
-            <!--Customers always opt-in, using ng-init trick here to avoid changing the global controller-->
-            <div ng-if="bookingConfig.detailsBeforeForm" class="form-bottom" ng-init="additionalInfo.optedIn = true">
+            <div ng-if="bookingConfig.detailsBeforeForm" class="form-bottom">
               <div>
                 <label for="agreement1" class="input-checkbox" ng-if="state.includes('reservation.confirmation')"">
                   <input type="checkbox" id="agreement1" ng-model="additionalInfo.agree"/>
