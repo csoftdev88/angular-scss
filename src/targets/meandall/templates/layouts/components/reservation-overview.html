@@ -93,7 +93,7 @@
           class="breakdown room-charges"
           ng-repeat="breakdown in allRooms[0]._selectedProduct.price.breakdowns | orderBy:'date'"
           ng-class="{'last': $last}">
-          <th>{{formatDate(breakdown.date, 'DD MMM YYYY')}}:</th>
+          <th>{{breakdown.date | dateTime}}:</th>
           <td>{{getBreakdownTotalDate(breakdown.date) | i18nCurrency: $root.currencyCode}}</td>
         </tr>
 
