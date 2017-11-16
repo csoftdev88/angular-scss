@@ -230,26 +230,16 @@
       </div>
     </div>
     <div class="HeroBenefits__signup">
-      <div class="signup-title">
-        <h1 ng-show="!registerFormSteps.filledEmail">_sign_up_home_</h1>
-        <h1 ng-show="registerFormSteps.filledEmail">_guest_details_</h1>
-        <div ng-show="registerFormSteps.filledEmail"
-             ng-click="registerFormSteps.filledEmail = false"
-             class="back-btn">
-          <i class="fa fa-angle-left"></i>
-          _back_
-        </div>
-      </div>
-      <div class="form-wrapper">
-
-
-
-
-
-      </div>
+      <a href=""><button class="HeroBenefits__button">_about_benefit_sign_up_</button></a>
+      <a href=""><button class="HeroBenefits__button">_log_in_</button></a>
     </div>
-
   </article>
+
+  <div class="About__testimonial">
+    <recommendation></recommendation>
+  </div>
+
+
 
   <!--Mobile search button-->
   <button ng-if="isMobile" class="HotelDetails__search position-bottom" ng-click="openBookingBar()">
