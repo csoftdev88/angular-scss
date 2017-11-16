@@ -391,22 +391,22 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     },
     'recommendationCarousel': [
       {
-        'avatarUrl': '/static/images/lbe/avatar@3x.png',
-        'text': '“20% off and a room upgrade, what more could I ask for!”',
-        'name': 'Laura Sandoval',
-        'city': 'New York'
-      },
-      {
-        'avatarUrl': '/static/images/lbe/avatar@3x.png',
+        'avatarUrl': '/static/images/lbe/testimonial-profile-3_preview.png',
         'text': '“Best Value Upper West Side and Super Location”',
-        'name': 'William B.',
+        'name': 'William B',
         'city': 'Manhattan Beach, California'
       },
       {
-        'avatarUrl': '/static/images/lbe/avatar@3x.png',
-        'text': '“20% off and a room upgrade, what more could I ask for!”',
-        'name': 'Laura Sandoval',
-        'city': 'New York'
+        'avatarUrl': '/static/images/lbe/testimonial-profile-1_preview.png',
+        'text': '“A beautiful hotel in the heart of the Upper West Side”',
+        'name': 'Sue M',
+        'city': 'St. Catharines, Canada'
+      },
+      {
+        'avatarUrl': '/static/images/lbe/testimonial-profile-2_preview.png',
+        'text': '“Wonderful and the value cannot be beat!”',
+        'name': 'Molly Y',
+        'city': 'Raleigh, North Carolina'
       }
     ],
     'recommendationCarouselInterval': 10000, // 0 disable carousel auto rotation
