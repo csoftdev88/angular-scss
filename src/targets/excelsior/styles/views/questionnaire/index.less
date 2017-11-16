@@ -52,8 +52,8 @@ questionnaire {
 
   .questionnaire__title {
     text-transform: capitalize;
-    box-shadow: 0 1px 0 0 @c-light-grey;
-    background-color: #31302f;
+    box-shadow: inset 0 0 10px 0 rgba(0,0,0,0.15);
+    background: linear-gradient(0deg, #4A4A4A 0%, #676767 100%);
     color: #fff;
     height: 77px;
     line-height: 77px;
@@ -148,6 +148,7 @@ questionnaire {
         &.gold {
           color: #FFAD25;
         }
+        color: @c-primary;
         font-family: @ff-serif;
         font-size: 28px;
         line-height: normal;

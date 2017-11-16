@@ -6,7 +6,7 @@ main.hotel-detail {
 
 .HotelDetails {
   margin-top: @header-height;
-
+  background-color: #FCFCFC;
   // Hide all the dividers
   hr {
     display: none;
@@ -41,6 +41,49 @@ main.hotel-detail {
     margin-top: 83px;
     view-more-images {
       margin-left: 0 !important;
+    }
+
+    .hotel-info-details {
+      float: left;
+    }
+    .hotel-info-amenities {
+      background-color: white;
+      border-radius: 10px;
+      border: 1px solid rgba(0,0,0,0.1);
+      margin: 20px 0;
+      padding: 20px 20px 0 20px;
+
+      .amenities-list {
+        margin: 10px 0;
+      }
+
+      h2 {
+        text-align: left;
+        font-size: 24px;
+        color: #B98747;
+      }
+      img {
+        width: auto;
+      }
+    }
+
+    view-more-images {
+      width: 554px !important;
+      margin: 20px 0 !important;
+      hero-slider {
+        height: 300px;
+
+        .slider-content {
+          height: 300px;
+          .hero-slide {
+            height: 300px;
+            border-radius: 10px;
+          }
+        }
+        counter {
+          display: none !important;
+        }
+      }
     }
   }
 

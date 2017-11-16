@@ -43,6 +43,16 @@
   }
 }
 
+.Home__testimonial {
+  padding-top: 120px;
+  padding-bottom: 80px;
+  width: 100%;
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('@{img-prefix}/testimonials-cover.jpg');
+  background-position:center;
+  background-size: cover;
+  z-index: 0;
+}
+
 .LoggedInFooter {
   background: @c-primary;
   position: fixed;
@@ -146,4 +156,60 @@
     background-color: @c-bookingbar-bg;
   }
 
+}
+
+.hotel-description-container-content {
+
+  background-color: #FCFCFC;
+  .hotel-info-amenities {
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,0.1);
+    margin: 20px 0;
+    padding: 20px 20px 0 20px;
+
+    .amenities-list {
+      margin: 10px 0;
+    }
+
+    h2 {
+      text-align: left;
+      font-size: 24px;
+      color: #B98747;
+    }
+    img {
+      width: auto;
+    }
+  }
+
+  view-more-images {
+    width: 554px !important;
+    margin: 20px 0 !important;
+    hero-slider {
+      height: 300px;
+
+      .slider-content {
+        height: 300px;
+        .hero-slide {
+          height: 300px;
+          border-radius: 10px;
+        }
+      }
+      counter {
+        display: none !important;
+      }
+    }
+  }
+}
+
+.clear {
+  clear: both;
+}
+
+.home-page-questionnaire {
+  background: rgba(160, 110, 46, 0.8);
+  main {
+    margin-top: 0;
+    padding-top: 30px;
+  }
 }

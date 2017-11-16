@@ -1,0 +1,40 @@
+@import "./variables";
+
+.viewport-mobile {
+
+  .recommendation-carousel {
+
+    padding: 0 0 40px 0;
+    margin-bottom: 50px;
+
+    .opening-quote, .closing-quote {
+      width: @testimonial-mobile-quote-width;
+      height: @testimonial-mobile-quote-height;
+      background-size: contain;
+    }
+
+    .recommendation__text {
+      padding: 0 20px;
+      text-align: center;
+      font-size: @testimonial-mobile-text-size;
+      line-height: @testimonial-mobile-line-height;
+    }
+
+    .recommendation__avatar {
+      margin: 60px auto 0 auto;
+      width: 70%;
+    }
+
+    .recommendation__avatar-info {
+      padding: 0 0 0 75px;
+      h2 {
+        font-size: @testimonial-mobile-name-size;
+      }
+      small {
+        font-size: @testimonial-mobile-city-size;
+      }
+    }
+
+  }
+
+}

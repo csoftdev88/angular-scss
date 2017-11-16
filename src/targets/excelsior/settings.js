@@ -3,6 +3,38 @@
 angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
 
 .constant('Settings', {
+  'forceCustomHeroContent': true,
+  'customHeroContent': {
+    'topSlider': [
+      {
+        uri: '/static/images/excelsior-home-slider-1.jpeg'
+      },
+      {
+        uri: '/static/images/excelsior-home-slider-2.jpeg'
+      },
+      {
+        uri: '/static/images/excelsior-home-slider-3.jpeg'
+      },
+      {
+        uri: '/static/images/excelsior-home-slider-4.jpeg'
+      },
+      {
+        uri: '/static/images/excelsior-home-slider-5.jpeg'
+      }
+    ],
+
+    'hotelPhotos': [
+      {
+        uri: '/static/images/excelsior-hotel-1.jpg'
+      },
+      {
+        uri: '/static/images/excelsior-hotel-2.jpg'
+      },
+      {
+        uri: '/static/images/excelsior-hotel-3.jpg'
+      }
+    ]
+  },
   'autoPopulateDates': true,
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
@@ -357,6 +389,27 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'name': 'Laura Sandoval',
       'city': 'New York'
     },
+    'recommendationCarousel': [
+      {
+        'avatarUrl': '/static/images/lbe/avatar@3x.png',
+        'text': '“20% off and a room upgrade, what more could I ask for!”',
+        'name': 'Laura Sandoval',
+        'city': 'New York'
+      },
+      {
+        'avatarUrl': '/static/images/lbe/avatar@3x.png',
+        'text': '“Best Value Upper West Side and Super Location”',
+        'name': 'William B.',
+        'city': 'Manhattan Beach, California'
+      },
+      {
+        'avatarUrl': '/static/images/lbe/avatar@3x.png',
+        'text': '“20% off and a room upgrade, what more could I ask for!”',
+        'name': 'Laura Sandoval',
+        'city': 'New York'
+      }
+    ],
+    'recommendationCarouselInterval': 10000, // 0 disable carousel auto rotation
     'homePage': {
       'showOffer': true
     },
@@ -1212,8 +1265,8 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
           'descriptionGrid': 6,
           'sidebarGrid': 6,
           'images': {
-            'width': '664',
-            'height': '583'
+            'width': '600',
+            'height': '250'
           }
         }
       },
