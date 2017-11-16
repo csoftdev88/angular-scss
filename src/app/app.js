@@ -839,7 +839,7 @@ angular
    * - they are forced to reset their password
    * */
   function conditionalRedirect() {
-    if (Settings.conditionalRedirect !== true) {
+    if (_.isNull(Settings.conditionalRedirect) || _.isUndefined(Settings.conditionalRedirect) || Settings.conditionalRedirect !== true) {
       return false;
     }
     if (!user.isLoggedIn()) {
