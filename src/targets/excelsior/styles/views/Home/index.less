@@ -208,9 +208,33 @@
 }
 
 .home-page-questionnaire {
-  background: rgba(160, 110, 46, 0.8);
+  background: url('@{img-prefix}/brown-background-img.jpg');
+  background-size: cover;
   main {
     margin-top: 0;
-    padding-top: 30px;
+    padding-top: 50px;
+  }
+}
+.header-hero-content {
+  // Same height as hero slider
+  height: 654px;
+  margin-top: 0;
+  text-align: center;
+  // Make this container appear above hero slider
+  z-index: 1;
+  position: relative;
+  .welcome-text {
+    font-weight: 100;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+    margin-top: 150px;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 24px;
+  }
+}
+.main-page-slider {
+  margin-top: -654px;
+  &.user-not-authenticated {
+    margin-top: 0;
   }
 }
