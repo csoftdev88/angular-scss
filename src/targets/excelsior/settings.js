@@ -4,23 +4,37 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
 
 .constant('Settings', {
   'forceCustomHeroContent': true,
-  'customHeroContent': [
-    {
-      uri: '/static/images/excelsior-home-slider-1.jpeg'
-    },
-    {
-      uri: '/static/images/excelsior-home-slider-2.jpeg'
-    },
-    {
-      uri: '/static/images/excelsior-home-slider-3.jpeg'
-    },
-    {
-      uri: '/static/images/excelsior-home-slider-4.jpeg'
-    },
-    {
-      uri: '/static/images/excelsior-home-slider-5.jpeg'
-    }
-  ],
+  'customHeroContent': {
+    'topSlider': [
+      {
+        uri: '/static/images/excelsior-home-slider-1.jpeg'
+      },
+      {
+        uri: '/static/images/excelsior-home-slider-2.jpeg'
+      },
+      {
+        uri: '/static/images/excelsior-home-slider-3.jpeg'
+      },
+      {
+        uri: '/static/images/excelsior-home-slider-4.jpeg'
+      },
+      {
+        uri: '/static/images/excelsior-home-slider-5.jpeg'
+      }
+    ],
+
+    'hotelPhotos': [
+      {
+        uri: '/static/images/excelsior-hotel-1.jpg'
+      },
+      {
+        uri: '/static/images/excelsior-hotel-2.jpg'
+      },
+      {
+        uri: '/static/images/excelsior-hotel-3.jpg'
+      }
+    ]
+  },
   'autoPopulateDates': true,
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',

@@ -33,7 +33,6 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
       } catch(err){
 
       }
-
       $scope.viewSettings = Settings.UI.viewsSettings.hotelDetails;
       propertyService.getPropertyDetails('EXC', {'includes': 'amenities', 'propertySlug': 'excelsior-hotel-exc', 'productGroupId': 1})
       .then(function(details){
@@ -43,8 +42,6 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
           propertyService.highlightAsterixAmenities(amenities); //Highlight amenities with asterix at the beginning of the name
         }
         $scope.filteredAmenities = propertyService.sanitizeAmenities(amenities); //Process our amenities and add to scope.
-        $scope.previewImages = contentService.getLightBoxContent(
-          details.images, 300, 150, 'fill');
         $scope.hasViewMore = true;
         });
 
@@ -255,6 +252,7 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
       $scope.updateHeroContent = function(data, forceDefault) {
         if (Settings.forceCustomHeroContent === true && Settings.customHeroContent) {
           $rootScope.heroContent = Settings.customHeroContent;
+          $rootScope.previewImages = $rootScope.heroContent.hotelPhotos;
           return;
         }
         if ($rootScope.thirdparty) {
