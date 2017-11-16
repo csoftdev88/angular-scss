@@ -46,6 +46,11 @@
   <div
     class="hotel-description-container">
       <main class="grid-wrapper main-content-container">
+        <div class="stars rating-trip-advisor img" ng-if="!auth.isLoggedIn() && !isMobile()">
+          <img class="logo" src="/static/images/v4/tripadvisor-logo.png">
+          <span>#6 Best Value of 469 hotels in New York City</span>
+          <a ng-href="{{details.tripAdvisorUrl}}" target="_blank"><img ng-src="/static/images/v4/Stars.png" alt="tripadvisor rating"></a>
+        </div>
         <div
           class="register_container"
           ng-if="!auth.isLoggedIn() && !isMobile()">
