@@ -1,3 +1,10 @@
+<a
+  href=""
+  ng-click="$event.stopPropagation(); auth.clearErrors(); auth.login(); retentionClick()"
+  class="close-modal-btn">
+  <i class="fa fa-times-circle-o"></i>
+</a>
+
 <div class="login-dialog"
      ng-click="$event.stopPropagation()"
      ng-class="'form-step' + loginFormStep">
@@ -10,14 +17,7 @@
       _back_
     </a>
 
-    <a href=""
-       ng-click="auth.clearErrors(); auth.login(); retentionClick()"
-       class="close-btn">
-    </a>
-
-    <figure class="logo">
-      <img src="/static/images/v4/logo-dark.png" alt="logo">
-    </figure>
+    <h1 class="margin-bottom">_login_</h1>
 
     <p class="error-msg" ng-if="loginDialogError">
           <span ng-if="genericError">
@@ -57,9 +57,13 @@
             required
             email-check
             placeholder="_email_label_"
+            class="with-icon"
             ng-class="{'ng-submitted': loginForm.$submitted &&
                                            (loginForm.loginEmail.$error.required ||
                                            loginForm.loginEmail.$error.emailCheck)}"/>
+          <div class="input-icon-wrapper">
+            <i class="input-icon fa fa-envelope-o"></i>
+          </div>
         </form-element>
 
         <form-element>
@@ -70,8 +74,12 @@
             ng-model="loginData.password"
             required
             placeholder="_password_label_"
+            class="with-icon"
             ng-class="{'ng-submitted': loginForm.$submitted && loginForm.loginPassword.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
+            <div class="input-icon-wrapper">
+              <i class="input-icon fa fa-lock"></i>
+            </div>
         </form-element>
 
       </fieldset>
@@ -83,20 +91,20 @@
         _login_
       </button-submit>
 
-      <ul class="options">
-        <li>
-          <a href=""
-             ng-click="loginFormStep = 2; auth.clearErrors(); retentionClick()">
-            _forgot_password_label_
-          </a>
-        </li>
-        <li>
-          <a href=""
-             ng-click="auth.clearErrors(); $root.showLoginDialog = !$root.showLoginDialog; auth.register(); retentionClick()">
-            _register_now_
-          </a>
-        </li>
-      </ul>
+      <p class="help-link">
+        _forgot_your_password_
+        <a href=""
+           ng-click="loginFormStep = 2; auth.clearErrors(); retentionClick()">
+          _forgot_password_label_
+        </a>
+      </p>
+      <p class="help-link">
+        _not_a_member_
+        <a href=""
+           ng-click="auth.clearErrors(); $root.showLoginDialog = !$root.showLoginDialog; auth.register(); retentionClick()">
+          _register_now_
+        </a>
+      </p>
 
     </form>
 
