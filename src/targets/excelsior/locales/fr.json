@@ -643,6 +643,7 @@
         "members_only_incentive": "Not a member? <span class=\"emphasis\">Register</span> today for <span class=\"emphasis\">Free!</span>",
         "with_this_booking": "with this booking",
         "questionnaire_subtitle": "What would you prefer?",
-        "submit_answer": "Submit Answer"
+        "submit_answer": "Submit Answer",
+        "welcome_main_page_text": "Welcome to the Excelsior hotel"
   }
 }
