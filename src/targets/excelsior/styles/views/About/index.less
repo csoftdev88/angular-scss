@@ -89,23 +89,32 @@
       top: -650px;
       background-color: #A97737;
       position: absolute;
-      width: 260px;
+      width: 320px;
       border-radius: 10px;
       z-index: 9;
-      padding: 20px;
+      padding: 30px;
 
       form {
         width: 260px;
+        &.ng-invalid {
+          width: 100%;
+        }
       }
 
       .signup-title {
         color: white;
-        font-size: 18px;
+        font-size: 28px;
         margin-bottom: 15px;
+        line-height: 38px;
+        text-shadow: 0 1px 0 rgba(0,0,0,0.40);
+
+        .emphasis{
+          font-weight: bold;
+        }
       }
 
       input {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
 
         &.ng-invalid {
           i {
