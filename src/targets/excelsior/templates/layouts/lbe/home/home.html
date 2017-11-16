@@ -230,13 +230,13 @@
       </div>
     </div>
     <div class="HeroBenefits__signup">
-      <a href=""><button class="HeroBenefits__button">_about_benefit_sign_up_</button></a>
-      <a href=""><button class="HeroBenefits__button">_log_in_</button></a>
+      <button class="HeroBenefits__button" ng-click="auth.register()">_about_benefit_sign_up_</button>
+      <button class="HeroBenefits__button" ng-click="auth.login()">_log_in_</button>
     </div>
   </article>
 
-  <div class="About__testimonial">
-    <recommendation></recommendation>
+  <div class="Home__testimonial">
+    <recommendation-carousel></recommendation-carousel>
   </div>
 
 

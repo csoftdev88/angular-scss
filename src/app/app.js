@@ -200,6 +200,7 @@ angular
     'mobiusApp.directives.inclusions',
     'mobiusApp.directives.sectionImage',
     'mobiusApp.directives.lbe.recommendation',
+    'mobiusApp.directives.lbe.recommendationCarousel',
     'mobiusApp.directives.lbe.questionnaire',
     'mobiusApp.directives.lbe.bookingBar',
     'mobiusApp.directives.lbe.highlight',

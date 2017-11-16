@@ -389,6 +389,27 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'name': 'Laura Sandoval',
       'city': 'New York'
     },
+    'recommendationCarousel': [
+      {
+        'avatarUrl': '/static/images/lbe/avatar@3x.png',
+        'text': '“20% off and a room upgrade, what more could I ask for!”',
+        'name': 'Laura Sandoval',
+        'city': 'New York'
+      },
+      {
+        'avatarUrl': '/static/images/lbe/avatar@3x.png',
+        'text': '“Best Value Upper West Side and Super Location”',
+        'name': 'William B.',
+        'city': 'Manhattan Beach, California'
+      },
+      {
+        'avatarUrl': '/static/images/lbe/avatar@3x.png',
+        'text': '“20% off and a room upgrade, what more could I ask for!”',
+        'name': 'Laura Sandoval',
+        'city': 'New York'
+      }
+    ],
+    'recommendationCarouselInterval': 10000, // 0 disable carousel auto rotation
     'homePage': {
       'showOffer': true
     },
