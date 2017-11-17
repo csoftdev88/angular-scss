@@ -157,7 +157,11 @@
                 _receive_offer_label_
               </label>
             </div>
-            <button-submit class="booking-bar__submit" ng-click="continue()" ng-disabled="isContinueDisabled()">
+            <button-submit
+              class="booking-bar__submit"
+              ng-hide="isContinueHidden()"
+              ng-disabled="isContinueDisabled()"
+              ng-click="continue()">
               <i class="fa fa-chevron-right"
                  aria-hidden="true"
                  ng-if="(continueName === 'continue') && uiConfig.buttonSubmit.continueBtn"></i>

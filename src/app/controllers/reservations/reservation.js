@@ -209,10 +209,6 @@ angular.module('mobius.controllers.reservation', [])
 
     // Showing loading mask
     preloaderFactory($q.all([$q.all(roomsPromises), propertyPromise]).then(function() {
-      if (user.getUser().loyalties) {
-        $scope.pointsData.currentPoints = user.getUser().loyalties.amount || 0;
-        $scope.pointsData.pointsAfterBooking = $scope.pointsData.currentPoints - $scope.getTotal('pointsRequired');
-      }
       $rootScope.showHomeBreadCrumb = false;
       setBreadCrumbs(lastBreadCrumbName);
     }, goToRoom));
@@ -656,12 +652,14 @@ angular.module('mobius.controllers.reservation', [])
     if ($state.is('reservation.confirmation') && $scope.isMakingReservation) {
       return true;
     }
+    return !$scope.isValid() && !$state.is('reservation.details') && !$state.is('reservation.billing') && !$state.is('reservation.confirmation');
+  };
+
+  $scope.isContinueHidden = function() {
     // TODO: Do this better - might work via ng-class instead of disabled
     if ($state.is('reservation.billing') && $scope.billingDetails.paymentMethod === 'point') {
       return !$scope.isValid();
     }
-
-    return !$scope.isValid() && !$state.is('reservation.details') && !$state.is('reservation.billing') && !$state.is('reservation.confirmation');
   };
 
   function mapDataToKeystoneRegister() {
