@@ -59,7 +59,6 @@
           return $scope.datePickerParams;
         };
         $scope.$watchCollection('search', function () {
-          console.log('Updating params for datepicker');
           $scope.updateParamsForDatePicker();
         });
 
