@@ -73,7 +73,7 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
             userObject.id = response.id;
             user.loadProfile();
             $rootScope.showRegisterDialog = false;
-            $state.go('home');
+            $state.reload();
           }, function(err){
             if(err.error.msg === 'User already registered'){
               $scope.userRegisteredError = true;
