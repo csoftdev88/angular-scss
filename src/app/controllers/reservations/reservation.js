@@ -141,6 +141,25 @@ angular.module('mobius.controllers.reservation', [])
     extended: false
   };
 
+  $scope.pointsData = {};
+
+  // TODO - move to common CTRL or service
+  $scope.getTotal = function(prop) {
+    // Returning a total price of all products
+    return _.reduce(
+      _.map($scope.allRooms, function(room) {
+        if (prop === 'pointsEarned') {
+          return room._selectedProduct.productAwardPoints ? room._selectedProduct.price[prop] : 0;
+        } else {
+          return room._selectedProduct.price[prop];
+        }
+
+      }),
+      function(t, n) {
+        return t + n;
+      });
+  };
+
   $scope.$on('USER_LOGIN_EVENT', function() {
     // Reset all errors
     $scope.forms.details.$submitted = false;
@@ -190,6 +209,10 @@ angular.module('mobius.controllers.reservation', [])
 
     // Showing loading mask
     preloaderFactory($q.all([$q.all(roomsPromises), propertyPromise]).then(function() {
+      if (user.getUser().loyalties) {
+        $scope.pointsData.currentPoints = user.getUser().loyalties.amount || 0;
+        $scope.pointsData.pointsAfterBooking = $scope.pointsData.currentPoints - $scope.getTotal('pointsRequired');
+      }
       $rootScope.showHomeBreadCrumb = false;
       setBreadCrumbs(lastBreadCrumbName);
     }, goToRoom));
@@ -1206,23 +1229,6 @@ angular.module('mobius.controllers.reservation', [])
 
     return reservationData;
   }
-
-  // TODO - move to common CTRL or service
-  $scope.getTotal = function(prop) {
-    // Returning a total price of all products
-    return _.reduce(
-      _.map($scope.allRooms, function(room) {
-        if (prop === 'pointsEarned') {
-          return room._selectedProduct.productAwardPoints ? room._selectedProduct.price[prop] : 0;
-        } else {
-          return room._selectedProduct.price[prop];
-        }
-
-      }),
-      function(t, n) {
-        return t + n;
-      });
-  };
 
   $scope.getBreakdown = function(prop) {
     // Returning a total price of all products
