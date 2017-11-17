@@ -41,8 +41,56 @@
 
   .hotel-description-container-content {
     .hotel-info-amenities {
-      width: 240px;
+      width: 89%;
       float: none;
+
+      .amenity-item span {
+        width: 30px;
+
+        &.amenity-caption {
+          width: 100%;
+        }
+        img {
+          height: auto !important;
+        }
+      }
+    }
+  }
+
+  .About__hero {
+    padding-top: 50px;
+    .register_space {
+      min-height: 250px;
+
+      hero-slider {
+        height: 250px;
+        .slider-controls .pages span{
+          &:nth-child(1) {
+            margin-left: 35%;
+          }
+        }
+      }
+
+      .promotion-text-container {
+        left: 0px;
+        top: 90px;
+        width: 100%;
+
+        .promotion-text-container-title {
+          font-size: 28px;
+          line-height: 37px;
+          width: 100%;
+          text-align: center;
+          margin-bottom: 0px;
+        }
+
+        .promotion-text-container-text {
+          font-size: 18px;
+          line-height: 24px;
+          width: 100%;
+          text-align: center;
+        }
+      }
     }
   }
 
