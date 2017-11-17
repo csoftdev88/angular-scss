@@ -562,6 +562,9 @@
           if (!propertyCode) {
             propertyCode = bookingService.getCodeFromSlug($stateParams.propertySlug);
           }
+          if (!propertyCode && Settings.UI.generics.singleProperty) {
+            propertyCode = Settings.UI.generics.defaultPropertyCode;
+          }
           if (propertyCode) {
             var month = propertyService.getAvailabilityOverview(propertyCode, bookingParams).then(function (data) {
               scope.availabilityOverview = _.union(scope.availabilityOverview, data);

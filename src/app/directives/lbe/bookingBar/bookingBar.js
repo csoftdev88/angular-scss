@@ -44,6 +44,25 @@
           codeType: 'default',
           property: 'default'
         };
+
+        $scope.datePickerParams = {};
+        $scope.updateParamsForDatePicker = function() {
+          for (var key in $scope.datePickerParams) {
+            if (!$scope.datePickerParams.hasOwnProperty(key)) { continue; }
+            delete $scope.datePickerParams[key];
+          }
+          $scope.datePickerParams.adults = {value: $scope.search.adults};
+          $scope.datePickerParams.children = {value: $scope.search.children};
+          if ($scope.search.code && $scope.search.codeType !== 'default') {
+            $scope.datePickerParams[$scope.search.codeType] = $scope.search.code;
+          }
+          return $scope.datePickerParams;
+        };
+        $scope.$watchCollection('search', function () {
+          console.log('Updating params for datepicker');
+          $scope.updateParamsForDatePicker();
+        });
+
         $scope.dates = '';
 
         $scope.adults = [];
@@ -177,6 +196,7 @@
             $scope.search.code = $stateParams.promoCode;
             $scope.showCode = true;
           }
+          $scope.updateParamsForDatePicker();
         }
         initialiseValues();
 
