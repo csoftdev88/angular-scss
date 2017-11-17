@@ -1007,7 +1007,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'defaultAdultCount': 2,
       'maxRooms': 4,
       'availabilityOverview': {
-        'display': false // @todo work out why this does not work in conjunction with single property
+        'display': true
       },
       'flexibleDates': {
         'enable':true

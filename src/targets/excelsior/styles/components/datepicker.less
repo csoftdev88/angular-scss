@@ -232,6 +232,12 @@
     td[title] {
       &:after {
         font-weight: 400;
+        color: @c-primary;
+      }
+      &.date-range-start:after,
+      &.date-range-selected:after,
+      &.date-range-end:after {
+        color: @c-green;
       }
     }
   }
