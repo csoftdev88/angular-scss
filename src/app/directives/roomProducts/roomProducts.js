@@ -107,9 +107,9 @@ angular.module('mobiusApp.directives.room.products', [])
             console.log('products', scope.products);
 
             scope.otaProducts = data.otaProducts;
-            // FIXME: hack for Excelsior that needs OTA products propagated back up, need to refactor to use the dot-notation
-            scope.vm = scope.vm || {};
-            scope.vm.otaProducts = data.otaProducts;
+            // For Excelsior we need OTA products propagated back up into room
+            scope.room = scope.room || {};
+            scope.room.otaProducts = data.otaProducts;
 
             scope.isRequestedRateReturned = data.requestedRateReturned;
 
@@ -119,7 +119,7 @@ angular.module('mobiusApp.directives.room.products', [])
               // Send tracking data to infiniti
               infinitiApeironService.trackRates(
                 scope.products,
-                scope.vm.otaProducts && scope.vm.otaProducts[0] ? scope.vm.otaProducts[0].price : 0,
+                scope.otaProducts && scope.otaProducts[0] ? scope.otaProducts[0].price : 0,
                 scope.room,
                 dataLayerService.getCategoryName(propertyData, scope.room)
               );
