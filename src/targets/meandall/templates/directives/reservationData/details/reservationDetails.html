@@ -59,26 +59,28 @@
           </div>
 
           <div class="table-container" grid="5">
-            <table class="data">
-              <tbody>
-                <tr>
-                  <th>_check_in_:</th>
-                  <td>{{reservation.arrivalDate | dateTime}}</td>
-                </tr>
-                <tr>
-                  <th class="check-out">_check_out_:</th>
-                  <td class="check-out">{{reservation.departureDate | dateTime}}</td>
-                </tr>
-                <tr>
-                  <th class="adults">_adults_:</th>
-                  <td class="adults">{{getAdultsCount()}}</td>
-                </tr>
-                <tr>
-                  <th class="children">_children_:</th>
-                  <td class="children">{{getChildrenCount()}}</td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="data-table-container">
+              <table class="data">
+                <tbody>
+                  <tr>
+                    <th>_check_in_:</th>
+                    <td>{{reservation.arrivalDate | dateTime}}</td>
+                  </tr>
+                  <tr>
+                    <th class="check-out">_check_out_:</th>
+                    <td class="check-out">{{reservation.departureDate | dateTime}}</td>
+                  </tr>
+                  <tr>
+                    <th class="adults">_adults_:</th>
+                    <td class="adults">{{getAdultsCount()}}</td>
+                  </tr>
+                  <tr>
+                    <th class="children">_children_:</th>
+                    <td class="children">{{getChildrenCount()}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
             <table class="charges" ng-if="!reservation.productFormatting" ng-switch="!!reservation.pointValue">
               <tbody ng-switch-when="false">

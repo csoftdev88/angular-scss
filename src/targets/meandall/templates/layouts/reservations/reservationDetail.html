@@ -119,49 +119,51 @@
             </div>
 
             <div class="table-container" grid="5">
-            <table class="data">
-              <tbody ng-if="!config.useSingleRowData" class="single-row-data">
-                <tr ng-if="config.showGuestName" class="guest-name">
-                  <th>_guest_name_:</th>
-                  <td>{{ reservation.rooms[0].firstName }} {{ reservation.rooms[0].lastName }}</td>
-                </tr>
-                <tr>
-                  <th>_check_in_:</th>
-                  <td>{{ reservation.arrivalDate | dateTime }}</td>
-                  <th class="adults">_adults_:</th>
-                  <td class="adults">{{ getCount('adults') }}</td>
-                </tr>
-                <tr>
-                  <th class="check-out">_check_out_:</th>
-                  <td class="check-out">{{ reservation.departureDate | dateTime }}</td>
-                  <th class="children">_children_:</th>
-                  <td class="children">{{ getCount('children') }}</td>
-                </tr>
-              </tbody>
+              <div class="data-table-container">
+                <table class="data">
+                  <tbody ng-if="!config.useSingleRowData" class="single-row-data">
+                    <tr ng-if="config.showGuestName" class="guest-name">
+                      <th>_guest_name_:</th>
+                      <td>{{ reservation.rooms[0].firstName }} {{ reservation.rooms[0].lastName }}</td>
+                    </tr>
+                    <tr>
+                      <th>_check_in_:</th>
+                      <td>{{ reservation.arrivalDate | dateTime }}</td>
+                      <th class="adults">_adults_:</th>
+                      <td class="adults">{{ getCount('adults') }}</td>
+                    </tr>
+                    <tr>
+                      <th class="check-out">_check_out_:</th>
+                      <td class="check-out">{{ reservation.departureDate | dateTime }}</td>
+                      <th class="children">_children_:</th>
+                      <td class="children">{{ getCount('children') }}</td>
+                    </tr>
+                  </tbody>
 
-              <tbody ng-if="config.useSingleRowData">
-                <tr ng-if="config.showGuestName" class="guest-name">
-                  <th>_guest_name_:</th>
-                  <td>{{ reservation.rooms[0].firstName }} {{ reservation.rooms[0].lastName }}</td>
-                </tr>
-                <tr>
-                  <th>_check_in_:</th>
-                  <td>{{ reservation.arrivalDate | dateTime }}</td>
-                </tr>
-                <tr>
-                  <th class="check-out">_check_out_:</th>
-                  <td class="check-out">{{ reservation.departureDate | dateTime }}</td>
-                </tr>
-                <tr>
-                  <th class="adults">_adults_:</th>
-                  <td class="adults">{{ getCount('adults') }}</td>
-                </tr>
-                <tr>
-                  <th class="children">_children_:</th>
-                  <td class="children">{{ getCount('children') }}</td>
-                </tr>
-              </tbody>
-            </table>
+                  <tbody ng-if="config.useSingleRowData">
+                    <tr ng-if="config.showGuestName" class="guest-name">
+                      <th>_guest_name_:</th>
+                      <td>{{ reservation.rooms[0].firstName }} {{ reservation.rooms[0].lastName }}</td>
+                    </tr>
+                    <tr>
+                      <th>_check_in_:</th>
+                      <td>{{ reservation.arrivalDate | dateTime }}</td>
+                    </tr>
+                    <tr>
+                      <th class="check-out">_check_out_:</th>
+                      <td class="check-out">{{ reservation.departureDate | dateTime }}</td>
+                    </tr>
+                    <tr>
+                      <th class="adults">_adults_:</th>
+                      <td class="adults">{{ getCount('adults') }}</td>
+                    </tr>
+                    <tr>
+                      <th class="children">_children_:</th>
+                      <td class="children">{{ getCount('children') }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 
             <table class="charges"
                    ng-switch="!!reservation.pointValue"
