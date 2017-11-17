@@ -51,9 +51,8 @@
               <span class="amenity-caption">{{amenity.name}}</span>
             </li>
           </ul>
-          <room-ota-products ng-if="roomsConfig.rates.displayOtaRates && vm.otaProducts && vm.otaProducts.length > 0"
-                             ota-products="vm.otaProducts"
-                             currency-code="currencyCode">
+          <room-ota-products
+            ng-if="roomsConfig.rates.displayOtaRates && room.otaProducts && room.otaProducts.length > 0">
           </room-ota-products>
           <!--<a href ng-click="goToRoom(details.meta.slug, room.meta.slug)">Read More About this Room</a>-->
         </div>
