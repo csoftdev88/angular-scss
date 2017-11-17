@@ -577,6 +577,7 @@
     "_other_rooms_": "other",
     "editting_disabled_modal_title": "Editing details disabled",
     "editting_disabled_modal_desc": "To edit your details, please finish verifying your account.",
-    "manual_cancel_modify": "To modify or cancel this booking please email us on booking.duesseldorf@meandallhotels.com or call on +49 211 54259 110."
+    "manual_cancel_modify": "To modify or cancel this booking please email us on booking.duesseldorf@meandallhotels.com or call on +49 211 54259 110.",
+    "guest_name": "Guest name"
   }
 }
