@@ -21,10 +21,9 @@
 
 .login-dialog {
   width: 360px;
-  min-height: 400px;
   background-color: #ffffff;
   padding: 30px;
-  top: 245px;
+  top: 10%;
   right: calc(~'50% - 180px');
   box-sizing: border-box;
   border-radius: 6px;
@@ -37,10 +36,12 @@
 
   .help-link {
     text-align: center;
-    margin-top: 5px;
     font-size: 14px;
     a {
       color: @c-primary;
+    }
+    &.help-link-margin-top {
+      margin-top: 15px;
     }
   }
   .form-wrapper {
