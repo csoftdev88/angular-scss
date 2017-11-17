@@ -45,6 +45,12 @@
       <hr />
     </section>
 
+    <div
+      class="cancelled-booking-notification"
+      ng-if="reservation.status === 'Cancelled'">
+      <h1>_booking_cancelled_</h1>
+    </div>
+
     <section grid-row
              class="reservation-summary">
 
