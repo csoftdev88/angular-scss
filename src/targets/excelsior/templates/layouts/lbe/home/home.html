@@ -40,8 +40,7 @@
 </div> -->
 
   <!--Desktop search bar-->
-  <booking-bar class="Home__booking-bar drop-up" size="full-width-bottom"></booking-bar>
-
+  <booking-bar class="Home__booking-bar drop-up" size="full-width-bottom" ng-if="!isMobile"></booking-bar>
   <div
     class="home-page-questionnaire"
     ng-if="auth.isLoggedIn()">
