@@ -565,16 +565,19 @@ reservation-hotel-details {
         }
       }
     }
+    .data-table-container {
+      padding: 15px 20px 15px 20px;
+      border: 2px solid @c-secondary;
+      .viewport-mobile & {
+        padding: 0;
+      }
+    }
     .data {
       margin-top: 0;
-      display: block;
-      border: 2px solid @c-secondary;
       box-sizing: border-box;
-      padding: 15px 20px 15px 20px;
       .viewport-mobile & {
         width: 100%;
         float: none;
-        padding: 0;
         margin-top: 15px;
         min-height: 145px;
       }
@@ -625,7 +628,6 @@ reservation-hotel-details {
       }
       table {
         width: 100%;
-        display: block;
         padding: 0;
         box-sizing: border-box;
         td {
