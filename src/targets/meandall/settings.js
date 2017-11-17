@@ -703,6 +703,7 @@ angular.module('mobiusApp.config', [])
       'displayActionsInDetails':true,
       'displayPoliciesInDetails':true,
       'useSingleRowData': true,
+      'showGuestName': true,
       'displayPropertyNameInDetails':true,
       'displayConfirmationNumberInDetails':true,
       'displayBookingDateInDetails': true,
