@@ -519,10 +519,10 @@
           bookingParams.to = endDate;
 
           $('#ui-datepicker-div').addClass('dates-loading');
-          scope.availabilityOverview = [];
 
+          var monthPromises = [];
           var currentMonth = getMonthAvailability(bookingParams);
-          var monthPromises = [currentMonth];
+          monthPromises.push(currentMonth);
 
           var nextMonthParams = generateMonthBookingParams(bookingParams, startDate, 1);
           var nextMonth = getMonthAvailability(nextMonthParams);
@@ -540,7 +540,19 @@
             monthPromises.push(nextNextMonth);
           }
 
-          $q.all(monthPromises).then(function () {
+          $q.all(monthPromises).then(function (allResults) {
+            scope.availabilityOverview = [];
+            for (var i = 0; i < allResults.length; i++) {
+              scope.availabilityOverview = _.union(scope.availabilityOverview, allResults[i]);
+            }
+            element.datepicker('refresh');
+            if (!stateService.isMobile()) {
+              addHoverContent();
+            }
+            if (hasCounter) {
+              updateButtonPane('data-counter', getCounterText());
+            }
+            updateButtonPane('data-title', scope.paneTitle);
             $('#ui-datepicker-div').removeClass('dates-loading');
           });
         }
@@ -566,18 +578,7 @@
             propertyCode = Settings.UI.generics.defaultPropertyCode;
           }
           if (propertyCode) {
-            var month = propertyService.getAvailabilityOverview(propertyCode, bookingParams).then(function (data) {
-              scope.availabilityOverview = _.union(scope.availabilityOverview, data);
-              element.datepicker('refresh');
-              if (!stateService.isMobile()) {
-                addHoverContent();
-              }
-              if (hasCounter) {
-                updateButtonPane('data-counter', getCounterText());
-              }
-              updateButtonPane('data-title', scope.paneTitle);
-            });
-            return month;
+            return propertyService.getAvailabilityOverview(propertyCode, bookingParams);
           }
         }
 
