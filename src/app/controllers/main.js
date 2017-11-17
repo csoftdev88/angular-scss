@@ -40,15 +40,6 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
           .then(function (details) {
             // FIXME: polluting the main scope with this feels wrong
             $scope.details = details;
-
-            if (details.images) {
-              $scope.updateHeroContent(_.filter(details.images, {
-                includeInSlider: true
-              }));
-              $scope.previewImages = _.filter(details.images, {
-                includeInSlider: false
-              });
-            }
             if (details.amenities) {
               $scope.filteredAmenities = propertyService.sanitizeAmenities(details.amenities); //Process our amenities and add to scope.
             }
@@ -238,9 +229,7 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
 
       $scope.$on('$stateChangeSuccess', function () {
         $scope.$state = $state;
-        if (!singlePropertyCode) {
-          $scope.updateHeroContent();
-        }
+        $scope.updateHeroContent();
         if ($state.current.name === 'home') {
           $timeout(function () {
             scrollService.scrollTo('top');
@@ -263,7 +252,7 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
       $scope.updateHeroContent = function(data, forceDefault) {
         if (Settings.forceCustomHeroContent === true && Settings.customHeroContent) {
           $rootScope.heroContent = Settings.customHeroContent;
-          $rootScope.previewImages = $rootScope.heroContent.hotelPhotos;
+          $rootScope.previewImages = Settings.customPreviewImages;
           return;
         }
         if ($rootScope.thirdparty) {

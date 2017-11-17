@@ -3,7 +3,19 @@
 angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
 
 .constant('Settings', {
-  'forceCustomHeroContent': false,
+  'forceCustomHeroContent': true,
+  'customHeroContent': [
+    {uri: '/static/images/carousel/slider-1.jpg'},
+    {uri: '/static/images/carousel/slider-2.jpg'},
+    {uri: '/static/images/carousel/slider-3.jpg'},
+    {uri: '/static/images/carousel/slider-4.jpg'},
+    {uri: '/static/images/carousel/slider-5.jpg'}
+  ],
+  'customPreviewImages': [
+    {uri: '/static/images/carousel/hotel-1.jpg'},
+    {uri: '/static/images/carousel/hotel-2.jpg'},
+    {uri: '/static/images/carousel/hotel-3.jpg'}
+  ],
   'autoPopulateDates': true,
   'currencyParamName': 'currency',
   'defaultProductRateCode': 'Leisure Rates',
