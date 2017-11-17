@@ -1,0 +1,68 @@
+// Hijack top-center to move the grown to middle right
+.growl-container.growl-fixed {
+  width: initial;
+  &.top-center {
+    top: 50%;
+    left: initial;
+    right: 15px;
+    margin-left: initial;
+  }
+  .growl-item {
+    height: initial;
+    position: relative;
+    width: 314px;
+    border-radius: 8px;
+    background-color: #212020;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    padding: 0;
+
+    button.close {
+      position: absolute;
+      top: -4px;
+      right: 9px;
+      background: transparent;
+      color: #fff;
+      font-size: 26px;
+      padding: 0;
+      font-weight: 300;
+    }
+
+    .growl-message {
+      display: flex;
+      flex-flow: row nowrap;
+      padding-right: 30px;
+      min-height: 100px;
+    }
+
+    .ex-growl-text {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+      .ex-growl-title, .ex-growl-message {
+        color: #fff;
+        font-family: @ff-primary;
+      }
+
+      .ex-growl-title {
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 30px;
+      }
+
+      .ex-growl-message {
+        font-size: 15px;
+        line-height: 18px;
+      }
+    }
+
+
+
+    svg {
+      width: 50px;
+      height: auto;
+      flex: none;
+      margin-right: 16px;
+      margin-left: 16px;
+    }
+  }
+}

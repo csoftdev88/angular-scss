@@ -38,7 +38,13 @@ main.hotel-detail {
   }
 
   .hotel-overview {
-    margin-top: 83px;
+    // Trick to burst out of parent bounds for the background colour to work as designed
+    margin-left: calc(~'50% - 50vw');
+    width: 100vw;
+    padding: 50px calc(~'(100vw - 1212px - 40px) / 2') 40px;
+    box-sizing: border-box;
+    background-color: rgba(185, 135, 71, 0.03);
+
     view-more-images {
       margin-left: 0 !important;
     }
@@ -46,27 +52,6 @@ main.hotel-detail {
     .hotel-info-details {
       float: left;
     }
-    .hotel-info-amenities {
-      background-color: white;
-      border-radius: 10px;
-      border: 1px solid rgba(0,0,0,0.1);
-      margin: 20px 0;
-      padding: 20px 20px 0 20px;
-
-      .amenities-list {
-        margin: 10px 0;
-      }
-
-      h2 {
-        text-align: left;
-        font-size: 24px;
-        color: #B98747;
-      }
-      img {
-        width: auto;
-      }
-    }
-
     view-more-images {
       width: 50% !important;
       margin: 20px 0 !important;
@@ -101,8 +86,19 @@ main.hotel-detail {
   }
 
   .hotel-info-amenities {
+    margin-top: 25px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    background-color: #fff;
+    padding: 22px;
     h2 {
-      display: none;
+      color: @c-primary;
+      font-family: @ff-serif;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      line-height: 31px;
+      margin-bottom: 22px;
     }
   }
 
@@ -206,34 +202,30 @@ main.hotel-detail {
           color: #fff;
           font-family: @ff-primary;
           font-size: 16px;
+          line-height: 17px;
           font-weight: bold;
-          line-height: 50px;
-          text-align: center;
+          padding: 5px 15px;
           text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
           border: 1px solid #d24335;
           border-radius: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
           &:hover {
             box-shadow: none;
             background: darken(#e34e3f, 10%);
           }
           transition: background 200ms;
+
+          &.white-button {
+            color: #d93731;
+            background-color: #fff;
+          }
         }
 
         .view-more-rates {
           display: none !important;
-        }
-
-        room-ota-products {
-          background: #fff;
-          h4 {
-            border-bottom: solid 1px #dfdfdf;
-          }
-          .ota-products {
-            border: none;
-            > li {
-              border-top: none;
-            }
-          }
         }
 
         a.info {
@@ -251,6 +243,12 @@ main.hotel-detail {
         width: calc(~'100% - 280px') !important;
         .description {
           width: 100% !important;
+          color: #848484;
+          font-family: @ff-primary;
+          font-size: 16px;
+          font-style: italic;
+          line-height: 26px;
+          text-align: center;
         }
         .price-form {
           display: none;
@@ -291,16 +289,15 @@ main.hotel-detail {
       img {
         max-height: none;
         max-width: none;
-        height: 30px;
-        width: 32px;
+        height: 28px;
+        width: auto;
       }
     }
     .amenity-caption {
-      padding-left: 33px;
-      font-size: 14px;
-      color: @c-tertiary;
-      font-family: @ff-primary;
-      line-height: 19px;
+      color: @c-alt-grey;
+      font-family: @ff-serif;
+      font-size: 20px;
+      line-height: 22px;
     }
     &:nth-child(n + 7) {
       display: none;
@@ -313,7 +310,7 @@ main.hotel-detail {
     }
     .map-wrapper {
       width: 100vw;
-      margin-left: calc(~'-50vw + 50% - 10px');
+      margin-left: calc(~'-50vw + 50%');
       height: 462px;
       ng-map {
         height: 462px;

@@ -12,7 +12,7 @@ angular.module('mobius.controllers.hotel.details', [
                                          metaInformationService, channelService, previousSearchesService, $window,
                                          advertsService, $controller, $timeout, scrollService, $location, $stateParams,
                                          Settings, stateService, $rootScope, userPreferenceService, locationService,
-                                         routerService, DynamicMessages, infinitiApeironService) {
+                                         routerService, DynamicMessages, infinitiApeironService, growl) {
 
   $controller('PriceCtr', {
     $scope: $scope
@@ -57,6 +57,25 @@ angular.module('mobius.controllers.hotel.details', [
     }
   });
 
+  if (Settings.UI.viewsSettings.hotelDetails.showIncentiveNotifications) {
+    $timeout(function() {
+      if (!$scope.isUserLoggedIn()) {
+        var availableIncetives = Settings.UI.viewsSettings.hotelDetails.incentiveNotifications;
+        var chosenIndex = Math.floor(Math.random() * availableIncetives.length);
+        var chosenNotification = availableIncetives[chosenIndex];
+        var inlineContent = '<div class="ex-growl-text">' +
+          '<h4 class="ex-growl-title">' + chosenNotification.title + '</h4>' +
+          '<p class="ex-growl-message">' + chosenNotification.message + '</p>' +
+          '</div>';
+
+        growl.info(chosenNotification.svg + inlineContent, {
+          ttl: -1,
+          disableIcons: true
+        });
+      }
+    }, 2000);
+  }
+
   var SHORT_DESCRIPTION_LENGTH = 200;
   var NUMBER_OF_OFFERS = 6;
   var bookingParams = bookingService.getAPIParams();
@@ -67,6 +86,12 @@ angular.module('mobius.controllers.hotel.details', [
 
   $rootScope.flexibleDates = mobiusUserPreferences && mobiusUserPreferences.flexibleDates ? mobiusUserPreferences.flexibleDates : null;
   $scope.showFlexibleDates = $stateParams.dates && Settings.UI.bookingWidget.flexibleDates && Settings.UI.bookingWidget.flexibleDates.enable && $rootScope.flexibleDates ? true : false;
+
+  // FIXME: refactor the whole thing to use controllerAs with vm
+  // Need a dot-notation here to maintain binding between parent and child directives
+  $scope.vm = {
+    otaProducts: {}
+  };
 
   // Include the amenities
   bookingParams.includes = 'amenities';
@@ -139,13 +164,12 @@ angular.module('mobius.controllers.hotel.details', [
 
     var startFromDate = $window.moment.tz(fromDate, Settings.UI.bookingWidget.timezone).add((-1 * $rootScope.flexibleDates), 'day').startOf('day');
     var startToDate = $window.moment.tz(toDate, Settings.UI.bookingWidget.timezone).add((-1 * $rootScope.flexibleDates), 'day').startOf('day');
-    var today = parseInt($window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').valueOf());
+    var today = parseInt($window.moment.tz(Settings.UI.bookingWidget.timezone).startOf('day').valueOf(), 10);
     var datesLength = ($rootScope.flexibleDates * 2) + 1;
     var origStartFromDate = startFromDate;
 
-    for(var i = 0; i < datesLength; i++)
-    {
-      if(startFromDate >= today && startToDate >= today){
+    for (var i = 0; i < datesLength; i++) {
+      if (startFromDate >= today && startToDate >= today) {
         var flexiDate = {
           'value':startFromDate.format('YYYY-MM-DD') + '_' + startToDate.format('YYYY-MM-DD'),
           'name':startFromDate.format('DD MMM YYYY') + ' - ' + startToDate.format('DD MMM YYYY')
@@ -168,35 +192,32 @@ angular.module('mobius.controllers.hotel.details', [
       'lengthOfStay':lengthOfStay
     };
 
-    if(bookingParams.productGroupId){
+    if (bookingParams.productGroupId) {
       params.productPropertyRoomTypeId = bookingParams.productGroupId;
     }
-    if(bookingParams.promoCode){
+    if (bookingParams.promoCode) {
       params.promoCode = bookingParams.promoCode;
     }
-    if(bookingParams.groupCode){
+    if (bookingParams.groupCode) {
       params.groupCode = bookingParams.groupCode;
     }
-    if(bookingParams.corpCode){
+    if (bookingParams.corpCode) {
       params.corpCode = bookingParams.corpCode;
     }
 
-    propertyService.getAvailabilityOverview(propertyCode, params).then(function(availabilities){
-      _.each($scope.flexibleDates, function(flexibleDate){
+    propertyService.getAvailabilityOverview(propertyCode, params).then(function(availabilities) {
+      _.each($scope.flexibleDates, function(flexibleDate) {
         var datesArray = flexibleDate.value.split('_');
         var flexibleFrom = $window.moment.tz(datesArray[0], Settings.UI.bookingWidget.timezone);
-        _.each(availabilities, function(availability){
-          if(flexibleFrom.format('YYYY-MM-DD') === availability.date)
-          {
+        _.each(availabilities, function(availability) {
+          if (flexibleFrom.format('YYYY-MM-DD') === availability.date) {
             flexibleDate.available = availability.available && availability.fullyAvailable;
-            if(flexibleDate.available && availability.priceFrom){
+            if (flexibleDate.available && availability.priceFrom) {
               var fromString = dynamicMessages && dynamicMessages.from ? dynamicMessages.from : 'from';
               var currentCurrency = stateService.getCurrentCurrency();
               var currencySymbol = currentCurrency.shortSymbol ? currentCurrency.shortSymbol : currentCurrency.symbol;
               flexibleDate.name += ' ('+ fromString + ' ' + currencySymbol + availability.priceFrom +')';
-            }
-            else
-            {
+            } else {
               flexibleDate.disabled = true;
               flexibleDate.name += ' (unavailable)';
             }
@@ -211,7 +232,7 @@ angular.module('mobius.controllers.hotel.details', [
       });
     });
 
-    $scope.flexibleDatesChange = function(flexibleDate){
+    $scope.flexibleDatesChange = function(flexibleDate) {
       $scope.flexibleDate = flexibleDate;
       var params = $state.params;
       params.dates = flexibleDate.value;
@@ -252,7 +273,7 @@ angular.module('mobius.controllers.hotel.details', [
     $scope.details.meta.slug = $stateParams.propertySlug;
 
     //If a property is defined (which denotes a search) store this search
-    if(propertyCode){
+    if (propertyCode) {
       var currentParams = angular.copy($stateParams);
       currentParams.property = propertyCode;
       previousSearchesService.addSearch($state.current.name, currentParams, details.nameLong, details.code);
@@ -280,8 +301,7 @@ angular.module('mobius.controllers.hotel.details', [
       };
 
       // Preview content
-      $scope.previewImages = contentService.getLightBoxContent(
-        details.images, 300, 150, 'fill');
+      $scope.previewImages = contentService.getLightBoxContent(details.images, 300, 150, 'fill');
     }
 
     //Scroll to rooms straight away if user comes from booking bar
@@ -298,8 +318,7 @@ angular.module('mobius.controllers.hotel.details', [
           }, 1500);
         }
       });
-    }
-    else {
+    } else {
       $timeout(function() {
         scrollService.scrollTo('top');
       }, 0);
@@ -311,11 +330,11 @@ angular.module('mobius.controllers.hotel.details', [
     // bookingParams - property details are returned without
     // availability details
     var detailPromise = propertyService.getPropertyDetails(propertyCode, params)
-      .then(function(details){
+      .then(function(details) {
         $scope.details = details;
 
         //If dates are selected
-        if(showAltProperties && bookingParams && bookingParams.from && bookingParams.to){
+        if (showAltProperties && bookingParams && bookingParams.from && bookingParams.to){
           var allAltProperties = $scope.details.alternateProperties;
 
           $scope.altProperties = _.reject(allAltProperties, function(altProperty){
@@ -323,7 +342,7 @@ angular.module('mobius.controllers.hotel.details', [
           });
         }
 
-        if($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.details.statistics){
+        if ($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.details.statistics){
           $timeout(function(){
             $scope.$broadcast('STATS_GROWL_ALERT', $scope.details.statistics);
           });
@@ -356,7 +375,7 @@ angular.module('mobius.controllers.hotel.details', [
         }
 
         var amenities = $scope.details.amenities;
-        if($scope.config.restrictAmenities && stateService.isMobile()){ //If viewing mobile and hotel amenities are restricted on mobile
+        if($scope.config.restrictAmenities && stateService.isMobile()) { //If viewing mobile and hotel amenities are restricted on mobile
           propertyService.highlightAsterixAmenities(amenities); //Highlight amenities with asterix at the beginning of the name
         }
         $scope.filteredAmenities = propertyService.sanitizeAmenities(amenities); //Process our amenities and add to scope.
@@ -390,7 +409,7 @@ angular.module('mobius.controllers.hotel.details', [
           breadcrumbsService.addBreadCrumb(details.nameShort);
         }
 
-        if($scope.details.content){
+        if ($scope.details.content) {
           _.each($scope.details.content, function(item){
             // Setting default value to display options
             item = _.defaults(item, { displayOnPageMenu: true, displayTile: true });
@@ -464,8 +483,7 @@ angular.module('mobius.controllers.hotel.details', [
         delete offersParams.corpCode;
         delete offersParams.groupCode;
 
-        if(!$scope.fromMeta)
-        {
+        if (!$scope.fromMeta) {
           setPropertyOffersUrl();
           contentService.getOffers().then(function(response) {
             response = _.filter(response, function(offer, index) {
@@ -491,8 +509,7 @@ angular.module('mobius.controllers.hotel.details', [
             }
 
           });
-        }
-        else {
+        } else {
           breadcrumbsService.removeHref('Offers');
         }
         //$scope.scrollToBreadcrumbs();
@@ -503,14 +520,14 @@ angular.module('mobius.controllers.hotel.details', [
 
     var roomsPromise = propertyService.getRooms(propertyCode)
       .then(function(rooms) {
-        if(Settings.UI.hotelDetails.rooms.sortRoomsByWeighting){
+        if (Settings.UI.hotelDetails.rooms.sortRoomsByWeighting) {
           rooms = rooms.sort(function(accu, current) {
             return accu.weighting < current.weighting;
           });
         }
 
 
-        if(Settings.UI.hotelDetails.rooms.sortRoomsByWeighting){
+        if (Settings.UI.hotelDetails.rooms.sortRoomsByWeighting) {
           rooms = rooms.sort(function(accu, current) {
             return accu.weighting < current.weighting;
           });
@@ -524,7 +541,7 @@ angular.module('mobius.controllers.hotel.details', [
           } else {
             room._displayRates = false;
           }
-          if(room.amenities && $scope.roomsConfig.restrictAmenities){
+          if (room.amenities && $scope.roomsConfig.restrictAmenities) {
             room.amenities = propertyService.sanitizeAmenities(room.amenities); //Process our amenities and add to scope.
           }
         });
@@ -576,7 +593,6 @@ angular.module('mobius.controllers.hotel.details', [
       if (brp) {
         bookingParams.productGroupId = brp.id;
       }
-
       getHotelDetails(propertyCode, bookingParams);
     });
   }

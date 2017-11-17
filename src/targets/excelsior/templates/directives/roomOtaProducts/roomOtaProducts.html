@@ -6,10 +6,10 @@
         <img ng-src="{{otaProduct.logo}}" class="rate-logo" alt="{{otaProduct.type}} logo" />
         <span class="value">{{getValuePer(otaProduct.price, false) | i18nCurrency: currencyCode }}</span>
       </a>
-      <span class="ota-rate-text" ng-if="!otaProduct.link">
+      <div class="ota-rate-text" ng-if="!otaProduct.link">
         <img ng-src="{{otaProduct.logo}}" class="rate-logo" alt="{{otaProduct.type}} logo" />
         <span class="value">{{getValuePer(otaProduct.price, false) | i18nCurrency: currencyCode }}</span>
-      </span>
+      </div>
     </span>
   </li>
   <span class="ota-preloader" ng-hide="!otaLoading">

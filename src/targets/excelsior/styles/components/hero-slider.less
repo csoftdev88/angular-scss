@@ -2,32 +2,47 @@
 //// HERO SLIDER ////
 /////////////////////
 // GENERIC STYLES
+
 hero-slider {
-  height: 658px;
+  height: 490px;
   box-shadow: none;
+  position: relative;
+
   &.short {
     height: 498px;
   }
   .slider-controls {
     .slide-button {
       margin-top: -20px;
+      background-position: center;
+      &.slide-left {
+        left: 10px;
+      }
+      &.slide-right {
+        right: 10px;
+      }
     }
     .pages {
       opacity: 1;
       bottom: 0;
+      height: 60px;
       span {
-        height: 11px;
-        width: 11px;
-        background-color: #fff;
+        box-sizing: border-box;
+        height: 21px;
+        width: 21px;
+        border-radius: 50%;
+        border: 3px solid white;
+        background-color: transparent;
         opacity: 1;
-        &.active {
-          background-color: @c-secondary;
+        margin: 5px;
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.5);
           .chain-sign & {
             background: @c-secondary-sign;
           }
         }
-        &:hover {
-          background-color: @c-secondary;
+        &.active {
+          background-color: white;
           .chain-sign & {
             background: @c-secondary-sign;
           }
@@ -120,6 +135,17 @@ hero-slider {
     }
   }
 }
+
+// Offset top-level hero slider by the header height
+.main-view > hero-slider:first-child {
+  top: @header-height;
+  margin-bottom: @header-height;
+  .viewport-mobile & {
+    top: @mobile-header-height;
+    margin-bottom: @mobile-header-height;
+  }
+}
+
 @media only screen and @tablet-portrait-max {
   hero-slider {
     .slider-content {
@@ -139,15 +165,16 @@ hero-slider {
 }
 @media only screen and @large-mobile-min and @tablet-portrait-max {
   hero-slider {
-    height: 100vh;
+    height: 190px;
     margin-top: 0;
-    //margin-top: 60px;
     .slider-controls {
       .pages {
         bottom: 0;
+        height: 40px;
         span {
-          height: 7px;
-          width: 7px;
+          height: 15px;
+          width: 15px;
+          border-width: 2px;
         }
       }
     }
@@ -176,16 +203,18 @@ hero-slider {
 // MOBILE SPECIFIC STYLES
 @media only screen and @small-mobile-max {
   hero-slider {
-    height: 100vh; //calc(~'100vh - 109px');
+    height: 190px;
     .thirdparty-active & {
       margin-top:95px;
     }
     .slider-controls {
       .pages {
         bottom: 0;
+        height: 40px;
         span {
-          height: 7px;
-          width: 7px;
+          height: 15px;
+          width: 15px;
+          border-width: 2px;
         }
       }
     }

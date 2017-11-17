@@ -240,6 +240,10 @@ describe('mobius.controllers.hotel.details', function() {
           setOgGraph: function() {}
         });
 
+        $provide.value('growl', {
+          info: function() {}
+        });
+
         // TODO: Unify controller name
         $controllerProvider.register('PriceCtr', function() {});
         $controllerProvider.register('RatesCtrl', function() {});

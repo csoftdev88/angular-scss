@@ -68,6 +68,7 @@
   width: 600px;
   margin: 0 auto;
   padding: 50px 0;
+
   .HeroBenefits__button {
     max-width: 300px;
     min-width: 250px;
@@ -84,9 +85,21 @@
     background: transparent;
     letter-spacing: 2px;
 
+    transition: all 200ms;
+
     &:hover {
       color: #A97437;
       background-color: #fff;
+    }
+
+    &.signup {
+      color: #A97437;
+      background-color: #fff;
+      &:hover {
+        color: #fff;
+        background-color: #79AF41;
+        border: 1px solid #fff;
+      }
     }
 
   }

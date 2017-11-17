@@ -1,17 +1,8 @@
-<div class="members-only-banner">
-  <div class="glass-filter">
-    <div class="members-only-banner__labels-positionner">
-      <div class="members-only-banner__label">
-        Members Only Rates
-      </div>
-      <div ng-if="!auth.isLoggedIn()"
-           ng-click="auth.register()"
-           class="members-only-banner__not-member">
-        _members_only_incentive_
-      </div>
-    </div>
-  </div>
-</div>
+<hero-slider
+  content="heroContent"
+  slide-width="uiConfig.heroSlider.slideWidth"
+  slide-height="uiConfig.heroSlider.slideHeight">
+</hero-slider>
 
 <section-image ng-if="config.sectionImages && config.sectionImages[0]"
                id="hotel-header-image"

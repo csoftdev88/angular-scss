@@ -22,29 +22,46 @@
     width: 100%;
     min-height: 610px;
 
-    hero-slider .slider-controls {
-      background-color: black;
-      opacity: 0.4;
+    hero-slider {
+      height: 675px;
+      .slider-controls {
+        background-color: rgba(0, 0, 0, 0.2);
+        .slide-button {
+          display: none;
+        }
+        .pages {
+          height: 97px;
+          text-align: initial;
+          padding-left: calc(~'(100% - 1212px) / 2');
+        }
+      }
     }
 
     .promotion-text-container {
       position: absolute;
-      left: 150px;
+      left: calc(~'(100% - 1212px) / 2');
       top: 350px;
       color: white;
       z-index: 9;
       margin-bottom: 17px;
-      width: 290px;
+      width: 500px;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
 
       .promotion-text-container-title {
-        clear: both;
-        display: block;
-        font-size: 45px;
-        margin-bottom: 15px;
+        font-family: @ff-serif;
+        font-size: 70px;
+        font-weight: bold;
+        line-height: 53px;
+        float: left;
+        margin-bottom: 20px;
       }
 
       .promotion-text-container-text {
-        font-size: 22px;
+        font-family: @ff-primary;
+        font-size: 40px;
+        font-weight: 300;
+        line-height: 44px;
+        float: left;
       }
     }
   }
@@ -55,38 +72,50 @@
     .rating-trip-advisor {
       width: 100%;
       height: 97px;
+      box-sizing: border-box;
       background-color: #EFF7F5;
-      border: 1px solid rgba(1,166,127,0.2);
+      border: 1px solid rgba(1, 166, 127, 0.2);
       border-radius: 8px;
       position: relative;
+      margin-bottom: 25px;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      padding: 30px;
 
-      span {
-        font-size: 18px;
-        font-weight: 300;
-        top: 38px;
-        left: 260px;
-        position: absolute;
+      font-family: @ff-primary;
+      font-size: 18px;
+      font-weight: 300;
+
+      > * {
+        flex: none;
       }
 
       .logo {
-        width: 200px;
-        left: 30px;
-        top: 34px;
-        position: absolute;
+        width: 210px;
+        margin-right: 22px;
+      }
+
+      .spacer {
+        flex: 1 1 0px; // px unit needed for IE
       }
 
       a {
-        position: absolute;
-        top: 30px;
-        right: 30px;
+        display: flex;
+        align-items: center;
+        margin-right: 13px;
         img {
-          width: 137px;
+          width: 145px;
         }
+      }
+
+      .number-of-reviews {
+        font-size: 16px;
       }
     }
 
     .register_container {
-      right: -5px;
+      right: 0;
       top: -650px;
       background-color: #A97737;
       position: absolute;
@@ -94,6 +123,7 @@
       border-radius: 10px;
       z-index: 9;
       padding: 30px;
+      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
 
       form {
         width: 260px;
@@ -161,21 +191,68 @@
   .hotel-description-container {
     width: 100%;
     min-height: 300px;
-    background-color: white;
-    padding: 0 0px;
+    background-color: #FCFCFC;
+    padding: 0 0;
 
     .hotel-info-details {
-      float: left;
+      margin-left: 0;
+      margin-right: 0;
+
+      hero-slider {
+        height: 350px;
+      }
+
+      .HotelInfo__details--title {
+        margin-bottom: 13px;
+      }
+
+      .HotelInfo__details--description:not(:last-child) {
+        margin-bottom: 20px;
+      }
+
+      .hotel-info-amenities {
+        margin-top: 34px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 6px;
+        background-color: #fff;
+        padding: 22px;
+
+        h2 {
+          color: @c-primary;
+          font-family: @ff-serif;
+          font-size: 24px;
+          font-weight: bold;
+          letter-spacing: 1px;
+          line-height: 31px;
+          margin-bottom: 22px;
+        }
+
+        .amenities-list {
+          margin: 20px 0 0 0;
+        }
+
+        .amenity-item {
+          margin-bottom: 0;
+          span {
+            img {
+              max-height: none;
+              max-width: none;
+              height: 28px;
+              width: auto;
+            }
+          }
+          .amenity-caption {
+            color: @c-alt-grey;
+            font-family: @ff-serif;
+            font-size: 20px;
+            line-height: 22px;
+          }
+        }
+      }
     }
 
     .gallery-link, .slide-button {
       display: none;
-    }
-
-    .hotel-info-amenities {
-      clear: both;
-      width: 93%;
-      float: right;
     }
 
     view-more-images {
@@ -184,14 +261,11 @@
       height: 300px;
     }
     main {
-      margin-top: 0px;
+      margin-top: 0;
       padding-top: 30px;
       padding-bottom: 30px;
     }
 
-    .hotel-description-container-content {
-      margin: 25px 0;
-    }
   }
 }
 

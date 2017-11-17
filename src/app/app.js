@@ -690,7 +690,7 @@ angular
 
     $rootScope.requestId = sessionDataService.generateUUID();
     apiService.trackUsage($location.absUrl(), $rootScope.requestId);
-    if(infinitiApeironService.isSinglePageApp){
+    if (infinitiApeironService.isSinglePageApp) {
       infinitiApeironService.trackPageView($location.path() + $window.location.search);
     }
   });

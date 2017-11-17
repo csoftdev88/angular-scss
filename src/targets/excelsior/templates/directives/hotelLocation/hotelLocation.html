@@ -20,14 +20,14 @@
     ng-if="position"
     zoom="15"
     max-zoom="18"
-    min-zoom="8"
-    scrollwheel="false"
-    center="{{position}}"
+    min-zoom="4"
+    scrollwheel="true"
+    center="{{ position }}"
     styles="[{featureType:'poi.business',elementType:'all',stylers:[{visibility:'off'}]}]"
   >
     <marker
-      position="{{position}}"
-      title="{{hotelDetails.nameShort}}"></marker>
+      position="{{ position }}"
+      title="{{ hotelDetails.nameShort }}"></marker>
 
   </ng-map>
 </div>

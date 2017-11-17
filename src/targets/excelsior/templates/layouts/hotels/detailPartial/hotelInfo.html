@@ -1,52 +1,42 @@
 <section grid-row id="jsAbout" class="hotel-overview">
-    <div class="hotel-info-details" grid="{{(hasViewMore)? viewSettings.hotelInfo.descriptionGrid : 12}}">
-
-      <input ng-if="config.shortenDescriptionMobile && details.description" type="checkbox" class="reveal-state" id="hotel-description" />
-      <p
-        class="hotel-description markdown-content"
-        ng-class="{'reveal-section': config.shortenDescriptionMobile}">
-        <div>
-          <h2 id="welcome-to-the-excelsior-hotel" class="HotelInfo__details--title">WELCOME TO THE EXCELSIOR HOTEL</h2>
-          <p class="HotelInfo__details--highlight">Committed to the idea that a life well-traveled is defined by a personal connection to the people, culture and lifestyles of the places we visit, the Excelsior Hotel offers discerning guests an authentic, residence-style experience in the heart of New York City’s Upper West Side. To complement our fashionable surroundings, we’ve designed a delightfully affordable pied-a-terre distinguished by relaxed yet sophisticated ambiance and unpretentious style.</p>
-          <p>The Excelsior is located within a beautifully restored landmark building, infusing classic design and architecture with contemporary comfort. In addition to swanky, Art Deco-inspired rooms, the hotel features a fitness center, Boardroom and Calle Ocho restaurant, which brings guests and neighborhood residents together for signature Latin fare and a locally famous weekend brunch complete with unlimited complimentary sangria.</p>
-          <p>Our hotel overlooks Central Park, the American Museum of Natural History and the spectacular, glass-encased Rose Center for Earth and Space and is walking distance from Lincoln Center and the 1, B and C subway lines. A leisurely stroll through Central Park leads to chic Upper East Side restaurants, the luxurious boutiques of Madison Avenue, the Metropolitan Museum of Art, and the Guggenheim and Whitney Museums.</p>
-        </div>
+  <div class="hotel-info-details">
+    <div class="first-panel">
+      <h2 id="welcome-to-the-excelsior-hotel" class="HotelInfo__details--title">
+        WELCOME TO THE EXCELSIOR HOTEL
+      </h2>
+      <p class="HotelInfo__details--highlight">
+        Committed to the idea that a life well-traveled is defined by a personal connection to the people, culture and
+        lifestyles of the places we visit, the Excelsior Hotel offers discerning guests an authentic, residence-style
+        experience in the heart of New York City’s Upper West Side. To complement our fashionable surroundings,
+        we’ve designed a delightfully affordable pied-a-terre distinguished by relaxed yet sophisticated
+        ambiance and unpretentious style.
       </p>
-      <label ng-if="config.shortenDescriptionMobile && details.description" for="hotel-description" class="reveal-trigger">_read_more_</label>
+
+      <p class="HotelInfo__details--description">
+        The Excelsior is located within a beautifully restored landmark building, infusing classic design and
+        architecture with contemporary comfort. In addition to swanky, Art Deco-inspired rooms, the hotel features a
+        fitness center, Boardroom and Calle Ocho restaurant, which brings guests and neighborhood residents together
+        for signature Latin fare and a locally famous weekend brunch complete with unlimited complimentary sangria.
+      </p>
     </div>
-    <!--Only display if enabled and if desktop, if on mobile check that the hide config setting is disabled-->
-    <view-more-images grid="{{viewSettings.hotelInfo.sidebarGrid}}"
-                      ng-if="hasViewMore && (!isMobile || (isMobile && !config.hideViewMoreImagesMobile))">
-      <local-info ng-if="showLocalInfo && localInfo && localInfo.time"
-                  local-info="localInfo">
-      </local-info>
-      <a ng-if="details.images.length > 1"
-         href
-         class="gallery-link"
-         ng-click="openGallery()">
-        _view_more_images_
-      </a>
-      <hero-slider data-has-notification-bar="false"
-                   on-slide-click="openGallery"
-                   data-counter-type="counter"
-                   slide-width="viewSettings.hotelInfo.images.width"
-                   slide-height="viewSettings.hotelInfo.images.height"
-                   content="previewImages">
-      </hero-slider>
-      <div ng-if="filteredAmenities && filteredAmenities.length" class="hotel-info-amenities">
-          <h2 ng-bind-html="'_amenities_title_' | mainHeaderStyle"></h2>
-          <input ng-if="details && config.restrictAmenities" type="checkbox" class="amenities-reveal-state" id="hotel-amenities" />
-          <ul ng-if="details" ng-class="{'restricted-amenities': config.restrictAmenities}" class="amenities-list">
-            <li class="amenity-item" ng-repeat="amenity in filteredAmenities" ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = details.chainCode">
-              <slug-img slug="amenity" type="hotel" width="32"></slug-img>
-              <span class="amenity-caption">{{amenity.name}}</span>
-            </li>
-          </ul>
-          <label ng-if="details && config.restrictAmenities" for="hotel-amenities" class="amenities-reveal-trigger">_show_all_facilities_</label>
-        </div>
-      <div ng-if="details.content.length && details.content[0].title && (!isMobile || (isMobile && !config.findOutMoreLinksBottomMobile))"
-           ng-include="'layouts/components/read-more.html'">
+    <div class="second-panel">
+      <p class="HotelInfo__details--description">
+        Our hotel overlooks Central Park, the American Museum of Natural History and the spectacular,
+        glass-encased Rose Center for Earth and Space and is walking distance from Lincoln Center and the 1, B and C
+        subway lines. A leisurely stroll through Central Park leads to chic Upper East Side restaurants, the luxurious
+        boutiques of Madison Avenue, the Metropolitan Museum of Art, and the Guggenheim and Whitney Museums.
+      </p>
+      <div ng-if="config.displayAmenitiesInHotelInfo && filteredAmenities && filteredAmenities.length" class="hotel-info-amenities">
+        <h2 ng-bind-html="'_amenities_title_' | mainHeaderStyle"></h2>
+        <input ng-if="details && config.restrictAmenities" type="checkbox" class="amenities-reveal-state" id="hotel-amenities" />
+        <ul ng-if="details" ng-class="{'restricted-amenities': config.restrictAmenities}" class="amenities-list">
+          <li class="amenity-item" ng-repeat="amenity in filteredAmenities" ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = details.chainCode">
+            <slug-img slug="amenity" type="hotel" width="32"></slug-img>
+            <span class="amenity-caption">{{amenity.name}}</span>
+          </li>
+        </ul>
+        <label ng-if="details && config.restrictAmenities" for="hotel-amenities" class="amenities-reveal-trigger">_show_all_facilities_</label>
       </div>
-    </view-more-images>
-    <div class="clear"></div>
+    </div>
+  </div>
 </section>

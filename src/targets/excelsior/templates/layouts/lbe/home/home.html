@@ -21,7 +21,7 @@
     <hero-slider
       class="main-slider main-page-slider"
       ng-class="{'user-not-authenticated': !auth.isLoggedIn()}"
-      content="heroContent.topSlider">
+      content="heroContent">
     </hero-slider>
   </div>
 
@@ -56,7 +56,11 @@
         <div class="stars rating-trip-advisor img" ng-if="!auth.isLoggedIn() && !isMobile()">
           <img class="logo" src="/static/images/v4/tripadvisor-logo.png">
           <span>#6 Best Value of 469 hotels in New York City</span>
-          <a ng-href="{{details.tripAdvisorUrl}}" target="_blank"><img ng-src="/static/images/v4/Stars.png" alt="tripadvisor rating"></a>
+          <div class="spacer"></div>
+          <a ng-href="{{details.tripAdvisorUrl}}" target="_blank">
+            <img ng-src="/static/images/v4/Stars.png" alt="tripadvisor rating">
+          </a>
+          <span class="number-of-reviews">2,121 Reviews</span>
         </div>
         <div
           class="register_container"
@@ -222,7 +226,7 @@
 
               </form>
         </div>
-        <div class="hotel-description-container-content" ng-include="'layouts/hotels/detailPartial/hotelInfo.html'"></div>
+        <div class="hotel-description-container-content" ng-include="'layouts/lbe/home/hotelInfo.html'"></div>
       </main>
 
   </div>
@@ -276,7 +280,7 @@
       </div>
     </div>
     <div class="HeroBenefits__signup">
-      <button class="HeroBenefits__button" ng-click="auth.register()">_about_benefit_sign_up_</button>
+      <button class="HeroBenefits__button signup" ng-click="auth.register()">_about_benefit_sign_up_</button>
       <button class="HeroBenefits__button" ng-click="auth.login()">_log_in_</button>
     </div>
   </article>

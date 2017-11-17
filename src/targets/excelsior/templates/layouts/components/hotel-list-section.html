@@ -51,12 +51,16 @@
               <span class="amenity-caption">{{amenity.name}}</span>
             </li>
           </ul>
+          <room-ota-products ng-if="roomsConfig.rates.displayOtaRates && vm.otaProducts && vm.otaProducts.length > 0"
+                             ota-products="vm.otaProducts"
+                             currency-code="currencyCode">
+          </room-ota-products>
           <!--<a href ng-click="goToRoom(details.meta.slug, room.meta.slug)">Read More About this Room</a>-->
         </div>
         <div class="mobile-description" ng-bind-html="sanitize(roomsConfig.showRoomHighlight ? (room.roomHighlight && room.roomHighlight !== '' ? room.roomHighlight : room.description) : room.description)"></div>
+
         <room-products
           ng-if="details && room._displayRates"
-          ng-class="{'has-ota-products':roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0}"
           id="{{'rates'+$index}}">
         </room-products>
       </div>

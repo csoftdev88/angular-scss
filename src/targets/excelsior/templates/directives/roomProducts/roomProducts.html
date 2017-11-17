@@ -3,11 +3,6 @@
   <span>_fetching_room_rates_</span>
 </div>
 
-<room-ota-products ng-if="roomsConfig.rates.displayOtaRates && otaProducts && otaProducts.length > 0"
-                   ota-products="otaProducts"
-                   currency-code="currencyCode">
-</room-ota-products>
-
 <ul ng-if="products">
   <!--This commented out div can be used to show a message when the requested rates are not available-->
   <!--Pete decided to remove this for now-->
@@ -41,6 +36,16 @@
     <div class="description-and-points-earned">
       <div class="rate-description">
         <div class="ProductInfo">
+          <div ng-if="product.memberOnly"
+               class="member-only-badge">
+            <i class="star-icon fa fa-star"></i>
+            <span class="emphasize">
+              Members Only Rate
+            </span>
+            <span ng-if="!isUserLoggedIn()">
+              Join Now & Save!
+            </span>
+          </div>
           <h4>
             <span ng-bind-html="product.name | mainHeaderStyle"></span>
             <span class="original-price-mobile"
@@ -81,10 +86,12 @@
         </div>
       </div>
 
-      <div ng-if="product.price.pointsEarned" class="PointsEarned">
+      <div class="PointsEarned">
         <i class="star-icon fa fa-star-o"></i>
         <div class="text-content">
-          <span class="earn-points">_earn_ {{getValuePer(product.price.pointsEarned, true).toFixed(0)}} _points_</span>
+          <span class="earn-points">
+            _earn_ {{product.price.pointsEarned ? getValuePer(product.price.pointsEarned, true).toFixed(0) : ''}} _points_
+          </span>
           <span class="with-this-booking">_with_this_booking_</span>
         </div>
       </div>
@@ -103,7 +110,6 @@
           <div class="price-form points"
                ng-if="room.priceFrom &&
                     product.price.pointsRequired &&
-                    isUserLoggedIn() &&
                     loyaltyProgramEnabled &&
                     product.allowPointsBooking">
             <span class="or-points"> _lowercase_or_</span>
@@ -147,7 +153,8 @@
           <a ng-if="room.priceFrom"
              ng-hide="product.memberOnly && !isUserLoggedIn()"
              ng-click="selectProduct(room.code, product.code, null, null, product.upSell, $event)"
-             class="button">
+             class="button"
+             ng-class="{'white-button': !product.memberOnly}" >
             _book_now_
           </a>
           <a href
@@ -215,9 +222,6 @@
 
   </li>
 </ul>
-<room-ota-products ng-if="roomsConfig.rates.displayOtaRates &&
-                          otaProducts && otaProducts.length > 0">
-</room-ota-products>
 
 <!-- VIEW MORE RATES -->
 <div class="view-more-rates">

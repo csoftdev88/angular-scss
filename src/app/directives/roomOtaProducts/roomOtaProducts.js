@@ -12,7 +12,7 @@ angular.module('mobiusApp.directives.room.otaProducts', [])
     link: function(scope) {
       var otaRatesConfig = Settings.UI.otaRates;
       if (otaRatesConfig) {
-        scope.$watch('otaProducts', function(newValue) {
+        scope.$watch('vm.otaProducts', function(newValue) {
           if (newValue !== undefined) {
             scope.otaLoading = true;
             scope.otaProductsList = [];
@@ -23,7 +23,7 @@ angular.module('mobiusApp.directives.room.otaProducts', [])
 
             _.each(otaRatesConfig, function(otaConfig) {
               var otaProductItem = {};
-              otaProductItem.price = scope.otaProducts[0].price;
+              otaProductItem.price = scope.vm.otaProducts[0].price;
               otaProductItem.logo = otaConfig.logo;
               otaProductItem.link = otaConfig.link;
               scope.otaProductsList.push(otaProductItem);

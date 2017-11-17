@@ -97,8 +97,6 @@ angular.module('mobiusApp.directives.growlAlerts', [])
 
           $rootScope.retentionAlertFired = false;
 
-
-
           //add retention growl alert listener
           removeRetentionGrowlListener();
           removeRetentionGrowlListener = $scope.$on('RETENTION_GROWL_ALERT_BROADCAST', function (event, retentionMessage) {
