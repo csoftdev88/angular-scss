@@ -44,12 +44,10 @@
 .HeroBenefits__benefits {
   width: 1212px;
   height: 340px;
-
   margin: 0 auto;
-
   border: 1px solid #464646;
   border-radius: 12px;
-  background: linear-gradient(0deg, #4A4A4A 0%, #676767 100%);
+  background-image: url('@{img-prefix}/background-repeating-pattern-1.png');
   box-shadow: inset 0 0 10px 0 rgba(0,0,0,0.15);
 
   color: #FFFFFF;
@@ -57,11 +55,21 @@
   font-size: 28px;
   font-weight: 300;
   line-height: 38px;
-  text-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
   overflow: hidden;
   display: flex;
   flex-flow: row nowrap;
   align-content: stretch;
+  position: relative;
+
+  .glass-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, rgba(74, 74, 74, 0.2) 0%, rgba(103, 103, 103, 0.2) 100%);
+  }
 }
 
 .HeroBenefits__signup {
@@ -108,7 +116,7 @@
 .HeroBenefit__background {
   flex: 1 1 0px;
   display: flex;
-  // background: linear-gradient(135.58deg, rgb(160, 110, 46) 0%, #B98747 100%);
+  z-index: 1;
   &.get-rewarded {
     border-left: 1px solid #464646;
     border-right: 1px solid #464646;
@@ -128,6 +136,9 @@
   justify-content: center;
   align-items: center;
   height: 110px;
+  img {
+    filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.3));
+  }
 }
 
 .HeroBenefits__text-wrapper {
@@ -165,25 +176,16 @@
     line-height: 26px;
   }
   &.lowest-rates {
-    background: url('@{img-prefix}/lbe/lowest-rates-bg.svg') no-repeat;
-    background-position-x: -43px;
-    background-position-y: 16px;
     .HeroBenefits__icon {
       width: 75px;
     }
   }
   &.get-rewarded {
-    background: url('@{img-prefix}/lbe/get-rewarded-bg.svg') no-repeat;
-    background-position-x: -33px;
-    background-position-y: 16px;
     .HeroBenefits__icon {
       width: 80px;
     }
   }
   &.pay-with-points {
-    background: url('@{img-prefix}/lbe/pay-with-points-bg.svg') no-repeat;
-    background-position-x: -50px;
-    background-position-y: 90px;
     .HeroBenefits__icon {
       width: 91px;
     }
