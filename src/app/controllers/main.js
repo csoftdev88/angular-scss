@@ -32,7 +32,7 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
         // FIXME: should we not do something on error here?
       }
 
-      $scope.viewSettings = Settings.UI.viewsSettings.hotelDetails;
+      $scope.hotelViewSettings = Settings.UI.viewsSettings.hotelDetails;
       var singlePropertyCode = Settings.UI.generics.singleProperty && Settings.UI.generics.defaultPropertyCode;
 
       if (singlePropertyCode) {
