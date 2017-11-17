@@ -252,7 +252,7 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
       $scope.updateHeroContent = function(data, forceDefault) {
         if (Settings.forceCustomHeroContent === true && Settings.customHeroContent) {
           $rootScope.heroContent = Settings.customHeroContent;
-          $rootScope.previewImages = Settings.customNonHeroContent;
+          $rootScope.previewImages = Settings.customPreviewImages;
           return;
         }
         if ($rootScope.thirdparty) {

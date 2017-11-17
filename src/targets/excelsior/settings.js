@@ -11,7 +11,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     {uri: '/static/images/carousel/slider-4.jpg'},
     {uri: '/static/images/carousel/slider-5.jpg'}
   ],
-  'customNonHeroContent': [
+  'customPreviewImages': [
     {uri: '/static/images/carousel/hotel-1.jpg'},
     {uri: '/static/images/carousel/hotel-2.jpg'},
     {uri: '/static/images/carousel/hotel-3.jpg'}
