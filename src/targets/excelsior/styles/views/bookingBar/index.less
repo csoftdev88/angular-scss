@@ -35,6 +35,10 @@ booking-bar {
     font-family: @ff-secondary;
   }
 
+  .booking-bar__title-mobile {
+    display: none;
+  }
+
   &.booking-bar__size-small {
     width: 301px;
     padding: 31px 28px 19px 28px;
@@ -160,6 +164,12 @@ booking-bar {
       display: flex;
       align-items: center;
       justify-content: flex-end;
+      button.desktop {
+        display: flex;
+      }
+      button.mobile {
+        display: none;
+      }
     }
   }
 
