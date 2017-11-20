@@ -345,16 +345,14 @@
                   <button class="button"
                           ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()"
                           ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}"
-                          ng-if="!reservation.isInThePast"
-                          ng-disabled="!reservation.canModify">
+                          ng-if="!reservation.isInThePast && reservation.canModify">
                     _modify_
                   </button>
 
                   <button class="button-gray"
                           ng-click="reservation.pointValue ? modifyCancelPointsReservation() : openCancelReservationDialog()"
                           ng-class="{disabled: reservation.canCancel === false && !reservation.pointValue}"
-                          ng-if="!reservation.isInThePast"
-                          ng-disabled="!reservation.canCancel">
+                          ng-if="!reservation.isInThePast && reservation.canCancel">
                     _cancel_
                   </button>
                 </div>
