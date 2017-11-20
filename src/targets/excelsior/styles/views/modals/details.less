@@ -1,5 +1,28 @@
 dialog.details {
+  padding-bottom: 20px;
+
+  .ui-info {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
+  header {
+    flex: none;
+    h1 {
+      font-family: @ff-serif;
+      font-size: 24px;
+      color: @c-primary;
+    }
+  }
+
   main {
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    .viewport-mobile & {
+      flex-flow: column nowrap;
+    }
+
     image-carousel {
       .image-wrapper {
         border-radius: 6px;
@@ -12,6 +35,20 @@ dialog.details {
           overflow: hidden;
         }
         border: none;
+      }
+    }
+    .details {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: space-between;
+      margin-bottom: 0;
+      .description {
+        font-family: @ff-primary;
+        font-size: 16px;
+        height: auto;
+      }
+      .extra {
+        margin: 0 !important;
       }
     }
     .extra .button {

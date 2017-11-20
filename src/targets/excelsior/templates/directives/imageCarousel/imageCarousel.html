@@ -4,7 +4,7 @@
 
 <a ng-if="images.length > settings.minImages" ng-click="moveLeft()">&lt;</a>
 
-<ul>
+<ul ng-if="images.length > 1">
   <li ng-repeat="image in getCarousel(images)" ng-click="setSelected($index)" ng-class="{selected: $index === selected}">
     <img ng-if="image.uri" ng-src="{{image.uri | cloudinaryImage : 50 : 50: 'fill'}}" alt="{{image.alt}}"/>
   </li>
