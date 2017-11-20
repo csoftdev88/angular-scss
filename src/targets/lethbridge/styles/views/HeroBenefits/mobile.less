@@ -2,12 +2,9 @@
 .viewport-mobile {
 
   .Home__booking-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
     .booking-bar {
       &.booking-bar__size-small {
+        padding: 0 30px 0 30px;
         display: block;
         .booking-bar__form {
           width: 100%;
@@ -48,26 +45,23 @@
   }
 
   .fullscreen .HeroBenefits {
-    position: relative;
-    padding: 31px 12px 0 12px;
+    position: static;
     margin-top: @mobile-header-height;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
     box-sizing: border-box;
   }
 
   .HeroBenefits__subtitle {
+    position: static;
     width: 100%;
     font-size: 18px;
     border-radius: 0;
   }
 
   .HeroBenefits__benefits {
+    position: static;
     width: 100%;
     height: 200px;
-    top: 125px;
     hero-slider {
       width: 100% !important;
       height: 200px !important;
@@ -75,12 +69,13 @@
   }
 
   .HeroBenefits__signup {
-    top: 325px;
-    left: 0;
-    right: 0;
+    position: static;
     width: 100%;
-    height: 100%;
-    padding: 0;
+    padding: 30px 0 30px 0;
+    height: auto;
+    .signup-title {
+      padding: 0 30px;
+    }
   }
 
   .HeroBenefits__benefit {
