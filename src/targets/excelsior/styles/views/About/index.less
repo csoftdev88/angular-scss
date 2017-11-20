@@ -79,7 +79,7 @@
       position: relative;
       margin-bottom: 25px;
       display: flex;
-      flex-flow: row nowrap;
+      flex-flow: row wrap;
       align-items: center;
       padding: 30px;
 
@@ -89,12 +89,13 @@
 
       > * {
         flex: none;
+        margin-top: 3px;
+        margin-bottom: 3px;
       }
 
       .logo {
         width: 210px;
         margin-right: 22px;
-
       }
 
       .spacer {
@@ -108,6 +109,11 @@
         img {
           width: 145px;
         }
+      }
+
+      .trip-advisor-ratings {
+        display: flex;
+        flex-flow: row nowrap;
       }
 
       .number-of-reviews {

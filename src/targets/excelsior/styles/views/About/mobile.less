@@ -8,51 +8,45 @@
       position: relative;
     }
 
-    .rating-trip-advisor {
+    .register_space hero-slider .slider-controls .pages {
+      height: 45px;
+    }
 
-      display: block !important;
-      text-align: center;
-      padding-bottom: 60px !important;
+    .main-content-container .rating-trip-advisor {
+      flex-flow: column nowrap;
+      justify-content: center;
+      padding: 20px;
 
       .trip-advisor-ratings {
-        margin-left: auto;
-        margin-right: auto;
-        width: 260px;
+        width: auto;
+        flex-flow: row wrap;
+        align-items: center;
+        justify-content: center;
       }
 
       .logo {
-        clear: both;
-        display: block;
-        margin-left: auto;
-        margin-right: auto !important;
+        width: 160px;
+        margin: 0;
       }
 
       span {
-        display: block;
-        width: 100%;
-        text-align: center;
-        clear: both;
         margin: 20px 0;
-
+        text-align: center;
+        font-weight: 300;
+        &.rating-description {
+          font-size: 14px;
+          line-height: 19px;
+        }
         &.number-of-reviews {
-          float: left;
-          width: auto;
-          clear: none;
           margin: 0;
+          font-size: 14px;
         }
       }
 
       a {
-        display: block !important;
-        align-items: center;
         margin-right: 13px;
-        width: 145px;
-        float: left;
         img {
-          width: 145px;
-          margin-left: auto;
-          margin-right: auto;
-          display: block;
+          width: 110px;
         }
       }
 

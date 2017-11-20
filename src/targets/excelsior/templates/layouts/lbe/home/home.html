@@ -54,7 +54,9 @@
       <main class="grid-wrapper main-content-container">
         <div class="stars rating-trip-advisor img" ng-if="!auth.isLoggedIn()">
           <img class="logo" src="/static/images/v4/tripadvisor-logo.png">
-          <span>#6 Best Value of 469 hotels in New York City</span>
+          <span class="rating-description">
+            #6 Best Value of 469 hotels in New York City
+          </span>
           <div class="spacer"></div>
           <div class="trip-advisor-ratings">
             <a ng-href="{{details.tripAdvisorUrl}}" target="_blank">
