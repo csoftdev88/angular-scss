@@ -40,8 +40,7 @@
 </div> -->
 
   <!--Desktop search bar-->
-  <booking-bar class="Home__booking-bar drop-up" stickable="main-header" size="full-width-bottom"></booking-bar>
-
+  <booking-bar class="Home__booking-bar drop-up" size="full-width-bottom" ng-if="!isMobile"></booking-bar>
   <div
     class="home-page-questionnaire"
     ng-if="auth.isLoggedIn()">
@@ -53,18 +52,22 @@
   <div
     class="hotel-description-container">
       <main class="grid-wrapper main-content-container">
-        <div class="stars rating-trip-advisor img" ng-if="!auth.isLoggedIn() && !isMobile()">
+        <div class="stars rating-trip-advisor img" ng-if="!auth.isLoggedIn()">
           <img class="logo" src="/static/images/v4/tripadvisor-logo.png">
-          <span>#6 Best Value of 469 hotels in New York City</span>
+          <span class="rating-description">
+            #6 Best Value of 469 hotels in New York City
+          </span>
           <div class="spacer"></div>
-          <a ng-href="{{details.tripAdvisorUrl}}" target="_blank">
-            <img ng-src="/static/images/v4/Stars.png" alt="tripadvisor rating">
-          </a>
-          <span class="number-of-reviews">2,121 Reviews</span>
+          <div class="trip-advisor-ratings">
+            <a ng-href="{{details.tripAdvisorUrl}}" target="_blank">
+              <img ng-src="/static/images/v4/Stars.png" alt="tripadvisor rating">
+            </a>
+            <span class="number-of-reviews">2,121 Reviews</span>
+          </div>
         </div>
         <div
           class="register_container"
-          ng-if="!auth.isLoggedIn() && !isMobile()">
+          ng-if="!auth.isLoggedIn() && !isMobile">
             <div class="signup-title">
               <h1 ng-show="!registerFormSteps.filledEmail">_sign_up_home_</h1>
               <h1 ng-show="registerFormSteps.filledEmail">_guest_details_</h1>
@@ -291,7 +294,7 @@
   </div>
 
   <!--Mobile search button-->
-  <button ng-if="isMobile" class="HotelDetails__search position-bottom" ng-click="openBookingBar()">
+  <!-- <button ng-if="isMobile" class="HotelDetails__search position-bottom" ng-click="openBookingBar()">
     _find_your_room_
-  </button>
+  </button> -->
 </div>

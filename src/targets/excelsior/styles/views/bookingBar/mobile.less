@@ -3,39 +3,80 @@
 
   .booking-bar {
 
-    padding: 29px 14px 19px 14px;
-
-    .booking-bar__form {
-      .booking-bar__form--rooms,
-      .dates {
-        width: 100%;
+    &.booking-bar__size-large,
+    &.booking-bar__size-full-width,
+    &.booking-bar__size-full-width-bottom {
+      padding: 20px 15px;
+      .booking-bar__form--rooms {
+        display: inline-block;
+        .multiroom-booking & {
+          width: 280px;
+          display: block;
+          margin-top: 20px;
+        }
       }
-    }
-
-    &.booking-bar__size-large {
-      height: initial;
       .booking-bar__form {
+        display: inline-block;
+        &.multiroom-booking {
+          .booking-bar__form--rooms {
+            display: inline-block;
+          }
+          .booking-bar__submit {
+            margin-left: 0;
+          }
+          .booking-bar__link.quick {
+            display: block;
+            margin-left: 0;
+          }
+        }
         form-element {
           display: inline-block;
-          padding: 0 0 10px 0;
+          &:not(:last-child) {
+            margin-right: 5px;
+            margin-bottom: 5px;
+          }
         }
-        .booking-bar__form--room,
-        .booking-bar__form--code {
-          width: 100%;
+        .booking-bar__form--add-room {
+          margin: 0;
         }
-        .booking-bar__form--dates,
-        .booking-bar__form--guests {
-          width: calc(~'50% - 2px'); // @todo find out whats causing the need to offset by 4px
-          padding-bottom: 10px !important;
+      }
+
+      .search-button-positionner {
+        display: block;
+        align-items: center;
+        button {
+          width: 290px;
         }
-        .booking-bar__submit {
-          width: 100%;
+        button.desktop {
+          display: none;
+        }
+        button.mobile {
+          display: block;
         }
       }
     }
 
-    &.booking-bar__size-small {
-      display: none;
+    &.booking-bar__size-full-width,
+    &.booking-bar__size-full-width-bottom {
+
+      .booking-bar__form {
+        width: 320px;
+      }
+    }
+
+    .booking-bar__form--guests {
+      width: 141px;
+    }
+
+    .booking-bar__form {
+      .dates {
+        width: 290px;
+      }
+
+      .booking-bar__form--code {
+        width: 290px;
+      }
+
     }
 
   }

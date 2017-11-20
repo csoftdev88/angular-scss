@@ -2,11 +2,57 @@
 .viewport-mobile {
 
   .About__hero {
-    height: 100vh;
     background-position: center;
 
     &.fullscreen {
       position: relative;
+    }
+
+    .register_space hero-slider .slider-controls .pages {
+      height: 45px;
+    }
+
+    .main-content-container .rating-trip-advisor {
+      flex-flow: column nowrap;
+      justify-content: center;
+      padding: 20px;
+
+      .trip-advisor-ratings {
+        width: auto;
+        flex-flow: row wrap;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logo {
+        width: 160px;
+        margin: 0;
+      }
+
+      span {
+        margin: 20px 0;
+        text-align: center;
+        font-weight: 300;
+        &.rating-description {
+          font-size: 14px;
+          line-height: 19px;
+        }
+        &.number-of-reviews {
+          margin: 0;
+          font-size: 14px;
+        }
+      }
+
+      a {
+        margin-right: 13px;
+        img {
+          width: 110px;
+        }
+      }
+
+      .number-of-reviews {
+        font-size: 16px;
+      }
     }
   }
 

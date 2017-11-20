@@ -382,6 +382,11 @@ hotel-detail {
               border: 1px solid @c-light-grey;
               border-radius: 6px;
               box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.02);
+
+              .viewport-mobile & {
+                display: none;
+              }
+
               h4 {
                 background: linear-gradient(90deg, #4a4a4a 0%, #676767 100%);
                 color: #fff;
@@ -892,7 +897,7 @@ hotel-detail .hotel-detail__rooms-compare {
       font-size: 16px;
       font-weight: 300;
       &.is-active {
-        color: #B98747;
+        color: @c-primary;
         font-weight: normal;
       }
     }
@@ -929,7 +934,7 @@ hotel-detail .hotel-detail__rooms-compare {
         height: 31px;
         line-height: 31px;
         span {
-          color: #B98747;
+          color: @c-primary;
           font-size: 15px;
           font-weight: normal;
         }

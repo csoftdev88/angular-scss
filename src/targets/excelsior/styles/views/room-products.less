@@ -32,6 +32,11 @@ room-products {
 
       &.is-member-only {
         background-color: #FBF8F4;
+        .description-and-points-earned .PointsEarned {
+          .viewport-mobile & {
+            background-color: lighten(#f7f4f4, 2%);
+          }
+        }
       }
 
       &.product-container {
@@ -488,7 +493,7 @@ room-products {
             .points-unit {
               .viewport-mobile & {
                 text-transform: lowercase;
-                color: #B98747;
+                color: @c-primary;
                 font-size: 11px;
                 line-height: normal;
                 font-style: italic;

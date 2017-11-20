@@ -1,109 +1,33 @@
-
 .viewport-mobile {
 
-  .Home__booking-bar {
-    display: none;
-  }
-
-  .mobile-search-button-wrapper {
-    display: block;
-    border: 1px solid #E6D4BD;
-    background-color: @c-bookingbar-bg;
-  }
-
-  .HotelDetails__search {
-    position: relative;
-    width: calc(~'100% - 40px');
-    bottom: initial;
-    left: 20px;
-
-    height: 56px;
-    border: 1px solid #79AF41;
-    border-radius: 4px;
-    background-color: #87C34A;
-
-    color: #fff;
-    font-family: @ff-primary;
-    font-size: 18px;
-    font-weight: bold;
-    text-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2);
-
-    &.position-bottom {
-      position: absolute;
-      bottom: 0;
-    }
-  }
-
-  .fullscreen .HeroBenefits {
-    position: relative;
-    padding: 31px 12px 0 12px;
-    margin-top: @mobile-header-height;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-  }
-
-  .HeroBenefits__subtitle {
-    display: none;
+  .HeroBenefits {
+    padding-bottom: 15px;
   }
 
   .HeroBenefits__benefits {
-    position: relative;
+    display: none;
+  }
+
+  .HeroBenefits__subtitle {
+    font-size: 18px;
+    line-height: 24px;
+    padding: 15px 0;
+    height: auto;
+    h1 {
+     font-size: 18px;
+     line-height: 24px;
+     width: 280px;
+    }
+  }
+
+  .HeroBenefits__signup {
     width: 100%;
-    display: block;
-    .HeroBenefit__background {
-      height: 112px;
-      .HeroBenefits__benefit {
-        display: block;
-        .HeroBenefits__icon-wrapper {
-          width: 25%;
-          float: left;
-          text-align: left;
-          .HeroBenefits__icon-positionner img {
-            width: 55px;
-          }
-        }
-        .HeroBenefits__text-wrapper {
-          width: 75%;
-          float: left;
-          display: block;
-          h2 {
-            padding: 0 20px 0 0;
-            color: white;
-            float: left;
-
-          }
-          p {
-            clear: left;
-            color: #E4D5C4;
-            font-size: 17px;
-            padding-left: 0;
-            text-align: left;
-          }
-        }
-      }
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    .HeroBenefits__button {
+      width: 280px;
+      margin-bottom: 10px;
     }
   }
-
-  .HeroBenefits__benefit {
-    margin-bottom: 32px;
-    h2, p {
-      color: #000;
-    }
-  }
-
-  .HeroBenefits__button {
-    border: solid 2.4px @c-secondary;
-    width: calc(~'50% - 14px');
-    display: inline-block;
-    &:first-of-type {
-      margin-right: 24px;
-    }
-    &.login {
-      background: @c-secondary;
-    }
-  }
-
 }
