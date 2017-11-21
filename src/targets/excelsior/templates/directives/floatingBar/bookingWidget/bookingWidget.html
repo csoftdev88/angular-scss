@@ -109,7 +109,8 @@
             ng-options="code as code.title for code in codeTypes | filter:{'title':'!group'}"
             ng-change="onCodeTypeChanged()"
             ng-disabled="$root.thirdparty"
-            placeholder="_apply_code_">
+            placeholder-text-single="_apply_code_">
+      <option value="">_apply_code_-</option>
     </select>
 
     <input type="text"
@@ -122,7 +123,7 @@
 
     <input type="text"
            class="booking-widget-promo-code"
-           ng-disabled="true"
+           ng-disabled="$root.thirdparty"
            ng-show="selected.codeType.param === 'corpCode'"
            placeholder="_corp_code_"
            ng-model="selected.corpCode"
