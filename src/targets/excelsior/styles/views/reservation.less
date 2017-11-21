@@ -897,467 +897,345 @@ reservation-confirmation {
 // Reservation Finished page  //
 //  - after succesful payment //
 ////////////////////////////////
-reservation-finished {
+.reservation-detail {
+  .reservations-title {
+    height: 77px;
+    line-height: 77px;
+    border-radius: 6px 6px 0 0;
+    background-color: #31302F;
+    color: #fff;
+    font-size: 22px;
+    font-weight: normal;
 
-  margin-top: @header-height;
+    .viewport-mobile & {
+      height: 40px;
+      line-height: 40px;
+    }
 
-  .viewport-mobile &{
-    margin-top: 130px;
-    .RoomImage {
-      display: none;
-    }
-    .reservation-summary {
-      padding: 0 20px;
-      width: 100%;
-      padding-bottom: 40px !important;
-    }
-    .booking-details {
-      width: 100%;
-    }
-    .table-container {
-      width: 100%;
-    }
-  }
-
-  hr {
-    display: none;
-  }
-
-  hotel-location {
-    .map-wrapper {
-      width: 100vw;
-      margin-left: calc(~'-50vw + 50%');
-      height: 376px;
-      ng-map {
-        height: 376px;
-      }
+    h1 {
+      padding-left: 30px;
+      font-family: @ff-primary;
+      border-radius: 6px 6px 0 0;
       .viewport-mobile & {
-        height: 326px;
-        margin-top: 120px;
-        margin-left: calc(~'-50vw + 50%');
+        padding-left: 10px;
+        font-size: 15px;
       }
     }
   }
 
-  .video-section {
-    width: 100vw;
-    margin-left: calc(~'50% - 50vw');
-    margin-top: 30px;
-    margin-bottom: 50px;
-    height: 500px;
-    .viewport-mobile & {
-      height: 172px;
+  .primary-link {
+    color: @c-primary;
+    text-decoration: underline;
+    &.hover {
+      text-decoration: none;
     }
   }
+  .float-right {
+    float: right;
+  }
 
-  .map-section {
-    width: 100vw;
-    margin-left: calc(~'50% - 50vw');
+  .reservation {
+    margin-top: 45px;
+    margin-bottom: 45px;
     background-color: #fff;
-    hotel-location {
-      > header {
-        margin: 35px 0 25px 0;
-        position: relative;
-        .viewport-mobile & {
-          display: none;
-        }
-      }
-      .view-map-link {
-        display: none;
-      }
-      h2 {
-        text-transform: uppercase;
-        text-align: center;
-        color: @c-primary;
-        font-family: @ff-primary;
-        font-size: 19px;
-        font-weight: normal;
-        line-height: 22px;
-        span {
-          background: #fff;
-          padding: 0 15px;
-        }
-        &:before {
-          border-top: 1px solid @c-primary;
-          content:"";
-          margin: 0 auto; /* this centers the line to the full width specified */
-          position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
-          top: 50%; left: 0; right: 0; bottom: 0;
-          width: 95%;
-          z-index: -1;
-        }
-      }
-    }
-  }
+    min-height: 300px;
+    border-radius: 0 0 6px 6px;
 
-
-  // This part is specific for RESERVATION DETAIL page only
-  .reservation-summary {
-
-    width: 100vw;
-    margin-left: calc(~'50% - 50vw');
-    padding: 70px 0;
-    padding-top: 70px !important;
-    background-color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 100px;
     .viewport-mobile & {
-      margin-bottom: 20px;
+      margin-top: 70px;
     }
 
-    .summary-container {
-      max-width: 1212px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    // Block w/ PRINT and ADD TO PASSBOOK and SHARE buttons
-    .actions {
-      position: relative;
-      display: inline-block;
-      width: 100%;
-      margin-bottom: 20px;
-
-      @media print {
-       display: none;
-      }
-
-      .share {
-        float: initial;
-        display: block;
+    .reservation-summary-container,
+    .hotel-details-container {
+      float: left;
+      .viewport-mobile & {
+        float: none;
         width: 100%;
-        color: #fff;
-        margin: 20px 0;
-
-        a {
-          &.icon-fb {
-            &:before {
-              content: @fa-var-facebook-square;
-              color: #fff;
-            }
-          }
-          &.icon-twitter {
-            &:before {
-              content: @fa-var-twitter;
-              color: #fff;
-            }
-          }
-          &.icon-gplus {
-            &:before {
-              content: @fa-var-google-plus;
-              color: #fff;
-            }
-          }
-          &.icon-email {
-            &:before {
-              content: @fa-var-envelope;
-              color: #fff;
-            }
-          }
-        }
-      }
-
-      .passbook{
-        float: left;
-        a {
-          display: block;
-          margin-left: @spacing / 2;
-        }
-        .button-passbook {
-          background: url('@{img-prefix}/v4/btn-passbook.png');
-          width: 108px;
-          height: 36px;
-          float: right;
-          margin-left: 0;
-        }
-
-        .button-print {
-          background: url('@{img-prefix}/v4/btn-print.png');
-          width: 37px;
-          height: 36px;
-          float: right;
-        }
-
-        .viewport-mobile &{
-          clear: both;
-          float: left;
-          .button-print {
-            margin-left: 0;
-            margin-right: @spacing / 2;
-          }
-          .button-passbook {
-            margin-left: 0;
-            margin-right: @spacing / 2;
-          }
-        }
-      }
-
-      span {
-        visibility: hidden;
       }
     }
 
-
-    footer {
-      text-align: right;
-      float: right;
-      padding: 0;
-      line-height: 20px;
-      a{
-        font-size: 12px;
-        color: @c-secondary;
-        &:hover{
-          color: @c-secondary;
-        }
-      }
-    }
-  }
-
-  // List of possible enhancements for users reservation
-  .reservation-enhance {
-    margin-top: 174px;
-    text-align: center;
-
-    .Addons__title {
-      position: absolute;
-      left: 0;
-      top: 20px;
+    .hotel-details-container {
       width: 60%;
-      padding: 5px 20px 5px 40px;
-      background-color: rgba(26, 26, 26, 0.8);
-      .backdrop-filter-blur(20px);
-      color: #fff;
-      text-transform: uppercase;
-      font-family: @ff-primary;
-      display: block;
-      font-size: 24px;
-      line-height: 35px;
-      text-align: left;
-      .Addons__subtitle {
-        text-transform: none;
-        display: inline;
+      .section-padding {
+        padding: 25px 25px 10px 25px;
       }
-    }
-
-    h3 {
-      font-size: 31px;
-      font-family: @ff-primary;
-      font-weight: bold;
-      line-height: 36px;
-      text-transform: uppercase;
-      color: #fff;
-      text-shadow: 0 1px 10px #000;
-      &:after {
-        content: url('@{lbe-img-prefix}/divider-orange.png');
-        display: block;
-      }
-    }
-
-    ul {
-      .clearfix;
-      margin: @spacing 0;
-      padding: @spacing @spacing / 2;
-      border: none;
-      border-radius: 0;
-      background-color: #fff;
-    }
-
-    li {
-      display: inline-block;
-      box-sizing: border-box;
-      padding: 0 @spacing / 2;
-
-      &.half {
-        width: 50%;
-        .viewport-mobile &{
-          width: 100%;
-        }
-      }
-      &.third {
-        width: 33.3333%;
-        .viewport-mobile &{
-          width: 100%;
-        }
-      }
-
-      > div {
-        cursor: pointer;
-        padding-bottom: 5px;
-        border-radius: 0;
-        background: #fff;
-        box-shadow: none;
-        text-align: center;
-        overflow: hidden;
-
-        a.eye-icon{
-          position : relative;
-          display: block;
-
-          img{
-            display: block;
-          }
-
-          &:before {
-            content: '';
-            display: block;
-            background: @c-black;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            .transition(opacity, .3s, ease-in-out);
-          }
-
-          &:after {
-            .fa;
-            content: @fa-var-eye;
-            background: transparent;
-            color: #fff;
-            font-size: 48px;
-            line-height: 27px;
-            position: absolute;
-            width: 48px;
-            height: 30px;
-            left: 50%;
-            top: 50%;
-            margin-left: -24px;
-            margin-top: -18px;
-            opacity: 0;
-            .transition(opacity, .3s, ease-in-out);
-          }
-
-          &:hover {
-            &:after{
-              opacity: 1;
-            }
-            &:before{
-              opacity: .3;
-            }
-          }
-
-          &.disabled{
-            cursor: default;
-            pointer-events: none;
-          }
-        }
-
+      section {
+        padding-bottom: 15px;
         h4 {
-          color: @c-primary;
+          color: #B98747;
+          font-family: @ff-serif;
+          font-size: 22px;
+          line-height: 30px;
+          font-weight: bold;
+          text-transform: uppercase;
+          margin-bottom: 10px;
+        }
+        hotel-location {
+          h2 {
+            color: #B98747;
+            font-family: @ff-serif;
+            font-size: 22px;
+            line-height: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+          }
+          .map-wrapper {
+            border-radius: 6px;
+            overflow: hidden;
+          }
+        }
+      }
+      .addon-section {
+        .addon-wrapper {
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
+
+          .viewport-mobile & {
+            flex-flow: row wrap;
+          }
+
+          &:not(:first-of-type) {
+            margin-top: 10px;
+          }
+          &:not(:last-of-type) {
+            border-bottom: 1px dashed #F5EDED;
+            padding-bottom: 10px;
+          }
+        }
+
+        .addon-image {
+          @image-width: 120px;
+          @image-height: 70px;
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
+          justify-content: flex-start;
+          flex: none;
+          width: @image-width;
+          height: @image-height;
+          img {
+            overflow: hidden;
+            border-radius: 6px;
+            // Aspect-constrained resize
+            max-width: @image-width;
+            max-height: @image-height;
+            width: auto;
+            height: auto;
+          }
+        }
+
+        .addon-text {
+          display: flex;
+          flex-flow: column nowrap;
+          margin: 0 20px;
+          flex: 1 1 auto;
+          .addon-name {
+            color: @c-primary;
+            font-family: @ff-serif;
+            font-size: 18px;
+            font-weight: bold;
+          }
+          .addon-cost {
+            color: #4A4A4A;
+            font-family: @ff-primary;
+            font-size: 15px;
+            font-weight: 300;
+          }
+        }
+
+        .addon-add-button {
+          flex: none;
+          height: 40px;
+          line-height: 40px;
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
+          white-space: nowrap;
+          border: 1px solid #EEEDED;
+          border-radius: 100px;
+          background-color: #FDFDFD;
+          text-transform: uppercase;
+          padding: 0 15px;
+
+          color: #898989;
+          font-family: @ff-primary;
+          text-shadow: none;
+          font-size: 15px;
+          font-weight: bold;
+
+          cursor: pointer;
+
+          .viewport-mobile & {
+            margin-top: 15px;
+            box-sizing: border-box;
+            width: 100%;
+          }
+
+          .fa-plus-circle {
+            margin-right: 10px;
+            color: @c-primary;
+            font-size: 23px;
+          }
         }
       }
     }
 
-    h4, p, i {
-      padding: 0 @spacing / 2;
-    }
-
-    img {
-      width: 100%;
-    }
-
-    h4 {
-      margin: @baseline 0;
-      font-size: @size-2;
-      text-transform: uppercase;
-      font-weight: normal;
-      span{
-        font-weight: normal;
+    .reservation-summary-container {
+      width: 40%;
+      .border-right {
+        border-right: 1px solid #F2F2F2;
+        padding: 25px;
+        .viewport-mobile & {
+          padding: 0;
+          border: 0 none;
+        }
       }
-    }
+      .modify-buttons {
+        padding-top: 15px;
 
-    i {
-      display: block;
-      color: @c-primary;
-      font-size: @size--1;
-      line-height: @baseline;
-      text-align: left;
-      font-weight: 700;
-      padding: 0 14px;
-    }
-
-    p {
-      margin: @baseline 0;
-
-      a {
-        font-weight: 600;
+        .viewport-mobile & {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+        .button-brown,
+        .button-white {
+          color: #B98747;
+          height: 50px;
+          line-height: 50px;
+          font-size: 14px;
+          text-align: center;
+          text-shadow: 0 1px 0 0 rgba(0,0,0,0.1);
+          background-color: #fff;
+          border: 1px solid #B98747;
+          width: 48%;
+        }
+        .button-brown {
+          color: #fff;
+          background-color: #B98747;
+        }
+        .button-white {
+          float: right;
+        }
       }
-    }
+      .tables {
+        padding-top: 25px;
+        border: 1px solid #F2F2F2;
+        border-radius: 8px;
 
-    .button {
-      margin: @spacing / 2 0;
-      padding: 0 @spacing / 2;
-      width: 45%;
+        .room-types,
+        .charges-data {
+          padding: 0 25px;
+        }
 
-      small {
-        font-size: 0.75em;
-        font-style: italic;
-        font-weight: normal;
-        opacity: 0.75;
+        .reservation-data-table {
+          width: 100%;
+          font-size: 14px;
+          th {
+            font-weight: 300;
+            text-align: left;
+            color: #9B9B9B;
+          }
+          td {
+            text-align: right;
+            color: #4A4A4A;
+          }
+        }
+        figure {
+          img {
+            width: 100%;
+            border-radius: 6px;
+          }
+        }
+        .charges-data {
+          padding-top: 15px;
+          margin-top: 15px;
+          border-top: 1px solid #F2F2F2;
+        }
+        .room-types {
+          position: relative;
+          h3 {
+            color: #B98747;
+            font-family: @ff-primary;
+            font-size: 22px;
+            font-weight: 300;
+            height: 30px;
+            line-height: 30px;
+          }
+          .booking-arrival-checkout {
+            color: #9B9B9B;
+            font-family: @ff-serif;
+            font-size: 16px;
+          }
+          .booking-confirmation-number {
+            color: #9B9B9B;
+            font-family: @ff-primary;
+            font-size: 14px;
+            font-weight: 300;
+          }
+
+          check-in-date {
+            position: absolute;
+            bottom: 20px;
+            right: 25px;
+            border: 2px solid #9A0003;
+            clear: right;
+            font-family: @ff-serif;
+            width: 80px;
+            text-align: center;
+            border-radius: 6px;
+
+            .viewport-mobile & {
+              bottom: 125px;
+              right: 35px;
+            }
+
+            .title {
+              background-color: #9A0003;
+              text-transform: uppercase;
+              height: 30px;
+              color:#fff;
+              font-size: 13px;
+              font-weight: bold;
+              line-height: 30px;
+            }
+            .date {
+              background-color: #fff;
+              border-radius: 0 0 6px 6px;
+              color: #AB2117;
+              font-weight: normal;
+              height: 47px;
+              font-size: 14px;
+              font-weight: bold;
+              line-height: 47px;
+            }
+          }
+        }
+        .total-charges {
+          margin-top: 15px;
+          background-color: #31302F;
+          padding: 25px;
+          color: #fff;
+          font-size: 22px;
+          border-radius: 0 0 6px 6px;
+          .total-value {
+            float: right;
+          }
+        }
       }
-    }
-
-    .button + .button {
-      margin-left: @spacing / 2;
     }
   }
-
-  .newsletter-cta{
-    a{
-      display: block;
-      img{
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-        display: inline-block;
-      }
-    }
-  }
-
-  .reservation-enhancements {
-
-    margin-bottom: 2*@baseline;
-
-    text-align: center;
-
-    list-item {
-      padding-right: 0;
-      min-height: initial;
-      pricing-info {
-        border-left: none;
-      }
-    }
-
-    h3 {
-      font-size: 31px;
-      font-family: @ff-primary;
-      font-weight: bold;
-      line-height: 36px;
-      text-transform: uppercase;
-      color: #000;
-      &:after {
-        content: url('@{lbe-img-prefix}/divider-orange.png');
-        display: block;
-      }
-    }
-
-    .total {
-      font-size: @size-2;
-      font-weight: 600;
-      text-align: right;
-      color: @c-link;
-    }
-
-    list-item {
-      border-top: 0;
-    }
-  }
-
-  .button.disabled {
-    .button-colors(gray, @colorButtonGray, @colorButtonGrayHover);
-  }
-
-  @media print {
-    margin-top:0;
-  }
+}
+.ReservationBackground {
+  background: url('@{img-prefix}/confirmation-bg.png');
+  background-size: cover;
+  position: absolute;
+  height: 100%;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: -999;
+  opacity: 0.3;
 }
 
 .reservation-summary {
