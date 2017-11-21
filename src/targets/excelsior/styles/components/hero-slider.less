@@ -8,6 +8,16 @@ hero-slider {
   box-shadow: none;
   position: relative;
 
+  //Only show the promo text for non-logged in users
+  .promotion-text-container {
+    display: none;
+  }
+  &.user-not-authenticated {
+    .promotion-text-container {
+      display: initial;
+    }
+  }
+
   &.short {
     height: 498px;
   }
