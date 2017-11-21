@@ -17,6 +17,7 @@
 <main class="reservation-overview"
       id="jsReservations"
       ng-class="{'grid-wrapper':!viewSettings.fullWidthSections,
+                 'no-future-stays': reservations.futureStays.length === 0,
                  'no-reservations':!reservations.nextStay &&
                                     reservations.futureStays.length === 0 &&
                                     reservations.pastStays.length === 0}">
@@ -25,8 +26,7 @@
 
   <div ui-view>
 
-    <div class="reservations"
-         ng-attr-grid="{{!viewSettings.fullWidthSections ? 12 : undefined}}">
+    <div class="reservations">
 
       <div class="reservations-title">
         <h1>Reservations</h1>
@@ -93,24 +93,24 @@
             <h1 ng-bind-html="'_reservation_page_futurestays_title_' | mainHeaderStyle"></h1>
           </div>
 
-          <reservation-item ng-repeat="reservation in reservations.futureStays | orderBy:'bookingDate' : true">
-
-            <div class="table-wrap">
-
-              <reservation-data currency-code="defaultCurrencyCode"
-                                reservation="reservation"
-                                property="properties[reservation.property.code]">
-              </reservation-data>
-
-            </div>
-
-            <hr class="dividerWithoutImage"/>
-
-          </reservation-item>
+          <div class="carousel">
+            <carousel>
+              <slide ng-repeat="reservation in reservations.futureStays | orderBy:'bookingDate' : true" active="slide.active">
+                <div class="table-wrap">
+                  <reservation-details currency-code="defaultCurrencyCode"
+                                    reservation="reservation"
+                                    property="properties[reservation.property.code]">
+                  </reservation-details>
+                </div>
+              </slide>
+            </carousel>
+          </div>
 
         </div>
 
       </div>
+
+      <div class="clearfix"></div>
 
       <section-image ng-if="config.reservations.sectionImages &&
                             config.reservations.sectionImages[1] &&
