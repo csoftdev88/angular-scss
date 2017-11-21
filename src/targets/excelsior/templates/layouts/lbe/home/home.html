@@ -1,12 +1,6 @@
 <div class="About__hero">
 
   <div class="register_space">
-    <div
-      class="promotion-text-container"
-      ng-if="!auth.isLoggedIn()">
-      <span class="promotion-text-container-title">Lowest Rates!</span>
-      <span class="promotion-text-container-text">Excelsior Members Receive a 10% Discount</span>
-    </div>
     <main
       class="grid-wrapper header-hero-content"
       ng-if="auth.isLoggedIn()">
@@ -24,20 +18,6 @@
       content="heroContent">
     </hero-slider>
   </div>
-
-
-
-<!-- <div ng-if="auth.isLoggedIn()" class="members-only-banner logged-in">
-  <div class="glass-filter">
-    <div class="members-only-banner__labels-positionner">
-      <div class="members-only-banner__label">
-        <span class="over-title">_about_tagline_</span>
-        <span>Welcome to the</span>
-        <span>Excelsior Hotel, {{ userObject.firstName }}</span>
-      </div>
-    </div>
-  </div>
-</div> -->
 
   <!--Desktop search bar-->
   <booking-bar class="Home__booking-bar drop-up" size="full-width-bottom" ng-if="!isMobile"></booking-bar>

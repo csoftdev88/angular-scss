@@ -5,11 +5,31 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
 .constant('Settings', {
   'forceCustomHeroContent': true,
   'customHeroContent': [
-    {uri: '/static/images/carousel/slider-1.jpg'},
-    {uri: '/static/images/carousel/slider-2.jpg'},
-    {uri: '/static/images/carousel/slider-3.jpg'},
-    {uri: '/static/images/carousel/slider-4.jpg'},
-    {uri: '/static/images/carousel/slider-5.jpg'}
+    {
+      uri: '/static/images/carousel/slider-1.jpg',
+      title: 'Lowest Rates!',
+      subtitle: 'Excelsior Members Receive a 10% Discount.'
+    },
+    {
+      uri: '/static/images/carousel/slider-2.jpg',
+      title: 'Get Rewarded',
+      subtitle: 'Members Get Early Check In & Late Checkout Guaranteed!'
+    },
+    {
+      uri: '/static/images/carousel/slider-3.jpg',
+      title: 'Free Beverages',
+      subtitle: 'Members receive free complimentary refreshments'
+    },
+    {
+      uri: '/static/images/carousel/slider-4.jpg',
+      title: 'Lowest Rates!',
+      subtitle: 'Excelsior Members Receive a 10% Discount.'
+    },
+    {
+      uri: '/static/images/carousel/slider-5.jpg',
+      title: 'Get Rewarded',
+      subtitle: 'Members Get Early Check In & Late Checkout Guaranteed!'
+    }
   ],
   'customPreviewImages': [
     {uri: '/static/images/carousel/hotel-1.jpg'},
