@@ -1,91 +1,4 @@
 
-///////////////////////////////////////////////////////////////
-// NEXT STAY                                                 //
-//  - Most of used code is shared w/ RESERVATION DETAIL page //
-//    and is placed in `src/styles/views/reservation.less`   //
-///////////////////////////////////////////////////////////////
-reservation-hotel-details {
-
-  .reservation-summary {
-
-    h1,
-    .reference,
-    .booked {
-      margin: 0;
-      font-size: 34px;
-      line-height: 41px;
-      color: @c-text;
-      font-weight: 300;
-      font-family: @ff-serif;
-      padding-bottom: 23px;
-    }
-
-    .booked{
-      font-weight: 300;
-    }
-  }
-
-  .tables {
-    figure {
-      .viewport-mobile & {
-        display: none;
-      }
-    }
-    h3{
-      font-size: 24px;
-      line-height: 29px;
-      font-weight: normal;
-      max-width: 75%;
-      text-transform: uppercase;
-      font-family: @ff-primary;
-      color: @c-primary;
-      padding-bottom: 11px;
-    }
-    h4{
-      font-size: 16px;
-      line-height: 19px;
-      color: @c-text;
-      font-weight: 300;
-      max-width: 75%;
-      text-transform: uppercase;
-      font-family: @ff-secondary;
-
-    }
-    .booking-date {
-      color: @c-text;
-    }
-    table tr, td {
-      color: @c-text;
-    }
-    span {
-      color: @c-text;
-    }
-    .chain-logo{
-      display: block;
-      top: 0;
-      max-width: 25%;
-
-      &.sand{
-        width: 98px;
-        height: 17px;
-        background: url('@{img-prefix}/sandman-logo-medium.png') no-repeat;
-        background-size: 100%;
-      }
-    }
-  }
-
-  .room-types + .room-types {
-    margin-top: @baseline;
-  }
-
-  .room-types:last-of-type {
-    margin-bottom: @baseline;
-  }
-}
-
-//////////////////////////
-// List of FUTURE STAYS //
-//////////////////////////
 .ReservationsBackground {
   background: url('@{img-prefix}/confirmation-bg.png');
   background-size: cover;
@@ -95,213 +8,469 @@ reservation-hotel-details {
   top: 0;
   left: 0;
   z-index: -999;
+  opacity: 0.3;
   .viewport-mobile & {
     height: 100vh;
     background-size: cover;
   }
 }
 
-.reservations {
-
-  margin-top: 189px;
-
-  .viewport-mobile & {
-    margin-top: 109px;
-  }
-
-  .ReservationsNextStay__container {
-    width: 100vw;
-    margin-left: calc(~'50% - 50vw - 15px');
-    background-color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 220px;
-    .viewport-mobile & {
-      margin-left: calc(~'50% - 50vw');
-      margin-bottom: 0;
-    }
-  }
-
-  .ReservationsNextStay {
-    max-width: 1212px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 72px;
-    .viewport-mobile & {
-      padding: 40px 20px;
-    }
-    .noNextStay {
-      font-size: 41px;
-      line-height: 49px;
+.reservation-overview {
+  .reservations-title {
+    height: 77px;
+    line-height: 77px;
+    width: 1212px;
+    border-radius: 6px 6px 0 0;
+    background-color: #31302F;
+    color: #FFFFFF;
+    font-size: 22px;
+    font-weight: normal;
+    h1 {
+      padding-left: 30px;
       font-family: @ff-primary;
-    }
-    &.empty {
-      height: 273px;
+      border-radius: 6px 6px 0 0;
     }
   }
 
-  .ReservationsNextStay__title {
-    display: none;
-  }
+  .reservations {
+    margin-top: 45px;
+    background-color: #fff;
+    min-height: 300px;
 
-  hr{
-    display: none;
-  }
-
-  h1, h2{
-    text-transform: uppercase;
-  }
-
-  h1{
-    font-size: 18px;
-    color: @c-grey;
-    font-weight: 600;
-  }
-
-  reservation-item{
-    margin-bottom: 65px;
-    display: inline-block;
-    width: 100%;
-    .viewport-mobile &{
-      margin-bottom: 25px;
+    h1 {
+      margin: 0; // override global style
     }
-  }
 
-  reservation-data {
+    .ReservationsNextStay__container {
+      width: 60%;
+      float: left;
+    }
 
-    .content {
+    .future-stays {
+      width: 39%;
+      float:left;
+    }
 
-      margin: 0 145px;
-
-      .header {
-        h2 {
-          font-size: 18px;
-          font-weight: 600;
-          color: @c-text;
-          width: 100%;
-        }
-        span{
-          font-size: 14px;
-          font-weight: 300;
-          float: initial;
-        }
-      }
-
-      .rating{
-        display: none;
+    .ReservationsNextStay__title, .ReservationsFutureStay__title {
+      height: 37px;
+      line-height: 37px;
+      color: #B98747;
+      text-transform: uppercase;
+      padding: 30px;
+      h1 {
+        letter-spacing: 1px;
+        font-size: 28px;
+        font-family: @ff-serif;
+        font-weight: bold;
       }
     }
 
-    .chain-logo{
-      display: block;
+    reservation-hotel-details {
 
-      &.sand{
-        width: 98px;
-        height: 17px;
-        background: url('@{img-prefix}/sandman-logo-medium.png') no-repeat;
-        background-size: 100%;
+      // override global style
+      .tables > div {
+        width: 100%;
+        float: none;
+        padding: 0;
       }
-      &.sign{
-        width: 40px;
-        height: 26px;
-        background: url('@{img-prefix}/signature-logo-medium.png') no-repeat;
-        background-size: 100%;
-      }
-    }
 
-    .property-preview {
-      width: 121px;
-      height: 128px;
-      margin-right: 34px;
-    }
-
-    .details {
-
-      .total {
-        width: 40%;
-        float: left;
-        .viewport-mobile & {
-          width: 60%;
-        }
-        .title{
-          font-size: 14px;
-          text-transform: uppercase;
-        }
-        .value {
-          color: @c-grey;
-          font-size: 18px;
-          font-weight: 700;
-        }
-
-        .reservation-number {
-          color: @c-grey;
-          font-size: 14px;
-          font-weight: 300;
-          .code{
-            font-size: 18px;
-            font-weight: 600;
-            display: block;
+      .reservation-summary {
+        border: 1px solid #F2F2F2;
+        border-radius: 8px;
+        margin: 0 0 30px 30px;
+        padding: 25px;
+        .room-types {
+          position: relative;
+          h1 {
+            color: #4A4A4A;
+            font-family: @ff-serif;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 15px;
           }
-        }
-      }
 
-      .guests {
-        width: 30%;
-        float: left;
-        font-size: 14px;
+          figure {
+            width: 100%;
+            float: none;
+            img {
+              border-radius: 6px;
+            }
+          }
 
-        .title{
-          font-weight: 300;
-        }
-        .value{
-          font-weight: 700;
-        }
-        .viewport-mobile & {
-          width: 40%;
-          padding-left: 5px;
-          box-sizing: border-box;
-        }
-      }
+          h3 {
+            color: #B98747;
+            font-family: @ff-primary;
+            font-size: 22px;
+            font-weight: 300;
+            height: 30px;
+            line-height: 30px;
+          }
 
-      .desc {
-        width: 30%;
-        float: right;
-        font-size: 14px;
-        .value{
-          font-weight: 300;
-          color: @c-grey;
-          margin-top: 0;
-        }
-        .viewport-mobile & {
-          width: auto;
-          float: left;
-          p + p{
-            margin: 0;
+          .booking-arrival-checkout {
+            color: #9B9B9B;
+            font-family: @ff-serif;
+            font-size: 16px;
+          }
+
+          .booking-confirmation-number {
+            color: #9B9B9B;
+            font-family: @ff-primary;
+            font-size: 14px;
+            font-weight: 300;
+          }
+
+          check-in-date {
+            position: absolute;
+            bottom: 20px;
+            right: 0;
+            border: 2px solid #9A0003;
+            clear: right;
+            font-family: @ff-serif;
+            width: 80px;
+            text-align: center;
+            border-radius: 6px;
+
+            .title {
+              background-color: #9A0003;
+              text-transform: uppercase;
+              height: 30px;
+              color:#fff;
+              font-size: 13px;
+              font-weight: bold;
+              line-height: 30px;
+            }
+            .date {
+              color: #9A0003;
+              font-weight: normal;
+              height: 47px;
+              font-size: 14px;
+              font-weight: bold;
+              line-height: 47px;
+            }
           }
         }
 
-      }
-    }
-
-    check-in-date {
-      border: 1px solid @c-secondary;
-      clear: right;
-      margin-top: 12px;
-
-      .title {
-        background-color: @c-secondary;
-        text-transform: uppercase;
-      }
-      .date {
-        color: @c-secondary;
-        font-weight: normal;
+        .data {
+          display: none;
+        }
+        .charges {
+          display: none;
+        }
+        .booking-productname {
+          display: none;
+        }
+        .booking-date {
+          display: none;
+        }
       }
     }
   }
 }
 
-.reservations-not-available {
-  background-color: #fff;
-  h3, p {
-    color: @c-primary;
-    font-family: @ff-primary;
-  }
-}
+// ///////////////////////////////////////////////////////////////
+// // NEXT STAY                                                 //
+// //  - Most of used code is shared w/ RESERVATION DETAIL page //
+// //    and is placed in `src/styles/views/reservation.less`   //
+// ///////////////////////////////////////////////////////////////
+// reservation-hotel-details {
+
+//   .reservation-summary {
+
+//     h1,
+//     .reference,
+//     .booked {
+//       margin: 0;
+//       font-size: 34px;
+//       line-height: 41px;
+//       color: @c-text;
+//       font-weight: 300;
+//       font-family: @ff-serif;
+//       padding-bottom: 23px;
+//     }
+
+//     .booked{
+//       font-weight: 300;
+//     }
+//   }
+
+//   .tables {
+//     figure {
+//       .viewport-mobile & {
+//         display: none;
+//       }
+//     }
+//     h3{
+//       font-size: 24px;
+//       line-height: 29px;
+//       font-weight: normal;
+//       max-width: 75%;
+//       text-transform: uppercase;
+//       font-family: @ff-primary;
+//       color: @c-primary;
+//       padding-bottom: 11px;
+//     }
+//     h4{
+//       font-size: 16px;
+//       line-height: 19px;
+//       color: @c-text;
+//       font-weight: 300;
+//       max-width: 75%;
+//       text-transform: uppercase;
+//       font-family: @ff-secondary;
+
+//     }
+//     .booking-date {
+//       color: @c-text;
+//     }
+//     table tr, td {
+//       color: @c-text;
+//     }
+//     span {
+//       color: @c-text;
+//     }
+//     .chain-logo{
+//       display: block;
+//       top: 0;
+//       max-width: 25%;
+
+//       &.sand{
+//         width: 98px;
+//         height: 17px;
+//         background: url('@{img-prefix}/sandman-logo-medium.png') no-repeat;
+//         background-size: 100%;
+//       }
+//     }
+//   }
+
+//   .room-types + .room-types {
+//     margin-top: @baseline;
+//   }
+
+//   .room-types:last-of-type {
+//     margin-bottom: @baseline;
+//   }
+// }
+
+// //////////////////////////
+// // List of FUTURE STAYS //
+// //////////////////////////
+// .ReservationsBackground {
+//   background: url('@{img-prefix}/confirmation-bg.png');
+//   background-size: cover;
+//   position: absolute;
+//   height: 900px;
+//   width: 100vw;
+//   top: 0;
+//   left: 0;
+//   z-index: -999;
+//   .viewport-mobile & {
+//     height: 100vh;
+//     background-size: cover;
+//   }
+// }
+
+// .reservations {
+
+//   margin-top: 189px;
+
+//   .viewport-mobile & {
+//     margin-top: 109px;
+//   }
+
+//   .ReservationsNextStay__container {
+//     width: 100vw;
+//     margin-left: calc(~'50% - 50vw - 15px');
+//     background-color: rgba(255, 255, 255, 0.7);
+//     margin-bottom: 220px;
+//     .viewport-mobile & {
+//       margin-left: calc(~'50% - 50vw');
+//       margin-bottom: 0;
+//     }
+//   }
+
+//   .ReservationsNextStay {
+//     max-width: 1212px;
+//     margin-left: auto;
+//     margin-right: auto;
+//     padding-top: 72px;
+//     .viewport-mobile & {
+//       padding: 40px 20px;
+//     }
+//     .noNextStay {
+//       font-size: 41px;
+//       line-height: 49px;
+//       font-family: @ff-primary;
+//     }
+//     &.empty {
+//       height: 273px;
+//     }
+//   }
+
+//   .ReservationsNextStay__title {
+//     display: none;
+//   }
+
+//   hr{
+//     display: none;
+//   }
+
+//   h1, h2{
+//     text-transform: uppercase;
+//   }
+
+//   h1{
+//     font-size: 18px;
+//     color: @c-grey;
+//     font-weight: 600;
+//   }
+
+//   reservation-item{
+//     margin-bottom: 65px;
+//     display: inline-block;
+//     width: 100%;
+//     .viewport-mobile &{
+//       margin-bottom: 25px;
+//     }
+//   }
+
+//   reservation-data {
+
+//     .content {
+
+//       margin: 0 145px;
+
+//       .header {
+//         h2 {
+//           font-size: 18px;
+//           font-weight: 600;
+//           color: @c-text;
+//           width: 100%;
+//         }
+//         span{
+//           font-size: 14px;
+//           font-weight: 300;
+//           float: initial;
+//         }
+//       }
+
+//       .rating{
+//         display: none;
+//       }
+//     }
+
+//     .chain-logo{
+//       display: block;
+
+//       &.sand{
+//         width: 98px;
+//         height: 17px;
+//         background: url('@{img-prefix}/sandman-logo-medium.png') no-repeat;
+//         background-size: 100%;
+//       }
+//       &.sign{
+//         width: 40px;
+//         height: 26px;
+//         background: url('@{img-prefix}/signature-logo-medium.png') no-repeat;
+//         background-size: 100%;
+//       }
+//     }
+
+//     .property-preview {
+//       width: 121px;
+//       height: 128px;
+//       margin-right: 34px;
+//     }
+
+//     .details {
+
+//       .total {
+//         width: 40%;
+//         float: left;
+//         .viewport-mobile & {
+//           width: 60%;
+//         }
+//         .title{
+//           font-size: 14px;
+//           text-transform: uppercase;
+//         }
+//         .value {
+//           color: @c-grey;
+//           font-size: 18px;
+//           font-weight: 700;
+//         }
+
+//         .reservation-number {
+//           color: @c-grey;
+//           font-size: 14px;
+//           font-weight: 300;
+//           .code{
+//             font-size: 18px;
+//             font-weight: 600;
+//             display: block;
+//           }
+//         }
+//       }
+
+//       .guests {
+//         width: 30%;
+//         float: left;
+//         font-size: 14px;
+
+//         .title{
+//           font-weight: 300;
+//         }
+//         .value{
+//           font-weight: 700;
+//         }
+//         .viewport-mobile & {
+//           width: 40%;
+//           padding-left: 5px;
+//           box-sizing: border-box;
+//         }
+//       }
+
+//       .desc {
+//         width: 30%;
+//         float: right;
+//         font-size: 14px;
+//         .value{
+//           font-weight: 300;
+//           color: @c-grey;
+//           margin-top: 0;
+//         }
+//         .viewport-mobile & {
+//           width: auto;
+//           float: left;
+//           p + p{
+//             margin: 0;
+//           }
+//         }
+
+//       }
+//     }
+
+//     check-in-date {
+//       border: 1px solid @c-secondary;
+//       clear: right;
+//       margin-top: 12px;
+
+//       .title {
+//         background-color: @c-secondary;
+//         text-transform: uppercase;
+//       }
+//       .date {
+//         color: @c-secondary;
+//         font-weight: normal;
+//       }
+//     }
+//   }
+// }
+
+// .reservations-not-available {
+//   background-color: #fff;
+//   h3, p {
+//     color: @c-primary;
+//     font-family: @ff-primary;
+//   }
+// }
