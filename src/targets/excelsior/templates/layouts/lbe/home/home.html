@@ -3,6 +3,7 @@
   <div class="register_space">
     <main
       class="grid-wrapper header-hero-content"
+      ng-class="{'mobile': isMobile}"
       ng-if="auth.isLoggedIn()">
       <h3 class="welcome-text">_welcome_main_page_text_, {{ userObject.firstName }}</h3>
       <div
