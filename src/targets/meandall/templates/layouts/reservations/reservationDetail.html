@@ -355,6 +355,10 @@
                           ng-if="!reservation.isInThePast && reservation.canCancel">
                     _cancel_
                   </button>
+                  <div class="no-modify-cancel"
+                       ng-if="!reservation.canCancel">
+                    <p>_no_cancel_modify_</p>
+                  </div>
                 </div>
               </figure>
 
@@ -385,6 +389,10 @@
                       ng-disabled="!reservation.canCancel">
                 _cancel_
               </button>
+              <div class="no-modify-cancel"
+                   ng-if="!reservation.canCancel">
+                <p>_no_cancel_modify_</p>
+              </div>
               <div class="multiroom-modify-cancel"
                    ng-if="reservation.status !== 'Cancelled' && isMobile && reservation.noOfRooms > 1">
                 <p class="mobile">_manual_cancel_modify_</p>
