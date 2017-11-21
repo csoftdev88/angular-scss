@@ -9,15 +9,32 @@ user-messages {
   position: absolute;
 
   &.reservation-confirmation {
-    width: 70%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
+    width: 100%;
+    margin-top: 100px;
+    position:relative;
+    top: 0;
+    // Since user-messages are not using position: absolute in this case, remove margin which is being added for <main>
+    // element
+    margin-bottom: -100px;
     box-shadow: none;
     .viewport-mobile & {
-      margin-top: 0;
-      top: 100px;
-      width: 100%;
+      margin-top: 50px;
+      margin-bottom: 0;
+    }
+
+    h1 {
+      font-family: @ff-serif;
+      text-transform: uppercase;
+      font-size: 28px;
+    }
+    h3 {
+      font-size: 16px;
+      color: #FEDAAB;
+    }
+    ul li > div .message-content span.desc {
+      color: #FEE4C1;
+      font-size: 18px;
+      text-transform: none;
     }
   }
 

@@ -268,27 +268,7 @@
         <section>
           <hotel-location hotel-details="property" ng-if="property"></hotel-location>
         </section>
-
-        <section ng-if="config.displayVideo">
-          <h4>_video_tour_</h4>
-          <div class="video-section">
-            <iframe width="100%"
-                    height="100%"
-                    src="{{ config.videoUrl | trustAsUrl }}"
-                    frameborder="0"
-                    allowfullscreen>
-            </iframe>
-          </div>
-        </section>
       </div>
-    </div>
-
-    <div class="clear"></div>
-
-    <div
-      ng-if="config.displayActionsInDetails"
-      class="actions-container"
-      ng-include="'layouts/components/reservation-actions.html'">
     </div>
 
     <div class="clear"></div>

@@ -937,7 +937,6 @@ reservation-confirmation {
   .reservation {
     margin-top: 45px;
     margin-bottom: 45px;
-    padding-bottom: 25px;
     background-color: #fff;
     min-height: 300px;
     border-radius: 0 0 6px 6px;
@@ -984,14 +983,6 @@ reservation-confirmation {
             border-radius: 6px;
             overflow: hidden;
           }
-        }
-      }
-      .video-section {
-        height: 370px;
-        border-radius: 6px;
-        overflow: hidden;
-        .viewport-mobile & {
-          height: 200px;
         }
       }
       .addon-section {
@@ -1077,6 +1068,8 @@ reservation-confirmation {
 
           .viewport-mobile & {
             margin-top: 15px;
+            box-sizing: border-box;
+            width: 100%;
           }
 
           .fa-plus-circle {
@@ -1231,36 +1224,6 @@ reservation-confirmation {
         }
       }
     }
-    .actions-container {
-      border-top: 1px solid #F2F2F2;
-      padding: 25px 25px 0 25px;
-      .passbook {
-        float: left;
-        a {
-          display: block;
-          margin-left: @spacing / 2;
-        }
-        .button-passbook {
-          background: url('@{img-prefix}/v4/btn-passbook.png');
-          width: 108px;
-          height: 36px;
-          float: right;
-          margin-left: 0;
-        }
-        .button-print {
-          background: url('@{img-prefix}/v4/btn-print.png');
-          width: 37px;
-          height: 36px;
-          float: right;
-        }
-      }
-      .share {
-        float: right;
-      }
-      span {
-        visibility: hidden;
-      }
-    }
   }
 }
 .ReservationBackground {
@@ -1273,13 +1236,6 @@ reservation-confirmation {
   left: 0;
   z-index: -999;
   opacity: 0.3;
-}
-user-messages {
-  top: 100px !important;
-  position: relative !important;
-  .viewport-mobile & {
-    top: 50px !important;
-  }
 }
 
 .reservation-summary {
