@@ -204,24 +204,19 @@
           </div>
         </div>
 
-        <div ng-if="config.modifyButtonsAfterDetails"
-             class="modify-buttons"
-             ng-switch="!config.isEditable && reservation.status !== 'Cancelled'">
-          <button ng-switch-when="true"
-                  class="button-brown"
+        <div class="modify-buttons"
+             ng-if="reservation.status !== 'Cancelled'">
+          <button class="button-brown"
                   ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()"
                   ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}"
-                  ng-if="!reservation.isInThePast && showActionButtons"
-                  ng-disabled="!reservation.canModify">
+                  ng-if="reservation.canModify">
             _modify_
           </button>
 
-          <button ng-switch-when="true"
-                  class="button-white"
+          <button class="button-white"
                   ng-click="reservation.pointValue ? modifyCancelPointsReservation() : openCancelReservationDialog()"
                   ng-class="{disabled: reservation.canCancel === false && !reservation.pointValue}"
-                  ng-if="!reservation.isInThePast && showActionButtons"
-                  ng-disabled="!reservation.canCancel">
+                  ng-if="reservation.canCancel">
             _cancel_
           </button>
         </div>
