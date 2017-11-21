@@ -23,25 +23,31 @@
       </header>
 
       <div class="tables">
-        <figure>
-          <img ng-if="!config.largePropertyImage"
-               ng-src="{{property.images[0].uri | cloudinaryImage : 320 : 160 : 'fill'}}"
-               err-source="/static/images/hotel.jpg"
-               alt="{{property.nameShort}}">
-
-          <img ng-if="config.largePropertyImage"
-               ng-src="{{property.images[0].uri | cloudinaryImage : 355 : 415 : 'fill'}}"
-               err-source="/static/images/hotel.jpg"
-               alt="{{property.nameShort}}">
-        </figure>
-
         <div>
           <div class="room-types">
+            <check-in-date>
+              <div class="title">_check_in_</div>
+              <div class="date">
+                  {{reservation.arrivalDate | checkInDate }}
+              </div>
+            </check-in-date>
 
             <span class="chain-logo {{ property.chainCode.toLowerCase() }}"></span>
             <h1 ng-if="config.displayPropertyNameInDetails">
               {{ property.nameLong }}
             </h1>
+
+            <figure>
+              <img ng-if="!config.largePropertyImage"
+                    ng-src="{{property.images[0].uri | cloudinaryImage : 320 : 160 : 'fill'}}"
+                    err-source="/static/images/hotel.jpg"
+                    alt="{{property.nameShort}}">
+
+              <img ng-if="config.largePropertyImage"
+                    ng-src="{{property.images[0].uri | cloudinaryImage : 355 : 415 : 'fill'}}"
+                    err-source="/static/images/hotel.jpg"
+                    alt="{{property.nameShort}}">
+            </figure>
 
             <h3>
               {{ reservation.rooms[0].roomTypeName }}
@@ -53,20 +59,22 @@
               </a>
             </h3>
 
-            <h4 ng-bind-html="reservation.rooms[0].productName"></h4>
-            <h4 ng-if="config.displayConfirmationNumberInDetails">
-              _booking_reference_: <span>{{ reservation.reservationCode }}</span>
+            <h4 class="booking-productname" ng-bind-html="reservation.rooms[0].productName"></h4>
+            <h4 class="booking-arrival-checkout">{{reservation.arrivalDate | dateTime}} &mdash; {{reservation.departureDate | dateTime}}</h4>
+            <h4 class="booking-confirmation-number" ng-if="config.displayConfirmationNumberInDetails">
+              Confirmation number: <span>{{ reservation.reservationCode }}</span>
             </h4>
+
             <span ng-if="config.displayBookingDateInDetails"
                   class="booking-date">
               _booked_:
               <span>{{ reservation.bookingDate | dateTime }}</span>
+                <a ng-if="config.displayPoliciesInDetails && !isMobile"
+                   href
+                   ng-click="openPoliciesInfo()">
+                _view_policies_
+              </a>
             </span>
-            <a ng-if="config.displayPoliciesInDetails && !isMobile"
-               href
-               ng-click="openPoliciesInfo()">
-              _view_policies_
-            </a>
 
           </div>
 
@@ -126,12 +134,12 @@
             </tbody>
           </table>
 
-          <a ng-if="!config.displayPoliciesInDetails || (config.displayPoliciesInDetails && isMobile)"
+          <!-- <a ng-if="!config.displayPoliciesInDetails || (config.displayPoliciesInDetails && isMobile)"
              class="policy-link"
              href
              ng-click="openPoliciesInfo()">
             _view_policies_
-          </a>
+          </a> -->
 
         </div>
       </div>

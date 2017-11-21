@@ -1,11 +1,5 @@
 <div class="ReservationsBackground" ng-if="config.reservations.useBackground"></div>
 
-<hero-slider ng-if="!config.reservations.hideHeroSliderOnReservations"
-             content="heroContent"
-             slide-width="uiConfig.heroSlider.slideWidth"
-             slide-height="uiConfig.heroSlider.slideHeight">
-</hero-slider>
-
 <section-image ng-if="config.reservations.sectionImages &&
                       config.reservations.sectionImages[0] &&
                       reservations.nextStay"
@@ -22,8 +16,8 @@
 
 <main class="reservation-overview"
       id="jsReservations"
-      ng-class="{'reservations-no-hero': config.reservations.hideHeroSliderOnReservations,
-                 'grid-wrapper':!viewSettings.fullWidthSections,
+      ng-class="{'grid-wrapper':!viewSettings.fullWidthSections,
+                 'no-future-stays': reservations.futureStays.length === 0,
                  'no-reservations':!reservations.nextStay &&
                                     reservations.futureStays.length === 0 &&
                                     reservations.pastStays.length === 0}">
@@ -32,8 +26,11 @@
 
   <div ui-view>
 
-    <div class="reservations"
-         ng-attr-grid="{{!viewSettings.fullWidthSections ? 12 : undefined}}">
+    <div class="reservations">
+
+      <div class="reservations-title">
+        <h1>Reservations</h1>
+      </div>
 
       <div ng-if="!reservations.nextStay &&
                   reservations.futureStays.length === 0 &&
@@ -58,21 +55,16 @@
       <div class="ReservationsNextStay__container">
         <div ng-if="reservations.nextStay" class="ReservationsNextStay">
           <!-- TODO SAME AS BOOKING COMPLETE PREVIEW -->
-          <h1 class="ReservationsNextStay__title" ng-bind-html="'_reservation_page_nextstay_title_' | mainHeaderStyle"></h1>
+          <div class="ReservationsNextStay__title">
+            <h1 ng-bind-html="'_reservation_page_nextstay_title_' | mainHeaderStyle"></h1>
+          </div>
 
           <reservation-item>
-
-            <div class="table-wrap">
-
               <reservation-details currency-code="defaultCurrencyCode"
                                    reservation="reservations.nextStay"
                                    property="properties[reservations.nextStay.property.code]">
               </reservation-details>
-
-            </div>
-
           </reservation-item>
-          <hr/>
         </div>
         <div ng-if="!reservations.nextStay && (reservations.pastStays.length || reservations.futureStays.length)"
              class="ReservationsNextStay empty">
@@ -97,26 +89,28 @@
 
         <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
 
-          <h1 ng-bind-html="'_reservation_page_futurestays_title_' | mainHeaderStyle"></h1>
+          <div class="ReservationsFutureStay__title">
+            <h1 ng-bind-html="'_reservation_page_futurestays_title_' | mainHeaderStyle"></h1>
+          </div>
 
-          <reservation-item ng-repeat="reservation in reservations.futureStays | orderBy:'bookingDate' : true">
-
-            <div class="table-wrap">
-
-              <reservation-data currency-code="defaultCurrencyCode"
-                                reservation="reservation"
-                                property="properties[reservation.property.code]">
-              </reservation-data>
-
-            </div>
-
-            <hr class="dividerWithoutImage"/>
-
-          </reservation-item>
+          <div class="carousel">
+            <carousel>
+              <slide ng-repeat="reservation in reservations.futureStays | orderBy:'bookingDate' : true" active="slide.active">
+                <div class="table-wrap">
+                  <reservation-details currency-code="defaultCurrencyCode"
+                                    reservation="reservation"
+                                    property="properties[reservation.property.code]">
+                  </reservation-details>
+                </div>
+              </slide>
+            </carousel>
+          </div>
 
         </div>
 
       </div>
+
+      <div class="clearfix"></div>
 
       <section-image ng-if="config.reservations.sectionImages &&
                             config.reservations.sectionImages[1] &&
@@ -128,7 +122,8 @@
                      show-logo="false">
       </section-image>
 
-      <div ng-if="reservations.pastStays.length" class="past-stays">
+      <!-- No design for past reservations at this time -->
+      <!-- <div ng-if="reservations.pastStays.length" class="past-stays">
 
         <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
 
@@ -148,7 +143,7 @@
           </reservation-item>
 
         </div>
-      </div>
+      </div> -->
 
     </div>
   </div>
