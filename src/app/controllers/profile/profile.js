@@ -179,12 +179,14 @@
         $scope.submitted = true;
         form.$submitted = true;
 
-        // Open sections if they are closed and has errors
-        if (form.termsAndConditions.$invalid && $scope.sections.termsAndConditions.visible && !$scope.sections.termsAndConditions.expanded) {
-          $scope.toggleSection($scope.sections.termsAndConditions);
-        }
-        if ((form.password.$invalid || form.passwordConfirm.$invalid) && $scope.sections.resetPassword.visible && !$scope.sections.resetPassword.expanded) {
-          $scope.toggleSection($scope.sections.resetPassword);
+        if (Settings.conditionalRedirect === true) {
+          // Open sections if they are closed and has errors
+          if (form.termsAndConditions.$invalid && $scope.sections.termsAndConditions.visible && !$scope.sections.termsAndConditions.expanded) {
+            $scope.toggleSection($scope.sections.termsAndConditions);
+          }
+          if ((form.password.$invalid || form.passwordConfirm.$invalid) && $scope.sections.resetPassword.visible && !$scope.sections.resetPassword.expanded) {
+            $scope.toggleSection($scope.sections.resetPassword);
+          }
         }
 
         if(form.$valid){
@@ -197,8 +199,10 @@
 
           data.userCountry = contentService.getCountryByID(data.localeId, $scope.profileCountries);
 
-          data.password = (passwordData.password) ? passwordData.password : '';
-          data.confirmPassword = (passwordData.confirmPassword) ? passwordData.confirmPassword : '';
+          if (passwordData) {
+            data.password = (passwordData.password) ? passwordData.password : '';
+            data.confirmPassword = (passwordData.confirmPassword) ? passwordData.confirmPassword : '';
+          }
 
           if(data.userCountry) {
             data.country = data.userCountry.code;
