@@ -103,12 +103,13 @@
   <form-element ng-if="!advanced" class="code" ng-class="{'code-input': selected.codeType}" title="_apply_code_">
     <select name="code"
             chosen
-            required ng-model="selected.codeType"
+            required
+            ng-model="selected.codeType"
             disable-search="true"
-            ng-options="code as code.title for code in codeTypes"
+            ng-options="code as code.title for code in codeTypes | filter:{'title':'!group'}"
             ng-change="onCodeTypeChanged()"
             ng-disabled="$root.thirdparty"
-            placeholder-text-single="_apply_code_">
+            placeholder="_apply_code_">
     </select>
 
     <input type="text"
@@ -121,18 +122,10 @@
 
     <input type="text"
            class="booking-widget-promo-code"
-           ng-disabled="$root.thirdparty"
+           ng-disabled="true"
            ng-show="selected.codeType.param === 'corpCode'"
            placeholder="_corp_code_"
            ng-model="selected.corpCode"
-           ng-pattern="$root.generalValidationPattern">
-
-    <input type="text"
-           class="booking-widget-promo-code"
-           ng-disabled="$root.thirdparty"
-           ng-show="selected.codeType.param === 'groupCode'"
-           placeholder="_group_code_"
-           ng-model="selected.groupCode"
            ng-pattern="$root.generalValidationPattern">
     <form-label>{{selected.codeType.title}}</form-label>
 

@@ -95,7 +95,7 @@
               ng-model="search.codeType"
               ng-change="showCode = true"
               placeholder-text-single="_apply_code_"
-              ng-options="code.value as code.title for code in codes">
+              ng-options="code.value as code.title for code in codes | filter:{'title':'!group'}">
       </select>
     </form-element>
 
