@@ -56,7 +56,7 @@ angular.module('mobiusApp.dynamicMessages', [])
     'extraguests':'Extra Gasts',
     'family':'Familie',
     'guarantee':'Garantie',
-    'noshow':'Keine Show',
+    'noshow':'No Show',
     'pet':'Haustier',
     'from':'Von',
     'tax':'Steuer',
