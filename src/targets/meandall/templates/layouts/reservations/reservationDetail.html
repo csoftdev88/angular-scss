@@ -444,7 +444,7 @@
     <!-- AVAILABLE ADDONS -->
     <section grid-row
              class="reservation-enhance"
-             ng-if="availableAddons.length && (reservation.rooms.length === 1)">
+             ng-if="availableAddons.length && (reservation.rooms.length === 1) && reservation.status !== 'Cancelled'">
       <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
         <h3 ng-bind-html="'_reservation_enhance_title_' | mainHeaderStyle"></h3>
         <ul>
