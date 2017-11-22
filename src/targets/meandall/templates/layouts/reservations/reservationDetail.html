@@ -235,7 +235,7 @@
                   <tr class="breakdown"
                       ng-repeat="breakdown in reservation.rooms[0].priceDetail.breakdowns | orderBy:'date'"
                       ng-class="{'last': $last}">
-                    <th>{{formatDate(breakdown.date, 'DD MMM YYYY')}}:</th>
+                    <th>{{breakdown.date | dateTime }}:</th>
                     <td>{{getBreakdownTotalDate(breakdown.date) | i18nCurrency: defaultCurrencyCode}}</td>
                   </tr>
 
