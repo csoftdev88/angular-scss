@@ -90,16 +90,9 @@
       </label>
 
       <label for="telephone" class="input-right">
-        <!--
-          <input type="text" id="telephone" national-mode="false" default-country="{{defaultCountryCode || 'ca'}}" international-phone-number
-            preferred-countries="{{preferredCountryCodes || 'ca'}}"
-            ng-model="userDetails.phone"
-            ng-change="countryPhoneChanged()"
-            name="phone"
-            placeholder="_phone_label_"/>
-            -->
         <input type="tel"
                id="telephone"
+               required
                ng-model="userDetails.phone"
                name="phone"
                placeholder="_phone_label_"
