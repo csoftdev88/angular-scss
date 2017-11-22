@@ -60,8 +60,10 @@
   .About__hero {
     padding-top: 50px;
 
-    .hotel-description-container main {
-      padding-top: 320px;
+    .hotel-description-container {
+      &.user-not-authenticated {
+        padding-top: 285px;
+      }
     }
 
     .register_space {
