@@ -239,6 +239,19 @@
                     <td>{{getBreakdownTotalDate(breakdown.date) | i18nCurrency: defaultCurrencyCode}}</td>
                   </tr>
 
+                  <tr class="main" ng-if="getAddonsTotalPrice() > 0">
+                    <th>_addons_:</th>
+                    <td>{{getAddonsTotalPrice() | i18nCurrency: defaultCurrencyCode}}</td>
+                  </tr>
+
+                  <tr class="breakdown"
+                      ng-if="getAddonsTotalPrice() > 0"
+                      ng-repeat="addon in reservationAddons"
+                      ng-class="{'last': $last}">
+                    <th>{{ addon.name }}</th>
+                    <td>{{ (inclusionsAsAddons && addon.price) ? addon.price.totalAfterTax : addon.price | i18nCurrency: defaultCurrencyCode }}</td>
+                  </tr>
+
                   <tr class="main" ng-if="getBreakdownTotalTaxes(false) > 0">
                     <th>_taxes_:</th>
                     <td>{{getBreakdownTotalTaxes(false) | i18nCurrency: defaultCurrencyCode}}</td>
@@ -295,10 +308,10 @@
                     <th>_total_:</th>
                     <td>
                       <span ng-if="!reservation.pointValue">
-                        {{getCountPriceDetail('totalAfterTaxAfterPricingRules') | i18nCurrency: defaultCurrencyCode}}
+                        {{getCountPriceDetail('totalAfterTaxAfterPricingRules', true) | i18nCurrency: defaultCurrencyCode}}
                       </span>
                       <span ng-if="reservation.pointValue && loyaltyProgramEnabled">
-                        {{reservation.pointValue}} _points_
+                        {{countPointvalue()}} _points_
                       </span>
                     </td>
                   </tr>

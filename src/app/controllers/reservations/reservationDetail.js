@@ -450,12 +450,12 @@
         });
     };
 
-    $scope.getCountPriceDetail = function(prop) {
+    $scope.getCountPriceDetail = function(prop, countAddons) {
       if (!$scope.reservation || !$scope.reservation.rooms || !$scope.reservation.rooms.length) {
         return null;
       }
 
-      return _.reduce(
+      var price = _.reduce(
         _.map($scope.reservation.rooms, function(room) {
           if (room.priceDetail) {
             return room.priceDetail[prop];
@@ -464,6 +464,11 @@
         function(t, n) {
           return t + n;
         });
+      if (countAddons) {
+        price += $scope.getAddonsTotalPrice();
+      }
+
+      return price;
     };
 
     // TODO: Check if this needed?
@@ -603,6 +608,10 @@
       return _.reduce($scope.reservationAddons, function(acc, addon) {
         return acc + addon.points;
       }, 0);
+    };
+
+    $scope.countPointvalue = function() {
+      return $scope.reservation.pointValue + $scope.getAddonsTotalPoints();
     };
 
     $scope.openAddonDetailDialog = function(e, addon, payWithPoints) {
