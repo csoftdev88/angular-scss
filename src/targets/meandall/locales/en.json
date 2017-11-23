@@ -448,7 +448,7 @@
     "tiers_modal_platinum_title": "Platinum Tier",
     "addon_modal_tagline": "Add to your booking with one click!",
     "addon_modal_confirm_desc": "Please confirm you want to add this Enhancement to your booking:",
-    "addon_modal_charge_desc": "We will charge the card that you made your booking with. This enhancement is covered by the same terms and policies as the booking it is associated with.",
+    "addon_modal_charge_desc": "This enhancement is covered by the same terms and policies as the booking it is associated with.",
     "addon_modal_charge_confirm": "You can add this enhancement to your stay by clicking confirm below. Payment will be taken at the hotel. This enhancement is covered by the same terms and policies as the booking that it is associated with.",
     "cancel_reservation_modal_title": "Are you sure you want to cancel this reservation?",
     "cancel_reservation_modal_number": "Reservation number:",
