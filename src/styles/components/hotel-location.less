@@ -47,95 +47,96 @@ hotel-location {
     }
   }
 
+  .additional-info {
+    contact-list {
+      margin-bottom: @baseline;
 
-  contact-list {
-    margin-bottom: @baseline;
+      // Email
+      contact-item:nth-of-type(1) div {
+        padding-left: 0 !important;
+        text-align: left !important;
+      }
 
-    // Email
-    contact-item:nth-of-type(1) div {
-      padding-left: 0 !important;
-      text-align: left !important;
+      // Address
+      contact-item:nth-of-type(3) div {
+        padding-left: 0 !important;
+        text-align: right !important;
+        .viewport-mobile & {
+          text-align: left !important;
+        }
+      }
+    }
+
+    contact-list,
+    transportation-list {
+      display: flex;
+      flex-flow: wrap;
+      text-align: center;
+
+      strong {
+        color: @c-brown;
+      }
+    }
+
+    i {
+      top: 3px;
+      left: 0;
+      color: @c-brown;
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 40px;
+    }
+
+    h3,
+    h4 {
+      font-size: @size-0;
+      font-weight: bold;
+    }
+
+    h4 {
+      color: @c-brown;
+    }
+
+    transportation-item,
+    contact-item {
+      position: relative;
+      box-sizing: border-box;
+      flex: 1 0 33%;
+      display: block;
+      width: 33%;
+
+      .viewport-mobile & {
+        flex: 1 0 100%;
+        width: 100%;
+        text-align: left;
+        margin-bottom: 5px;
+        div {
+          padding-left: 0;
+        }
+      }
+
+      div {
+        position: relative;
+        padding-left: 20px;
+      }
+    }
+
+    contact-item {
+      div {
+        a {
+          color: #000;
+        }
+      }
     }
 
     // Address
-    contact-item:nth-of-type(3) div {
-      padding-left: 0 !important;
-      text-align: right !important;
-      .viewport-mobile &{
-        text-align: left !important;
-      }
-    }
-  }
-
-  contact-list,
-  transportation-list {
-    display: flex;
-    flex-flow: wrap;
-    text-align: center;
-
-    strong {
-      color: @c-brown;
-    }
-  }
-
-  i {
-    top: 3px;
-    left: 0;
-    color: @c-brown;
-  }
-
-  img {
-    position: absolute;
-    top: 0;
-    left: 40px;
-  }
-
-  h3,
-  h4 {
-    font-size: @size-0;
-    font-weight: bold;
-  }
-
-  h4 {
-    color: @c-brown;
-  }
-
-  transportation-item,
-  contact-item {
-    position: relative;
-    box-sizing: border-box;
-    flex: 1 0 33%;
-    display: block;
-    width: 33%;
-
-    .viewport-mobile &{
-      flex: 1 0 100%;
-      width: 100%;
-      text-align: left;
-      margin-bottom: 5px;
-      div{
-        padding-left: 0;
-      }
+    address {
+      display: inline-block;
+      vertical-align: top;
     }
 
-    div {
-      position: relative;
-      padding-left: 20px;
-    }
   }
-
-  contact-item{
-    div{
-      a{
-        color: #000;
-      }
-    }
-  }
-
-  // Address
-  address {
-    display: inline-block;
-    vertical-align: top;
-  }
-
 }
