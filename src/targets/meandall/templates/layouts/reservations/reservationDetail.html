@@ -218,6 +218,7 @@
             <div
               class="extended-charges"
               ng-if="config.reservationDetailPriceBreakdownExtended &&
+                            reservation.status !== 'Cancelled'
                             reservation &&
                             !config.useSidetable &&
                             reservation.rooms[0].priceDetail &&
