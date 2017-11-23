@@ -13,6 +13,7 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
              userObject, offers, DynamicMessages) {
       var activeThirdParty;
       $scope.chainCode = Settings.API.chainCode;
+      $scope.regionConfig = Settings.UI.regions;
 
       var appLang = stateService.getAppLanguageCode();
       var dynamicMessages = appLang && DynamicMessages && DynamicMessages[appLang] ? DynamicMessages[appLang] : null;

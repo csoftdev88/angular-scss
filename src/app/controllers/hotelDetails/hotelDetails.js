@@ -344,7 +344,7 @@ angular.module('mobius.controllers.hotel.details', [
 
         if ($scope.config.bookingStatistics && $scope.config.bookingStatistics.display && $scope.details.statistics){
           $timeout(function(){
-            $scope.$broadcast('STATS_GROWL_ALERT', $scope.details.statistics);
+            $rootScope.$broadcast('STATS_GROWL_ALERT', $scope.details.statistics);
           });
         }
 
