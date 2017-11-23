@@ -109,6 +109,15 @@
               border: 1px solid #A7A7A7;
             }
           }
+          input.ng-touched.ng-dirty.ng-invalid + .input-icon-wrapper {
+            color: @c-red;
+          }
+          input.ng-touched.ng-dirty.ng-valid + .input-icon-wrapper {
+            color: @c-green;
+          }
+          select.ng-touched.ng-dirty.ng-invalid + .chosen-container {
+            border: 1px solid @c-red;
+          }
         }
       }
       button-submit {
