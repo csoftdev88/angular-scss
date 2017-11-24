@@ -261,10 +261,8 @@
               scope.errorMsg = false;
               pollsService.answer(pollId, scope.poll.choiceId)
                 .then(function (data) {
-                  if (data.rightAnswer) {
-                    userObject.loyalties.amount += pollPoints;
-                    scope.points = userObject.loyalties.amount;
-                  }
+                  userObject.loyalties.amount += pollPoints;
+                  scope.points = userObject.loyalties.amount;
                   $log.info('Poll successfully submitted', data);
                   selectPoll();
                 });
