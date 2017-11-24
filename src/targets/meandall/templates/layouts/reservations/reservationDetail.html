@@ -533,6 +533,7 @@
               <a class="button"
                  ng-click="openAddonDetailDialog($event, addon, false)">
                 {{inclusionsAsAddons && addon.price ? addon.price.totalAfterTax : addon.price | i18nCurrency: defaultCurrencyCode}}
+                <small>_addon_charge_per_person_per_stay_</small>
               </a>
 
               <a class="button"

@@ -584,6 +584,8 @@
     "no_cancel_modify": "Sie haben eine nicht stornierbare Rate gebucht.",
     "guest_name": "Gastname",
     "max_children_age": "(unter 12 Jahre)",
-    "addons": "Addons"
+    "addons": "Addons",
+    "addon_charge_per_person_per_day": "pro Person & Tag",
+    "addon_charge_per_person_per_stay": "pro Person & Aufenthalt"
   }
 }

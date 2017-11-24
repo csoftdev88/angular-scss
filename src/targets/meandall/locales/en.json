@@ -582,6 +582,8 @@
     "no_cancel_modify": "You have booked a non-cancellable rate.",
     "guest_name": "Guest name",
     "max_children_age": "(up to 11 years)",
-    "addons": "Addons"
+    "addons": "Addons",
+    "addon_charge_per_person_per_day": "per Person per Day",
+    "addon_charge_per_person_per_stay": "per Person per Stay"
   }
 }
