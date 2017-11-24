@@ -56,9 +56,9 @@ angular
     });
 
     // ---- AUTH FUNCTIONS -----
-    var login = function (options) {
+    var login = function (options, callback, callbackParams) {
       if (strategy) {
-        return strategy.login($scope, options);
+        return strategy.login($scope, options, callback, callbackParams);
       }
       console.warn('WARNING : Unexpected beahviour, the auth strategy has not been set');
     };
