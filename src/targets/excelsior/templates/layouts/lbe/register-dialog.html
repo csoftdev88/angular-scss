@@ -41,6 +41,10 @@
           </span>
     </p>
 
+    <p class="error-msg error" ng-if="!error">
+      <span>{{ getRegisterValidationMessage(registerForm) }}</span>
+    </p>
+
   </header>
 
   <div class="form-wrapper">
@@ -197,14 +201,14 @@
       <button-submit role="button"
                      tabindex="0"
                      ng-show="!registerFormSteps.filledEmail"
-                     ng-click="registerFormSteps.filledEmail = !registerFormSteps.filledEmail">
+                     ng-click="gatedRegisterNext(registerForm)">
         _next_
       </button-submit>
 
       <button-submit role="button"
                      tabindex="0"
                      ng-show="registerFormSteps.filledEmail"
-                     ng-click="register(registerForm, registerData); retentionClick()">
+                     ng-click="gatedRegisterNext(registerForm, registerData); retentionClick()">
         _register_
       </button-submit>
 
