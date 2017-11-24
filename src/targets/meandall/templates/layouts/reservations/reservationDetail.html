@@ -249,7 +249,7 @@
                       ng-if="getAddonsTotalPrice() > 0"
                       ng-repeat="addon in reservationAddons"
                       ng-class="{'last': $last}">
-                    <th>{{ addon.name }}</th>
+                    <th>{{ addon.name }} <small>_addon_charge_per_person_per_stay_</small></th>
                     <td>{{ (inclusionsAsAddons && addon.price) ? addon.price.totalAfterTax : addon.price | i18nCurrency: defaultCurrencyCode }}</td>
                   </tr>
 
