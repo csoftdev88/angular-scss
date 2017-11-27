@@ -395,18 +395,21 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'avatarUrl': '/static/images/lbe/testimonial-profile-3_preview.png',
         'text': '“Best Value Upper West Side and Super Location”',
         'name': 'William B',
+        'namePrefix': "W",
         'city': 'Manhattan Beach, California'
       },
       {
         'avatarUrl': '/static/images/lbe/testimonial-profile-1_preview.png',
         'text': '“A beautiful hotel in the heart of the Upper West Side”',
         'name': 'Sue M',
+        'namePrefix': "S",
         'city': 'St. Catharines, Canada'
       },
       {
         'avatarUrl': '/static/images/lbe/testimonial-profile-2_preview.png',
         'text': '“Wonderful and the value cannot be beat!”',
         'name': 'Molly Y',
+        'namePrefix': 'M',
         'city': 'Raleigh, North Carolina'
       }
     ],
