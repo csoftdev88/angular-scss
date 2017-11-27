@@ -27,7 +27,7 @@
             </h3>
           </header>
 
-          <div class="description" ng-bind-html="sanitize(roomsConfig.showRoomHighlight ? (room.roomHighlight && room.roomHighlight !== '' ? room.roomHighlight : room.description) : room.description)"></div>
+          <div class="description" ng-bind-html="sanitize(roomsConfig.showRoomHighlight ? (room.roomHighlight && room.roomHighlight !== '' && room.roomHighlight !== 'NO CMS VALUE' ? room.roomHighlight : room.description) : room.description)"></div>
         </div>
 
         <a ng-href="{{getRoomUrl(details.meta.slug, room.meta.slug)}}" class="read-more">_read_more_</a>
