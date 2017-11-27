@@ -15,11 +15,11 @@
     .directive('questionnaire', ['Settings', '$log', 'polls', 'userObject', 'DynamicMessages', 'stateService',
                                  'rewardsService', '$controller', '_', 'reservationService', 'propertyService',
                                  'apiService', '$q', 'user', 'userMessagesService', '$rootScope', 'modalService',
-                                 'infinitiEcommerceService', 'preloaderFactory', Questionnaire]);
+                                 'infinitiEcommerceService', 'preloaderFactory', '$window', Questionnaire]);
 
   function Questionnaire(Settings, $log, pollsService, userObject, DynamicMessages, stateService, rewardsService,
                          $controller, _, reservations, property, apiService, $q, user, userMessagesService, $rootScope,
-                         modalService, infinitiEcommerceService, preloaderFactory) {
+                         modalService, infinitiEcommerceService, preloaderFactory, $window) {
     return {
       restrict: 'E',
       scope: true,
@@ -205,14 +205,9 @@
 
           var reservationPromise = reservations.getAll()
             .then(function (reservations) {
-              $log.info('Reservations retrieved', reservations);
-              var nextStay = reservations[0] || null;
-              // Find the reservation with the earliest start date
-              _.each(reservations, function (reservation) {
-                if (new Date(reservation.arrivalDate) < new Date(nextStay.arrivalDate)) {
-                  nextStay = reservation;
-                }
-              });
+              var sortedByArrivalDateReservations = sortByArrivalDate(reservations);
+              var futureStays = getFutureStays(sortedByArrivalDateReservations);
+              var nextStay = futureStays.shift() || null;
               return nextStay;
             });
 
@@ -282,6 +277,20 @@
           scope.nextStay = false;
           scope.defaultCurrencyCode = Settings.UI.currencies.default;
         };
+
+        function sortByArrivalDate(reservations){
+          return _.sortBy(reservations, function(reservation){
+            return $window.moment(reservation.arrivalDate).valueOf();
+          });
+        }
+
+        function getFutureStays(data) {
+          var todayUtc = new Date().toJSON().slice(0, 10);
+          var today = parseInt($window.moment(todayUtc).valueOf());
+          return _.filter(data, function(reservation) {
+            return $window.moment(reservation.arrivalDate).valueOf() >= today;
+          });
+        }
 
         /**
          * As the directive's logic relies on the user being logged in and containing their rewards data, pass
