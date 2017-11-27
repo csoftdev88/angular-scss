@@ -916,7 +916,8 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'displayOfferImageInHeroSlider': true,
       'height': 200,
       'width': 307,
-      'scrollToBreadcrumbs': true,
+      'scrollToBreadcrumbs': false,
+      'noScrollToOfferDetail': true,
       //if number of words greater than [key], wrap the first [value] words in span for styling
       'offersThumbnailsTitlePattern':{
         '0': 1,
