@@ -30,10 +30,23 @@
       </div>
     </div>
 
-    <div class="book-now-to-save">
-     <div class="book-now-to-save-title">Book now to save</div>
-     <div class="book-now-to-save-text"><span class="emphasis">Book now</span> and <span class="emphasis">earn points</span> to spend towards your next stay.</div>
+
+    <!-- TODO: need more information where to get pendingPoints, currently pendingPoints always equals false -->
+    <div class="book-now-to-save" ng-if="pendingPoints">
+     <div class="book-now-to-save-title">Pending Points</div>
+     <div class="book-now-to-save-text">You are due to earn <span class="emphasis">125 points</span>
+      in the next <span class="emphasis">15 days</span>.</div>
     </div>
+
+    <div class="book-now-to-save" ng-if="question && !pendingPoints">
+      <div class="book-now-to-save-title">Earn More Points</div>
+      <div class="book-now-to-save-text">Answer your Questionnaire to earn <span class="emphasis">{{ reward_points }} points</span>.</div>
+     </div>
+
+    <div class="book-now-to-save" ng-if="!question && !pendingPoints">
+      <div class="book-now-to-save-title">Book now to save</div>
+      <div class="book-now-to-save-text"><span class="emphasis">Book now</span> and <span class="emphasis">earn points</span> to spend towards your next stay.</div>
+     </div>
   </article>
 
   <div ng-if="question" class="stop-gap"></div>
