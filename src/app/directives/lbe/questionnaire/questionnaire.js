@@ -285,10 +285,9 @@
         }
 
         function getFutureStays(data) {
-          var todayUtc = new Date().toJSON().slice(0, 10);
-          var today = parseInt($window.moment(todayUtc).valueOf());
+          var today = $window.moment().startOf('day');
           return _.filter(data, function(reservation) {
-            return $window.moment(reservation.arrivalDate).valueOf() >= today;
+            return $window.moment(reservation.arrivalDate).isAfter(today);
           });
         }
 
