@@ -1203,11 +1203,16 @@ angular.module('mobius.controllers.reservation', [])
 
     //Billing details if different than guest details
     if (!$scope.billingDetails.useGuestAddress) {
+      var billingCountry = contentService.getCountryByID($scope.billingDetails.country, $scope.profileCountries);
+      if (!billingCountry) {
+        $log.warn('Failed to find country by ID', $scope.billingDetails.country);
+        billingCountry = {code: '-'};
+      }
       reservationData.billingAddress = $scope.billingDetails.address;
       reservationData.billingCity = $scope.billingDetails.city;
       reservationData.billingZip = $scope.billingDetails.zip;
       reservationData.billingPhone = $scope.billingDetails.phone;
-      reservationData.billingCountry = $scope.billingDetails.country;
+      reservationData.billingCountry = billingCountry.code;
     }
 
     // Product basePrice
