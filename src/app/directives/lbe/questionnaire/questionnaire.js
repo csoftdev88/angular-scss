@@ -48,6 +48,7 @@
                     scope.options = data.choices.sort(sortQuestionnaireAnswers);
                     scope.poll.choiceId = scope.options[0].id;
                     scope.reward = dynamicMessages.answer_the_question.replace('XX', data.points);
+                    scope.reward_points = data.points;
                     pollPoints = data.points;
                   });
               }
