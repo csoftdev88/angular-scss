@@ -225,7 +225,9 @@
 
     <div class="hotel-details-container">
       <div class="section-padding">
-        <section class="addon-section">
+        <section
+          class="addon-section"
+          ng-if="availableAddons.length">
           <h4>_reservation_enhance_title_</h4>
 
           <div class="addon-wrapper"
@@ -262,6 +264,29 @@
 
         <section>
           <hotel-location hotel-details="property" ng-if="property"></hotel-location>
+        </section>
+
+        <section
+          class="addon-section"
+          ng-if="reservationAddons.length">
+          <h4>_reservation_enhance_summary_title_</h4>
+
+          <div class="addon-wrapper"
+               ng-repeat="addon in reservationAddons">
+            <div class="addon-image">
+              <img ng-if="addon.image && addon.image.uri"
+                   ng-src="{{addon.image.uri}}"/>
+              <img ng-if="(!addon.image || !addon.image.uri) &&
+                                addon.images &&
+                                addon.images.length &&
+                                addon.images[0].uri"
+                   ng-src="{{addon.images[0].uri}}"/>
+            </div>
+
+            <div class="addon-text">
+              <div class="addon-name" ng-bind-html="addon.name | wrapWordHtml : 'span' : 0"></div>
+            </div>
+          </div>
         </section>
       </div>
     </div>
