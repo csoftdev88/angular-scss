@@ -21,8 +21,8 @@
       _.each(data.searches, function(search){
         search.name = search.n;
         //Generate the date string
-        if(search.params && search.params.dates){
-          var datesArray = search.params.dates.split('_');
+        if(search.p && search.p.d){
+          var datesArray = search.p.d.split('_');
           if(datesArray.length){
             var fromMoment = $window.moment(datesArray[0]);
             var toMoment = $window.moment(datesArray[1]);
