@@ -55,6 +55,9 @@
               userObject.id = data.id;
               user.storeUserId(data.id);
               user.loadProfile();
+              if ($rootScope.callbackFn) {
+                $rootScope.callbackFn.apply(null, $rootScope.callbackParams);
+              }
             } else {
               that.loginDialogError = true;
               that.incorrectEmailPasswordError = true;
@@ -78,7 +81,9 @@
      * @param scope
      * @todo Find a better way to do this
      */
-    this.login = function (scope) {
+    this.login = function (scope, options, callback, callbackParams) {
+      $rootScope.callbackFn = callback;
+      $rootScope.callbackParams = callbackParams;
       $rootScope.showLoginDialog = !$rootScope.showLoginDialog;
       scope.doLogin = doLogin.bind(scope);
     };

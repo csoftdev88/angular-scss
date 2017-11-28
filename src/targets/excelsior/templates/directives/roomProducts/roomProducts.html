@@ -158,11 +158,19 @@
             _book_now_
           </a>
           <a href
+             ng-if="room.priceFrom"
              class="button"
              ng-show="product.memberOnly && !isUserLoggedIn()"
-             ng-click="auth.login()">
+             ng-click="auth.login({}, selectProduct, [room.code, product.code, null, null, product.upSell, $event])">
             _login_to_book_
           </a>
+          <a href
+          ng-if="!room.priceFrom"
+          class="button"
+          ng-show="product.memberOnly && !isUserLoggedIn()"
+          ng-click="auth.login({}, goToRoom, [details.meta.slug, room.meta.slug])">
+         _login_to_book_
+       </a>
         </div>
       </div>
 
