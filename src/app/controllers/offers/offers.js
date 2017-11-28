@@ -618,16 +618,18 @@ angular.module('mobius.controllers.offers', [])
   //Helper functions
   /////////////////////////
 
-  //watch for showDetail model and scroll to offer detail when true
-  $scope.$watch(function() {
-    return $scope.showDetail;
-  }, function() {
-    if ($scope.showDetail) {
-      $timeout(function() {
-        scrollService.scrollTo('offer-detail', 20);
-      });
-    }
-  });
+  if (!Settings.UI.offers.noScrollToOfferDetail) {
+    //watch for showDetail model and scroll to offer detail when true
+    $scope.$watch(function() {
+      return $scope.showDetail;
+    }, function() {
+      if ($scope.showDetail) {
+        $timeout(function() {
+          scrollService.scrollTo('offer-detail', 20);
+        });
+      }
+    });
+  }
 
   $scope.bindHtmlClick = function(event) {
     if (event.target.attributes['ng-click'] && event.target.attributes['ng-click'].value === 'login()') {
