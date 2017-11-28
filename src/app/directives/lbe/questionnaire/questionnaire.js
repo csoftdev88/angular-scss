@@ -45,8 +45,8 @@
                 return pollsService.get(data[0].id)
                   .then(function (data) {
                     scope.question = data.question;
-                    scope.options = data.choices;
-                    scope.poll.choiceId = data.choices[0].id;
+                    scope.options = data.choices.sort(sortQuestionnaireAnswers);
+                    scope.poll.choiceId = scope.options[0].id;
                     scope.reward = dynamicMessages.answer_the_question.replace('XX', data.points);
                     pollPoints = data.points;
                   });
@@ -61,6 +61,15 @@
               }
             });
         };
+
+        function sortQuestionnaireAnswers(a, b) {
+          // Answer with null id "None of the above" should always be last
+          if (a.id === null) { return 1; }
+          if (b.id === null) { return -1; }
+          if (a.name > b.name) { return 1; }
+          if (a.name < b.name) { return -1; }
+          return 0;
+        }
 
         function getAvailableAddons() {
           // TODO: refactor this into a new addonsService and reuse it in reservationDetails.js
