@@ -60,9 +60,9 @@ angular.module('mobius.controllers.hotel.details', [
   if (Settings.UI.viewsSettings.hotelDetails.showIncentiveNotifications) {
     $timeout(function() {
       if (!$scope.isUserLoggedIn()) {
-        var availableIncetives = Settings.UI.viewsSettings.hotelDetails.incentiveNotifications;
-        var chosenIndex = Math.floor(Math.random() * availableIncetives.length);
-        var chosenNotification = availableIncetives[chosenIndex];
+        var availableIncentives = Settings.UI.viewsSettings.hotelDetails.incentiveNotifications;
+        var chosenIndex = Math.floor(Math.random() * availableIncentives.length);
+        var chosenNotification = availableIncentives[chosenIndex];
         var inlineContent = '<div class="ex-growl-text">' +
           '<h4 class="ex-growl-title">' + chosenNotification.title + '</h4>' +
           '<p class="ex-growl-message">' + chosenNotification.message + '</p>' +
