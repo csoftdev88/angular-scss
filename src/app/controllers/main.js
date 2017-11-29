@@ -60,13 +60,13 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
         $scope.registerCountries = data;
       });
 
-      if ($location.$$search.totalBookings && userMessagesService.getMessages().length === 0) {
+      if ($location.search().totalBookings && userMessagesService.getMessages().length === 0) {
         var bookingLinks = '';
-        for (var g = 0; g < parseInt($location.$$search.totalBookings); g++) {
-          var bookingCode = $location.$$search['booking' + g];
+        for (var g = 0; g < parseInt($location.search().totalBookings); g++) {
+          var bookingCode = $location.search()['booking' + g];
           bookingLinks += '<a href="/reservations/' + bookingCode + '/">' + bookingCode + '</a>';
         }
-        userMessagesService.addReservationConfirmationMessage('', bookingLinks);
+        userMessagesService.addReservationConfirmationMessage('multiroom', bookingLinks);
       }
 
       // TODO: move this into a new registerService and refactor register controller

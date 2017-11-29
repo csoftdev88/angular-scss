@@ -60,7 +60,7 @@ angular.module('mobiusApp.services.userMessagesService', [])
 
       $rootScope.$evalAsync(function(){
         messages.push({
-          type: (property === '') ? TYPE_MULTIPLE_RESERVATION_CONFIRMATION : TYPE_RESERVATION_CONFIRMATION,
+          type: (property === 'multiroom') ? TYPE_MULTIPLE_RESERVATION_CONFIRMATION : TYPE_RESERVATION_CONFIRMATION,
           property: property,
           reservationCode: reservationCode
         });
