@@ -1594,6 +1594,11 @@ angular.module('mobius.controllers.reservation', [])
             //Sending alerts to https://webservice.mobiuswebservices.com/alerting/alert
             apiService.sendApeironAlert('reporting', env, $stateParams, data, priceData);
           }
+
+          if (Settings.eTracker) {
+            var userLoggedIn = ($scope.auth && $scope.auth.isLoggedIn()) ? 1 : 0;
+            dataLayerService.trackBookingPurchase($scope.getTotal('totalBaseAfterPricingRules'), reservationDetailsParams.reservationCode, userLoggedIn);
+          }
         });
       });
 

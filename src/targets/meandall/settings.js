@@ -125,6 +125,9 @@ angular.module('mobiusApp.config', [])
     'trackUserId': true,
     'id': 'GTM-N5VPM86'
   },
+  'eTracker': {
+    'enable': true
+  },
   'hotjar': {
     'enable': false,
     'id': ''
