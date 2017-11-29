@@ -1394,7 +1394,7 @@ angular.module('mobius.controllers.reservation', [])
           var booking = data[0][i];
           getParams['booking' + i] = booking.reservationCode;
         }
-        if ($scope.auth) {
+        if ($scope.auth && !$scope.auth.isLoggedIn()) {
           // anonymous multiroom booking
           if (Settings.API.propertySlug) {
             $state.go('hotel', {
