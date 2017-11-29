@@ -415,6 +415,11 @@
             // Tracking refund
             dataLayerService.trackReservationRefund($stateParams.reservationCode);
 
+            if (Settings.eTracker) {
+              var userLoggedIn = ($scope.auth && $scope.auth.isLoggedIn()) ? 1 : 0;
+              dataLayerService.trackBookingCancellation($scope.getCountPriceDetail('totalBaseAfterPricingRules'), $stateParams.reservationCode, userLoggedIn);
+            }
+
             if ($scope.auth && $scope.auth.isLoggedIn()) {
               $state.go('reservations');
             } else {

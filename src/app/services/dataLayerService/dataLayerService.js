@@ -211,6 +211,30 @@ angular.module('mobiusApp.services.dataLayer', [])
     return localeData + '/' + propertyData.city + '/' + propertyData.nameShort + '/Rooms/' + room.name;
   }
 
+  function trackBookingPurchase(amountPreTax, referenceNumber, customerLoggedIn) {
+    if (!isDataLayerActive()) {
+      return;
+    }
+    getDataLayer().push({
+      'event': 'booking',
+      'amountPreTax': amountPreTax,
+      'referenceNumber': referenceNumber,
+      'customerLoggedIn': customerLoggedIn
+    });
+  }
+
+  function trackBookingCancellation(amountPreTax, referenceNumber, customerLoggedIn) {
+    if (!isDataLayerActive()) {
+      return;
+    }
+    getDataLayer().push({
+      'event': 'cancellation',
+      'amountPreTax': amountPreTax,
+      'referenceNumber': referenceNumber,
+      'customerLoggedIn': customerLoggedIn
+    });
+  }
+
   // Public methods
   return {
     setUserId: setUserId,
@@ -225,6 +249,8 @@ angular.module('mobiusApp.services.dataLayer', [])
     trackReservationRefund: trackReservationRefund,
     trackAltDisplayNotification: trackAltDisplayNotification,
     trackAltDisplayLoad: trackAltDisplayLoad,
-    trackAltDisplaySelect: trackAltDisplaySelect
+    trackAltDisplaySelect: trackAltDisplaySelect,
+    trackBookingPurchase: trackBookingPurchase,
+    trackBookingCancellation: trackBookingCancellation
   };
 });
