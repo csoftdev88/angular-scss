@@ -1,3 +1,9 @@
+<div
+  class="reservation-upgrade-notification"
+  ng-if="$stateParams.roomUpgrade && upgradedFromRoomName">
+  <span class="highlighted-text">_room_upgraded_</span> {{ upgradedFromRoomName }}
+</div>
+
 <section class="detail-links">
   <span ng-if="!bookingConfig.priceBreakdownExtended && formatting !== 'suppressRate'"><a href ng-click="openPriceBreakdownInfo()">_view_price_breakdown_</a> | </span>
   <a ng-if="!bookingConfig.policiesLinkBottom" ng-href="{{bookingConfig.termsAndConditionsLink}}" ng-click="readPolicies()" target="_blank">_policies_</a>
