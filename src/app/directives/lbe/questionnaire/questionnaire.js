@@ -48,7 +48,7 @@
                     scope.options = data.choices.sort(sortQuestionnaireAnswers);
                     scope.poll.choiceId = scope.options[0].id;
                     scope.reward = dynamicMessages.answer_the_question.replace('XX', data.points);
-                    scope.reward_points = data.points;
+                    scope.rewardPoints = data.points;
                     pollPoints = data.points;
                   });
               }
@@ -168,7 +168,6 @@
         };
 
         scope.openAddonDetailDialog = function(e, addon, payWithPoints) {
-          console.log('openAddonDetailDialog called', arguments);
           if (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -203,7 +202,13 @@
               apiService.getFullURL('customers.transactions', { customerId: userObject.id })
             ).then(function(data) {
               var total = 0;
-              $log.info('Retrieved customer transactions', data);
+              scope.pendingPoints = 0;
+              scope.pendingStays = 0;
+              // sum all pending points
+              _.each(data.deferredTransactions, function (deferredTransaction) {
+                scope.pendingPoints += parseInt(deferredTransaction.amount); // amount returned as string from the back end
+                scope.pendingStays++;
+              });
               _.each(data.recentTransactions, function (transaction) {
                 total += transaction.amount;
               });
