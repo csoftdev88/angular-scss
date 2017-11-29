@@ -1111,16 +1111,17 @@ angular.module('mobius.controllers.reservation', [])
 
   function createReservationData() {
     var reservationData = {
-      guestTitle: $scope.userDetails.title,
-      guestFirstName: $scope.userDetails.firstName,
-      guestLastName: $scope.userDetails.lastName,
-      guestEmail: $scope.userDetails.email,
-      guestPhone: $scope.userDetails.phone,
-      guestAddress: $scope.userDetails.address,
-      guestCity: $scope.userDetails.city,
-      guestZip: $scope.userDetails.zip,
-      guestStateProvince: $scope.userDetails.stateProvince,
-      guestCountry: getUserCountry().code,
+      customerTitle: $scope.userDetails.title,
+      customerFirstName: $scope.userDetails.firstName,
+      customerLastName: $scope.userDetails.lastName,
+      customerEmail: $scope.userDetails.email,
+      customerPhone: $scope.userDetails.phone,
+      customerAddress: $scope.userDetails.address,
+      customerCity: $scope.userDetails.city,
+      customerZip: $scope.userDetails.zip,
+      customerStateProvince: $scope.userDetails.stateProvince,
+      customerCountry: getUserCountry().code,
+
 
       billingDetailsUseGuestAddress: $scope.billingDetails.useGuestAddress,
       optedIn: $scope.additionalInfo.optedIn,
@@ -1316,8 +1317,6 @@ angular.module('mobius.controllers.reservation', [])
     return total;
   };
 
-
-
   function addReservationConfirmationMessage(reservationNumber) {
     userMessagesService.addReservationConfirmationMessage($scope.property.nameLong, reservationNumber);
   }
@@ -1388,6 +1387,23 @@ angular.module('mobius.controllers.reservation', [])
 
 
     var reservationPromise = $q.all(promises).then(function(data) {
+      if (data[0] instanceof Array) {
+        // multiroom booking flow
+        var getParams = '?totalBookings=' + data[0].length;
+        for (var i = 0; i < data[0].length; i++) {
+          const booking = data[0][i];
+          getParams += '&booking' + i + '=' + booking.reservationCode;
+        }
+        if ($scope.auth && !$scope.auth.isLoggedIn()) {
+          // anonymous multiroom booking
+          $window.location.href = '/hotels/me-and-all-hotel-dusseldorf-dusimm' + getParams;
+        }
+        else {
+          //registered multiroom booking
+          $window.location.href = '/reservations' + getParams;
+        }
+        return;
+      }
       var reservationDetailsParams = {
         reservationCode: data[0].reservationCode,
         hideActionButtons: false,
