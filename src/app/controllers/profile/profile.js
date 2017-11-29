@@ -151,7 +151,7 @@
 
     user.authPromise.then(function () {
       $scope.profileData = user.getUser();
-      if (Settings.conditionalRedirect === true) {
+      if (Settings.conditionalRedirect) {
         if ($scope.profileData.termsAndConditionsAccepted === false) {
           $scope.sections.termsAndConditions.expanded = true;
           $scope.sections.termsAndConditions.showError = true;
@@ -179,7 +179,7 @@
         $scope.submitted = true;
         form.$submitted = true;
 
-        if (Settings.conditionalRedirect === true) {
+        if (Settings.conditionalRedirect) {
           // Open sections if they are closed and has errors
           if (form.termsAndConditions.$invalid && $scope.sections.termsAndConditions.visible && !$scope.sections.termsAndConditions.expanded) {
             $scope.toggleSection($scope.sections.termsAndConditions);
@@ -210,7 +210,7 @@
           }
 
           apiService.put(apiService.getFullURL('customers.customer', {customerId: userObject.id}), data).then(function(){
-            if (Settings.conditionalRedirect === true) {
+            if (Settings.conditionalRedirect) {
               $scope.sections.termsAndConditions.showError = false;
               $scope.sections.resetPassword.showError = false;
               data.passwordResetRequired = false;

@@ -311,6 +311,12 @@ angular.module('mobius.controllers.reservation', [])
       });
     }
 
+    if ($stateParams.roomUpgrade) {
+      $scope.getRoomData($stateParams.property, $stateParams.roomUpgrade, null).then(function(data) {
+        $scope.upgradedFromRoomName = data.roomDetails.name;
+      });
+    }
+
     //scrollToDetails('reservationDetailsForm');
     scrollToDetails($scope.bookingConfig.bookingStepsNav.display && !$scope.bookingConfig.detailsBeforeForm ? $scope.scrollReservationStepsPosition : 'reservationDetailsForm');
   }
@@ -1387,8 +1393,10 @@ angular.module('mobius.controllers.reservation', [])
 
 
     var reservationPromise = $q.all(promises).then(function(data) {
+	  var reservationCode;
       if (data[0] instanceof Array) {
         // multiroom booking flow
+        reservationCode = data[0][0].reservationCode;
         var getParams = {'totalBookings': data[0].length};
         for (var i = 0; i < data[0].length; i++) {
           var booking = data[0][i];
@@ -1411,9 +1419,11 @@ angular.module('mobius.controllers.reservation', [])
           $state.go('reservations', { customMessages: getParams});
         }
         return;
+
       }
+      reservationCode = data[0].reservationCode;
       var reservationDetailsParams = {
-        reservationCode: data[0].reservationCode,
+        reservationCode: reservationCode,
         hideActionButtons: false,
         // Removing reservation code when booking modification is complete
         reservation: null,
@@ -1516,7 +1526,7 @@ angular.module('mobius.controllers.reservation', [])
 
             derbysoftInfo = {
               accountCode: Settings.derbysoftTracking.accountCode,
-              bookingNo: data[0].reservationCode,
+              bookingNo: reservationCode,
               channelCode: metaChannelCode ? metaChannelCode : null,
               hotelCode: propertyData.code,
               roomTypeName: $scope.allRooms[0].name,
@@ -1577,7 +1587,7 @@ angular.module('mobius.controllers.reservation', [])
           });
 
           var infinitiTrackingData = {
-            'reservationNumber': data[0].reservationCode,
+            'reservationNumber': reservationCode,
             'products': infinitiTrackingProducts
           };
 
@@ -1618,6 +1628,11 @@ angular.module('mobius.controllers.reservation', [])
             //Sending alerts to https://webservice.mobiuswebservices.com/alerting/alert
             apiService.sendApeironAlert('reporting', env, $stateParams, data, priceData);
           }
+
+          if (Settings.eTracker) {
+            var userLoggedIn = ($scope.auth && $scope.auth.isLoggedIn()) ? 1 : 0;
+            dataLayerService.trackBookingPurchase($scope.getTotal('totalBaseAfterPricingRules'), reservationDetailsParams.reservationCode, userLoggedIn);
+          }
         });
       });
 
@@ -1649,7 +1664,7 @@ angular.module('mobius.controllers.reservation', [])
           reservationService.updateAnonUserProfile(reservation.customer.id, encodeURIComponent(params.email), anonUserData).then(function() {
             bookingService.clearParams($rootScope.thirdparty ? true : false);
             $state.go('reservationDetail', reservationDetailsParams);
-            addReservationConfirmationMessage(data[0].reservationCode);
+            addReservationConfirmationMessage(reservationCode);
           });
         });
       } else {
@@ -1658,7 +1673,7 @@ angular.module('mobius.controllers.reservation', [])
         }
         bookingService.clearParams($rootScope.thirdparty ? true : false);
         $state.go('reservationDetail', reservationDetailsParams);
-        addReservationConfirmationMessage(data[0].reservationCode);
+        addReservationConfirmationMessage(reservationCode);
       }
 
 

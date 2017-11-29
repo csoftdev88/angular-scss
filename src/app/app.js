@@ -526,7 +526,7 @@ angular
     }
   }
 
-  if(Settings.enableStaticOffer){
+  if (Settings.enableStaticOffer) {
     $stateProvider.state('staticOffer', {
       parent: 'root',
       templateUrl: 'layouts/static/offer.html',
@@ -850,7 +850,7 @@ angular
    * - they are forced to reset their password
    * */
   function conditionalRedirect() {
-    if (_.isNull(Settings.conditionalRedirect) || _.isUndefined(Settings.conditionalRedirect) || Settings.conditionalRedirect !== true) {
+    if (!Settings.conditionalRedirect) {
       return false;
     }
     if (!user.isLoggedIn()) {

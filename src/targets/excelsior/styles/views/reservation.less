@@ -537,6 +537,21 @@ reservation-widget {
   border-radius: 6px;
   background-color: #fff;
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
+  position: relative;
+
+  .reservation-upgrade-notification {
+    background-color: #b98747;
+    margin-top: -30px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    color: #fff;
+
+    .highlighted-text {
+      font-weight: bold;
+    }
+  }
 }
 
 .links {
@@ -1139,6 +1154,9 @@ reservation-confirmation {
           td {
             text-align: right;
             color: #4A4A4A;
+          }
+          .emphasis {
+            font-weight: bold;
           }
         }
         figure {
