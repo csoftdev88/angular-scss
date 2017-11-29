@@ -88,6 +88,10 @@ describe('mobius.controllers.hotel.details', function() {
           moment: sinon.stub()
         });
 
+        $provide.value('userMessagesService', {
+          addReservationConfirmationMessage: sinon.stub()
+        });
+
         $provide.value('infinitiApeironService', {
           trackResults: function() {}
         });
@@ -151,7 +155,8 @@ describe('mobius.controllers.hotel.details', function() {
             return [{
               name: 'test'
             }];
-          }
+          },
+          params: {}
         });
 
         $provide.value('contentService', {
