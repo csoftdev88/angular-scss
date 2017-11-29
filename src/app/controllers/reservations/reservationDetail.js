@@ -574,12 +574,22 @@
           $scope.availableAddons = _.reject($scope.availableAddons, function(a) {
             return a.code === addon.code;
           });
-          // Adding to reservation addons
-          // NOTE: When getting addons from the API points will be reflected in another
-          // property as in original object `points` instead of `pointsRequired`
-          addon.points = addon.pointsRequired;
-          $scope.reservationAddons.push(addon);
 
+          //
+          // TODO: Available and reservation addons are being loaded three times: on page load, when redeeming voucher
+          // and here, when adding addon. Refactor these three places to use a single function instead of repeating code
+          // in all three places.
+          //
+          reservationService.getReservationAddOns($stateParams.reservationCode, user.getUser().id ? null : $scope.reservation.email).then(function(addons) {
+            $scope.reservationAddons = _.map(addons, function(addon) {
+              addon.descriptionShort = addon.description ? addon.description.substr(0, SHORT_DESCRIPTION_LENGTH) : '';
+              addon.hasViewMore = addon.descriptionShort && addon.description && addon.descriptionShort.length < addon.description.length;
+              if (addon.hasViewMore) {
+                addon.descriptionShort += '…';
+              }
+              return addon;
+            });
+          });
 
           if(DynamicMessages && DynamicMessages[appLang]) {
             userMessagesService.addMessage(DynamicMessages[appLang].you_have_added + addon.name + DynamicMessages[appLang].to_your_reservation, false , true, 'reservation-confirmation');
