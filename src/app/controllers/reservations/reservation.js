@@ -1111,16 +1111,16 @@ angular.module('mobius.controllers.reservation', [])
 
   function createReservationData() {
     var reservationData = {
-      customerTitle: $scope.userDetails.title,
-      customerFirstName: $scope.userDetails.firstName,
-      customerLastName: $scope.userDetails.lastName,
-      customerEmail: $scope.userDetails.email,
-      customerPhone: $scope.userDetails.phone,
-      customerAddress: $scope.userDetails.address,
-      customerCity: $scope.userDetails.city,
-      customerZip: $scope.userDetails.zip,
-      customerStateProvince: $scope.userDetails.stateProvince,
-      customerCountry: getUserCountry().code,
+      guestTitle: $scope.userDetails.title,
+      guestFirstName: $scope.userDetails.firstName,
+      guestLastName: $scope.userDetails.lastName,
+      guestEmail: $scope.userDetails.email,
+      guestPhone: $scope.userDetails.phone,
+      guestAddress: $scope.userDetails.address,
+      guestCity: $scope.userDetails.city,
+      guestZip: $scope.userDetails.zip,
+      guestStateProvince: $scope.userDetails.stateProvince,
+      guestCountry: getUserCountry().code,
 
 
       billingDetailsUseGuestAddress: $scope.billingDetails.useGuestAddress,
