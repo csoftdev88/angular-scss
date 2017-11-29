@@ -1391,7 +1391,7 @@ angular.module('mobius.controllers.reservation', [])
         // multiroom booking flow
         var getParams = '?totalBookings=' + data[0].length;
         for (var i = 0; i < data[0].length; i++) {
-          const booking = data[0][i];
+          var booking = data[0][i];
           getParams += '&booking' + i + '=' + booking.reservationCode;
         }
         if ($scope.auth && !$scope.auth.isLoggedIn()) {
