@@ -645,6 +645,7 @@
         "questionnaire_subtitle": "What would you prefer?",
         "submit_answer": "Submit Answer",
         "welcome_main_page_text": "Welcome to the Excelsior hotel",
-        "video_tour": "Video Tour"
+        "video_tour": "Video Tour",
+        "room_upgraded": "Room Upgraded from"
   }
 }

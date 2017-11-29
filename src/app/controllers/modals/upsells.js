@@ -27,8 +27,10 @@ angular.module('mobius.controllers.modals.upsells', [
   $scope.goToReservationDetails = function(roomCode){
     if(roomCode)
     {
+      var roomID = data.params.roomID;
       $scope.cancel();
       data.params.roomID = data.upsell.roomCode;
+      data.params.roomUpgrade = roomID;
       goToReservationDetails(data.product, data.params, true);
     }
     else {

@@ -311,6 +311,12 @@ angular.module('mobius.controllers.reservation', [])
       });
     }
 
+    if ($stateParams.roomUpgrade) {
+      $scope.getRoomData($stateParams.property, $stateParams.roomUpgrade, null).then(function(data) {
+        $scope.upgradedFromRoomName = data.roomDetails.name;
+      });
+    }
+
     //scrollToDetails('reservationDetailsForm');
     scrollToDetails($scope.bookingConfig.bookingStepsNav.display && !$scope.bookingConfig.detailsBeforeForm ? $scope.scrollReservationStepsPosition : 'reservationDetailsForm');
   }
