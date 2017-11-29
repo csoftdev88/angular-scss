@@ -561,7 +561,7 @@ angular.module('mobiusApp.config', [])
           'showInclusions': false
         },
         'upsells': {
-          'display': true
+          'display': false
         },
         'alternativeDisplays': {
           'dates':{
@@ -654,7 +654,7 @@ angular.module('mobiusApp.config', [])
       'showSlashThrough': true,
       'showMetaView': true,
       'upsells': {
-        'display': true
+        'display': false
       },
       'displayAltProduct':false,
       'showProductImage':true,
