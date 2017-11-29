@@ -34,13 +34,13 @@
     <!-- TODO: need more information where to get pendingPoints, currently pendingPoints always equals false -->
     <div class="book-now-to-save" ng-if="pendingPoints">
      <div class="book-now-to-save-title">Pending Points</div>
-     <div class="book-now-to-save-text">You are due to earn <span class="emphasis">125 points</span>
-      in the next <span class="emphasis">15 days</span>.</div>
+     <div class="book-now-to-save-text">You are due to earn <span class="emphasis">{{ pendingPoints }} points</span>
+      over your next <span class="emphasis">{{ pendingStays }} stays</span>.</div>
     </div>
 
     <div class="book-now-to-save" ng-if="question && !pendingPoints">
       <div class="book-now-to-save-title">Earn More Points</div>
-      <div class="book-now-to-save-text">Answer your Questionnaire to earn <span class="emphasis">{{ reward_points }} points</span>.</div>
+      <div class="book-now-to-save-text">Answer your Questionnaire to earn <span class="emphasis">{{ rewardPoints }} points</span>.</div>
      </div>
 
     <div class="book-now-to-save" ng-if="!question && !pendingPoints">
