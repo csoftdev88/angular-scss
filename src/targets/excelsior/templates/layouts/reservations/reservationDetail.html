@@ -95,6 +95,10 @@
                   <th class="children">_children_:</th>
                   <td class="children">{{ getCount('children') }}</td>
                 </tr>
+                <tr ng-if="reservationAddons.length" ng-class="{'last': $last}" ng-show="!breakdown.extended">
+                  <th>Addons:</th>
+                  <td>{{ getAddonsTotalPrice() | i18nCurrency: defaultCurrencyCode}}</td>
+                </tr>
               </tbody>
             </table>
 
@@ -110,8 +114,8 @@
 
                 <thead>
                   <tr>
-                    <th>_room_charges_:</th>
-                    <td>{{getBreakdownTotalBaseAfterPricingRules() | i18nCurrency: defaultCurrencyCode}}</td>
+                    <th class="emphasis">_room_charges_:</th>
+                    <td class="emphasis">{{getBreakdownTotalBaseAfterPricingRules() | i18nCurrency: defaultCurrencyCode}}</td>
                   </tr>
 
                   <tr ng-repeat="breakdown in reservation.rooms[0].priceDetail.breakdowns | orderBy:'date'"
@@ -120,9 +124,20 @@
                     <td>{{getBreakdownTotalDate(breakdown.date) | i18nCurrency: defaultCurrencyCode}}</td>
                   </tr>
 
+                  <tr ng-if="reservationAddons.length" ng-class="{'last': $last}">
+                    <th class="emphasis">Addons:</th>
+                    <td class="emphasis">{{ getAddonsTotalPrice() | i18nCurrency: defaultCurrencyCode}}</td>
+                  </tr>
+
+                  <tr ng-repeat="addon in reservationAddons"
+                      ng-class="{'last': $last}">
+                    <th>{{ addon.name }}:</th>
+                    <td>{{ addon.price.totalAfterTax | i18nCurrency: defaultCurrencyCode}}</td>
+                  </tr>
+
                   <tr ng-if="getBreakdownTotalTaxes(false) > 0">
-                    <th>_taxes_:</th>
-                    <td>{{getBreakdownTotalTaxes(false) | i18nCurrency: defaultCurrencyCode}}</td>
+                    <th class="emphasis">_taxes_:</th>
+                    <td class="emphasis">{{getBreakdownTotalTaxes(false) | i18nCurrency: defaultCurrencyCode}}</td>
                   </tr>
 
                   <tr ng-repeat="taxItem in reservation.rooms[0].priceDetail.taxDetails.policyTaxItemDetails"
@@ -193,7 +208,7 @@
 
             <span class="total-value"
                   ng-if="!reservation.pointValue">
-              {{getCountPriceDetail('totalAfterTaxAfterPricingRules') | i18nCurrency: defaultCurrencyCode}}
+              {{getCountPriceDetail('totalAfterTaxAfterPricingRules', true) | i18nCurrency: defaultCurrencyCode}}
             </span>
 
             <span class="total-value"
