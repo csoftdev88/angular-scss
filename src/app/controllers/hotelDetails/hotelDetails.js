@@ -12,7 +12,7 @@ angular.module('mobius.controllers.hotel.details', [
                                          metaInformationService, channelService, previousSearchesService, $window,
                                          advertsService, $controller, $timeout, scrollService, $location, $stateParams,
                                          Settings, stateService, $rootScope, userPreferenceService, locationService,
-                                         routerService, DynamicMessages, infinitiApeironService, growl) {
+                                         routerService, DynamicMessages, infinitiApeironService, growl, userMessagesService) {
 
   $controller('PriceCtr', {
     $scope: $scope
@@ -21,6 +21,15 @@ angular.module('mobius.controllers.hotel.details', [
   $controller('RatesCtrl', {
     $scope: $scope
   });
+
+  if ($state.params.customMessages) {
+    var bookingLinks = '';
+    for (var g = 0; g < parseInt($state.params.customMessages.totalBookings); g++) {
+      var bookingCode = $state.params.customMessages['booking' + g];
+      bookingLinks += '<a href="/reservations/' + bookingCode + '/">' + bookingCode + '</a>';
+    }
+    userMessagesService.addReservationConfirmationMessage('multiroom', bookingLinks);
+  }
 
   //Apply config:
   $scope.hasViewMore = Settings.UI.viewsSettings.hotelDetails.hasViewMore;

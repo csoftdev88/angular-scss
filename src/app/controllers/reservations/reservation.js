@@ -1389,18 +1389,26 @@ angular.module('mobius.controllers.reservation', [])
     var reservationPromise = $q.all(promises).then(function(data) {
       if (data[0] instanceof Array) {
         // multiroom booking flow
-        var getParams = '?totalBookings=' + data[0].length;
+        var getParams = {'totalBookings': data[0].length};
         for (var i = 0; i < data[0].length; i++) {
           var booking = data[0][i];
-          getParams += '&booking' + i + '=' + booking.reservationCode;
+          getParams['booking' + i] = booking.reservationCode;
         }
-        if ($scope.auth && !$scope.auth.isLoggedIn()) {
+        if ($scope.auth) {
           // anonymous multiroom booking
-          $window.location.href = '/hotels/me-and-all-hotel-dusseldorf-dusimm' + getParams;
+          if (Settings.API.propertySlug) {
+            $state.go('hotel', {
+              propertySlug: Settings.API.propertySlug,
+              locationSlug: null,
+              customMessages: getParams
+            });
+          } else {
+            $state.go('home', { customMessages: getParams});
+          }
         }
         else {
           //registered multiroom booking
-          $window.location.href = '/reservations' + getParams;
+          $state.go('reservations', { customMessages: getParams});
         }
         return;
       }

@@ -60,10 +60,10 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
         $scope.registerCountries = data;
       });
 
-      if ($location.search().totalBookings && userMessagesService.getMessages().length === 0) {
+      if ($state.params.customMessages) {
         var bookingLinks = '';
-        for (var g = 0; g < parseInt($location.search().totalBookings); g++) {
-          var bookingCode = $location.search()['booking' + g];
+        for (var g = 0; g < parseInt($state.params.customMessages.totalBookings); g++) {
+          var bookingCode = $state.params.customMessages['booking' + g];
           bookingLinks += '<a href="/reservations/' + bookingCode + '/">' + bookingCode + '</a>';
         }
         userMessagesService.addReservationConfirmationMessage('multiroom', bookingLinks);
