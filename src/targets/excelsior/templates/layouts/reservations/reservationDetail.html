@@ -285,6 +285,12 @@
 
             <div class="addon-text">
               <div class="addon-name" ng-bind-html="addon.name | wrapWordHtml : 'span' : 0"></div>
+              <div class="addon-cost">
+                <span>{{ addon.price.totalAfterTax | i18nCurrency: defaultCurrencyCode }}</span>
+                <span ng-if="addon.pointsRequired &&
+                            loyaltyProgramEnabled &&
+                            addon.allowPointsBooking"> _lowercase_or_ {{ addon.pointsRequired }} _points_</span>
+              </div>
             </div>
           </div>
         </section>
