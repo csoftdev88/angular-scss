@@ -1393,10 +1393,8 @@ angular.module('mobius.controllers.reservation', [])
 
 
     var reservationPromise = $q.all(promises).then(function(data) {
-	  var reservationCode;
       if (data[0] instanceof Array) {
         // multiroom booking flow
-        reservationCode = data[0][0].reservationCode;
         var getParams = {'totalBookings': data[0].length};
         for (var i = 0; i < data[0].length; i++) {
           var booking = data[0][i];
@@ -1413,15 +1411,18 @@ angular.module('mobius.controllers.reservation', [])
           } else {
             $state.go('home', { customMessages: getParams});
           }
-        }
-        else {
+        } else {
           //registered multiroom booking
           $state.go('reservations', { customMessages: getParams});
         }
+        // FIXME: surely this return bypasses all the tracking code below?
+        // TODO: loop over each reservation and post the tracking data as before
+        console.warn('FIXME: implement purchase tracking...');
         return;
-
       }
-      reservationCode = data[0].reservationCode;
+
+      // Single reservation Object
+      var reservationCode = data[0].reservationCode;
       var reservationDetailsParams = {
         reservationCode: reservationCode,
         hideActionButtons: false,
@@ -1536,7 +1537,7 @@ angular.module('mobius.controllers.reservation', [])
               ratePlanCode: $scope.allRooms[0]._selectedProduct.code,
               checkInDate: $stateParams.dates.split('_')[0],
               checkOutDate: $stateParams.dates.split('_')[1],
-              guests: parseInt($scope.getGuestsCount('adults')) + parseInt($scope.getGuestsCount('children')),
+              guests: parseInt($scope.getGuestsCount('adults'), 10) + parseInt($scope.getGuestsCount('children'), 10),
               rooms: $scope.allRooms.length,
               pureAmount: $scope.getTotal('totalBaseAfterPricingRules'),
               totalAmount: $scope.getTotal('totalAfterTaxAfterPricingRules'),
