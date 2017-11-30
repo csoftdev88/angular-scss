@@ -1816,9 +1816,7 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.goToBookingStep = function(event, state) {
-
-    var target = angular.element(event.target);
-    if (target.hasClass('current') || target.attr('disabled') === 'disabled') {
+    if ($state.current.name === state || $scope.isBookingStepDisabled(state)) {
       return;
     }
 
