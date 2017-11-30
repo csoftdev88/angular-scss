@@ -1029,7 +1029,8 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       },
       'mobileTopRight':true, //Displays the booking book now button in top right
       'prefillGrowlAlert':true, //When enabled will display a growl alert if code field is prefilled
-      'keepPrefillStyle':true //By default prefill style is hidden after 1 second. When enabled this will prevent it from being hidden.
+      'keepPrefillStyle':true, //By default prefill style is hidden after 1 second. When enabled this will prevent it from being hidden.
+      'useLongPropertyName': true
     },
 
     'booking': {
