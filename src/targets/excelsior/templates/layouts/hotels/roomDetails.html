@@ -23,7 +23,7 @@
 
 <booking-bar class="roombar" size="full-width" stickable="main-header" ng-if="!isMobile"></booking-bar>
 
-<div class="Home__hero--info show-desktop" ng-if="loyaltyEngine">
+<div class="Home__hero--info show-desktop" ng-if="loyaltyEngine && !isMobile">
   <h1 class="About__hero--title">{{ roomDetails.name }}</h1>
   <h1 class="About__hero--title">_about_title_one_</h1>
   <h2 class="About__hero--tagline">_about_tagline_</h2>
