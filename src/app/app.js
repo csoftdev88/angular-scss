@@ -275,6 +275,9 @@ angular
   .state('home', {
     parent: 'root',
     templateUrl: homeLayout,
+    params: {
+      customMessages: null
+    },
     url: '/'
   })
 
@@ -351,7 +354,8 @@ angular
         locationSlug: {
           value: null,
           squash: true
-        }
+        },
+        customMessages: null
       }
     })
 
@@ -402,6 +406,9 @@ angular
       controller: 'HotelDetailsCtrl',
       url: '/hotels/:propertySlug',
       reloadOnSearch: false,
+      params: {
+        customMessages: null
+      },
       data: {
         // Route is also used for reservation updates
         supportsEditMode: true,
@@ -437,6 +444,9 @@ angular
       templateUrl: 'layouts/reservations/reservations.html',
       url: '/reservations',
       controller: 'ReservationsCtrl',
+      params: {
+        customMessages: null
+      },
       data: {
         authProtected: true
       }

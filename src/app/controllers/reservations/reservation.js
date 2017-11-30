@@ -1128,6 +1128,7 @@ angular.module('mobius.controllers.reservation', [])
       guestStateProvince: $scope.userDetails.stateProvince,
       guestCountry: getUserCountry().code,
 
+
       billingDetailsUseGuestAddress: $scope.billingDetails.useGuestAddress,
       optedIn: $scope.additionalInfo.optedIn,
 
@@ -1322,8 +1323,6 @@ angular.module('mobius.controllers.reservation', [])
     return total;
   };
 
-
-
   function addReservationConfirmationMessage(reservationNumber) {
     userMessagesService.addReservationConfirmationMessage($scope.property.nameLong, reservationNumber);
   }
@@ -1394,14 +1393,35 @@ angular.module('mobius.controllers.reservation', [])
 
 
     var reservationPromise = $q.all(promises).then(function(data) {
-      var reservationCode;
-      if (Array.isArray(data[0])) {
-        // We got multiple reservations, pick the first one
+	  var reservationCode;
+      if (data[0] instanceof Array) {
+        // multiroom booking flow
         reservationCode = data[0][0].reservationCode;
-      } else {
-        // Single reservation, old way
-        reservationCode = data[0].reservationCode;
+        var getParams = {'totalBookings': data[0].length};
+        for (var i = 0; i < data[0].length; i++) {
+          var booking = data[0][i];
+          getParams['booking' + i] = booking.reservationCode;
+        }
+        if ($scope.auth && !$scope.auth.isLoggedIn()) {
+          // anonymous multiroom booking
+          if (Settings.API.propertySlug) {
+            $state.go('hotel', {
+              propertySlug: Settings.API.propertySlug,
+              locationSlug: null,
+              customMessages: getParams
+            });
+          } else {
+            $state.go('home', { customMessages: getParams});
+          }
+        }
+        else {
+          //registered multiroom booking
+          $state.go('reservations', { customMessages: getParams});
+        }
+        return;
+
       }
+      reservationCode = data[0].reservationCode;
       var reservationDetailsParams = {
         reservationCode: reservationCode,
         hideActionButtons: false,

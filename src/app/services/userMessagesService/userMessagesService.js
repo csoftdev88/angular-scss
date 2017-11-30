@@ -4,6 +4,7 @@ angular.module('mobiusApp.services.userMessagesService', [])
   .service('userMessagesService', function($rootScope, $timeout, stateService) {
     var TYPE_INFO = 'info-message';
     var TYPE_RESERVATION_CONFIRMATION = 'info-reservation-confirmation';
+    var TYPE_MULTIPLE_RESERVATION_CONFIRMATION = 'info-multiple-reservation-confirmation';
     var messages = [];
     var isChangingRoute = false;
 
@@ -59,7 +60,7 @@ angular.module('mobiusApp.services.userMessagesService', [])
 
       $rootScope.$evalAsync(function(){
         messages.push({
-          type: TYPE_RESERVATION_CONFIRMATION,
+          type: (property === 'multiroom') ? TYPE_MULTIPLE_RESERVATION_CONFIRMATION : TYPE_RESERVATION_CONFIRMATION,
           property: property,
           reservationCode: reservationCode
         });

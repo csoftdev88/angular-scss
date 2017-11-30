@@ -6,11 +6,11 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
   .controller('MainCtrl', ['$scope', '$state', '$modal', 'orderByFilter', 'modalService', '$window',
     'contentService', 'Settings', 'user', '$controller', '_', 'propertyService', '$stateParams', '$timeout', 'scrollService',
     'metaInformationService','chainService', '$location', 'stateService', '$rootScope', 'cookieFactory', 'campaignsService',
-    'locationService', 'bookingService', 'apiService', 'userObject', 'offers', 'DynamicMessages',
+    'locationService', 'bookingService', 'apiService', 'userObject', 'offers', 'DynamicMessages', 'userMessagesService',
     function($scope, $state, $modal, orderByFilter, modalService, $window, contentService, Settings, user, $controller,
              _, propertyService, $stateParams, $timeout, scrollService, metaInformationService,chainService,$location,
              stateService,$rootScope, cookieFactory, campaignsService, locationService, bookingService, apiService,
-             userObject, offers, DynamicMessages) {
+             userObject, offers, DynamicMessages, userMessagesService) {
       var activeThirdParty;
       $scope.chainCode = Settings.API.chainCode;
       $scope.regionConfig = Settings.UI.regions;
@@ -59,6 +59,15 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
       contentService.getCountries().then(function(data) {
         $scope.registerCountries = data;
       });
+
+      if ($state.params.customMessages) {
+        var bookingLinks = '';
+        for (var g = 0; g < parseInt($state.params.customMessages.totalBookings); g++) {
+          var bookingCode = $state.params.customMessages['booking' + g];
+          bookingLinks += '<a href="/reservations/' + bookingCode + '/">' + bookingCode + '</a>';
+        }
+        userMessagesService.addReservationConfirmationMessage('multiroom', bookingLinks);
+      }
 
       // TODO: move this into a new registerService and refactor register controller
       $scope.register = function(form, registerData) {
