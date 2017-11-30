@@ -207,11 +207,18 @@ angular.module('mobius.controllers.reservation', [])
       return property;
     });
 
-    // Showing loading mask
-    preloaderFactory($q.all([$q.all(roomsPromises), propertyPromise]).then(function() {
-      $rootScope.showHomeBreadCrumb = false;
-      setBreadCrumbs(lastBreadCrumbName);
-    }, goToRoom));
+    // Disable continue button while fetching property/rooms data
+    $scope.isLoadingData = true;
+
+    // Showing loading indicator
+    preloaderFactory($q.all([$q.all(roomsPromises), propertyPromise])
+      .then(function () {
+        $rootScope.showHomeBreadCrumb = false;
+        setBreadCrumbs(lastBreadCrumbName);
+      }, goToRoom)
+      .then(function () {
+        $scope.isLoadingData = false;
+      }));
 
 
     // Showing login/register dialog when user making reservation as not logged in
@@ -650,11 +657,15 @@ angular.module('mobius.controllers.reservation', [])
   };
 
   $scope.isContinueDisabled = function() {
+    // disable while fetching room/property data
+    if ($scope.isLoadingData) {
+      return true;
+    }
     //disable when validating voucher
     if ($scope.voucher.verifying) {
       return true;
     }
-    //disbale when making reservation
+    //disable when making reservation
     if ($state.is('reservation.confirmation') && $scope.isMakingReservation) {
       return true;
     }
@@ -869,11 +880,11 @@ angular.module('mobius.controllers.reservation', [])
         // Ensure that the user has filled in a password and that it is valid for member only bookings
         // If it is a usual booking, then ensure that if a password has optionally been given, it is valid
         if (!$scope.auth.isLoggedIn()) {
-            if ($scope.userPasswordRequired() ||
-              $scope.userPasswordInvalid() ||
-              $scope.userPasswordConfirmationRequired() ||
-              $scope.userPasswordMismatch()) {
-              return;
+          if ($scope.userPasswordRequired() ||
+            $scope.userPasswordInvalid() ||
+            $scope.userPasswordConfirmationRequired() ||
+            $scope.userPasswordMismatch()) {
+            return;
           } else {
             if ($scope.userPasswordInvalid() || $scope.userPasswordMismatch()) {
               return;
