@@ -186,12 +186,24 @@
                 <span ng-if="breakdown.extended">_hide_price_breakdown_</span>
               </a>
             </span>
-            <a ng-href="{{bookingConfig.termsAndConditionsLink}}"
-               ng-click="readPolicies()"
-               class="policies"
-               target="_blank">
-              _policies_
-            </a>
+            <div ng-if="bookingConfig.detailsBeforeForm && state.includes('reservation.confirmation')">
+              <label for="agreement1-mobile" class="input-checkbox">
+                <input type="checkbox" id="agreement1-mobile" ng-model="additionalInfo.agree"/>
+                _i_agree_to_
+                <a ng-href="{{ bookingConfig.termsAndConditionsLink }}"
+                   class="terms-link"
+                   ng-click="readPolicies()"
+                   target="_blank">
+                  _terms_conditions_
+                </a>
+              </label>
+              <label ng-if="!bookingConfig.hideNewsletterCheckboxIfSelected || (bookingConfig.hideNewsletterCheckboxIfSelected && !additionalInfo.optedIn)"
+                     for="agreement2-mobile"
+                     class="input-checkbox">
+                <input type="checkbox" id="agreement2-mobile" ng-model="additionalInfo.optedIn"/>
+                _receive_offer_label_
+              </label>
+            </div>
           </div>
         </div>
       </div>
