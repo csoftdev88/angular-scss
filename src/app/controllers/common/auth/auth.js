@@ -140,7 +140,8 @@ angular
       isInfiniti: isInfiniti,
       isMobius: isMobius,
       isKeystone: isKeystone,
-      clearErrorMsg: clearErrorMsg
+      clearErrorMsg: clearErrorMsg,
+      clearErrors: clearErrorMsg // bring back support for old API which was broken when renamed to clearErrorMsg
     };
 
   });
