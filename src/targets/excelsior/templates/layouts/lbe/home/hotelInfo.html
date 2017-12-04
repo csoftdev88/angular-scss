@@ -2,6 +2,15 @@
   <div class="hotel-info-details">
     <div class="first-panel">
       <h2 id="welcome-to-the-excelsior-hotel" class="HotelInfo__details--title">THE EXCELSIOR HOTEL NEW YORK</h2>
+
+      <hero-slider ng-if="isMobile"
+                   data-has-notification-bar="false"
+                   on-slide-click="openGallery"
+                   slide-width="hotelViewSettings.hotelInfo.images.width"
+                   slide-height="hotelViewSettings.hotelInfo.images.height"
+                   content="previewImages">
+      </hero-slider>
+
       <p class="HotelInfo__details--highlight">
         Committed to the idea that a life well-traveled is defined by a personal
         connection to the people, culture and lifestyles of the places we visit, the Excelsior Hotel offers discerning
@@ -24,7 +33,8 @@
     </div>
 
     <div class="second-panel">
-      <hero-slider data-has-notification-bar="false"
+      <hero-slider ng-if="!isMobile"
+                   data-has-notification-bar="false"
                    on-slide-click="openGallery"
                    slide-width="hotelViewSettings.hotelInfo.images.width"
                    slide-height="hotelViewSettings.hotelInfo.images.height"
