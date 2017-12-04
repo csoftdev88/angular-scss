@@ -1,6 +1,6 @@
 <div class="Header__inner">
 
-  <a ui-sref="home">
+  <a ui-sref="home" class="Header__link">
     <img class="Header__logo desktop"
          src="/static/images/v4/logo@3x.png"
          alt="Mobius logo">
@@ -46,14 +46,20 @@
         </li>
       </ul>
 
-    <div class="Header__menu">
-      <img src="/static/images/menu-icon@3x.png"
-           ng-click="toggleMenuOverlay()"
-           class="Header__menu--hamburger">
+      <div class="Header__menu">
+        <img src="/static/images/menu-icon@3x.png"
+            ng-click="toggleMenuOverlay()"
+            class="Header__menu--hamburger">
 
-      <span ng-click="toggleMenuOverlay()" class="Header__menu--close"></span>
+        <span ng-click="toggleMenuOverlay()" class="Header__menu--close"></span>
+      </div>
     </div>
+
   </div>
+
+  <button class="Header__search">
+    Search
+  </button>
 </div>
 
 <!-- LOGIN DIALOG -->

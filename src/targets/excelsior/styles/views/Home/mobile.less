@@ -35,7 +35,7 @@
   }
 
   .Home__testimonial {
-    padding-top: 50px;
+    padding-top: 30px;
     padding-bottom: 0px;
   }
 
@@ -60,17 +60,11 @@
   .About__hero {
     padding-top: 50px;
 
-    .hotel-description-container {
-      &.user-not-authenticated {
-        padding-top: 285px;
-      }
-    }
-
     .register_space {
       min-height: 185px;
 
       hero-slider {
-        height: 185px;
+        height: calc(~'70vh - @{mobile-header-height}');
         .slider-controls .pages span{
           &:nth-child(1) {
             margin-left: 35%;
@@ -79,6 +73,7 @@
       }
 
       .promotion-text-container {
+        display: none; // hide on mobile
         left: 0;
         top: 40px;
         width: 100%;
