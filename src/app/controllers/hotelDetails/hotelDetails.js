@@ -49,7 +49,7 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.roomImageHeight = $scope.roomsConfig.roomImageSize && $scope.roomsConfig.roomImageSize.height ? $scope.roomsConfig.roomImageSize.height : '384';
   $scope.roomImageWidth = $scope.roomsConfig.roomImageSize && $scope.roomsConfig.roomImageSize.width ? $scope.roomsConfig.roomImageSize.width : '768';
 
-  $scope.amenities = {
+  $scope.amenitiesSection = {
     show: false
   };
 
