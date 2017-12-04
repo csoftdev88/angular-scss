@@ -49,6 +49,10 @@ angular.module('mobius.controllers.hotel.details', [
   $scope.roomImageHeight = $scope.roomsConfig.roomImageSize && $scope.roomsConfig.roomImageSize.height ? $scope.roomsConfig.roomImageSize.height : '384';
   $scope.roomImageWidth = $scope.roomsConfig.roomImageSize && $scope.roomsConfig.roomImageSize.width ? $scope.roomsConfig.roomImageSize.width : '768';
 
+  $scope.amenitiesSection = {
+    show: false
+  };
+
   var defaultRoomsViewMode = $scope.viewSettings.defaultViewMode;
   var showAltDates = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.dates && $scope.roomsConfig.alternativeDisplays.dates.enable;
   var showAltProperties = $scope.roomsConfig.alternativeDisplays && $scope.roomsConfig.alternativeDisplays.properties && $scope.roomsConfig.alternativeDisplays.properties.enable;

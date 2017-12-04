@@ -3,6 +3,15 @@
 
   .HotelDetails {
 
+    hotel-location {
+      .map-wrapper {
+        height: 300px;
+        ng-map {
+          height: 300px;
+        }
+      }
+    }
+
     .hotel-detail__location {
       margin-top: 42px;
     }
@@ -92,6 +101,61 @@
       .map-wrapper {
         margin-left: calc(~'-50vw + 50%');
         margin-top: 0;
+      }
+    }
+
+  }
+
+  .hotel-info-details .rating-trip-advisor {
+    margin: 15px 0;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    padding: 10px;
+    padding-right: 0;
+    background-color: #EFF7F5;
+    border: 1px solid rgba(1, 166, 127, 0.2);
+    border-radius: 8px;
+    .logo-symbol {
+      float: left;
+      order: -1;
+      width: 35px;
+    }
+    .spacer {
+      height: 10px;
+      order: 0;
+    }
+
+    .trip-advisor-ratings {
+      text-align: right;
+      order: 1;
+      width: auto;
+      flex-flow: row wrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    span {
+      margin: 0;
+      font-weight: 300;
+      text-align: left;
+      &.rating-description {
+        font-size: 15px;
+        line-height: 19px;
+        order: 2;
+        margin-right: 10px;
+      }
+      &.number-of-reviews {
+        margin-right: 5px;
+        font-size: 12px;
+        line-height: 17px;
+        order: -1;
+      }
+    }
+
+    a {
+      margin-right: 10px;
+      img {
+        width: 95px;
       }
     }
 
