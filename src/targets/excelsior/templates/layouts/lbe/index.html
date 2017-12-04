@@ -8,9 +8,7 @@
 <div class="main-view" ui-view autoscroll="true"></div>
 
 <!-- BOOKING WIDGET AREA-->
-<floating-bar ng-if="isMobile"
-              ng-class="{'hide': !$state.includes('home'), 'home-bar': $state.includes('home')}">
-</floating-bar>
+<floating-bar ng-if="isMobile" class="hide"></floating-bar>
 
 <!-- TODO Set a config called footerless pages, then we can loop through that instead of direct page refs -->
 <footer class="main"

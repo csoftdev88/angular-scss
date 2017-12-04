@@ -16,21 +16,23 @@
 
 floating-bar {
   .viewport-mobile & {
-    // Override display none on the element to ensure transitions happen
-    height: 300px;
-    position: absolute;
-    top: 200px;
-    z-index: 99;
-    // Override display none on the element to ensure transitions happen
-    display: none !important;
-    bottom: initial;
+    &.active {
+      // Override display none on the element to ensure transitions happen
+      height: 300px;
+      top: @mobile-header-height;
+      height: calc(~'100vh - @{mobile-header-height}');
+      position: fixed;
+      z-index: 99;
+      // Override display none on the element to ensure transitions happen
+      display: block;
+    }
     > ul {
       display: table;
     }
     &.hide {
-      display: none !important;
+      display: none;
       &.force-show {
-        display: block !important;
+        display: block;
       }
     }
     select, #booking-widget-date-range {
@@ -63,6 +65,51 @@ floating-bar {
       }
       form-element:before {
         display: none;
+      }
+    }
+    button-submit[disabled='disabled'], button-submit { // override previous css
+      background: #87C34A;
+    }
+    .close-button {
+      background-image: url('@{img-prefix}/menu_close.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 16px;
+      height: 16px;
+      float: right;
+      margin: 20px;
+      clear: both;
+      cursor: pointer;
+    }
+    .best-price-guarantee {
+      height: auto;
+      width: auto;
+      border-radius: 8px;
+      background-color: #212020;
+      margin: 0 20px;
+      .tag {
+        background-image: url('@{img-prefix}/v4/tag.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 48px;
+        height: 68px;
+        float:left;
+        margin: 15px;
+      }
+      h1 {
+        color: #FFFFFF;
+        font-family: @ff-primary;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 24px;
+        padding: 15px 5px 10px 15px;
+      }
+      p {
+        color: #FFFFFF;
+        font-family: @ff-primary;
+        font-size: 15px;
+        line-height: 18px;
+        padding: 0 25px;
       }
     }
   }
