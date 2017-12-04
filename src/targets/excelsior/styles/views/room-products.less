@@ -34,7 +34,7 @@ room-products {
         background-color: #FBF8F4;
         .description-and-points-earned .PointsEarned {
           .viewport-mobile & {
-            background-color: lighten(#f7f4f4, 2%);
+            background-color: #fff;
           }
         }
       }
@@ -65,9 +65,8 @@ room-products {
         .viewport-mobile & {
           // sadly I have to use !important because the main style uses it...
           border: 1px solid #dedede !important;
-          box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
           border-radius: 6px;
-          margin-top: 10px;
+          margin-top: 20px;
           min-height: 80px;
           &:last-of-type {
             margin-bottom: 20px;
@@ -181,6 +180,9 @@ room-products {
             .fa {
               margin-top: -3px;
               font-size: 17px;
+              .viewport-mobile & {
+                display: none;
+              }
             }
             .emphasize {
               font-weight: bold;
@@ -206,7 +208,13 @@ room-products {
               display: none;
             }
             .member-only-badge {
-              display: none;
+              position: absolute;
+              // Overwrite display: flex
+              display: block;
+              top: -11px;
+              font-size: 10px;
+              background-color: #212020;
+              border-color: #212020;
             }
             .original-price-mobile {
               display: initial;
@@ -233,6 +241,13 @@ room-products {
 				}
 			}
 			&.is-highlighted, &.is-member-only, &.is-member-only-disabled {
+        .viewport-mobile & {
+          box-shadow: 0 0 0 3px rgba(0,0,0,0.02);
+          // Use !important because the main style uses it
+          border: 1px solid #212020 !important;
+          border-right-color: #dedede !important;
+          background: #fff;
+        }
 				pricing-details {
 					top: 0;
 					.action-buttons {
@@ -408,6 +423,10 @@ room-products {
         flex-flow: row nowrap;
         justify-content: center;
 
+        .viewport-mobile & {
+          background: #fff;
+        }
+
         .star-icon {
           font-size: 24px;
           line-height: 24px;
@@ -462,7 +481,7 @@ room-products {
             .original-price {
               top: 4px;
               .viewport-mobile & {
-                display: none;
+                display: block;
               }
             }
 
@@ -485,6 +504,7 @@ room-products {
 
             .value {
               .viewport-mobile & {
+                display: block;
                 float: none;
                 clear: none;
                 font-size: 18px;
