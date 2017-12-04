@@ -127,7 +127,7 @@
           <td>{{getTotal('totalDiscount') | i18nCurrency: $root.currencyCode}}</td>
         </tr>
 
-        <tr class="main">
+        <tr class="main total-row">
           <th>_total_:</th>
           <td ng-switch-when="cc">{{getTotal('totalAfterTaxAfterPricingRules') | i18nCurrency: $root.currencyCode}}</td>
           <td ng-switch-when="point" ng-if="loyaltyProgramEnabled">{{getTotal('pointsRequired')}} _points_</td>
@@ -156,6 +156,24 @@
 
       </tbody>
     </table>
+  </div>
+
+  <div
+    ng-if="isMobile"
+    class="mobile-links">
+    <p ng-show="!noBreakdown" class="breakdown" ng-if="formatting !== 'suppressRate'">
+      <a href ng-click="breakdown.extended = !breakdown.extended">
+        <span ng-if="!breakdown.extended">_view_price_breakdown_</span>
+        <span ng-if="breakdown.extended">_hide_price_breakdown_</span>
+      </a>
+    </p>
+    <p>
+      <a ng-href="{{ bookingConfig.termsAndConditionsLink }}"
+         ng-click="readPolicies()"
+         target="_blank">
+        _policies_
+      </a>
+    </p>
   </div>
 
   <div ng-if="!bookingConfig.detailsBeforeForm && state.includes('reservation.confirmation')">

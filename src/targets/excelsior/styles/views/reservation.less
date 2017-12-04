@@ -25,8 +25,33 @@ reservation-widget {
     cursor: pointer;
   }
 
+  label {
+    .viewport-mobile & {
+      padding-bottom: 0;
+    }
+  }
+
   .viewport-mobile & {
-    padding: 20px;
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .reservation-summary {
+    background-color: #31302F;
+    box-shadow: 0 1px 0 0 #DEDEDE;
+    border-radius: 6px 6px 0 0;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 15px;
+    color: #fff;
+
+    &.bottom-border-radius {
+      border-radius: 6px;
+    }
+
+    .total-container {
+      float: right;
+    }
   }
 
   // Override chosen styling for select boxes
@@ -38,6 +63,7 @@ reservation-widget {
     padding: 20px;
     margin-bottom: 40px;
     .viewport-mobile & {
+      padding: 0;
       margin-bottom: 40px;
     }
   }
@@ -98,7 +124,7 @@ reservation-widget {
     }
 
     width: 245px;
-    border-radius: 0;
+    border-radius: 4px;
     border: none;
     color: #fff;
     cursor: pointer;
@@ -114,11 +140,12 @@ reservation-widget {
   h3 {
     margin-top: 30px;
     font-size: 24px;
-    color: @c-text;
+    color: @c-primary;
     line-height: 29px;
     font-weight: 300;
-    font-family: @ff-secondary;
     text-transform: uppercase;
+    font-family: @ff-serif;
+    letter-spacing: 1px;
     .viewport-mobile & {
       margin-top:20px;
     }
@@ -173,6 +200,14 @@ reservation-widget {
     }
 
     &:focus {
+      box-shadow: none;
+    }
+
+    .viewport-mobile & {
+      height: 44px;
+      line-height: 44px;
+      background: #fff;
+      border: 1px solid #E6D4BD;
       box-shadow: none;
     }
   }
@@ -287,6 +322,9 @@ reservation-widget {
       display: inline;
       float: left;
       max-width: 75%;
+      .viewport-mobile & {
+        max-width: 100%;
+      }
       &.price{
         clear: left;
         margin-top: 0;
@@ -375,12 +413,18 @@ reservation-widget {
     th {
       font-weight: normal;
       padding: 0 5px;
+      .viewport-mobile & {
+        color: #898989;
+      }
     }
 
     td {
       font-weight: 700;
       padding: 0 5px;
       text-align: right;
+      .viewport-mobile & {
+        font-weight: normal;
+      }
     }
 
     .data {
@@ -396,9 +440,15 @@ reservation-widget {
       th {
         text-align: left;
         font-weight: 400;
+        .viewport-mobile & {
+          text-align: left;
+        }
       }
       td {
         font-weight: 700;
+        .viewport-mobile & {
+          font-weight: normal;
+        }
       }
       .breakdown-toggle{
         td {
@@ -412,6 +462,11 @@ reservation-widget {
         }
         a{
           color: @c-menu-active-sand;
+        }
+      }
+      .total-row {
+        .viewport-mobile & {
+          display: none;
         }
       }
     }
@@ -539,6 +594,13 @@ reservation-widget {
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
   position: relative;
 
+  .viewport-mobile & {
+    box-shadow: none;
+    border: 0 none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
   .reservation-upgrade-notification {
     background-color: #b98747;
     margin-top: -30px;
@@ -563,6 +625,28 @@ reservation-widget {
     line-height: 15px;
     text-transform: uppercase;
   }
+}
+
+.mobile-links {
+  text-align: right;
+  font-size: 13px;
+  p {
+    margin: 0;
+  }
+  a {
+    color: #A97437;
+    text-decoration: underline;
+  }
+}
+
+.back-button {
+  float: left;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  color: #575757;
+  font-size: 13px;
+  margin-top: 10px;
+  text-shadow: none;
 }
 
 ////////////////////////////////////////////////
@@ -754,6 +838,9 @@ reservation-billing {
             left: 0px;
             right: 10px;
             top: 25px;
+            .viewport-mobile & {
+              right: 0;
+            }
           }
         }
 
@@ -765,8 +852,30 @@ reservation-billing {
             width: 100%;
           }
 
+          .input-left,
+          .input-right {
+            box-sizing: border-box;
+            clear: none;
+            width: 50%;
+          }
+
+          .input-left {
+            float: left;
+            padding-right: 5px;
+          }
+
+          .mobile-left {
+            .viewport-mobile & {
+              padding-right: 0;
+              padding-left: 5px;
+            }
+          }
+
           > label {
             padding-top: 5px;
+            .viewport-mobile & {
+              width: 50%;
+            }
           }
         }
 
@@ -781,9 +890,15 @@ reservation-billing {
 
           > label {
             padding-top: 5px;
+            .viewport-mobile & {
+              padding-top: 15px;
+            }
 
             span {
               top: -10px;
+              .viewport-mobile & {
+                top: 0;
+              }
             }
           }
 
@@ -799,6 +914,7 @@ reservation-billing {
             text-align: center;
             .viewport-mobile &{
               right: 5px;
+              top: 25px;
             }
           }
         }
