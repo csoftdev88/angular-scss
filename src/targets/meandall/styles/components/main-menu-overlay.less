@@ -7,9 +7,10 @@
   z-index: -1;
   background: @c-white;
   opacity: 0;
+  overflow-y: auto; // fix issue on small screens not able to see all items
   .transition(all, .85s, ease);
   nav {
-    margin: 50px 0 20px 0;
+    margin: 50px 0 110px 0; // 110px to compensate for floating bar at the bottom
     @media screen and (max-height: 875px) {
       margin-top: 25px;
     }
