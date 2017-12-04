@@ -86,11 +86,13 @@
         </div>
       </div>
 
-      <div class="PointsEarned">
+      <div ng-if="product.productAwardPoints" class="PointsEarned">
         <i class="star-icon fa fa-star-o"></i>
         <div class="text-content">
           <span class="earn-points">
-            _earn_ {{product.price.pointsEarned ? getValuePer(product.price.pointsEarned, true).toFixed(0) : ''}} _points_
+            _earn_
+            {{ product.price.pointsEarned ? getValuePer(product.price.pointsEarned, true).toFixed(0) : '' }}
+            _points_
           </span>
           <span class="with-this-booking">_with_this_booking_</span>
         </div>
