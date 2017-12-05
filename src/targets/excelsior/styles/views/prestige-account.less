@@ -13,6 +13,39 @@ prestige-account {
     }
   }
 
+  .prestige__title {
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    margin-left: -16px;
+    padding-left: 30px;
+
+    &.streched {
+      height: 50px;
+      border: 1px solid #464646;
+      background: linear-gradient(0deg, #4A4A4A 0%, #676767 100%);
+      border-radius: 0;
+      width: 100%;
+      color: #FFFFFF;
+      font-family: @ff-primary;
+      line-height: 50px;
+      font-size: 18px;
+      .name {
+        float: left;
+        padding-left: 20px;
+      }
+      .points {
+        float: right;
+        font-weight: bold;
+      }
+      .points-title {
+        font-size: 16px;
+        font-weight: 300;
+        padding-right: 20px;
+      }
+    }
+  }
+
   //Page header
   header{
     h1{
@@ -127,8 +160,22 @@ prestige-account {
         width: 100%;
         padding: 18px 0;
         border-top: 1px solid #eee;
+
+        .viewport-mobile &{
+          padding: 4px 0 0 0;
+        }
+
         &:first-child{
           border: none;
+          .date,
+          .description,
+          .transaction-value,
+          .balance,
+          .booking-ref{
+            .label{
+              display: block !important;
+            }
+          }
         }
 
         .date,
@@ -149,6 +196,10 @@ prestige-account {
             font-weight: 600;
             min-height: 7px;
             margin-bottom: 6px;
+
+            .viewport-mobile &{
+              display: none;
+            }
           }
           .value,
           .detail {
@@ -158,6 +209,10 @@ prestige-account {
             line-height: @size-3;
             font-weight: 600;
             text-transform: uppercase;
+            .viewport-mobile &{
+              font-size: 12px;
+              font-weight: 400;
+            }
           }
           .detail{
             font-weight: 300;
@@ -321,6 +376,7 @@ prestige-account {
     display: flex;
     justify-content: center;
     float: initial !important;
+    margin: 18px 0;
   }
 }
 

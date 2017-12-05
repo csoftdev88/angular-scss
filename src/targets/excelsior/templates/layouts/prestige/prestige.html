@@ -18,13 +18,18 @@
 
     <div grid="12">
 
-      <header>
+      <header  ng-if="!isMobile()">
         <div class="bg"></div>
         <h1 class="Prestige__balance" ng-bind-html="'_your_balance_:&nbsp;' | mainHeaderStyle"></h1>
         <p class="points Prestige__points">
           {{prestigeData.pointsBalance}} _points_
         </p>
       </header>
+
+      <div class="prestige__title streched" ng-if="isMobile()">
+        <div class="name">{{ user.firstName }} {{ user.lastName }}</div>
+        <div class="points">{{ prestigeData.pointsBalance }} <span class="points-title">_points_</span></div>
+      </div>
 
       <div class="transactions">
 
