@@ -1,5 +1,39 @@
 <reservation-confirmation id="reservationConfirmation">
-  <tabset>
+  <form
+    name="forms.additionalInfo"
+    class="additional-details"
+    novalidate
+    ng-submit="forms.additionalInfo.$valid && continue()"
+    ng-if="isMobile">
+    <label
+      for="commentsTop"
+      ng-if="bookingConfig.additionalDetails.comments.display && bookingConfig.additionalDetails.comments.position === 'top'">
+      <textarea id="commentsTop" placeholder="_comments_placeholder_" ng-model="additionalInfo.comments" name="commentsTop" ng-pattern="$root.generalValidationPattern"></textarea>
+      <span>
+        <span ng-hide="forms.additionalInfo.commentsTop.$error">_comments_label_</span>
+        <span ng-show="forms.additionalInfo.commentsTop.$error">_comments_label_</span>
+        <span ng-show="forms.additionalInfo.commentsTop.$error.pattern">_letters_pattern_error_</span>
+      </span>
+    </label>
+
+    <label
+      for="form-arrival-time"
+      class="input-left">
+      <select
+        id="form-arrival-time"
+        ng-model="additionalInfo.arrivalTime">
+        <option value="">_arrival_time_placeholder_</option>
+        <option
+          ng-repeat="arrivalTime in arrivalTimes"
+          ng-value="arrivalTime.value">
+          {{ arrivalTime.displayValue }}
+        </option>
+      </select>
+      <span>_arrival_time_label_</span>
+    </label>
+  </form>
+
+  <tabset ng-if="!isMobile">
     <tab heading="_guest_details_">
       <table>
         <tbody ng-if="!uiConfig.reservations.tempHackInfoFormReorder">
@@ -183,34 +217,23 @@
           </label>
 
           <label for="form-arrival-time" class="input-left">
-            <select id="form-arrival-time" ng-model="additionalInfo.arrivalTime">
+            <select
+              id="form-arrival-time"
+              ng-model="additionalInfo.arrivalTime">
               <option value="">_arrival_time_placeholder_</option>
-              <option value="5 AM">{{1482642000000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="6 AM">{{1482645600000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="7 AM">{{1482649200000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="8 AM">{{1482652800000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="9 AM">{{1482656400000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="10 AM">{{1482660000000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="11 AM">{{1482663600000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="12 PM">{{1482667200000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="1 PM">{{1482670800000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="2 PM">{{1482674400000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="3 PM">{{1482678000000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="4 PM">{{1482681600000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="5 PM">{{1482685200000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="6 PM">{{1482688800000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="7 PM">{{1482692400000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="8 PM">{{1482696000000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="9 PM">{{1482699600000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="10 PM">{{1482703200000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="11 PM">{{1482706800000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="12 AM">{{1482710400000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option
+                ng-repeat="arrivalTime in arrivalTimes"
+                ng-value="arrivalTime.value">
+                {{ arrivalTime.displayValue }}
+              </option>
             </select>
             <span>_arrival_time_label_</span>
           </label>
 
           <!--ng-options="item.display as item.display for item in possibleArrivalMethods"-->
-          <label for="arrival-method" class="input-right">
+          <label
+            for="arrival-method"
+            class="input-right">
             <select id="arrival-method"
               ng-model="additionalInfo.arrivalMethod">
               <option value="">_arrical_method_placeholder_</option>
@@ -232,38 +255,23 @@
             </span>
           </label>
 
-          <label for="form-departure-time" ng-if="bookingConfig.additionalDetails.departureTime.display">
+          <label
+            for="form-departure-time"
+            ng-if="bookingConfig.additionalDetails.departureTime.display">
             <select id="form-departure-time" ng-model="additionalInfo.departureTime" placeholder="Departure Time">
               <option value="">_departure_time_placeholder_</option>
-              <option value="1 AM">{{1482627600000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="2 AM">{{1482631200000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="3 AM">{{1482634800000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="4 AM">{{1482638400000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="5 AM">{{1482642000000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="6 AM">{{1482645600000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="7 AM">{{1482649200000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="8 AM">{{1482652800000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="9 AM">{{1482656400000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="10 AM">{{1482660000000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="11 AM">{{1482663600000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="12 PM">{{1482667200000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="1 PM">{{1482670800000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="2 PM">{{1482674400000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="3 PM">{{1482678000000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="4 PM">{{1482681600000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="5 PM">{{1482685200000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="6 PM">{{1482688800000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="7 PM">{{1482692400000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="8 PM">{{1482696000000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="9 PM">{{1482699600000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="10 PM">{{1482703200000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="11 PM">{{1482706800000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
-              <option value="12 AM">{{1482710400000 | date:bookingConfig.additionalDetails.timeFormat ? bookingConfig.additionalDetails.timeFormat : 'h a'}}</option>
+              <option
+                ng-repeat="departureTime in departureTimes"
+                ng-value="departureTime.value">
+                {{ departureTime.displayValue }}
+              </option>
             </select>
             <span>_departure_time_label_</span>
           </label>
 
-          <label for="secondTelephone" ng-if="bookingConfig.additionalDetails.tel2.display">
+          <label
+            for="secondTelephone"
+            ng-if="bookingConfig.additionalDetails.tel2.display">
             <input type="text" id="second-telephone"
               placeholder="_secondary_phone_number_"
               ng-model="additionalInfo.secondPhoneNumber"
@@ -276,7 +284,9 @@
             </span>
           </label>
 
-          <label for="secondEmail" ng-if="bookingConfig.additionalDetails.email2.display">
+          <label
+            for="secondEmail"
+            ng-if="bookingConfig.additionalDetails.email2.display">
             <input type="email" id="second-email"
               placeholder="_additional_email_label_"
               ng-model="additionalInfo.secondEmail"
@@ -288,7 +298,9 @@
             </span>
           </label>
 
-          <label for="thirdEmail" ng-if="bookingConfig.additionalDetails.email3.display">
+          <label
+            for="thirdEmail"
+            ng-if="bookingConfig.additionalDetails.email3.display">
             <input type="email" id="third-email"
               placeholder="_additional_email_label_"
               ng-model="additionalInfo.thirdEmail"

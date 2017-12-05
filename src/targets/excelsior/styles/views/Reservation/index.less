@@ -5,6 +5,10 @@ main.reservation-page {
   background-size: cover;
   min-height: calc(~'100vh - 70px');
 
+  .viewport-mobile & {
+    background: none;
+  }
+
   .grid-wrapper {
     max-width: 1080px !important;
     border-radius: 6px;
@@ -12,6 +16,12 @@ main.reservation-page {
     background-color: #fff;
     margin-top: 30px;
     margin-bottom: 0;
+
+    .viewport-mobile & {
+      margin-top: 0;
+      border-radius: 0;
+      background-color: #fbf8f4;
+    }
   }
 
 }

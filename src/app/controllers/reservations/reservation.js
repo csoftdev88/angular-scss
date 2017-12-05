@@ -29,6 +29,30 @@ angular.module('mobius.controllers.reservation', [])
   $scope.canPayWithPoints = true;
   $scope.$stateParams = $stateParams;
   $scope.settings = Settings;
+  // Variable used for showing/hiding reservation summary on mobile for Excelsior tenant
+  $scope.reservationSummary = {
+    show: true
+  };
+
+  var date = $window.moment().hour(0).minute(0).second(0);
+  var displayDateFormat = ($scope.bookingConfig.additionalDetails.timeFormat) ? $scope.bookingConfig.additionalDetails.timeFormat : 'h a';
+  $scope.arrivalTimes = [];
+  for (var i = 5; i <= 24; i++) {
+    var arrivalDate = date.hour(i);
+    $scope.arrivalTimes.push({
+      'value': arrivalDate.format('h a'),
+      'displayValue': arrivalDate.format(displayDateFormat)
+    });
+  }
+
+  $scope.departureTimes = [];
+  for (var j = 1; j <= 24; j++) {
+    var departureDate = date.hour(j);
+    $scope.departureTimes.push({
+      'value': departureDate.format('h a'),
+      'displayValue': departureDate.format(displayDateFormat)
+    });
+  }
 
   // FIXME: this state parameter is lost on page refresh! We need to re-evaluate this from the product code instead!
   $scope.memberOnlyBooking = $stateParams.memberOnly;
