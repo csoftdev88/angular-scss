@@ -183,6 +183,7 @@
     "recent": "Recent",
     "pending": "Pending",
     "transaction": "transaction",
+    "date": "Date",
     "date_added": "Date Added",
     "date_booked": "Date Booked",
     "date_opened": "Date Opened",
