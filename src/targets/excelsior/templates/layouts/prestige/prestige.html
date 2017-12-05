@@ -18,13 +18,18 @@
 
     <div grid="12">
 
-      <header>
+      <header  ng-if="!isMobile()">
         <div class="bg"></div>
         <h1 class="Prestige__balance" ng-bind-html="'_your_balance_:&nbsp;' | mainHeaderStyle"></h1>
         <p class="points Prestige__points">
           {{prestigeData.pointsBalance}} _points_
         </p>
       </header>
+
+      <div class="prestige__title streched" ng-if="isMobile()">
+        <div class="name">{{ prestigeUser.firstName }} {{ prestigeUser.lastName }}</div>
+        <div class="points">{{ prestigeData.pointsBalance }} <span class="points-title">_points_</span></div>
+      </div>
 
       <div class="transactions">
 
@@ -69,12 +74,14 @@
             <!-- Account creation -->
             <div ng-if="item.type === 1">
               <div class="date">
-                <div class="label">_date_opened_</div>
+                <div class="label" ng-if="!isMobile()">_date_opened_</div>
+                <div class="label" ng-if="isMobile()">_date_</div>
                 <div class="value">{{formatDate(item.date, 'DD MMM YYYY')}}</div>
               </div>
 
               <div class="description">
-                <div class="label"></div>
+                <div class="label" ng-if="!isMobile()"></div>
+                <div class="label" ng-if="isMobile()">_name_label_</div>
                 <h4 class="value">_prestige_account_opened_desc_</h4>
               </div>
 
@@ -91,13 +98,15 @@
             <!-- Booking transaction -->
             <div ng-if="item.type === 2">
               <div class="date">
-                <div class="label">_date_booked_</div>
+                <div class="label"  ng-if="!isMobile()">_date_booked_</div>
+                <div class="label" ng-if="isMobile()">_date_</div>
                 <div class="value">{{formatDate(item.date, 'DD MMM YYYY')}}</div>
               </div>
 
               <div class="description booking">
                 <div class="booking-item">
-                  <div class="label">_booking_reference_</div>
+                  <div class="label" ng-if="!isMobile()">_booking_reference_</div>
+                  <div class="label" ng-if="isMobile()">_name_label_</div>
                   <h4 class="value">{{item.reference}}</h4>
                 </div>
                 <div class="booking-item">
@@ -129,12 +138,14 @@
             <!-- Positive manual transaction -->
             <div ng-if="item.type === 3 && item.amount > 0">
               <div class="date">
-                <div class="label">_date_added_</div>
+                <div class="label"  ng-if="!isMobile()">_date_added_</div>
+                <div class="label" ng-if="isMobile()">_date_</div>
                 <div class="value">{{formatDate(item.date, 'DD MMM YYYY')}}</div>
               </div>
 
               <div class="description">
-                <div class="label">_manual_entry_</div>
+                <div class="label" ng-if="!isMobile()">_manual_entry_</div>
+                <div class="label" ng-if="isMobile()">_name_label_</div>
                 <h4 class="value">_manually_added_points_</h4>
                 <p class="detail"
                    ng-class="{'open': item.showComments}"
@@ -164,12 +175,14 @@
             <!-- Negative manual transaction -->
             <div ng-if="item.type === 3 && item.amount < 0">
               <div class="date">
-                <div class="label">_date_booked_</div>
+                <div class="label" ng-if="!isMobile()">_date_booked_</div>
+                <div class="label" ng-if="isMobile()">_date_</div>
                 <div class="value">{{formatDate(item.date, 'DD MMM YYYY')}}</div>
               </div>
 
               <div class="description">
-                <div class="label">_manual_reduction_</div>
+                <div class="label" ng-if="!isMobile()">_manual_reduction_</div>
+                <div class="label" ng-if="isMobile()">_name_label_</div>
                 <h4 class="value">_manually_removed_points_</h4>
                 <p class="detail"
                    ng-class="{'open': item.showComments}"
@@ -201,16 +214,18 @@
             <!-- Reward purchased/cancelled/redeemed -->
             <div ng-if="item.type === 4">
               <div class="date">
-                <div class="label">
+                <div class="label" ng-if="!isMobile()">
                   <span ng-if="item.amount < 0">_date_purchased_</span>
                   <span ng-if="item.amount > 0">_date_cancelled_</span>
                   <span ng-if="item.amount === 0">_date_redeemed_</span>
                 </div>
+                <div class="label" ng-if="isMobile()">_date_</div>
                 <div class="value">{{formatDate(item.date, 'DD MMM YYYY')}}</div>
               </div>
 
               <div class="description">
-                <div class="label">_reward_name_</div>
+                <div class="label" ng-if="!isMobile()">_reward_name_</div>
+                <div class="label" ng-if="isMobile()">_name_label_</div>
                 <h4 class="value">
                   <span ng-if="item.amount < 0">_purchased_&nbsp;-&nbsp;</span>
                   <span ng-if="item.amount > 0">_cancelled_&nbsp;-&nbsp;</span>
@@ -242,14 +257,16 @@
             <!-- Reward from answering poll -->
             <div ng-if="item.type === 5">
               <div class="date">
-                <div class="label">
+                <div class="label" ng-if="!isMobile()">
                   <span>_date_redeemed_</span>
                 </div>
+                <div class="label" ng-if="isMobile()">_date_</div>
                 <div class="value">{{formatDate(item.date, 'DD MMM YYYY')}}</div>
               </div>
 
               <div class="description">
-                <div class="label">_reward_name_</div>
+                <div class="label" ng-if="!isMobile()">_reward_name_</div>
+                <div class="label" ng-if="isMobile()">_name_label_</div>
                 <h4 class="value">
                   <span>_redeemed_&nbsp;-&nbsp;</span>
                   {{ item.title }}
@@ -294,12 +311,14 @@
               pagination-id="pending">
 
             <div class="date">
-              <div class="label">_date_booked_</div>
+              <div class="label" ng-if="!isMobile()">_date_booked_</div>
+              <div class="label" ng-if="isMobile()">_date_</div>
               <div class="value">{{formatDate(item.date, 'DD MMM YYYY')}}</div>
             </div>
 
             <div class="booking-ref">
-              <div class="label">_booking_reference_</div>
+              <div class="label" ng-if="!isMobile()">_booking_reference_</div>
+              <div class="label" ng-if="isMobile()">_name_label_</div>
               <h4 class="value">{{item.reference}}</h4>
             </div>
 
