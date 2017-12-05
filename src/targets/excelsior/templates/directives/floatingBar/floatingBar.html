@@ -1,48 +1,4 @@
-<!-- <ul>
-  <li class="floating-bar--tab-booking main-mobile-toggle" ng-class="{'is-active': active === BOOKING, 'mobile-is-open': !isCollapsed}" ng-hide="mobileMenuOpen">
-    <div class="glass-filter"></div>
-    <a href="" ng-click="setActive(BOOKING, true);" ng-class="{'with-search-params' : hasSearchParams() && hasDates()}" class="active-booking">
-      <div class="desktop" ng-bind-html="'_make_your_booking_' | mainHeaderStyle"></div>
-      <div class="mobile">
-        <div ng-show="hasSearchParams() && !hasDates()" class="book-now-button" ng-bind-html="'_select_dates_' | mainHeaderStyle" ng-click="openDatePicker()"></div>
-        <div ng-show="!hasSearchParams() && !hasDates() || hasSearchParams() && hasDates() && !isCollapsed" class="book-now-button" ng-bind-html="'_book_now_floating_bar_' | mainHeaderStyle"></div>
-        <div ng-show="hasSearchParams() && hasDates() && isCollapsed" ng-class="{'in-line' : inLine()}" class="search-params-bar">
-          <div class="cell dates">
-            <div class="date-cell" ng-bind-html="getCheckIn()"></div>
-            <div class="date-cell">{{getCheckOut()}}</div>
-          </div>
-          <div class="cell separator-cell"> | </div>
-          <div class="cell people">
-            <div class="adult" ng-show="adults == 1">1 _adult_</div>
-            <div class="adult" ng-show="adults > 1">{{adults}} _adults_</div>
-            <div ng-show="children == 1">1 _child_</div>
-            <div ng-show="children > 1">{{children}} _children_</div>
-          </div>
-        </div>
-        <span class="mobile-close" ng-click="closeWidget()" ng-show="!isCollapsed"></span></div>
-      <div class="mobile-search-text" ng-if="floatingBarTopRight">_search_</div>
-    </a>
-  </li>
-  <li class="floating-bar--tab-booking mobile-single-booking" ng-if="hasMultiroomTab" ng-class="{'is-active': active === BOOKING}">
-    <a href="" ng-click="setActive(BOOKING)">
-      <span class="desktop" ng-bind-html="'_single_booking_' | mainHeaderStyle"></span>
-    </a>
-  </li>
-  <li class="floating-bar--tab-advanced-booking" ng-if="hasMultiroomTab" ng-class="{'is-active': active === ADVANCED_BOOKING}">
-    <a href="" ng-click="setActive(ADVANCED_BOOKING)" ng-bind-html="'_multiroom_booking_' | mainHeaderStyle"></a>
-  </li>
-  <li class="floating-bar--tab-my-accounts" ng-show="loyaltyProgramEnabled" ng-class="{'is-active': active === MY_ACCOUNT}">
-    <a href="" ng-click="setActive(MY_ACCOUNT)" ng-bind-html="'_loyalty_progam_title_' | mainHeaderStyle">
-    </a>
-  </li>
-  <li class="floating-bar--tab-campaign" ng-if="$root.campaign && $root.campaign.bookingBar.display" ng-class="{'is-active': active === CAMPAIGN}" ng-style="{'background-color': $root.campaign.bookingBar.tabColor}">
-    <a href="" ng-click="setActive(CAMPAIGN)" ng-bind-html="$root.campaign.name | mainHeaderStyle">
-    </a>
-    <span class="campaign-end-piece" ng-style="{'border-bottom-color':$root.campaign.bookingBar.tabColor}"></span>
-  </li>
-</ul> -->
 <div>
-
   <div class="close-button" ng-click="closeWidget()"></div>
   <booking-widget
     ng-init="initialShow()"
@@ -61,24 +17,4 @@
     <p>Excelsior Members Receive a 10% Discount.</p>
     <div class="clear"></div>
   </div>
-
-  <!-- <my-account
-    ng-show="loyaltyProgramEnabled"
-    ng-class="{'is-open': !isCollapsed && active === MY_ACCOUNT}">
-  </my-account>
-
-  <campaign-bar
-    ng-if="$root.campaign && $root.campaign.bookingBar.display"
-    ng-style="{'background-color': $root.campaign.bookingBar.tabColor}"
-    ng-class="{'is-open': !isCollapsed && active === CAMPAIGN}">
-    <a ng-href="{{$root.campaign.uri}}">
-      <div class="campaign-bar">
-        <div class="text-content">
-          <h2>{{$root.campaign.bookingBar.tabTitle}}</h2>
-          <p>{{$root.campaign.bookingBar.tabText}}</p>
-        </div>
-        <button class="campaign-cta" ng-style="{'background-image': 'linear-gradient(to bottom, '+ $root.campaign.campaignStyle.secondaryColor +', '+$root.campaign.campaignStyle.primaryColor+')'}">{{$root.campaign.bookingBar.callToAction ? $root.campaign.bookingBar.callToAction : '_book_now_floating_bar_'}}</button>
-      </div>
-    </a>
-  </campaign-bar> -->
 </div>

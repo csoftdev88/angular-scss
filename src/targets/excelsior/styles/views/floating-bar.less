@@ -17,8 +17,6 @@
 floating-bar {
   .viewport-mobile & {
     &.active {
-      // Override display none on the element to ensure transitions happen
-      height: 300px;
       top: @mobile-header-height;
       height: calc(~'100vh - @{mobile-header-height}');
       position: fixed;
@@ -93,7 +91,7 @@ floating-bar {
         background-repeat: no-repeat;
         width: 48px;
         height: 68px;
-        float:left;
+        float: left;
         margin: 15px;
       }
       h1 {
