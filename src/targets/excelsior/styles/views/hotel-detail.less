@@ -40,9 +40,26 @@ hotel-detail {
     .viewport-mobile & {
       margin-top:0;
     }
-    h2{
+    h2 {
       .viewport-mobile & {
-        display:none;
+        margin-bottom: 0;
+        font-size: 18px;
+      }
+      .amentities-arrow {
+        float: right;
+      }
+    }
+    .amenities-list {
+      &.restricted-amenities {
+        amenity-item,
+        .amenity-item {
+          .viewport-mobile & {
+            display:block;
+            &.amenity-highlight {
+              display:block;
+            }
+          }
+        }
       }
     }
   }
@@ -872,6 +889,8 @@ hotel-detail .hotel-detail__rooms-compare {
       flex-wrap: wrap;
       justify-content: flex-start;
       height: auto;
+      background-color: #212020;
+      border-radius: 0;
     }
 
     .filter-label {
@@ -879,6 +898,14 @@ hotel-detail .hotel-detail__rooms-compare {
       font-family: @ff-primary;
       font-size: 16px;
       font-weight: 300;
+
+      .viewport-mobile & {
+        color: #fff;
+      }
+    }
+
+    select {
+      color: #B98747;
     }
 
     .order-switch-container {

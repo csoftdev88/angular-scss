@@ -1,6 +1,22 @@
 <section grid-row id="jsAbout" class="hotel-overview">
   <div class="hotel-info-details">
     <div class="first-panel">
+      <div
+        class="stars rating-trip-advisor img"
+        ng-if="isMobile">
+        <div class="trip-advisor-ratings">
+          <img class="logo-symbol" src="/static/images/v4/tripadvisor-symbol.png">
+          <span class="number-of-reviews">2,121 Reviews</span>
+          <a ng-href="{{ details.tripAdvisorUrl }}" target="_blank">
+            <img ng-src="/static/images/v4/Stars.png" alt="tripadvisor rating">
+          </a>
+        </div>
+        <div class="spacer"></div>
+        <span class="rating-description">
+          #6 Best Value in New York City
+        </span>
+      </div>
+
       <h2 id="welcome-to-the-excelsior-hotel" class="HotelInfo__details--title">
         WELCOME TO THE EXCELSIOR HOTEL
       </h2>
@@ -27,15 +43,28 @@
         boutiques of Madison Avenue, the Metropolitan Museum of Art, and the Guggenheim and Whitney Museums.
       </p>
       <div ng-if="config.displayAmenitiesInHotelInfo && filteredAmenities && filteredAmenities.length" class="hotel-info-amenities">
-        <h2 ng-bind-html="'_amenities_title_' | mainHeaderStyle"></h2>
-        <input ng-if="details && config.restrictAmenities" type="checkbox" class="amenities-reveal-state" id="hotel-amenities" />
-        <ul ng-if="details" ng-class="{'restricted-amenities': config.restrictAmenities}" class="amenities-list">
+        <h2
+          ng-bind-html="'_amenities_title_' | mainHeaderStyle"
+          ng-if="!isMobile">
+        </h2>
+        <h2
+          ng-click="amenitiesSection.show = !amenitiesSection.show"
+          ng-if="isMobile">
+          _amenities_title_
+          <i
+            class="fa amentities-arrow"
+            ng-class="{'fa-chevron-down': !amenitiesSection.show, 'fa-chevron-up': amenitiesSection.show}"></i>
+        </h2>
+        <ul
+          ng-if="details"
+          ng-class="{'restricted-amenities': config.restrictAmenities}"
+          class="amenities-list"
+          ng-show="!isMobile || amenitiesSection.show">
           <li class="amenity-item" ng-repeat="amenity in filteredAmenities" ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = details.chainCode">
             <slug-img slug="amenity" type="hotel" width="32"></slug-img>
             <span class="amenity-caption">{{amenity.name}}</span>
           </li>
         </ul>
-        <label ng-if="details && config.restrictAmenities" for="hotel-amenities" class="amenities-reveal-trigger">_show_all_facilities_</label>
       </div>
     </div>
   </div>
