@@ -25,7 +25,7 @@
             $scope.viewMode = 'recent';
             $scope.prestigeData = data;
             $scope.dataLoaded = true;
-            $scope.user = user.getUser();
+            $scope.prestigeUser = user.getUser();
           });
       }
     }
