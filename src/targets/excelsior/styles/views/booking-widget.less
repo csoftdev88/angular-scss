@@ -34,13 +34,14 @@ booking-widget {
     text-transform: uppercase;
     height: 26px;
     line-height: 26px;
-    border-radius: 2px;
-    min-width: 0px;
-    padding:0;
+    border-radius: 4px;
+    min-width: 0;
+    padding: 0;
+    border: 1px solid #79AF41;
     .viewport-mobile &{
       height: 56px;
       line-height: 56px;
-      margin-top: 0 !important;
+      margin-top: 1px;
     }
   }
 
@@ -86,6 +87,7 @@ booking-widget-search {
       letter-spacing: 1px;
       margin-bottom: 10px;
       margin-left: 2px;
+      text-align: center;
     }
   }
 
@@ -94,6 +96,26 @@ booking-widget-search {
     display: none
   }
   form-element {
+    .mobile-drop-down-arrow {
+      display: none;
+    }
+    .viewport-mobile & {
+      position: relative;
+      .mobile-drop-down-arrow {
+        pointer-events: none;
+        display: initial;
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        color: #C8C8C8;
+        font-size: 24px;
+        padding-right: 0.5em;
+        position: absolute;
+        top: 17px;
+        right: 2px;
+        z-index: 1;
+      }
+    }
 
     &.code.code-input {
       remove-text {
@@ -104,10 +126,11 @@ booking-widget-search {
       border-radius: 0;
       border: none;
       background: #fff;
-      color: #4A4A4A;
       font-size: 13px;
-      text-transform: uppercase;
-      font-family: @ff-secondary;
+      font-family: @ff-primary;
+      text-transform: capitalize;
+      color: @c-alt-grey;
+      left: 15px;
       a, div {
         padding-top: 6px;
       }
@@ -130,7 +153,7 @@ booking-widget-add-room form-element {
 
   .viewport-mobile &{
     padding-right: 0;
-    margin-bottom: 3px;
+    margin-bottom: 6px;
     input,
     .chosen-container,
     .chosen-single {
@@ -142,9 +165,23 @@ booking-widget-add-room form-element {
   input[type=text],
   select,
   .chosen-container-single .chosen-single {
-    .viewport-mobile &{
+    .viewport-mobile & {
+      -webkit-appearance: none;
       line-height: 56px;
       height: 56px;
+
+      text-indent: 15px;
+      font-weight: 300;
+      text-transform: capitalize;
+      font-size: 15px;
+      color: #4a4a4a;
+      font-family: @ff-primary;
+    }
+  }
+
+  input[type=text] {
+    .viewport-mobile & {
+      text-indent: 15px;
     }
   }
 
