@@ -1309,7 +1309,7 @@ reservation-confirmation {
 
           check-in-date {
             position: absolute;
-            bottom: 20px;
+            bottom: 10px;
             right: 25px;
             border: 2px solid #9A0003;
             clear: right;
@@ -1317,10 +1317,6 @@ reservation-confirmation {
             width: 80px;
             text-align: center;
             border-radius: 6px;
-
-            .viewport-mobile & {
-              right: 35px;
-            }
 
             .title {
               background-color: #9A0003;
@@ -1341,6 +1337,10 @@ reservation-confirmation {
               font-weight: bold;
               line-height: 47px;
             }
+          }
+
+          .reservation-details-container {
+            padding-right: 90px;
           }
         }
         .total-charges {

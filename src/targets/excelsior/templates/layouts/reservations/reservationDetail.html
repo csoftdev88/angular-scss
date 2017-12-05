@@ -42,7 +42,7 @@
               </div>
             </check-in-date>
 
-            <p>
+            <div class="reservation-details-container">
               <h3>
                 {{ roomDetails.name }}
                 <a href ng-click="openOtherRoomsDialog()"
@@ -57,19 +57,19 @@
               <h4 class="booking-arrival-checkout">
                 {{ reservation.arrivalDate | dateTime }} &mdash; {{ reservation.departureDate | dateTime }}
               </h4>
-            </p>
 
-            <h4
-              ng-if="config.displayConfirmationNumberInDetails"
-              class="booking-confirmation-number">
-              _booking_reference_: <span>{{ reservationCode }}</span>
-            </h4>
+              <h4
+                ng-if="config.displayConfirmationNumberInDetails"
+                class="booking-confirmation-number">
+                _booking_reference_: <span>{{ reservationCode }}</span>
+              </h4>
 
-            <h4
-              ng-if="config.displayBookingDateInDetails"
-              class="booking-confirmation-number">
-              _booked_: <span>{{ reservation.bookingDate | dateTime }}</span>
-            </h4>
+              <h4
+                ng-if="config.displayBookingDateInDetails"
+                class="booking-confirmation-number">
+                _booked_: <span>{{ reservation.bookingDate | dateTime }}</span>
+              </h4>
+            </div>
           </div>
 
           <div class="charges-data">

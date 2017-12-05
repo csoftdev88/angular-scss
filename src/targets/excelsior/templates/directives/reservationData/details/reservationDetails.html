@@ -49,32 +49,34 @@
                     alt="{{property.nameShort}}">
             </figure>
 
-            <h3>
-              {{ reservation.rooms[0].roomTypeName }}
-              <a href ng-if="reservation.rooms.length > 1">
-                + {{reservation.rooms.length - 1}} other
-                <ng-pluralize count="reservation.rooms.length"
-                              when="{'2': 'room', 'other': 'rooms'}">
-                </ng-pluralize>
-              </a>
-            </h3>
+            <div class="reservation-details-container">
+              <h3>
+                {{ reservation.rooms[0].roomTypeName }}
+                <a href ng-if="reservation.rooms.length > 1">
+                  + {{reservation.rooms.length - 1}} other
+                  <ng-pluralize count="reservation.rooms.length"
+                                when="{'2': 'room', 'other': 'rooms'}">
+                  </ng-pluralize>
+                </a>
+              </h3>
 
-            <h4 class="booking-productname" ng-bind-html="reservation.rooms[0].productName"></h4>
-            <h4 class="booking-arrival-checkout">{{reservation.arrivalDate | dateTime}} &mdash; {{reservation.departureDate | dateTime}}</h4>
-            <h4 class="booking-confirmation-number" ng-if="config.displayConfirmationNumberInDetails">
-              Confirmation number: <span>{{ reservation.reservationCode }}</span>
-            </h4>
+              <h4 class="booking-productname" ng-bind-html="reservation.rooms[0].productName"></h4>
+              <h4 class="booking-arrival-checkout">{{reservation.arrivalDate | dateTime}} &mdash; {{reservation.departureDate | dateTime}}</h4>
+              <h4 class="booking-confirmation-number" ng-if="config.displayConfirmationNumberInDetails">
+                Confirmation number: <span>{{ reservation.reservationCode }}</span>
+              </h4>
 
-            <span ng-if="config.displayBookingDateInDetails"
-                  class="booking-date">
-              _booked_:
-              <span>{{ reservation.bookingDate | dateTime }}</span>
-                <a ng-if="config.displayPoliciesInDetails && !isMobile"
-                   href
-                   ng-click="openPoliciesInfo()">
-                _view_policies_
-              </a>
-            </span>
+              <span ng-if="config.displayBookingDateInDetails"
+                    class="booking-date">
+                _booked_:
+                <span>{{ reservation.bookingDate | dateTime }}</span>
+                  <a ng-if="config.displayPoliciesInDetails && !isMobile"
+                     href
+                     ng-click="openPoliciesInfo()">
+                  _view_policies_
+                </a>
+              </span>
+            </div>
 
           </div>
 
