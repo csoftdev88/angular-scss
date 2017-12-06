@@ -1,0 +1,20 @@
+<div>
+  <div class="close-button" ng-click="closeWidget()"></div>
+  <booking-widget
+    ng-init="initialShow()"
+    ng-class="{'multiroom-mode': showAfterLoad && active === ADVANCED_BOOKING, 'is-open': !isCollapsed && showAfterLoad && (active === BOOKING || active === ADVANCED_BOOKING)}"
+    open-booking-tab="openBookingTab"
+    hide-bar="setActive(active)"
+    advanced="active === ADVANCED_BOOKING"
+    all-properties="_booking_widget_all_properties_">
+  </booking-widget>
+
+  <div class="clear"></div>
+
+  <div class="best-price-guarantee">
+    <div class="tag"></div>
+    <h1>Best Price Guarantee</h1>
+    <p>Excelsior Members Receive a 10% Discount.</p>
+    <div class="clear"></div>
+  </div>
+</div>

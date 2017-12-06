@@ -1,0 +1,225 @@
+@import "./mobile";
+
+.Home__hero--info {
+  display: none;
+  position: absolute;
+  &.show-desktop {
+    display: block;
+    left: calc(~'(100vw - 1212px) / 2');
+    top: 290px;
+    width: 62%;
+    .Home__hero--button {
+      display: none;
+    }
+  }
+}
+
+.Home__hero--button {
+  margin-top: 20px;
+  background-color: @c-secondary;
+  border-radius: 0;
+  width: 322px;
+  height: 39.9px;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 16px;
+  line-height: 39.9px;
+  font-family: @ff-primary;
+}
+
+.Home__booking-bar {
+  .booking-bar {
+    &.booking-bar__size-full-width {
+      min-height: 112px;
+    }
+    .fullscreen &.booking-bar__size-full-width-bottom {
+      position: absolute;
+      left: 0;
+      top: initial;
+      bottom: 0;
+      min-height: 112px;
+      z-index: 1;
+    }
+  }
+}
+
+.Home__testimonial {
+  padding-top: 120px;
+  padding-bottom: 80px;
+  width: 100%;
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('@{img-prefix}/lbe/testimonials-cover.jpg');
+  background-position:center;
+  background-size: cover;
+  z-index: 0;
+}
+
+.LoggedInFooter {
+  background: @c-primary;
+  position: fixed;
+  z-index: 9999;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  padding-top: 0;
+  .Footer__nav {
+    margin-top: 5px;
+  }
+}
+
+.drop-up .chosen-container {
+  &.chosen-with-drop {
+    border-radius: 0 0 4px 4px;
+    border-color: #ccb08c;
+  }
+  .chosen-drop {
+    top: initial;
+    bottom: 54px;
+    border-radius: 4px 4px 0 0;
+    border-color: #ccb08c;
+  }
+}
+
+.members-only-banner {
+  width: 100%;
+  height: 191px;
+  position: relative;
+  margin-top: @header-height;
+  background: url('@{img-prefix}/rewards-bg.png') center no-repeat;
+  background-size: cover;
+
+  .glass-filter {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  .members-only-banner__labels-positionner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+    max-width: 1212px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0 20px;
+    height: 100%;
+    user-select: none;
+  }
+
+  .members-only-banner__label {
+    color: #fff;
+    font-family: @ff-serif;
+    text-transform: uppercase;
+    font-size: 50px;
+    line-height: 50px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+    cursor: default;
+  }
+
+  .members-only-banner__not-member {
+    color: #fff;
+    font-family: @ff-primary;
+    font-size: 24px;
+    line-height: 24px;
+    font-weight: 300;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    .emphasis {
+      font-weight: 600;
+    }
+    .underline {
+      text-decoration: underline;
+    }
+  }
+
+  .over-title {
+    font-family: @ff-primary;
+    font-size: 22px;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+
+  &.logged-in {
+    height: 300px;
+    .members-only-banner__label {
+      display: flex;
+      flex-flow: column nowrap;
+    }
+  }
+
+  .white-background {
+    height: 2.87%;
+    width: 101.67%;
+    border: 1px solid #E6D4BD;
+    background-color: @c-bookingbar-bg;
+  }
+
+}
+
+.hotel-description-container-content {
+  view-more-images {
+    width: 50% !important;
+    margin: 20px 0 !important;
+    hero-slider {
+      height: 300px;
+
+      .slider-content {
+        height: 300px;
+        .hero-slide {
+          height: 300px;
+          border-radius: 10px;
+        }
+      }
+      counter {
+        display: none !important;
+      }
+    }
+  }
+}
+
+.clear {
+  clear: both;
+}
+
+.home-page-questionnaire {
+  background: url('@{img-prefix}/brown-background-img.jpg');
+  background-size: cover;
+  main {
+    margin-top: 0;
+    padding-top: 50px;
+  }
+}
+.header-hero-content {
+  // Same height as hero slider
+  height: 654px;
+  margin-top: 0;
+  text-align: center;
+  // Make this container appear above hero slider
+  z-index: 1;
+  position: relative;
+  .welcome-text {
+    font-weight: 100;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+    margin-top: 150px;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 24px;
+  }
+  &.mobile {
+    padding: 0px;
+    .welcome-text {
+      display: none;
+    }
+    .About__signup {
+      display: none;
+    }
+  }
+}
+.main-page-slider {
+  margin-top: -654px;
+  &.user-not-authenticated {
+    margin-top: 0;
+  }
+}

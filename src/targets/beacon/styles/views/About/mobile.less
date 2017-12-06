@@ -1,0 +1,155 @@
+
+.viewport-mobile {
+
+  .About__hero {
+    background-position: center;
+
+    &.fullscreen {
+      position: relative;
+    }
+
+    .hotel-description-container {
+      .hotel-info-details {
+        margin-left: 0;
+        margin-right: 0;
+
+        .hotel-info-amenities .amenities-arrow {
+          display: initial;
+          color: @c-primary;
+          font-size: 18px;
+        }
+
+        hero-slider {
+          height: 150px;
+          margin-bottom: 15px;
+        }
+
+        .hotel-info-amenities {
+          margin-top: 20px;
+        }
+      }
+      main {
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+    }
+
+    .register_space hero-slider .slider-controls .pages {
+      height: 45px;
+    }
+
+    .main-content-container .rating-trip-advisor {
+      flex-flow: row wrap;
+      justify-content: flex-start;
+      padding: 10px;
+      padding-right: 0;
+      min-height: 66px;
+      .logo-symbol {
+        display: block;
+        order: -1;
+        width: 35px;
+      }
+      .spacer {
+        order: 0;
+      }
+
+      .trip-advisor-ratings {
+        order: 1;
+        width: auto;
+        flex-flow: row wrap;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logo {
+        display: none;
+
+      }
+
+      span {
+        margin: 0;
+        font-weight: 300;
+        text-align: left;
+        &.rating-description {
+          font-size: 15px;
+          line-height: 19px;
+          order: 2;
+          margin-right: 10px;
+        }
+        &.number-of-reviews {
+          margin-right: 5px;
+          font-size: 12px;
+          line-height: 17px;
+          order: -1;
+        }
+      }
+
+      a {
+        margin-right: 10px;
+        img {
+          width: 95px;
+        }
+      }
+
+    }
+  }
+
+  .About__hero--info {
+    padding: 450px 0 0 10px;
+  }
+
+  .About__hero--tagline {
+    font-size: 15px;
+    letter-spacing: 0.6px;
+    line-height: 18px;
+    margin-bottom: 22px;
+  }
+
+  .About__hero--title {
+    font-size: 45px;
+    line-height: 53px;
+  }
+
+  .About__logo {
+    width: initial;
+    img {
+      width: 100%;
+    }
+  }
+
+  .About__benefits {
+    height: 770px;
+  }
+
+  .About__benefits--overview {
+    width: 100%;
+    padding-top: 0;
+  }
+
+  .About__benefit {
+    padding-left: 15px;
+    margin-bottom: 40px;
+    width: 100%;
+  }
+
+  .About__benefits--offer {
+    display: none;
+  }
+
+  .About__signup {
+    h1 {
+      font-size: 32px;
+    }
+    p {
+      font-size: 18px;
+      line-height: 30px;
+      padding: 0 30px;
+      width: initial;
+    }
+  }
+
+  .About__testimonial {
+    display: none;
+  }
+
+}

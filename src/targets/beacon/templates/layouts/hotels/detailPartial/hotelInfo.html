@@ -1,0 +1,70 @@
+<section grid-row id="jsAbout" class="hotel-overview">
+  <div class="hotel-info-details">
+    <div class="first-panel">
+      <div
+        class="stars rating-trip-advisor img"
+        ng-if="isMobile">
+        <div class="trip-advisor-ratings">
+          <img class="logo-symbol" src="/static/images/v4/tripadvisor-symbol.png">
+          <span class="number-of-reviews">2,121 Reviews</span>
+          <a ng-href="{{ details.tripAdvisorUrl }}" target="_blank">
+            <img ng-src="/static/images/v4/Stars.png" alt="tripadvisor rating">
+          </a>
+        </div>
+        <div class="spacer"></div>
+        <span class="rating-description">
+          #6 Best Value in New York City
+        </span>
+      </div>
+
+      <h2 id="welcome-to-the-excelsior-hotel" class="HotelInfo__details--title">
+        WELCOME TO THE EXCELSIOR HOTEL
+      </h2>
+      <p class="HotelInfo__details--highlight">
+        Committed to the idea that a life well-traveled is defined by a personal connection to the people, culture and
+        lifestyles of the places we visit, the Excelsior Hotel offers discerning guests an authentic, residence-style
+        experience in the heart of New York City’s Upper West Side. To complement our fashionable surroundings,
+        we’ve designed a delightfully affordable pied-a-terre distinguished by relaxed yet sophisticated
+        ambiance and unpretentious style.
+      </p>
+
+      <p class="HotelInfo__details--description">
+        The Excelsior is located within a beautifully restored landmark building, infusing classic design and
+        architecture with contemporary comfort. In addition to swanky, Art Deco-inspired rooms, the hotel features a
+        fitness center, Boardroom and Calle Ocho restaurant, which brings guests and neighborhood residents together
+        for signature Latin fare and a locally famous weekend brunch complete with unlimited complimentary sangria.
+      </p>
+    </div>
+    <div class="second-panel">
+      <p class="HotelInfo__details--description">
+        Our hotel overlooks Central Park, the American Museum of Natural History and the spectacular,
+        glass-encased Rose Center for Earth and Space and is walking distance from Lincoln Center and the 1, B and C
+        subway lines. A leisurely stroll through Central Park leads to chic Upper East Side restaurants, the luxurious
+        boutiques of Madison Avenue, the Metropolitan Museum of Art, and the Guggenheim and Whitney Museums.
+      </p>
+      <div ng-click="amenitiesSection.show = !amenitiesSection.show" ng-if="config.displayAmenitiesInHotelInfo && filteredAmenities && filteredAmenities.length" class="hotel-info-amenities">
+        <h2
+          ng-bind-html="'_amenities_title_' | mainHeaderStyle"
+          ng-if="!isMobile">
+        </h2>
+        <h2
+          ng-if="isMobile">
+          _amenities_title_
+        </h2>
+        <i
+          class="fa amenities-arrow"
+          ng-class="{'fa-chevron-down': !amenitiesSection.show, 'fa-chevron-up': amenitiesSection.show}"></i>
+        <ul
+          ng-if="details"
+          ng-class="{'restricted-amenities': config.restrictAmenities}"
+          class="amenities-list"
+          ng-show="!isMobile || amenitiesSection.show">
+          <li class="amenity-item" ng-repeat="amenity in filteredAmenities" ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = details.chainCode">
+            <slug-img slug="amenity" type="hotel" width="32"></slug-img>
+            <span class="amenity-caption">{{amenity.name}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

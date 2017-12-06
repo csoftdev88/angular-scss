@@ -1,0 +1,19 @@
+<ul class="ota-products">
+  <h4 ng-hide="otaLoading">_this_room_available_on_</h4>
+  <li ng-repeat="otaProduct in otaProductsList" ng-hide="otaLoading">
+    <span class="ota-rate">
+      <a href="{{otaProduct.link}}" class="ota-rate-text" target="_blank" ng-if="otaProduct.link">
+        <img ng-src="{{otaProduct.logo}}" class="rate-logo" alt="{{otaProduct.type}} logo" />
+        <span class="value">{{getValuePer(otaProduct.price, false) | i18nCurrency: currencyCode }}</span>
+      </a>
+      <div class="ota-rate-text" ng-if="!otaProduct.link">
+        <img ng-src="{{otaProduct.logo}}" class="rate-logo" alt="{{otaProduct.type}} logo" />
+        <span class="value">{{getValuePer(otaProduct.price, false) | i18nCurrency: currencyCode }}</span>
+      </div>
+    </span>
+  </li>
+  <span class="ota-preloader" ng-hide="!otaLoading">
+    <span class="ota-loader"></span>
+    <span class="ota-loader-text">_ota_loading_</span>
+  </span>
+</ul>

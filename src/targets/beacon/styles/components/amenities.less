@@ -1,0 +1,79 @@
+///////////////////
+//// AMENITIES ////
+///////////////////
+
+//- List of Amenities
+amenities-list,
+.amenities-list {
+  .clearfix;
+  margin: 2 * @baseline 0;
+  display: block;
+  .viewport-mobile & {
+    margin:@baseline 0;
+  }
+}
+
+//- Amenity
+amenity-item,
+.amenity-item {
+  padding: 0 @baseline * 2;
+  display: block;
+  width: 33.3333%;
+  float: left;
+  box-sizing: border-box;
+  min-height: 70px;
+  font-weight: 500;
+
+  .hotel-info-amenities & {
+    width: 50%;
+    padding: 0 8px;
+    margin-top: 10px;
+    .viewport-mobile & {
+      margin-top: 5px;
+    }
+  }
+
+  .viewport-mobile &{
+    width: 100%;
+  }
+
+}
+
+amenity-item,
+.amenity-item {
+  color: @c-grey;
+  min-height:45px;
+  .viewport-mobile & {
+    padding:0;
+    min-height:35px;
+  }
+
+  span {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    min-width: 40px;
+
+    &.amenity-caption {
+      padding-top: 2px;
+      text-align: left;
+    }
+
+    // Icon
+    img {
+      display: inline-block;
+      margin-right: @baseline / 2;
+      vertical-align: middle;
+      max-height: 24px;
+    }
+  }
+}
+
+.amenities-reveal-trigger {
+  font-weight:200;
+  font-size:13px;
+  line-height:13px;
+  cursor:pointer;
+  margin-bottom: 10px;
+  margin-top: 30px;
+}

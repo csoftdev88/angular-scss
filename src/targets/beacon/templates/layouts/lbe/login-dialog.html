@@ -1,0 +1,137 @@
+<a
+  href=""
+  ng-click="$event.stopPropagation(); auth.clearErrors(); auth.login(); retentionClick()"
+  class="close-modal-btn">
+  <i class="fa fa-times-circle-o"></i>
+</a>
+
+<div class="login-dialog"
+     ng-click="$event.stopPropagation()"
+     ng-class="'form-step' + loginFormStep">
+
+  <header>
+    <a href=""
+       ng-click="loginFormStep = 1; auth.clearErrors(); retentionClick()"
+       ng-show="loginFormStep == 2"
+       class="back-btn">
+      _back_
+    </a>
+
+    <h1 class="margin-bottom">_login_</h1>
+
+    <p class="error-msg" ng-if="loginDialogError">
+          <span ng-if="genericError">
+            _generic_error_message_
+          </span>
+      <span ng-if="missingFieldsError">
+            _missing_fields_message_
+          </span>
+      <span ng-if="incorrectEmailPasswordError">
+            _incorrect_email_password_error_
+          </span>
+      <span ng-if="notRegisteredEmailError">
+            _email_not_registered_error_
+          </span>
+      <span ng-if="passwordResetSuccess">
+            _reset_password_error_code_thirtyfour_
+          </span>
+    </p>
+
+    <div class="title" ng-show="config.loginDialog.showLoginTitle">
+      <h2>_log_in_</h2>
+      <hr>
+    </div>
+
+  </header>
+
+  <div class="form-wrapper">
+
+    <form name="loginForm" class="login-form" novalidate>
+      <fieldset>
+        <form-element>
+          <input
+            type="email"
+            id="loginEmail"
+            name="loginEmail"
+            ng-model="loginData.email"
+            required
+            email-check
+            placeholder="_email_label_"
+            class="with-icon"
+            ng-class="{'ng-submitted': loginForm.$submitted &&
+                                           (loginForm.loginEmail.$error.required ||
+                                           loginForm.loginEmail.$error.emailCheck)}"/>
+          <div class="input-icon-wrapper">
+            <i class="input-icon fa fa-envelope-o"></i>
+          </div>
+        </form-element>
+
+        <form-element>
+          <input
+            type="password"
+            id="loginPassword"
+            name="loginPassword"
+            ng-model="loginData.password"
+            required
+            placeholder="_password_label_"
+            class="with-icon"
+            ng-class="{'ng-submitted': loginForm.$submitted && loginForm.loginPassword.$error.required}"
+            ng-pattern="$root.generalValidationPattern"/>
+            <div class="input-icon-wrapper">
+              <i class="input-icon fa fa-lock"></i>
+            </div>
+        </form-element>
+
+      </fieldset>
+
+      <button-submit role="button"
+                     tabindex="0"
+                     type="submit"
+                     ng-click="doLogin(loginForm, loginData); retentionClick()">
+        _login_
+      </button-submit>
+
+      <p class="help-link help-link-margin-top">
+        _forgot_your_password_
+        <a href=""
+           ng-click="loginFormStep = 2; auth.clearErrors(); retentionClick()">
+          _forgot_password_label_
+        </a>
+      </p>
+      <p class="help-link">
+        _not_a_member_
+        <a href=""
+           ng-click="auth.clearErrors(); $root.showLoginDialog = !$root.showLoginDialog; auth.register(); retentionClick()">
+          _register_now_
+        </a>
+      </p>
+
+    </form>
+
+    <form name="resetForm" class="reset-form" novalidate>
+      <fieldset>
+        <form-element>
+          <input
+            type="email"
+            id="resetEmail"
+            name="resetEmail"
+            ng-model="resetData.email"
+            required
+            email-check
+            placeholder="_email_label_"
+            ng-class="{'ng-submitted': resetForm.$submitted && resetForm.resetEmail.$error.required}"/>
+        </form-element>
+
+      </fieldset>
+
+      <button-submit role="button"
+                     tabindex="0"
+                     ng-click="auth.reset(resetForm, resetData); retentionClick()">
+        _reset_password_
+      </button-submit>
+
+    </form>
+
+  </div>
+
+</div>

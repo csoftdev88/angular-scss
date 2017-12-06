@@ -1,0 +1,175 @@
+@import "./mobile";
+
+.Header {
+  padding: 18px 20px 17px 20px;
+  height: 100px;
+  box-sizing: border-box;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  background-color: #fff;
+}
+
+.Header__buttons {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.Header__search {
+  display: none;
+}
+
+.Header__buttons--auth {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.Header__inner {
+  max-width: 1212px;
+  height: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.Header__logo {
+  flex: 0;
+}
+
+.Header__profile {
+  display: flex;
+  flex-flow: row nowrap;
+  white-space: nowrap;
+  width: auto;
+  margin-left: 30px;
+  margin-right: 30px;
+  align-items: center;
+
+  font-family: @ff-primary;
+  font-size: 16px;
+  font-weight: 300;
+
+  .avatar {
+    margin-right: 9px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .name {
+    color: @c-alt-grey;
+  }
+
+  .pipe-splitter {
+    background-color: rgba(0, 0, 0, 0.15);
+    margin: 0 9px;
+    width: 1px;
+    height: 24px;
+  }
+  .loyalty-points .emphasise {
+     font-weight: bold;
+  }
+  .loyalty-tier {
+    color: @c-primary;
+  }
+}
+
+.Header__button {
+  height: 50px;
+  box-sizing: border-box;
+  background: #fff;
+
+  color: @c-button-text;
+  line-height: 35px;
+  font-family: @ff-primary;
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: normal;
+
+  border: 1px solid @c-button-border;
+  border-radius: 4px;
+  margin: 0 5px 0 0;
+  padding: 0;
+  text-shadow: none;
+
+  &.login {
+    width: 115px;
+  }
+
+  &.register {
+    width: 134px;
+    margin-right: 42px;
+  }
+
+  i.fa {
+    color: @c-primary;
+    font-size: 19px;
+    position: relative;
+    left: -9px;
+    top: 2px;
+  }
+
+}
+
+.Header__buttons--preferences {
+  float: left;
+  li.Header__buttons--preference {
+    display: inline;
+    line-height: 36px;
+    margin-right: 34px;
+  }
+  li.Header__buttons--preference:first-of-type {
+    float: left;
+  }
+  li.Header__buttons--preference:last-of-type {
+    float: right;
+  }
+}
+
+.Header__buttons--currency {
+  a[title='Currency'] {
+    color: @c-text;
+    font-family: @ff-secondary;
+    // Hide the change currency text
+    .change-currency {
+      display: none;
+    }
+  }
+}
+
+.Header__buttons--language {
+  ul {
+    li {
+      display: inline;
+      &:first-of-type {
+        margin-right: 10px;
+      }
+      &.selected {
+        a {
+          color: #fff;
+        }
+      }
+      a {
+        color: grey;
+        font-family: @ff-primary;
+      }
+    }
+  }
+}
+
+.Header__menu--hamburger {
+  cursor: pointer;
+  height: 20px;
+  width: 27px;
+  display: block;
+}

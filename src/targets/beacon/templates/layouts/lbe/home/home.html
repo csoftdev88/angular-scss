@@ -1,0 +1,217 @@
+<div class="About__hero">
+
+  <div class="register_space">
+    <main
+      class="grid-wrapper header-hero-content"
+      ng-class="{'mobile': isMobile}"
+      ng-if="auth.isLoggedIn()">
+      <h3 class="welcome-text">_welcome_main_page_text_, {{ userObject.firstName }}</h3>
+      <div
+        class="About__signup" ng-if="auth.isLoggedIn() && offers.length">
+        <h1>_about_offer_title_</h1>
+        <p>{{ offers[0].title }}</p>
+        <button ng-click="gotoOffer(offers[0])">_view_more_</button>
+      </div>
+    </main>
+    <hero-slider
+      class="main-slider main-page-slider"
+      ng-class="{'user-not-authenticated': !auth.isLoggedIn()}"
+      content="heroContent">
+    </hero-slider>
+  </div>
+
+  <div ng-if="isMobile" ng-include="'layouts/lbe/home/heroBenefits.html'"></div>
+
+  <!--Desktop search bar-->
+  <booking-bar class="Home__booking-bar drop-up" size="full-width-bottom" ng-if="!isMobile"></booking-bar>
+  <div
+    class="home-page-questionnaire"
+    ng-if="auth.isLoggedIn()">
+    <main class="grid-wrapper">
+      <questionnaire></questionnaire>
+    </main>
+  </div>
+
+  <div class="hotel-description-container"
+       ng-class="{'user-not-authenticated': !auth.isLoggedIn()}">
+      <main class="grid-wrapper main-content-container">
+        <div ng-include="'layouts/lbe/home/tripAdvisor.html'"></div>
+        <div
+          class="register_container"
+          ng-if="!auth.isLoggedIn() && !isMobile">
+            <div class="signup-title">
+              <h1 ng-show="!registerFormSteps.filledEmail">_sign_up_home_</h1>
+              <h1 ng-show="registerFormSteps.filledEmail">_guest_details_</h1>
+              <div ng-show="registerFormSteps.filledEmail"
+                    ng-click="registerFormSteps.filledEmail = false"
+                    class="back-btn">
+                <i class="fa fa-angle-left"></i>
+                _back_
+              </div>
+            </div>
+            <form name="registerForm" class="register-form" novalidate>
+                <fieldset ng-show="!registerFormSteps.filledEmail">
+                  <form-element>
+                    <input
+                      type="email"
+                      id="registerEmail"
+                      name="registerEmail"
+                      ng-model="registerData.email"
+                      required
+                      email-check
+                      placeholder="_email_label_"
+                      class="with-icon"
+                      ng-class="{'ng-submitted': form.$submitted &&
+                                                  (form.registerEmail.$error.required ||
+                                                  form.registerEmail.$error.emailCheck)}"/>
+                    <div class="input-icon-wrapper">
+                      <i class="input-icon fa fa-envelope-o"></i>
+                    </div>
+                  </form-element>
+
+                  <form-element>
+                    <input
+                      type="email"
+                      id="registerEmailConfirm"
+                      name="registerEmailConfirm"
+                      ng-model="registerData.emailConf"
+                      required
+                      email-check
+                      equals="registerData.email"
+                      placeholder="_confirm_email_label_"
+                      class="with-icon"
+                      ng-class="{'ng-submitted': form.$submitted &&
+                                              (form.registerEmailConfirm.$error.required ||
+                                              form.registerEmailConfirm.$error.emailCheck ||
+                                              form.registerEmailConfirm.$error.equals)}"/>
+                    <div class="input-icon-wrapper">
+                      <i class="input-icon fa fa-envelope-o"></i>
+                    </div>
+                  </form-element>
+
+                  <form-element>
+                    <input
+                      type="password"
+                      id="registerPassword"
+                      name="registerPassword"
+                      ng-model="registerData.password"
+                      ng-pattern="/^(?=.*[a-zA-Z\d].*)[a-zA-Z\d!@#$%&£^*_()+=-]{8,}$/"
+                      required
+                      placeholder="_password_label_"
+                      class="with-icon"
+                      ng-class="{'ng-submitted': form.$submitted &&
+                                              (form.registerPassword.$error.required ||
+                                              form.registerPassword.$error.pattern)}"
+                      ng-pattern="$root.generalValidationPattern"/>
+                    <div class="input-icon-wrapper">
+                      <i class="input-icon fa fa-lock"></i>
+                    </div>
+                  </form-element>
+
+                  <form-element>
+                    <input
+                      type="password"
+                      id="registerPasswordConfirm"
+                      name="registerPasswordConfirm"
+                      ng-model="registerData.passwordConf"
+                      required
+                      equals="registerData.password"
+                      placeholder="_confirm_password_label_"
+                      class="with-icon"
+                      ng-class="{'ng-submitted': form.$submitted &&
+                                              (form.registerPasswordConfirm.$error.required ||
+                                              form.registerPasswordConfirm.$error.equals)}"/>
+                    <div class="input-icon-wrapper">
+                      <i class="input-icon fa fa-lock"></i>
+                    </div>
+                  </form-element>
+
+                </fieldset>
+
+                <fieldset ng-show="registerFormSteps.filledEmail">
+                  <form-element ng-if="registerTitles">
+                    <select name="registerTitle"
+                            required
+                            chosen
+                            disable-search="true"
+                            placeholder-text-single="_title_label_"
+                            ng-model="registerData.title"
+                            ng-options="title.id as title.name for title in registerTitles">
+                    </select>
+                  </form-element>
+
+                  <form-element>
+                    <input
+                      type="text"
+                      id="registerFname"
+                      name="registerFname"
+                      ng-model="registerData.firstName"
+                      required
+                      placeholder="_first_name_label_"
+                      ng-class="{'ng-submitted': form.$submitted && form.registerFname.$error.required}"
+                      ng-pattern="$root.generalValidationPattern"/>
+                  </form-element>
+
+                  <form-element>
+                    <input
+                      type="text"
+                      id="registerLname"
+                      name="registerLname"
+                      ng-model="registerData.lastName"
+                      required
+                      placeholder="_last_name_label_"
+                      ng-class="{'ng-submitted': form.$submitted && form.registerLname.$error.required}"
+                      ng-pattern="$root.generalValidationPattern"/>
+                  </form-element>
+
+                  <form-element ng-if="registerCountries">
+                    <select type="text"
+                            id="country"
+                            class="with-icon"
+                            required
+                            placeholder="_country_label_"
+                            placeholder-text-single="_country_label_"
+                            ng-options="country.id as country.name for country in registerCountries"
+                            ng-model="registerData.localeId"
+                            name="country"
+                            chosen>
+                    </select>
+                    <i class="country-icon fa fa-globe"></i>
+                  </form-element>
+                </fieldset>
+
+                <button-submit role="button"
+                                tabindex="0"
+                                ng-show="!registerFormSteps.filledEmail"
+                                ng-click="gatedRegisterNext(registerForm)">
+                  _next_
+                </button-submit>
+
+                <button-submit role="button"
+                                tabindex="0"
+                                ng-show="registerFormSteps.filledEmail"
+                                ng-click="gatedRegisterNext(registerForm, registerData)">
+                  _register_
+                </button-submit>
+
+                <div class="error-message">
+                  {{ getRegisterValidationMessage(registerForm) }}
+                </div>
+
+              </form>
+        </div>
+        <div class="hotel-description-container-content" ng-include="'layouts/lbe/home/hotelInfo.html'"></div>
+      </main>
+
+  </div>
+  <div ng-if="!isMobile" ng-include="'layouts/lbe/home/heroBenefits.html'"></div>
+
+  <div class="Home__testimonial">
+    <recommendation-carousel></recommendation-carousel>
+  </div>
+
+  <!--Mobile search button-->
+  <!-- <button ng-if="isMobile" class="HotelDetails__search position-bottom" ng-click="openBookingBar()">
+    _find_your_room_
+  </button> -->
+</div>

@@ -1,0 +1,163 @@
+
+.login-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(26, 26, 26, 0.8);
+  z-index: 998;
+}
+
+.close-modal-btn {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  i {
+    font-size: 34px;
+    color: #fff;
+  }
+}
+
+.login-dialog {
+  width: 360px;
+  background-color: #ffffff;
+  padding: 30px;
+  top: 10%;
+  right: calc(~'50% - 180px');
+  box-sizing: border-box;
+  border-radius: 6px;
+
+  .viewport-mobile & {
+    top: 350px;
+    padding: 20px 25px;
+
+  }
+
+  .help-link {
+    text-align: center;
+    font-size: 14px;
+    a {
+      color: @c-primary;
+    }
+    &.help-link-margin-top {
+      margin-top: 15px;
+    }
+  }
+  .form-wrapper {
+    // Register form
+    .register-form {
+      display: block;
+    }
+    form {
+      fieldset {
+        padding: 0;
+        margin: 0;
+        form-element {
+          select,
+          input[type=text],
+          input[type=number],
+          input[type=date],
+          input[type=email],
+          input[type=password],
+          input[type=tel],
+          input:not([type=radio]):not([type=checkbox]),
+          .chosen-container {
+            height: 56px;
+            border: 1px solid #DEDEDE;
+            border-radius: 4px;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.02);
+            padding: 0 20px;
+            text-align: initial;
+            &.with-icon {
+              padding-left: 50px;
+            }
+          }
+          .input-icon-wrapper {
+            height: 56px;
+            width: 50px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(101,101,101,0.27);
+            font-size: 20px;
+          }
+          .country-icon {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 1;
+            color: rgba(101,101,101,0.27);
+            font-size: 22px;
+          }
+          .chosen-container-active + .country-icon {
+            z-index: 994;
+          }
+          select.with-icon + .chosen-container {
+            padding: 0 0 0 45px;
+          }
+          .chosen-container {
+            .chosen-single {
+              height: inherit;
+              line-height: 54px;
+            }
+            &.chosen-with-drop {
+              border: 1px solid #A7A7A7;
+            }
+          }
+          input.ng-touched.ng-dirty.ng-invalid + .input-icon-wrapper {
+            color: @c-red;
+          }
+          input.ng-touched.ng-dirty.ng-valid + .input-icon-wrapper {
+            color: @c-green;
+          }
+          select.ng-touched.ng-dirty.ng-invalid + .chosen-container {
+            border: 1px solid @c-red;
+          }
+        }
+      }
+      button-submit {
+        border-radius: 4px;
+        border: 1px solid #79AF41;
+      }
+    }
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 38px;
+    text-shadow: 0 1px 0 #FFFFFF;
+  }
+  .subtitle {
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+  .margin-bottom {
+    margin-bottom: 20px;
+  }
+  .register-promo-container {
+    padding: 10px;
+    background-color: @c-primary;
+    border: 1px solid #946c38;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    .promo-icon {
+      width: 50px;
+      height: auto;
+      float: left;
+      margin-right: 10px;
+    }
+    .promo-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+    }
+    .promo-container {
+      color: #fff;
+    }
+  }
+}
