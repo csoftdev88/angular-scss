@@ -64,9 +64,10 @@
         };
 
         function sortQuestionnaireAnswers(a, b) {
-          // Answer with null id "None of the above" should always be last
-          if (a.id === null) { return 1; }
-          if (b.id === null) { return -1; }
+          // Answer with "None of the above" should always be last
+          var compare = 'None of the above';
+          if (a.name === compare) { return 1; }
+          if (b.name === compare) { return -1; }
           if (a.name > b.name) { return 1; }
           if (a.name < b.name) { return -1; }
           return 0;
