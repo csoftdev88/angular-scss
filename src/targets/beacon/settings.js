@@ -106,7 +106,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'excelsior-development',
+      'id':'beacon-development',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     },
@@ -114,7 +114,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'excelsior-integration',
+      'id':'beacon-integration',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
       'segmentWriteId': 'ufGF40hZthWnYEeH6q09RzrKiusmuWQe',
@@ -124,7 +124,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'enable':false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'excelsior-staging',
+      'id':'beacon-staging',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk',
       'segmentWriteId': 'ufGF40hZthWnYEeH6q09RzrKiusmuWQe',
@@ -134,7 +134,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'enable': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'excelsior-staging',
+      'id':'beacon-staging',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     },
@@ -142,7 +142,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'enable': false,
       'endpoint':'https://xozl9li01g.execute-api.us-east-1.amazonaws.com/latest/ecommerce',
       'scriptUrl':'//apeiron.infiniti.io/apeiron/1.0.31/infiniti-track2.min.js',
-      'id':'excelsior-live',
+      'id':'beacon-live',
       'username': 'sandman',
       'password': 'nzLbJUo0h9Gg96NeNcT4Fu2+DyEgX7wk'
     }
@@ -175,15 +175,15 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     'trackUsage': true,
     'languageInPath': true,
     'baseURL': {
-      'development': '//integration-www-excelsior.mobiusbookingengine.com/api/4.0/',
-      'integration': '//integration-www-excelsior.mobiusbookingengine.com/api/4.0/',
-      'staging': '//integration-www-excelsior.mobiusbookingengine.com/api/4.0/',
+      'development': '//integration-www-beacon.mobiusbookingengine.com/api/4.0/',
+      'integration': '//integration-www-beacon.mobiusbookingengine.com/api/4.0/',
+      'staging': '//integration-www-beacon.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
-      'live': 'https://excelsior.mobiusbookingengine.com/api/4.0/'
+      'live': 'https://beacon.mobiusbookingengine.com/api/4.0/'
     },
     'mobiusTracking': {
       'development': {
-        'id': 'excelsior-development',
+        'id': 'beacon-development',
         'search': {
           'enable': false
         },
@@ -193,7 +193,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
       'integration': {
-        'id': 'excelsior-integration',
+        'id': 'beacon-integration',
         'search': {
           'enable': false
         },
@@ -203,17 +203,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
       'staging': {
-        'id': 'excelsior-staging',
-        'search': {
-          'enable': false
-        },
-        'purchase': {
-          'enable': false
-        },
-        'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
-      },
-      'uat': {
-        'id': 'excelsior-uat',
+        'id': 'beacon-staging',
         'search': {
           'enable': false
         },
@@ -223,7 +213,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'url':'https://xjm5u7ejh8.execute-api.us-west-1.amazonaws.com/dev/event/create'
       },
       'live': {
-        'id': 'excelsior-live',
+        'id': 'beacon-live',
         'search': {
           'enable': false
         },
@@ -553,14 +543,14 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     'displaySocialLinks': true,
     'socialLinks': [
       {'network': 'blog', 'link': ''},
-      {'network': 'facebook', 'link': 'https://www.facebook.com/excelsiornyc'},
-      {'network': 'twitter', 'link': 'https://twitter.com/excelsiornyc'},
+      {'network': 'facebook', 'link': 'https://www.facebook.com/beacon'},
+      {'network': 'twitter', 'link': 'https://twitter.com/beacon'},
       {'network': 'instagram', 'link': ''},
       {'network': 'google', 'link': ''}
     ],
     'socialLinksNew': {
-      'facebook': 'https://www.facebook.com/excelsiornyc',
-      'twitter': 'https://twitter.com/excelsiornyc',
+      'facebook': 'https://www.facebook.com/beacon',
+      'twitter': 'https://twitter.com/beacon',
       'instagram': '',
       'linkedIn': '',
       'youtube': ''
