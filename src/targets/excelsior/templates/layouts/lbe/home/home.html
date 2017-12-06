@@ -26,7 +26,6 @@
   <booking-bar class="Home__booking-bar drop-up" size="full-width-bottom" ng-if="!isMobile"></booking-bar>
   <div
     class="home-page-questionnaire"
-    ng-class="{'mobile': isMobile}"
     ng-if="auth.isLoggedIn()">
     <main class="grid-wrapper">
       <questionnaire></questionnaire>
@@ -36,20 +35,7 @@
   <div class="hotel-description-container"
        ng-class="{'user-not-authenticated': !auth.isLoggedIn()}">
       <main class="grid-wrapper main-content-container">
-        <div class="stars rating-trip-advisor img" ng-if="!auth.isLoggedIn()">
-          <img class="logo" src="/static/images/v4/tripadvisor-logo.png">
-          <img class="logo-symbol" src="/static/images/v4/tripadvisor-symbol.png">
-          <span class="rating-description">
-            #6 Best Value in New York City
-          </span>
-          <div class="spacer"></div>
-          <div class="trip-advisor-ratings">
-            <a ng-href="{{details.tripAdvisorUrl}}" target="_blank">
-              <img ng-src="/static/images/v4/Stars.png" alt="tripadvisor rating">
-            </a>
-            <span class="number-of-reviews">2,121 Reviews</span>
-          </div>
-        </div>
+        <div ng-include="'layouts/lbe/home/tripAdvisor.html'"></div>
         <div
           class="register_container"
           ng-if="!auth.isLoggedIn() && !isMobile">

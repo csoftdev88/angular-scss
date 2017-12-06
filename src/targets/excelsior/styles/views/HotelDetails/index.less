@@ -90,7 +90,8 @@ main.hotel-detail {
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 6px;
     background-color: #fff;
-    padding: 22px;
+    padding: 15px;
+
     h2 {
       color: @c-primary;
       font-family: @ff-serif;
@@ -298,6 +299,13 @@ main.hotel-detail {
       font-family: @ff-serif;
       font-size: 20px;
       line-height: 22px;
+      .viewport-mobile & {
+        height: 17px;
+        color: @c-alt-grey;
+        font-family: @ff-serif;
+        font-size: 15px;
+        line-height: 17px;
+      }
     }
     &:nth-child(n + 7) {
       display: none;

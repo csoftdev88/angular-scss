@@ -1,0 +1,21 @@
+<h2
+  ng-bind-html="'_amenities_title_' | mainHeaderStyle"
+  ng-if="!isMobile">
+</h2>
+<h2
+  ng-if="isMobile">
+  _amenities_title_
+</h2>
+<i
+  class="fa amenities-arrow"
+  ng-class="{'fa-chevron-down': !amenitiesSection.show, 'fa-chevron-up': amenitiesSection.show}"></i>
+<ul
+  ng-if="details"
+  ng-class="{'restricted-amenities': config.restrictAmenities}"
+  class="amenities-list"
+  ng-show="amenitiesSection.show">
+  <li class="amenity-item" ng-repeat="amenity in filteredAmenities" ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = details.chainCode">
+    <slug-img slug="amenity" type="hotel" width="32"></slug-img>
+    <span class="amenity-caption">{{amenity.name}}</span>
+  </li>
+</ul>

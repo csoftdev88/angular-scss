@@ -1,6 +1,6 @@
 <article class="questionnaire">
 
-  <article class="questionnaire__points">
+  <article class="questionnaire__points" ng-if="!isMobile">
     <div class="questionnaire__title">
       _your_status_
     </div>
@@ -49,6 +49,11 @@
      </div>
   </article>
 
+  <div class="questionnaire__title streched" ng-if="isMobile">
+    <div class="name">{{ name }}</div>
+    <div class="points">{{ points }} <span class="points-title">_points_</span></div>
+  </div>
+
   <div ng-if="question" class="stop-gap"></div>
 
   <article ng-if="question" class="questionnaire__questions">
@@ -89,6 +94,12 @@
     </div>
   </article>
 
+  <div class="questionnaire__exclusive-offer" ng-if="isMobile && offers.length">
+    <h1>_about_offer_title_</h1>
+    <p>{{ offers[0].title }}</p>
+    <button ng-click="gotoOffer(offers[0])">_view_more_</button>
+  </div>
+
   <article ng-if="nextStay"
            class="questionnaire__next-stay">
     <div class="questionnaire__title">
@@ -97,7 +108,10 @@
 
     <div class="next-stay-panel">
       <!--TODO: go to the actual reservation instead of all-->
-      <div ui-sref="reservations" class="next-stay-details">
+      <div
+        ui-sref="reservations"
+        class="next-stay-details"
+        ng-class="{'no-bottom-border': nextStay.availableAddons.length}">
         <h1 class="questionnaire__nextStay--title">
           {{ nextStay.property.nameLong }}
         </h1>
@@ -114,7 +128,8 @@
           Confirmation number: {{ nextStay.reservationCode }}
         </h3>
       </div>
-      <div class="next-stay-addons">
+      <div class="next-stay-addons" ng-if="nextStay.availableAddons.length">
+        <h1 ng-if="isMobile">Add On's</h1>
         <div class="addon-wrapper"
              ng-repeat="addon in nextStay.availableAddons"
              ng-click="openAddonDetailDialog(addon)">
@@ -145,6 +160,7 @@
             Add On
           </div>
         </div>
+        <button ng-if="isMobile" class="view-all-addons-button" ui-sref="reservations">View all add ons</button>
       </div>
     </div>
 

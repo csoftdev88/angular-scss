@@ -1,0 +1,11 @@
+<h2 ng-bind-html="'_amenities_title_' | mainHeaderStyle"></h2>
+<input ng-if="details && config.restrictAmenities" type="checkbox" class="amenities-reveal-state"
+       id="hotel-amenities"/>
+<ul ng-if="details" ng-class="{'restricted-amenities': config.restrictAmenities}" class="amenities-list">
+  <li class="amenity-item" ng-repeat="amenity in filteredAmenities"
+      ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = details.chainCode">
+    <slug-img slug="amenity" type="hotel" width="32"></slug-img>
+    <span class="amenity-caption">{{amenity.name}}</span>
+  </li>
+</ul>
+<label ng-if="details && config.restrictAmenities" for="hotel-amenities" class="amenities-reveal-trigger">_show_all_facilities_</label>

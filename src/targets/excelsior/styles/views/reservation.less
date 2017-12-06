@@ -1145,6 +1145,7 @@ reservation-confirmation {
           flex: none;
           width: @image-width;
           height: @image-height;
+          margin-right: 20px;
           img {
             overflow: hidden;
             border-radius: 6px;
@@ -1161,6 +1162,9 @@ reservation-confirmation {
           flex-flow: column nowrap;
           margin: 0 20px;
           flex: 1 1 auto;
+          .viewport-mobile & {
+            margin: 8px 0;
+          }
           .addon-name {
             color: @c-primary;
             font-family: @ff-serif;
@@ -1198,7 +1202,7 @@ reservation-confirmation {
           cursor: pointer;
 
           .viewport-mobile & {
-            margin-top: 15px;
+            margin-top: 12px;
             box-sizing: border-box;
             width: 100%;
           }

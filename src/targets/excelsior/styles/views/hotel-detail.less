@@ -34,21 +34,27 @@ hotel-detail {
     }
   }
 
-  .hotel-info-amenities{
-    margin-top: 0;
+  .hotel-info-amenities {
     margin-left: 0;
-    .viewport-mobile & {
-      margin-top:0;
-    }
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: baseline;
     h2 {
       .viewport-mobile & {
         margin-bottom: 0;
         font-size: 18px;
       }
-      .amentities-arrow {
-        float: right;
+    }
+    .amenities-arrow {
+      display: none;
+      color: @c-primary;
+      font-size: 18px;
+      .viewport-mobile & {
+        display: initial;
       }
     }
+
     .amenities-list {
       &.restricted-amenities {
         amenity-item,

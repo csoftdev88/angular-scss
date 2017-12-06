@@ -24,10 +24,13 @@ amenity-item,
   min-height: 70px;
   font-weight: 500;
 
-  .hotel-info-amenities &{
+  .hotel-info-amenities & {
     width: 50%;
     padding: 0 8px;
-    margin-top:10px;
+    margin-top: 10px;
+    .viewport-mobile & {
+      margin-top: 5px;
+    }
   }
 
   .viewport-mobile &{
@@ -49,7 +52,7 @@ amenity-item,
     display: table-cell;
     vertical-align: middle;
     text-align: center;
-    min-width: 24px;
+    min-width: 40px;
 
     &.amenity-caption {
       padding-top: 2px;

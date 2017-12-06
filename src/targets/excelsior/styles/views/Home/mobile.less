@@ -12,6 +12,13 @@
     }
   }
 
+  .home-page-questionnaire {
+    main.grid-wrapper {
+      padding: 0;
+    }
+  }
+
+
   .members-only-banner {
     margin-top: @mobile-header-height;
     height: 100px;
@@ -40,18 +47,14 @@
   }
 
   .hotel-description-container-content {
+    .HotelInfo__details--title {
+      display: block;
+    }
     .hotel-info-amenities {
-      width: 89%;
-      float: none;
-
-      .amenity-item span {
+      span {
         width: 30px;
-
         &.amenity-caption {
           width: 100%;
-        }
-        img {
-          height: auto !important;
         }
       }
     }

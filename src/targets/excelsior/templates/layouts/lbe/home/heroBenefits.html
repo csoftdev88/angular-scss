@@ -53,3 +53,13 @@
     <button class="HeroBenefits__button" ng-click="auth.login()">_log_in_</button>
   </div>
 </article>
+<article
+  class="HeroBenefits"
+  ng-if="isMobile && auth.isLoggedIn()">
+  <div class="HeroBenefits__subtitle">
+    <h1>_about_benefits_subtitle_logged_in_</h1>
+  </div>
+  <div class="HeroBenefits__signup">
+    <button class="HeroBenefits__button book-now" ng-click="openBookingBar()">_book_now_logged_in_</button>
+  </div>
+</article>

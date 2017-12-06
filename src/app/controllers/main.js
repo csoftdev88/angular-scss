@@ -47,6 +47,9 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
           });
       }
 
+      $scope.amenitiesSection = {
+        show: false
+      };
 
       contentService.getTitles().then(function(data) {
         $scope.registerTitles = data;
