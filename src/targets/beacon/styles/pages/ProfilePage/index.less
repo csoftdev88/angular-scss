@@ -1,55 +1,65 @@
 @import "./mobile";
 
+.profile-page-background {
+  background-color: #EEEDEA;
+}
+
 profile-page {
-
-  .ProfileForm__input {
-    color: #000 !important;
-  }
-
   header {
-    .viewport-mobile & {
-      padding-top: 20px;
-    }
+    margin-botom: 0;
   }
-
   form {
-    font-family: @ff-primary;
-    font-size: 16px;
-    h2 {
-      color: @c-primary;
-      font-size: 18px;
-      font-weight: bold;
-      line-height: 24px;
-    }
     fieldset {
       form-element {
-        input,
         input[type="text"],
-        input[type="email"] {
-          background-color: #F7F7F7;
-          box-shadow: none;
-          border: none;
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        select,
+        textarea {
+          width: 100%;
         }
+
+        select,
         .chosen-container {
-          padding-left: 20px;
-          border-radius: 4px;
-          height: 56px;
-          font-weight: normal;
-          background-color: #F7F7F7;
+          // Using !important here because it is used in global styles
+          width: 100% !important;
+          height: 48px;
+          border: 1px solid #9B9BA0;
+          border-radius: 50px;
+          background-color: #FFFFFF;
+          padding: 0 20px;
+          text-align: initial;
+          &.with-icon {
+            padding-left: 50px;
+          }
 
           .chosen-single {
-            height: 56px;
-            line-height: 56px;
             span {
-              font-size: 14px;
+              font-size: 100%;
+              color: lighten(@c-alt-grey, 10%);
+              text-transform: uppercase;
             }
           }
         }
+
+        .chosen-container-single .chosen-single,
+        .chosen-single,
+        .chosen-single.chosen-default {
+          height: 46px;
+          line-height: 46px;
+          padding: 0;
+        }
+
+        label {
+          line-height: normal;
+        }
       }
     }
+
     button-submit {
-      margin-right: 20px;
       width: auto;
+      float: left;
     }
   }
 }

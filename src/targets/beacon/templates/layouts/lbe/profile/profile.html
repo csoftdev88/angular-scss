@@ -1,177 +1,229 @@
-<breadcrumbs ng-if="!config.hideBreadcrumbs" stickable="main-header"></breadcrumbs>
+<div class="profile-page-background">
 
-<main class="grid-wrapper ProfilePage" id="jsProfile">
+  <breadcrumbs ng-if="!config.hideBreadcrumbs" stickable="main-header"></breadcrumbs>
 
-  <div class="preloader" ng-show="preloader.visible"></div>
+  <main class="grid-wrapper ProfilePage" id="jsProfile">
 
-  <profile-page grid-row>
+    <div class="preloader" ng-show="preloader.visible"></div>
 
-    <header grid="12" ng-if="!config.headerPartial.display">
-      <h1 ng-bind-html="'_profile_page_title_' | mainHeaderStyle"></h1>
-      <p>_profile_page_desc_</p>
-    </header>
+    <profile-page grid-row>
 
-    <form name="form" ng-if="!config.displaySummary || config.displaySummary && !showSummary" ng-class="{'submitted': submitted}">
+      <header grid="12" ng-if="!config.headerPartial.display">
+        <h1 ng-bind-html="'_profile_page_title_' | mainHeaderStyle" class="page-title"></h1>
+      </header>
 
-      <div grid="6">
+      <form name="form" ng-if="!config.displaySummary || config.displaySummary && !showSummary" ng-class="{'submitted': submitted}">
 
-        <h2>_profile_page_about_title_</h2>
+        <div grid="9">
 
-        <fieldset>
+          <h2 class="header">_profile_page_about_title_</h2>
 
-          <form-element ng-if="profileTitles">
-            <label for="profileTitle">_title_label_</label>
-            <select name="profileTitle"
-                    required
-                    chosen
-                    disable-search="true"
-                    class="ProfileForm__input"
-                    placeholder-text-single="_title_label_"
-                    ng-model="profileData.title"
-                    ng-options="title.id as title.name for title in profileTitles">
-            </select>
-          </form-element>
+          <fieldset>
 
-          <form-element>
-            <label for="profileFname">_first_name_label_</label>
-            <input
-              type="text"
-              id="profileFname"
-              name="profileFname"
-              class="ProfileForm__input"
-              ng-model="profileData.firstName"
-              ng-required="config.formRequirments.firstname"
-              ng-class="{'ng-submitted': form.$submitted && form.profileFname.$error.required}"
-              ng-pattern="$root.generalValidationPattern"/>
-          </form-element>
+            <form-element
+              ng-if="profileTitles"
+              class="input-left small">
+              <select name="profileTitle"
+                      required
+                      chosen
+                      disable-search="true"
+                      class="ProfileForm__input"
+                      placeholder-text-single="_title_label_"
+                      ng-model="profileData.title"
+                      ng-options="title.id as title.name for title in profileTitles">
+              </select>
+            </form-element>
 
-          <form-element>
-            <label for="profileLname">_last_name_label_</label>
-            <input
-              type="text"
-              id="profileLname"
-              name="profileLname"
-              class="ProfileForm__input"
-              ng-model="profileData.lastName"
-              ng-required="config.formRequirments.lastname"
-              ng-class="{'ng-submitted': form.$submitted && form.profileLname.$error.required}"
-              ng-pattern="$root.generalValidationPattern"/>
-          </form-element>
+            <form-element
+              class="input-center medium">
+              <input
+                type="text"
+                id="profileFname"
+                name="profileFname"
+                class="ProfileForm__input"
+                ng-model="profileData.firstName"
+                required
+                ng-class="{'ng-submitted': form.$submitted && form.profileFname.$error.required}"
+                ng-pattern="$root.generalValidationPattern"
+                placeholder="_first_name_label_"/>
+            </form-element>
 
-          <form-element>
-            <label for="profileTel">_phone_label_</label>
-            <input
-              type="text"
-              id="profileTel"
-              name="profileTel"
-              class="ProfileForm__input"
-              ng-model="profileData.tel1"
-              ng-class="{'ng-submitted': form.$submitted && form.profileTel.$error.required}"
-              ng-pattern="$root.generalValidationPattern"/>
-          </form-element>
+            <form-element
+              class="input-right medium">
+              <input
+                type="text"
+                id="profileLname"
+                name="profileLname"
+                class="ProfileForm__input"
+                ng-model="profileData.lastName"
+                required
+                ng-class="{'ng-submitted': form.$submitted && form.profileLname.$error.required}"
+                ng-pattern="$root.generalValidationPattern"
+                placeholder="_last_name_label_"/>
+            </form-element>
 
-          <form-element ng-if="profileContacts">
-            <label for="profileContact">_prefered_contact_label_</label>
-            <select name="profileContact" required chosen
-                    disable-search="true"
-                    class="ProfileForm__input"
-                    placeholder-text-single="_prefered_contact_label_"
-                    ng-model="profileData.preferredContactMethodCode"
-                    ng-options="contact.id as contact.name for contact in profileContacts">
-            </select>
-          </form-element>
+          </fieldset>
 
-        </fieldset>
+          <h2 class="header">_profile_page_contact_title_</h2>
 
+          <fieldset>
+
+            <form-element
+              class="input-left">
+              <input
+                type="text"
+                id="profileEmail"
+                name="profileEmail"
+                class="ProfileForm__input"
+                ng-model="profileData.email"
+                ng-class="{'ng-submitted': form.$submitted && form.profileEmail.$error.required}"
+                ng-pattern="$root.generalValidationPattern"
+                placeholder="_email_label_"
+                required/>
+            </form-element>
+
+            <form-element
+              class="input-right">
+              <input
+                type="text"
+                id="profileTel"
+                name="profileTel"
+                class="ProfileForm__input"
+                ng-model="profileData.tel1"
+                ng-class="{'ng-submitted': form.$submitted && form.profileTel.$error.required}"
+                ng-pattern="$root.generalValidationPattern"
+                placeholder="_phone_label_"/>
+            </form-element>
+
+            <form-element>
+              <input
+                type="text"
+                id="profileAddress1"
+                name="profileAddress1"
+                class="ProfileForm__input"
+                ng-model="profileData.address1"
+                ng-class="{'ng-submitted': form.$submitted && form.profileAddress1.$error.required}"
+                ng-pattern="$root.generalValidationPattern"
+                placeholder="_address_one_label_"
+                required/>
+            </form-element>
+
+            <form-element>
+              <input
+                type="text"
+                id="profileAddress2"
+                name="profileAddress2"
+                class="ProfileForm__input"
+                ng-model="profileData.address2"
+                ng-class="{'ng-submitted': form.$submitted && form.profileAddress2.$error.required}"
+                ng-pattern="$root.generalValidationPattern"
+                placeholder="_address_two_label_"/>
+            </form-element>
+
+            <form-element
+              class="input-left">
+              <input
+                type="text"
+                id="profileCity"
+                name="profileCity"
+                class="ProfileForm__input"
+                ng-model="profileData.city"
+                ng-class="{'ng-submitted': form.$submitted && form.profileCity.$error.required}"
+                ng-pattern="$root.generalValidationPattern"
+                placeholder="_city_label_"
+                required/>
+            </form-element>
+
+            <form-element
+              class="input-right">
+              <input
+                type="text"
+                id="profileStateProvince"
+                name="profileStateProvince"
+                class="ProfileForm__input"
+                ng-model="profileData.stateProvince"
+                ng-class="{'ng-submitted': form.$submitted && form.profileStateProvince.$error.required}"
+                ng-pattern="$root.generalValidationPattern"
+                placeholder="_state_label_"/>
+            </form-element>
+
+            <form-element
+              class="input-left">
+              <input
+                type="text"
+                id="profileZip"
+                name="profileZip"
+                class="ProfileForm__input"
+                ng-model="profileData.zip"
+                ng-class="{'ng-submitted': form.$submitted && form.profileZip.$error.required}"
+                ng-pattern="$root.generalValidationPattern"
+                placeholder="_postcode_label_"
+                required/>
+            </form-element>
+
+            <form-element
+              ng-if="profileCountries"
+              class="input-right">
+              <select name="profileCountry"
+                      chosen
+                      disable-search="true"
+                      data-placeholder=""
+                      class="ProfileForm__input"
+                      ng-model="profileData.localeId"
+                      ng-options="country.id as country.name for country in profileCountries | orderBy:'name'"
+                      required>
+              </select>
+            </form-element>
+
+            <form-element ng-if="profileContacts">
+              <select name="profileContact"
+                      required
+                      chosen
+                      disable-search="true"
+                      class="ProfileForm__input"
+                      placeholder-text-single="_prefered_contact_label_"
+                      ng-model="profileData.preferredContactMethodCode"
+                      ng-options="contact.id as contact.name for contact in profileContacts">
+              </select>
+            </form-element>
+
+          </fieldset>
+
+          <h2 class="header">_profile_page_newletter_title_</h2>
+
+          <fieldset>
+
+            <form-element>
+              <label for="profileOptedIn" class="input-checkbox">
+                <input type="checkbox" id="profileOptedIn" ng-model="profileData.optedIn"/>
+                _subscribe_label_
+              </label>
+            </form-element>
+
+          </fieldset>
+
+          <p class="feedback-msg" ng-if="success">_profile_updated_success_message_</p>
+
+          <p class="feedback-msg error" ng-if="error">
+            <span ng-if="genericError">_generic_error_message_</span>
+            <span ng-if="missingFieldsError">_missing_fields_message_</span>
+          </p>
+
+          <button-submit role="button" tabindex="0" ng-click="update(form, profileData)">_save_</button-submit>
+        </div>
+
+
+      </form>
+
+      <div grid="12" ng-show="config.displayMap">
+        <hr class="small">
+        <hotel-location id="jsLocation" hotel-details="propertyDetails"></hotel-location>
       </div>
 
-      <div grid="6">
+    </profile-page>
 
-        <h2>_profile_page_contact_title_</h2>
+    <!--<scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>-->
+  </main>
+  <div ng-include="'layouts/siteMap.html'" class="site-map" ng-if="footerConfig.displaySitemap"></div>
 
-        <fieldset ng-if="!config.tempMeandallFormHack">
-
-          <form-element>
-            <label for="profileAddress1">_address_one_label_</label>
-            <input
-              type="text"
-              id="profileAddress1"
-              name="profileAddress1"
-              class="ProfileForm__input"
-              ng-model="profileData.address1"
-              ng-class="{'ng-submitted': form.$submitted && form.profileAddress1.$error.required}"
-              ng-pattern="$root.generalValidationPattern"/>
-          </form-element>
-
-          <form-element class="profile-address2">
-            <label for="profileAddress2">_address_two_label_</label>
-            <input
-              type="text"
-              id="profileAddress2"
-              name="profileAddress2"
-              class="ProfileForm__input"
-              ng-model="profileData.address2"
-              ng-class="{'ng-submitted': form.$submitted && form.profileAddress2.$error.required}"
-              ng-pattern="$root.generalValidationPattern"/>
-          </form-element>
-
-          <form-element>
-            <label for="profileCity">_city_label_</label>
-            <input
-              type="text"
-              id="profileCity"
-              name="profileCity"
-              class="ProfileForm__input"
-              ng-model="profileData.city"
-              ng-class="{'ng-submitted': form.$submitted && form.profileCity.$error.required}"
-              ng-pattern="$root.generalValidationPattern"/>
-          </form-element>
-
-          <form-element ng-if="profileCountries">
-            <label for="profileCountry">_country_label_</label>
-            <select name="profileCountry" chosen
-                    disable-search="true"
-                    data-placeholder=""
-                    class="ProfileForm__input"
-                    ng-model="profileData.localeId"
-                    ng-options="country.id as country.name for country in profileCountries | orderBy:'name'">
-            </select>
-          </form-element>
-
-          <form-element>
-            <label for="profileZip">_postcode_label_</label>
-            <input
-              type="text"
-              id="profileZip"
-              name="profileZip"
-              class="ProfileForm__input"
-              ng-model="profileData.zip"
-              ng-class="{'ng-submitted': form.$submitted && form.profileZip.$error.required}"
-              ng-pattern="$root.generalValidationPattern"/>
-          </form-element>
-
-        </fieldset>
-
-      </div>
-
-      <p class="feedback-msg" ng-if="success">_profile_updated_success_message_</p>
-
-      <p class="feedback-msg error" ng-if="error">
-        <span ng-if="genericError">_generic_error_message_</span>
-        <span ng-if="missingFieldsError">_missing_fields_message_</span>
-      </p>
-
-      <button-submit role="button" tabindex="0" ng-click="update(form, profileData)">_save_</button-submit>
-
-    </form>
-
-    <div grid="12" ng-show="config.displayMap">
-      <hr class="small">
-      <hotel-location id="jsLocation" hotel-details="propertyDetails"></hotel-location>
-    </div>
-
-  </profile-page>
-
-  <!--<scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>-->
-</main>
-<div ng-include="'layouts/siteMap.html'" class="site-map" ng-if="footerConfig.displaySitemap"></div>
+</div>
