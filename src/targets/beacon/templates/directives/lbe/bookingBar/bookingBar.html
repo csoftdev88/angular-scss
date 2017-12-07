@@ -1,5 +1,8 @@
 <article class="booking-bar" ng-class="sizeClass">
-
+  <div class="booking-bar-title">
+    <span class="booking-bar-title-main">BOOK</span>
+    <span class="booking-bar-title-secondary">YOUR ROOM:</span>
+  </div>
   <form class="booking-bar__form" ng-class="{'multiroom-booking': multiRoomSearch}">
 
     <h3 class="booking-bar__title"
@@ -11,7 +14,6 @@
         ng-show="isSmall() && multiRoomSearch">
       _advanced_search_
     </h3>
-
     <form-element class="booking-bar__form--room"
                   ng-if="!uiConfig.generics.singleProperty">
       <select name="property"

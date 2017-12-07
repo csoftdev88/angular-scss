@@ -7,8 +7,8 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
   'customHeroContent': [
     {
       uri: '/static/images/carousel/slider-1.jpg',
-      title: 'Lowest Rates!',
-      subtitle: 'Excelsior Members Receive a 10% Discount.'
+      title: 'Beacon Insider',
+      subtitle: 'Sign up and get 15% off our best rates'
     },
     {
       uri: '/static/images/carousel/slider-2.jpg',
@@ -19,16 +19,6 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       uri: '/static/images/carousel/slider-3.jpg',
       title: 'Free Beverages',
       subtitle: 'Members receive free complimentary refreshments'
-    },
-    {
-      uri: '/static/images/carousel/slider-4.jpg',
-      title: 'Lowest Rates!',
-      subtitle: 'Excelsior Members Receive a 10% Discount.'
-    },
-    {
-      uri: '/static/images/carousel/slider-5.jpg',
-      title: 'Get Rewarded',
-      subtitle: 'Members Get Early Check In & Late Checkout Guaranteed!'
     }
   ],
   'customPreviewImages': [
@@ -494,7 +484,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       // are specified in ms.
 
       // Use 0 value to disable automatic slide animation
-      'autoplayDelay': 5000,
+      'autoplayDelay': 0,
       'animationDuration': 800,
       'preloadImages': true,
       'slideWidth': 1440,

@@ -11,12 +11,29 @@
   background-color: #fff;
 }
 
+.Header__inner {
+  max-width: 1212px;
+  height: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+
 .Header__buttons {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: flex-end;
   flex: 1;
+}
+
+.Header__logo {
+  flex: 0;
+  height: 68px;
+  width: 154px;
 }
 
 .Header__search {
@@ -29,20 +46,6 @@
   align-items: center;
   flex: 1;
   justify-content: flex-end;
-}
-
-.Header__inner {
-  max-width: 1212px;
-  height: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-}
-
-.Header__logo {
-  flex: 0;
 }
 
 .Header__profile {
@@ -85,38 +88,22 @@
 }
 
 .Header__button {
-  height: 50px;
   box-sizing: border-box;
   background: #fff;
-
-  color: @c-button-text;
-  line-height: 35px;
+  color: #000;
   font-family: @ff-primary;
-  font-size: 16px;
-  font-weight: 300;
-  letter-spacing: normal;
-
-  border: 1px solid @c-button-border;
-  border-radius: 4px;
-  margin: 0 5px 0 0;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   padding: 0;
-  text-shadow: none;
 
   &.login {
-    width: 115px;
+    margin-right: 30px;
   }
 
   &.register {
-    width: 134px;
-    margin-right: 42px;
-  }
-
-  i.fa {
-    color: @c-primary;
-    font-size: 19px;
-    position: relative;
-    left: -9px;
-    top: 2px;
+    margin-right: 43px;
   }
 
 }
@@ -166,10 +153,16 @@
     }
   }
 }
-
-.Header__menu--hamburger {
-  cursor: pointer;
-  height: 20px;
-  width: 27px;
-  display: block;
+.Header__menu {
+  background: #000;
+  width: 100px;
+  height: 100px;
+  .Header__menu--hamburger {
+    cursor: pointer;
+    height: 20px;
+    width: 27px;
+    display: block;
+    margin: 40px auto 0;
+  }
 }
+

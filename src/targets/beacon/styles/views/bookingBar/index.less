@@ -179,13 +179,35 @@ booking-bar {
     margin-left: calc(~'50% - 50vw');
     display: flex;
     justify-content: center;
-    border: 1px solid #E6D4BD;
+    border: none;
     border-left: none;
     border-right: none;
-    background-color: @c-bookingbar-bg;
+    background-color: black;
+
+    .booking-bar-title {
+      width: 131px;
+      margin-right: 15px;
+      color: white;
+      margin-top: 12px;
+
+      .booking-bar-title-main {
+        font-size: 41px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        line-height: 33px;
+        width: 124px;
+      }
+
+      .booking-bar-title-secondary {
+        font-size: 19px;
+        letter-spacing: 1px;
+        line-height: 20px;
+        width: 131px;
+      }
+    }
 
     .booking-bar__form {
-      width: 1212px;
+      width: 1066px;
     }
   }
 

@@ -7,10 +7,10 @@ input[type=password],
 input[type=tel],
 input:not([type=radio]):not([type=checkbox]),
 .chosen-container {
-  height: 56px;
-  border: 1px solid #DEDEDE;
-  border-radius: 4px;
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.02);
+  height: 48px;
+  border: 1px solid #9B9BA0;
+  border-radius: 50px;
+  background-color: #FFFFFF;
   padding: 0 20px;
   text-align: initial;
   &.with-icon {
@@ -24,10 +24,11 @@ select.with-icon + .chosen-container {
 
 input {
   .placeholder({
-    color: lighten(@c-alt-grey, 10%);
+    color: #B0B0B4;
     font-family: @ff-primary;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 300;
+    text-transform: uppercase;
   });
 }
 
