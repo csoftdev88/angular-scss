@@ -844,11 +844,14 @@ hotel-detail {
 
 .hotel-info-details {
   display: flex;
-  flex-flow: row nowrap;
+  align-items: stretch;
   margin-left: 20px;
   margin-right: 20px;
-  .first-panel, .second-panel {
-    flex: 1 1 0px;
+  .second-panel {
+    width: 100%;
+  }
+  .first-panel {
+    flex-basis: 750px
   }
   & > :not(:first-child) {
     margin-left: 26px;
@@ -871,6 +874,48 @@ hotel-detail {
     }
     & > :not(:last-child) {
       margin-right: 0;
+    }
+  }
+}
+
+.hotel-facilities {
+  width: 100%;
+  height: 282px;
+  background-color: #EEEDEA;
+
+  .facilities-title {
+    height: 24px;
+    width: 164px;
+    color: #000000;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    line-height: 24px;
+    padding-top: 40px;
+    display: block;
+  }
+
+  .facilities-list-container {
+    margin-top: 40px;
+    .facilities-list-container-row {
+      display: flex;
+      align-items: stretch;
+      margin-bottom: 40px;
+
+      .facilities-list-container-row-item {
+        width: 25%;
+        display: flex;
+        align-items: stretch;
+        .facilities-list-container-row-item-icon{
+          flex-basis: 46px;
+          font-size: 28px;
+        }
+        .facilities-list-container-row-item-name {
+          color: #6E562A;
+          font-size: 18px;
+          line-height: 22px;
+        }
+      }
     }
   }
 }

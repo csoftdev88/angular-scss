@@ -35,7 +35,6 @@
   <div class="hotel-description-container"
        ng-class="{'user-not-authenticated': !auth.isLoggedIn()}">
       <main class="grid-wrapper main-content-container">
-        <div ng-include="'layouts/lbe/home/tripAdvisor.html'"></div>
         <div
           class="register_container"
           ng-if="!auth.isLoggedIn() && !isMobile">
@@ -202,6 +201,7 @@
         </div>
         <div class="hotel-description-container-content" ng-include="'layouts/lbe/home/hotelInfo.html'"></div>
       </main>
+      <section class="hotel-facilities"  ng-include="'layouts/lbe/home/hotelFacilities.html'"></section>
 
   </div>
   <div ng-if="!isMobile" ng-include="'layouts/lbe/home/heroBenefits.html'"></div>
