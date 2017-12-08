@@ -396,7 +396,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'city': 'Raleigh, North Carolina'
       }
     ],
-    'recommendationCarouselInterval': 10000000, // 0 disable carousel auto rotation
+    'recommendationCarouselInterval': 10000, // 0 disable carousel auto rotation
     'homePage': {
       'showOffer': true
     },
