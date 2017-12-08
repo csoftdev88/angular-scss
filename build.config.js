@@ -6,6 +6,7 @@ module.exports = {
     // Destinations
     build: 'build',
     compile: 'compile',
+    cache_bust_dir: '.cache_bust',
 
     gruntfile: 'Gruntfile.js',
     client: 'src',

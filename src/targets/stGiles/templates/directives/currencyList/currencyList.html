@@ -2,7 +2,7 @@
      class="CurrencyList"
      ng-show="currencies.length > 1">
 
-  <img ng-src="/static/images/flag-{{ currentCurrency.code }}.jpg"
+  <img ng-src="{{ getFlagImage(currentCurrency.code) }}"
        class="icon CurrencyList__flag"
        ng-if="config.showFlags"
        alt="">

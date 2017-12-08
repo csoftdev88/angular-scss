@@ -80,6 +80,16 @@
           return code + '(' + scope.getCurrencySymbol(code) + ')';
         };
 
+        scope.getFlagImage = function(code) {
+          // explicit method to allow us to rewrite the flag image paths on cache busting
+          switch (code) {
+            case 'USD':  return '/static/images/flag-USD.jpg';
+            case 'GBP':  return '/static/images/flag-GBP.jpg';
+            case 'EUR':  return '/static/images/flag-EUR.jpg';
+            case 'CAD':  return '/static/images/flag-CAD.jpg';
+          }
+        };
+
         scope.changeCurrency = function(currency) {
           if (scope.currentCurrency !== currency) {
             setCurrency(currency, true);

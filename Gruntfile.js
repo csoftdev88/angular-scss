@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -14,6 +14,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-localisation');
   grunt.loadNpmTasks('grunt-istanbul');
   grunt.loadNpmTasks('grunt-githooks');
+  grunt.loadNpmTasks('grunt-cache-bust');
 
   // Time how long tasks take
   require('time-grunt')(grunt);
@@ -31,23 +32,24 @@ module.exports = function(grunt) {
   }
 
   /**
-  * Load in our build configuration file.
-  */
-  var buildConfig = require( './build.config.js' );
+   * Load in our build configuration file.
+   */
+  var buildConfig = require('./build.config.js');
 
   var taskConfig = {
     pkg: grunt.file.readJSON('package.json'),
 
     clean: {
       tmp: '<%= config.build %>',
-      dist: '<%= config.compile %>'
+      dist: '<%= config.compile %>',
+      cacheBust: '<%= config.cache_bust_dir %>'
     },
 
     jshint: {
       options: {
         jshintrc: '.jshintrc',
         reporter: require('jshint-stylish'),
-        reporterOutput:''
+        reporterOutput: ''
       },
       src: [
         '<%= config.gruntfile %>',
@@ -215,27 +217,29 @@ module.exports = function(grunt) {
       fonts: {
         files: [{
           expand: true,
-          cwd: '<%= config.font_awesome %>',
-          src: ['<%= config.fonts %>'],
-          dest: '<%= config.build %>/targets/' + target + '/font/'
-        },
-        {
-          expand: true,
           cwd: '<%= config.client %>/targets/' + target,
           src: ['<%= config.fonts %>'],
           dest: '<%= config.build %>/targets/' + target
         },
         {
           expand: true,
-          cwd: '<%= config.font_awesome %>',
-          src: ['<%= config.fonts %>'],
-          dest: '<%= config.compile %>/targets/' + target + '/font/'
-        },
-        {
-          expand: true,
           cwd: '<%= config.client %>/targets/' + target,
           src: ['<%= config.fonts %>'],
           dest: '<%= config.compile %>/targets/' + target
+        }]
+      },
+      fontsawesome: {
+        files: [{
+          expand: true,
+          cwd: '<%= config.font_awesome %>',
+          src: ['<%= config.fonts %>'],
+          dest: '<%= config.build %>/targets/' + target + '/font/'
+        },
+        {
+          expand: true,
+          cwd: '<%= config.font_awesome %>',
+          src: ['<%= config.fonts %>'],
+          dest: '<%= config.compile %>/targets/' + target + '/font/'
         }]
       },
       404: {
@@ -245,12 +249,56 @@ module.exports = function(grunt) {
           src: ['<%= config.404 %>'],
           dest: '<%= config.build %>'
         }]
+      },
+      'pre-cachebust': {
+        files: [
+          {
+            expand: true,
+            cwd: '<%= config.compile %>',
+            src: ['**/*'],
+            dest: '<%= config.cache_bust_dir %>'
+          },
+          {
+            expand: true,
+            cwd: '<%= config.build %>',
+            src: ['targets/' + target + '/settings.js'],
+            dest: '<%= config.cache_bust_dir %>'
+          },
+          {
+            expand: true,
+            cwd: '<%= config.build %>',
+            src: ['images/<%= config.images %>'],
+            dest: '<%= config.cache_bust_dir %>'
+          }
+        ]
+      },
+      'post-cachebust': {
+        files: [
+          {
+            expand: true,
+            cwd: '<%= config.cache_bust_dir %>',
+            src: ['**/*'],
+            dest: '<%= config.compile %>'
+          },
+          {
+            expand: true,
+            cwd: '<%= config.cache_bust_dir %>',
+            src: ['targets/' + target + '/settings.js'],
+            dest: '<%= config.build %>'
+          },
+          {
+            expand: true,
+            cwd: '<%= config.cache_bust_dir %>',
+            src: ['images/<%= config.images %>'],
+            dest: '<%= config.build %>'
+          }
+        ]
       }
     },
 
     html: {
-      files: [ '<%= app_files.html %>' ],
-      tasks: [ 'index:build' ]
+      files: ['<%= app_files.html %>'],
+      tasks: ['index:build']
     },
 
     watch: {
@@ -261,17 +309,17 @@ module.exports = function(grunt) {
           '<%= config.client %>/targets/' + target + '/locales/*.json'
         ],
         tasks: ['localisation', 'templateCache', 'index:build'],
-        options: { livereload: true }
+        options: {livereload: true}
       },
       styles: {
         files: ['<%= config.client %>/<%= config.styles %>'],
         tasks: ['less:development', 'autoprefixer:development'],
-        options: { livereload: true }
+        options: {livereload: true}
       },
       scripts: {
         files: ['<%= config.app_files.js %>', '<%= config.client %>/targets/' + target + '/settings.js'],
         tasks: ['prebuild:development', 'index:build'],
-        options: { livereload: true }
+        options: {livereload: true}
       },
       jsunit: {
         files: ['<%= config.app_files.jsunit %>'],
@@ -283,8 +331,8 @@ module.exports = function(grunt) {
       },
       images: {
         files: ['<%= config.client %>/<%= config.images %>'],
-        tasks: ['copy:images', 'copy:imagestarget' ],
-        options: { livereload: true }
+        tasks: ['copy:images', 'copy:imagestarget'],
+        options: {livereload: true}
       }
     },
 
@@ -307,7 +355,7 @@ module.exports = function(grunt) {
         pattern: /_([a-zA-Z_]+)_/
       },
       files: {
-        src: [ '**/*.html' ],
+        src: ['**/*.html'],
         cwd: 'src/targets/' + target + '/templates/',
         expand: true,
         dest: 'build/templates/{locale}/'
@@ -316,7 +364,7 @@ module.exports = function(grunt) {
 
     templateCache: {
       development: {
-        app:{
+        app: {
           options: {
             src: 'build/templates/{locale}/**/*.html',
             dest: '<%= config.build %>/app/mobius-templates-{locale}.js'
@@ -324,7 +372,7 @@ module.exports = function(grunt) {
         }
       },
       production: {
-        app:{
+        app: {
           options: {
             src: 'build/templates/{locale}/**/*.html',
             dest: '<%= config.compile %>/app/mobius-templates-{locale}.js'
@@ -344,14 +392,36 @@ module.exports = function(grunt) {
       production: {
         env: 'production'
       }
+    },
+
+    cacheBust: {
+      production: {
+        options: {
+          deleteOriginals: true,
+          jsonOutput: true,
+          prefixes: ['static'],
+          baseDir: '<%= config.cache_bust_dir %>',
+          assets: [
+            '**/*.{js,css}',
+            '<%= config.images %>',
+            '<%= config.fonts %>'
+          ]
+        },
+        files: [{
+          expand: true,
+          cwd: '<%= config.cache_bust_dir %>',
+          src: [
+            '**/*.{js,css,html}'
+          ]
+        }]
+      }
     }
   };
 
-  grunt.initConfig( grunt.util._.extend( taskConfig, buildConfig ));
+  grunt.initConfig(grunt.util._.extend(taskConfig, buildConfig));
 
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
-
 
   //run tests
   grunt.registerTask('test', [
@@ -359,6 +429,13 @@ module.exports = function(grunt) {
   ]);
 
   //Prebuild
+  grunt.registerTask('bust', [
+    'copy:pre-cachebust',
+    'cacheBust:production',
+    'post-cachebust-cleanup',
+    'copy:post-cachebust'
+  ]);
+
   grunt.registerTask('prebuild:development', [
     'jshint',
     'localisation',
@@ -399,6 +476,7 @@ module.exports = function(grunt) {
     'copy:images',
     'copy:imagestarget',
     'copy:fonts',
+    'copy:fontsawesome',
     'copy:404'
   ]);
 
@@ -418,17 +496,26 @@ module.exports = function(grunt) {
     'autoprefixer:production',
     'concat',
     'uglify',
-    'copy',
-    'index:compile'
-    //'usemin'
+    'copy:styles',
+    'copy:images',
+    'copy:imagestarget',
+    'copy:fonts',
+    'copy:404',
+    'index:compile',
+    'bust',
+    'copy:fontsawesome'
   ]);
 
+  grunt.registerTask('post-cachebust-cleanup', 'Deletes the build/images dir as it is obsolete after cacheBusting', function () {
+    grunt.file.delete('build/images');
+    grunt.file.delete('compile');
+  });
 
-  grunt.registerTask('sleep', 'Keep grunt running', function() {
+  grunt.registerTask('sleep', 'Keep grunt running', function () {
     this.async();
   });
 
-  grunt.registerTask('exit', 'Quit out of Grunt', function() {
+  grunt.registerTask('exit', 'Quit out of Grunt', function () {
     process.exit(0);
   });
 
@@ -436,7 +523,7 @@ module.exports = function(grunt) {
     var html = grunt.file.read(path);
     html = html.replace('<=?environment=>', env);
 
-    grunt.log.writeln('Setting ' + env + 'as environment value...');
+    grunt.log.writeln('Setting ' + env + ' as environment value...');
     grunt.file.write(path, html);
     grunt.log.writeln('HTML (' + path + ') has been replace').ok();
   }
@@ -447,25 +534,25 @@ module.exports = function(grunt) {
    * the list into variables for the template to use and then runs the
    * compilation.
    */
-  grunt.registerMultiTask( 'index', 'Process index.html template', function () {
-    var dirRE = new RegExp( '^('+grunt.config('config.build') + '|' + grunt.config('config.compile')+')\/', 'g' );
+  grunt.registerMultiTask('index', 'Process index.html template', function () {
+    var dirRE = new RegExp('^(' + grunt.config('config.build') + '|' + grunt.config('config.compile') + ')\/', 'g');
     // All JS source files without templates prefix
     var FILTER_JS = /^(?!.*\bmobius-templates\b).+.js$/;
     var FILTER_CSS = /\.css$/;
 
     // List of JS source files
-    var jsFiles = filterFiles( this.filesSrc, FILTER_JS ).map( function ( file ) {
-      return file.replace( dirRE, '' );
+    var jsFiles = filterFiles(this.filesSrc, FILTER_JS).map(function (file) {
+      return file.replace(dirRE, '');
     });
 
     // List of CSS files
-    var cssFiles = filterFiles( this.filesSrc, FILTER_CSS ).map( function ( file ) {
-      return file.replace( dirRE, '' );
+    var cssFiles = filterFiles(this.filesSrc, FILTER_CSS).map(function (file) {
+      return file.replace(dirRE, '');
     });
 
     var supportedLanguages = getSupportedLanguages('src/targets/' + target + '/locales');
 
-    for(var i = 0; i < supportedLanguages.length; i++){
+    for (var i = 0; i < supportedLanguages.length; i++) {
       var localeCode = supportedLanguages[i];
 
       var src = grunt.config('config.build') + '/templates/' + localeCode + '/index.html';
@@ -479,18 +566,18 @@ module.exports = function(grunt) {
     }
   });
 
-  function processIndex(src, dest, jsFiles, cssFiles, localeCode){
+  function processIndex(src, dest, jsFiles, cssFiles, localeCode) {
     var templateCache = 'app/mobius-templates-' + localeCode + '.js';
     grunt.file.copy(src, dest, {
-      process: function ( contents ) {
-        return grunt.template.process( contents, {
+      process: function (contents) {
+        return grunt.template.process(contents, {
           data: grunt.util._.extend({
             scripts: jsFiles,
             styles: cssFiles,
             templates: [templateCache],
             vendor_js: jsFiles.length === 1 ? [] : grunt.config('config.vendor_files.js'),
             vendor_styles: grunt.config('config.vendor_files.styles'),
-            version: grunt.config( 'pkg.version' )
+            version: grunt.config('pkg.version')
           }, {})
         });
       }
@@ -498,12 +585,12 @@ module.exports = function(grunt) {
   }
 
   /**
-  * Creating template cache for each available locale
-  */
-  grunt.registerMultiTask( 'templateCache', 'Process localized templates', function () {
+   * Creating template cache for each available locale
+   */
+  grunt.registerMultiTask('templateCache', 'Process localized templates', function () {
     var supportedLanguages = getSupportedLanguages('src/targets/' + target + '/locales');
 
-    for(var i = 0; i < supportedLanguages.length; i++){
+    for (var i = 0; i < supportedLanguages.length; i++) {
       var localeCode = supportedLanguages[i];
 
       var src = this.data.app.options.src.replace('{locale}', localeCode);
@@ -524,20 +611,20 @@ module.exports = function(grunt) {
   /**
    * A utility function for filtering the sources.
    */
-  function filterFiles (files, filter) {
-    return files.filter( function ( file ) {
-      return file.match( filter );
+  function filterFiles(files, filter) {
+    return files.filter(function (file) {
+      return file.match(filter);
     });
   }
 
   // Getting a list of available translations
-  function getSupportedLanguages ( path ) {
-    var supportedLanguages  = [];
+  function getSupportedLanguages(path) {
+    var supportedLanguages = [];
 
-    grunt.file.recurse(path, function(path){
+    grunt.file.recurse(path, function (path) {
       var localeConfig = grunt.file.readJSON(path);
       var langageCode = localeConfig.locale;
-      if(supportedLanguages.indexOf(langageCode) === -1 ){
+      if (supportedLanguages.indexOf(langageCode) === -1) {
         supportedLanguages.push(langageCode);
       }
     });

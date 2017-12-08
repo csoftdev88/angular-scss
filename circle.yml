@@ -1,9 +1,9 @@
 machine:
   node:
-    version: 0.10.22
+    version: 8
 
   environment:
-    NODE_ENV: test
+    NODE_ENV: 'test'
 
 checkout:
   post:
@@ -16,17 +16,17 @@ dependencies:
     - git config --global user.name "CircleCI @ 2P Ventures"
   override:
     - npm prune
-    - npm install
+    - npm install -g grunt-cli bower karma phantomjs@1.9.8
     - npm install jshint -g
+    - npm install grunt-cli -g
+    - npm install mocha -g
+    - npm install karma-cli -g
     - npm install -g istanbul
     - npm install -g codeclimate-test-reporter
     - npm install request -g
+    - npm install
     - bower prune
-    - bower install
-  cache_directories:
-    - node_modules
-    - bower_components
-    - build
+    - bower install --allow-root
 
 general:
   artifacts:
