@@ -3,19 +3,29 @@
   <carousel interval="recommendationCarouselInterval">
     <slide ng-repeat="slide in recommendationCarousel" active="slide.active">
       <div class="recommendation-content-wrapper">
+
+        <div class="recommendation__rating">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+
+        <div class="recommendation__title">
+          {{ slide.title }}
+        </div>
+
         <div class="recommendation__text">
           {{ slide.text }}
-          <div class="triangle-down-with-shadow"></div>
         </div>
 
         <div class="recommendation__avatar">
           <div class="recommendation__name-prefix">{{ slide.namePrefix }}</div>
 
           <div class="recommendation__avatar-info">
-            <h2>{{ slide.name }}</h2>
-            <small>{{ slide.city }}</small>
+            <h2>{{ slide.name }}, {{ slide.city }}</h2>
           </div>
-
         </div>
       </div>
     </slide>

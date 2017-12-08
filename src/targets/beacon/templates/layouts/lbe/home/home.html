@@ -210,8 +210,19 @@
     <recommendation-carousel></recommendation-carousel>
   </div>
 
-  <!--Mobile search button-->
-  <!-- <button ng-if="isMobile" class="HotelDetails__search position-bottom" ng-click="openBookingBar()">
-    _find_your_room_
-  </button> -->
+  <div class="Home__contacts">
+    <ng-map
+      zoom="17"
+      max-zoom="18"
+      min-zoom="4"
+      scrollwheel="true"
+      center="[40.7806869,-73.9810357]"
+      styles="[{featureType:'poi.business',elementType:'all',stylers:[{visibility:'off'}]}]">
+      <marker
+        position="[40.7806869,-73.9810357]"
+        title="HotelBeacon"></marker>
+
+    </ng-map>
+  </div>
+
 </div>

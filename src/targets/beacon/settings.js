@@ -373,13 +373,15 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     'recommendationCarousel': [
       {
         'avatarUrl': '/static/images/lbe/testimonial-profile-3_preview.png',
-        'text': '“Best Value Upper West Side and Super Location”',
-        'name': 'William B',
-        'namePrefix': "W",
-        'city': 'Manhattan Beach, California'
+        'title': 'My favorite hotel in New York',
+        'text': 'I have been staying at Hotel Beacon since the mid 90s and the constant upgrades are wonderful. But it is also so nice to see friendly faces at the front desk and bellman desk who remember me from previous stays. I feel like I am at home here. Just wish I could visit more often.',
+        'name': 'Debbie B',
+        'namePrefix': 'D',
+        'city': 'Youngstown, Ohio'
       },
       {
         'avatarUrl': '/static/images/lbe/testimonial-profile-1_preview.png',
+        'title': 'My favorite hotel in New York',
         'text': '“A beautiful hotel in the heart of the Upper West Side”',
         'name': 'Sue M',
         'namePrefix': "S",
@@ -387,13 +389,14 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       },
       {
         'avatarUrl': '/static/images/lbe/testimonial-profile-2_preview.png',
+        'title': 'My favorite hotel in New York',
         'text': '“Wonderful and the value cannot be beat!”',
         'name': 'Molly Y',
         'namePrefix': 'M',
         'city': 'Raleigh, North Carolina'
       }
     ],
-    'recommendationCarouselInterval': 10000, // 0 disable carousel auto rotation
+    'recommendationCarouselInterval': 10000000, // 0 disable carousel auto rotation
     'homePage': {
       'showOffer': true
     },
