@@ -1,0 +1,32 @@
+@media only screen and @tablet-portrait-min {
+
+  .input-left,
+  .input-right,
+  .input-center {
+    box-sizing: border-box;
+    clear: none;
+    width: 50%;
+
+    &.small {  width: 20%; }
+    &.narrow {  width: 25%; }
+    &.medium {  width: 40%; }
+    &.wide {    width: 75%; }
+
+  }
+
+  .input-center {
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .input-left {
+    float: left;
+    padding-right: 10px;
+  }
+
+  .input-right {
+    float: right;
+    padding-left: 10px;
+  }
+}
