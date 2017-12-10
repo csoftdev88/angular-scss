@@ -31,16 +31,6 @@
                    slide-height="hotelViewSettings.hotelInfo.images.height"
                    content="previewImages">
       </hero-slider>
-
-      <div ng-if="isMobile && filteredAmenities && filteredAmenities.length"
-           ng-click="amenitiesSection.show = !amenitiesSection.show"
-           class="hotel-info-amenities"
-           ng-include="'layouts/components/amenities-expandable.html'">
-      </div>
-      <div ng-if="!isMobile && filteredAmenities && filteredAmenities.length"
-           class="hotel-info-amenities"
-           ng-include="'layouts/components/amenities-block.html'">
-      </div>
     </div>
   </div>
 </section>

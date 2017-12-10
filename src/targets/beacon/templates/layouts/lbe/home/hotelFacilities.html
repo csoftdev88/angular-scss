@@ -1,73 +1,13 @@
-<div class="grid-wrapper main-content-container">
-  <span class="facilities-title">OUR FACILITIES</span>
-  <div class="facilities-list-container">
-    <div class="facilities-list-container-row">
-      <div class="facilities-list-container-row-item">
-        <div class="facilities-list-container-row-item-icon">
-          <i class="icons icon-menu"></i>
-        </div>
-        <div class="facilities-list-container-row-item-name">
-          Sound Resistant Windows
-        </div>
-      </div>
-      <div class="facilities-list-container-row-item">
-        <div class="facilities-list-container-row-item-icon">
-          <i class="icons icon-menu"></i>
-        </div>
-        <div class="facilities-list-container-row-item-name">
-          Business Center
-        </div>
-      </div>
-      <div class="facilities-list-container-row-item">
-        <div class="facilities-list-container-row-item-icon">
-          <i class="icons icon-menu"></i>
-        </div>
-        <div class="facilities-list-container-row-item-name">
-          Fitness Center
-        </div>
-      </div>
-      <div class="facilities-list-container-row-item">
-        <div class="facilities-list-container-row-item-icon">
-          <i class="icons icon-menu"></i>
-        </div>
-        <div class="facilities-list-container-row-item-name">
-          Self Service Laundry Room
-        </div>
-      </div>
-    </div>
-    <div class="facilities-list-container-row">
-        <div class="facilities-list-container-row-item">
-          <div class="facilities-list-container-row-item-icon">
-            <i class="icons icon-menu"></i>
-          </div>
-          <div class="facilities-list-container-row-item-name">
-            Nearby Parking
-          </div>
-        </div>
-        <div class="facilities-list-container-row-item">
-          <div class="facilities-list-container-row-item-icon">
-            <i class="icons icon-menu"></i>
-          </div>
-          <div class="facilities-list-container-row-item-name">
-            Wireless internet
-          </div>
-        </div>
-        <div class="facilities-list-container-row-item">
-          <div class="facilities-list-container-row-item-icon">
-            <i class="icons icon-menu"></i>
-          </div>
-          <div class="facilities-list-container-row-item-name">
-            Cocktail Lounge
-          </div>
-        </div>
-        <div class="facilities-list-container-row-item">
-          <div class="facilities-list-container-row-item-icon">
-            <i class="icons icon-menu"></i>
-          </div>
-          <div class="facilities-list-container-row-item-name">
-            Same Day Valet Dry Cleaning
-          </div>
-        </div>
-      </div>
+<div ng-if="filteredAmenities && filteredAmenities.length" class="grid-wrapper main-content-container">
+
+  <div ng-if="isMobile"
+        ng-click="amenitiesSection.show = !amenitiesSection.show"
+        class="hotel-info-amenities"
+        ng-include="'layouts/components/amenities-expandable.html'">
   </div>
+  <div ng-if="!isMobile"
+        class="hotel-info-amenities"
+        ng-include="'layouts/components/amenities-block.html'">
+  </div>
+
 </div>
