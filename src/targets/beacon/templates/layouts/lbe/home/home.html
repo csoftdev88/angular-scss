@@ -5,12 +5,15 @@
       class="grid-wrapper header-hero-content"
       ng-class="{'mobile': isMobile}"
       ng-if="auth.isLoggedIn()">
-      <h3 class="welcome-text">_welcome_main_page_text_, {{ userObject.firstName }}</h3>
-      <div
-        class="About__signup" ng-if="auth.isLoggedIn() && offers.length">
-        <h1>_about_offer_title_</h1>
-        <p>{{ offers[0].title }}</p>
-        <button ng-click="gotoOffer(offers[0])">_view_more_</button>
+
+      <div class="HeroBenefits__whitebox">
+        <div class="HeroBenefits__subtitle">
+          <h1>_welcome_main_page_text_, {{ userObject.firstName }}</h1>
+          <h2>_about_offer_title_</h2>
+          <div class="HeroBenefits__signup">
+            <button class="HeroBenefits__button signup" ng-click="gotoOffer(offers[0])">_view_more_</button>
+          </div>
+        </div>
       </div>
     </main>
     <hero-slider
