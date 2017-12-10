@@ -55,6 +55,7 @@
                   ng-class="{'inlineFormElement':$first, 'margin-left': !$first}">
 
       <form-element class="booking-bar__form--guests adults">
+          <i class="simple-user"></i>
         <select name="adults"
                 chosen
                 disable-search="true"
@@ -62,9 +63,11 @@
                 placeholder-text-single="_adults_"
                 ng-options="adult.value as adult.title for adult in adults">
         </select>
+
       </form-element>
 
       <form-element class="booking-bar__form--guests children">
+        <i class="simple-user-female"></i>
         <select name="children"
                 chosen
                 disable-search="true"
@@ -92,12 +95,13 @@
     </form-element>
 
     <form-element ng-show="!showCode && !multiRoomSearch" class="booking-bar__form--code">
+      <i class="simple-star"></i>
       <select name="code"
               chosen
               disable-search="true"
               ng-model="search.codeType"
               ng-change="showCode = true"
-              placeholder-text-single="_apply_code_"
+              placeholder-text-single="_enter_code_"
               ng-options="code.value as code.title for code in codes | filter:{'title':'!group'}">
       </select>
     </form-element>
