@@ -3,6 +3,7 @@
 
   .About__hero {
     background-position: center;
+    padding-top: 0;
 
     &.fullscreen {
       position: relative;
@@ -34,8 +35,16 @@
       }
     }
 
-    .register_space hero-slider .slider-controls .pages {
-      height: 45px;
+    .register_space hero-slider {
+      .slider-controls {
+        background-color: rgba(0,0,0,0.7);
+        .pages {
+          display: block;
+          height: 45px;
+          text-align: center;
+          padding-bottom: 35px;
+        }
+      }
     }
 
     .main-content-container .rating-trip-advisor {
