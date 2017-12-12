@@ -1,0 +1,331 @@
+@import "variables";
+@import "mobile";
+
+booking-bar {
+  left: 0;
+  display: block;
+}
+
+.booking-bar {
+  background-color: #fff;
+  box-sizing: border-box;
+
+  input:not([type=radio]):not([type=checkbox]),
+  .chosen-container {
+    border: 1px solid #E6D4BD;
+    box-shadow: none;
+  }
+
+  // If the booking bar is anchored to the top, its parent will have a class sticky
+  // with position fixed, so here we make the booking bar full width while having a fixed parent
+  .sticky & {
+    margin-left: 0;
+  }
+
+  .sticky.roombar & {
+    left: -50%;
+  }
+
+  .booking-bar__form--guests .chosen-container {
+    // Urrgh! Someone (who doesn't understand CSS specificity) put !important on the master style sheet!
+    width: 160px !important;
+  }
+
+  p, span, label {
+    font-family: @ff-secondary;
+  }
+
+  .booking-bar__title-mobile {
+    display: none;
+  }
+
+  &.booking-bar__size-small {
+    width: 301px;
+    padding: 31px 28px 19px 28px;
+    .booking-bar__form {
+      form-element {
+        display: block;
+        padding: 0 0 25px 0;
+      }
+      .dates {
+        width: 100%;
+      }
+      .booking-bar__form--guests {
+        width: 50%;
+      }
+      .booking-bar__title {
+        font-size: 13px;
+        font-weight: bold;
+        color: @c-primary;
+        text-transform: uppercase;
+        padding-bottom: 12px;
+        text-align: center;
+        font-family: @ff-primary;
+      }
+      remove-text {
+        right: 15px;
+        top: initial;
+        bottom: 35px;
+      }
+      .booking-bar__form--dates.check-in,
+      .booking-bar__form--guests.adults {
+        float: left;
+      }
+      .booking-bar__form--dates.check-out,
+      .booking-bar__form--guests.children {
+        float: right;
+      }
+      .booking-bar__submit {
+        width: 245px;
+      }
+    }
+  }
+
+  &.booking-bar__size-large,
+  &.booking-bar__size-full-width,
+  &.booking-bar__size-full-width-bottom {
+    padding: 0 50px;
+    min-height: 78px;
+    .sticky & {
+      // compensate for scrollbar width
+      padding-right: 67px;
+    }
+    .booking-bar__form--rooms {
+      display: flex;
+      flex-flow: row nowrap;
+      flex: none;
+      .multiroom-booking & {
+        width: 340px;
+        display: block;
+        margin-top: 20px;
+      }
+      &.margin-left {
+        margin: 10px 0 0 306px;
+      }
+    }
+    .booking-bar__form {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .booking-bar__link.advanced {
+        margin-left: 12px;
+        max-width: 150px;
+      }
+      &.multiroom-booking {
+        flex-wrap: wrap;
+        .booking-bar__form--rooms {
+          flex: 0 0 100%;
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: baseline;
+          justify-content: flex-start;
+          &.inlineFormElement {
+            flex: none;
+          }
+        }
+        .booking-bar__link.remove-room {
+          width: initial;
+        }
+        .booking-bar__submit {
+          margin-left: 165px;
+        }
+        .booking-bar__link.quick {
+          float: initial;
+          display: block;
+          margin-left: 590px;
+        }
+      }
+      form-element {
+        display: inline-block;
+        &:not(:last-child) {
+          margin-right: 12px;
+        }
+      }
+      .booking-bar__form--add-room {
+        margin: 10px 0 0 321px;
+        flex: 0 0 100%;
+        .add-room {
+          float: initial;
+        }
+      }
+      .booking-bar__link.remove {
+        width: initial;
+      }
+      .booking-bar__form--guests {
+        &.adults,
+        &.children {
+          padding: 0;
+        }
+      }
+    }
+
+    .search-button-positionner {
+      flex: 1 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      button.desktop {
+        display: flex;
+      }
+      button.mobile {
+        display: none;
+      }
+    }
+  }
+
+  &.booking-bar__size-full-width,
+  &.booking-bar__size-full-width-bottom {
+    width: 100vw;
+    margin-left: calc(~'50% - 50vw');
+    display: flex;
+    justify-content: center;
+    border: 1px solid #E6D4BD;
+    border-left: none;
+    border-right: none;
+    background-color: @c-bookingbar-bg;
+
+    .booking-bar__form {
+      width: 1212px;
+    }
+  }
+
+  .booking-bar__form {
+
+    span, input {
+      color: #3C3C3C;
+      font-family: @ff-primary;
+    }
+
+    .dates {
+      width: 294px;
+      input[type="text"] {
+        color: #3C3C3C;
+        background: #fff;
+      }
+    }
+
+    .dates-text {
+      z-index: 1;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      color: #3C3C3C;
+      background: #fff;
+      font-size: 15px;
+      font-weight: 300;
+      height: 52px;
+      line-height: 52px;
+      padding-left: 20px;
+      cursor: pointer;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding-right: 35px;
+      box-sizing: border-box;
+      width: calc(~'100% - 4px');
+
+      .fa-calendar {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        color: #C8C8C8;
+        font-size: 17px;
+      }
+    }
+
+    .booking-bar__form--label {
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+
+    .booking-bar__form--dates {
+      width: 115px;
+    }
+
+    .booking-bar__form--room {
+      width: 245px;
+    }
+
+    .booking-bar__form--code {
+      width: 243px;
+      input {
+        .placeholder({
+          color: lighten(@c-alt-grey, 30%);
+          font-family: @ff-primary;
+          font-size: 16px;
+          font-weight: 300;
+          font-style: italic;
+        });
+      }
+    }
+
+    remove-text {
+      display: inline-block;
+      position: absolute;
+      margin: 2px 4px;
+      font-size: 20px;
+      right: 15px;
+      top: 15px;
+      z-index: 9;
+      cursor: pointer;
+
+      &:before {
+        .fa;
+        content: @fa-var-times;
+        cursor: pointer;
+        color: lighten(@c-mid-grey, 10%);
+      }
+      &:hover:before {
+        color: @c-mid-grey;
+      }
+    }
+
+    .booking-bar__submit {
+      text-transform: uppercase;
+      height: 56px;
+      width: 203px;
+      border: 1px solid #79AF41;
+      border-radius: 4px;
+      font-family: @ff-primary;
+      background-color: #87C34A;
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 24px;
+      text-align: center;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+      transition: background-color 200ms;
+      &:hover {
+        background-color: #79AF41;
+      }
+      &:focus {
+        background-color: #79AF41;
+        outline: none;
+      }
+      box-shadow: none;
+    }
+  }
+
+}
+
+.booking-bar__link {
+  margin-top: 5px;
+  float: right;
+  text-transform: uppercase;
+  color: @c-secondary;
+  font-family: @ff-secondary;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+
+  &.remove-room, .add-room {
+    width: 100%;
+    text-align: right;
+  }
+}
+
+// Kind of a hack. I need to have the first element in an ng-repeat display inline, so combining ng-class
+// to use this was the best way I can think of.
+form-element.inlineFormElement {
+  display: inline !important;
+}

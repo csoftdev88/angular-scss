@@ -1,0 +1,185 @@
+<hero-slider ng-if="!config.hideHeroSlider" content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
+
+<breadcrumbs ng-if="!config.hideBreadcrumbs" stickable="main-header"></breadcrumbs>
+
+<main class="grid-wrapper" id="jsRegister">
+
+  <div class="preloader" ng-show="preloader.visible"></div>
+
+  <register-page grid-row>
+
+    <header grid="12" ng-if="!config.headerPartial.display">
+      <h1 ng-bind-html="'_register_page_title_'| mainHeaderStyle"></h1>
+    </header>
+
+    <section grid="12" class="hotel-detail__header" ng-if="config.headerPartial.display">
+
+      <figure class="logo">
+        <img ng-src="{{config.headerPartial.logo.src}}" alt="{{config.headerPartial.logo.alt}}">
+      </figure>
+
+      <div class="title-wrapper">
+        <h1 class="title" ng-bind-html="'_register_page_title_' | mainHeaderStyle"></h1>
+      </div>
+
+      <div class="contact-info">
+        <div class="inner">
+          <div class="icon">
+            <i class="fa fa-phone"></i>
+          </div>
+          <div class="details">
+            <div class="desc">_hotel_detail_header_contact_title_:</div>
+            <div class="info">{{chain.contacts[0].tel}}</div>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+      <p class="description">_profile_page_desc_</p>
+    </section>
+
+    <form name="form" grid="8" ng-class="{'submitted': submitted}">
+
+      <fieldset>
+
+        <form-element ng-if="registerTitles">
+          <label for="registerTitle">_title_label_</label>
+          <select name="registerTitle" required chosen
+                  disable-search="true"
+                  placeholder-text-single="_title_label_"
+                  ng-model="registerData.title"
+                  ng-options="title.id as title.name for title in registerTitles">
+          </select>
+        </form-element>
+
+        <form-element>
+          <label for="registerFname">_first_name_label_</label>
+          <input
+            type="text"
+            id="registerFname"
+            name="registerFname"
+            ng-model="registerData.firstName"
+            required
+            ng-class="{'ng-submitted': form.$submitted && form.registerFname.$error.required}"
+            ng-pattern="$root.generalValidationPattern"/>
+        </form-element>
+
+        <form-element>
+          <label for="registerLname">_last_name_label_</label>
+          <input
+            type="text"
+            id="registerLname"
+            name="registerLname"
+            ng-model="registerData.lastName"
+            required
+            ng-class="{'ng-submitted': form.$submitted && form.registerLname.$error.required}"
+            ng-pattern="$root.generalValidationPattern"/>
+        </form-element>
+
+        <form-element>
+          <label for="registerEmail">_email_label_</label>
+          <input
+            type="email"
+            id="registerEmail"
+            name="registerEmail"
+            ng-model="registerData.email"
+            required
+            email-check
+            ng-class="{'ng-submitted': form.$submitted && (form.registerEmail.$error.required || form.registerEmail.$error.emailCheck)}"/>
+            <span class="error" ng-if="form.$submitted && form.registerEmailConfirm.$error.emailCheck">_invalid_email_message_</span>
+        </form-element>
+
+        <form-element>
+          <label for="registerEmailConfirm">_confirm_email_label_</label>
+          <input
+            type="email"
+            id="registerEmailConfirm"
+            name="registerEmailConfirm"
+            ng-model="registerData.emailConf"
+            required
+            email-check
+            equals="registerData.email"
+            ng-class="{'ng-submitted': form.$submitted && (form.registerEmailConfirm.$error.required || form.registerEmailConfirm.$error.emailCheck || form.registerEmailConfirm.$error.equals)}"/>
+            <span class="error" ng-if="form.$submitted && form.registerEmailConfirm.$error.emailCheck">_invalid_email_message_</span>
+            <span class="error" ng-if="form.$submitted && form.registerEmailConfirm.$error.equals">_email_match_error_message_</span>
+        </form-element>
+
+        <form-element>
+          <label for="registerPassword">_password_label_</label>
+          <input
+            type="password"
+            id="registerPassword"
+            name="registerPassword"
+            ng-model="registerData.password"
+            ng-pattern="/^(?=.*[a-zA-Z\d].*)[a-zA-Z\d!@#$%&£^*_()+=-]{8,}$/"
+            required
+            ng-class="{'ng-submitted': form.$submitted && (form.registerPassword.$error.required || form.registerPassword.$error.pattern)}"
+            ng-pattern="$root.generalValidationPattern"/>
+        </form-element>
+
+        <form-element>
+          <label for="registerPasswordConfirm">_confirm_password_label_</label>
+          <input
+            type="password"
+            id="registerPasswordConfirm"
+            name="registerPasswordConfirm"
+            ng-model="registerData.passwordConf"
+            required
+            equals="registerData.password"
+            ng-class="{'ng-submitted': form.$submitted && (form.registerPasswordConfirm.$error.required || form.registerPasswordConfirm.$error.equals)}"/>
+            <span class="error" ng-if="form.$submitted && form.registerPasswordConfirm.$error.equals">_password_match_error_message_</span>
+        </form-element>
+
+        <form-element>
+          <label for="registerPhone">_phone_label_</label>
+          <input
+            type="tel"
+            id="registerPhone"
+            name="registerPhone"
+            ng-model="registerData.tel1"
+            required
+            ng-class="{'ng-submitted': form.$submitted && form.registerPhone.$error.required}"
+            ng-pattern="$root.generalValidationPattern"/>
+        </form-element>
+
+        <form-element ng-if="registerCountries">
+          <label for="country">_country_label_</label>
+          <select type="text" id="country" required
+            placeholder="_country_label_"
+            placeholder-text-single="_country_label_"
+            ng-options="country.id as country.name for country in registerCountries"
+            ng-model="registerData.localeId"
+            name="country"
+            chosen>
+            <option value="">_country_label_</option>
+          </select>
+        </form-element>
+
+        <form-element ng-if="registerContacts">
+          <label for="registerContact">_prefered_contact_label_</label>
+          <select name="registerContact" required chosen
+                  disable-search="true"
+                  placeholder-text-single="_prefered_contact_label_"
+                  ng-model="registerData.preferredContactMethodCode"
+                  ng-options="contact.id as contact.name for contact in registerContacts">
+          </select>
+        </form-element>
+
+      </fieldset>
+
+      <p class="feedback-msg error" ng-if="error">
+        <span ng-if="userRegisteredError">_user_already_registered_</span>
+        <span ng-if="genericError">_generic_error_message_</span>
+        <span ng-if="missingFieldsError">_missing_fields_message_</span>
+        <span ng-if="missingFieldsError && form.registerPassword.$error.pattern">_password_pattern_error_</span>
+      </p>
+
+      <button-submit role="button" ng-click="register(form, registerData)">_create_account_</button-submit>
+
+    </form>
+
+  </register-page>
+
+  <!--<scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>-->
+</main>
+<div ng-include="'layouts/siteMap.html'" class="site-map" ng-if="footerConfig.displaySitemap"></div>

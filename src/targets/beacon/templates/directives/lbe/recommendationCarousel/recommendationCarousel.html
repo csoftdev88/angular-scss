@@ -1,0 +1,24 @@
+<article class="recommendation-carousel">
+  <!-- <div class="recommendation-background"></div> -->
+  <carousel interval="recommendationCarouselInterval">
+    <slide ng-repeat="slide in recommendationCarousel" active="slide.active">
+      <div class="recommendation-content-wrapper">
+        <div class="recommendation__text">
+          {{ slide.text }}
+          <div class="triangle-down-with-shadow"></div>
+        </div>
+
+        <div class="recommendation__avatar">
+          <div class="recommendation__name-prefix">{{ slide.namePrefix }}</div>
+
+          <div class="recommendation__avatar-info">
+            <h2>{{ slide.name }}</h2>
+            <small>{{ slide.city }}</small>
+          </div>
+
+        </div>
+      </div>
+    </slide>
+  </carousel>
+
+</article>

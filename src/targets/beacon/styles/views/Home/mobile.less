@@ -1,0 +1,108 @@
+
+.viewport-mobile {
+
+  .Home__hero--info,
+  .Home__hero--info.show-desktop {
+    display: initial;
+    left: 13px;
+    top: calc(~'100vh - 300px');
+    width: 100%;
+    .Home__hero--button {
+      display: initial;
+    }
+  }
+
+  .home-page-questionnaire {
+    main.grid-wrapper {
+      padding: 0;
+    }
+  }
+
+
+  .members-only-banner {
+    margin-top: @mobile-header-height;
+    height: 100px;
+    &.logged-in {
+      height: 150px;
+    }
+
+    .members-only-banner__label {
+      font-size: 22px;
+      line-height: 25px;
+      font-weight: normal;
+    }
+
+    .members-only-banner__not-member {
+      font-size: 12px;
+    }
+
+    .over-title {
+      font-size: 15px;
+    }
+  }
+
+  .Home__testimonial {
+    padding-top: 30px;
+    padding-bottom: 0px;
+  }
+
+  .hotel-description-container-content {
+    .HotelInfo__details--title {
+      display: block;
+    }
+    .hotel-info-amenities {
+      span {
+        width: 30px;
+        &.amenity-caption {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .About__hero {
+    padding-top: 50px;
+
+    .register_space {
+      min-height: 185px;
+
+      hero-slider {
+        height: calc(~'70vh - @{mobile-header-height}');
+        .slider-controls .pages span{
+          &:nth-child(1) {
+            margin-left: 35%;
+          }
+        }
+      }
+
+      .promotion-text-container {
+        display: none; // hide on mobile
+        left: 0;
+        top: 40px;
+        width: 100%;
+
+        .promotion-text-container-title {
+          font-size: 28px;
+          line-height: 37px;
+          width: 100%;
+          text-align: center;
+          margin-bottom: 0;
+        }
+
+        .promotion-text-container-text {
+          font-size: 18px;
+          line-height: 24px;
+          font-weight: 300;
+          box-sizing: border-box;
+          text-align: center;
+          max-width: 260px;
+          margin: 0 auto;
+          display: block;
+          float: none;
+        }
+      }
+    }
+  }
+
+}
+

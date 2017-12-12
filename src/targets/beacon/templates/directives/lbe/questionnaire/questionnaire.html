@@ -1,0 +1,171 @@
+<article class="questionnaire">
+
+  <article class="questionnaire__points" ng-if="!isMobile">
+    <div class="questionnaire__title">
+      _your_status_
+    </div>
+    <div class="questionnaire__info">
+      <div class="name">{{ name }}</div>
+      <div ui-sref="profile"
+           class="profile-link">
+        _view_profile_
+        <i class="fa fa-angle-right"></i>
+      </div>
+    </div>
+
+    <div class="tier-and-points">
+      <div class="tier">
+        <div class="tier-medallion" ng-class="tier ? tier.toLowerCase() : ''">
+          <i class="fa fa-user"></i>
+        </div>
+        <div class="tier-text">
+            <span class="tier-label">_current_tier_</span>
+            <span class="current-tier" ng-class="tier ? tier.toLowerCase() : ''">{{ tier }}</span>
+        </div>
+      </div>
+
+      <div class="points-amount">
+        <span class="points">{{ points }}</span>
+        <span class="points-label">_points_</span>
+      </div>
+    </div>
+
+
+    <!-- TODO: need more information where to get pendingPoints, currently pendingPoints always equals false -->
+    <div class="book-now-to-save" ng-if="pendingPoints">
+     <div class="book-now-to-save-title">Pending Points</div>
+     <div class="book-now-to-save-text">You are due to earn <span class="emphasis">{{ pendingPoints }} points</span>
+      over your next <span class="emphasis">{{ pendingStays }} stays</span>.</div>
+    </div>
+
+    <div class="book-now-to-save" ng-if="question && !pendingPoints">
+      <div class="book-now-to-save-title">Earn More Points</div>
+      <div class="book-now-to-save-text">Answer your Questionnaire to earn <span class="emphasis">{{ rewardPoints }} points</span>.</div>
+     </div>
+
+    <div class="book-now-to-save" ng-if="!question && !pendingPoints">
+      <div class="book-now-to-save-title">Book now to save</div>
+      <div class="book-now-to-save-text"><span class="emphasis">Book now</span> and <span class="emphasis">earn points</span> to spend towards your next stay.</div>
+     </div>
+  </article>
+
+  <div class="questionnaire__title streched" ng-if="isMobile">
+    <div class="name">{{ name }}</div>
+    <div class="points">{{ points }} <span class="points-title">_points_</span></div>
+  </div>
+
+  <div ng-if="question" class="stop-gap"></div>
+
+  <article ng-if="question" class="questionnaire__questions">
+    <span class="error" ng-if="errorMsg">{{ errorMsg }}</span>
+
+    <div class="questionnaire__title">
+      _questionnaire_title_
+    </div>
+
+    <p class="questionnaire__subtitle">_questionnaire_subtitle_</p>
+
+    <p class="questionnaire__reward">{{ reward }}</p>
+
+    <h1 class="questionnaire__question">{{ question }}</h1>
+
+    <ul class="questionnaire__options">
+      <li ng-repeat="option in options">
+        <label>
+          <input type="radio"
+                 name="choice"
+                 ng-model="poll.choiceId"
+                 ng-value="option.id" />
+          <div class="styled-radio">
+            <div class="styled-checked-indicator"></div>
+          </div>
+          {{ option.name }}
+        </label>
+
+      </li>
+    </ul>
+
+    <div class="button-positionner">
+      <button type="submit"
+              ng-click="answer()"
+              class="questionnaire__submit">
+        _submit_answer_
+      </button>
+    </div>
+  </article>
+
+  <div class="questionnaire__exclusive-offer" ng-if="isMobile && offers.length">
+    <h1>_about_offer_title_</h1>
+    <p>{{ offers[0].title }}</p>
+    <button ng-click="gotoOffer(offers[0])">_view_more_</button>
+  </div>
+
+  <article ng-if="nextStay"
+           class="questionnaire__next-stay">
+    <div class="questionnaire__title">
+      Your next stay
+    </div>
+
+    <div class="next-stay-panel">
+      <!--TODO: go to the actual reservation instead of all-->
+      <div
+        ui-sref="reservations"
+        class="next-stay-details"
+        ng-class="{'no-bottom-border': nextStay.availableAddons.length}">
+        <h1 class="questionnaire__nextStay--title">
+          {{ nextStay.property.nameLong }}
+        </h1>
+
+        <h2 class="questionnaire__nextStay--subtitle">
+          {{ nextStay.rooms[0].roomTypeName }}
+        </h2>
+
+        <h3 class="questionnaire__next-stay--date">
+          {{ nextStay.arrivalDate | dateTime }} - {{ nextStay.departureDate | dateTime }}
+        </h3>
+
+        <h3 class="questionnaire__next-stay--reservation-code">
+          Confirmation number: {{ nextStay.reservationCode }}
+        </h3>
+      </div>
+      <div class="next-stay-addons" ng-if="nextStay.availableAddons.length">
+        <h1 ng-if="isMobile">Add On's</h1>
+        <div class="addon-wrapper"
+             ng-repeat="addon in nextStay.availableAddons"
+             ng-click="openAddonDetailDialog(addon)">
+          <div class="addon-image">
+            <img ng-if="addon.image && addon.image.uri"
+                 ng-src="{{addon.image.uri}}"/>
+            <img ng-if="(!addon.image || !addon.image.uri) &&
+                              addon.images &&
+                              addon.images.length &&
+                              addon.images[0].uri"
+                 ng-src="{{addon.images[0].uri}}"/>
+          </div>
+
+          <div class="addon-text">
+            <div class="addon-name" ng-bind-html="addon.name | wrapWordHtml : 'span' : 0"></div>
+            <div class="addon-cost">
+              <!--TODO: get addon price if Settings.API.reservations.inclusionsAsAddons is false -->
+              <span>{{ addon.price.totalAfterTax | i18nCurrency: defaultCurrencyCode }}</span>
+              <span ng-if="addon.pointsRequired &&
+                          loyaltyProgramEnabled &&
+                          addon.allowPointsBooking"> _lowercase_or_ {{ addon.pointsRequired }} _points_</span>
+            </div>
+          </div>
+
+          <div class="addon-add-button"
+                  ng-click="openAddonDetailDialog($event, addon)">
+            <i class="fa fa-plus-circle"></i>
+            Add On
+          </div>
+        </div>
+        <button ng-if="isMobile" class="view-all-addons-button" ui-sref="reservations">View all add ons</button>
+      </div>
+    </div>
+
+  </article>
+
+
+
+</article>

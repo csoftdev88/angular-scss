@@ -1,0 +1,71 @@
+<hero-slider content="heroContent" slide-width="uiConfig.heroSlider.slideWidth" slide-height="uiConfig.heroSlider.slideHeight"></hero-slider>
+
+<breadcrumbs stickable="main-header"></breadcrumbs>
+
+<main class="grid-wrapper">
+  <div class="preloader" ng-show="preloader.visible"></div>
+
+  <regions-list id="region-list" grid-row ng-if="!showDetail">
+
+    <h1 grid="12" ng-bind-html="'_regions_page_title_' | mainHeaderStyle" class="regions-heading"></h1>
+
+    <region-item ng-repeat="region in allRegions | orderBy: 'nameShort'">
+      <a ng-href="{{region.url}}">
+        <div class="banner" ng-if="region.merchandisingBanner" ng-style="{'background-color': region.merchandisingBanner.bgColor, 'color': region.merchandisingBanner.textColor}">{{region.merchandisingBanner.text}}</div>
+        <img ng-src="{{region.images[0].uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{region.images[0].alt}}"/>
+
+        <section>
+          <h2>{{region.nameShort}}</h2>
+          <div ng-bind-html="region.highlight && region.highlight !== '' ? region.highlight : region.description | truncateString:135"></div>
+        </section>
+      </a>
+    </region-item>
+
+  </regions-list>
+
+  <region-detail id="region-detail" grid-row ng-if="showDetail">
+    <div grid="7">
+      <h1 ng-bind-html="region.nameShort | mainHeaderStyle"></h1>
+      <p ng-bind-html="region.description" markdown-text-parser class="markdown-content"></p>
+    </div>
+
+    <view-more-images grid="5">
+      <hero-slider data-has-notification-bar="false" on-slide-click="openGallery" data-counter-type="counter" content="previewImages"></hero-slider>
+
+      <read-more ng-if="region.content.length && region.content[0].title">
+        <p ng-bind-html="'_find_out_more_' | mainHeaderStyle"></p>
+        <ul>
+          <li ng-repeat="item in region.content | orderBy: 'order'"><a href="" ui-sref="locationInfo({regionSlug: region.meta.slug, locationSlug: null, infoSlug: item.slug})">{{item.title}}</a></li>
+        </ul>
+      </read-more>
+    </view-more-images>
+
+    <locations-list grid="12" ng-if="allLocations.length">
+
+      <location-item ng-repeat="location in allLocations | orderBy: 'nameShort'">
+        <a ng-href="{{location.url}}">
+          <div class="banner" ng-if="location.merchandisingBanner" ng-style="{'background-color': location.merchandisingBanner.bgColor, 'color': location.merchandisingBanner.textColor}">{{location.merchandisingBanner.text}}</div>
+          <img ng-src="{{location.images[0].uri | cloudinaryImage : 310 : 160 : 'fill'}}" alt="{{location.images[0].alt}}"/>
+
+          <section>
+            <header>
+              <h2>{{location.nameShort}}</h2>
+              <ul class="chain-icons">
+                <li ng-repeat="chain in location.chain">
+                  <img ng-src="{{chain.icon}}"  alt="{{chain.nameShort}} logo">
+                </li>
+              </ul>
+            </header>
+            <div ng-bind-html="location.highlight && location.highlight !== '' ? location.highlight : location.description | truncateString:125"></div>
+          </section>
+        </a>
+
+      </location-item>
+
+    </locations-list>
+
+  </region-detail>
+
+  <!--<scroll-to-top class="back-to-top" ng-click="scrollToTop()" scroll-position="scroll" ng-class="{visible: scroll > scrollTopTrigger}"><span>_back_to_top_</span></scroll-to-top>-->
+</main>
+<div ng-include="'layouts/siteMap.html'" class="site-map" ng-if="footerConfig.displaySitemap"></div>

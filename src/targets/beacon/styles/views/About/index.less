@@ -1,0 +1,517 @@
+@import "./variables";
+@import "./mobile";
+
+.About {
+  // For some reason their is a global margin-top 120px on all <main>
+  margin-top: 0;
+}
+.About__hero {
+  padding-top: 100px;
+  width: 100%;
+  background: url('@{img-prefix}/rewards-bg.png');
+  background-size: cover;
+  &.fullscreen {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+  .register_space {
+    width: 100%;
+    min-height: 610px;
+
+    hero-slider {
+      height: 675px;
+      .slider-controls {
+        background-color: rgba(0, 0, 0, 0.2);
+        .slide-button {
+          display: none;
+        }
+        .pages {
+          height: 97px;
+          text-align: initial;
+          padding-left: calc(~'(100% - 1212px) / 2');
+          // make the controls to appear above text
+          z-index: 2;
+        }
+      }
+    }
+  }
+
+  .main-content-container {
+    position: relative;
+
+    .rating-trip-advisor {
+      width: 100%;
+      min-height: 97px;
+      box-sizing: border-box;
+      background-color: #EFF7F5;
+      border: 1px solid rgba(1, 166, 127, 0.2);
+      border-radius: 8px;
+      position: relative;
+      margin-bottom: 25px;
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      padding: 30px;
+
+      font-family: @ff-primary;
+      font-size: 18px;
+      font-weight: 300;
+
+      > * {
+        flex: none;
+        margin-top: 3px;
+        margin-bottom: 3px;
+      }
+
+      .logo {
+        width: 210px;
+        margin-right: 22px;
+      }
+
+      .logo-symbol {
+        display: none;
+      }
+
+      .spacer {
+        flex: 1 1 0px; // px unit needed for IE
+      }
+
+      a {
+        display: flex;
+        align-items: center;
+        margin-right: 13px;
+        img {
+          width: 145px;
+        }
+      }
+
+      .trip-advisor-ratings {
+        display: flex;
+        flex-flow: row nowrap;
+      }
+
+      .number-of-reviews {
+        font-size: 16px;
+      }
+    }
+
+    .register_container {
+      right: 0;
+      top: -650px;
+      background-color: #A97737;
+      position: absolute;
+      width: 320px;
+      border-radius: 10px;
+      z-index: 9;
+      padding: 30px;
+      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+
+      form {
+        width: 260px;
+        &.ng-invalid {
+          width: 100%;
+        }
+      }
+
+      .signup-title {
+        color: white;
+        font-size: 28px;
+        margin-bottom: 15px;
+        line-height: 38px;
+        text-shadow: 0 1px 0 rgba(0,0,0,0.40);
+
+        .emphasis{
+          font-weight: bold;
+        }
+      }
+
+      form-element {
+        margin-bottom: 10px;
+      }
+
+
+
+      input {
+        &.ng-invalid {
+          i {
+            color: @c-red;
+          }
+        }
+      }
+
+      .error-message {
+        color: @c-error;
+        font-size: 17px;
+      }
+
+      input.ng-touched.ng-dirty.ng-invalid + .input-icon-wrapper {
+        color: @c-red;
+      }
+      input.ng-touched.ng-dirty.ng-valid + .input-icon-wrapper {
+        color: @c-green;
+      }
+
+      .input-icon-wrapper {
+        height: 56px;
+        width: 50px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        color: rgba(101, 101, 101, 0.27);
+        font-size: 20px;
+        text-align: center;
+
+        i {
+          padding-top: 17px;
+        }
+      }
+
+      .country-icon {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        z-index: 1;
+        color: rgba(101, 101, 101, 0.27);
+        font-size: 22px;
+      }
+
+      form.ng-invalid {
+        color: @c-red;
+      }
+    }
+  }
+
+  .hotel-description-container {
+    width: 100%;
+    min-height: 300px;
+    background-color: #FCFCFC;
+    padding: 0 0;
+
+    .hotel-info-details {
+      margin-left: 0;
+      margin-right: 0;
+
+      hero-slider {
+        height: 350px;
+      }
+
+      .HotelInfo__details--title {
+        margin-bottom: 13px;
+      }
+
+      .HotelInfo__details--description:not(:last-child) {
+        margin-bottom: 20px;
+      }
+
+      .hotel-info-amenities {
+        margin-top: 34px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 6px;
+        background-color: #fff;
+        padding: 22px;
+
+        .viewport-mobile & {
+          padding: 15px;
+          border: 1px solid #E5E5E5;
+          border-radius: 6px;
+          background-color: #FFFFFF;
+        }
+
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-items: baseline;
+        h2 {
+          color: @c-primary;
+          font-family: @ff-serif;
+          font-size: 24px;
+          font-weight: bold;
+          letter-spacing: 1px;
+          line-height: 31px;
+          margin-bottom: 0;
+          .viewport-mobile & {
+            color: @c-primary;
+            font-family: @ff-serif;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 24px;
+          }
+        }
+
+        .amenities-arrow {
+          display: none;
+        }
+
+        .amenities-list {
+          margin: 13px 0 0 0;
+        }
+
+        .amenity-item {
+          margin-bottom: 0;
+          .viewport-mobile & {
+            height: 17px;
+            color: @c-alt-grey;
+            font-family: @ff-serif;
+            font-size: 15px;
+            line-height: 17px;
+          }
+          span {
+            img {
+              .viewport-mobile & {
+                height: 24px;
+                color: @c-primary;
+                font-size: 28px;
+              }
+              max-height: none;
+              max-width: none;
+              height: 28px;
+              width: auto;
+            }
+          }
+          .amenity-caption {
+            color: @c-alt-grey;
+            font-family: @ff-serif;
+            font-size: 20px;
+            line-height: 22px;
+            .viewport-mobile & {
+              height: 17px;
+              color: @c-alt-grey;
+              font-family: @ff-serif;
+              font-size: 15px;
+              line-height: 17px;
+            }
+          }
+        }
+      }
+    }
+
+    .gallery-link, .slide-button {
+      display: none;
+    }
+
+    view-more-images {
+      width: 50% !important;
+      margin: 20px 0 !important;
+      height: 300px;
+    }
+    main {
+      margin-top: 0;
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+
+  }
+}
+
+.About__hero--info {
+  margin-left: calc(~'(100vw - 1212px) / 2');
+  position: absolute;
+  top: calc(~'50% - 90px');
+}
+
+.button.ghost {
+  margin-top: 20px;
+  background: transparent;
+  border: solid 2px white;
+  &:hover {
+    background: transparent;
+  }
+}
+
+.About__hero--tagline {
+  color: #fff;
+  text-transform: uppercase;
+  font-family: @ff-primary;
+  font-size: 26px;
+  letter-spacing: 1.1px;
+  line-height: 30px;
+}
+.About__hero--title {
+  color: #fff;
+  text-transform: uppercase;
+  font-family: @ff-primary;
+  font-size: 75px;
+  line-height: 89px;
+  font-weight: bold;
+  text-shadow: 0 0 20px rgba(0,0,0,0.9);
+}
+
+.About__logo {
+  margin-bottom: 38px;
+  position: relative;
+  h1 {
+    text-align: center;
+    font-family: @ff-primary;
+    text-transform: uppercase;
+    font-size: 19px;
+    line-height: 26px;
+    margin-bottom: 11px;
+    font-weight: normal;
+    color: @c-primary;
+
+    span {
+      background: #fff;
+      padding: 0 15px;
+    }
+
+    &:before {
+      border-top: 1px solid @c-primary;
+      content:"";
+      margin: 0 auto; /* this centers the line to the full width specified */
+      position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
+      top: 50%; left: 0; right: 0; bottom: 0;
+      width: 95%;
+      z-index: -1;
+    }
+  }
+}
+
+.About__benefits {
+  // @todo find out why I need to force the height on this div?
+  height: 570px;
+}
+
+.About__benefits--overview {
+  width: 60%;
+  float: left;
+  padding-right: 40px;
+  padding-top: 70px;
+  box-sizing: border-box;
+  &.full-width {
+    width: 100%;
+    .About__benefit {
+      width: calc(~'33% - 60px');
+    }
+  }
+}
+
+.About__benefits--offer {
+  width: 40%;
+  float: right;
+  h2 {
+    text-align: center;
+    font-family: @ff-primary;
+    text-transform: uppercase;
+    font-size: 24px;
+    line-height: 29px;
+    margin-bottom: 11px;
+    color: #000;
+  }
+  img {
+    width: 480px;
+    height: 363px;
+    cursor: pointer;
+  }
+  span {
+    line-height: 72px;
+    background-color: rgba(26, 26, 26, 0.8);
+    .backdrop-filter-blur(20px);
+    font-size: 21px;
+    color: #fff;
+    letter-spacing: 0;
+    font-family: @ff-primary;
+    position: absolute;
+    margin-top: 22px;
+    padding: 0 18px;
+    text-transform: uppercase;
+  }
+}
+
+.About__testimonial {
+  margin: 71px 0 0 0;
+}
+
+.About__instagram {
+  margin: 71px 0 0 0;
+}
+
+.About__signup {
+  h1, p {
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+  }
+  h1 {
+    font-family: @ff-serif;
+    letter-spacing: 1px;
+    font-size: 44px;
+    line-height: 60px;
+    text-transform: uppercase;
+    margin: 25px 0;
+  }
+  p {
+    font-family: @ff-primary;
+    font-size: 34px;
+    line-height: 40px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  button {
+    margin-top: 47px;
+    width: 246px;
+    height: 52px;
+    background-color: @c-secondary;
+    color: #fff;
+    text-transform: uppercase;
+    text-shadow: none;
+    border: 1px solid darken(@c-secondary, 20%);
+    transition: background-color 150ms linear;
+    &:hover {
+      background-color: darken(@c-secondary, 20%);
+    }
+  }
+}
+
+.About__benefit {
+  padding-left: 60px;
+  margin-bottom: 93px;
+  float: left;
+  width: calc(~'50% - 60px');
+  h2, p {
+    font-family: @ff-primary;
+    color: #000;
+    letter-spacing: 0;
+    padding-left: 80px;
+  }
+  h2 {
+    font-size: 30px;
+    line-height: 35px;
+  }
+  p {
+    font-size: 18px;
+    line-height: 21px;
+  }
+  span {
+    &:after {
+      .fa;
+      position: absolute;
+      color: @c-primary;
+      font-size: 54px;
+    }
+  }
+  .lowest-rates {
+    &:after {
+      content: @fa-var-thumbs-up;
+    }
+  }
+  .get-rewarded {
+    &:after {
+      content: @fa-var-trophy;
+    }
+  }
+  .privileges {
+    &:after {
+      content: @fa-var-star;
+    }
+  }
+  .points {
+    &:after {
+      content: @fa-var-bed;
+    }
+  }
+}

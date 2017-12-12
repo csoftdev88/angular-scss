@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="162px" height="36px" viewBox="0 0 162 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>banner-bg</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="members-only-rate-banner" fill="#B98747">
+            <g id="banner-bg">
+                <g>
+                    <polygon id="Rectangle" points="9.88344848 0 162 0 162 33 9.88344848 33 0 16.5"></polygon>
+                    <polygon id="Path-2" points="162 33 156 36 156 33"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

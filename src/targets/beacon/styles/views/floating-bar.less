@@ -1,0 +1,214 @@
+//////////////////////
+//// FLOATING BAR ////
+//////////////////////
+
+//FIXME: this is rather messy and only a small part is used for excelsior
+
+.multiroom-mode booking-widget-add-room{
+  width: 50% !important;
+  .viewport-mobile & {
+    width:100% !important;
+  }
+}
+
+@slide-animation-duration: 222ms;
+@appear-animation-duration: 150ms;
+
+floating-bar {
+  .viewport-mobile & {
+    &.active {
+      top: @mobile-header-height;
+      height: calc(~'100vh - @{mobile-header-height}');
+      position: fixed;
+      z-index: 99;
+      // Override display none on the element to ensure transitions happen
+      display: block;
+    }
+    > ul {
+      display: table;
+    }
+    &.hide {
+      display: none;
+      &.force-show {
+        display: block;
+      }
+    }
+    select, #booking-widget-date-range {
+      border-radius: 4px;
+      border: 1px solid #E6D4BD;
+      font-size: 15px;
+      font-weight: 100;
+      color: #a5a5a5;
+      padding-right: 35px;
+    }
+    input-value {
+      width: calc(~'100% - 16px');
+      font-size: 15px;
+      font-weight: 300;
+      i {
+        color: #C8C8C8;
+        position: absolute;
+        right: 15px;
+        top: 4px;
+        font-size: 17px;
+      }
+    }
+    booking-widget-search {
+      .persons {
+        width: calc(~'(100% - 6px) / 2');
+        float: left;
+      }
+      .persons-children {
+        margin-left: 6px;
+      }
+      .code {
+        clear: left;
+      }
+      form-element:before {
+        display: none;
+      }
+    }
+    button-submit[disabled='disabled'], button-submit { // override previous css
+      background: #87C34A;
+    }
+    .close-button {
+      background-image: url('@{img-prefix}/menu_close.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 16px;
+      height: 16px;
+      float: right;
+      margin: 20px;
+      clear: both;
+      cursor: pointer;
+    }
+    .best-price-guarantee {
+      height: auto;
+      width: auto;
+      border-radius: 8px;
+      background-color: #212020;
+      margin: 0 20px;
+      .tag {
+        background-image: url('@{img-prefix}/v4/tag.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 48px;
+        height: 68px;
+        float: left;
+        margin: 15px;
+      }
+      h1 {
+        color: #FFFFFF;
+        font-family: @ff-primary;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 24px;
+        padding: 15px 5px 10px 15px;
+      }
+      p {
+        color: #FFFFFF;
+        font-family: @ff-primary;
+        font-size: 15px;
+        line-height: 18px;
+        padding: 0 25px;
+      }
+    }
+  }
+}
+
+floating-bar {
+  display: none;
+  color: #4A4A4A;
+
+  &.multi-room{
+    background: @c-booking-widget-active;
+  }
+
+  .glass-filter {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  //- Tabs
+  > ul {
+    li {
+      color: #4A4A4A;
+      a {
+        color: #4A4A4A;
+      }
+      &.floating-bar--tab-advanced-booking {
+        a {
+          text-decoration: underline;
+        }
+      }
+
+      &.floating-bar--tab-booking,
+      &.floating-bar--tab-booking.is-active,
+      &.floating-bar--tab-booking:before{
+        background: @c-booking-widget;
+      }
+
+      &.floating-bar--tab-booking:after{
+        border-bottom: @baseline*1.5 solid @c-booking-widget!important;
+      }
+
+      &.floating-bar--tab-advanced-booking,
+      &.floating-bar--tab-advanced-booking.is-active,
+      &.floating-bar--tab-advanced-booking:before{
+        background: @c-booking-widget-active;
+      }
+
+      &.floating-bar--tab-advanced-booking:after{
+        border-bottom: @baseline*1.5 solid @c-booking-widget-active;
+      }
+
+      &.floating-bar--tab-booking {
+
+        .viewport-mobile &.main-mobile-toggle {
+          background: url('@{img-prefix}/rewards-bg.png') center no-repeat;
+          background-size: cover;
+          position: relative;
+
+          .book-now-button {
+            font-family: @ff-serif;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 23px;
+            position: absolute;
+            top: 0;
+            left: 30px;
+          }
+
+          &.mobile-is-open a{
+            background: transparent;
+          }
+
+          a{
+
+            &.with-search-params {
+            }
+
+            .mobile{
+
+            }
+          }
+        }
+        .viewport-mobile & {
+          .active-booking {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  &.bar-top-right:not(.active) {
+    .viewport-mobile.chain-sign:not(.mobile-menu-active) & {
+      > ul li.floating-bar--tab-booking.main-mobile-toggle a {
+        background:@c-secondary-sign;
+      }
+    }
+  }
+}

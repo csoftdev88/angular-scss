@@ -1,0 +1,317 @@
+<div
+  class="ReservationBackground"
+  ng-if="config.useBackground">
+</div>
+
+<breadcrumbs
+  ng-if="config.displayBreadcrumbsOnReservationDetail"
+  stickable="main-header">
+</breadcrumbs>
+
+
+<main
+  class="reservation-detail"
+  ng-class="{ 'grid-wrapper': !viewSettings.fullWidthSections }">
+
+  <div
+    class="preloader"
+    ng-show="preloader.visible">
+  </div>
+
+  <div
+    class="reservation">
+    <div class="reservations-title">
+      <h1>_reservation_page_nextstay_title_</h1>
+    </div>
+
+    <div class="reservation-summary-container">
+      <section class="border-right">
+        <div class="tables">
+          <div class="room-types">
+            <figure>
+              <img
+                ng-if="roomDetails.images[0].uri"
+                ng-src="{{ roomDetails.images[0].uri | cloudinaryImage : 400 : 210 : 'fill' }}"
+                alt="{{ roomDetails.name }}">
+            </figure>
+
+            <check-in-date>
+              <div class="title">_check_in_</div>
+              <div class="date">
+                  {{reservation.arrivalDate | checkInDate }}
+              </div>
+            </check-in-date>
+
+            <div class="reservation-details-container">
+              <h3>
+                {{ roomDetails.name }}
+                <a href ng-click="openOtherRoomsDialog()"
+                   ng-if="reservation.rooms.length > 1">
+                  + {{ reservation.rooms.length - 1 }} other
+                  <ng-pluralize count="reservation.rooms.length"
+                                when="{'2': 'room', 'other': 'rooms'}">
+                  </ng-pluralize>
+                </a>
+              </h3>
+
+              <h4 class="booking-arrival-checkout">
+                {{ reservation.arrivalDate | dateTime }} &mdash; {{ reservation.departureDate | dateTime }}
+              </h4>
+
+              <h4
+                ng-if="config.displayConfirmationNumberInDetails"
+                class="booking-confirmation-number">
+                _booking_reference_: <span>{{ reservationCode }}</span>
+              </h4>
+
+              <h4
+                ng-if="config.displayBookingDateInDetails"
+                class="booking-confirmation-number">
+                _booked_: <span>{{ reservation.bookingDate | dateTime }}</span>
+              </h4>
+            </div>
+          </div>
+
+          <div class="charges-data">
+            <table class="reservation-data-table">
+              <tbody>
+                <tr ng-if="config.showGuestName" class="guest-name">
+                  <th>_guest_name_:</th>
+                  <td>{{ reservation.rooms[0].firstName }} {{ reservation.rooms[0].lastName }}</td>
+                </tr>
+                <tr>
+                  <th>_check_in_:</th>
+                  <td>{{ reservation.arrivalDate | dateTime }}</td>
+                </tr>
+                <tr>
+                  <th class="check-out">_check_out_:</th>
+                  <td class="check-out">{{ reservation.departureDate | dateTime }}</td>
+                </tr>
+                <tr>
+                  <th class="adults">_adults_:</th>
+                  <td class="adults">{{ getCount('adults') }}</td>
+                </tr>
+                <tr>
+                  <th class="children">_children_:</th>
+                  <td class="children">{{ getCount('children') }}</td>
+                </tr>
+                <tr ng-if="reservationAddons.length" ng-class="{'last': $last}" ng-show="!breakdown.extended">
+                  <th>Addons:</th>
+                  <td>{{ getAddonsTotalPrice() | i18nCurrency: defaultCurrencyCode}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div ng-init="breakdown.extended = false">
+              <table
+                class="reservation-data-table"
+                ng-if="config.reservationDetailPriceBreakdownExtended &&
+                            reservation &&
+                            !config.useSidetable &&
+                            reservation.rooms[0].priceDetail &&
+                            !reservation.pointValue"
+                ng-show="breakdown.extended">
+
+                <thead>
+                  <tr>
+                    <th class="emphasis">_room_charges_:</th>
+                    <td class="emphasis">{{getBreakdownTotalBaseAfterPricingRules() | i18nCurrency: defaultCurrencyCode}}</td>
+                  </tr>
+
+                  <tr ng-repeat="breakdown in reservation.rooms[0].priceDetail.breakdowns | orderBy:'date'"
+                      ng-class="{'last': $last}">
+                    <th>{{formatDate(breakdown.date, 'DD MMM YYYY')}}:</th>
+                    <td>{{getBreakdownTotalDate(breakdown.date) | i18nCurrency: defaultCurrencyCode}}</td>
+                  </tr>
+
+                  <tr ng-if="reservationAddons.length" ng-class="{'last': $last}">
+                    <th class="emphasis">Addons:</th>
+                    <td class="emphasis">{{ getAddonsTotalPrice() | i18nCurrency: defaultCurrencyCode}}</td>
+                  </tr>
+
+                  <tr ng-repeat="addon in reservationAddons"
+                      ng-class="{'last': $last}">
+                    <th>{{ addon.name }}:</th>
+                    <td>{{ addon.price.totalAfterTax | i18nCurrency: defaultCurrencyCode}}</td>
+                  </tr>
+
+                  <tr ng-if="getBreakdownTotalTaxes(false) > 0">
+                    <th class="emphasis">_taxes_:</th>
+                    <td class="emphasis">{{getBreakdownTotalTaxes(false) | i18nCurrency: defaultCurrencyCode}}</td>
+                  </tr>
+
+                  <tr ng-repeat="taxItem in reservation.rooms[0].priceDetail.taxDetails.policyTaxItemDetails"
+                      ng-class="{'last': $last}"
+                      ng-if="!taxItem.policyTaxItemIsFee">
+                    <th>
+                      {{taxItem.policyTaxItem.policyTaxItemCode}}
+                      <span class="info"
+                            ng-if="taxItem.policyTaxItem.policyTaxItemDescription &&
+                                   taxItem.policyTaxItem.policyTaxItemDescription !== ''"
+                            tooltips
+                            tooltip-side="top"
+                            tooltip-template="{{taxItem.policyTaxItem.policyTaxItemDescription}}">
+                        ?
+                      </span>
+                    </th>
+                    <td>{{getBreakdownTotalTax(taxItem.policyTaxItem.policyTaxItemCode) | i18nCurrency: defaultCurrencyCode}}</td>
+                  </tr>
+
+                  <tr ng-if="getBreakdownTotalTaxes(true) > 0">
+                    <th>_applicable_fees_:</th>
+                    <td>{{getBreakdownTotalTaxes(true) | i18nCurrency: defaultCurrencyCode}}</td>
+                  </tr>
+
+                  <tr ng-repeat="taxItem in reservation.rooms[0].priceDetail.feeDetails.policyTaxItemDetails"
+                      ng-class="{'last': $last}">
+                    <th>
+                      {{taxItem.policyTaxItem.policyTaxItemCode}}
+                      <span class="info"
+                            ng-if="taxItem.policyTaxItem.policyTaxItemDescription &&
+                                   taxItem.policyTaxItem.policyTaxItemDescription !== ''"
+                            tooltips
+                            tooltip-side="top"
+                            tooltip-template="{{taxItem.policyTaxItem.policyTaxItemDescription}}">
+                        ?
+                      </span>
+                    </th>
+                    <td>
+                      {{getBreakdownTotalFee(taxItem.policyTaxItem.policyTaxItemCode) | i18nCurrency: defaultCurrencyCode}}
+                    </td>
+                  </tr>
+
+                  <!-- Discount -->
+                  <tr class="main" ng-if="getCountPriceDetail('totalDiscount') != 0">
+                    <th>_discount_:</th>
+                    <td>{{getCountPriceDetail('totalDiscount') | i18nCurrency: defaultCurrencyCode}}</td>
+                  </tr>
+                </thead>
+              </table>
+
+              <a
+                class="primary-link float-right"
+                href
+                ng-click="breakdown.extended = !breakdown.extended"
+                ng-show="config.reservationDetailPriceBreakdownExtended &&
+                         reservation &&
+                         hasPriceBreakdown()">
+                <span class="price-breakdown" ng-if="!breakdown.extended">_view_price_breakdown_</span>
+                <span class="price-breakdown" ng-if="breakdown.extended">_hide_price_breakdown_</span>
+              </a>
+
+              <div class="clear"></div>
+            </div>
+          </div>
+
+          <div class="total-charges">
+            <span class="total">_total_:</span>
+
+            <span class="total-value"
+                  ng-if="!reservation.pointValue">
+              {{getCountPriceDetail('totalAfterTaxAfterPricingRules', true) | i18nCurrency: defaultCurrencyCode}}
+            </span>
+
+            <span class="total-value"
+                  ng-if="reservation.pointValue"
+                  ng-if="loyaltyProgramEnabled">
+              {{reservation.pointValue}} _points_
+            </span>
+          </div>
+        </div>
+
+        <div class="modify-buttons"
+             ng-if="reservation.status !== 'Cancelled'">
+          <button class="button-brown"
+                  ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()"
+                  ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}"
+                  ng-if="reservation.canModify">
+            _modify_
+          </button>
+
+          <button class="button-white"
+                  ng-click="reservation.pointValue ? modifyCancelPointsReservation() : openCancelReservationDialog()"
+                  ng-class="{disabled: reservation.canCancel === false && !reservation.pointValue}"
+                  ng-if="reservation.canCancel">
+            _cancel_
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <div class="hotel-details-container">
+      <div class="section-padding">
+        <section
+          class="addon-section"
+          ng-if="availableAddons.length">
+          <h4>_reservation_enhance_title_</h4>
+
+          <div class="addon-wrapper"
+               ng-repeat="addon in availableAddons"
+               ng-click="openAddonDetailDialog(addon)">
+            <div class="addon-image">
+              <img ng-if="addon.image && addon.image.uri"
+                   ng-src="{{addon.image.uri}}"/>
+              <img ng-if="(!addon.image || !addon.image.uri) &&
+                                addon.images &&
+                                addon.images.length &&
+                                addon.images[0].uri"
+                   ng-src="{{addon.images[0].uri}}"/>
+            </div>
+
+            <div class="addon-text">
+              <div class="addon-name" ng-bind-html="addon.name | wrapWordHtml : 'span' : 0"></div>
+              <div class="addon-cost">
+                <!--TODO: get addon price if Settings.API.reservations.inclusionsAsAddons is false -->
+                <span>{{ addon.price.totalAfterTax | i18nCurrency: defaultCurrencyCode }}</span>
+                <span ng-if="addon.pointsRequired &&
+                            loyaltyProgramEnabled &&
+                            addon.allowPointsBooking"> _lowercase_or_ {{ addon.pointsRequired }} _points_</span>
+              </div>
+            </div>
+
+            <div class="addon-add-button"
+                    ng-click="openAddonDetailDialog($event, addon)">
+              <i class="fa fa-plus-circle"></i>
+              Add On
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <hotel-location hotel-details="property" ng-if="property"></hotel-location>
+        </section>
+
+        <section
+          class="addon-section"
+          ng-if="reservationAddons.length">
+          <h4>_reservation_enhance_summary_title_</h4>
+
+          <div class="addon-wrapper"
+               ng-repeat="addon in reservationAddons">
+            <div class="addon-image">
+              <img ng-if="addon.image && addon.image.uri"
+                   ng-src="{{addon.image.uri}}"/>
+              <img ng-if="(!addon.image || !addon.image.uri) &&
+                                addon.images &&
+                                addon.images.length &&
+                                addon.images[0].uri"
+                   ng-src="{{addon.images[0].uri}}"/>
+            </div>
+
+            <div class="addon-text">
+              <div class="addon-name" ng-bind-html="addon.name | wrapWordHtml : 'span' : 0"></div>
+              <div class="addon-cost">
+                <span>{{ addon.price.totalAfterTax | i18nCurrency: defaultCurrencyCode }}</span>
+                <span ng-if="addon.pointsRequired &&
+                            loyaltyProgramEnabled &&
+                            addon.allowPointsBooking"> _lowercase_or_ {{ addon.pointsRequired }} _points_</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="clear"></div>
+  </div>
+</main>

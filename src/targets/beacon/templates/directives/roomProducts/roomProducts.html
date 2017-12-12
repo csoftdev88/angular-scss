@@ -1,0 +1,259 @@
+<div class="preloader"
+     ng-show="products === undefined">
+  <span>_fetching_room_rates_</span>
+</div>
+
+<ul ng-if="products">
+  <!--This commented out div can be used to show a message when the requested rates are not available-->
+  <!--Pete decided to remove this for now-->
+  <!--<div ng-if="!isRequestedRateReturned" class="msg-box msg-rate">_rate_not_available_</div>-->
+
+  <!-- HIGHLIGHTED/MEMBERS ONLY PRODUCTS -->
+  <li class="product-container"
+      ng-class="{'is-highlighted': product.highlighted || ($first && !product.memberOnly && settings.highlightFirstRate),
+                 'is-member-only': product.memberOnly,
+                 'is-member-only-disabled': product.memberOnly && !isUserLoggedIn(),
+                 'slashthrough': product.price.formatting === 'slashThrough' &&
+                                 settings.showSlashThrough === true &&
+                                 product.price.totalBaseAfterPricingRules < product.price.originalPrice}"
+      ng-repeat="product in products | limitTo: getRatesLimit()">
+
+    <!--In the mobile layout we want the whole row to be clickable-->
+    <div class="mobile-click-handler"
+         ng-show="product.memberOnly && !isUserLoggedIn() && !isModifyingAsAnonymous()"
+         ng-click="auth.login()">
+    </div>
+    <div class="mobile-click-handler"
+      ng-show="!product.memberOnly || isUserLoggedIn() || isModifyingAsAnonymous()"
+      ng-click="selectProduct(room.code, product.code, null, null, product.upSell, $event)">
+  </div>
+
+    <div class="list-item-highlight-label highlight-ribbon"
+         ng-if="product.highlighted">
+      _most_booked_package_
+    </div>
+
+    <div class="description-and-points-earned">
+      <div class="rate-description">
+        <div class="ProductInfo">
+          <div ng-if="product.memberOnly"
+               class="member-only-badge">
+            <i class="star-icon fa fa-star"></i>
+            <span class="emphasize">
+              Members Only Rate
+            </span>
+            <span ng-if="!isUserLoggedIn()">
+              Join Now & Save!
+            </span>
+          </div>
+          <h4>
+            <span ng-bind-html="product.name | mainHeaderStyle"></span>
+            <span class="original-price-mobile"
+                  ng-if="product.price.formatting === 'slashThrough' &&
+                         settings.showSlashThrough === true &&
+                         product.price.totalBaseAfterPricingRules < product.price.originalPrice">
+              {{ getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode }}
+        </span>
+            <a class="info"
+               href
+               ng-click="openProductDetailsDialog(product)"
+               ng-if="settings.showRateInfoIcon">
+            </a>
+
+            <p class="noPointsAwarded"
+               ng-if="isUserLoggedIn() && !product.productAwardPoints && loyaltyProgramEnabled">
+              _no_points_rate_desc_
+            </p>
+          </h4>
+
+          <a href=""
+             class="tagline"
+             ng-if="settings.showTagline && product.tagline && product.tagline !== ''"
+             ng-click="openProductDetailsDialog(product)"
+             ng-bind-html="product.tagline">
+          </a>
+
+          <p class="full-description"
+             ng-if="settings.showDescription"
+             ng-bind-html="sanitize(product.descriptionShort || product.description)">
+          </p>
+
+          <inclusions ng-if="settings.showInclusions && product.inclusions"
+                      class="product-inclusions"
+                      inclusions="product.inclusions">
+          </inclusions>
+
+        </div>
+      </div>
+
+      <div ng-if="product.productAwardPoints" class="PointsEarned">
+        <i class="star-icon fa fa-star-o"></i>
+        <div class="text-content">
+          <span class="earn-points">
+            _earn_
+            {{ product.price.pointsEarned ? getValuePer(product.price.pointsEarned, true).toFixed(0) : '' }}
+            _points_
+          </span>
+          <span class="with-this-booking">_with_this_booking_</span>
+        </div>
+      </div>
+    </div>
+
+    <pricing-details ng-switch="!availableRooms || availableRooms.indexOf(room.code) > -1">
+      <div class="price-and-actions-wrapper"
+           ng-switch-when="true">
+        <div class="price-details"
+              data-ng-class="{'with-slashed-price':
+              product.price.formatting === 'slashThrough' &&
+              settings.showSlashThrough === true &&
+              product.price.totalBaseAfterPricingRules < product.price.originalPrice
+              }">
+
+          <div class="price-form points"
+               ng-if="room.priceFrom &&
+                    product.price.pointsRequired &&
+                    loyaltyProgramEnabled &&
+                    product.allowPointsBooking">
+            <span class="or-points"> _lowercase_or_</span>
+            <span class="value">
+              {{ getValuePer(product.price.pointsRequired, true).toFixed(0) }}
+            </span>
+            <div class="points-unit">
+              _points_
+            </div>
+            <span class="or-money"> _lowercase_or_</span>
+          </div>
+          <p class="price-form"
+             ng-if="room.priceFrom"
+             itemprop="priceRange">
+
+            <span class="original-price"
+                  ng-if="product.price.formatting === 'slashThrough' &&
+                         settings.showSlashThrough === true &&
+                         product.price.totalBaseAfterPricingRules < product.price.originalPrice">
+              {{ getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode }}
+            </span>
+            <span class="value">
+              {{ getValuePer(product.price.totalBaseAfterPricingRules, true) | i18nCurrency: currencyCode }}
+            </span>
+          </p>
+        </div>
+
+        <div class="action-buttons">
+          <div class="label">
+            <span ng-if="$first && !product.memberOnly && !product.memberOnly && settings.highlightFirstRate"
+                  class="highlight-ribbon">
+              _best_value_
+            </span>
+          </div>
+
+          <a ng-if="!room.priceFrom"
+             ng-click="goToRoom(details.meta.slug, room.meta.slug)"
+             class="button">
+            _view_details_
+          </a>
+          <a ng-if="room.priceFrom"
+             ng-hide="product.memberOnly && !isUserLoggedIn()"
+             ng-click="selectProduct(room.code, product.code, null, null, product.upSell, $event)"
+             class="button"
+             ng-class="{'white-button': !product.memberOnly}" >
+            _book_now_
+          </a>
+          <a href
+             ng-if="room.priceFrom"
+             class="button"
+             ng-show="product.memberOnly && !isUserLoggedIn()"
+             ng-click="auth.login({}, selectProduct, [room.code, product.code, null, null, product.upSell, $event])">
+            _login_to_book_
+          </a>
+          <a href
+          ng-if="!room.priceFrom"
+          class="button"
+          ng-show="product.memberOnly && !isUserLoggedIn()"
+          ng-click="auth.login({}, goToRoom, [details.meta.slug, room.meta.slug])">
+         _login_to_book_
+       </a>
+        </div>
+      </div>
+
+      <p class="unavailable error" ng-switch-when="false">
+        <span ng-if="!isOverAdultsCapacity()">
+          _not_available_on_dates_title_
+        </span>
+        <span ng-if="isOverAdultsCapacity()">
+          <span>_not_available_on_dates_title_<br></span>
+          <span>_not_available_on_dates_desc_</span>
+        </span>
+      </p>
+    </pricing-details>
+
+    <!--This is in fact a fake button since the click handler is on the whole rate widget-->
+    <div class="mobile-button">
+      <i class="fa fa-angle-right"></i>
+    </div>
+  </li>
+
+
+  <!-- NO PRODUCTS AVAILABLE -->
+  <li ng-if="products.length === 0">
+
+    <p class="unavailable error no-products"
+       ng-class="{'with-dates': isDateRangeSelected()}">
+
+      <span ng-if="!isOverAdultsCapacity()">
+
+        <span ng-if="isDateRangeSelected()"
+              class="desc">
+          _not_available_on_dates_title_
+        </span>
+        <span ng-if="!isDateRangeSelected() && !roomsConfig.hideSelectDatesMessage"
+              class="desc">
+          _select_dates_for_prices_title_
+        </span>
+        <span ng-if="isDateRangeSelected()"
+              class="sub-desc"
+              ng-if="settings.showNoRatesSubDescription">
+          _not_available_on_dates_sub_title_
+        </span>
+
+        <button-submit ng-click="selectDates()" class="alt">
+          <span ng-if="hasDates()">_select_new_dates_</span>
+          <span ng-if="!hasDates()">_select_dates_</span>
+        </button-submit>
+
+      </span>
+
+      <span ng-if="isOverAdultsCapacity()">
+        <span>_not_available_on_dates_title_<br></span>
+        <span>_not_available_on_dates_desc_</span>
+      </span>
+
+    </p>
+
+  </li>
+</ul>
+
+<!-- VIEW MORE RATES -->
+<div class="view-more-rates">
+
+  <a href=""
+     ng-if="products.length > getRatesLimit()"
+     ng-click="goToRoom(details.meta.slug, room.meta.slug, true)"
+     class="">
+    _view_all_rates_
+  </a>
+
+</div>
+
+<!-- FAILED TO DOWNLOAD PRODUCTS -->
+<div class="loading-failed" ng-if="products === null">
+
+  <h3>_room_rates_load_error_</h3>
+  <p>_room_rates_reload_desc_</p>
+  <button-retry role="button"
+                class="button-retry"
+                ng-click="init()">
+    _reload_rates_
+  </button-retry>
+
+</div>

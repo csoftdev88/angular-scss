@@ -1,0 +1,84 @@
+
+.viewport-mobile {
+
+  .booking-bar {
+
+    &.booking-bar__size-large,
+    &.booking-bar__size-full-width,
+    &.booking-bar__size-full-width-bottom {
+      padding: 20px 15px;
+      .booking-bar__form--rooms {
+        display: inline-block;
+        .multiroom-booking & {
+          width: 280px;
+          display: block;
+          margin-top: 20px;
+        }
+      }
+      .booking-bar__form {
+        display: inline-block;
+        &.multiroom-booking {
+          .booking-bar__form--rooms {
+            display: inline-block;
+          }
+          .booking-bar__submit {
+            margin-left: 0;
+          }
+          .booking-bar__link.quick {
+            display: block;
+            margin-left: 0;
+          }
+        }
+        form-element {
+          display: inline-block;
+          &:not(:last-child) {
+            margin-right: 5px;
+            margin-bottom: 5px;
+          }
+        }
+        .booking-bar__form--add-room {
+          margin: 0;
+        }
+      }
+
+      .search-button-positionner {
+        display: block;
+        align-items: center;
+        button {
+          width: 290px;
+        }
+        button.desktop {
+          display: none;
+        }
+        button.mobile {
+          display: block;
+        }
+      }
+    }
+
+    &.booking-bar__size-full-width,
+    &.booking-bar__size-full-width-bottom {
+
+      .booking-bar__form {
+        width: 320px;
+      }
+    }
+
+    .booking-bar__form--guests {
+      width: 141px;
+    }
+
+    .booking-bar__form {
+      .dates {
+        width: 290px;
+      }
+
+      .booking-bar__form--code {
+        width: 290px;
+      }
+
+    }
+
+  }
+
+}

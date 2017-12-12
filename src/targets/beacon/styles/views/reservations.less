@@ -1,0 +1,345 @@
+
+.ReservationsBackground {
+  background: url('@{img-prefix}/confirmation-bg.png');
+  background-size: cover;
+  position: absolute;
+  height: 900px;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: -999;
+  opacity: 0.3;
+  .viewport-mobile & {
+    height: 100vh;
+    background-size: cover;
+  }
+}
+
+
+.no-future-stays.reservation-overview .reservations {
+  .ReservationsNextStay__container {
+    float: none;
+    border: none;
+    margin: 0 auto;
+  }
+  .future-stays {
+    display: none;
+  }
+}
+
+.reservation-overview {
+  .reservations-title {
+    height: 77px;
+    line-height: 77px;
+    border-radius: 6px 6px 0 0;
+    background-color: #31302F;
+    color: #FFFFFF;
+    font-weight: normal;
+
+    .viewport-mobile & {
+      height: 40px;
+      line-height: 40px;
+    }
+
+    h1 {
+      font-size: 22px;
+      padding-left: 30px;
+      font-family: @ff-primary;
+      border-radius: 6px 6px 0 0;
+      .viewport-mobile & {
+        padding-left: 10px;
+        font-size: 15px;
+      }
+    }
+  }
+
+  .reservations {
+    margin-top: 45px;
+    background-color: #fff;
+    min-height: 300px;
+    border-radius: 6px;
+
+    .viewport-mobile & {
+      margin-top: 70px;
+    }
+
+    h1 {
+      margin: 0; // override global style
+    }
+
+    .ReservationsNextStay__container {
+      width: 58%;
+      float: left;
+      padding-right: 30px;
+      border-right: 1px solid #F5EDED;
+      .viewport-mobile & {
+        width: 100%;
+        float: none;
+        border: 0;
+        padding-right: 10px;
+      }
+    }
+
+    .future-stays {
+      width: 37%;
+      float:left;
+      .viewport-mobile & {
+        width: 100%;
+        float: none;
+      }
+    }
+
+    .ReservationsNextStay__title, .ReservationsFutureStay__title {
+      height: 37px;
+      line-height: 37px;
+      color: #B98747;
+      text-transform: uppercase;
+      padding: 30px;
+      .viewport-mobile & {
+        height: 24px;
+        line-height: 24px;
+        padding: 10px;
+      }
+      h1 {
+        letter-spacing: 1px;
+        font-size: 28px;
+        font-family: @ff-serif;
+        font-weight: bold;
+        .viewport-mobile & {
+          font-size: 18px;
+        }
+      }
+    }
+
+    reservation-hotel-details {
+
+      // override global style
+      .tables > div {
+        width: 100%;
+        float: none;
+        padding: 0;
+      }
+
+      .reservation-summary {
+        border: 1px solid #F2F2F2;
+        border-radius: 8px;
+        margin: 0 0 30px 30px;
+        padding: 25px;
+        .viewport-mobile & {
+          margin: 0 10px 10px 10px;
+          padding: 10px;
+        }
+        .room-types {
+          position: relative;
+          h1 {
+            color: #4A4A4A;
+            font-family: @ff-serif;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            .viewport-mobile & {
+              font-size: 20px;
+            }
+          }
+
+          figure {
+            width: 100%;
+            float: none;
+            img {
+              border-radius: 6px;
+            }
+          }
+
+          h3 {
+            color: #B98747;
+            font-family: @ff-primary;
+            font-size: 22px;
+            font-weight: 300;
+            margin-right: 85px;
+          }
+
+          .booking-arrival-checkout {
+            color: #9B9B9B;
+            font-family: @ff-serif;
+            font-size: 16px;
+            .viewport-mobile & {
+              font-size: 14px;
+            }
+          }
+
+          .booking-confirmation-number {
+            color: #9B9B9B;
+            font-family: @ff-primary;
+            font-size: 14px;
+            font-weight: 300;
+            .viewport-mobile & {
+              font-size: 13px;
+            }
+          }
+
+          check-in-date {
+            position: absolute;
+            bottom: 10px;
+            right: 0;
+            border: 2px solid #AB2117;
+            clear: right;
+            font-family: @ff-serif;
+            width: 80px;
+            text-align: center;
+            border-radius: 6px;
+
+            .title {
+              background-color: #AB2117;
+              text-transform: uppercase;
+              height: 30px;
+              color:#fff;
+              font-size: 13px;
+              font-weight: bold;
+              line-height: 30px;
+            }
+            .date {
+              background-color: #fff;
+              border-radius: 0 0 6px 6px;
+              color: #AB2117;
+              font-weight: normal;
+              height: 47px;
+              font-size: 14px;
+              font-weight: bold;
+              line-height: 47px;
+            }
+          }
+
+          .reservation-details-container {
+            padding-right: 90px;
+          }
+        }
+
+        .data {
+          display: none;
+        }
+        .charges {
+          display: none;
+        }
+        .booking-productname {
+          display: none;
+        }
+        .booking-date {
+          display: none;
+        }
+      }
+    }
+  }
+
+
+  //
+  // Bootstrap Carousel less 3.3.1
+  // Wrapper for the slide container and indicators
+  .carousel {
+    position: relative;
+    margin-bottom: 50px;
+  }
+
+  .carousel-inner {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+
+    > .item {
+      display: none;
+      position: relative;
+      .transition(.6s ease-in-out left);
+
+      // Account for jankitude on images
+      > img,
+      > a > img {
+        &:extend(.img-responsive);
+        line-height: 1;
+      }
+
+      // WebKit CSS3 transforms for supported devices
+      @media all and (transform-3d), (-webkit-transform-3d) {
+        transition: transform .6s ease-in-out;
+        backface-visibility: hidden;
+        perspective: 1000;
+
+        &.next,
+        &.active.right {
+          transform: translate3d(100%, 0, 0);
+          left: 0;
+        }
+        &.prev,
+        &.active.left {
+          transform: translate3d(-100%, 0, 0);
+          left: 0;
+        }
+        &.next.left,
+        &.prev.right,
+        &.active {
+          transform: translate3d(0, 0, 0);
+          left: 0;
+        }
+      }
+    }
+
+    > .active,
+    > .next,
+    > .prev {
+      display: block;
+    }
+
+    > .active {
+      left: 0;
+    }
+
+    > .next,
+    > .prev {
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+    > .next {
+      left: 100%;
+    }
+    > .prev {
+      left: -100%;
+    }
+    > .next.left,
+    > .prev.right {
+      left: 0;
+    }
+
+    > .active.left {
+      left: -100%;
+    }
+    > .active.right {
+      left: 100%;
+    }
+
+  }
+
+  .carousel-indicators {
+    position: absolute;
+    bottom: -30px;
+    z-index: 15;
+    width: 100%;
+    text-align: center;
+    .viewport-mobile & {
+      bottom: -40px;
+    }
+    li {
+      display: inline-block;
+      width:  20px;
+      height: 20px;
+      margin: 4px;
+      text-indent: -999px;
+      border-radius: 20px;
+      border: 2px solid #B98747;
+      cursor: pointer;
+    }
+    .active {
+      background-color: #B98747;
+    }
+  }
+}

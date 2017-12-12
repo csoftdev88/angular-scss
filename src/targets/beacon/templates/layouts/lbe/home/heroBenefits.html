@@ -1,0 +1,65 @@
+<article
+  class="HeroBenefits"
+  ng-if="!auth.isLoggedIn()">
+  <div class="HeroBenefits__subtitle">
+    <h1>_about_benefits_subtitle_</h1>
+  </div>
+  <div class="HeroBenefits__benefits">
+    <div class="glass-panel"></div>
+    <div class="HeroBenefit__background">
+      <div class="HeroBenefits__benefit lowest-rates">
+        <div class="HeroBenefits__icon-wrapper">
+          <div class="HeroBenefits__icon-positionner">
+            <img class="HeroBenefits__icon" src="/static/images/lbe/lowest-rates.png">
+          </div>
+        </div>
+        <div class="HeroBenefits__text-wrapper">
+          <h2>_about_benefit_one_title_</h2>
+          <p>_about_benefit_one_text_</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="HeroBenefit__background get-rewarded">
+      <div class="HeroBenefits__benefit get-rewarded">
+        <div class="HeroBenefits__icon-wrapper">
+          <div class="HeroBenefits__icon-positionner">
+            <img class="HeroBenefits__icon" src="/static/images/lbe/get-rewarded.png">
+          </div>
+        </div>
+        <div class="HeroBenefits__text-wrapper">
+          <h2>_about_benefit_two_title_</h2>
+          <p>_about_benefit_two_text_</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="HeroBenefit__background">
+      <div class="HeroBenefits__benefit pay-with-points">
+        <div class="HeroBenefits__icon-wrapper">
+          <div class="HeroBenefits__icon-positionner">
+            <img class="HeroBenefits__icon" src="/static/images/lbe/pay-with-points.png">
+          </div>
+        </div>
+        <div class="HeroBenefits__text-wrapper">
+          <h2>_about_benefit_four_title_</h2>
+          <p>_about_benefit_four_text_</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="HeroBenefits__signup">
+    <button class="HeroBenefits__button signup" ng-click="auth.register()">_about_benefit_sign_up_</button>
+    <button class="HeroBenefits__button" ng-click="auth.login()">_log_in_</button>
+  </div>
+</article>
+<article
+  class="HeroBenefits"
+  ng-if="isMobile && auth.isLoggedIn()">
+  <div class="HeroBenefits__subtitle">
+    <h1>_about_benefits_subtitle_logged_in_</h1>
+  </div>
+  <div class="HeroBenefits__signup">
+    <button class="HeroBenefits__button book-now" ng-click="openBookingBar()">_book_now_logged_in_</button>
+  </div>
+</article>

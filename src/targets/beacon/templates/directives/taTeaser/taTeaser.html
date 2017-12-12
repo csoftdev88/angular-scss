@@ -1,0 +1,51 @@
+<div class="rates-preloading-container">
+  <h4 class="rates-preloading-container-title">_rates_loading_title_</h4>
+
+  <!-- single testimonial -->
+  <div class="testimonial-container" ng-show="!isCarousel">
+    <div class="author">
+      <div class="thumbnail"><img ng-src="{{testimonial.reviewer.avatar}}" alt="review avatar"></div>
+      <div class="author-details">
+        <div class="name">{{testimonial.reviewer.name}}</div>
+        <div class="city">{{testimonial.reviewer.location}}</div>
+      </div>
+    </div>
+
+    <div class="testimonial">
+      <div class="testimonial-inner">
+        <div class="desc">{{testimonial.review}}</div>
+        <ul class="rating">
+          <li ng-repeat="i in getNumberOfReviewStars(testimonial.stars) track by $index" class="testimonialStar"></li>
+          <li ng-repeat="i in getNumberOfEmptyReviewStars(testimonial.stars) track by $index" class="testimonialStarEmpty"></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- testimonial carousel -->
+  <div class="testimonial-carousel-wrapper" ng-show="isCarousel">
+    <div class="testimonial-container carousel-item" ng-repeat="testimonial in testimonials" ng-class="{'in': $index == 0}">
+      <div class="author">
+        <div class="thumbnail"><img ng-src="{{testimonial.reviewer.avatar}}" alt="review avatar"></div>
+        <div class="author-details">
+          <div class="name">{{testimonial.reviewer.name}}</div>
+          <div class="city">{{testimonial.reviewer.location}}</div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="testimonial-inner">
+          <div class="desc">{{testimonial.review}}</div>
+          <ul class="rating">
+            <li ng-repeat="i in getNumberOfReviewStars(testimonial.stars) track by $index" class="testimonialStar"></li>
+            <li ng-repeat="i in getNumberOfEmptyReviewStars(testimonial.stars) track by $index" class="testimonialStarEmpty"></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <div class="logo"></div>
+  <div class="rates-preloader"></div>
+</div>
