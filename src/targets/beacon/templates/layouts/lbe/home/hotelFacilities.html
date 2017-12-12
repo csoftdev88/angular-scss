@@ -1,7 +1,7 @@
 <div ng-if="filteredAmenities && filteredAmenities.length" class="grid-wrapper main-content-container">
 
   <div ng-if="isMobile"
-        ng-click="amenitiesSection.show = !amenitiesSection.show"
+        ng-init="amenitiesSection.show = true"
         class="hotel-info-amenities"
         ng-include="'layouts/components/amenities-expandable.html'">
   </div>
