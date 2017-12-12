@@ -10,21 +10,19 @@
 </section>
 
 <section class="room-data">
-  <h4>{{property.nameLong}}</h4>
-
-  <div class="room-data-details">
-    <span class="chain-logo"></span>
-    <p class="desc" ng-bind-html="allRooms[0]._selectedProduct.name"></p>
-    <p class="price" ng-if="formatting !== 'suppressRate'"><strong>{{getProductPricePerNight(getTotal('totalBaseAfterPricingRules')) | i18nCurrency: currencyCode}}</strong> <em>_per_night_</em></p>
+  <div class="rate">
+    <i class="simple-star"></i>
+    <span>{{ allRooms[0]._selectedProduct.name }}</span>
   </div>
-
-  <h3>{{allRooms[0].name}} <a href ng-click="openOtherRoomsDialog()" ng-if="allRooms.length > 1">+ {{allRooms.length - 1}} _more_ <ng-pluralize count="allRooms.length" when="{'2': '_room_', 'other': '_rooms_'}"> </ng-pluralize></a></h3>
-
   <div class="image-wrapper" ng-if="allRooms[0].images[0].uri">
     <img ng-src="{{allRooms[0].images[0].uri | cloudinaryImage : 380 : 120 : 'fill'}}" alt="{{allRooms[0].name}}">
   </div>
-  <div ng-if="!allRooms[0].images[0].uri" class="room-image-placeholder">
-  </div>
+  <div ng-if="!allRooms[0].images[0].uri" class="room-image-placeholder"></div>
+
+  <h4 class="header">{{property.nameLong}}</h4>
+
+  <span class="booking-date">{{ bookingDetails.from | ordinalDate }} {{ bookingDetails.from | date: 'MMMM' }} - {{ bookingDetails.to | ordinalDate }} {{ bookingDetails.to | date: 'MMMM' }}</span>
+
 </section>
 
 <section class="reservation-data">
@@ -127,12 +125,6 @@
           <td>{{getTotal('totalDiscount') | i18nCurrency: $root.currencyCode}}</td>
         </tr>
 
-        <tr class="main total-row">
-          <th>_total_:</th>
-          <td ng-switch-when="cc">{{getTotal('totalAfterTaxAfterPricingRules') | i18nCurrency: $root.currencyCode}}</td>
-          <td ng-switch-when="point" ng-if="loyaltyProgramEnabled">{{getTotal('pointsRequired')}} _points_</td>
-          <td ng-switch-default>{{getTotal('totalAfterTaxAfterPricingRules') | i18nCurrency: $root.currencyCode}}<span ng-if="loyaltyProgramEnabled && canPayWithPoints"> _or_ {{getTotal('pointsRequired')}} _points_</span></td>
-        </tr>
         <tr class="breakdown-toggle" ng-show="bookingConfig.priceBreakdownExtended">
           <th></th>
           <td>
@@ -158,16 +150,17 @@
     </table>
   </div>
 
-  <div
-    ng-if="isMobile"
-    class="mobile-links">
-    <p ng-show="!noBreakdown" class="breakdown" ng-if="formatting !== 'suppressRate'">
+  <div class="mobile-links">
+    <p
+      ng-show="!noBreakdown"
+      class="breakdown"
+      ng-if="formatting !== 'suppressRate'">
       <a href ng-click="breakdown.extended = !breakdown.extended">
         <span ng-if="!breakdown.extended">_view_price_breakdown_</span>
         <span ng-if="breakdown.extended">_hide_price_breakdown_</span>
       </a>
     </p>
-    <p>
+    <p ng-if="isMobile">
       <a ng-href="{{ bookingConfig.termsAndConditionsLink }}"
          ng-click="readPolicies()"
          target="_blank">
@@ -205,6 +198,23 @@
     </div>
     <div class="voucher-invalid" ng-if="!voucher.valid && voucher.submitted">
       <i class="fa fa-close" /><span> _voucher_code_invalid_</span>
+    </div>
+  </div>
+
+  <div
+    class="total-container-bottom"
+    ng-if="!isMobile">
+    <div class="total">
+      _total_
+    </div>
+    <div
+      class="total-amount"
+      ng-switch="billingDetails.paymentMethod">
+      <span ng-switch-when="cc">{{ getTotal('totalAfterTaxAfterPricingRules') | i18nCurrency: $root.currencyCode }}</span>
+      <span ng-switch-when="point" ng-if="loyaltyProgramEnabled">{{ getTotal('pointsRequired') }} _points_</span>
+      <span ng-switch-default>
+        {{ getTotal('totalAfterTaxAfterPricingRules') | i18nCurrency: $root.currencyCode }}
+        <span ng-if="loyaltyProgramEnabled && canPayWithPoints"> _or_ {{ getTotal('pointsRequired') }} _points_</span></span>
     </div>
   </div>
 </section>

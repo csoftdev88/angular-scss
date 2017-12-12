@@ -221,6 +221,7 @@ angular
     'mobiusApp.filters.currency',
     'mobiusApp.filters.pluralization',
     'mobiusApp.filters.dateTime',
+    'mobiusApp.filters.ordinalDate',
     'mobiusApp.filters.checkInDate',
     'mobiusApp.filters.cloudinaryImage',
     'mobiusApp.filters.truncate',
