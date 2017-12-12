@@ -14,7 +14,7 @@
 
       <div class="extra">
         <p class="add-extra">_addon_modal_tagline_</p>
-        <a class="button add-confirm button-border-white" href ng-click="selectPaymentMethod(false)">{{inclusionsAsAddons && addon.price ? addon.price.totalAfterTax : addon.price | i18nCurrency: defaultCurrencyCode}} <small>_addon_charge_per_person_per_stay_</small></a>
+        <a class="button add-confirm button-border-white" href ng-click="selectPaymentMethod(false)">{{inclusionsAsAddons && addon.price ? addon.price.totalPerUnitAfterTax : addon.price | i18nCurrency: defaultCurrencyCode}} <small>_addon_charge_per_person_per_day_</small></a>
         <a class="button add-confirm-points button-border-white" href ng-click="selectPaymentMethod(true)" ng-if="addon.pointsRequired && addon.allowPointsBooking">{{addon.pointsRequired}} <small>points</small></a>
       </div>
     </div>
@@ -29,7 +29,7 @@
         <p>_addon_modal_confirm_desc_</p>
         <p ng-if="!config.addonNameAsDescriptionTitle">{{addon.name}}</p>
         <!-- DEFAULT PAYMENT METHOD -->
-        <p ng-switch-default>{{inclusionsAsAddons && addon.price ? addon.price.totalAfterTax : addon.price | i18nCurrency: defaultCurrencyCode}} <small>_addon_charge_per_person_per_stay_</small></p>
+        <p ng-switch-default>{{inclusionsAsAddons && addon.price ? addon.price.totalPerUnitAfterTax : addon.price | i18nCurrency: defaultCurrencyCode}} <small>_addon_charge_per_person_per_day_</small></p>
         <p ng-switch-default><em>_addon_modal_charge_desc_</em></p>
 
         <!-- PAYMENT WITH POINST -->

@@ -478,7 +478,7 @@
                 <span class="Addons__title">
                   {{ addon.name }}
                   <span class="Addons__subtitle">
-                    {{inclusionsAsAddons && addon.price ? addon.price.totalAfterTax : addon.price | i18nCurrency: defaultCurrencyCode}}
+                    {{inclusionsAsAddons && addon.price ? addon.price.totalPerUnitAfterTax : addon.price.totalPerUnitBase | i18nCurrency: defaultCurrencyCode}}
                     <span ng-if="addon.pointsRequired &&
                         loyaltyProgramEnabled &&
                         addon.allowPointsBooking">
@@ -531,8 +531,8 @@
 
               <a class="button"
                  ng-click="openAddonDetailDialog($event, addon, false)">
-                {{inclusionsAsAddons && addon.price ? addon.price.totalAfterTax : addon.price | i18nCurrency: defaultCurrencyCode}}
-                <small>_addon_charge_per_person_per_stay_</small>
+                {{inclusionsAsAddons && addon.price ? addon.price.totalPerUnitAfterTax : addon.price.totalPerUnitBase | i18nCurrency: defaultCurrencyCode}}
+                <small>_addon_charge_per_person_per_day_</small>
               </a>
 
               <a class="button"
