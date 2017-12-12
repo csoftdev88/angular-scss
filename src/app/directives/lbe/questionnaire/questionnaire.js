@@ -13,11 +13,11 @@
   angular
     .module('mobiusApp.directives.lbe.questionnaire', ['mobiusApp.services.polls'])
     .directive('questionnaire', ['Settings', '$log', 'polls', 'userObject', 'DynamicMessages', 'stateService',
-                                 'rewardsService', '$controller', '_', 'reservationService', 'propertyService',
+                                 'propertyService', 'rewardsService', '$controller', '_', 'reservationService', 'propertyService',
                                  'apiService', '$q', 'user', 'userMessagesService', '$rootScope', 'modalService',
                                  'infinitiEcommerceService', 'preloaderFactory', '$window', Questionnaire]);
 
-  function Questionnaire(Settings, $log, pollsService, userObject, DynamicMessages, stateService, rewardsService,
+  function Questionnaire(Settings, $log, pollsService, userObject, DynamicMessages, stateService, propertyService, rewardsService,
                          $controller, _, reservations, property, apiService, $q, user, userMessagesService, $rootScope,
                          modalService, infinitiEcommerceService, preloaderFactory, $window) {
     return {
@@ -101,7 +101,6 @@
                 scope.nextStay.availableAddons.push(addon);
               }
             });
-
             var SHORT_DESCRIPTION_LENGTH = 100;
             scope.nextStay.reservationAddons = _.map(reservationAddons, function(addon) {
               addon.descriptionShort = addon.description ? addon.description.substr(0, SHORT_DESCRIPTION_LENGTH) : '';
@@ -223,6 +222,11 @@
             .then(function (reservations) {
               var sortedByArrivalDateReservations = sortByArrivalDate(reservations);
               var futureStays = getFutureStays(sortedByArrivalDateReservations);
+              // just for beacon hotel -- start
+              scope.futureStays = futureStays;
+              fetchProperties(reservations);
+              // just for beacon hotel -- end
+
               var nextStay = futureStays.shift() || null;
               return nextStay;
             });
@@ -304,6 +308,22 @@
           var today = $window.moment().startOf('day');
           return _.filter(data, function(reservation) {
             return $window.moment(reservation.arrivalDate).isAfter(today);
+          });
+        }
+
+        function fetchProperties(reservations){
+          // Cache
+          scope.properties = {};
+
+          _.each(reservations, function(reservation){
+            var propertyCode = reservation.property.code;
+            if(!scope.properties[propertyCode]){
+              scope.properties[propertyCode] = {};
+
+              propertyService.getPropertyDetails(propertyCode).then(function(propertyDetails){
+                scope.properties[propertyCode] = propertyDetails;
+              });
+            }
           });
         }
 

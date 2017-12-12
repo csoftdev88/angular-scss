@@ -101,68 +101,106 @@
   </div>
 
   <article ng-if="nextStay"
-           class="questionnaire__next-stay">
-    <div class="questionnaire__title">
-      Your next stay
-    </div>
+           class="questionnaire__next-stay questionnaire__reservation reservation-detail">
+              <div class="reservation-overview">
 
-    <div class="next-stay-panel">
-      <!--TODO: go to the actual reservation instead of all-->
-      <div
-        ui-sref="reservations"
-        class="next-stay-details"
-        ng-class="{'no-bottom-border': nextStay.availableAddons.length}">
-        <h1 class="questionnaire__nextStay--title">
-          {{ nextStay.property.nameLong }}
-        </h1>
+                <div ui-view>
 
-        <h2 class="questionnaire__nextStay--subtitle">
-          {{ nextStay.rooms[0].roomTypeName }}
-        </h2>
+                  <div class="reservations">
 
-        <h3 class="questionnaire__next-stay--date">
-          {{ nextStay.arrivalDate | dateTime }} - {{ nextStay.departureDate | dateTime }}
-        </h3>
+                    <div class="reservations-title">
+                      Reservations
+                    </div>
 
-        <h3 class="questionnaire__next-stay--reservation-code">
-          Confirmation number: {{ nextStay.reservationCode }}
-        </h3>
-      </div>
-      <div class="next-stay-addons" ng-if="nextStay.availableAddons.length">
-        <h1 ng-if="isMobile">Add On's</h1>
-        <div class="addon-wrapper"
-             ng-repeat="addon in nextStay.availableAddons"
-             ng-click="openAddonDetailDialog(addon)">
-          <div class="addon-image">
-            <img ng-if="addon.image && addon.image.uri"
-                 ng-src="{{addon.image.uri}}"/>
-            <img ng-if="(!addon.image || !addon.image.uri) &&
-                              addon.images &&
-                              addon.images.length &&
-                              addon.images[0].uri"
-                 ng-src="{{addon.images[0].uri}}"/>
-          </div>
+                    <div ng-if="!nextStay &&
+                                futureStays.length === 0"
+                         class="reservations-not-available">
 
-          <div class="addon-text">
-            <div class="addon-name" ng-bind-html="addon.name | wrapWordHtml : 'span' : 0"></div>
-            <div class="addon-cost">
-              <!--TODO: get addon price if Settings.API.reservations.inclusionsAsAddons is false -->
-              <span>{{ addon.price.totalAfterTax | i18nCurrency: defaultCurrencyCode }}</span>
-              <span ng-if="addon.pointsRequired &&
-                          loyaltyProgramEnabled &&
-                          addon.allowPointsBooking"> _lowercase_or_ {{ addon.pointsRequired }} _points_</span>
-            </div>
-          </div>
+                      <div>
+                        <h3>_reservation_list_empty_</h3>
+                        <p>_please_make_reservation_</p>
+                        <button-submit ng-if="!isLoyaltyEngine"
+                                       ng-click="selectDates()">
+                          _select_dates_
+                        </button-submit>
+                        <button-submit ng-if="isLoyaltyEngine"
+                                       ng-click="$state.go('hotels', { scrollTo: 'jsAbout'})">
+                          _select_hotel_
+                        </button-submit>
+                      </div>
 
-          <div class="addon-add-button"
-                  ng-click="openAddonDetailDialog($event, addon)">
-            <i class="fa fa-plus-circle"></i>
-            Add On
-          </div>
-        </div>
-        <button ng-if="isMobile" class="view-all-addons-button" ui-sref="reservations">View all add ons</button>
-      </div>
-    </div>
+                    </div>
+
+                    <div class="ReservationsNextStay__container">
+                        <div class="members-only-rate">
+                            <i class="simple-star"></i>
+                            Members Only Rate
+                          </div>
+                          <div class="members-only-rate-rectangle"></div>
+                      <div ng-if="nextStay" class="ReservationsNextStay">
+                        <!-- TODO SAME AS BOOKING COMPLETE PREVIEW -->
+                        <div class="ReservationsNextStay__title">
+                          <h1 ng-bind-html="'_reservation_page_nextstay_title_' | mainHeaderStyle"></h1>
+                        </div>
+                        <reservation-item>
+                            <reservation-details currency-code="defaultCurrencyCode"
+                                                 reservation="nextStay"
+                                                 property="properties[nextStay.property.code]">
+                            </reservation-details>
+                        </reservation-item>
+                      </div>
+                      <div ng-if="!nextStay && futureStays.length"
+                           class="ReservationsNextStay empty">
+                        <h3 class="noNextStay">
+                          Looks like you don’t have any upcoming stays, {{ user.firstName }}
+                        </h3>
+                      </div>
+
+                      <div class="available-upgrades" ng-if="nextStay.availableAddons.length > 0">
+                        <div class="available-upgrades-title">Enchance your stay</div>
+                        <div class="available-upgrades-item" ng-repeat="addon in nextStay.availableAddons">
+                          <img ng-src="{{addon.image.uri}}" alt="{{ addon.image.uri }}" class="available-upgrades-item-image">
+                          <div class="available-upgrades-item-text">
+                            <div class="available-upgrades-item-text-title">Add {{ addon.name }}</div>
+                            <div class="available-upgrades-item-text-price">${{ addon.price.totalAfterTax }}</div>
+                          </div>
+                          <div class="available-upgrades-item-button" ng-click="openAddonDetailDialog($event, addon, false)">Add to stay</div>
+                        </div>
+                        <div class="available-upgrades-view-all-button">View all add ons</div>
+                      </div>
+                    </div>
+
+
+                    <div ng-if="futureStays.length" class="future-stays">
+
+                      <div ng-class="{'grid-wrapper':viewSettings.fullWidthSections}">
+
+                        <div class="ReservationsFutureStay__title">
+                          <h1 ng-bind-html="'_reservation_page_futurestays_title_' | mainHeaderStyle"></h1>
+                        </div>
+
+                        <div class="carousel">
+                          <carousel>
+                            <slide ng-repeat="reservation in futureStays | orderBy:'bookingDate' : true" active="slide.active">
+                              <div class="table-wrap">
+                                <reservation-details currency-code="defaultCurrencyCode"
+                                                  reservation="reservation"
+                                                  property="properties[reservation.property.code]">
+                                </reservation-details>
+                              </div>
+                            </slide>
+                          </carousel>
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                    <div class="clear_fix"></div>
+                  </div>
+
+                </div>
+              </div>
 
   </article>
 
