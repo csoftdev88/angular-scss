@@ -46,6 +46,7 @@
                required
                placeholder="_first_name_label_"
                ng-model="userDetails.firstName"
+               ng-blur="remapGermanCharacters(userDetails, 'firstName')"
                name="firstName"
                autocomplete="given-name"
                ng-pattern="$root.generalValidationPattern"/>
@@ -62,6 +63,7 @@
                required
                placeholder="_last_name_label_"
                ng-model="userDetails.lastName"
+               ng-blur="remapGermanCharacters(userDetails, 'lastName')"
                name="lastName"
                autocomplete="family-name"
                ng-pattern="$root.generalValidationPattern"/>

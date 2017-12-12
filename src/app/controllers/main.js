@@ -451,23 +451,14 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
         };
       }
 
-      // For certain tenants (e.g. MeAndAll), we need to remap certain characters
-      var germanCharactersMap = {
-        'ä': 'ae',
-        'Ä': 'AE',
-        'ü': 'ue',
-        'Ü': 'UE',
-        'ö': 'oe',
-        'Ö': 'OE',
-        'ß': 'ss',
-        'ẞ': 'SS'
-      };
+      // For certain tenants (e.g. MeAndAll), we need to remap certain characters in customers fist names and surnames
+      var remappedCharacters = Settings.UI.remapNameCharacters;
       $scope.remapGermanCharacters = function(registerData, key) {
-        if (!registerData[key]) {
+        if (!remappedCharacters || !registerData[key]) {
           return;
         }
-        for (var char in germanCharactersMap) {
-          registerData[key] = registerData[key].replace(new RegExp(char, 'g'), germanCharactersMap[char]);
+        for (var char in remappedCharacters) {
+          registerData[key] = registerData[key].replace(new RegExp(char, 'g'), remappedCharacters[char]);
         }
       };
 

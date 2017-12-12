@@ -939,6 +939,18 @@ angular.module('mobiusApp.config', [])
       }
     },
 
+    // Remap characters in customer names (currently limited to first name and surname) to avoid breaking OXI
+    'remapNameCharacters': {
+      'ä': 'ae',
+      'Ä': 'AE',
+      'ü': 'ue',
+      'Ü': 'UE',
+      'ö': 'oe',
+      'Ö': 'OE',
+      'ß': 'ss',
+      'ẞ': 'SS'
+    },
+
     // Settings related to booking process
     'bookingWidget': {
       'datePickerNumberOfMonths': 2,
