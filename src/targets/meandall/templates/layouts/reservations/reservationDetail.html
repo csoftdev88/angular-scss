@@ -340,20 +340,6 @@
 
               <figure class="modify-buttons-container">
 
-                <img ng-if="!config.largeRoomImage && roomDetails.images[0].uri"
-                     class="RoomImage"
-                     ng-src="{{roomDetails.images[0].uri}}"
-                     alt="{{ roomDetails.name }}">
-
-                <img ng-if="config.largeRoomImage && roomDetails.images[0].uri"
-                     class="RoomImage"
-                     ng-src="{{ roomDetails.images[0].uri | cloudinaryImage : 355 : 415 : 'fill' }}"
-                     alt="{{ roomDetails.name }}">
-
-                <div ng-if="!roomDetails.images[0].uri"
-                     class="room-image-placeholder">
-                </div>
-
                 <div ng-if="reservation.status !== 'Cancelled' && reservation.noOfRooms === 1">
                   <button class="button"
                           ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()"
