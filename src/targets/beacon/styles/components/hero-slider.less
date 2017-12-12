@@ -2,9 +2,6 @@
 //// HERO SLIDER ////
 /////////////////////
 // GENERIC STYLES
-.About__hero .register_space hero-slider .slider-controls .pages {
-  padding-left: 940px;
-}
 
 hero-slider {
   height: 490px;
@@ -94,6 +91,11 @@ hero-slider {
         color: white;
         z-index: 9;
         width: 525px;
+        display: block;
+
+        &.mobile {
+          display: none;
+        }
 
         .promotion-text-container-title {
           background-color: rgba(255,255,255,0.9);
@@ -118,6 +120,80 @@ hero-slider {
           letter-spacing: 1px;
           line-height: 28px;
           padding: 15px 15px 15px 30px;
+        }
+
+        .viewport-mobile & {
+            position: relative;
+            padding-left: 0;
+            background-color: transparent;
+            width: auto;
+            height: auto;
+            display: none;
+
+            &.mobile {
+              display: block;
+            }
+
+          .promotion-text-container-title {
+            text-transform: uppercase;
+            background-color: transparent;
+            color: #FFFFFF;
+            font-family: @ff-secondary;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            line-height: 27px;
+            text-align: center;
+            padding: 165px 0 0 0;
+            height: auto;
+          }
+
+          .promotion-text-container-text {
+            color: #FFFFFF;
+            font-family: @ff-primary;
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 22px;
+            text-align: center;
+            background-color: transparent;
+            width: auto;
+            padding: 15px 0 0 0;
+            .emphasize {
+              font-weight: bold;
+            }
+          }
+          .promotion-text-container-signup {
+            text-align: center;
+            button {
+              height: 44px;
+              width: 210px;
+              border-radius: 100px;
+              background-color: #1DB53A;
+              color: #fff;
+              font-family: @ff-primary;
+              font-size: 14px;
+              font-weight: 800;
+              letter-spacing: 1px;
+              line-height: 17px;
+              text-align: center;
+              text-transform: uppercase;
+              margin: 15px 0;
+            }
+          }
+          .promotion-text-container-login {
+            text-align: center;
+            font-family: @ff-primary;
+            font-size: 15px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            line-height: 18px;
+            button {
+              font-size: 15px;
+              padding: 0;
+              color: #0FAC26;
+              background: transparent;
+            }
+          }
         }
       }
     }

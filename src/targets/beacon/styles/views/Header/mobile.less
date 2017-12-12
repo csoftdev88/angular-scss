@@ -26,21 +26,20 @@
     }
 
     .Header__search {
+      height: 32px;
+      width: 82px;
+      border-radius: 18.5px;
+      background-color: #1DB53A;
       display: block;
-      text-transform: uppercase;
-      height: 30px;
-      border: 1px solid #79AF41;
-      background-color: #87C34A;
-      border-radius: 4px;
-      font-family: @ff-primary;
       color: #fff;
-      font-size: 13px;
+      font-family: @ff-secondary;
+      font-size: 12px;
       font-weight: bold;
-      line-height: 18px;
+      line-height: 14px;
       text-align: center;
       padding: 0 10px;
       order: 2;
-
+      text-shadow: none;
     }
 
     .Header__logo {
@@ -60,6 +59,21 @@
     .Header__button.login,
     .Header__button.register {
       display: none;
+    }
+
+    .Header__menu {
+      background: transparent;
+      padding-top: 0;
+      width: auto;
+      height: auto;
+      i {
+        color: #000;
+        margin-left: 0;
+      }
+
+      .Header__menu--hamburger {
+        display: none;
+      }
     }
   }
 }

@@ -20,8 +20,6 @@
     </hero-slider>
   </div>
 
-  <div ng-if="isMobile" ng-include="'layouts/lbe/home/heroBenefits.html'"></div>
-
   <!--Desktop search bar-->
   <booking-bar class="Home__booking-bar drop-up" size="full-width-bottom" ng-if="!isMobile"></booking-bar>
   <div
@@ -204,7 +202,7 @@
       <section class="hotel-facilities"  ng-include="'layouts/lbe/home/hotelFacilities.html'"></section>
 
   </div>
-  <div ng-if="!isMobile" ng-include="'layouts/lbe/home/heroBenefits.html'"></div>
+  <div ng-include="'layouts/lbe/home/heroBenefits.html'"></div>
 
   <div class="Home__testimonial">
     <recommendation-carousel></recommendation-carousel>

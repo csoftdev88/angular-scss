@@ -44,6 +44,29 @@
   .Home__testimonial {
     padding-top: 30px;
     padding-bottom: 0px;
+
+    recommendation-carousel {
+      .recommendation-carousel {
+        .carousel-control {
+          top: 0px;
+
+          &.left {
+            left: 380px;
+          }
+
+          &.right {
+            left: 530px;
+          }
+          .glyphicon-chevron-right {
+            top: auto;
+          }
+
+          .glyphicon-chevron-left {
+            top: auto;
+          }
+        }
+      }
+    }
   }
 
   .hotel-description-container-content {
@@ -60,6 +83,27 @@
     }
   }
 
+  .Home__contacts {
+    ng-map {
+      width: 100%;
+      height: 210px;
+    }
 
+    .Home__contacts-box {
+      width: 100%;
+      height: auto;
+      padding-bottom: 10px;
+
+      .title {
+        margin-top: 30px;
+      }
+
+      .Home__contacts-buttons {
+        .contacts-button {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
 }
 

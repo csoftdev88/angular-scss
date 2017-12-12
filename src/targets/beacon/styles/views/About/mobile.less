@@ -3,6 +3,7 @@
 
   .About__hero {
     background-position: center;
+    padding-top: 0;
 
     &.fullscreen {
       position: relative;
@@ -20,8 +21,26 @@
         }
 
         hero-slider {
-          height: 150px;
-          margin-bottom: 15px;
+          height: 180px;
+
+          .slider-content .hero-slide{
+            height: 180px;
+          }
+
+          .slider-controls {
+            .slide-left {
+              top: 240px;
+              display: block;
+            }
+            .slide-right {
+              top: 240px;
+              display: block;
+            }
+
+            .pages {
+              bottom: -85px;
+            }
+          }
         }
 
         .hotel-info-amenities {
@@ -34,8 +53,40 @@
       }
     }
 
-    .register_space hero-slider .slider-controls .pages {
-      height: 45px;
+    .register_space hero-slider {
+      .slider-controls {
+        background-color: rgba(0,0,0,0.7);
+        .pages {
+          display: block;
+          height: 45px;
+          text-align: center;
+          padding-bottom: 35px;
+        }
+      }
+    }
+
+    .main-content-container {
+       .hotel-info-amenities {
+         h2 {
+           font-size: 18px;
+           color: black;
+           margin-top: 30px;
+
+         }
+
+         .amenities-arrow {
+           display: none;
+         }
+
+         .amenities-list {
+          .amenity-item {
+            .amenity-caption {
+              font-size: 16px;
+              color: #6E562A;
+            }
+          }
+         }
+       }
     }
 
     .main-content-container .rating-trip-advisor {

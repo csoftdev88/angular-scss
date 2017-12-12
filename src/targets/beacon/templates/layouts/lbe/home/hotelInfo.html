@@ -3,14 +3,6 @@
     <div class="first-panel">
       <h2 id="welcome-to-the-excelsior-hotel" class="HotelInfo__details--title">The Hotel Beacon NYC</h2>
 
-      <hero-slider ng-if="isMobile"
-                   data-has-notification-bar="false"
-                   on-slide-click="openGallery"
-                   slide-width="hotelViewSettings.hotelInfo.images.width"
-                   slide-height="hotelViewSettings.hotelInfo.images.height"
-                   content="previewImages">
-      </hero-slider>
-
       <p class="HotelInfo__details--description">
           Located at the corner of Broadway and W 75th, Hotel Beacon is the jewel of the Upper West Side - and a rare
           find in New York City. lt’s one of the few remaining residential hotels, and one of the few places in Manhattan
@@ -24,7 +16,7 @@
       </p>
     </div>
     <div class="second-panel">
-      <hero-slider ng-if="!isMobile"
+      <hero-slider
                    data-has-notification-bar="false"
                    on-slide-click="openGallery"
                    slide-width="hotelViewSettings.hotelInfo.images.width"
