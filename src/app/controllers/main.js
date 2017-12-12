@@ -451,6 +451,26 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
         };
       }
 
+      // For certain tenants (e.g. MeAndAll), we need to remap certain characters
+      var germanCharactersMap = {
+        'ä': 'ae',
+        'Ä': 'AE',
+        'ü': 'ue',
+        'Ü': 'UE',
+        'ö': 'oe',
+        'Ö': 'OE',
+        'ß': 'ss',
+        'ẞ': 'SS'
+      };
+      $scope.remapGermanCharacters = function(registerData, key) {
+        if (!registerData[key]) {
+          return;
+        }
+        for (var char in germanCharactersMap) {
+          registerData[key] = registerData[key].replace(new RegExp(char, 'g'), germanCharactersMap[char]);
+        }
+      };
+
       // Inheriting the following controllers
       $controller('AuthCtrl', {$scope: $scope, config: {onAuthorized: onAuthorized}});
       $controller('PreloaderCtrl', {$scope: $scope});
