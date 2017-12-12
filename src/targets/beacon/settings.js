@@ -938,7 +938,8 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       },
       'displaySummary': false,
       'displayMap': false,
-      'allowPasswordChange': false
+      'allowPasswordChange': false,
+      'hideBreadcrumbs': true
     },
 
     'aboutUs': {
