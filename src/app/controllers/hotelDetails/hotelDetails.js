@@ -23,12 +23,11 @@ angular.module('mobius.controllers.hotel.details', [
   });
 
   if ($stateParams.customMessages) {
-    var bookingLinks = '';
+    var bookingLinks = '<div class="multi-room-booking-codes">';
     for (var j = 0; j < parseInt($stateParams.customMessages.totalBookings, 10); j++) {
-      var bookingCode = $stateParams.customMessages['booking' + j];
-      bookingLinks += '<a href="/reservations/' + bookingCode + '/">' + bookingCode + '</a>';
+      bookingLinks += '<div>' + $stateParams.customMessages['booking' + j] + '</div>';
     }
-    userMessagesService.addReservationConfirmationMessage('multiroom', bookingLinks);
+    userMessagesService.addReservationConfirmationMessage('multiroom', bookingLinks + '</div>');
   }
 
   //Apply config:
