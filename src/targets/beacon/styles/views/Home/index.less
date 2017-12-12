@@ -44,10 +44,10 @@
 }
 
 .Home__testimonial {
-  padding-top: 120px;
-  padding-bottom: 80px;
+  padding-top: 50px;
+  padding-bottom: 40px;
   width: 100%;
-  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('@{img-prefix}/lbe/testimonials-cover.jpg');
+  background: linear-gradient( rgba(130,104,55,0.9), rgba(130,104,55,0.9) ), url('@{img-prefix}/location-banner.jpg');
   background-position:center;
   background-size: cover;
   z-index: 0;
@@ -157,6 +157,12 @@
   }
 
 }
+.hotel-description-container {
+  button-submit {
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+}
 
 .hotel-description-container-content {
   view-more-images {
@@ -221,5 +227,99 @@
   margin-top: -654px;
   &.user-not-authenticated {
     margin-top: 0;
+  }
+}
+
+.Home__contacts {
+  position: relative;
+  ng-map {
+    float:left;
+    width: 60%;
+    height: 550px;
+    .custom-marker {
+      width: 160px;
+      height: 64px;
+      background-color: #000;
+      text-align: center;
+      img {
+        padding-top: 5px;
+        width: 110px;
+      }
+      .arrow-down {
+        position: absolute;
+        bottom: -10px;
+        left: 70px;
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid #000;
+      }
+    }
+  }
+  .Home__contacts-box {
+    width: 40%;
+    height: 550px;
+    background-color: #EEEDEA;
+    display: inline-block;
+    color: #000;
+    .title {
+      font-family: @ff-primary;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      line-height: 24px;
+      text-align: center;
+      margin-top: 115px;
+      text-transform: uppercase;
+    }
+    .address {
+      width: 212px;
+      font-family: @ff-secondary;
+      font-size: 21px;
+      letter-spacing: 1px;
+      line-height: 31px;
+      text-align: center;
+      margin: 40px auto 0;
+    }
+
+    .phone {
+      margin-top: 40px;
+      font-family: @ff-secondary;
+      font-size: 21px;
+      letter-spacing: 1px;
+      line-height: 31px;
+      text-align: center;
+      .emphasis {
+        font-weight: bold;
+      }
+    }
+
+    .Home__contacts-buttons {
+      margin-top: 40px;
+      text-align: center;
+      .contacts-button {
+        width: 200px;
+        margin-right: 20px;
+        height: 45px;
+        color: #fff;
+        background-color: #000;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 14px;
+        text-align: center;
+        text-transform: uppercase;
+
+        letter-spacing: 2px;
+        border-radius: 50px;
+        transition: all 200ms;
+
+        &:hover {
+          color: #000;
+          background-color: #fff;
+        }
+
+      }
+    }
   }
 }

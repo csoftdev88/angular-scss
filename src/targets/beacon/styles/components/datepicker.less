@@ -29,15 +29,19 @@
   }
 
   .ui-datepicker-header {
-    color: #000;
+    color: white;
     border-bottom: 1px solid #eaeaea;
     box-shadow: @in-shadow;
+    background-color: black;
+    font-family: @ff-secondary;
+    line-height: 30px;
+    font-size: 22px;
   }
 
   .ui-datepicker-prev,
   .ui-datepicker-next {
     font-size: 16px;
-    color: #b98747;
+    color: white;
   }
 
   .ui-datepicker-buttonpane {
@@ -54,7 +58,7 @@
   thead {
     tr {
       th {
-        color: #949494;
+        color: black;
       }
     }
   }
@@ -103,7 +107,7 @@
       }
       // Days from other month
       &.ui-datepicker-other-month a {
-        color: lighten(@c-text, 50%);
+        color: #BABABA;
       }
       // Selected start and end day
       &.date-range-end,
@@ -114,12 +118,12 @@
         a,
         span {
           color: white !important;
-          background: darken(#87C34A, 10%);
+          background: black;
           cursor: default;
         }
 
         &:before {
-          background: #87C34A;
+          background: #0EB53B;
         }
 
         &:after {
@@ -142,13 +146,13 @@
         }
 
         a {
-          background: #87C34A;
+          background: #0EB53B;
           color: white;
         }
       }
 
       &.ui-datepicker-unselectable {
-        color: @c-datepicker-unavailable;
+        color: #EAEAEA;
       }
       // Day is not available
       &.date-not-available {
@@ -232,7 +236,7 @@
     td[title] {
       &:after {
         font-weight: 400;
-        color: @c-mid-grey;
+        color: black;
       }
       &.date-range-start:after,
       &.date-range-selected:after,
@@ -245,7 +249,10 @@
 //- Bottom Control Panel
 
 .ui-datepicker-buttonpane {
-  background: transparent;
+  background-color: #826837;
+  font-family: @ff-primary;
+  color: white;
+  font-size: 14px;
 
   .flexible-dates-control {
     > span {
@@ -257,10 +264,14 @@
   }
 
   button.ui-datepicker-close {
-    background: #87C34A;
-    font-size: 15px;
+    background: #1DB53A;
+    font-size: 14px;
+    border-radius: 100px !important;
     color: #fff;
+    font-weight: 800;
     text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 17px;
     width: auto;
   }
 }

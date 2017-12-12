@@ -5,189 +5,61 @@
 }
 
 .HeroBenefits {
-  background: url('@{img-prefix}/brown-background-img.jpg');
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('@{img-prefix}/carousel/slider-2.jpg');
+  background-position: center;
   background-size: cover;
   position: relative;
-  .fullscreen & {
-    top: calc(~'50% - 283px');
-  }
-  &.bottom {
-    top: 408px;
-  }
-  width: 100%;
+  height: 610px;
+  padding-top: 50px;
+}
+
+.HeroBenefits__whitebox {
+  margin: 0 auto 50px auto;
+  border: 1px solid #fff;
+  height: 560px;
+  max-width: 1212px;
 }
 
 .HeroBenefits__subtitle {
-  height: 105px;
-  color: #FFFFFF;
-  font-family: @ff-primary;
-  font-size: 28px;
-  font-weight: 300;
-  line-height: 38px;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  padding: 30px 0;
-  h1 {
-   margin: 0 auto;
-   font-size: 36px;
-   line-height: 50px;
-   width: 900px;
-   text-align: center;
-  }
-  .emphasis {
-    font-weight: 600;
-  }
-}
-
-.HeroBenefits__benefits {
-  width: 1212px;
-  height: 340px;
-  margin: 0 auto;
-  border: 1px solid #464646;
-  border-radius: 12px;
-  background-image: url('@{img-prefix}/background-repeating-pattern-1.png');
-  box-shadow: inset 0 0 10px 0 rgba(0,0,0,0.15);
-
-  color: #FFFFFF;
-  font-family: @ff-primary;
-  font-size: 28px;
-  font-weight: 300;
-  line-height: 38px;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-  display: flex;
-  flex-flow: row nowrap;
-  align-content: stretch;
-  position: relative;
-
-  .glass-panel {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(0deg, rgba(74, 74, 74, 0.2) 0%, rgba(103, 103, 103, 0.2) 100%);
-  }
+    color: #FFFFFF;
+    padding: 95px 0 0 90px;
+    width: 60%;
+    min-width: 600px;
+    h1 {
+      font-family: @ff-secondary;
+      line-height: 70px;
+      font-size: 66px;
+    }
+    h2 {
+      font-family: @ff-secondary;
+      font-size: 35px;
+      line-height: 56px;
+    }
 }
 
 .HeroBenefits__signup {
-  width: 600px;
-  margin: 0 auto;
-  padding: 50px 0;
+  margin-top: 40px;
 
   .HeroBenefits__button {
-    max-width: 300px;
-    min-width: 250px;
-    margin: 0 10px;
-    height: 60px;
+    width: 200px;
+    margin-right: 20px;
+    height: 45px;
     color: #fff;
-    border: 1px solid #fff;
-    font-size: 16px;
+    background-color: #000;
+    font-size: 14px;
     font-weight: bold;
-    line-height: 22px;
+    line-height: 14px;
     text-align: center;
-    text-shadow: 0 1px 0 0 rgba(0,0,0,0.1);
     text-transform: uppercase;
-    background: transparent;
-    letter-spacing: 2px;
 
+    letter-spacing: 2px;
+    border-radius: 50px;
     transition: all 200ms;
 
     &:hover {
-      color: #A97437;
+      color: #000;
       background-color: #fff;
     }
 
-    &.signup {
-      color: #A97437;
-      background-color: #fff;
-      &:hover {
-        color: #fff;
-        background-color: #79AF41;
-        border: 1px solid #fff;
-      }
-    }
-
-  }
-}
-
-.HeroBenefit__background {
-  flex: 1 1 0px;
-  display: flex;
-  z-index: 1;
-  &.get-rewarded {
-    border-left: 1px solid #464646;
-    border-right: 1px solid #464646;
-  }
-}
-
-.HeroBenefits__icon-wrapper {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: flex-end;
-  flex: 1 1 0px;
-}
-
-.HeroBenefits__icon-positionner {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-  height: 110px;
-  img {
-    filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.3));
-  }
-}
-
-.HeroBenefits__text-wrapper {
-  text-align: center;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: flex-start;
-  align-items: center;
-  flex: 0 0 190px;
-}
-
-.HeroBenefits__benefit {
-  flex: 1 1 0px;
-  align-self: stretch;
-  display: flex;
-  flex-flow: column nowrap;
-  h1, h2, p {
-    font-family: @ff-primary;
-    color: #fff;
-    letter-spacing: -0px;
-    padding: 0 20px;
-  }
-  h2 {
-    font-size: 30px;
-    margin-top: 30px;
-    font-weight: 600;
-    line-height: 33px;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
-  }
-  p {
-    font-size: 20px;
-    margin-top: 10px;
-    color: #E4E4E4;
-    font-weight: 300;
-    line-height: 26px;
-  }
-  &.lowest-rates {
-    .HeroBenefits__icon {
-      width: 75px;
-    }
-  }
-  &.get-rewarded {
-    .HeroBenefits__icon {
-      width: 80px;
-    }
-  }
-  &.pay-with-points {
-    .HeroBenefits__icon {
-      width: 91px;
-    }
   }
 }

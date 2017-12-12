@@ -1,5 +1,8 @@
 <article class="booking-bar" ng-class="sizeClass">
-
+  <div class="booking-bar-title">
+    <span class="booking-bar-title-main">BOOK</span>
+    <span class="booking-bar-title-secondary">YOUR ROOM:</span>
+  </div>
   <form class="booking-bar__form" ng-class="{'multiroom-booking': multiRoomSearch}">
 
     <h3 class="booking-bar__title"
@@ -11,7 +14,6 @@
         ng-show="isSmall() && multiRoomSearch">
       _advanced_search_
     </h3>
-
     <form-element class="booking-bar__form--room"
                   ng-if="!uiConfig.generics.singleProperty">
       <select name="property"
@@ -42,8 +44,9 @@
              not-available-description="'_not_available_description_'"/>
 
       <div class="input-value dates-text" ng-click="openDatePicker()">
-        {{ inputDateText || '_dates_' }}
         <i class="fa fa-calendar"></i>
+        {{ inputDateText || '_dates_' }}
+        <i class="dates-arrow-down"></i>
       </div>
     </form-element>
 
@@ -52,6 +55,7 @@
                   ng-class="{'inlineFormElement':$first, 'margin-left': !$first}">
 
       <form-element class="booking-bar__form--guests adults">
+          <i class="simple-user"></i>
         <select name="adults"
                 chosen
                 disable-search="true"
@@ -59,9 +63,11 @@
                 placeholder-text-single="_adults_"
                 ng-options="adult.value as adult.title for adult in adults">
         </select>
+
       </form-element>
 
       <form-element class="booking-bar__form--guests children">
+        <i class="simple-user-female"></i>
         <select name="children"
                 chosen
                 disable-search="true"
@@ -89,12 +95,13 @@
     </form-element>
 
     <form-element ng-show="!showCode && !multiRoomSearch" class="booking-bar__form--code">
+      <i class="simple-star"></i>
       <select name="code"
               chosen
               disable-search="true"
               ng-model="search.codeType"
               ng-change="showCode = true"
-              placeholder-text-single="_apply_code_"
+              placeholder-text-single="_enter_code_"
               ng-options="code.value as code.title for code in codes | filter:{'title':'!group'}">
       </select>
     </form-element>

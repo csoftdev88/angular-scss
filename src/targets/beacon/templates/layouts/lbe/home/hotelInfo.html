@@ -1,7 +1,7 @@
 <section grid-row id="jsAbout" class="hotel-overview">
   <div class="hotel-info-details">
     <div class="first-panel">
-      <h2 id="welcome-to-the-excelsior-hotel" class="HotelInfo__details--title">THE EXCELSIOR HOTEL NEW YORK</h2>
+      <h2 id="welcome-to-the-excelsior-hotel" class="HotelInfo__details--title">The Hotel Beacon NYC</h2>
 
       <hero-slider ng-if="isMobile"
                    data-has-notification-bar="false"
@@ -11,24 +11,16 @@
                    content="previewImages">
       </hero-slider>
 
-      <p class="HotelInfo__details--highlight">
-        Committed to the idea that a life well-traveled is defined by a personal
-        connection to the people, culture and lifestyles of the places we visit, the Excelsior Hotel offers discerning
-        guests an authentic, residence-style experience in the heart of New York City’s Upper West Side. To complement
-        our fashionable surroundings, we’ve designed a delightfully affordable pied-a-terre distinguished by relaxed yet
-        sophisticated ambiance and unpretentious style.
+      <p class="HotelInfo__details--description">
+          Located at the corner of Broadway and W 75th, Hotel Beacon is the jewel of the Upper West Side - and a rare
+          find in New York City. lt’s one of the few remaining residential hotels, and one of the few places in Manhattan
+          where you can flnd spacious rooms and numerous two- bedroom suites.
       </p>
       <p class="HotelInfo__details--description">
-        The Excelsior is located within a beautifully restored landmark building, infusing classic design and
-        architecture with contemporary comfort. In addition to swanky, Art Deco-inspired rooms, the hotel features a
-        fitness center, Boardroom and Calle Ocho restaurant, which brings guests and neighborhood residents together for
-        signature Latin fare and a locally famous weekend brunch complete with unlimited complimentary sangria.
-      </p>
-      <p class="HotelInfo__details--description">
-        Our hotel overlooks Central Park, the American Museum of Natural History and the spectacular, glass-encased Rose
-        Center for Earth and Space and is walking distance from Lincoln Center and the 1, B and C subway lines. A
-        leisurely stroll through Central Park leads to chic Upper East Side restaurants, the luxurious boutiques of
-        Madison Avenue, the Metropolitan Museum of Art, and the Guggenheim and Whitney Museums.
+          We cater to the traveler who likes to feel at home while in the city - and one who wants to feel like a true New
+          Yorker. For that reason our rooms come furnished with fully-equipped kitchenettes, complete with stoves,
+          refrigerators, and coffee makers, allowing our guests to enjoy the plethora of family-owned grocery stores
+          and bustling delis that are so emblematic of the Upper West Side.
       </p>
     </div>
     <div class="second-panel">
@@ -39,16 +31,6 @@
                    slide-height="hotelViewSettings.hotelInfo.images.height"
                    content="previewImages">
       </hero-slider>
-
-      <div ng-if="isMobile && filteredAmenities && filteredAmenities.length"
-           ng-click="amenitiesSection.show = !amenitiesSection.show"
-           class="hotel-info-amenities"
-           ng-include="'layouts/components/amenities-expandable.html'">
-      </div>
-      <div ng-if="!isMobile && filteredAmenities && filteredAmenities.length"
-           class="hotel-info-amenities"
-           ng-include="'layouts/components/amenities-block.html'">
-      </div>
     </div>
   </div>
 </section>

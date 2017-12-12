@@ -35,7 +35,6 @@
   <div class="hotel-description-container"
        ng-class="{'user-not-authenticated': !auth.isLoggedIn()}">
       <main class="grid-wrapper main-content-container">
-        <div ng-include="'layouts/lbe/home/tripAdvisor.html'"></div>
         <div
           class="register_container"
           ng-if="!auth.isLoggedIn() && !isMobile">
@@ -104,7 +103,7 @@
                                               form.registerPassword.$error.pattern)}"
                       ng-pattern="$root.generalValidationPattern"/>
                     <div class="input-icon-wrapper">
-                      <i class="input-icon fa fa-lock"></i>
+                      <i class="input-icon simple-lock"></i>
                     </div>
                   </form-element>
 
@@ -122,7 +121,7 @@
                                               (form.registerPasswordConfirm.$error.required ||
                                               form.registerPasswordConfirm.$error.equals)}"/>
                     <div class="input-icon-wrapper">
-                      <i class="input-icon fa fa-lock"></i>
+                      <i class="input-icon simple-lock"></i>
                     </div>
                   </form-element>
 
@@ -202,6 +201,7 @@
         </div>
         <div class="hotel-description-container-content" ng-include="'layouts/lbe/home/hotelInfo.html'"></div>
       </main>
+      <section class="hotel-facilities"  ng-include="'layouts/lbe/home/hotelFacilities.html'"></section>
 
   </div>
   <div ng-if="!isMobile" ng-include="'layouts/lbe/home/heroBenefits.html'"></div>
@@ -210,8 +210,33 @@
     <recommendation-carousel></recommendation-carousel>
   </div>
 
-  <!--Mobile search button-->
-  <!-- <button ng-if="isMobile" class="HotelDetails__search position-bottom" ng-click="openBookingBar()">
-    _find_your_room_
-  </button> -->
+  <div class="Home__contacts">
+    <ng-map
+      zoom="17"
+      max-zoom="18"
+      min-zoom="4"
+      scrollwheel="true"
+      center="[40.7806869,-73.9810357]"
+      styles="[{featureType:'poi.business',elementType:'all',stylers:[{visibility:'off'}]}]">
+      <marker
+        position="[40.7806869,-73.9810357]"
+        title="HotelBeacon"></marker>
+        <custom-marker position="[40.7806869,-73.9810357]">
+        <div class="custom-marker"><img src="/static/images/v4/Logo White@2x.png" alt="Mobius logo"><i class="arrow-down"></i></div>
+      </custom-marker>
+    </ng-map>
+    <div class="Home__contacts-box">
+      <div class="title">Contact</div>
+      <div class="address">Hotel Beacon NYC
+          2130 Broadway
+          New York, NY 10023</div>
+      <div class="phone"><span class="emphasis">Phone:</span> (212) 787-1100</div>
+      <div class="Home__contacts-buttons">
+        <button class="contacts-button" ng-click="">_contact_</button>
+        <button class="contacts-button" ng-click="">_get_directions_</button>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+
 </div>

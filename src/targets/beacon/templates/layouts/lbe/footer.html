@@ -1,44 +1,60 @@
 <div class="Footer__inner">
+  <img class="Header__logo desktop"
+         src="/static/images/v4/Logo White@2x.png"
+         alt="Mobius logo">
 
-  <div class="Footer__social">
-    <ul class="Footer__social--icons">
+  <ul class="Footer__list">
+    <li class="title">LINKS</li>
+    <li><a href="/">HOME</a></li>
+    <li><a href="/">PROFILE</a></li>
+  </ul>
 
-      <li ng-if="uiConfig.socialLinksNew.facebook">
-        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.facebook }}">
-          <span class="facebook"></span>
-        </a>
-      </li>
-      <li ng-if="uiConfig.socialLinksNew.twitter">
-        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.twitter }}">
-          <span class="twitter"></span>
-        </a>
-      </li>
-      <li ng-if="uiConfig.socialLinksNew.instagram">
-        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.instagram }}">
-          <span class="instagram"></span>
-        </a>
-      </li>
-      <li ng-if="uiConfig.socialLinksNew.linkedIn">
-        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.linkedIn }}">
-          <span class="linkedin"></span>
-        </a>
-      </li>
-      <li ng-if="uiConfig.socialLinksNew.youtube">
-        <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.youtube }}">
-          <span class="youtube"></span>
-        </a>
-      </li>
+  <ul class="Footer__list contact">
+    <li class="title">CONTACT</li>
+    <li>Hotel Beacon NYC</li>
+    <li>2130 Broadway</li>
+    <li>New York, NY 10023</li>
+  </ul>
 
-    </ul>
+  <ul class="Footer__list">
+    <li class="title"></li>
+    <li>Phone - (212) 787 1100 </li>
+    <li>Reservations - (800) 572-4969</li>
+  </ul>
 
-  </div>
+  <ul class="Footer__list Footer__social--icons">
+    <li class="title">FOLLOW</li>
+    <li ng-if="uiConfig.socialLinksNew.facebook">
+      <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.facebook }}">
+        <span class="facebook"></span>
+      </a>
+    </li>
+    <li ng-if="uiConfig.socialLinksNew.twitter">
+      <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.twitter }}">
+        <span class="twitter"></span>
+      </a>
+    </li>
+    <li ng-if="uiConfig.socialLinksNew.instagram">
+      <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.instagram }}">
+        <span class="instagram"></span>
+      </a>
+    </li>
+    <li ng-if="uiConfig.socialLinksNew.linkedIn">
+      <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.linkedIn }}">
+        <span class="linkedin"></span>
+      </a>
+    </li>
+    <li ng-if="uiConfig.socialLinksNew.youtube">
+      <a target="_blank" ng-href="{{ uiConfig.socialLinksNew.youtube }}">
+        <span class="youtube"></span>
+      </a>
+    </li>
 
-  <div class="Footer__nav">
-    <ul class="Footer__nav--items">
-      <li class="Footer__nav--item">
-        <a target="_blank" href="_footer_nav_one_link_">_footer_nav_one_</a>
-      </li>
-    </ul>
-  </div>
+  </ul>
 
+</div>
+<div class="Footer__after">
+    <div class="copyright">
+      © 2017 Hotel Beacon, All rights reserved.
+    </div>
 </div>

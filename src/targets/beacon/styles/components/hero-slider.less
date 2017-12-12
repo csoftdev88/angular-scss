@@ -2,11 +2,16 @@
 //// HERO SLIDER ////
 /////////////////////
 // GENERIC STYLES
+.About__hero .register_space hero-slider .slider-controls .pages {
+  padding-left: 940px;
+}
 
 hero-slider {
   height: 490px;
   box-shadow: none;
   position: relative;
+
+
 
   //Only show the promo text for non-logged in users
   .promotion-text-container {
@@ -38,11 +43,11 @@ hero-slider {
       height: 60px;
       span {
         box-sizing: border-box;
-        height: 21px;
-        width: 21px;
+        height: 17px;
+        width: 17px;
         border-radius: 50%;
-        border: 3px solid white;
-        background-color: transparent;
+        border: 2px solid white;
+        background-color: white;
         opacity: 1;
         margin: 5px;
         &:hover {
@@ -52,7 +57,7 @@ hero-slider {
           }
         }
         &.active {
-          background-color: white;
+          background-color: black;
           .chain-sign & {
             background: @c-secondary-sign;
           }
@@ -85,28 +90,34 @@ hero-slider {
         position: absolute;
         left: 0;
         padding-left: calc(~'(100% - 1212px) / 2');
-        top: 350px;
+        top: 150px;
         color: white;
         z-index: 9;
-        margin-bottom: 17px;
-        width: 500px;
-        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+        width: 525px;
 
         .promotion-text-container-title {
-          font-family: @ff-serif;
-          font-size: 70px;
-          font-weight: bold;
-          line-height: 53px;
-          float: left;
-          margin-bottom: 20px;
+          background-color: rgba(255,255,255,0.9);
+          width: 100%;
+          margin-bottom: 0;
+          line-height: 81px;
+          height: 81px;
+          color: #826837;
+          font-family: @ff-secondary;
+          font-size: 66px;
+          padding: 15px 15px 15px 30px;
         }
 
         .promotion-text-container-text {
+          background-color: #000000;
+          width: 97%;
           font-family: @ff-primary;
-          font-size: 40px;
+          width: 429px;
+          color: #FFFFFF;
+          font-size: 23px;
           font-weight: 300;
-          line-height: 44px;
-          float: left;
+          letter-spacing: 1px;
+          line-height: 28px;
+          padding: 15px 15px 15px 30px;
         }
       }
     }

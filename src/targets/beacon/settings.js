@@ -7,8 +7,8 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
   'customHeroContent': [
     {
       uri: '/static/images/carousel/slider-1.jpg',
-      title: 'Lowest Rates!',
-      subtitle: 'Excelsior Members Receive a 10% Discount.'
+      title: 'Beacon Insider',
+      subtitle: 'Sign up and get 15% off our best rates'
     },
     {
       uri: '/static/images/carousel/slider-2.jpg',
@@ -19,16 +19,6 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       uri: '/static/images/carousel/slider-3.jpg',
       title: 'Free Beverages',
       subtitle: 'Members receive free complimentary refreshments'
-    },
-    {
-      uri: '/static/images/carousel/slider-4.jpg',
-      title: 'Lowest Rates!',
-      subtitle: 'Excelsior Members Receive a 10% Discount.'
-    },
-    {
-      uri: '/static/images/carousel/slider-5.jpg',
-      title: 'Get Rewarded',
-      subtitle: 'Members Get Early Check In & Late Checkout Guaranteed!'
     }
   ],
   'customPreviewImages': [
@@ -175,9 +165,9 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     'trackUsage': true,
     'languageInPath': true,
     'baseURL': {
-      'development': '//integration-www-beacon.mobiusbookingengine.com/api/4.0/',
-      'integration': '//integration-www-beacon.mobiusbookingengine.com/api/4.0/',
-      'staging': '//integration-www-beacon.mobiusbookingengine.com/api/4.0/',
+      'development': '//integration-www-excelsior.mobiusbookingengine.com/api/4.0/',
+      'integration': '//integration-www-excelsior.mobiusbookingengine.com/api/4.0/',
+      'staging': '//integration-www-excelsior.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
       'live': 'https://beacon.mobiusbookingengine.com/api/4.0/'
     },
@@ -383,13 +373,15 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     'recommendationCarousel': [
       {
         'avatarUrl': '/static/images/lbe/testimonial-profile-3_preview.png',
-        'text': '“Best Value Upper West Side and Super Location”',
-        'name': 'William B',
-        'namePrefix': "W",
-        'city': 'Manhattan Beach, California'
+        'title': 'My favorite hotel in New York',
+        'text': 'I have been staying at Hotel Beacon since the mid 90s and the constant upgrades are wonderful. But it is also so nice to see friendly faces at the front desk and bellman desk who remember me from previous stays. I feel like I am at home here. Just wish I could visit more often.',
+        'name': 'Debbie B',
+        'namePrefix': 'D',
+        'city': 'Youngstown, Ohio'
       },
       {
         'avatarUrl': '/static/images/lbe/testimonial-profile-1_preview.png',
+        'title': 'My favorite hotel in New York',
         'text': '“A beautiful hotel in the heart of the Upper West Side”',
         'name': 'Sue M',
         'namePrefix': "S",
@@ -397,6 +389,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       },
       {
         'avatarUrl': '/static/images/lbe/testimonial-profile-2_preview.png',
+        'title': 'My favorite hotel in New York',
         'text': '“Wonderful and the value cannot be beat!”',
         'name': 'Molly Y',
         'namePrefix': 'M',
@@ -494,7 +487,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       // are specified in ms.
 
       // Use 0 value to disable automatic slide animation
-      'autoplayDelay': 5000,
+      'autoplayDelay': 0,
       'animationDuration': 800,
       'preloadImages': true,
       'slideWidth': 1440,

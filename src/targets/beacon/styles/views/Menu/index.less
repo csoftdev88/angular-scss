@@ -9,7 +9,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #212020;
+  background-color: #826837;
   z-index: 1002; // Ensure the menu is above the booking bar
   flex-flow: column nowrap;
   align-items: center;
@@ -66,32 +66,26 @@
   width: 25px;
   height: 25px;
   transition: opacity @appear-animation-duration linear;
-  opacity: 0.6;
-  &:hover {
-    opacity: 1;
-  }
 }
 
 .Menu__items {
-  width: 500px;
   margin-left: auto;
   margin-right: auto;
   display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   flex: 1;
   position: relative;
-  top: -100px;
+  width: 100%;
+  max-width: 1250px;
 }
 
 .Menu__items--item,
 .Menu__items--highlight {
   text-align: center;
-  text-transform: uppercase;
   letter-spacing: 2px;
-  font-family: @ff-serif;
-  line-height: 70px;
+  font-family: @ff-secondary;
+  line-height: 30px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -100,8 +94,11 @@
 .Menu__items--item {
   cursor: pointer;
   position: relative;
-  font-size: 42px;
+  font-size: 24px;
   color: #fff;
+  padding-right: 23px;
+  padding-top: 20px;
+  height: 40px;
   a {
     color: @c-secondary;
   }
@@ -120,17 +117,15 @@
     background-color: @c-primary;
     border-radius: 1px;
   }
-  &:hover::after {
-    width: calc(~'100% + 2 * @{underline-overspill}');
-  }
 }
 
 .Menu__items--divider {
-  background-color: #2D2722;
-  height: 1px;
-  width: 100%;
-  margin-top: 20px;
+  height: 70px;
+  border-right: 2px solid rgba(255,255,255,0.2);
   margin-bottom: 10px;
+  margin-right: 25px;
+  margin-left: 279px;
+  flex-grow: 1;
 }
 
 .Menu__items--highlight {
@@ -141,36 +136,25 @@
 
 .Menu__sublinks-wrapper {
   display: flex;
-  flex-flow: column nowrap;
-  width: 100%;
+  flex-wrap: wrap;flex-wrap: wrap;
+  height: 45px;
 
   .equal-split-box {
     display: flex;
-    flex-flow: row nowrap;
-    width: 100%;
-    & > * {
-      flex: 1 1 0px;
-    }
+    flex-wrap: wrap;
   }
 
   .Menu__items--subitem {
-    font-size: 16px;
-    font-weight: 300;
-    letter-spacing: 2px;
-    color: #D3D3D3;
+    font-size: 15px;
+    color: #E4CC9C;
     font-family: @ff-primary;
     text-align: center;
     text-transform: uppercase;
-    line-height: 70px;
+    line-height: 18px;
     cursor: pointer;
-
-    border: 1px solid #2D2722;
-    background-color: transparent;
-
-    transition: background-color @appear-animation-duration linear;
-    &:hover {
-      background-color: @c-primary;
-    }
+    margin-right: 18px;
+    height: 18px;
+    padding-top: 27px;
   }
 }
 

@@ -2,7 +2,7 @@
 
   <a ui-sref="home" class="Header__link">
     <img class="Header__logo desktop"
-         src="/static/images/v4/logo@3x.png"
+         src="/static/images/v4/logo-black@2x.png"
          alt="Mobius logo">
   </a>
 
@@ -13,16 +13,21 @@
       <button class="Header__button login"
               ng-if="!isUserLoggedIn()"
               ng-click="auth.login()">
-        <i class="fa fa-sign-in"></i>
         _login_
       </button>
 
       <button class="Header__button register"
               ng-if="!auth.isLoggedIn()"
               ng-click="auth.register()">
-        <i class="fa fa-user-plus"></i>
-        _register_
+        _signup_
       </button>
+
+      <ul dropdown-group class="Header__buttons--preferences">
+        <li has-dropdown="click"
+            currency-list
+            class="Header__buttons--currency Header__buttons--preference">
+        </li>
+      </ul>
 
       <div class="Header__profile" ng-if="auth.isLoggedIn()">
         <img class="avatar" src="/static/images/lbe/avatar-placeholder.png">
@@ -35,22 +40,8 @@
         </div>
       </div>
 
-      <!--FIXME: I believe this is not currently shown/used-->
-      <ul dropdown-group class="Header__buttons--preferences">
-        <li has-dropdown="click"
-            currency-list
-            class="Header__buttons--currency Header__buttons--preference"
-            ng-show="!$state.includes('reservation') &&
-                   !$state.includes('reservationDetail') &&
-                   !$state.includes('reservations')">
-        </li>
-      </ul>
-
       <div class="Header__menu">
-        <img src="/static/images/menu-icon@3x.png"
-            ng-click="toggleMenuOverlay()"
-            class="Header__menu--hamburger">
-
+        <i class="icons icon-menu" ng-click="toggleMenuOverlay()"></i>
         <span ng-click="toggleMenuOverlay()" class="Header__menu--close"></span>
       </div>
     </div>

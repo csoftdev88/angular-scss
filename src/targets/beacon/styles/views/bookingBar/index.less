@@ -12,8 +12,23 @@ booking-bar {
 
   input:not([type=radio]):not([type=checkbox]),
   .chosen-container {
-    border: 1px solid #E6D4BD;
-    box-shadow: none;
+    height: 60px;
+    border: 1px solid #393939;
+    border-radius: 30px;
+    background-color: #2D2C2C;
+    box-shadow: inset 0 0 8px 0 rgba(0,0,0,0.7);
+    .chosen-single {
+      span {
+        color: white ;
+        text-transform: uppercase;
+        font-size: 14px;
+        padding-left: 35px;
+        line-height: 57px;
+      }
+      b::before {
+        color: #826837;
+      }
+    }
   }
 
   // If the booking bar is anchored to the top, its parent will have a class sticky
@@ -28,7 +43,7 @@ booking-bar {
 
   .booking-bar__form--guests .chosen-container {
     // Urrgh! Someone (who doesn't understand CSS specificity) put !important on the master style sheet!
-    width: 160px !important;
+    width: 190px !important;
   }
 
   p, span, label {
@@ -176,16 +191,40 @@ booking-bar {
   &.booking-bar__size-full-width,
   &.booking-bar__size-full-width-bottom {
     width: 100vw;
+    height: 110px;
+
     margin-left: calc(~'50% - 50vw');
     display: flex;
     justify-content: center;
-    border: 1px solid #E6D4BD;
+    border: none;
     border-left: none;
     border-right: none;
-    background-color: @c-bookingbar-bg;
+    background-color: black;
+
+    .booking-bar-title {
+      width: 131px;
+      margin-right: 15px;
+      color: white;
+      margin-top: 25px;
+
+      .booking-bar-title-main {
+        font-size: 41px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        line-height: 33px;
+        width: 124px;
+      }
+
+      .booking-bar-title-secondary {
+        font-size: 19px;
+        letter-spacing: 1px;
+        line-height: 20px;
+        width: 131px;
+      }
+    }
 
     .booking-bar__form {
-      width: 1212px;
+      width: 1066px;
     }
   }
 
@@ -207,30 +246,51 @@ booking-bar {
     .dates-text {
       z-index: 1;
       position: absolute;
-      top: 2px;
-      left: 2px;
-      color: #3C3C3C;
-      background: #fff;
-      font-size: 15px;
+      top: 0;
+      left: 0;
+      color: white;
+      font-size: 14px;
       font-weight: 300;
       height: 52px;
-      line-height: 52px;
-      padding-left: 20px;
+      line-height: 61px;
+      padding-left: 55px;
       cursor: pointer;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
       padding-right: 35px;
       box-sizing: border-box;
-      width: calc(~'100% - 4px');
+      width: calc(~'100%');
+      border-radius: 30px;
+      height: 60px;
+      border: 1px solid #393939;
+      background-color: #2D2C2C;
+      box-shadow: inset 0 0 8px 0 rgba(0,0,0,0.7);
+      font-family: @ff-primary;
+      text-transform: uppercase;
 
-      .fa-calendar {
+      .dates-arrow-down {
+        font-size: 28px !important;
+        line-height: 28px;
         position: absolute;
-        top: 16px;
+        top: 14px;
         right: 16px;
-        color: #C8C8C8;
+        color: #826837;
         font-size: 17px;
+        &::before {
+          font-family: FontAwesome;
+          content: "\f107";
+        }
       }
+    }
+
+    .fa-calendar, .simple-user, .simple-user-female, .simple-star {
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      color: #826837;
+      font-size: 28px;
+      z-index: 994; // One higher than chosen select
     }
 
     .booking-bar__form--label {
@@ -252,7 +312,7 @@ booking-bar {
         .placeholder({
           color: lighten(@c-alt-grey, 30%);
           font-family: @ff-primary;
-          font-size: 16px;
+          font-size: 1px;
           font-weight: 300;
           font-style: italic;
         });
@@ -282,12 +342,11 @@ booking-bar {
 
     .booking-bar__submit {
       text-transform: uppercase;
-      height: 56px;
+      height: 63px;
       width: 203px;
       border: 1px solid #79AF41;
       border-radius: 4px;
       font-family: @ff-primary;
-      background-color: #87C34A;
       color: #fff;
       font-size: 18px;
       font-weight: bold;
@@ -295,11 +354,14 @@ booking-bar {
       text-align: center;
       text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
       transition: background-color 200ms;
+
+      border-radius: 50px;
+      background-color: #1DB53A;
       &:hover {
-        background-color: #79AF41;
+        background-color: #1DB53A;
       }
       &:focus {
-        background-color: #79AF41;
+        background-color: #1DB53A;
         outline: none;
       }
       box-shadow: none;
