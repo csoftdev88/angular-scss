@@ -1,7 +1,6 @@
 
 .ReservationsBackground {
-  background: url('@{img-prefix}/confirmation-bg.png');
-  background-size: cover;
+  background-color: #EEEDEA;
   position: absolute;
   height: 900px;
   width: 100vw;
@@ -92,9 +91,12 @@
     }
 
     .ReservationsNextStay__title, .ReservationsFutureStay__title {
-      height: 37px;
-      line-height: 37px;
-      color: #B98747;
+      height: 34px;
+      color: #6E562A;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      line-height: 34px;
       text-transform: uppercase;
       padding: 30px;
       .viewport-mobile & {
@@ -105,7 +107,7 @@
       h1 {
         letter-spacing: 1px;
         font-size: 28px;
-        font-family: @ff-serif;
+        font-family: @ff-secondary;
         font-weight: bold;
         .viewport-mobile & {
           font-size: 18px;
@@ -124,7 +126,6 @@
 
       .reservation-summary {
         border: 1px solid #F2F2F2;
-        border-radius: 8px;
         margin: 0 0 30px 30px;
         padding: 25px;
         .viewport-mobile & {
@@ -149,22 +150,23 @@
             width: 100%;
             float: none;
             img {
-              border-radius: 6px;
+              border-radius: 0px;
             }
           }
 
           h3 {
-            color: #B98747;
-            font-family: @ff-primary;
-            font-size: 22px;
-            font-weight: 300;
-            margin-right: 85px;
+            color: #0C0C0C;
+            font-family: @ff-secondary;
+            font-size: 21px;
+            line-height: 26px;
           }
 
           .booking-arrival-checkout {
-            color: #9B9B9B;
-            font-family: @ff-serif;
-            font-size: 16px;
+            color: #826837;
+            font-family: @ff-primary;
+            font-size: 22px;
+            line-height: 19px;
+            margin: 10px 0;
             .viewport-mobile & {
               font-size: 14px;
             }
@@ -173,7 +175,7 @@
           .booking-confirmation-number {
             color: #9B9B9B;
             font-family: @ff-primary;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 300;
             .viewport-mobile & {
               font-size: 13px;
@@ -184,26 +186,26 @@
             position: absolute;
             bottom: 10px;
             right: 0;
-            border: 2px solid #AB2117;
+            border: 1px solid #826837;
             clear: right;
             font-family: @ff-serif;
             width: 80px;
             text-align: center;
-            border-radius: 6px;
+            border-radius: 0;
 
             .title {
-              background-color: #AB2117;
+              background-color: #826837;
               text-transform: uppercase;
               height: 30px;
               color:#fff;
-              font-size: 13px;
-              font-weight: bold;
+              font-size: 16px;
+              font-weight: 300;
               line-height: 30px;
             }
             .date {
               background-color: #fff;
               border-radius: 0 0 6px 6px;
-              color: #AB2117;
+              color: #826837;
               font-weight: normal;
               height: 47px;
               font-size: 14px;
@@ -212,9 +214,6 @@
             }
           }
 
-          .reservation-details-container {
-            padding-right: 90px;
-          }
         }
 
         .data {
@@ -345,3 +344,176 @@
     }
   }
 }
+
+.reservation-overview {
+  padding: 0;
+
+  .available-upgrades {
+    .available-upgrades-title {
+      color: #000000;
+      font-size: 20px;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-left: 30px;
+      margin-bottom: 20px;
+    }
+
+    .available-upgrades-item {
+      background-color: #EEEDEA;
+      height: 80px;
+      display: flex;
+      margin: 30px 30px;
+      margin-right: 0px;
+
+      .available-upgrades-item-image {
+        width: 110px;
+        height: 80px;
+      }
+
+      .available-upgrades-item-text {
+        flex-grow: 1;
+        padding-left: 15px;
+
+        .available-upgrades-item-text-title {
+          font-size: 21px;
+          color: #000000;
+          line-height: 31px;
+          font-family: @ff-secondary;
+          margin-top: 10px;
+        }
+
+        .available-upgrades-item-text-price {
+          color: #6E562A;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 28px;
+          height: 28px;
+        }
+      }
+      .available-upgrades-item-button {
+        text-transform: uppercase;
+        border-radius: 100px;
+        background-color: #826837;
+        color: white;
+        font-size: 14px;
+        width: 154px;
+        font-weight: 800;
+        text-align: center;
+        height: 35px;
+        margin-top: 16px;
+        margin-right: 20px;
+        padding-top: 16px;
+        cursor: pointer;
+      }
+    }
+
+    .available-upgrades-view-all-button {
+      width: 235px;
+      height: 48px;
+      line-height: 48px;
+      border: 1px solid #826837;
+      border-radius: 100px;
+      background-color: #FFFFFF;
+      font-size: 14px;
+      color: #6E562A;
+      font-weight: 800;
+      text-align: center;
+      text-transform: capitalize;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 30px;
+      cursor: pointer;
+    }
+  }
+}
+
+
+.carousel {
+  .carousel-indicators {
+    li {
+      border: 2px solid black;
+      background-color: black;
+      height: 14px;
+      width: 14px;
+
+      &.active {
+        background-color: white;
+      }
+    }
+  }
+}
+
+.ReservationsNextStay__container {
+  position: relative;
+
+  .members-only-rate {
+    font-family: @ff-secondary;
+    position: absolute;
+    top: 130px;
+    left: 15px;
+    background-color: #826837;
+    color: white;
+    font-size: 20px;
+    letter-spacing: 1px;
+    padding: 10px;
+    z-index: 1;
+    i {
+      margin-right: 5px;
+    }
+  }
+
+  .members-only-rate-rectangle {
+    position: absolute;
+    top: 172px;
+    left: 15px;
+    width: 0;
+    height: 0;
+    border-top: 15px solid #523F1D;
+    border-left: 15px solid transparent;
+  }
+  .reservation-summary {
+    .room-types {
+      check-in-date {
+        display: block;
+      }
+    }
+  }
+}
+
+.reservation-summary {
+  background-color: #EEEDEA;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+
+  .room-types {
+
+    .reservation-details-container {
+      padding-right: 0;
+    }
+
+    h1 {
+      display: none;
+    }
+
+    figure {
+      img {
+        border-radius: 0;
+      }
+    }
+
+    h3 {
+      color: black;
+    }
+
+    .booking-arrival-checkout {
+      font-size: 21px;
+      color: #6E562A;
+    }
+
+    check-in-date {
+      display: none;
+    }
+  }
+}
+

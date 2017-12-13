@@ -1030,26 +1030,20 @@ reservation-confirmation {
 ////////////////////////////////
 .reservation-detail {
   .reservations-title {
-    font-family: @ff-secondary;
     text-transform: capitalize;
-    background-color: black;
-    color: #fff;
-    height: 77px;
-    line-height: 77px;
-    font-size: 22px;
-    padding: 0 30px 0 35px;
-
+    background: transparent;
+    padding: 25px 0;
     .viewport-mobile & {
       height: 40px;
       line-height: 40px;
     }
 
     h1 {
-      padding-left: 30px;
-      font-family: @ff-primary;
-      border-radius: 6px 6px 0 0;
+      font-family: @ff-secondary;
+      color: #826837;
+      font-size: 35px;
+      line-height: 35px;
       .viewport-mobile & {
-        padding-left: 10px;
         font-size: 15px;
       }
     }
@@ -1067,15 +1061,7 @@ reservation-confirmation {
   }
 
   .reservation {
-    margin-top: 45px;
-    margin-bottom: 45px;
-    background-color: #fff;
     min-height: 300px;
-    border-radius: 0 0 6px 6px;
-
-    .viewport-mobile & {
-      margin-top: 70px;
-    }
 
     .reservation-summary-container,
     .hotel-details-container {
@@ -1089,10 +1075,11 @@ reservation-confirmation {
     .hotel-details-container {
       width: 60%;
       .section-padding {
-        padding: 25px 25px 10px 25px;
+        margin: 0 25px 25px 25px;
+        background-color: #fff;
       }
       section {
-        padding-bottom: 15px;
+        padding: 25px;
         h4 {
           color: #B98747;
           font-family: @ff-serif;
@@ -1215,12 +1202,93 @@ reservation-confirmation {
           }
         }
       }
+
+      .hotel-details-title {
+        color: #000000;
+        font-family: @ff-primary;
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        line-height: 24px;
+        text-transform: uppercase;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      .reservation-contacts {
+        margin-top: 0;
+        padding-top: 0;
+        ng-map {
+          height: 360px;
+        }
+        .custom-marker {
+          width: 160px;
+          height: 64px;
+          background-color: #000;
+          text-align: center;
+          img {
+            padding-top: 5px;
+            width: 110px;
+          }
+          .arrow-down {
+            position: absolute;
+            bottom: -10px;
+            left: 70px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #000;
+          }
+        }
+        .contact-information {
+          width: 100%;
+          td {
+            color: #000000;
+            font-family: @ff-primary;
+            font-size: 16px;
+            line-height: 19px;
+            padding-bottom: 15px;
+          }
+          td.right {
+            text-align: right;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    .members-only-rate {
+      font-family: @ff-secondary;
+      position: absolute;
+      top: 130px;
+      left: -15px;
+      background-color: #826837;
+      color: white;
+      font-size: 20px;
+      letter-spacing: 1px;
+      padding: 10px;
+      z-index: 1;
+      i {
+        margin-right: 5px;
+      }
+    }
+
+    .members-only-rate-rectangle {
+      position: absolute;
+      top: 172px;
+      left: -15px;
+      width: 0;
+      height: 0;
+      border-top: 15px solid #523F1D;
+      border-left: 15px solid transparent;
     }
 
     .reservation-summary-container {
       width: 40%;
+      background-color: #fff;
+      margin-bottom: 25px;
       .border-right {
-        border-right: 1px solid #F2F2F2;
         padding: 25px;
         .viewport-mobile & {
           padding: 0;
@@ -1255,26 +1323,25 @@ reservation-confirmation {
         }
       }
       .tables {
-        padding-top: 25px;
-        border: 1px solid #F2F2F2;
-        border-radius: 8px;
-
         .room-types,
-        .charges-data {
-          padding: 0 25px;
-        }
 
         .reservation-data-table {
           width: 100%;
           font-size: 14px;
           th {
-            font-weight: 300;
             text-align: left;
-            color: #9B9B9B;
+            color: #000000;
+            font-family: @ff-primary;
+            font-size: 16px;
+            font-weight: 300;
+            padding: 5px 0;
           }
           td {
             text-align: right;
-            color: #4A4A4A;
+            color: #000000;
+            font-family: @ff-primary;
+            font-size: 16px;
+            padding: 5px 0;
           }
           .emphasis {
             font-weight: bold;
@@ -1283,59 +1350,61 @@ reservation-confirmation {
         figure {
           img {
             width: 100%;
-            border-radius: 6px;
           }
         }
         .charges-data {
           padding-top: 15px;
           margin-top: 15px;
-          border-top: 1px solid #F2F2F2;
         }
         .room-types {
           position: relative;
           h3 {
-            color: #B98747;
+            color: #0C0C0C;
             font-family: @ff-primary;
             font-size: 22px;
-            font-weight: 300;
-            line-height: 30px;
+            margin-top: 20px;
+            line-height: 26px;
           }
+
           .booking-arrival-checkout {
-            color: #9B9B9B;
-            font-family: @ff-serif;
-            font-size: 16px;
+            color: #826837;
+            font-family: @ff-primary;
+            font-size: 22px;
+            line-height: 19px;
+            margin: 10px 0;
           }
+
           .booking-confirmation-number {
             color: #9B9B9B;
             font-family: @ff-primary;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 300;
           }
 
           check-in-date {
             position: absolute;
             bottom: 10px;
-            right: 25px;
-            border: 2px solid #9A0003;
+            right: 0;
+            border: 1px solid #826837;
             clear: right;
             font-family: @ff-serif;
             width: 80px;
             text-align: center;
-            border-radius: 6px;
+            border-radius: 0;
 
             .title {
-              background-color: #9A0003;
+              background-color: #826837;
               text-transform: uppercase;
               height: 30px;
               color:#fff;
-              font-size: 13px;
-              font-weight: bold;
+              font-size: 16px;
+              font-weight: 300;
               line-height: 30px;
             }
             .date {
               background-color: #fff;
               border-radius: 0 0 6px 6px;
-              color: #AB2117;
+              color: #826837;
               font-weight: normal;
               height: 47px;
               font-size: 14px;
@@ -1348,31 +1417,121 @@ reservation-confirmation {
             padding-right: 90px;
           }
         }
-        .total-charges {
-          margin-top: 15px;
-          background-color: #31302F;
-          padding: 25px;
-          color: #fff;
-          font-size: 22px;
-          border-radius: 0 0 6px 6px;
-          .total-value {
-            float: right;
-          }
+      }
+      .total-charges {
+        background-color: #31302F;
+        padding: 25px;
+        color: #fff;
+        font-size: 22px;
+        .total-value {
+          float: right;
         }
       }
     }
   }
+
+  .available-upgrades {
+    .available-upgrades-title {
+      color: #000000;
+      font-size: 20px;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-left: 30px;
+      margin-bottom: 20px;
+    }
+
+    .available-upgrades-item {
+      background-color: #EEEDEA;
+      height: 80px;
+      display: flex;
+      margin: 30px 0;
+      margin-right: 0px;
+
+      .available-upgrades-item-image {
+        width: 110px;
+        height: 80px;
+      }
+
+      .available-upgrades-item-text {
+        flex-grow: 1;
+        padding-left: 15px;
+
+        .available-upgrades-item-text-title {
+          font-size: 21px;
+          color: #000000;
+          line-height: 31px;
+          font-family: @ff-secondary;
+          margin-top: 10px;
+        }
+
+        .available-upgrades-item-text-price {
+          color: #6E562A;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 28px;
+          height: 28px;
+        }
+      }
+      .available-upgrades-item-button {
+        text-transform: uppercase;
+        border-radius: 100px;
+        background-color: #826837;
+        color: white;
+        font-size: 14px;
+        width: 154px;
+        font-weight: 800;
+        text-align: center;
+        height: 35px;
+        margin-top: 16px;
+        margin-right: 20px;
+        padding-top: 16px;
+        cursor: pointer;
+      }
+
+      .available-upgrades-item-checkmark {
+        border-radius: 50px;
+        background-color: #fff;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        margin-top: 15px;
+        margin-right: 20px;
+        cursor: pointer;
+        i {
+          color: #76B336;
+          font-size: 30px;
+          line-height: 50px;
+        }
+      }
+    }
+
+    .available-upgrades-view-all-button {
+      width: 235px;
+      height: 48px;
+      line-height: 48px;
+      border: 1px solid #826837;
+      border-radius: 100px;
+      background-color: #FFFFFF;
+      font-size: 14px;
+      color: #6E562A;
+      font-weight: 800;
+      text-align: center;
+      text-transform: capitalize;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 30px;
+      cursor: pointer;
+    }
+  }
 }
 .ReservationBackground {
-  background: url('@{img-prefix}/confirmation-bg.png');
-  background-size: cover;
+  background-color: #EEEDEA;
   position: absolute;
   height: 100%;
   width: 100vw;
   top: 0;
   left: 0;
   z-index: -999;
-  opacity: 0.3;
 }
 
 .reservation-summary {
@@ -1397,4 +1556,60 @@ reservation-confirmation {
 
 dialog.confirmation-dialog .ui-dialog {
   overflow-x: hidden;
+}
+
+.ReservationDetailDiscover {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('@{img-prefix}/lbe/about-cta.jpg');
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  height: 320px;
+  padding: 20px;
+}
+
+.ReservationDetailDiscover__whitebox {
+  border: 1px solid #fff;
+  min-height: 320px;
+}
+
+.ReservationDetailDiscover__subtitle {
+    color: #FFFFFF;
+    padding: 40px 0 0 40px;
+    h1 {
+      font-family: @ff-secondary;
+      font-size: 46px;
+      line-height: 60px;
+    }
+    h2 {
+      margin-top: 20px;
+      font-family: @ff-secondary;
+      font-size: 25px;
+      line-height: 36px;
+      width: 73%;
+    }
+}
+
+.ReservationDetailDiscover__button {
+  margin-top: 20px;
+  height: 48px;
+  width: 290px;
+  border-radius: 100px;
+  margin-right: 20px;
+  color: #000;
+  background-color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 14px;
+  text-align: center;
+  text-transform: uppercase;
+
+  letter-spacing: 2px;
+  transition: all 200ms;
+
+
+  &:hover {
+    color: #000;
+    background-color: #fff;
+  }
+
 }

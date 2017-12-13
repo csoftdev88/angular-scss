@@ -53,12 +53,16 @@
       </div>
 
       <div class="ReservationsNextStay__container">
+        <div class="members-only-rate">
+            <i class="simple-star"></i>
+            Members Only Rate
+        </div>
+        <div class="members-only-rate-rectangle"></div>
         <div ng-if="reservations.nextStay" class="ReservationsNextStay">
           <!-- TODO SAME AS BOOKING COMPLETE PREVIEW -->
           <div class="ReservationsNextStay__title">
             <h1 ng-bind-html="'_reservation_page_nextstay_title_' | mainHeaderStyle"></h1>
           </div>
-
           <reservation-item>
               <reservation-details currency-code="defaultCurrencyCode"
                                    reservation="reservations.nextStay"
@@ -66,11 +70,24 @@
               </reservation-details>
           </reservation-item>
         </div>
-        <div ng-if="!reservations.nextStay && (reservations.pastStays.length || reservations.futureStays.length)"
+        <div ng-if="!reservations.nextStay && futureStays.length"
              class="ReservationsNextStay empty">
           <h3 class="noNextStay">
             Looks like you don’t have any upcoming stays, {{ user.firstName }}
           </h3>
+        </div>
+
+        <div class="available-upgrades" ng-if="reservations.nextStay.availableAddons.length > 0">
+          <div class="available-upgrades-title">Enchance your stay</div>
+          <div class="available-upgrades-item" ng-repeat="addon in reservations.nextStay.availableAddons">
+            <img ng-src="{{addon.image.uri}}" alt="{{ addon.image.uri }}" class="available-upgrades-item-image">
+            <div class="available-upgrades-item-text">
+              <div class="available-upgrades-item-text-title">Add {{ addon.name }}</div>
+              <div class="available-upgrades-item-text-price">${{ addon.price.totalAfterTax }}</div>
+            </div>
+            <div class="available-upgrades-item-button" ng-click="openAddonDetailDialog($event, addon, false)">Add to stay</div>
+          </div>
+          <div class="available-upgrades-view-all-button">View all add ons</div>
         </div>
       </div>
 
