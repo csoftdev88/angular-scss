@@ -76,6 +76,23 @@
                   _view_policies_
                 </a>
               </span>
+
+              <div class="ReservationsNextStay-social" ng-click="$event.stopPropagation();">
+                <div class="ReservationsNextStay-social-apple-wallet"></div>
+                <div class="ReservationsNextStay-social-print" ng-click="printPage();">
+                  <i class="simple-printer"></i>
+                  <span>Print Info</span>
+                </div>
+                <div class="ReservationsNextStay-social-share share" ng-if="config.confirmationPageSharing.socialSharing">
+                    _share_via_:
+                    <a ng-if="shareConfig.facebook" href="" title="Share on Facebook" target="_blank" class="icon-fb" fb-like="facebookShare.url"></a>
+                    <a ng-if="shareConfig.twitter" href="" ng-href="https://twitter.com/intent/tweet?source={{shareURL}}&text={{shareURL}}&via={{shareConfig.twitterUsername}}"
+                      title="Tweet" target="_blank" class="icon-twitter"></a>
+                    <a ng-if="shareConfig.googleplus" href="" ng-href="https://plus.google.com/share?url={{shareURL}}" title="Share on Google+"
+                      target="_blank" class="icon-gplus"></a>
+                    <a ng-if="shareConfig.mail" href="" ng-href="mailto:?body={{shareURL}}" title="Email" target="_blank" class="icon-email"></a>
+                </div>
+              </div>
             </div>
 
           </div>

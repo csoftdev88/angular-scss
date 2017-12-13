@@ -13,11 +13,11 @@
   angular
     .module('mobiusApp.directives.lbe.questionnaire', ['mobiusApp.services.polls'])
     .directive('questionnaire', ['Settings', '$log', 'polls', 'userObject', 'DynamicMessages', 'stateService',
-                                 'propertyService', 'rewardsService', '$controller', '_', 'reservationService', 'propertyService',
+                                 'propertyService', '$location', 'rewardsService', '$controller', '_', 'reservationService', 'propertyService',
                                  'apiService', '$q', 'user', 'userMessagesService', '$rootScope', 'modalService',
                                  'infinitiEcommerceService', 'preloaderFactory', '$window', Questionnaire]);
 
-  function Questionnaire(Settings, $log, pollsService, userObject, DynamicMessages, stateService, propertyService, rewardsService,
+  function Questionnaire(Settings, $log, pollsService, userObject, DynamicMessages, stateService, propertyService, $location, rewardsService,
                          $controller, _, reservations, property, apiService, $q, user, userMessagesService, $rootScope,
                          modalService, infinitiEcommerceService, preloaderFactory, $window) {
     return {
@@ -35,7 +35,6 @@
         scope.poll = {
           choiceId: 0
         };
-
         // Get all the polls available then display the first with options in the directive
         var selectPoll = function () {
           return pollsService.getAll()
@@ -87,8 +86,8 @@
             reservations.getReservationAddOns(scope.nextStay.reservationCode, null)
           ]).then(function(addons) {
             // Available addons should only contain those which not in reservationAddons
-            var availableAddons = addons[0];
-            var reservationAddons = addons[1];
+            var availableAddons = addons[1];
+            var reservationAddons = addons[0];
 
             scope.nextStay.availableAddons = [];
             _.each(availableAddons, function(addon) {
