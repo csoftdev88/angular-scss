@@ -59,6 +59,7 @@
             id="registerFname"
             name="registerFname"
             ng-model="registerData.firstName"
+            ng-blur="remapGermanCharacters(registerData, 'firstName')"
             required
             ng-class="{'ng-submitted': form.$submitted && form.registerFname.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
@@ -71,6 +72,7 @@
             id="registerLname"
             name="registerLname"
             ng-model="registerData.lastName"
+            ng-blur="remapGermanCharacters(registerData, 'lastName')"
             required
             ng-class="{'ng-submitted': form.$submitted && form.registerLname.$error.required}"
             ng-pattern="$root.generalValidationPattern"/>
