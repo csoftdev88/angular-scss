@@ -63,6 +63,7 @@ angular.module('mobius.controllers.register', [])
         user.clearStoredUser();
 		    apiService.post(apiService.getFullURL('customers.register'), registerData).then(function(response){
 		      userObject.id = response.id;
+          user.storeUserId(userObject.id);
 		      user.loadProfile();
 		      $state.go('home');
 		    }, function(err){
