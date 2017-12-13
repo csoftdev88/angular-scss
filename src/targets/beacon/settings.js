@@ -657,11 +657,11 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'hotelBookingBar': true,
         'hotelHeader': false,
         'hotelDatesSelected': false,
-        'hotelServices': false,
         'hotelInfo': true,
         'hotelRooms': false,
         'hotelRoomsCompare': true,
         'hotelOffers': true,
+        'hotelServices': true,
         'hotelLocation': true,
         'hotelReadMoreMobile': false
       },

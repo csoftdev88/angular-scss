@@ -33,10 +33,6 @@ main.hotel-detail {
     }
   }
 
-  .hotel-detail__location {
-    margin-top: 65px;
-  }
-
   .hotel-overview {
     // Trick to burst out of parent bounds for the background colour to work as designed
     margin-left: calc(~'50% - 50vw');
@@ -164,13 +160,12 @@ main.hotel-detail {
       float: initial !important;
       width: 192px !important;
       height: 60px !important;
-      border: solid 2.4px @c-primary !important;
       text-transform: uppercase !important;
-      color: @c-primary !important;
       box-sizing: border-box;
-      background: transparent !important;
+      background: #000 !important;
       margin-left: calc(~'50% - 96px');
       margin-top: 60px;
+      border-radius: 50px;
     }
 
     list-item {
@@ -194,35 +189,8 @@ main.hotel-detail {
       room-products {
 
         .button {
-          box-shadow: none;
-          background: @c-secondary;
-          background: #e34e3f;
-          text-transform: uppercase;
-          height: 50px;
-          width: 120px;
-          color: #fff;
-          font-family: @ff-primary;
-          font-size: 16px;
-          line-height: 17px;
-          font-weight: bold;
-          padding: 5px 15px;
-          text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
-          border: 1px solid #d24335;
-          border-radius: 4px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          &:hover {
-            box-shadow: none;
-            background: darken(#e34e3f, 10%);
-          }
-          transition: background 200ms;
-
-          &.white-button {
-            color: #d93731;
-            background-color: #fff;
-          }
+          background-color: #000;
+          min-width: 150px;
         }
 
         .view-more-rates {
@@ -374,4 +342,25 @@ main.hotel-detail {
 
 .HotelContactInfo {
   margin-top: 50px;
+}
+.hotel-location-container {
+  margin-left: calc(~'-50vw + 50%');
+  width: 100vw;
+}
+.hotel-detail__services {
+  margin-top: 70px;
+  padding: 50px 0;
+  width: 100vw;
+  box-sizing: border-box;
+  margin-left: calc(~'50% - 50vw');
+  background-color: #fff;
+
+  .viewport-mobile & {
+    margin-top: 20px;
+  }
+}
+.hotel-info-hero-slider {
+  hero-slider .slider-content .hero-slide .promotion-text-container {
+    display: none;
+  }
 }
