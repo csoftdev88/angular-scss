@@ -403,8 +403,7 @@ module.exports = function (grunt) {
           baseDir: '<%= config.cache_bust_dir %>',
           assets: [
             '**/*.{js,css}',
-            '<%= config.images %>',
-            '<%= config.fonts %>'
+            '<%= config.images %>'
           ]
         },
         files: [{
@@ -431,6 +430,7 @@ module.exports = function (grunt) {
   //Prebuild
   grunt.registerTask('bust', [
     'copy:pre-cachebust',
+    'pre-cachebust-cleanup',
     'cacheBust:production',
     'post-cachebust-cleanup',
     'copy:post-cachebust'
@@ -506,11 +506,14 @@ module.exports = function (grunt) {
     'copy:fontsawesome'
   ]);
 
-  grunt.registerTask('post-cachebust-cleanup', 'Deletes the build/images dir as it is obsolete after cacheBusting', function () {
+  grunt.registerTask('post-cachebust-cleanup', 'Deletes the build/images dir as it is obsolete after cacheBusting and cleans up the cache bust dir', function () {
     grunt.file.delete('build/images');
-    grunt.file.delete('compile');
+    grunt.file.delete(buildConfig.config.cache_bust_dir);
   });
 
+  grunt.registerTask('pre-cachebust-cleanup', 'Deletes the fonts dir to exclude from cache busting', function () {
+    grunt.file.delete(buildConfig.config.cache_bust_dir + '/targets/' + target + '/font');
+  });
   grunt.registerTask('sleep', 'Keep grunt running', function () {
     this.async();
   });
