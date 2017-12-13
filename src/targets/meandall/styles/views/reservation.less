@@ -18,6 +18,24 @@ main.reservation-page {
     margin-bottom:0 !important;
     padding-top: 0 !important;
   }
+
+  @media only screen and @tablet-portrait-min {
+    reservation-widget {
+      .input-left,
+      .input-right,
+      // Ensure the longer german titles fit in small the input
+      .input-center {
+        &.small {
+          width: 28%;
+        }
+        &.medium {
+          width: 36%;
+        }
+      }
+    }
+  }
+
+
   reservation-widget {
     box-shadow: none;
 
@@ -461,6 +479,7 @@ main.reservation-page {
     table tr td {
       font-weight: 400;
       font-family: @ff-bold;
+      word-break: break-all;
     }
     .nav-tabs li {
       line-height:1.4em;
