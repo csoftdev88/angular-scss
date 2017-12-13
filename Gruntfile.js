@@ -508,7 +508,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('post-cachebust-cleanup', 'Deletes the build/images dir as it is obsolete after cacheBusting and cleans up the cache bust dir', function () {
     grunt.file.delete('build/images');
-    grunt.file.delete(buildConfig.config.cache_bust_dir);
   });
 
   grunt.registerTask('pre-cachebust-cleanup', 'Deletes the fonts dir to exclude from cache busting', function () {
