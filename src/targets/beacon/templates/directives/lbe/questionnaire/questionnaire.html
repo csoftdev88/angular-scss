@@ -156,7 +156,11 @@
                         </h3>
                       </div>
 
-                      <div class="available-upgrades" ng-if="nextStay.availableAddons.length > 0">
+                      <div
+                        class="available-upgrades"
+                        ng-if="nextStay.availableAddons.length > 0"
+                        ng-class="{'expanded-view': nextStay.expandedView}">
+
                         <div class="available-upgrades-title">Enchance your stay</div>
                         <div class="available-upgrades-item" ng-repeat="addon in nextStay.availableAddons">
                           <img ng-src="{{addon.image.uri}}" alt="{{ addon.image.uri }}" class="available-upgrades-item-image">
@@ -166,7 +170,13 @@
                           </div>
                           <div class="available-upgrades-item-button" ng-click="openAddonDetailDialog($event, addon, false)">Add to stay</div>
                         </div>
-                        <div class="available-upgrades-view-all-button">View all add ons</div>
+                        <div
+                          ng-if="!nextStay.expandedView"
+                          class="available-upgrades-view-all-button"
+                          ng-click="nextStay.expandedView = true;">
+
+                          View all add ons
+                        </div>
                       </div>
                     </div>
 

@@ -88,6 +88,10 @@
         width: 100%;
         float: none;
       }
+
+      .carousel .reservation-summary .room-types .reservation-details-container .ReservationsNextStay-social {
+        display: none !important;
+      }
     }
 
     .ReservationsNextStay__title, .ReservationsFutureStay__title {
@@ -184,7 +188,7 @@
 
           check-in-date {
             position: absolute;
-            bottom: 10px;
+            bottom: 80px;
             right: 0;
             border: 1px solid #826837;
             clear: right;
@@ -214,6 +218,41 @@
             }
           }
 
+          .ReservationsNextStay-social {
+            display: flex !important;
+            margin-top: 20px;
+            .ReservationsNextStay-social-apple-wallet {
+              background-image: url('@{img-prefix}/add-to-apple-wallet-logo.png');
+              cursor: pointer;
+              height: 50px;
+              width: 160px;
+              background-size: cover;
+              margin-right: 10px;
+            }
+
+            .ReservationsNextStay-social-print {
+              height: 50px;
+              line-height: 50px;
+              padding: 0 10px;
+              width: 140px;
+              background-color: black;
+              color: white;
+              border-radius: 10px;
+
+              span {
+                font-size: 16px;
+                padding-left: 10px;
+              }
+            }
+
+            .ReservationsNextStay-social-share {
+              flex-grow: 1;
+              text-align: right;
+              line-height: 50px;
+              font-size: 12px;
+              color: #545454;
+            }
+          }
         }
 
         .data {
@@ -349,6 +388,12 @@
   padding: 0;
 
   .available-upgrades {
+
+    &.expanded-view {
+      .available-upgrades-item {
+        display: flex !important;
+      }
+    }
     .available-upgrades-title {
       color: #000000;
       font-size: 20px;
@@ -361,9 +406,13 @@
     .available-upgrades-item {
       background-color: #EEEDEA;
       height: 80px;
-      display: flex;
+      display: none;
       margin: 30px 30px;
       margin-right: 0px;
+
+      &:nth-child(-n+3) {
+        display: flex;
+      }
 
       .available-upgrades-item-image {
         width: 110px;

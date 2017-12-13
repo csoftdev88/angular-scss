@@ -77,7 +77,7 @@
                 </a>
               </span>
 
-              <div class="ReservationsNextStay-social" ng-click="$event.stopPropagation();">
+              <div class="ReservationsNextStay-social" ng-click="$event.stopPropagation();" ng-if="!isMobile()">
                 <div class="ReservationsNextStay-social-apple-wallet"></div>
                 <div class="ReservationsNextStay-social-print" ng-click="printPage();">
                   <i class="simple-printer"></i>

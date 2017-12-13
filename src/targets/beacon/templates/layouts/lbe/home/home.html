@@ -1,6 +1,6 @@
 <div class="About__hero">
 
-  <div class="register_space">
+  <div class="register_space" ng-class="{'logged-in': auth.isLoggedIn()}">
     <main
       class="grid-wrapper header-hero-content"
       ng-class="{'mobile': isMobile}"

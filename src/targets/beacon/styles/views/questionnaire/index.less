@@ -39,6 +39,7 @@ questionnaire {
         padding: 0;
 
         .available-upgrades {
+
           .available-upgrades-title {
             color: #000000;
             font-size: 20px;
@@ -51,9 +52,13 @@ questionnaire {
           .available-upgrades-item {
             background-color: #EEEDEA;
             height: 80px;
-            display: flex;
+            display: none;
             margin: 30px 30px;
             margin-right: 0px;
+
+            &:nth-child(-n+3) {
+              display: flex;
+            }
 
             .available-upgrades-item-image {
               width: 110px;
@@ -94,6 +99,12 @@ questionnaire {
               margin-right: 20px;
               padding-top: 16px;
               cursor: pointer;
+            }
+          }
+
+          &.expanded-view {
+            .available-upgrades-item {
+              display: flex !important;
             }
           }
 

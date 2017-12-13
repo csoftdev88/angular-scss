@@ -22,6 +22,16 @@
     width: 100%;
     min-height: 610px;
 
+    &.logged-in {
+      hero-slider {
+        .promotion-text-container {
+          &.desktop{
+            display: none !important;
+          }
+        }
+      }
+    }
+
     hero-slider {
       height: 675px;
       .slider-controls {

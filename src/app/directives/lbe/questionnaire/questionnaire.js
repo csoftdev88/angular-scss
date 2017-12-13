@@ -86,8 +86,8 @@
             reservations.getReservationAddOns(scope.nextStay.reservationCode, null)
           ]).then(function(addons) {
             // Available addons should only contain those which not in reservationAddons
-            var availableAddons = addons[1];
-            var reservationAddons = addons[0];
+            var availableAddons = addons[0];
+            var reservationAddons = addons[1];
 
             scope.nextStay.availableAddons = [];
             _.each(availableAddons, function(addon) {

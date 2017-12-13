@@ -249,7 +249,10 @@
           ng-if="reservationAddons.length">
           <div class="hotel-details-title">Your Add On’s</div>
 
-          <div class="available-upgrades" ng-if="reservationAddons.length > 0">
+          <div
+            class="available-upgrades"
+            ng-if="reservationAddons.length > 0"
+            ng-class="{'expanded-view': reservation.expandedView}">
             <div class="available-upgrades-item" ng-repeat="addon in reservationAddons">
               <img ng-src="{{addon.image.uri}}" alt="{{ addon.image.uri }}" class="available-upgrades-item-image">
               <div class="available-upgrades-item-text">
@@ -261,6 +264,13 @@
                 </div>
               </div>
               <div class="available-upgrades-item-checkmark"><i class="fa fa-check" aria-hidden="true"></i></div>
+            </div>
+            <div
+              ng-if="!reservation.expandedView"
+              class="available-upgrades-view-all-button"
+              ng-click="reservation.expandedView = true;">
+
+              View all add ons
             </div>
           </div>
 
@@ -308,6 +318,23 @@
               2130 Broadway
               New York, NY 10023</td></tr>
         </table>
+
+        <div class="ReservationsNextStay-social" ng-click="$event.stopPropagation();">
+            <div class="ReservationsNextStay-social-apple-wallet"></div>
+            <div class="ReservationsNextStay-social-print" ng-click="printPage();">
+              <i class="simple-printer"></i>
+              <span>Print Info</span>
+            </div>
+            <div class="ReservationsNextStay-social-share share" ng-if="config.confirmationPageSharing.socialSharing">
+                _share_via_:
+                <a ng-if="shareConfig.facebook" href="" title="Share on Facebook" target="_blank" class="icon-fb" fb-like="facebookShare.url"></a>
+                <a ng-if="shareConfig.twitter" href="" ng-href="https://twitter.com/intent/tweet?source={{shareURL}}&text={{shareURL}}&via={{shareConfig.twitterUsername}}"
+                  title="Tweet" target="_blank" class="icon-twitter"></a>
+                <a ng-if="shareConfig.googleplus" href="" ng-href="https://plus.google.com/share?url={{shareURL}}" title="Share on Google+"
+                  target="_blank" class="icon-gplus"></a>
+                <a ng-if="shareConfig.mail" href="" ng-href="mailto:?body={{shareURL}}" title="Email" target="_blank" class="icon-email"></a>
+            </div>
+          </div>
       </section>
 
       <article
