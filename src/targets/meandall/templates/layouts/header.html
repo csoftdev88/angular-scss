@@ -435,7 +435,7 @@
 
       <div class="form-wrapper">
 
-        <form name="loginForm" class="login-form" novalidate>
+        <form name="loginForm" class="login-form" novalidate ng-submit="doLogin(loginForm, loginData)">
           <fieldset>
             <form-element>
               <label for="loginEmail">_email_label_</label>
@@ -460,6 +460,8 @@
                 ng-class="{'ng-submitted': loginForm.$submitted && loginForm.loginPassword.$error.required}"
                 ng-pattern="$root.generalValidationPattern"/>
             </form-element>
+            <!-- hidden submit input allows ng-submit to work as expected -->
+            <input type="submit" ng-show="false"/>
 
           </fieldset>
 
