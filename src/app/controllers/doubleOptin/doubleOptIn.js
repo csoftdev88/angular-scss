@@ -6,7 +6,7 @@
     .module('mobius.controllers.doubleOptin', [])
     .controller('DoubleOptinCtrl', DoubleOptinCtrl);
 
-  function DoubleOptinCtrl ($scope, $state, $stateParams, apiService, user) {
+  function DoubleOptinCtrl ($scope, $state, $stateParams, $timeout, apiService, user) {
 
     $scope.success = false;
     $scope.preloader.visible = true;
@@ -20,13 +20,17 @@
       .then(function () {
         $scope.success = true;
         $scope.preloader.visible = false;
-        user.authPromise.then(function (logged) {
-          if (logged) {
+        user.authPromise.then(function (loggedIn) {
+          if (loggedIn) {
             var userData = user.getUser();
             userData.doubleOptInConfirmed = true;
-          } else {
-            $scope.auth.login();
           }
+          $timeout(function () {
+            $state.go('home');
+            if (!loggedIn) {
+              $scope.auth.login();
+            }
+          }, 2000);
         });
       }, function () {
         $scope.success = false;
