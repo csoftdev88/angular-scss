@@ -75,7 +75,6 @@
               'adults': '_adults_'
             })">
     </select>
-    <form-label>_number_of_adults_</form-label>
   </form-element>
 
   <!-- NUMBER OF CHILDREN -->
@@ -91,7 +90,6 @@
               'children': '_children_'
             })">
     </select>
-    <form-label>_number_of_children_</form-label>
   </form-element>
 
   <!-- ENTER YOUR CODE -->
@@ -141,7 +139,6 @@
               disable-search="true"
               chosen ng-options="option.title for option in guestsOptions.adults">
       </select>
-      <form-label>_number_of_adults_</form-label>
     </form-element>
 
     <form-element class="persons">
@@ -151,7 +148,6 @@
               disable-search="true"
               chosen ng-options="option.title for option in guestsOptions.children">
       </select>
-      <form-label>_number_of_children_</form-label>
     </form-element>
 
     <button-text ng-if="$index > 1" role="button" tabindex="0" ng-click="removeRoom($index)" aria-label="Remove Room">_remove_room_</button-text>
