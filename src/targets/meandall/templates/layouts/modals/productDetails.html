@@ -74,7 +74,7 @@
         <accordion close-others="false">
           <accordion-group is-open="true">
             <ul>
-              <li ng-repeat="policy in data.product.policies">
+              <li ng-repeat="policy in data.product.policies  | filter:{type: '!pet'} | filter:{type: '!extraGuest'}">
                 <h3>{{getPolicyTitle(policy.type)}}:</h3>
                 <p ng-bind-html="sanitize(policy.description)"></p>
               </li>
@@ -183,7 +183,7 @@
           <accordion close-others="false">
             <accordion-group is-open="true">
               <ul>
-                <li ng-repeat="policy in data.product.policies">
+                <li ng-repeat="policy in data.product.policies | filter:{type: '!pet'} | filter:{type: '!extraGuest'}">
                   <h3>{{getPolicyTitle(policy.type)}}:</h3>
                   <p ng-bind-html="sanitize(policy.description)"></p>
                 </li>
