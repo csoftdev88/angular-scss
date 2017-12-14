@@ -1036,8 +1036,7 @@ reservation-confirmation {
     background: transparent;
     padding: 25px 0;
     .viewport-mobile & {
-      height: 40px;
-      line-height: 40px;
+      padding: 10px 0;
     }
 
     h1 {
@@ -1046,7 +1045,10 @@ reservation-confirmation {
       font-size: 35px;
       line-height: 35px;
       .viewport-mobile & {
-        font-size: 15px;
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        line-height: 22px;
       }
     }
   }
@@ -1079,6 +1081,9 @@ reservation-confirmation {
       .section-padding {
         margin: 0 25px 25px 25px;
         background-color: #fff;
+        .viewport-mobile & {
+          margin: 0;
+        }
       }
       section {
         padding: 25px;
@@ -1215,6 +1220,10 @@ reservation-confirmation {
         text-transform: uppercase;
         margin-top: 20px;
         margin-bottom: 20px;
+        .viewport-mobile & {
+          margin-top: 10px;
+          margin-bottom: 10px;
+        }
       }
 
       .reservation-contacts {
@@ -1259,7 +1268,10 @@ reservation-confirmation {
         }
 
         .ReservationsNextStay-social {
-          display: flex !important;
+          display: flex;
+          .viewport-mobile & {
+            flex-wrap: wrap;
+          }
           margin-top: 20px;
           .ReservationsNextStay-social-apple-wallet {
             background-image: url('@{img-prefix}/add-to-apple-wallet-logo.png');
@@ -1268,6 +1280,11 @@ reservation-confirmation {
             width: 160px;
             background-size: cover;
             margin-right: 10px;
+            .viewport-mobile & {
+              height: 40px;
+              width: 129px;
+              background-size: contain;
+            }
           }
 
           .ReservationsNextStay-social-print {
@@ -1279,6 +1296,12 @@ reservation-confirmation {
             color: white;
             border-radius: 10px;
 
+            .viewport-mobile & {
+              width: 115px;
+              height: 40px;
+              line-height: 40px;
+            }
+
             i {
               font-size: 20px;
             }
@@ -1287,10 +1310,14 @@ reservation-confirmation {
               font-size: 16px;
               padding-left: 10px;
             }
+
           }
 
           .ReservationsNextStay-social-share {
             flex-grow: 1;
+            .viewport-mobile & {
+              flex-grow: 0;
+            }
             text-align: right;
             line-height: 50px;
             font-size: 12px;
@@ -1314,6 +1341,12 @@ reservation-confirmation {
       i {
         margin-right: 5px;
       }
+      .viewport-mobile & {
+        top: 100px;
+        font-size: 15px;
+        padding: 5px;
+        left: 6px;
+      }
     }
 
     .members-only-rate-rectangle {
@@ -1324,6 +1357,10 @@ reservation-confirmation {
       height: 0;
       border-top: 15px solid #523F1D;
       border-left: 15px solid transparent;
+      .viewport-mobile & {
+        top: 131px;
+        left: 6px;
+      }
     }
 
     .reservation-summary-container {
@@ -1397,6 +1434,9 @@ reservation-confirmation {
         .charges-data {
           padding-top: 15px;
           margin-top: 15px;
+          .viewport-mobile & {
+            padding: 0 20px;
+          }
         }
         .room-types {
           position: relative;
@@ -1406,6 +1446,10 @@ reservation-confirmation {
             font-size: 22px;
             margin-top: 20px;
             line-height: 26px;
+            .viewport-mobile & {
+              font-size: 20px;
+              line-height: 24px;
+            }
           }
 
           .booking-arrival-checkout {
@@ -1414,6 +1458,12 @@ reservation-confirmation {
             font-size: 22px;
             line-height: 19px;
             margin: 10px 0;
+            .viewport-mobile & {
+                color: #6E562A;
+                font-family: @ff-secondary;
+                font-size: 16px;
+                line-height: 20px;
+            }
           }
 
           .booking-confirmation-number {
@@ -1453,10 +1503,18 @@ reservation-confirmation {
               font-weight: bold;
               line-height: 47px;
             }
+            .viewport-mobile & {
+              top: 10px;
+              right: 10px;
+              bottom: unset;
+            }
           }
 
           .reservation-details-container {
             padding-right: 90px;
+            .viewport-mobile & {
+              padding: 0 20px;
+            }
           }
         }
       }
@@ -1495,6 +1553,11 @@ reservation-confirmation {
       margin-right: 0px;
       display: none;
 
+      .viewport-mobile & {
+        height: 60px;
+        margin: 10px 0;
+      }
+
       &:nth-child(-n+3) {
         display: flex;
       }
@@ -1502,6 +1565,11 @@ reservation-confirmation {
       .available-upgrades-item-image {
         width: 110px;
         height: 80px;
+
+        .viewport-mobile & {
+          width: 80px;
+          height: 60px;
+        }
       }
 
       .available-upgrades-item-text {
@@ -1514,6 +1582,11 @@ reservation-confirmation {
           line-height: 31px;
           font-family: @ff-secondary;
           margin-top: 10px;
+          .viewport-mobile & {
+            font-size: 16px;
+            line-height: 16px;
+            margin-top: 5px;
+          }
         }
 
         .available-upgrades-item-text-price {
@@ -1522,6 +1595,10 @@ reservation-confirmation {
           font-weight: 500;
           line-height: 28px;
           height: 28px;
+          .viewport-mobile & {
+            font-size: 14px;
+            line-height: 14px;
+          }
         }
       }
       .available-upgrades-item-button {
@@ -1553,6 +1630,18 @@ reservation-confirmation {
           color: #76B336;
           font-size: 30px;
           line-height: 50px;
+        }
+
+        .viewport-mobile & {
+          border-radius: 35px;
+          width: 35px;
+          height: 35px;
+          margin-top: 12px;
+          margin-right: 15px;
+          i {
+            font-size: 20px;
+            line-height: 35px;
+          }
         }
       }
     }
@@ -1617,6 +1706,9 @@ dialog.confirmation-dialog .ui-dialog {
   position: relative;
   height: 320px;
   padding: 20px;
+  .viewport-mobile & {
+    margin-bottom: 20px;
+  }
 }
 
 .ReservationDetailDiscover__whitebox {
@@ -1631,6 +1723,10 @@ dialog.confirmation-dialog .ui-dialog {
       font-family: @ff-secondary;
       font-size: 46px;
       line-height: 60px;
+      .viewport-mobile & {
+        font-size: 26px;
+        line-height: 26px;
+      }
     }
     h2 {
       margin-top: 20px;
@@ -1638,6 +1734,11 @@ dialog.confirmation-dialog .ui-dialog {
       font-size: 25px;
       line-height: 36px;
       width: 73%;
+      .viewport-mobile & {
+        width: unset;
+        font-size: 18px;
+        line-height: 18px;
+      }
     }
 }
 
@@ -1658,10 +1759,9 @@ dialog.confirmation-dialog .ui-dialog {
   letter-spacing: 2px;
   transition: all 200ms;
 
-
-  &:hover {
-    color: #000;
-    background-color: #fff;
+  .viewport-mobile & {
+    width: unset;
+    font-size: 12px;
   }
 
 }

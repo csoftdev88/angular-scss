@@ -38,8 +38,14 @@
     padding: 0 30px 0 35px;
 
     .viewport-mobile & {
-      height: 40px;
-      line-height: 40px;
+      font-family: @ff-primary;
+      height: 50px;
+      line-height: 50px;
+      padding: 0 20px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
     h1 {
@@ -47,10 +53,6 @@
       padding-left: 30px;
       font-family: @ff-primary;
       border-radius: 6px 6px 0 0;
-      .viewport-mobile & {
-        padding-left: 10px;
-        font-size: 15px;
-      }
     }
   }
 
@@ -61,7 +63,7 @@
     border-radius: 6px;
 
     .viewport-mobile & {
-      margin-top: 70px;
+      margin-top: 0px;
     }
 
     h1 {
@@ -106,7 +108,7 @@
       .viewport-mobile & {
         height: 24px;
         line-height: 24px;
-        padding: 10px;
+        padding: 15px 20px;
       }
       h1 {
         letter-spacing: 1px;
@@ -133,7 +135,7 @@
         margin: 0 0 30px 30px;
         padding: 25px;
         .viewport-mobile & {
-          margin: 0 10px 10px 10px;
+          margin: 0 20px 10px 20px;
           padding: 10px;
         }
         .room-types {
@@ -163,6 +165,11 @@
             font-family: @ff-secondary;
             font-size: 21px;
             line-height: 26px;
+            .viewport-mobile & {
+              font-family: @ff-primary;
+              font-size: 20px;
+              line-height: 24px;
+            }
           }
 
           .booking-arrival-checkout {
@@ -172,7 +179,11 @@
             line-height: 19px;
             margin: 10px 0;
             .viewport-mobile & {
-              font-size: 14px;
+              color: #6E562A;
+              font-family: @ff-secondary;
+              font-size: 16px;
+              line-height: 20px;
+              margin-bottom: 0;
             }
           }
 
@@ -215,6 +226,12 @@
               font-size: 14px;
               font-weight: bold;
               line-height: 47px;
+            }
+
+            .viewport-mobile & {
+              bottom: unset;
+              right: 10px;
+              top: 40px;
             }
           }
 
@@ -509,6 +526,13 @@
     i {
       margin-right: 5px;
     }
+
+    .viewport-mobile & {
+      top: 80px;
+      font-size: 15px;
+      padding: 5px;
+      left: 6px;
+    }
   }
 
   .members-only-rate-rectangle {
@@ -519,6 +543,10 @@
     height: 0;
     border-top: 15px solid #523F1D;
     border-left: 15px solid transparent;
+    .viewport-mobile & {
+      top: 112px;
+      left: 6px;
+    }
   }
   .reservation-summary {
     .room-types {
@@ -563,6 +591,12 @@
     check-in-date {
       display: none;
     }
+  }
+}
+reservation-finished .tables figure img, //override global style
+reservation-hotel-details .tables figure img {
+  .viewport-mobile & {
+    margin-bottom: 10px;
   }
 }
 
