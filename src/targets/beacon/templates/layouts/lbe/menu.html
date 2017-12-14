@@ -64,17 +64,17 @@
     <div class="equal-split-box">
 
       <div  ui-sref="reservations"
-            ng-if="!auth.isLoggedIn() && isMobile"
+            ng-if="auth.isLoggedIn() && isMobile"
             class="Menu__items--subitem">
           _menu_reservations_
       </div>
       <div  ui-sref="prestige"
-            ng-if="!auth.isLoggedIn() && isMobile"
+            ng-if="auth.isLoggedIn() && isMobile"
             class="Menu__items--subitem">
             _menu_loyalty_
       </div>
       <div  ui-sref="profile"
-            ng-if="!auth.isLoggedIn() && isMobile"
+            ng-if="auth.isLoggedIn() && isMobile"
             class="Menu__items--subitem">
             _menu_profile_
       </div>
