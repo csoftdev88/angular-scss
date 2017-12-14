@@ -153,18 +153,6 @@
               ng-class="{'ng-submitted': form.$submitted && form.profileTel.$error.required}"
               ng-pattern="$root.generalValidationPattern"/>
           </form-element>
-
-          <form-element ng-if="profileContacts">
-            <label for="profileContact">_prefered_contact_label_</label>
-            <select name="profileContact" required chosen
-                    disable-search="true"
-                    class="ProfileForm__input"
-                    placeholder-text-single="_prefered_contact_label_"
-                    ng-model="profileData.preferredContactMethodCode"
-                    ng-options="contact.id as contact.name for contact in profileContacts">
-            </select>
-          </form-element>
-
         </fieldset>
 
       </div>

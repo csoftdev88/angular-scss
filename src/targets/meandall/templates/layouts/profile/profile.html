@@ -310,20 +310,6 @@
                 ng-pattern="$root.generalValidationPattern"
                 ng-disabled="editingDisabled"/>
             </form-element>
-
-            <form-element ng-if="profileContacts">
-              <label for="profileContact">_prefered_contact_label_</label>
-              <select name="profileContact"
-                      chosen
-                      disable-search="true"
-                      ng-required="config.formRequirments.contactMethod"
-                      placeholder-text-single="_prefered_contact_label_"
-                      ng-model="profileData.preferredContactMethodCode"
-                      ng-options="contact.id as contact.name for contact in profileContacts"
-                      ng-disabled="editingDisabled">
-              </select>
-            </form-element>
-
           </fieldset>
         </div>
       </div>

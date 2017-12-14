@@ -158,16 +158,6 @@
           </select>
         </form-element>
 
-        <form-element ng-if="registerContacts">
-          <label class="mandatory-field" for="registerContact">_prefered_contact_label_</label>
-          <select name="registerContact" required chosen
-                  disable-search="true"
-                  placeholder-text-single="_prefered_contact_label_"
-                  ng-model="registerData.preferredContactMethodCode"
-                  ng-options="contact.id as contact.name for contact in registerContacts">
-          </select>
-        </form-element>
-
         <form-element>
           <label
             for="termsAndConditions"
