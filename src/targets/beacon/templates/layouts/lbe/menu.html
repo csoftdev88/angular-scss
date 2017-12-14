@@ -27,7 +27,7 @@
   <div class="Menu__sublinks-wrapper" dropdown-group>
     <div class="equal-split-box">
       <div ui-sref="reservations"
-           ng-if="auth.isLoggedIn()"
+           ng-if="auth.isLoggedIn() && !isMobile"
            class="Menu__items--subitem">
         _menu_reservations_
       </div>
@@ -35,12 +35,12 @@
 
     <div class="equal-split-box">
       <div ui-sref="prestige"
-           ng-if="auth.isLoggedIn()"
+           ng-if="auth.isLoggedIn() && !isMobile"
            class="Menu__items--subitem">
         _menu_loyalty_
       </div>
       <div ui-sref="profile"
-           ng-if="auth.isLoggedIn()"
+           ng-if="auth.isLoggedIn() && !isMobile"
            class="Menu__items--subitem">
         _menu_profile_
       </div>
@@ -62,9 +62,26 @@
     </div>
 
     <div class="equal-split-box">
+
+      <div  ui-sref="reservations"
+            ng-if="!auth.isLoggedIn() && isMobile"
+            class="Menu__items--subitem">
+          _menu_reservations_
+      </div>
+      <div  ui-sref="prestige"
+            ng-if="!auth.isLoggedIn() && isMobile"
+            class="Menu__items--subitem">
+            _menu_loyalty_
+      </div>
+      <div  ui-sref="profile"
+            ng-if="!auth.isLoggedIn() && isMobile"
+            class="Menu__items--subitem">
+            _menu_profile_
+      </div>
+
       <div ng-click="toggleMenuOverlay(); auth.register(); retentionClick();"
            ng-if="!auth.isLoggedIn()"
-           class="Menu__items--subitem">
+           class="Menu__items--subitem register">
         _register_
       </div>
       <div ng-click="auth.logout(); retentionClick();"
@@ -74,7 +91,7 @@
       </div>
       <div ng-click="toggleMenuOverlay(); auth.login(); retentionClick();"
            ng-if="!auth.isLoggedIn()"
-           class="Menu__items--subitem">
+           class="Menu__items--subitem login">
         _login_
       </div>
     </div>

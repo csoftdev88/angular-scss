@@ -1,6 +1,10 @@
 
 .viewport-mobile {
 
+  .Menu {
+    background-color: #232121;
+  }
+
   .Menu__close-icon-positionner {
     height: @mobile-header-height;
   }
@@ -8,11 +12,27 @@
   .Menu__items {
     width: calc(~'100% - 30px');
     top: -@mobile-header-height;
+    display: flex;
+    flex-wrap: wrap;
+    flex: 0;
+    margin-top: 88px;
   }
 
   .Menu__items--item {
     font-size: 18px;
     line-height: 39px;
+    width: 100%;
+    font-size: 26px;
+    text-transform: uppercase;
+  }
+
+  .Menu__items--divider {
+    width: 200px;
+    height: 1px;
+    border-right: 0px;
+    border-bottom: 1px solid #6E6E6E;
+    margin-left: 0px;
+    margin-top: 40px;
   }
 
   .Menu__items--highlight {
@@ -21,12 +41,61 @@
   }
 
   .Menu__sublinks-wrapper {
+    width: 100%;
     .equal-split-box {
       flex-flow: column nowrap;
+      width: 100%;
     }
     .Menu__items--subitem {
       line-height: 50px;
-      font-size: 14px;
+      font-size: 17px;
+      color: #6E6E6E;
+
+      &[currency-list] {
+        width: 100%;
+        height: 50px;
+        border-bottom: 1px solid #6E6E6E;
+
+        i {
+          color: #6E562A;
+          font-size: 26px;
+        }
+
+        .CurrencyList__current {
+          color: #FFFFFF;
+          font-size: 20px;
+        }
+      }
+
+      &.register {
+        width: 225px;
+        border-radius: 100px;
+        background-color: #1DB53A;
+        color: white;
+        font-size: 14px;
+        height: 48px;
+        line-height: 48px;
+        padding-top: 0px;
+        margin-top: 27px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      &.login {
+        width: 225px;
+        border-radius: 100px;
+        background-color: white;
+        color: #000000;
+        font-size: 14px;
+        height: 48px;
+        line-height: 48px;
+        padding-top: 0px;
+        margin-top: 27px;
+        margin-left: auto;
+        margin-right: auto;
+
+      }
+
       &:hover {
         background-color: transparent;
       }
@@ -34,6 +103,10 @@
     .CurrencyList {
       flex-flow: row wrap;
       justify-content: center;
+
+      &:after {
+        color: #826837;
+      }
     }
     .change-currency {
       display: none;
