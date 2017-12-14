@@ -1127,17 +1127,17 @@ angular.module('mobiusApp.config', [])
           'display': true
         },
         'tel2': {
-          'display': true
+          'display': false
         },
         'comments':{
           'display': true,
           'position': 'top'
         },
         'email2':{
-          'display': true
+          'display': false
         },
         'email3':{
-          'display': true
+          'display': false
         }
       },
       'vouchers' : {
