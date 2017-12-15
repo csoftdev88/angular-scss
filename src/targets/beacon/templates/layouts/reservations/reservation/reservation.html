@@ -33,6 +33,8 @@
       <hr />
     </section>
 
+    <h1 class="page-title ta-center">_reservation_summary_</h1>
+
     <nav grid-row id="reservation-steps"
          class="reservation-steps"
          ng-if="bookingConfig.bookingStepsNav.display && !bookingConfig.bookingStepsNav.showInReservationWidget">
@@ -141,24 +143,16 @@
           <div
             ng-if="!isMobile"
             class="links">
-            <a ng-click="goBack()" class="back">< _back_</a>
-            <span ng-show="!noBreakdown" class="breakdown" ng-if="formatting !== 'suppressRate'">
-              <span class="separator" ng-if="bookingConfig.policiesLinkBottom"> | </span>
-              <a href ng-click="breakdown.extended = !breakdown.extended">
-                <span ng-if="!breakdown.extended">_view_price_breakdown_</span>
-                <span ng-if="breakdown.extended">_hide_price_breakdown_</span>
-              </a>
-            </span>
             <a ng-href="{{bookingConfig.termsAndConditionsLink}}"
                ng-click="readPolicies()"
                class="policies"
                target="_blank">
-              _policies_
+              _view_policies_
             </a>
           </div>
         </div>
 
-        <div class="ReservationDetails__container" grid="7">
+        <div class="ReservationDetails__container" grid="9">
           <nav grid-row id="reservation-steps" class="reservation-steps" ng-if="bookingConfig.bookingStepsNav.display && bookingConfig.bookingStepsNav.showInReservationWidget">
             <h4 class="label">_your_booking_progress_</h4>
             <ul>
@@ -173,14 +167,16 @@
           </ui-view>
           <!--Excelsior customers always opt-in, using ng-init trick here to avoid changing the global controller-->
           <div ng-if="bookingConfig.detailsBeforeForm && !isMobile" class="form-bottom" ng-init="additionalInfo.optedIn = true">
+            <div ng-if="state.includes('reservation.details')"">
+              <label for="agreement2" class="input-checkbox">
+                <input type="checkbox" id="agreement2" ng-model="additionalInfo.optedIn"/>
+                _receive_offer_label_
+              </label>
+            </div>
             <div ng-if="bookingConfig.detailsBeforeForm && state.includes('reservation.confirmation')">
               <label for="agreement1" class="input-checkbox">
                 <input type="checkbox" id="agreement1" ng-model="additionalInfo.agree"/>
                 _i_agree_to_ <a ng-href="{{bookingConfig.termsAndConditionsLink}}" class="terms-link" ng-click="readPolicies()" target="_blank">_terms_conditions_</a>
-              </label>
-              <label ng-if="!bookingConfig.hideNewsletterCheckboxIfSelected || (bookingConfig.hideNewsletterCheckboxIfSelected && !additionalInfo.optedIn)" for="agreement2" class="input-checkbox">
-                <input type="checkbox" id="agreement2" ng-model="additionalInfo.optedIn"/>
-                _receive_offer_label_
               </label>
             </div>
             <button-submit
@@ -199,6 +195,12 @@
 
         <div grid="5" ng-if="isMobile">
           <div class="links">
+            <label ng-if="!bookingConfig.hideNewsletterCheckboxIfSelected || (bookingConfig.hideNewsletterCheckboxIfSelected && !additionalInfo.optedIn)"
+                   for="agreement2-mobile"
+                   class="input-checkbox">
+              <input type="checkbox" id="agreement2-mobile" ng-model="additionalInfo.optedIn"/>
+              _receive_offer_label_
+            </label>
             <div ng-if="bookingConfig.detailsBeforeForm && state.includes('reservation.confirmation')">
               <label for="agreement1-mobile" class="input-checkbox">
                 <input type="checkbox" id="agreement1-mobile" ng-model="additionalInfo.agree"/>
@@ -209,12 +211,6 @@
                    target="_blank">
                   _terms_conditions_
                 </a>
-              </label>
-              <label ng-if="!bookingConfig.hideNewsletterCheckboxIfSelected || (bookingConfig.hideNewsletterCheckboxIfSelected && !additionalInfo.optedIn)"
-                     for="agreement2-mobile"
-                     class="input-checkbox">
-                <input type="checkbox" id="agreement2-mobile" ng-model="additionalInfo.optedIn"/>
-                _receive_offer_label_
               </label>
             </div>
           </div>

@@ -2,11 +2,12 @@
 //// Reservation steps navigation ////
 //////////////////////////////////////
 
+@arrow-size-desktop: 30px;
+@arrow-size-mobile: 20px;
+
 .reservation-steps {
   display: inline-block;
-  width: 100%;
   margin: 0;
-  background-color: #423B33;
   text-align: center;
 
   .label {
@@ -15,65 +16,94 @@
 
   ul {
     position: relative;
-    height: 153px;
     float: none;
     display: inline-block;
-    padding: 33px 86px;
-    width: initial;
     box-sizing: border-box;
 
     .viewport-mobile & {
-      padding: 20px;
-      width: 100% !important;
-      height: initial;
+      padding: 20px 0;
+      width: 100%;
     }
+
 
     li {
       display: inline;
-      float: left;
-      width: auto;
-      margin-left: 70px;
       box-sizing: border-box;
+      margin: 0;
+      width: 25%;
 
-      .step-number {
-        position: relative;
-        top: -2px;
-      }
-
-      &:first-child{
+      .viewport-mobile & {
+        width: 25%;
         margin-left: 0;
       }
 
+      .step-number {
+        display: none;
+      }
+
       .button {
-        position: relative;
-        padding: 0;
-        min-width: 0;
-        border-radius: 50%;
-        line-height: 50px;
-        height: 50px;
-        width: 50px;
-        border: 2px solid #D8D8D8;
-        box-shadow: none;
-        text-shadow: none;
-        text-align: center;
-        background: transparent;
-        font-weight: 400;
-        color: #D8D8D8;
+        height: 60px;
+        line-height: 60px;
+        border: 0 none;
+        color: #fff;
+        background-color: #826837;
         font-size: 15px;
+        font-weight: bold;
+        padding-left: @arrow-size-desktop !important;
 
         .viewport-mobile & {
-          line-height: 40px;
+          line-height: 35px;
           height: 40px;
-          width: 40px;
+          padding-left: @arrow-size-mobile !important;
+          padding-right: 0 !important;
         }
 
-        &:active,
-        &:focus,
-        &:hover {
-          background: transparent;
+        &:before {
+          content: '';
+          position: absolute;
+          // Make :before element to be above parent element
+          z-index: 1;
+          right: -31px;
+          top: 0;
+          width: 0;
+          height: 0;
+          transform: none;
+          border-top: @arrow-size-desktop solid transparent;
+          border-bottom: @arrow-size-desktop solid transparent;
+          border-left: @arrow-size-desktop solid #fff;
+
+          .viewport-mobile & {
+            right: -21px;
+            border-top: @arrow-size-mobile solid transparent;
+            border-bottom: @arrow-size-mobile solid transparent;
+            border-left: @arrow-size-mobile solid #fff;
+          }
         }
 
-        &:after,
+        &:after {
+          content: '';
+          position: absolute;
+          // Overwrite global style and display :after element
+          display: block !important;
+          // Make :after element to be above parent and before element
+          z-index: 2;
+          right: -30px;
+          top: 1px;
+          width: 0;
+          height: 0;
+          transform: none;
+          border-top: @arrow-size-desktop solid transparent;
+          border-bottom: @arrow-size-desktop solid transparent;
+          border-left: @arrow-size-desktop solid #826837;
+
+          .viewport-mobile & {
+            right: -20px;
+            border-top: @arrow-size-mobile solid transparent;
+            border-bottom: @arrow-size-mobile solid transparent;
+            border-left: @arrow-size-mobile solid #826837;
+          }
+        }
+
         .dot {
           display: none;
         }
@@ -81,26 +111,33 @@
         &[disabled="disabled"]{
           text-shadow: none;
           padding: 0;
-          background: transparent;
+          background: #fff;
+          color: #000000;
 
-          &:active,
-          &:focus,
-          &:hover {
-            background: transparent;
+          &:after {
+            border-left: @arrow-size-desktop solid #fff;
+
+            .viewport-mobile & {
+              border-left: @arrow-size-mobile solid #fff;
+            }
           }
 
+          &:before {
+            border-left: @arrow-size-desktop solid #EEEDEA;
+
+            .viewport-mobile & {
+              border-left: @arrow-size-mobile solid #EEEDEA;
+            }
+          }
         }
 
         .text {
-          color: #ffffff;
-          font-size: 13px;
-          line-height: 15px;
-          display: block;
-          width: 82px;
-          margin-left: -17px;
-          padding-top: 5px;
-          font-family: @ff-primary;
-          font-weight: normal;
+          text-transform: uppercase;
+          .viewport-mobile & {
+            display: inline;
+            font-size: 8px;
+            text-transform: none;
+          }
         }
       }
 
@@ -108,77 +145,46 @@
         .button{
           cursor: default;
           padding: 0;
-          filter: none;
           color: #fff;
-          background: @c-primary;
-          border: 2px solid @c-primary;
-          .text {
-            color: @c-primary;
-          }
-        }
+          background: #000;
 
-      }
-    }
-  }
+          &:before {
+            border-left: @arrow-size-desktop solid #fff;
 
-  .viewport-tablet &,
-  .viewport-mobile &{
-    ul{
-      width: auto;
-      li{
-        width: auto;
-        margin-left: 70px;
-        &:first-child{
-          margin-left: 0;
-        }
-        .button{
-          padding: 0;
-          &[disabled="disabled"]{
-            padding: 0;
+            .viewport-mobile & {
+              border-left: @arrow-size-mobile solid #fff;
+            }
           }
-        }
-        &.current{
-          .button{
-            padding: 0;
-          }
-        }
-      }
-    }
-  }
 
-  .viewport-mobile &{
-    margin: 0 0 10px -20px;
-    padding-left: 40px;
-    ul{
-      li{
-        margin-left: 44px;
+          &:after {
+            border-left: @arrow-size-desktop solid #000;
 
-        &:first-child{
-          margin-left: -5px;
-        }
-        .button{
-          padding-right: 0;
-          &[disabled="disabled"]{
-            padding: 0;
-          }
-          .text{
-            display: block;
-            font-size: 11px;
-            line-height: 16px;
-            width: 80px;
-            margin-left: -20px;
-          }
-        }
-        &.current{
-          .button{
-            padding: 0;
-            .text{
-
+            .viewport-mobile & {
+              border-left: @arrow-size-mobile solid #000;
             }
           }
         }
+
+      }
+
+      &:first-child {
+        .button {
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+        }
+      }
+
+      &:last-child {
+        .button {
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+
+          &:before,
+          &:after {
+            border: 0 none;
+          }
+        }
       }
     }
-
   }
 }
