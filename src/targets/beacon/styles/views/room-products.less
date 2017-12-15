@@ -58,6 +58,7 @@ room-products {
       .member-only-border {
         padding: 10px;
         display: flex;
+        width: 100%;
       }
 
       &.is-member-only {
@@ -387,11 +388,26 @@ room-products {
           color: #826837;
           font-family: @ff-primary;
           font-style: normal;
-          font-size: 15px;
+          font-size: 18px;
           font-weight: 300;
           outline: none;
+          display: inline-block;
+          margin-bottom: 15px;
+          font-weight: bold;
           .link {
             text-decoration: underline;
+          }
+        }
+        .view-details-button {
+          font-size: 14px;
+          letter-spacing: 1px;
+          font-weight: 800;
+          color: #000000;
+          text-transform: uppercase;
+          line-height: 14px;
+
+          .viewport-mobile & {
+            display: none;
           }
         }
 				.info.mobile {}

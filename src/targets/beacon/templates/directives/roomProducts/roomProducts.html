@@ -16,7 +16,8 @@
                  'slashthrough': product.price.formatting === 'slashThrough' &&
                                  settings.showSlashThrough === true &&
                                  product.price.totalBaseAfterPricingRules < product.price.originalPrice}"
-      ng-repeat="product in products | limitTo: getRatesLimit()">
+      ng-repeat="product in products | limitTo: getRatesLimit()"
+      ng-init="product.showMoreDetails = false">
 
     <div class="member-only-border">
 
@@ -40,7 +41,7 @@
           <div class="ProductInfo">
             <div ng-if="product.memberOnly"
                  class="member-only-badge">
-              <i class="star-icon fa fa-star"></i>
+              <i class="star-icon fa fa-star-o"></i>
               <span class="emphasize">
                 Members Only Rate
               </span>
@@ -76,8 +77,18 @@
             </a>
 
             <p class="full-description"
+               ng-show="product.showMoreDetails"
                ng-if="settings.showDescription"
                ng-bind-html="sanitize(product.descriptionShort || product.description)">
+            </p>
+
+            <p
+              class="view-details-button"
+              ng-click="product.showMoreDetails = !product.showMoreDetails">
+              <span ng-if="!product.showMoreDetails">_view_details_</span>
+              <span ng-if="product.showMoreDetails">_hide_details_</span>
+              <br>
+              <span>&#95;&#95;&#95;</span>
             </p>
 
             <inclusions ng-if="settings.showInclusions && product.inclusions"
