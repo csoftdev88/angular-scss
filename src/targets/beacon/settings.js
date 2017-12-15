@@ -161,7 +161,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
   'API': {
     'defaultThrottleTimeout': 30,
     'cacheFlushInterval': 60,
-    'chainCode': 'EXC',
+    'chainCode': 'BEACON',
     'trackUsage': true,
     'languageInPath': true,
     'baseURL': {
@@ -447,7 +447,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'inactivityPeriodInterval':1000, //The interval at which inactivity checks are made (Milliseconds)
       'displayExitModal':false
     },
-    'chains': ['EXC'],
+    'chains': ['BEACON'],
     'user': {
       'userPreferencesCookieExpiryDays': 30
     },
@@ -456,7 +456,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     },
     'generics': {
       'singleProperty': true,
-      'defaultPropertyCode': 'EXC',
+      'defaultPropertyCode': 'BEACON',
       'facebookAppId': '',
       'disableMainHeaderStyle': true,
       'applyChainClassToBody': true,
