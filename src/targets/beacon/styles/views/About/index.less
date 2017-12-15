@@ -22,10 +22,20 @@
     width: 100%;
     min-height: 610px;
 
+    &.logged-in {
+      hero-slider {
+        .promotion-text-container {
+          &.desktop{
+            display: none !important;
+          }
+        }
+      }
+    }
+
     hero-slider {
       height: 675px;
       .slider-controls {
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: rgba(0, 0, 0, 0.4);
         .slide-button {
           display: none;
         }

@@ -19,10 +19,281 @@ questionnaire {
 
   & > article {
     background: #fff;
-    border: 1px solid #464646;
-    border-radius: 6px;
+    border: 0;
     overflow: hidden;
     box-shadow: @questionnaire-box-shadow;
+
+    &.questionnaire__reservation {
+      background: none;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+
+      .clear_fix {
+        height: 1px;
+        display: block;
+        clear: both;
+      }
+
+      .reservation-overview {
+        padding: 0;
+
+        .available-upgrades {
+
+          .available-upgrades-title {
+            color: #000000;
+            font-size: 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-left: 30px;
+            margin-bottom: 20px;
+          }
+
+          .available-upgrades-item {
+            background-color: #EEEDEA;
+            height: 80px;
+            display: none;
+            margin: 30px 30px;
+            margin-right: 0px;
+
+            &:nth-child(-n+3) {
+              display: flex;
+            }
+
+            .available-upgrades-item-image {
+              width: 110px;
+              height: 80px;
+            }
+
+            .available-upgrades-item-text {
+              flex-grow: 1;
+              padding-left: 34px;
+
+              .available-upgrades-item-text-title {
+                font-size: 21px;
+                color: #000000;
+                line-height: 31px;
+                font-family: @ff-secondary;
+                margin-top: 10px;
+              }
+
+              .available-upgrades-item-text-price {
+                color: #6E562A;
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 28px;
+                height: 28px;
+              }
+            }
+            .available-upgrades-item-button {
+              text-transform: uppercase;
+              border-radius: 100px;
+              background-color: #826837;
+              color: white;
+              font-size: 14px;
+              width: 154px;
+              font-weight: 800;
+              text-align: center;
+              height: 35px;
+              margin-top: 16px;
+              margin-right: 20px;
+              padding-top: 16px;
+              cursor: pointer;
+            }
+          }
+
+          &.expanded-view {
+            .available-upgrades-item {
+              display: flex !important;
+            }
+          }
+
+          .available-upgrades-view-all-button {
+            width: 235px;
+            height: 48px;
+            line-height: 48px;
+            border: 1px solid #826837;
+            border-radius: 100px;
+            background-color: #FFFFFF;
+            font-size: 14px;
+            color: #6E562A;
+            font-weight: 800;
+            text-align: center;
+            text-transform: capitalize;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .ReservationsNextStay__title h1, .ReservationsFutureStay__title h1{
+        color: #6E562A;
+        font-family: @ff-primary;
+        font-size: 28px;
+        line-height: 36px;
+        font-weight: bold;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .ReservationsFutureStay__title {
+        .carousel {
+          .carousel-indicators {
+            li {
+              border: 2px solid black;
+              background-color: black;
+              height: 14px;
+              width: 14px;
+
+              &.active {
+                background-color: white;
+              }
+            }
+          }
+        }
+      }
+
+      .future-stays .carousel .reservation-summary .room-types .reservation-details-container .ReservationsNextStay-social {
+        display: none !important;
+      }
+
+      .ReservationsNextStay__container {
+        position: relative;
+
+        .members-only-rate {
+          position: absolute;
+          top: 130px;
+          left: 15px;
+          background-color: #826837;
+          color: white;
+          font-size: 16px;
+          padding: 10px;
+          z-index: 1;
+        }
+
+        .members-only-rate-rectangle {
+          position: absolute;
+          top: 172px;
+          left: 15px;
+          width: 0;
+          height: 0;
+          border-top: 15px solid #523F1D;
+          border-left: 15px solid transparent;
+        }
+        .reservation-summary {
+          .room-types {
+            check-in-date {
+              display: block;
+            }
+          }
+        }
+      }
+
+      .reservation-summary {
+        background-color: #EEEDEA;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+
+        .room-types {
+
+          .reservation-details-container {
+            padding-right: 0;
+
+            .ReservationsNextStay-social {
+              display: flex !important;
+              margin-top: 20px;
+              .viewport-mobile & {
+                flex-wrap: wrap;
+              }
+              .ReservationsNextStay-social-apple-wallet {
+                background-image: url('@{img-prefix}/add-to-apple-wallet-logo.png');
+                cursor: pointer;
+                height: 50px;
+                width: 160px;
+                background-size: cover;
+                margin-right: 10px;
+                .viewport-mobile & {
+                  height: 40px;
+                  width: 129px;
+                  background-size: contain;
+                }
+              }
+
+              .ReservationsNextStay-social-print {
+                height: 50px;
+                line-height: 50px;
+                padding: 0 10px;
+                width: 140px;
+                background-color: black;
+                color: white;
+                border-radius: 10px;
+
+                .viewport-mobile & {
+                  width: 115px;
+                  height: 40px;
+                  line-height: 40px;
+                }
+
+                span {
+                  font-size: 16px;
+                  padding-left: 10px;
+                }
+              }
+
+              .ReservationsNextStay-social-share {
+                flex-grow: 1;
+                text-align: right;
+                line-height: 50px;
+                font-size: 12px;
+                color: #545454;
+
+                .viewport-mobile & {
+                  flex-grow: 0;
+                }
+              }
+            }
+          }
+
+          h1 {
+            display: none;
+          }
+
+          figure {
+            img {
+              border-radius: 0;
+              height: 310px;
+            }
+          }
+
+          h3 {
+            color: black;
+          }
+
+          .booking-arrival-checkout {
+            font-size: 21px;
+            color: #6E562A;
+          }
+
+          check-in-date {
+            border: 1px solid #826837;
+            border-radius: 0;
+            display: none;
+            bottom: 80px;
+
+            .title {
+              background-color: #826837;
+            }
+
+            .date {
+              color: #826837;
+            }
+          }
+        }
+      }
+    }
   }
 
   // Typography
@@ -51,12 +322,13 @@ questionnaire {
   }
 
   .questionnaire__title {
+    font-family: @ff-secondary;
     text-transform: capitalize;
-    box-shadow: inset 0 0 10px 0 rgba(0,0,0,0.15);
-    background: linear-gradient(0deg, #4A4A4A 0%, #676767 100%);
+    background-color: black;
     color: #fff;
     height: 77px;
     line-height: 77px;
+    font-size: 22px;
   }
 
   .questionnaire__footer {
@@ -76,11 +348,11 @@ questionnaire {
     align-items: baseline;
     margin-top: @hgap;
     .name {
-      color: @c-alt-grey;
+      color: #6E562A;
       font-family: @ff-primary;
-      font-size: 24px;
-      line-height: 24px;
-      font-weight: 300;
+      font-size: 28px;
+      line-height: 36px;
+      font-weight: bold;
       overflow: hidden;
       text-overflow: ellipsis;
     }
@@ -92,13 +364,11 @@ questionnaire {
       padding-left: 10px;
 
       cursor: pointer;
-      border-radius: 4px;
-      background-color: #F7F7F7;
-
       font-family: @ff-primary;
-      color: #575757;
-      font-size: 15px;
+      color: #9B9B9B;
+      font-size: 13px;
       font-weight: 300;
+      text-decoration: underline;
 
       display: flex;
       flex-flow: row nowrap;
@@ -106,10 +376,7 @@ questionnaire {
       justify-content: space-between;
 
       i.fa {
-        color: #575757;
-        font-size: 20px;
-        font-weight: 600;
-        margin: 0 10px;
+        display: none;
       }
     }
   }
@@ -127,6 +394,7 @@ questionnaire {
       flex-flow: row nowrap;
       align-items: center;
       margin-right: 20px;
+      display: none;
     }
     .tier-text {
       margin: 0 10px;
@@ -163,14 +431,14 @@ questionnaire {
       justify-content: flex-end;
 
       .points {
-        color: #4A4A4A;
+        color: black;
         font-size: 46px;
         line-height: 46px;
         font-weight: bold;
       }
       .points-label {
         margin-left: 5px;
-        color: #9B9B9B;
+        color: black;
         font-size: 20px;
         line-height: 46px;
         font-weight: 300;
@@ -180,24 +448,22 @@ questionnaire {
 
   .book-now-to-save {
     height: inherit;
-    border-radius: 6px;
     background-image:
-      linear-gradient( rgba(36,36,36,0.7), rgba(36,36,36,0.7) ),
+      linear-gradient( rgba(130,104,55,0.84), rgba(130,104,55,0.84) ),
       url('@{img-prefix}/carousel/slider-3.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
-    margin: 0 30px 30px 30px;
+    margin: 0;
     .book-now-to-save-title {
       position: absolute;
       height: 48px;
       width: inherit;
-      border-radius: 0 6px 6px 0;
-      background-color: #B98747;
+      background-color: black;
       top: 30px;
       color: #FFFFFF;
-      font-family: @c-primary;
-      font-size: 22px;
+      font-family: @ff-primary;
+      font-size: 19px;
       line-height: 48px;
       margin-left: -35px;
       padding: 0 35px;
@@ -261,24 +527,25 @@ questionnaire {
 
   .questionnaire__subtitle {
     text-transform: uppercase;
-    color: @c-primary;
-    font-family: @ff-serif;
-    font-size: 22px;
+    color: #6E562A;
+    font-family: @ff-secondary;
+    font-size: 28px;
     font-weight: bold;
     margin-top: @hgap;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
 
   .questionnaire__reward {
-    color: #9B9B9B;
-    font-size: 18px;
+    font-family: @ff-primary;
+    color: #545454;
+    font-size: 16px;
     font-weight: 300;
     margin-bottom: @hgap;
   }
 
   .questionnaire__question {
-    color: @c-alt-grey;
-    font-size: 18px;
+    color: black;
+    font-size: 22px;
     margin-bottom: @hgap;
   }
 
@@ -358,11 +625,11 @@ questionnaire {
       display: flex;
       flex-flow: row nowrap;
       align-items: center;
-      color: @c-primary;
-      font-family: @ff-primary;
-      font-size: 18px;
+      color: #6E562A;
+      font-family: @ff-secondary;
+      font-size: 21px;
       font-weight: normal;
-      line-height: @hgap;
+      line-height: 26px;
       margin-bottom: 12px;
       cursor: pointer;
 
@@ -384,7 +651,7 @@ questionnaire {
             height: 12px;
             width: 12px;
             border-radius: 50%;
-            background-color: @c-primary;
+            background-color: #6E562A;
             display: none;
           }
         }
@@ -447,15 +714,14 @@ questionnaire {
   .questionnaire__submit {
     font-family: @ff-primary;
     text-align: center;
-    color: @c-primary;
+    color: white;
     height: 50px;
     line-height: 50px;
     width: 210px;
     font-size: 14px;
-    font-weight: bold;
-    border: 1px solid @c-button-border;
-    border-radius: 4px;
-    background-color: #fff;
+    font-weight: 800;
+    border-radius: 100px;
+    background-color: #826837;
     text-transform: uppercase;
     text-shadow: none;
   }

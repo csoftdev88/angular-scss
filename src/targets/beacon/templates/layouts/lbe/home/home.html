@@ -1,19 +1,23 @@
 <div class="About__hero">
 
-  <div class="register_space">
+  <div class="register_space" ng-class="{'logged-in': auth.isLoggedIn()}">
     <main
       class="grid-wrapper header-hero-content"
       ng-class="{'mobile': isMobile}"
       ng-if="auth.isLoggedIn()">
-      <h3 class="welcome-text">_welcome_main_page_text_, {{ userObject.firstName }}</h3>
-      <div
-        class="About__signup" ng-if="auth.isLoggedIn() && offers.length">
-        <h1>_about_offer_title_</h1>
-        <p>{{ offers[0].title }}</p>
-        <button ng-click="gotoOffer(offers[0])">_view_more_</button>
+
+      <div class="HeroBenefits__whitebox">
+        <div class="HeroBenefits__subtitle">
+          <h1>_welcome_main_page_text_, {{ userObject.firstName }}</h1>
+          <h2>Members Recieve Exclusive Offers & Rewards</h2>
+          <div class="HeroBenefits__signup">
+            <button class="HeroBenefits__button signup" ng-click="gotoOffer(offers[0])">View Your Offers</button>
+          </div>
+        </div>
       </div>
     </main>
     <hero-slider
+      ng-if="!auth.isLoggedIn()"
       class="main-slider main-page-slider"
       ng-class="{'user-not-authenticated': !auth.isLoggedIn()}"
       content="heroContent">
@@ -216,9 +220,6 @@
       scrollwheel="true"
       center="[40.7806869,-73.9810357]"
       styles="[{featureType:'poi.business',elementType:'all',stylers:[{visibility:'off'}]}]">
-      <marker
-        position="[40.7806869,-73.9810357]"
-        title="HotelBeacon"></marker>
         <custom-marker position="[40.7806869,-73.9810357]">
         <div class="custom-marker"><img src="/static/images/v4/Logo White@2x.png" alt="Mobius logo"><i class="arrow-down"></i></div>
       </custom-marker>

@@ -285,7 +285,7 @@
     "add_to_passbook": "Add to Passbook",
     "booking_reference": "Web Booking Code",
     "booked": "Booked",
-    "reservation_enhance_title": "Enhance Your Stay With",
+    "reservation_enhance_title": "Enhance Your Stay with Add On’s",
     "add_reservation_enhance_to_booking_desc": "Add to your booking with one click",
     "reservation_enhance_summary_title": "Your Enhancements",
     "reservation_list_empty": "Your reservation list is empty",
@@ -637,7 +637,7 @@
     "iphone_app_download_link": "https://itunes.apple.com/gb/app/st-giles-hotels/id1150040196?mt=8",
     "android_app_download_link": "https://play.google.com/store/apps/details?id=com.digitalworkroom.stgiles&hl=en",
     "about_offer_subtitle": "Summer in the city",
-    "questionnaire_title": "Questionnaire",
+    "questionnaire_title": "Tailor Your Stay",
     "questionnaire_subtitle": "What would you prefer?",
     "questionnaire_completed": "Thank you very much, you have answered all the questions",
     "submit_answer": "Submit Answer",
@@ -651,7 +651,7 @@
     "sign_up_home": "<span class=\"emphasis\">Sign Up</span> for <span class=\"emphasis\">FREE</span>",
     "members_only_incentive": "Not a member? <span class=\"emphasis underline\">Register</span> today for <span class=\"emphasis\">Free!</span>",
     "with_this_booking": "with this booking",
-    "welcome_main_page_text": "Welcome to the Excelsior hotel",
+    "welcome_main_page_text": "Welcome to the Hotel Beacon",
     "video_tour": "Video Tour",
     "room_upgraded": "Room Upgraded from"
   }

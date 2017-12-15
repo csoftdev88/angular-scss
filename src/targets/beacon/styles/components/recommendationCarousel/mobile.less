@@ -4,7 +4,8 @@
 
   .Home__testimonial {
     .recommendation-carousel {
-      height: 380px;
+      min-height: 380px;
+      height: auto;
 
       .recommendation__rating {
         margin-left: 20px;
@@ -49,19 +50,42 @@
     margin-bottom: 0;
     height: 270px;
 
+    .recommendation-logo {
+      display: block;
+      margin-left: 20px;
+      margin-bottom: 20px;
+      img {
+        width: 80px;
+      }
+    }
+    .recommendation-content {
+      display: block;
+      width: 100%;
+      margin-left: 0;
+    }
+
+    .recommendation-content-wrapper {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 1212px;
+      margin: 0 auto;
+    }
+
     .recommendation__text {
       text-align: center;
       font-size: 19px;
       line-height: 24px;
       min-height: 85px;
-      width: 300px;
-      padding: 0 10px;
+      width: auto;
+      padding: 0;
+      padding-right: 10px;
     }
 
     .recommendation__avatar {
       margin: 35px auto 0 auto;
       width: 250px;
-      padding-left: 10px;
+      padding-left: 0;
       .recommendation__name-prefix {
         height: 56px;
         width: 56px;
@@ -83,10 +107,15 @@
       }
     }
 
-    .carousel-indicators {
-      bottom: -60px;
-      width: 100%;
-      margin-left: 0px;
+    .carousel-control {
+      top: 0;
+      bottom: unset;
+      left: unset;
+      right: 100px;
+      &.right {
+        left: unset;
+        right: 50px;
+      }
     }
 
   }
