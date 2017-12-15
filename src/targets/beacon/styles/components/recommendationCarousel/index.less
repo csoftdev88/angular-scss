@@ -19,11 +19,24 @@
     z-index: -1;
   }
 
+  .recommendation-logo {
+    display: inline-block;
+    vertical-align: top;
+    img {
+      width: 180px;
+    }
+  }
+  .recommendation-content {
+    display: inline-block;
+    max-width: 990px;
+    margin-left: 30px;
+  }
+
   .recommendation-content-wrapper {
     display: block;
     width: auto;
     height: auto;
-    max-width: 980px;
+    max-width: 1212px;
     margin: 0 auto;
   }
 
@@ -110,8 +123,7 @@
     display: inline-block;
     position: absolute;
     top: auto;
-    left: auto;
-    right: 150px;
+    left: calc(~'(50% + 1212px / 2) - 65px');
     bottom: 50px;
     text-align: right;
     // We can't have this transition here because WebKit cancels the carousel
@@ -121,8 +133,8 @@
     &.left {
     }
     &.right {
-      left: auto;
-      right: 0;
+      left: calc(~'(50% + 1212px / 2) - 15px');
+      right: unset;
     }
 
     // Hover/focus state
@@ -137,35 +149,20 @@
     .icon-next,
     .glyphicon-chevron-left,
     .glyphicon-chevron-right {
+      background: url('@{img-prefix}/lbe/Circle Arrow - Left(white)@2x.png') center no-repeat;
+      background-size: 30px 30px;
       position: absolute;
-      right: 100px;
       z-index: 5;
       display: inline-block;
       font-size: 30px;
       width: 30px;
       height: 30px;
-      background-color: #fff;
-      border-radius: 30px;
-      color: #6E562A;
       cursor: pointer;
-    }
-    .icon-prev,
-    .glyphicon-chevron-left {
-
-      &:before {
-        content: '\2039';// SINGLE LEFT-POINTING ANGLE QUOTATION MARK (U+2039)
-        margin-right: 10px;
-        font-size: 40px;
-      }
     }
     .icon-next,
     .glyphicon-chevron-right {
-      margin-left: -100px;
-      &:before {
-        content: '\203a';// SINGLE RIGHT-POINTING ANGLE QUOTATION MARK (U+203A)
-        margin-right: 7px;
-        font-size: 40px;
-      }
+      background: url('@{img-prefix}/lbe/Circle Arrow - Right (white)@2x.png') center no-repeat;
+      background-size: 30px 30px;
     }
     .icon-prev,
     .icon-next {

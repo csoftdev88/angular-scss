@@ -190,7 +190,7 @@
               </table>
 
               <a
-                class="primary-link float-right"
+                class="primary-link"
                 href
                 ng-click="breakdown.extended = !breakdown.extended"
                 ng-show="config.reservationDetailPriceBreakdownExtended &&
@@ -222,23 +222,33 @@
         </span>
       </div>
 
-      <!-- Not in design, mistake? -->
-      <!-- <div class="modify-buttons"
-      ng-if="reservation.status !== 'Cancelled'">
-        <button class="button-brown"
+      <div class="view-policies">
+        <a ng-if="config.displayPoliciesInDetails && !isMobile"
+          href
+          ng-click="openPoliciesInfo()">
+        _view_policies_
+        </a>
+      </div>
+
+      <div class="modify-buttons"
+           ng-if="reservation.status !== 'Cancelled'">
+        <div class="booking-date">Booking date: {{reservation.bookingDate | dateTime: 'D MMM YYYY'}}</div>
+        <div class="reservation-code">Reservation Code: <span>{{ reservationCode }}</span></div>
+
+        <button
                 ng-click="reservation.pointValue ? modifyCancelPointsReservation() : modifyCurrentReservation()"
                 ng-class="{disabled: reservation.canModify === false && !reservation.pointValue}"
                 ng-if="reservation.canModify">
-          _modify_
+          modify booking
         </button>
 
-        <button class="button-white"
+        <button
                 ng-click="reservation.pointValue ? modifyCancelPointsReservation() : openCancelReservationDialog()"
                 ng-class="{disabled: reservation.canCancel === false && !reservation.pointValue}"
                 ng-if="reservation.canCancel">
-          _cancel_
+          cancel booking
         </button>
-      </div> -->
+      </div>
 
     </div>
 
@@ -250,9 +260,7 @@
           <div class="hotel-details-title">Your Add On’s</div>
 
           <div
-            class="available-upgrades"
-            ng-if="reservationAddons.length > 0"
-            ng-class="{'expanded-view': reservation.expandedView}">
+            class="available-upgrades">
             <div class="available-upgrades-item" ng-repeat="addon in reservationAddons">
               <img ng-src="{{addon.image.uri}}" alt="{{ addon.image.uri }}" class="available-upgrades-item-image">
               <div class="available-upgrades-item-text">
@@ -265,13 +273,6 @@
               </div>
               <div class="available-upgrades-item-checkmark"><i class="fa fa-check" aria-hidden="true"></i></div>
             </div>
-            <div
-              ng-if="!reservation.expandedView"
-              class="available-upgrades-view-all-button"
-              ng-click="reservation.expandedView = true;">
-
-              View all add ons
-            </div>
           </div>
 
         </section>
@@ -281,7 +282,7 @@
         ng-if="availableAddons.length">
         <div class="hotel-details-title">Enhance Your Stay with Add On’s</div>
 
-        <div class="available-upgrades" ng-if="availableAddons.length > 0">
+        <div class="available-upgrades" ng-class="{'expanded-view': reservation.expandedView}">
           <div class="available-upgrades-item" ng-repeat="addon in availableAddons">
             <img ng-src="{{addon.image.uri}}" alt="{{ addon.image.uri }}" class="available-upgrades-item-image">
             <div class="available-upgrades-item-text">
@@ -294,7 +295,13 @@
             </div>
             <div class="available-upgrades-item-button" ng-click="openAddonDetailDialog($event, addon)">More Info</div>
           </div>
-          <div class="available-upgrades-view-all-button">View all add ons</div>
+          <div
+            ng-if="!reservation.expandedView"
+            class="available-upgrades-view-all-button"
+            ng-click="reservation.expandedView = true;">
+
+            View all add ons
+          </div>
         </div>
 
       </section>

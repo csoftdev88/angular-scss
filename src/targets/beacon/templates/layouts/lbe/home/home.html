@@ -9,14 +9,15 @@
       <div class="HeroBenefits__whitebox">
         <div class="HeroBenefits__subtitle">
           <h1>_welcome_main_page_text_, {{ userObject.firstName }}</h1>
-          <h2>_about_offer_title_</h2>
+          <h2>Members Recieve Exclusive Offers & Rewards</h2>
           <div class="HeroBenefits__signup">
-            <button class="HeroBenefits__button signup" ng-click="gotoOffer(offers[0])">_view_more_</button>
+            <button class="HeroBenefits__button signup" ng-click="gotoOffer(offers[0])">View Your Offers</button>
           </div>
         </div>
       </div>
     </main>
     <hero-slider
+      ng-if="!auth.isLoggedIn()"
       class="main-slider main-page-slider"
       ng-class="{'user-not-authenticated': !auth.isLoggedIn()}"
       content="heroContent">

@@ -196,6 +196,13 @@
     padding-top: 50px;
   }
 }
+
+.register_space.logged-in {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('@{img-prefix}/low-rate.jpg');
+  background-position: center;
+  background-size: cover;
+}
+
 .header-hero-content {
   // Same height as hero slider
   height: 654px;
@@ -208,22 +215,36 @@
   .HeroBenefits__whitebox {
     margin-top: 50px;
 
-    .viewport-mobile & {
-      margin-top: 100px;
-    }
-
-
     .HeroBenefits__subtitle {
-      h1, h2 {
+      h1 {
+        font-family: @ff-secondary;
+        font-size: 66px;
+        line-height: 70px;
         text-align: left;
+      }
+
+      h2 {
+        text-align: left;
+        font-family: @ff-secondary;
+        font-size: 35px;
+        line-height: 60px;
       }
     }
 
     .HeroBenefits__signup {
       text-align: left;
       button {
-        background-color: white;
-        color: black;
+        height: 48px;
+        width: 230px;
+        border-radius: 100px;
+        background-color: #FFFFFF;
+        color: #000000;
+        font-family: @ff-primary;
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        line-height: 17px;
+        text-align: center;
       }
     }
   }
