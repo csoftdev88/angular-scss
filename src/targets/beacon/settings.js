@@ -165,9 +165,9 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     'trackUsage': true,
     'languageInPath': true,
     'baseURL': {
-      'development': '//integration-www-excelsior.mobiusbookingengine.com/api/4.0/',
-      'integration': '//integration-www-excelsior.mobiusbookingengine.com/api/4.0/',
-      'staging': '//integration-www-excelsior.mobiusbookingengine.com/api/4.0/',
+      'development': '//integration-www-beacon.mobiusbookingengine.com/api/4.0/',
+      'integration': '//integration-www-beacon.mobiusbookingengine.com/api/4.0/',
+      'staging': '//integration-www-beacon.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
       'live': 'https://beacon.mobiusbookingengine.com/api/4.0/'
     },
