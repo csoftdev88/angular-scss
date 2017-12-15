@@ -234,6 +234,37 @@ reservation-widget {
   }
 
   .room-data {
+    check-in-date {
+      display: block;
+      float: right;
+      border: 2px solid #826837;
+      clear: right;
+      font-family: @ff-serif;
+      width: 80px;
+      text-align: center;
+      margin: 10px 0 10px 10px;
+
+      .title {
+        background-color: #826837;
+        text-transform: uppercase;
+        height: 30px;
+        color:#fff;
+        font-size: 13px;
+        font-weight: bold;
+        line-height: 30px;
+        display: block;
+      }
+      .date {
+        background-color: #fff;
+        border-radius: 0 0 6px 6px;
+        color: #826837;
+        font-weight: normal;
+        height: 47px;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 47px;
+      }
+    }
     .booking-date {
       color: #6E562A;
       font-size: 21px;
@@ -351,6 +382,7 @@ reservation-widget {
       margin: 0;
       max-height: 117px;
       border: 2px solid #dedede;
+      box-sizing: border-box;
       .chain-sand & {
         background:url('@{img-prefix}/sandman-placeholder-large.jpg') no-repeat;
         background-size: cover;
@@ -380,7 +412,7 @@ reservation-widget {
 
     th {
       font-weight: normal;
-      padding: 0 5px;
+      padding: 0;
       .viewport-mobile & {
         color: #898989;
       }
@@ -614,8 +646,10 @@ reservation-widget {
 }
 
 .mobile-links {
-  text-align: right;
   font-size: 13px;
+  .viewport-mobile &{
+    text-align: right;
+  }
   p {
     margin: 0;
   }

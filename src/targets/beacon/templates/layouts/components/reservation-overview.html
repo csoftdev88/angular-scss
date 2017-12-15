@@ -19,9 +19,16 @@
   </div>
   <div ng-if="!allRooms[0].images[0].uri" class="room-image-placeholder"></div>
 
+  <check-in-date>
+    <span class="title">_check_in_</span>
+    <span class="date">
+       {{ bookingDetails.from | ordinalDate }} {{ bookingDetails.from | date: 'MMM' }}
+    </span>
+  </check-in-date>
+
   <h4 class="header">{{property.nameLong}}</h4>
 
-  <span class="booking-date">{{ bookingDetails.from | ordinalDate }} {{ bookingDetails.from | date: 'MMMM' }} - {{ bookingDetails.to | ordinalDate }} {{ bookingDetails.to | date: 'MMMM' }}</span>
+  <span class="booking-date">{{ bookingDetails.from | ordinalDate }} {{ bookingDetails.from | date: 'MMMM' }} - {{ bookingDetails.to | ordinalDate }} {{ bookingDetails.to | date: 'MMMM yyyy' }}</span>
 
 </section>
 
@@ -164,7 +171,7 @@
       <a ng-href="{{ bookingConfig.termsAndConditionsLink }}"
          ng-click="readPolicies()"
          target="_blank">
-        _policies_
+        _view_policies_
       </a>
     </p>
   </div>
