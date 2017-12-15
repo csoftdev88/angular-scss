@@ -49,6 +49,10 @@
      </div>
   </article>
 
+  <div class="questionnaire__exclusive-offer" ng-if="isMobile && offers.length">
+    <button ng-click="gotoOffer(offers[0])">View your offers</button>
+  </div>
+
   <div class="questionnaire__title streched" ng-if="isMobile">
     <div class="name">{{ name }}</div>
     <div class="points">{{ points }} <span class="points-title">_points_</span></div>
@@ -93,12 +97,6 @@
       </button>
     </div>
   </article>
-
-  <div class="questionnaire__exclusive-offer" ng-if="isMobile && offers.length">
-    <h1>_about_offer_title_</h1>
-    <p>{{ offers[0].title }}</p>
-    <button ng-click="gotoOffer(offers[0])">_view_more_</button>
-  </div>
 
   <article ng-if="nextStay"
            class="questionnaire__next-stay questionnaire__reservation reservation-detail">
