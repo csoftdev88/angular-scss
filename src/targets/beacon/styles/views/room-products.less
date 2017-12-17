@@ -150,6 +150,7 @@ room-products {
                 font-size: 8px;
                 font-weight: bold;
                 margin-right: 5px;
+                display: none;
               }
             }
           }
@@ -183,24 +184,26 @@ room-products {
             border: 1px solid #826837;
             background-color: #826837;
             color: #fff;
-            text-transform: uppercase;
-            padding: 3px 15px 2px 7px;
+            padding: 8px 15px 8px 7px;
             margin-bottom: 5px;
-            font-family: @ff-primary;
-            font-size: 12px;
+            font-family: @ff-secondary;
+            font-size: 21px;
             font-weight: 300;
             .fa {
               margin-top: -3px;
               font-size: 17px;
-            }
-            .emphasize {
-              font-weight: bold;
             }
             > :not(:first-child) {
               margin-left: 6px;
             }
             > span {
               white-space: nowrap;
+            }
+          }
+
+          h4 {
+            .noPointsAwarded {
+              display: none;
             }
           }
 
@@ -250,7 +253,8 @@ room-products {
 			&.is-member-only.is-member-only-disabled {
 				.button {
 					background:#1DB53A;
-					box-shadow: none;
+          box-shadow: none;
+          min-width: 170px;
 				}
 			}
 			&.is-member-only, &.is-member-only-disabled {
@@ -287,8 +291,8 @@ room-products {
           .price-form {
             .value {
               color: #000;
-              font-family: @ff-primary;
-              font-size: 22px;
+              font-family: @ff-secondary;
+              font-size: 30px;
               font-weight: bold;
             }
           }
@@ -298,7 +302,7 @@ room-products {
         pricing-details {
           .price-form:not(.points) {
             .original-price {
-              float: left;
+              float: right;
               color: #000;
               font-size: 15px;
               font-weight: 300;
@@ -315,6 +319,7 @@ room-products {
             margin-top: 60px;
             .value {
               color: #B10004;
+              margin-top: 5px;
             }
           }
         }
@@ -428,7 +433,7 @@ room-products {
         font-family: @ff-primary;
         font-size: 11px;
         line-height: 13px;
-        display: flex;
+        display: none;
         flex-flow: row nowrap;
         justify-content: center;
 
@@ -495,7 +500,7 @@ room-products {
             &.points .value {
               margin-top: 0;
               font-style: normal;
-              color: @c-primary;
+              color: #826837;
               font-family: @ff-primary;
               font-size: 16px;
               font-weight: 300;
@@ -506,6 +511,12 @@ room-products {
             }
             &.points .value {
               font-weight: bold;
+              font-size: 30px;
+              flex: 0 0 100%;
+            }
+
+            .points-unit {
+              margin-left: auto;
             }
 
             .value {
@@ -557,7 +568,7 @@ room-products {
             top: 0;
             margin-right: 5px;
             display: flex;
-            flex-flow: row nowrap;
+            flex-flow: row wrap;
             & > * {
               margin-right: 5px;
             }

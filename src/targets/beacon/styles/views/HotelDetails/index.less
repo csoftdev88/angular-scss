@@ -66,13 +66,61 @@ main.hotel-detail {
         }
       }
     }
-  }
 
-  .gallery-link,
-  .slide-button,
-  .view-map-link,
-  .pages {
-    display: none !important;
+    hero-slider {
+      height: 497px;
+      padding-bottom: 70px;
+
+      .slider-content .hero-slide{
+        height: 497px;
+      }
+
+      .slider-controls {
+        .slide-left {
+          position: absolute;
+          height: 30px;
+          width: 30px;
+          background-size: 30px 30px;
+          opacity: 1;
+          padding: 0;
+          left: 0;
+          top: 540px;
+        }
+        .slide-right {
+          position: absolute;
+          left: 40px;
+          height: 30px;
+          width: 30px;
+          background-size: 30px 30px;
+          opacity: 1;
+          padding: 0;
+          top: 540px;
+        }
+
+        .pages {
+          bottom: -85px;
+          text-align: right;
+
+          span {
+            height: 17px;
+            width: 17px;
+            border-radius: 50%;
+            border: 2px solid black;
+            background-color: white;
+            &:hover {
+              background-color: rgba(255, 255, 255, 0.5);
+              .chain-sign & {
+                background: @c-secondary-sign;
+              }
+            }
+            &.active {
+              background-color: black;
+            }
+          }
+        }
+      }
+
+    }
   }
 
   view-more-images {
@@ -159,7 +207,6 @@ main.hotel-detail {
     .display-all-rooms {
       float: initial !important;
       width: 192px !important;
-      height: 60px !important;
       text-transform: uppercase !important;
       box-sizing: border-box;
       background: #000 !important;
@@ -190,7 +237,7 @@ main.hotel-detail {
 
         .button {
           background-color: #000;
-          min-width: 150px;
+          min-width: 170px;
         }
 
         .view-more-rates {
