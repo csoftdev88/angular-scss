@@ -102,9 +102,6 @@
           class="breakdown main taxes-column"
           ng-if="getBreakdownTotalTaxes(false) > 0">
           <th>_taxes_:</th>
-          <!-- old tax number
-                  <td>{{getBreakdown('totalTax') | i18nCurrency: $root.currencyCode}}</td>
-                  -->
           <td ng-show="allRooms.length">{{getBreakdownTotalTaxes(false) | i18nCurrency: $root.currencyCode}}</td>
         </tr>
 
@@ -179,23 +176,10 @@
           </td>
         </tr>
       </thead>
-      <tbody>
-        <!-- Additional taxes
-                <tr ng-if="getTotal('totalAdditionalTaxes')">
-                  <th>_taxes_:</th>
-                  <td>{{getTotal('totalAfterTax') - getTotal('totalBaseAfterPricingRules') | i18nCurrency: $root.currencyCode}}</td>
-                </tr>
-                -->
-
-        <!-- Additional fees
-                <tr ng-if="getTotal('totalAdditionalFees')">
-                  <th>_fees_:</th>
-                  <td>{{getTotal('totalAdditionalFees') | i18nCurrency: $root.currencyCode}}</td>
-                </tr>
-                -->
-
-      </tbody>
     </table>
+    <span class="breakdown-message">
+      <p>_price_breakdown_message_</p>
+    </span>
   </div>
 
   <div ng-if="!bookingConfig.detailsBeforeForm && state.includes('reservation.confirmation')">

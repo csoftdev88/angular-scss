@@ -89,7 +89,9 @@
             <pricing-info>
               <p ng-if="product.price.formatting !== 'suppressRate'">
                 <span class="original-price" ng-if="product.price.formatting === 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
-                <span class="value">{{getValuePer(product.price.totalBaseAfterPricingRules, true) | i18nCurrency: currencyCode}}</span>
+
+                <span class="value" ng-if="product.displayPropertyPricesTaxInc">{{getValuePer(product.price.totalAfterTaxAfterPricingRules, true) | i18nCurrency: currencyCode}}</span>
+                <span class="value" ng-if="!product.displayPropertyPricesTaxInc">{{getValuePer(product.price.totalBaseAfterPricingRules, true) | i18nCurrency: currencyCode}}</span>
                 <span ng-if="pricePer === PP_NIGHT">_per_night_</span>
                 <span ng-if="pricePer === PP_STAY">_per_stay_</span>
 
@@ -116,7 +118,8 @@
             <p>
               <span ng-if="product.price.formatting !== 'suppressRate'">
                 <span class="original-price" ng-if="product.price.formatting === 'slashThrough' && config.showSlashThrough === true && product.price.totalBaseAfterPricingRules < product.price.originalPrice">{{getValuePer(product.price.originalPrice, true) | i18nCurrency: currencyCode}}</span>
-                <span class="value">{{getValuePer(product.price.totalBaseAfterPricingRules, true) | i18nCurrency: currencyCode}}</span>
+                <span class="value" ng-if="product.displayPropertyPricesTaxInc">{{getValuePer(product.price.totalAfterTaxAfterPricingRules, true) | i18nCurrency: currencyCode}}</span>
+                <span class="value" ng-if="!product.displayPropertyPricesTaxInc">{{getValuePer(product.price.totalBaseAfterPricingRules, true) | i18nCurrency: currencyCode}}</span>
                 <span class="pricing-filter-label" ng-if="pricePer === PP_NIGHT">_per_night_</span><span ng-if="pricePer === PP_STAY">_per_stay_</span>
                 <span ng-if="isUserLoggedIn() && product.price.pointsRequired && (loyaltyProgramEnabled || isLoyaltyEngine) && product.allowPointsBooking">
                 <br />_or_ <span class="value points">{{getValuePer(product.price.pointsRequired, true).toFixed(0)}}</span>              _points_

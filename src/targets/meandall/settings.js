@@ -1040,7 +1040,7 @@ angular.module('mobiusApp.config', [])
       //Is billing state a required field?
       'billingStateRequired': true,
       //price breakdown
-      'priceBreakdownExtended': true,
+      'priceBreakdownExtended': false,
       //display hero slider on booking page
       'displayHeroSlider': false,
       //Display the overview items on single line (adults, children, check-in etc)
