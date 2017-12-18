@@ -20,7 +20,7 @@
     "success_header": "Erfolg",
     "success_message": "Sie haben Ihre E-Mail-Adresse erfolgreich bestätigt.",
     "error_header": "Fehler",
-    "error_message": "There was an error processing your request. Please try again later.",
+    "error_message": "Leider ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
     "hotels": "Ein Hotel finden",
     "hotel": "Hotel",
     "HEADER": "////////////////////////////////////////////////////////////////////////////////////////////////////////////",
