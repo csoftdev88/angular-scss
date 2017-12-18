@@ -1,9 +1,14 @@
 @import "../components/ribbons";
 
 room-products {
-  padding-left: 15px;
+  padding: 20px;
+  background-color: #000;
+  width: 100%;
+
 	.viewport-mobile & {
 		margin-top:0;
+    padding: 0;
+    background-color: #EEEDEA;
 	}
 	.view-more-rates {
 		a {
@@ -26,11 +31,45 @@ room-products {
 		> li {
       position:relative;
       margin: 0;
-      padding: 0;
+      // Always add padding (overwrite global styling)
+      padding: 10px !important;
       border: none;
       background-color: #fff;
 
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+
+      &:last-of-type {
+        border-radius: 0;
+      }
+
+      &.is-member-only,
+      &.is-member-only-disabled {
+        background: #fff;
+
+        .viewport-mobile & {
+          .member-only-border {
+            margin-top: 29px;
+          }
+        }
+      }
+
+      .member-only-border {
+        padding: 10px;
+        display: flex;
+        width: 100%;
+      }
+
       &.is-member-only {
+        .member-only-border {
+          border: 2px dashed #826837;
+
+          .viewport-mobile & {
+            border: 1px dashed #826837;
+          }
+        }
+
         background-color: #FBF8F4;
         .description-and-points-earned .PointsEarned {
           .viewport-mobile & {
@@ -44,9 +83,6 @@ room-products {
         flex-flow: row nowrap;
         align-items: center;
         transition: background-color 200ms;
-        &:hover {
-          background-color: rgba(185, 135, 70, 0.025);
-        }
 
         .mobile-click-handler {
           display: none;
@@ -64,32 +100,10 @@ room-products {
 
         .viewport-mobile & {
           // sadly I have to use !important because the main style uses it...
-          border: 1px solid #dedede !important;
-          border-radius: 6px;
-          margin-top: 20px;
+          border: 0 none !important;
+          margin-top: 10px;
+          margin-bottom: 0;
           min-height: 80px;
-          &:last-of-type {
-            margin-bottom: 20px;
-          }
-        }
-      }
-
-      &:first-child {
-        border-radius: 6px 6px 0 0;
-      }
-      &:last-child {
-        border-radius: 0 0 6px 6px;
-      }
-      &:only-child {
-        border-radius: 6px;
-      }
-      &:not(:last-child) {
-        border-bottom: 1px dashed #EEEAEA;
-      }
-      &.is-member-only {
-        border: 1px dotted @c-primary;
-        &:not(:first-child) {
-          border-top: none;
         }
       }
 
@@ -136,6 +150,7 @@ room-products {
                 font-size: 8px;
                 font-weight: bold;
                 margin-right: 5px;
+                display: none;
               }
             }
           }
@@ -160,38 +175,35 @@ room-products {
           font-family: @c-secondary;
         }
         .ProductInfo {
-          padding: 15px 0;
-
           .member-only-badge {
+            margin-left: -50px;
             display: inline-flex;
             flex-flow: row nowrap;
             align-items: center;
             justify-content: center;
-            border: 1px solid #AB7A3B;
-            border-radius: 100px;
-            background-color: @c-primary;
+            border: 1px solid #826837;
+            background-color: #826837;
             color: #fff;
-            text-transform: uppercase;
-            padding: 3px 15px 2px 7px;
+            padding: 8px 15px 8px 7px;
             margin-bottom: 5px;
-            font-family: @ff-primary;
-            font-size: 12px;
+            font-family: @ff-secondary;
+            font-size: 21px;
             font-weight: 300;
             .fa {
               margin-top: -3px;
               font-size: 17px;
-              .viewport-mobile & {
-                display: none;
-              }
-            }
-            .emphasize {
-              font-weight: bold;
             }
             > :not(:first-child) {
               margin-left: 6px;
             }
             > span {
               white-space: nowrap;
+            }
+          }
+
+          h4 {
+            .noPointsAwarded {
+              display: none;
             }
           }
 
@@ -208,15 +220,16 @@ room-products {
               display: none;
             }
             .member-only-badge {
+              justify-content: left;
               position: absolute;
-              padding: 0 8px 0 3px;
               text-transform: none;
-              top: -11px;
-              left: 6px;
+              top: 0;
+              left: 0;
+              right: 0;
+              margin: 0;
               font-size: 11px;
-              background-color: #212020;
-              border-color: #212020;
-              box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.02);
+              background-color: #826837;
+              border-color: #826837;
             }
             .original-price-mobile {
               display: initial;
@@ -225,6 +238,12 @@ room-products {
         }
       }
 
+      &.is-member-only {
+        background: #fff;
+        &.is-member-only-disabled {
+          background: #fff;
+        }
+      }
 			&.is-highlighted {
 				background: rgba(229, 119, 26, 0.17);
 				.chain-sign & {
@@ -233,8 +252,9 @@ room-products {
 			}
 			&.is-member-only.is-member-only-disabled {
 				.button {
-					background:@c-button;
-					box-shadow: none;
+					background:#1DB53A;
+          box-shadow: none;
+          min-width: 170px;
 				}
 			}
 			&.is-member-only, &.is-member-only-disabled {
@@ -246,7 +266,7 @@ room-products {
         .viewport-mobile & {
           box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.02);
           // Use !important because the main style uses it
-          border: 1px solid #212020 !important;
+          border: 0 none !important;
           background: #fff;
         }
 				pricing-details {
@@ -266,35 +286,40 @@ room-products {
 					}
 				}
 			}
-			&.slashthrough {
-				pricing-details {
-          .price-form:not(.points) {
-            .original-price {
-              color: @c-secondary;
-              font-size: 15px;
-              font-weight: 300;
-              &:after {
-                border-top: 1px solid @c-secondary;
-              }
-            }
-          }
-					.price-form {
-						font-weight: 700;
-            margin-top: 60px;
-            .value {
-              color: @c-alt-grey;
-            }
-					}
-				}
-			}
       pricing-details {
         .price-details {
           .price-form {
-            span.value {
-              color: @c-alt-grey;
-              font-family: @ff-primary;
-              font-size: 22px;
+            .value {
+              color: #000;
+              font-family: @ff-secondary;
+              font-size: 30px;
               font-weight: bold;
+            }
+          }
+        }
+      }
+      &.slashthrough {
+        pricing-details {
+          .price-form:not(.points) {
+            .original-price {
+              float: right;
+              color: #000;
+              font-size: 15px;
+              font-weight: 300;
+              &:after {
+                border-top: 1px solid #000;
+              }
+              .viewport-mobile & {
+                float: right;
+              }
+            }
+          }
+          .price-form {
+            font-weight: 700;
+            margin-top: 60px;
+            .value {
+              color: #B10004;
+              margin-top: 5px;
             }
           }
         }
@@ -345,36 +370,6 @@ room-products {
           display: flex;
           align-items: center;
         }
-        h4 {
-          font-family: @ff-primary;
-          font-size: 16px;
-          letter-spacing: 1px;
-          color: @c-primary;
-          margin: 8px 0;
-          .viewport-mobile & {
-            line-height: 15px;
-          }
-          > span {
-            font-family: @ff-primary;
-            font-size: 20px;
-            color: @c-primary;
-            text-transform: uppercase;
-            font-weight: bold;
-            .viewport-mobile & {
-              font-weight: normal;
-              color: #4A4A4A;
-              font-size: 11px;
-              letter-spacing: normal;
-              line-height: normal;
-            }
-          }
-					a.info {
-						float: left;
-					}
-					a.info::after {
-						font-size: 20px;
-					}
-				}
 				.description-wrapper {
 					> p {}
 				}
@@ -389,17 +384,35 @@ room-products {
 				.full-description {
 					padding-left: 25px;
 					margin-top: 0;
-					.viewport-mobile & {}
+          color: #000;
+					p {
+            color: #000;
+          }
 				}
         .tagline {
-          color: #4A4A4A;
+          color: #826837;
           font-family: @ff-primary;
           font-style: normal;
-          font-size: 15px;
+          font-size: 18px;
           font-weight: 300;
           outline: none;
+          display: inline-block;
+          margin-bottom: 15px;
+          font-weight: bold;
           .link {
             text-decoration: underline;
+          }
+        }
+        .view-details-button {
+          font-size: 14px;
+          letter-spacing: 1px;
+          font-weight: 800;
+          color: #000000;
+          text-transform: uppercase;
+          line-height: 14px;
+
+          .viewport-mobile & {
+            display: none;
           }
         }
 				.info.mobile {}
@@ -420,7 +433,7 @@ room-products {
         font-family: @ff-primary;
         font-size: 11px;
         line-height: 13px;
-        display: flex;
+        display: none;
         flex-flow: row nowrap;
         justify-content: center;
 
@@ -487,7 +500,7 @@ room-products {
             &.points .value {
               margin-top: 0;
               font-style: normal;
-              color: @c-primary;
+              color: #826837;
               font-family: @ff-primary;
               font-size: 16px;
               font-weight: 300;
@@ -498,6 +511,12 @@ room-products {
             }
             &.points .value {
               font-weight: bold;
+              font-size: 30px;
+              flex: 0 0 100%;
+            }
+
+            .points-unit {
+              margin-left: auto;
             }
 
             .value {
@@ -549,7 +568,7 @@ room-products {
             top: 0;
             margin-right: 5px;
             display: flex;
-            flex-flow: row nowrap;
+            flex-flow: row wrap;
             & > * {
               margin-right: 5px;
             }
@@ -612,8 +631,4 @@ room-products {
       min-width: fit-content;
     }
   }
-}
-
-room-products {
-  width: 80%;
 }

@@ -1,6 +1,36 @@
-<section grid-row ng-if="details" class="hotel-detail__location">
-    <hr />
-    <div grid="12">
-        <hotel-location id="jsLocation" hotel-details="details"></hotel-location>
+<section
+  grid-row
+  ng-if="details"
+  class="hotel-detail__location">
+  <div grid="12">
+    <div class="Home__contacts hotel-location-container">
+      <ng-map
+        zoom="17"
+        max-zoom="18"
+        min-zoom="4"
+        scrollwheel="true"
+        center="[40.7806869,-73.9810357]"
+        styles="[{featureType:'poi.business',elementType:'all',stylers:[{visibility:'off'}]}]">
+        <marker
+          position="[40.7806869,-73.9810357]"
+          title="HotelBeacon"></marker>
+          <custom-marker position="[40.7806869,-73.9810357]">
+          <div class="custom-marker"><img src="/static/images/v4/Logo White@2x.png" alt="Mobius logo"><i class="arrow-down"></i></div>
+        </custom-marker>
+      </ng-map>
+      <div class="Home__contacts-box">
+        <div class="title">Contact</div>
+        <div class="address">Hotel Beacon NYC
+            2130 Broadway
+            New York, NY 10023</div>
+        <div class="phone"><span class="emphasis">Phone:</span> (212) 787-1100</div>
+        <div class="Home__contacts-buttons">
+          <button class="contacts-button" ng-click="">_contact_</button>
+          <button class="contacts-button" ng-click="">_get_directions_</button>
+        </div>
+      </div>
+      <div class="clear"></div>
     </div>
+  </div>
 </section>
+

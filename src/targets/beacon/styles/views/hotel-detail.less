@@ -1,8 +1,19 @@
 ///////////////////////
 //// HOTELS DETAIL ////
 ///////////////////////
+.hotel-details-hero {
+  .slider-content .hero-slide .promotion-text-container {
+    display: none;
+  }
+  .slider-controls .slide-button {
+    display: none;
+  }
+}
 
 hotel-detail {
+  hero-slider .slider-content .hero-slide .promotion-text-container {
+    display: none;
+  }
 
   .back-to-top{
     background: rgba(172, 160, 152, 0.5);
@@ -178,10 +189,8 @@ hotel-detail {
       .display-more-rooms {
         color: #fff;
         font-weight: 700;
-        background: @c-primary;
-        &:hover {
-          background: darken(@c-primary-sign, 10%);
-        }
+        background: #000;
+        border-radius: 50px;
       }
 
       list-item {
@@ -860,10 +869,6 @@ hotel-detail {
     margin-right: 26px;
   }
 
-  hero-slider {
-    border-radius: 6px;
-  }
-
   .viewport-mobile & {
     flex-flow: column nowrap;
     .first-panel, .second-panel {
@@ -928,9 +933,7 @@ hotel-detail .hotel-detail__rooms-compare {
     align-items: center;
     justify-content: center;
     margin-top: 0;
-    border: 1px solid #EEEAEA;
-    border-radius: 0 0 6px 6px;
-    background-color: #F9F9F9;
+    background-color: #FCFCFC;
     padding: 0;
     height: 76px;
     width: 100vw;
@@ -984,7 +987,6 @@ hotel-detail .hotel-detail__rooms-compare {
     .view-switch {
       font-size: 16px;
       font-weight: 300;
-      display: none;
       .is-active {
         font-weight: normal;
       }
@@ -1035,5 +1037,106 @@ hotel-detail .hotel-detail__rooms-compare {
   }
   .room-list-compare-container .rooms-list list-item div.list-item-container .room-hide-btn {
     background-color: @c-primary;
+  }
+}
+
+hotel-detail ta-teaser + .hotel-detail__rooms {
+  margin-top: 0;
+}
+
+hotel-detail .hotel-detail__rooms list-items list-item {
+  margin-bottom: 0;
+}
+
+.main-view {
+  background-color: #EEEDEA;
+}
+
+.room-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+
+  .viewport-mobile & {
+    flex-wrap: wrap;
+  }
+
+  hero-slider {
+    flex: 0 0 350px;
+    height: 250px;
+
+    .viewport-mobile & {
+      flex: 0 1 100%;
+    }
+  }
+
+  .item-description {
+    display: flex;
+    flex-grow: 1;
+    padding: 30px;
+    background-color: #fff;
+
+    .viewport-mobile & {
+      display: block;
+    }
+
+    .item-header {
+      flex-grow: 1;
+      padding-right: 10px;
+
+      .viewport-mobile & {
+        display: block;
+      }
+
+      .header {
+        margin-top: 0;
+      }
+
+      .description {
+        color: #000;
+        font-size: 15px;
+        font-weight: 500;
+      }
+    }
+
+    .item-pricing {
+      flex: 0 0 270px;
+
+      .viewport-mobile & {
+        display: block;
+      }
+
+      room-ota-products {
+        width: 100%;
+
+        .viewport-mobile & {
+          display: none;
+        }
+
+        .ota-products {
+          h4 {
+            background-color: #212020;
+            color: #fff;
+            padding: 0 10px;
+            text-align: left;
+          }
+
+          > li {
+            .ota-rate-text {
+              span {
+                text-align: right;
+                font-size: 14px;
+                color: #000000;
+              }
+            }
+          }
+        }
+      }
+
+      .button {
+        margin-top: 10px;
+        text-align: left;
+      }
+    }
   }
 }
