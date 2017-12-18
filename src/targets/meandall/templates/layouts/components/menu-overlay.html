@@ -12,5 +12,7 @@
   </h2>
   <h2 ng-show="isUserLoggedIn()"><a ng-click="auth.logout();">_logout_</a></h2>
   <h2 ng-show="!isUserLoggedIn()"><a ng-click="auth.login()">_login_</a></h2>
+  <h2><a href="" ui-sref="lookup" ng-click="retentionClick()">_footer_links_modify_</a></h2>
+
   <social-links></social-links>
 </nav>
