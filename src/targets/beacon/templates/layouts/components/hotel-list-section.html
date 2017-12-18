@@ -37,7 +37,7 @@
             class="button"
             ng-click="room.showPriceDetails = !room.showPriceDetails">
             <i class="simple-list"></i>
-            <span ng-if="!room.showPriceDetails">_book_now_</span>
+            <span ng-if="!room.showPriceDetails">_book_now_from_ {{ room.priceFrom | i18nCurrency: currencyCode }}</span>
              <span ng-if="room.showPriceDetails">_close_rates_</span>
           </button>
         </div>
