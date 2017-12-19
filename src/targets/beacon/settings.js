@@ -456,7 +456,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     },
     'generics': {
       'singleProperty': true,
-      'defaultPropertyCode': 'BEACON',
+      'defaultPropertyCode': 'BEANYC',
       'facebookAppId': '',
       'disableMainHeaderStyle': true,
       'applyChainClassToBody': true,
