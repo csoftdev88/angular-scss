@@ -249,13 +249,8 @@
                       ng-if="getAddonsTotalPrice() > 0"
                       ng-repeat="addon in reservationAddons"
                       ng-class="{'last': $last}">
-                    <th>{{ addon.name }} _addon_charge_per_person_per_stay_</th>
+                    <th>{{ addon.name }} _addon_charge_per_person_per_day_</th>
                     <td>{{ (inclusionsAsAddons && addon.price) ? addon.price.totalPerUnitAfterTax : addon.price.totalPerUnitBase | i18nCurrency: defaultCurrencyCode }}</td>
-                  </tr>
-
-                  <tr class="main" ng-if="getBreakdownTotalTaxes(false) > 0">
-                    <th>_taxes_:</th>
-                    <td>{{getBreakdownTotalTaxes(false) | i18nCurrency: defaultCurrencyCode}}</td>
                   </tr>
 
                   <tr class="breakdown"
@@ -521,7 +516,7 @@
               <a class="button"
                  ng-click="openAddonDetailDialog($event, addon, false)">
                 {{inclusionsAsAddons && addon.price ? addon.price.totalPerUnitAfterTax : addon.price.totalPerUnitBase | i18nCurrency: defaultCurrencyCode}}
-                _addon_charge_per_person_per_stay_
+                _addon_charge_per_person_per_day_
               </a>
 
               <a class="button"
