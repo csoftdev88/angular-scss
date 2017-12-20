@@ -146,7 +146,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     'id': ''
   },
   'googleTagManager': {
-    'enable': true,
+    'enable': false,
     'trackUserId': true,
     'id': 'GTM-T6VB8R8'
   },
@@ -167,7 +167,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     'baseURL': {
       'development': '//integration-www-beacon.mobiusbookingengine.com/api/4.0/',
       'integration': '//integration-www-beacon.mobiusbookingengine.com/api/4.0/',
-      'staging': '//integration-www-beacon.mobiusbookingengine.com/api/4.0/',
+      'staging': '//staging-www-beacon.mobiusbookingengine.com/api/4.0/',
       'uat': '/api/4.0/',
       'live': 'https://beacon.mobiusbookingengine.com/api/4.0/'
     },
@@ -305,7 +305,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     },
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
-      'Mobius-tenantId': '6',
+      'Mobius-tenantId': '7',
       'Mobius-channelId': [{
         'name': 'mobileWeb',
         'channelID': 23,
@@ -402,8 +402,8 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     },
     'hotelIntro': {
       'title': 'What to expect when you visit',
-      'highlight': 'Committed to the idea that a life well-traveled is defined by a personal connection to the people, culture and lifestyles of the places we visit, the Excelsior Hotel offers discerning guests an authentic, residence-style experience in the heart of New York City’s Upper West Side.',
-      'description': 'To complement our fashionable surroundings, we’ve designed a delightfully affordable pied-a-terre distinguished by relaxed yet sophisticated ambiance and unpretentious style. The Excelsior is located within a beautifully restored landmark building, infusing classic design and architecture with contemporary comfort. In addition to swanky, Art Deco-inspired rooms, the hotel features a fitness center, Boardroom and Calle Ocho restaurant, which brings guests and neighborhood residents together for signature Latin fare and a locally famous weekend brunch complete with unlimited complimentary sangria.'
+      'highlight': 'Vestibulum ac aliquam erat. Donec sollicitudin at neque in imperdiet. Nunc nec volutpat urna, eget auctor felis. Etiam nec lectus dignissim, rhoncus justo id, pulvinar tellus.',
+      'description': 'Morbi a purus id lectus efficitur euismod. Vivamus at sodales nunc. Donec quis nunc sit amet quam scelerisque convallis sit amet et erat.'
     },
     'datepicker': {
       'showToday': false,
@@ -465,7 +465,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'dontRedirectSinglePropertyHome': true,
       'header': {
         'logoLink': 'https://gooole.com',
-        'logoText': 'Excelsior Hotels',
+        'logoText': 'Beacon Hotels',
         'telephone': '+49 211 54259 0',
         'loginAsLink': true,
         'hideMobileHeader': true,
@@ -567,7 +567,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       ]
     },
     'hotelDetails': {
-      'chainPrefix': 'Sandman Hotels',
+      'chainPrefix': 'Beacon Hotel',
       'breadcrumbs': {
         'hotels': false,
         'location': true
@@ -1147,7 +1147,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
 
     // Widget names and their templates
     'templates': {
-      'about': '<tagline ng-if="auth.isLoggedIn()" showLogo="true" text="Become a Excelsior Insider - Sign Up now and benefit immediately… It’s that simple."></tagline>',
+      'about': '<tagline ng-if="auth.isLoggedIn()" showLogo="true" text="Beacon Hotels NYC."></tagline>',
       'questionnaire': '<questionnaire ng-if="auth.isLoggedIn()"></questionnaire>',
       'testimonial': '<recommendation></recommendation>',
       'offers': '<offers></offers>',
@@ -1232,7 +1232,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
             '  </g>\n' +
             '</svg>',
             'title': 'Lowest Rates',
-            'message': 'Excelsior Members Receive a 10% Discount.'
+            'message': 'Members Receive a 10% Discount.'
           },
           {
             'svg': '<svg xmlns="http://www.w3.org/2000/svg" width="91" height="68" viewBox="0 0 91 68">\n' +
