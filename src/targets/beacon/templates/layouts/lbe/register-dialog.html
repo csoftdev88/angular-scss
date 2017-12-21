@@ -199,6 +199,31 @@
           </form-element>
         </fieldset>
 
+        <div class="agreements-container">
+          <label
+            for="termsAndConditionsAgreement"
+            class="input-checkbox">
+            <input
+              type="checkbox"
+              id="termsAndConditionsAgreement"
+              ng-model="registerData.termsAndConditionsAccepted"
+              required/>
+            _i_agree_to_
+            <a href="" target="_blank">_terms_conditions_</a>
+          </label>
+          <label
+            for="privacyPolicyAgreement"
+            class="input-checkbox">
+            <input
+              type="checkbox"
+              id="privacyPolicyAgreement"
+              required/>
+            _i_agree_with_
+            <a href="" target="_blank">_privacy_policy_label_</a>
+          </label>
+
+        </div>
+
         <button-submit role="button"
                        tabindex="0"
                        ng-show="!registerFormSteps.filledEmail"
@@ -212,6 +237,14 @@
                        ng-click="gatedRegisterNext(registerForm, registerData); retentionClick()">
           _register_
         </button-submit>
+
+        <p class="help-link help-link-margin-top">
+          _already_a_member_
+          <a href=""
+             ng-click="auth.clearErrors(); $root.showRegisterDialog = !$root.showRegisterDialog; auth.login(); retentionClick()">
+            _sign_in_label_
+          </a>
+        </p>
 
       </form>
 
