@@ -380,7 +380,7 @@
     "reservation_number_error": "Look up of provided reservation number failed.",
     "password_label": "Password",
     "new_password_label": "New Password",
-    "forgot_password_label": "Forgot Password",
+    "forgot_password_label": "Reset password",
     "confirm_password_label": "Confirm Password",
     "password_match_error_message": "The passwords do not match",
     "title_label": "Title",
@@ -482,7 +482,7 @@
     "login_register_modal_subtitle": "Enter your details here",
     "register_promo_title": "Get Rewarded",
     "register_promo_text": "Members Get Early Check In & Late Checkout Guaranteed!",
-    "forgot_your_password": "Forgot Password?",
+    "forgot_your_password": "Forgotten password?",
     "not_a_member": "Not a Member?",
     "login_prompt_modal_title": "Beacon Hotels",
     "login_prompt_modal_subtitle": "Sign up with us to enjoy benefits!",
@@ -657,6 +657,10 @@
     "with_this_booking": "with this booking",
     "welcome_main_page_text": "Welcome to the Hotel Beacon",
     "video_tour": "Video Tour",
-    "room_upgraded": "Room Upgraded from"
+    "room_upgraded": "Room Upgraded from",
+    "already_a_member": "Already a member?",
+    "sign_in_label": "Sign In",
+    "i_agree_with": "I agree with the",
+    "privacy_policy_label": "Privacy Policy"
   }
 }
