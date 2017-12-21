@@ -165,9 +165,9 @@
           <!-- SUBVIEWS -->
           <ui-view>
           </ui-view>
-          <!--Excelsior customers always opt-in, using ng-init trick here to avoid changing the global controller-->
+          <!--Beacon customers always opt-in, using ng-init trick here to avoid changing the global controller-->
           <div ng-if="bookingConfig.detailsBeforeForm && !isMobile" class="form-bottom" ng-init="additionalInfo.optedIn = true">
-            <div ng-if="state.includes('reservation.details')"">
+            <div ng-if="state.includes('reservation.details')">
               <label for="agreement2" class="input-checkbox">
                 <input type="checkbox" id="agreement2" ng-model="additionalInfo.optedIn"/>
                 _receive_offer_label_
