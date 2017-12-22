@@ -50,7 +50,7 @@ room-products {
 
         .viewport-mobile & {
           .member-only-border {
-            margin-top: 29px;
+            margin-top: 39px;
           }
         }
       }
@@ -59,6 +59,11 @@ room-products {
         padding: 10px;
         display: flex;
         width: 100%;
+
+        .viewport-mobile & {
+          flex-wrap: wrap;
+          padding: 0;
+        }
       }
 
       &.is-member-only {
@@ -115,7 +120,6 @@ room-products {
         .viewport-mobile & {
           flex-direction: column;
           align-self: stretch;
-          border-right: 1px #EEEAEA dashed;
 
           .PointsEarned {
             flex: 0 0 auto;
@@ -216,9 +220,6 @@ room-products {
           }
 
           .viewport-mobile & {
-            .tagline {
-              display: none;
-            }
             .member-only-badge {
               justify-content: left;
               position: absolute;
@@ -272,10 +273,10 @@ room-products {
 				pricing-details {
 					top: 0;
 					.action-buttons {
-						/*padding-top:60px;
 						.viewport-mobile & {
-							padding-top:0;
-						}*/
+							padding: 10px;
+              width: auto;
+						}
 					}
 				}
 				.rate-description {
@@ -329,6 +330,9 @@ room-products {
 			.use-ribbon(5);
 
 			.action-buttons {
+        .viewport-mobile & {
+          width: auto !important;
+        }
 				.label {
 					font-weight: bold;
 					color: @c-light-brown;
@@ -367,6 +371,7 @@ room-products {
       .rate-description {
         width: 70%;
         .viewport-mobile & {
+          width: auto;
           flex: 1 1 auto;
           display: flex;
           align-items: center;
@@ -388,6 +393,9 @@ room-products {
           color: #000;
 					p {
             color: #000;
+          }
+          .viewport-mobile & {
+            display: block;
           }
 				}
         .tagline {
@@ -411,10 +419,6 @@ room-products {
           color: #000000;
           text-transform: uppercase;
           line-height: 14px;
-
-          .viewport-mobile & {
-            display: none;
-          }
         }
 				.info.mobile {}
 			}
@@ -465,6 +469,9 @@ room-products {
 			pricing-details {
         flex: none;
         width: auto;
+        .viewport-mobile & {
+          width: 100%;
+        }
         .price-and-actions-wrapper {
           display: flex;
           flex-flow: row nowrap;
@@ -481,9 +488,10 @@ room-products {
           padding-right: 10px;
 
           .viewport-mobile & {
-            flex-direction: column-reverse;
             width: auto;
             min-width: 90px;
+            order: 2;
+            margin-left: auto;
           }
 
           .price-form {
@@ -587,8 +595,10 @@ room-products {
           width: auto;
           flex: none;
           margin-right: 8px;
+
           .viewport-mobile & {
-            display: none;
+            align-items: left;
+            justify-content: left;
           }
         }
       }
