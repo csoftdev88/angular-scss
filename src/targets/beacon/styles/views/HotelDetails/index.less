@@ -85,6 +85,9 @@ main.hotel-detail {
           padding: 0;
           left: 0;
           top: 540px;
+          .viewport-mobile & {
+            top: 230px;
+          }
         }
         .slide-right {
           position: absolute;
@@ -95,11 +98,18 @@ main.hotel-detail {
           opacity: 1;
           padding: 0;
           top: 540px;
+          .viewport-mobile & {
+            top: 230px;
+          }
         }
 
         .pages {
           bottom: -85px;
           text-align: right;
+
+          .viewport-mobile & {
+            bottom: -50px;
+          }
 
           span {
             height: 17px;
@@ -119,7 +129,19 @@ main.hotel-detail {
           }
         }
       }
-
+      .viewport-mobile & {
+        height: 200px;
+        padding-bottom: 50px;
+        .slider-content .hero-slide .promotion-text-container.mobile {
+          display: none;
+        }
+        .slider-content .hero-slide {
+          height: 200px;
+        }
+        .slider-controls .slide-button {
+          display: block;
+        }
+      }
     }
   }
 
