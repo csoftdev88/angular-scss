@@ -48,23 +48,6 @@
             </select>
           </order-switch>
         </div>
-        <div class="view-switch">
-          <span class="filter-label">_filter_view_label_:</span>
-          <ul>
-            <li class="list-view"
-                ng-class="{'is-active': roomsViewMode !== 'compare'}"
-                ng-click="setRoomsViewMode('list')">
-              <i class="fa fa-th-list fa-2x" title="Show as list" />
-              _filter_detail_label_
-            </li>
-            <li class="compare-view"
-                ng-class="{'is-active': roomsViewMode === 'compare'}"
-                ng-click="setRoomsViewMode('compare')">
-              <i class="fa fa-th fa-2x" title="Show as compare" />
-              _filter_compare_label_
-            </li>
-          </ul>
-        </div>
         <div class="pricing-switch-container" ng-show="hasDates() && !(availableRooms && availableRooms.length === 0)">
           <span class="filter-label">_filter_pricing_label_:</span>
           <pricing-switch>
