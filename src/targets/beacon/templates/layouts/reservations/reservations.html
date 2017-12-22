@@ -53,12 +53,13 @@
       </div>
 
       <div class="ReservationsNextStay__container">
-        <div class="members-only-rate">
-            <i class="simple-star"></i>
-            Members Only Rate
-        </div>
-        <div class="members-only-rate-rectangle"></div>
         <div ng-if="reservations.nextStay" class="ReservationsNextStay">
+          <div
+            class="members-only-rate">
+              <i class="simple-star"></i>
+              Members Only Rate
+          </div>
+          <div class="members-only-rate-rectangle"></div>
           <!-- TODO SAME AS BOOKING COMPLETE PREVIEW -->
           <div class="ReservationsNextStay__title">
             <h1 ng-bind-html="'_reservation_page_nextstay_title_' | mainHeaderStyle"></h1>
