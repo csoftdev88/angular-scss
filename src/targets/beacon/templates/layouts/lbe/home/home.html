@@ -50,6 +50,9 @@
                 _back_
               </div>
             </div>
+            <div class="error-message">
+              {{ getRegisterValidationMessage(registerForm) }}
+            </div>
             <form name="registerForm" class="register-form" novalidate>
                 <fieldset ng-show="!registerFormSteps.filledEmail">
                   <form-element>
@@ -195,9 +198,7 @@
                   _register_
                 </button-submit>
 
-                <div class="error-message">
-                  {{ getRegisterValidationMessage(registerForm) }}
-                </div>
+
 
               </form>
         </div>
