@@ -549,7 +549,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       'youtube': ''
     },
     'shareLinks': {
-      'facebook': true,
+      'facebook': false,
       'twitter': true,
       'googleplus': false,
       'mail': true,
