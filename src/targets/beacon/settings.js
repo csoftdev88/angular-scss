@@ -8,17 +8,17 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
     {
       uri: '/static/images/carousel/slider-1.jpg',
       title: 'Beacon Insider',
-      subtitle: 'Sign up and get 15% off our best rates'
+      subtitle: '<span class="emphasize">Sign up</span> and get <span class="emphasize">15% off</span> our best rates'
     },
     {
       uri: '/static/images/carousel/slider-2.jpg',
       title: 'Get Rewarded',
-      subtitle: 'Members Get Early Check In & Late Checkout Guaranteed!'
+      subtitle: '<span class="emphasize">Members</span> Get Early Check In & Late Checkout <span class="emphasize">Guaranteed!</span>'
     },
     {
       uri: '/static/images/carousel/slider-3.jpg',
       title: 'Free Beverages',
-      subtitle: 'Members receive free complimentary refreshments'
+      subtitle: '<span class="emphasize">Members</span> receive free <span class="emphasize">complimentary refreshments</span>'
     }
   ],
   'customPreviewImages': [
