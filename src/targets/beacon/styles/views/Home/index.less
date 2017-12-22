@@ -162,6 +162,29 @@
     text-transform: uppercase;
     font-size: 14px;
   }
+
+  .register_container {
+    .error-message {
+      padding-bottom: 20px;
+      font-size: 14px !important;
+      text-align: center;
+    }
+  }
+
+  .register-form {
+    input.ng-touched.ng-dirty.ng-invalid {
+      border: 1px solid @c-red;
+    }
+    input.ng-touched.ng-dirty.ng-valid {
+      border: 1px solid #9B9BA0;
+    }
+    input.ng-touched.ng-dirty.ng-invalid + .input-icon-wrapper i{
+      color: @c-red;
+    }
+    input.ng-touched.ng-dirty.ng-valid + .input-icon-wrapper i{
+      color: #9B9BA0;
+    }
+  }
 }
 
 .hotel-description-container-content {
