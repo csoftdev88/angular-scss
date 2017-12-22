@@ -1012,7 +1012,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'min': 0,
         'max': 8
       },
-      'defaultAdultCount': 2,
+      'defaultAdultCount': 1,
       'maxRooms': 4,
       'availabilityOverview': {
         'display': true
