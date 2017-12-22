@@ -1,6 +1,4 @@
 dialog.details {
-  padding-bottom: 20px;
-
   .confirm-terms-dialog {
     text-align: center;
 
@@ -20,11 +18,12 @@ dialog.details {
 
   header {
     flex: none;
+    padding: 5px 5px 5px 22px;
     h1 {
       font-family: @ff-secondary;
       font-size: 30px;
       color: #826837;
-      font-size: 30px;
+      line-height: 30px;
     }
 
     button-close {
@@ -41,8 +40,14 @@ dialog.details {
     flex: 1 1 auto;
     display: flex;
     flex-flow: row nowrap;
-    background-color: #EEEDEA;
     padding: 0;
+    p {
+      color: black;
+      padding: 5px 0 5px 22px;
+      .viewport-mobile & {
+        padding: 0;
+      }
+    }
     .viewport-mobile & {
       flex-flow: column nowrap;
     }
