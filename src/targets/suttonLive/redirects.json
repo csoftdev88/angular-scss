@@ -1,4 +1,3 @@
-
 [
 {"id":"/prestige","from":"/prestige/*","to":"https://prestige.suttonplace.com"},
 {"id":"/edm","from":"/edm","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-edmonton-edm?property=EDM"},
@@ -83,7 +82,6 @@
 {"from":"/revelstoke/exclusive-heli-cat-skiing-packages","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-revelstoke-rev/offers/exclusive-heli-cat-skiing-packages-sths?property=REV"},
 {"from":"/revelstoke/exclusive-offers","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-revelstoke-rev/offers/?property=REV"},
 {"from":"/revelstoke/exclusive-offers/default.htm","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-revelstoke-rev/offers/?property=REV"},
-
 {"from":"/revelstoke","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-revelstoke-rev?property=REV"},
 {"from":"/revelstoke/restaurant-and-lounge","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-revelstoke-rev/rockford-wok-bar-grill?property=REV"},
 {"from":"/revelstoke/pool-fitness","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-revelstoke-rev/pool-and-fitness-centre?property=REV"},
@@ -181,14 +179,13 @@
 {"from":"/vancouver/exclusive-offers/residents-rate/default.htm","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-vancouver-van/offers/residents-rate-local?property=VAN"},
 {"from":"/edmonton/exclusive-offers/72hour/default.htm","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-edmonton-edm/offers/72-hour-sale-72hour?property=EDM"},
 {"from":"/vancouver/exclusive-offers/72hour/default.htm","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-vancouver-van/offers/72-hour-sale-72hour?property=VAN"},
-
 {"from":"/revelstoke/restaurant-and-lounge/default.htm","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-revelstoke-rev/rockford-wok-bar-grill?property=REV"},
-
 {"from":"/prestige/availability.asp?hotelcode=VAN&requesttype=invBlockCode&code=VC_CIES2016&hotelcode=VAN&rateCode=VC_CIES2016&roomCode=&checkin=/0/&checkout=","to":"https://prestige.suttonplace.com"},
 {"from":"/prestige/logon.asp","to":"https://prestige.suttonplace.com"},
 {"from":"/prestige/default.asp","to":"https://prestige.suttonplace.com"},
 {"from":"/vancouver/ico/default.asp","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-vancouver-van?property=VAN"},
 {"from":"/vancouver/ico/default.htm","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-vancouver-van?property=VAN"},
 {"from":"/prestige/availability.asp","to":"https://prestige.suttonplace.com"},
-{"from":"/prestige/booked.asp","to":"https://prestige.suttonplace.com"}
+{"from":"/prestige/booked.asp","to":"https://prestige.suttonplace.com"},
+{"from":"/hotels/sutton-place-hotel-vancouver-van/christmas-turkey-to-go","to":"https://www.suttonplace.com/hotels/sutton-place-hotel-vancouver-van/offers/turkey-to-go-t2go"}
 ]
