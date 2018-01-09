@@ -53,7 +53,7 @@
             <div class="error-message">
               {{ getRegisterValidationMessage(registerForm) }}
             </div>
-            <form name="registerForm" class="register-form" novalidate>
+            <form name="registerForm" class="register-form" novalidate ng-submit="gatedRegisterNext(registerForm, registerData)">
                 <fieldset ng-show="!registerFormSteps.filledEmail">
                   <form-element>
                     <input
@@ -182,6 +182,33 @@
                     </select>
                     <i class="country-icon fa fa-globe"></i>
                   </form-element>
+
+                  <div class="agreements-container">
+                    <label
+                      for="termsAndConditionsAgreement"
+                      class="input-checkbox">
+                      <input
+                        type="checkbox"
+                        id="termsAndConditionsAgreement"
+                        ng-model="registerData.termsAndConditionsAccepted"
+                        required/>
+                      _i_agree_to_
+                      <span class="underline">_terms_conditions_</span>
+                    </label>
+                    <label
+                      for="privacyPolicyAgreement"
+                      class="input-checkbox">
+                      <input
+                        type="checkbox"
+                        id="privacyPolicyAgreement"
+                        ng-model="registerData.privacyPolicyAccepted"
+                        required/>
+                      _i_agree_with_
+                      <span class="underline">_privacy_policy_label_</span>
+                    </label>
+
+                  </div>
+                  <input type="submit" ng-show="false"/>
                 </fieldset>
 
                 <button-submit role="button"

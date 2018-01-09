@@ -2,8 +2,8 @@
 
 angular.module('mobiusApp.directives.slider', [])
 
-.directive('heroSlider', ['$timeout', '$state', '$templateCache', '$compile', 'Settings',
-  'advertsService', '$window', '$filter', function($timeout, $state, $templateCache, $compile, Settings,
+.directive('heroSlider', ['$timeout', '$state', '$templateCache', '$compile', '$controller', 'Settings',
+  'advertsService', '$window', '$filter', function($timeout, $state, $templateCache, $compile, $controller, Settings,
   advertsService, $window, $filter){
   return {
     restrict: 'E',
@@ -129,7 +129,7 @@ angular.module('mobiusApp.directives.slider', [])
           template = $templateCache.get(SLIDE_TYPE_SIMPLE);
         }
 
-        var slideScope = scope.$new(true);
+        var slideScope = scope.$new(false, scope);
         slideScope.slideData = slideData;
 
         var compiledTemplate = $compile(template)(slideScope);
@@ -281,6 +281,15 @@ angular.module('mobiusApp.directives.slider', [])
           });
         });
       }
+    },
+    controller: function($scope) {
+      $scope.auth = {
+        login: function(){
+          console.log("logging in");
+        }
+      };
+
+      $controller('AuthCtrl', {$scope: $scope, config: {}});
     }
   };
 }]);

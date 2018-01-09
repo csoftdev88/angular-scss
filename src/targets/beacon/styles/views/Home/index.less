@@ -169,20 +169,26 @@
       font-size: 14px !important;
       text-align: center;
     }
+    input.ng-touched.ng-dirty.ng-invalid + .input-icon-wrapper {
+      color: @c-red;
+    }
+    input.ng-touched.ng-dirty.ng-valid + .input-icon-wrapper {
+      color: @c-green;
+    }
   }
 
   .register-form {
-    input.ng-touched.ng-dirty.ng-invalid {
+    .ng-touched.ng-dirty.ng-invalid {
       border: 1px solid @c-red;
     }
-    input.ng-touched.ng-dirty.ng-valid {
+    .ng-touched.ng-dirty.ng-valid {
       border: 1px solid #9B9BA0;
     }
-    input.ng-touched.ng-dirty.ng-invalid + .input-icon-wrapper i{
+    .ng-invalid {
       color: @c-red;
     }
-    input.ng-touched.ng-dirty.ng-valid + .input-icon-wrapper i{
-      color: #9B9BA0;
+    select.ng-touched.ng-dirty.ng-invalid + .chosen-container {
+      border: 1px solid @c-red;
     }
   }
 }
