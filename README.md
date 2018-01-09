@@ -19,31 +19,18 @@ Front end application for mobius booking engine
 1. Run the middleware `npm run server.sandman`
 1. Finally, open `localhost:9000` in your browser
 
-### How do I deploy to a live environment
+### How do I deploy
 
-#### Live/Staging
 1. ssh into the right web host (see AWS EC2 or ask Pete if you don't have the IPs and/or need userify access)
-1. become root `sudo su -`
-1. `cd /home/ubuntu/mobius-web/`
-1. `git pull --rebase`
-    1. For Keystone enabled tenants it is imperative that you are including the correct Keystone `status` script in the index.html. All environments are included - and all but integration have a suffix to the tenant name in the script path such as `https://scripts.infiniti.io/sandman-staging/status.js`. Note, _non_-Keystone-enabled tenants do NOT need this script.
-1. `npm cache clean`
-1. `npm i`
-1. `bower install --allow-root`
-1. `grunt production --tenant=<tenant> --environment=<env>`
-1. `pm2 l` # Check that the WEB process is running
-1. `pm2 restart WEB`
+1. become deploy user `sudo su - mobiusdeploy`
+1. ls home dir `cd && ls -lah`
+1. this should show a dir named `scripts` which contains all the scripts necessary to deploy each tenant on each environment.
+1. cd into the scripts dir `cd scripts`
+1. get the latest from mobius-configuration `git pull`
+1. run the appropriate script to deploy the tenant `./deploy-<tenant>.sh`
 1. Clear cloudflare cache visit the appropriate link. e.g. for non-live sandman `https://webservice.mobiuswebservices.com/cloudflare/clearcache?site=mobiusbookingengine` (see slack pinned items in slack for more links)
 
-#### Integration
-Integration is using the new multi-environment in a single box model.
-1. ssh into the water-integration host
-1. become root `sudo su -`
-1. become mobius-deploy `sudo su - mobiusdeploy`
-1. `cd scripts`
-1. run the appropriate script for the tenant. e.g. for Sandman run the `deploy-sandman.sh` script
-1. clear the cloudflare cache `https://webservice.mobiuswebservices.com/cloudflare/clearcache?site=mobiusbookingengine`
-
+_If the tenant has not yet been onboarded you will need to see the Onboarding Guide for further detailed requirements._
 
 #### Trouble shooting
 
@@ -72,7 +59,7 @@ changes:
 * `watch:markup` - When any `*.html` file within `src/` changes, all templates are put into strings in a JavaScript file that will add the template to AngularJS's [`$templateCache`](http://docs.angularjs.org/api/ng.$templateCache) so template files are part of the initial JavaScript payload and do not require any future XHR.  The template cache files are  `build/app/mobius-templates-*_*.js`.
 * `watch:jsunit` - When any `*.spec.js` file in `src/` changes, the test files are linted and the unit tests are executed.
 
-Most of this is very standard with the exception of 2 things:
+Most of this is very standard with the exception of:
 
 * localisation task - This is a custom localisation grunt task. It just uses
    regex to match any text that is suffixed and prefixed with a _. For example
@@ -84,6 +71,7 @@ Most of this is very standard with the exception of 2 things:
    as environment=production, tenant=sandman etc. These meta fields are then
    read by a service so that you can lookup which settings to use when env
    specific settings are provided.
+* cacheBust task - This will rename all the assets (images, css, minified js etc.) and rewrite the relevant references to them so as to defeat any caching that may be taking place.
 
 ### Live Reload
 
@@ -107,7 +95,7 @@ All settings can be categorised into the following categories:
 * Server
 * Build system
 
-### `Settings.js` - main configuration file which contais customer related settings
+### `Settings.js` - main configuration file which contains customer related settings
 
 Main sections are:
 
