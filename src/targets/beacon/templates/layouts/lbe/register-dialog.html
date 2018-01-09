@@ -55,7 +55,7 @@
           <form-element>
             <input
               type="email"
-              id="registerEmail"
+              id="registerDialogEmail"
               name="registerEmail"
               ng-model="registerData.email"
               required
@@ -77,7 +77,7 @@
           <form-element>
             <input
               type="email"
-              id="registerEmailConfirm"
+              id="registerDialogEmailConfirm"
               name="registerEmailConfirm"
               ng-model="registerData.emailConf"
               required
@@ -106,7 +106,7 @@
           <form-element>
             <input
               type="password"
-              id="registerPassword"
+              id="registerDialogPassword"
               name="registerPassword"
               ng-model="registerData.password"
               ng-pattern="/^(?=.*[a-zA-Z\d].*)[a-zA-Z\d!@#$%&£^*_()+=-]{8,}$/"
@@ -125,7 +125,7 @@
           <form-element>
             <input
               type="password"
-              id="registerPasswordConfirm"
+              id="registerDialogPasswordConfirm"
               name="registerPasswordConfirm"
               ng-model="registerData.passwordConf"
               required
@@ -161,7 +161,7 @@
           <form-element>
             <input
               type="text"
-              id="registerFname"
+              id="registerDialogFname"
               name="registerFname"
               ng-model="registerData.firstName"
               required
@@ -173,7 +173,7 @@
           <form-element>
             <input
               type="text"
-              id="registerLname"
+              id="registerDialogLname"
               name="registerLname"
               ng-model="registerData.lastName"
               required
@@ -184,7 +184,7 @@
 
           <form-element ng-if="registerCountries">
             <select type="text"
-                    id="country"
+                    id="registerDialogCountry"
                     class="with-icon"
                     required
                     placeholder="_country_label_"
