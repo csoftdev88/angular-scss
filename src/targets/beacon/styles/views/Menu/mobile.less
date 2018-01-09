@@ -24,15 +24,15 @@
     width: 100%;
     font-size: 26px;
     text-transform: uppercase;
+    padding: 0;
   }
 
   .Menu__items--divider {
     width: 200px;
     height: 1px;
-    border-right: 0px;
-    border-bottom: 1px solid #6E6E6E;
-    margin-left: 0px;
-    margin-top: 40px;
+    border-right: 0;
+    border-bottom: 1px solid #383838;
+    margin: 15px 0 0 0;
   }
 
   .Menu__items--highlight {
@@ -49,15 +49,16 @@
     .Menu__items--subitem {
       line-height: 50px;
       font-size: 17px;
-      color: #6E6E6E;
+      color: #6e6e6e;
       height: 50px;
       padding-top: 0;
+      margin: 0;
 
       &[currency-list] {
         width: 100%;
-        height: 50px;
-        border-bottom: 1px solid #6E6E6E;
-        padding-top: 27px;
+        height: 35px;
+        border-bottom: 1px solid #6e6e6e;
+        padding-top: 15px;
 
         i {
           color: #6E562A;
@@ -72,8 +73,8 @@
         .CurrencyList__list {
           background-color: #fff;
           min-width: 150px;
-          margin-left: 0;
-          box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.15);
+          margin: 10px 0;
+          box-shadow: 0 0 2px 2px rgba(0,0,0,0.15);
 
           li {
             &:hover {
@@ -93,32 +94,31 @@
       }
 
       &.register {
-        width: 225px;
+        width: 103%;
         border-radius: 100px;
-        background-color: #1DB53A;
+        background-color: #1db53a;
         color: white;
         font-size: 14px;
         height: 48px;
         line-height: 48px;
-        padding-top: 0px;
-        margin-top: 27px;
+        padding-top: 0;
+        margin-top: 20px;
         margin-left: auto;
         margin-right: auto;
       }
 
       &.login {
-        width: 225px;
+        width: 103%;
         border-radius: 100px;
         background-color: white;
-        color: #000000;
+        color: #000;
         font-size: 14px;
         height: 48px;
         line-height: 48px;
-        padding-top: 0px;
-        margin-top: 27px;
+        padding-top: 0;
+        margin-top: 10px;
         margin-left: auto;
         margin-right: auto;
-
       }
 
       &:hover {
