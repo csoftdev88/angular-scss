@@ -2027,12 +2027,12 @@ angular.module('mobius.controllers.reservation', [])
   //Retrieve stored upgrade
   var storedUpgradeData = roomUpgradesService.getStoredUpgrade();
   var storedUpgrade = storedUpgradeData.upgrade;
-  if(storedUpgrade){
-    if(storedUpgrade.increased){ //price has increased
+  if (storedUpgrade){
+    if (storedUpgrade.increased){ //price has increased
       roomUpgradesService.notifyUpgrade($scope,'increase');
       $scope.continue();
     }
-    else if(storedUpgrade.decreased){ //price has decreased
+    else if (storedUpgrade.decreased){ //price has decreased
       roomUpgradesService.notifyUpgrade($scope,'decrease');
       $scope.continue();
     }
@@ -2040,6 +2040,17 @@ angular.module('mobius.controllers.reservation', [])
        roomUpgradesService.notifyUpgrade($scope,'success');
        $scope.continue();
     }
+  }
+
+  if (Settings.UI.roomDetails && Settings.UI.roomDetails.hasReadMore){
+    $scope.openRoomDetailsDialog = function(product){
+      if ($scope.config.rateInfoIsTabbed) {
+        modalService.openProductDetailsDialog($scope.roomDetails, product, true);
+      }
+      else {
+        modalService.openRoomDetailsDialog(product.description);
+      }
+    };
   }
 
   $scope.creditCardsIcons = _.pluck(Settings.UI.booking.cardTypes, 'icon');

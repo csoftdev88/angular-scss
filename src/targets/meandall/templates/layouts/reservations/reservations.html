@@ -118,7 +118,8 @@
 
       <section-image ng-if="config.reservations.sectionImages &&
                             config.reservations.sectionImages[1] &&
-                            reservations.nextStay"
+                            reservations.futureStays && reservations.futureStays.length &&
+                            reservations.pastStays && reservations.pastStays.length"
                      section="config.reservations.sectionImages[1]"
                      when="'enter'"
                      from="1"
@@ -153,7 +154,8 @@
 
   <section-image ng-if="config.reservations.sectionImages &&
                         config.reservations.sectionImages[2] &&
-                        reservations.nextStay"
+                        reservations.pastStays &&
+                        reservations.pastStays.length"
                  section="config.reservations.sectionImages[2]"
                  when="'enter'"
                  from="1"

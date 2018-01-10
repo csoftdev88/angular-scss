@@ -461,7 +461,7 @@
                 ng-pattern="$root.generalValidationPattern"/>
             </form-element>
             <!-- hidden submit input allows ng-submit to work as expected -->
-            <input type="submit" ng-show="false"/>
+            <input type="submit" style="display:none;"/>
 
           </fieldset>
 
@@ -474,7 +474,7 @@
           </div>
         </form>
 
-        <form name="resetForm" class="reset-form" novalidate>
+        <form name="resetForm" class="reset-form" novalidate ng-show="!resetForm.$submitted">
           <fieldset>
             <form-element>
               <label for="resetEmail">_email_label_</label>

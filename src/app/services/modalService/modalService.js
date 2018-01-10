@@ -522,7 +522,7 @@ angular.module('mobiusApp.services.modal', [])
   }
 
   function openEditingDisabledDialogue(){
-    return openDialog('reservation-modification', 'layouts/modals/edittingDisabled.html', CONTROLLER_DEFAULT, {
+    return openDialog('reservation-modification', 'layouts/modals/editingDisabled.html', CONTROLLER_DEFAULT, {
       windowClass: 'details reservation-modification'
     });
   }

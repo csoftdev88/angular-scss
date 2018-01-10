@@ -113,6 +113,7 @@
                required
                placeholder="_address_label_"
                ng-model="userDetails.address"
+               ng-blur="remapGermanCharacters(userDetails, 'address')"
                name="address"
                autocomplete="address-line1"
                ng-pattern="$root.generalValidationPattern"/>
@@ -145,6 +146,7 @@
                required
                placeholder="_city_label_"
                ng-model="userDetails.city"
+               ng-blur="remapGermanCharacters(userDetails, 'city')"
                name="city"
                autocomplete="city"
                ng-pattern="$root.generalValidationPattern"/>

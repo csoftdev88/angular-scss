@@ -107,9 +107,6 @@
 
               <tr class="main" ng-if="data.product.price.taxDetails.totalTax > 0">
                 <th>_taxes_:</th>
-                <!-- old tax number
-                <td>{{getBreakdown('totalTax') | i18nCurrency: $root.currencyCode}}</td>
-                -->
                 <td>{{data.product.price.taxDetails.totalTax | i18nCurrency: $root.currencyCode}}</td>
               </tr>
 
@@ -136,34 +133,6 @@
               </tr>
             </tfoot>
           </table>
-        <!--
-          <table class="price-breakdown-content" ng-if="data.product.price.breakdowns.length">
-            <thead>
-              <tr>
-                <th>_night_</th>
-                <th>_rooms_</th>
-                <th>_tax_</th>
-                <th>_fees_</th>
-                <th>_total_rate_</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="item in data.product.price.breakdowns | orderBy: 'date'">
-                <td>{{formatDate(item.date, 'DD MMM YYYY')}}</td>
-                <td>{{item.totalBaseAfterPricingRules | i18nCurrency: currencyCode}}</td>
-                <td>{{item.totalTax | i18nCurrency: currencyCode}}</td>
-                <td>{{item.totalFees | i18nCurrency: currencyCode}}</td>
-                <td>{{item.totalAfterTax | i18nCurrency: currencyCode}}</td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <th colspan="4">_total_</th>
-                <th>{{data.product.price.totalAfterTax | i18nCurrency: currencyCode}}</th>
-              </tr>
-            </tfoot>
-          </table>
-        -->
         </article>
       </section>
     </tab>
@@ -182,7 +151,7 @@
         <article>
           <accordion close-others="false">
             <accordion-group is-open="true">
-              <ul>
+              <ul class="policies-list">
                 <li ng-repeat="policy in data.product.policies | filter:{type: '!pet'} | filter:{type: '!extraGuest'}">
                   <h3>{{getPolicyTitle(policy.type)}}:</h3>
                   <p ng-bind-html="sanitize(policy.description)"></p>

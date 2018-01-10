@@ -480,7 +480,7 @@ angular.module('mobiusApp.config', [])
           'displayOtaRates': true,
           'highlightFirstRate': true,
           'showSlashThrough': true,
-          'showInclusions': true
+          'showInclusions': false
         },
         'upsells': {
           'display': true
@@ -1245,7 +1245,7 @@ angular.module('mobiusApp.config', [])
       },
       'roomDetails':{
         'hasViewMore': false,
-        'showInclusions': true,
+        'showInclusions': false,
         'showAmenitiesTop': false,
         'showTagline': false,
         'hideHeroSlider': true,

@@ -130,7 +130,7 @@
              aria-hidden="true"
              ng-if="(continueName === 'continue') && uiConfig.buttonSubmit.continueBtn"></i>
           <span ng-if="continueName === 'continue'">_continue_</span>
-          <span ng-if="continueName === 'confirm'">_confirm_</span>
+          <span ng-if="continueName === 'confirm'">_book_reservation_</span>
         </button-submit>
         <registration-call ng-if="!isUserLoggedIn() && state.includes('reservation.details') && !isModifyingAsAnonymous() && bookingConfig.loginCta.display">
           <h4 ng-bind-html="'_reservation_page_loginprompt_title_' | mainHeaderStyle"></h4>

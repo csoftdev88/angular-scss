@@ -30,7 +30,7 @@
             if (!loggedIn) {
               $scope.auth.login();
             }
-          }, 2000);
+          }, 5000);
         });
       }, function () {
         $scope.success = false;

@@ -181,7 +181,7 @@
 
         if (Settings.conditionalRedirect) {
           // Open sections if they are closed and has errors
-          if (form.termsAndConditions.$invalid && $scope.sections.termsAndConditions.visible && !$scope.sections.termsAndConditions.expanded) {
+          if (form.termsAndConditions && form.termsAndConditions.$invalid && $scope.sections.termsAndConditions.visible && !$scope.sections.termsAndConditions.expanded) {
             $scope.toggleSection($scope.sections.termsAndConditions);
           }
           if ((form.password.$invalid || form.passwordConfirm.$invalid) && $scope.sections.resetPassword.visible && !$scope.sections.resetPassword.expanded) {

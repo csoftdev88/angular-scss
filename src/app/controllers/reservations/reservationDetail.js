@@ -606,6 +606,8 @@
           if (addon.pointsRequired && $scope.auth && $scope.auth.isLoggedIn()) {
             user.loadLoyalties();
           }
+          // Scroll the viewport back to the top to make user message and reservation changes visible
+          $scope.scrollToTop();
         });
 
         preloaderFactory(addAddonPromise);
