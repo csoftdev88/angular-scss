@@ -855,6 +855,12 @@ angular.module('mobiusApp.config', [])
         'code': 'EUR',
         'symbol': '€',
         'format': '{{symbol}} {{amount}}'
+      },
+
+      'CHF': {
+        'code': 'CHF',
+        'symbol': 'SFr',
+        'format': '{{symbol}} {{amount}}'
       }
     },
 
