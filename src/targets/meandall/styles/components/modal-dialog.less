@@ -55,20 +55,63 @@ ul.policies-list {
   display: flex;
   flex-direction: column;
 
+  // Cancellation
   li:nth-child(1) {
     order: 0;
   }
+  // Family
   li:nth-child(2) {
     order: 5;
   }
+  // Check-in/out
   li:nth-child(3) {
     order: 4;
   }
+  // No Show
   li:nth-child(4) {
     order: 2;
   }
+  // Guarantee
   li:nth-child(5) {
     order: 1;
+  }
+}
+
+dialog .ui-info.modal-policies main ul {
+  display: flex;
+  flex-direction: column;
+
+  // Cancellation
+  li:nth-child(1) {
+    order: 0;
+  }
+  // Check-in/out
+  li:nth-child(2) {
+    order: 3;
+  }
+  //Extra Guest
+  li:nth-child(3) {
+    display: none;
+  }
+  // Family
+  li:nth-child(4) {
+    order: 4;
+  }
+  // Guarantee
+  li:nth-child(5) {
+    order: 1;
+  }
+  // No Show
+  li:nth-child(6) {
+    order: 2;
+  }
+  // Pet
+  li:nth-child(7) {
+    display: none;
+  }
+  // Tax
+  li:nth-child(8) {
+    display: none;
   }
 }
 
@@ -80,11 +123,8 @@ dialog .ui-info.modal-policies main li {
   }
   p {
     color: @c-primary;
-    padding: 0 5px;
   }
   h3 {
-    border: 1px solid @c-primary;
-    padding: 5px;
     font-family: @ff-bold;
     margin-bottom: 15px;
     text-transform: capitalize;
