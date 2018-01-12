@@ -50,11 +50,6 @@
               _booked_:
               <span>{{ reservation.bookingDate | dateTime }}</span>
             </span>
-            <a ng-if="config.displayPoliciesInDetails && !isMobile"
-               href
-               ng-click="openPoliciesInfo()">
-              _view_policies_
-            </a>
 
           </div>
 
@@ -123,13 +118,6 @@
               </tbody>
             </table>
           </div>
-
-          <a ng-if="!config.displayPoliciesInDetails || (config.displayPoliciesInDetails && isMobile)"
-             class="policy-link"
-             href
-             ng-click="openPoliciesInfo()">
-            _view_policies_
-          </a>
 
         </div>
       </div>

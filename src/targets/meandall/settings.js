@@ -1363,7 +1363,7 @@ angular.module('mobiusApp.config', [])
         {
           // It shows the day (day name) if the
           // check in date is within the next 7 days
-          max: 8 * 86400000,
+          max: 8 * 24 * 60 * 60 * 1000,
           // Only for future dates
           min: 0,
           format: 'ddd'
@@ -1371,14 +1371,14 @@ angular.module('mobiusApp.config', [])
         {
           // If the check in date is between 8 and 90 days
           // it shows the numeric date and the month (ie 5 Aug)
-          min: 8 * 86400000,
-          max: 90 * 86400000,
+          min: 8 * 24 * 60 * 60 * 1000,
+          max: 90 * 24 * 60 * 60 * 1000,
           format: 'Do MMM'
         },
         {
           // If it's 90 days away it shows the month and year
-          min: 90 * 86400000,
-          format: 'MMM YYYY'
+          min: 90 * 24 * 60 * 60 * 1000,
+          format: 'Do MMM YYYY'
         }
       ]
     },

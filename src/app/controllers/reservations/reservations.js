@@ -83,10 +83,18 @@
         pastStays: pastStays,
         futureStays: futureStays
       };
-      console.log('reservations', $scope.reservations);
+
+      // redirect user if only one reservation
+      if ($scope.reservations.pastStays.length === 0 && $scope.reservations.futureStays.length === 0 && $scope.reservations.nextStay) {
+        $state.go('reservationDetail', {reservationCode: $scope.reservations.nextStay.reservationCode, showActionButtons: true});
+        return;
+      }
+      if ($scope.reservations.pastStays.length === 1 && $scope.reservations.futureStays.length === 0 && !$scope.reservations.nextStay) {
+        $state.go('reservationDetail', {reservationCode: $scope.reservations.pastStays[0].reservationCode, showActionButtons: true});
+        return;
+      }
 
       if ($scope.reservations.nextStay) {
-        window.console.log($scope.reservations.nextStay.formatting);
         if ($scope.reservations.nextStay.formatting === 'suppressRate') {
           $scope.reservations.nextStay.productFormatting = true;
         } else {

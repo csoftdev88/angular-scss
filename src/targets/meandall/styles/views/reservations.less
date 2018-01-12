@@ -20,6 +20,12 @@
   }
   .future-stays {
     margin-top: 0;
+    reservation-item reservation-data .content .header .desc p.reservation-rate-name {
+      color: @c-primary;
+      .viewport-mobile & {
+        color: @c-secondary;
+      }
+    }
     .viewport-mobile & {
       color: @c-secondary;
       background: @c-primary;
@@ -53,9 +59,10 @@
       check-in-date {
         border: 2px solid @c-primary;
         border-radius: 0px;
-        width: 145px;
+        width: 160px;
         margin-top: 30px;
         .viewport-mobile & {
+          width: 120px;
           position: absolute;
           right: 20px;
           margin-top: 0;
@@ -81,7 +88,7 @@
           background: @c-primary;
           padding: 0;
           height: 50px;
-          font-size: @heading-2-size;
+          font-size: 30px;
           font-family: @ff-heading;
           font-weight: normal;
           width: 100%;
@@ -89,6 +96,7 @@
           height: initial;
           .viewport-mobile & {
             height: 30px;
+            font-size: 20px;
             padding: 0;
             line-height: 30px;
             font-size: 20px;
