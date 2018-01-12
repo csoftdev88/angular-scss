@@ -10,7 +10,7 @@
           <div class="left-content">
             <h1 ng-bind-html="roomOverview.name | mainHeaderStyle"></h1>
             <span class="sub-title" ng-if="config.displayRoomSubtitle && roomOverview.subTitle">{{roomOverview.subTitle}}</span>
-            <div class="description" ng-bind-html="isMobile ? roomOverview.roomHighlight : roomOverview.description | trustAsHtml"></div>
+            <div class="description" ng-bind-html="isMobile ? roomOverview.roomHighlight : roomOverview.shortDescription | trustAsHtml"></div>
           </div>
           <div ng-if="roomOverview.amenities.length" class="room-amenities">
             <h2 ng-bind-html="'_room_amenities_title_' | mainHeaderStyle"></h2>
