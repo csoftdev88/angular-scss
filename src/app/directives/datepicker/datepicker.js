@@ -360,18 +360,19 @@
           //days
           var diff = getDaysBetween(startDate, endDate);
 
-        //dates
-        if(counterHasDates && diff > 0 && !stateService.isMobile()){
-          var dateStr = '';
-          // @note Moment changes the formatting of a date based on locale, please refer to the docs for more info
-          // and switch the locale to test that the format will work for your localedateStr += counterDatesRules['0'].replace('{date}', window.moment(startDate).format(config.dateFormat));
-          dateStr += ' | ' + counterDatesRules['1'].replace('{date}', window.moment(endDate).format(config.dateFormat)) + ' | ';
-          return dateStr + $filter('pluralization')(diff, counterPluralizationRules);
+          //dates
+          if(counterHasDates && diff > 0 && !stateService.isMobile()){
+            var dateStr = '';
+            // @note Moment changes the formatting of a date based on locale, please refer to the docs for more info
+            // and switch the locale to test that the format will work for your localedateStr += counterDatesRules['0'].replace('{date}', window.moment(startDate).format(config.dateFormat));
+            dateStr += counterDatesRules['0'].replace('{date}', window.moment(startDate).format(config.dateFormat)) + ' | ';
+            dateStr += ' | ' + counterDatesRules['1'].replace('{date}', window.moment(endDate).format(config.dateFormat)) + ' | ';
+            return dateStr + $filter('pluralization')(diff, counterPluralizationRules);
+          }
+          else{
+            return $filter('pluralization')(diff, counterPluralizationRules);
+          }
         }
-        else{
-          return $filter('pluralization')(diff, counterPluralizationRules);
-        }
-      }
 
         // Checking if date is already selected (start date only)
         // This applies only for start date selection
