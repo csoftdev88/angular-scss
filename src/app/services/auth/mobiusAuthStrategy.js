@@ -15,7 +15,7 @@
     .module('mobiusApp.services.auth.mobius', [])
     .service( 'mobiusAuthStrategy', MobiusAuthStrategy);
 
-  function MobiusAuthStrategy($rootScope, $window, $state, user, apiService, userObject) {
+  function MobiusAuthStrategy($rootScope, $window, $state, user, apiService, scrollService, userObject) {
 
     // The header's attributes name
     var AUTH_HEADER = 'mobius-authentication';
@@ -58,6 +58,7 @@
               if ($rootScope.callbackFn) {
                 $rootScope.callbackFn.apply(null, $rootScope.callbackParams);
               }
+              scrollService.scrollTo('top');
             } else {
               that.loginDialogError = true;
               that.incorrectEmailPasswordError = true;
