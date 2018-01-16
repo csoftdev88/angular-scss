@@ -988,7 +988,7 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       //searchOffset stops user from searching availability past a certain date (today + searchOffset.days)
       'searchOffset' :{
         'enable': true,
-        'maxDate': '2018-02-28'
+        'maxDate': '2018-04-31'
       },
       // Suggest MRB when number of adults is higher
       // than this value and server returns no products
