@@ -487,8 +487,8 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
       // are specified in ms.
 
       // Use 0 value to disable automatic slide animation
-      'autoplayDelay': 10000,
-      'animationDuration': 1500,
+      'autoplayDelay': 5000,
+      'animationDuration': 800,
       'preloadImages': true,
       'slideWidth': 1440,
       'slideHeight': 490
