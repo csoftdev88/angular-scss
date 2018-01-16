@@ -11,7 +11,7 @@
           <h1>_welcome_main_page_text_, {{ userObject.firstName }}</h1>
           <h2>Members Recieve Exclusive Offers & Rewards</h2>
           <div class="HeroBenefits__signup">
-            <button class="HeroBenefits__button signup" ng-click="gotoOffer(offers[0])">View Your Offers</button>
+            <button class="HeroBenefits__button signup" ng-click="gotoOffer(offers[0])" ng-if="offers.length > 0">View Your Offers</button>
           </div>
         </div>
       </div>
