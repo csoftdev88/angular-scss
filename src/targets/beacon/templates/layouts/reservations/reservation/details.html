@@ -153,7 +153,8 @@
                ng-model="userDetails.stateProvince"
                name="stateProvince"
                autocomplete="state"
-               ng-pattern="$root.generalValidationPattern"/>
+               ng-pattern="$root.generalValidationPattern"
+               required/>
         <span ng-hide="forms.details.$submitted && forms.details.stateProvince.$error">_state_label_</span>
         <span ng-show="forms.details.$submitted && forms.details.stateProvince.$error && !forms.details.stateProvince.$error.pattern">_state_label_</span>
         <span ng-show="forms.details.$submitted && forms.details.stateProvince.$error.pattern">_state_pattern_error_</span>
@@ -350,7 +351,8 @@
                ng-model="userDetails.stateProvince"
                name="stateProvince"
                autocomplete="state"
-               ng-pattern="$root.generalValidationPattern"/>
+               ng-pattern="$root.generalValidationPattern"
+               required/>
         <span ng-hide="forms.details.$submitted && forms.details.stateProvince.$error">_state_label_</span>
         <span ng-show="forms.details.$submitted && forms.details.stateProvince.$error && !forms.details.stateProvince.$error.pattern">_state_label_</span>
         <span ng-show="forms.details.$submitted && forms.details.stateProvince.$error.pattern">_state_pattern_error_</span>
