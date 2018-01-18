@@ -20,6 +20,9 @@ angular.module('mobiusApp.directives.userMessages', [])
             if (!stateService.isMobile()) {
               $timeout(function () {
                 document.body.style.paddingTop = scope.messages.length ? angular.element('#user-messages').height() + 'px' : 0;
+                if (scope.messages.length === 0) {
+                  $('user-messages').removeClass('reservation-confirmation');
+                }
               }, 500);
             }
           }

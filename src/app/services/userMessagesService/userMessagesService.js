@@ -82,6 +82,7 @@ angular.module('mobiusApp.services.userMessagesService', [])
       //Remove all messages on route change
       if(messages.length && !isChangingRoute){
         clearMessages();
+        updateStyleClass();
       }
       isChangingRoute = false;
     });
