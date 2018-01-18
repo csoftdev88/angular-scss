@@ -13,7 +13,7 @@ angular.module('mobiusApp.directives.equals', [])
       function validate(myValue, otherValue) {
         myValue = myValue === undefined ? '' : myValue;
         otherValue = otherValue === undefined ? '' : otherValue;
-        if (myValue === otherValue) {
+        if (myValue.toLowerCase() === otherValue.toLowerCase()) {
           ngModel.$setValidity('equals', true);
           return myValue;
         } else {
