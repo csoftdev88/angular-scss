@@ -24,7 +24,8 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
   'customPreviewImages': [
     {uri: '/static/images/carousel/hotel-1.jpg'},
     {uri: '/static/images/carousel/hotel-2.jpg'},
-    {uri: '/static/images/carousel/hotel-3.jpg'}
+    {uri: '/static/images/carousel/hotel-3.jpg'},
+    {uri: '/static/images/carousel/hotel-4.jpg'}
   ],
   'autoPopulateDates': true,
   'currencyParamName': 'currency',
@@ -955,22 +956,6 @@ angular.module('mobiusApp.config', ['mobiusApp.dynamicMessages'])
         'name': 'English (US)',
         'decimalSeparator': '.',
         'groupSeparator': ',',
-        'groupSize': 3,
-        'neg': '-'
-      },
-      'en-ca': {
-        'shortName': 'EN',
-        'name': 'English (CAN)',
-        'decimalSeparator': '.',
-        'groupSeparator': ',',
-        'groupSize': 3,
-        'neg': '-'
-      },
-      'fr': {
-        'shortName': 'FR',
-        'name': 'French',
-        'decimalSeparator': '.',
-        'groupSeparator': '\u00a0',
         'groupSize': 3,
         'neg': '-'
       }

@@ -1,13 +1,12 @@
-<input ng-if="details && config.restrictAmenities" type="checkbox" class="amenities-reveal-state"
-id="hotel-amenities"/>
+<input ng-if="details && config.restrictAmenities" type="checkbox" class="amenities-reveal-state" id="hotel-amenities"/>
 <div class="grid-wrapper main-content-container">
   <span class="facilities-title" ng-bind-html="'_amenities_title_' | mainHeaderStyle"></span>
   <div class="facilities-list-container">
     <div class="facilities-list-container-row">
-      <div class="facilities-list-container-row-item" ng-repeat="amenity in filteredAmenities"
+      <div class="facilities-list-container-row-item" ng-repeat="amenity in filteredAmenities | filter:{slug: '!valet-parking'}"
       ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = details.chainCode">
         <div class="facilities-list-container-row-item-icon">
-          <slug-img slug="amenity" type="hotel" width="32"></slug-img>
+          <slug-img slug="amenity" type="hotel" width="31"></slug-img>
         </div>
         <div class="facilities-list-container-row-item-name">
           {{amenity.name}}
