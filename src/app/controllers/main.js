@@ -365,6 +365,7 @@ angular.module('mobius.controllers.main', ['mobiusApp.services.offers'])
       $scope.openBookingBar = function () {
         if ($scope.loyaltyEngine) {
           angular.element('floating-bar').removeClass('hide').css('display', 'block');
+          $('body').addClass('booking-widget-active');
         }
         $rootScope.$broadcast('BOOKING_BAR_OPEN_SRB_TAB');
       };
