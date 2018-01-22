@@ -61,6 +61,7 @@ angular.module('mobiusApp.directives.floatingBar', [
           scope.setActive(false, false);
           if (Settings.engine === 'loyalty') {
             $('floating-bar').css('display', 'none');
+            $('body').removeClass('booking-widget-active');
           }
         };
 
