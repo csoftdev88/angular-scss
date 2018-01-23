@@ -1,0 +1,78 @@
+//////////////////////
+//// FLOATING BAR ////
+//////////////////////
+
+.multiroom-mode booking-widget-add-room{
+  width: 50% !important;
+  .viewport-mobile & {
+    width:100% !important;
+  }
+}
+
+floating-bar {
+
+  .mobile-menu-active & {
+    z-index: 900;
+  }
+
+  //- Tabs
+  > ul {
+
+    li {
+
+      &.floating-bar--tab-booking,
+      &.floating-bar--tab-booking.is-active,
+      &.floating-bar--tab-booking:before{
+        background: @c-booking-widget;
+      }
+
+      &.floating-bar--tab-booking:after{
+        border-bottom: @baseline*1.5 solid @c-booking-widget!important;
+      }
+
+      &.floating-bar--tab-advanced-booking,
+      &.floating-bar--tab-advanced-booking.is-active,
+      &.floating-bar--tab-advanced-booking:before{
+        background: @c-booking-widget-active;
+      }
+
+      &.floating-bar--tab-advanced-booking:after{
+        border-bottom: @baseline*1.5 solid @c-booking-widget-active;
+      }
+
+      //- Skew effect
+      &:after {
+       // border-bottom: @baseline*1.5 solid @c-booking-widget-active;
+      }
+
+
+      &.floating-bar--tab-booking {
+
+        .viewport-mobile &.main-mobile-toggle {
+
+          &.mobile-is-open a{
+            background: @c-booking-widget;
+          }
+
+          a{
+
+            &.with-search-params {
+              background: #a89b85;
+            }
+
+            .mobile{
+
+            }
+          }
+        }
+      }
+    }
+  }
+  &.bar-top-right:not(.active) {
+    .viewport-mobile.chain-sign:not(.mobile-menu-active) & {
+      > ul li.floating-bar--tab-booking.main-mobile-toggle a {
+        background:@c-secondary-sign;
+      }
+    }
+  }
+}
