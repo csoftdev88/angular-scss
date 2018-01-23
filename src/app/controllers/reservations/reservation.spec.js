@@ -347,7 +347,7 @@ describe('mobius.controllers.reservation', function() {
         expect(_chainService.getChain.calledTwice).equal(true);
         expect(_chainService.getChain.calledWith('TESTCHAIN')).equal(true);
       });
-      
+
       it('should download property details from the server and store them', function(){
         expect(_spyGetPropertyDetails).calledTwice;
         expect(_spyGetPropertyDetails.calledWith(TEST_PROPERTY_ID)).equal(true);
@@ -411,7 +411,7 @@ describe('mobius.controllers.reservation', function() {
         expect(_spyCreateReservation.calledOnce).equal(true);
       });
 
-      
+
       Remove when confirmed
       it('should fire a PUT request to customer API', function(){
         _scope.additionalInfo.agree = true;
@@ -420,7 +420,7 @@ describe('mobius.controllers.reservation', function() {
         _scope.$digest();
         expect(_spyUpdateUser.calledOnce).equal(true);
       });
-      
+
 
       describe('when reservation is complete', function(){
         var stateParams;

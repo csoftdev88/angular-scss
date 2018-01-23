@@ -93,22 +93,6 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       }
     }
 
-    function trackSearch(chainData, propertyData, stateParams, order, products, room, selectedRate) {
-      if (!enabled) {
-        return;
-      }
-      if (endpoint) {
-        contentService.getCountries().then(function(countries) {
-          contentService.getTitles().then(function(titles) {
-            var postData = buildSearchData(chainData, propertyData, stateParams, order, products, room, selectedRate, countries, titles);
-            apiService.infinitiApeironPost(endpoint, postData, username, password).then(function() {}, function(err) {
-              console.log('Infiniti apeiron search tracking error: ' + angular.toJson(err));
-            });
-          });
-        });
-      }
-    }
-
     function trackCampaignDisplay(code) {
       trackEvent('campaign_display', {'campaignCode': code.toString()});
     }
@@ -497,182 +481,6 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       return infinitiApeironData;
     }
 
-    function buildSearchData(chainData, propertyData, stateParams, order, products, room, selectedRate, countries, titles) {
-      var bookedDate = stateParams.dates ? stateParams.dates.split('_') : null;
-      var fromDate = null;
-      var toDate = null;
-      if (bookedDate && bookedDate.length) {
-        fromDate = bookedDate[0];
-        toDate = bookedDate[1];
-      }
-      var infinitiApeironData = buildGenericData(chainData);
-      infinitiApeironData.metaData.rateOrder = order && order.name ? order.name : 'default';
-      if(selectedRate && selectedRate.code && selectedRate.name)
-      {
-        infinitiApeironData.metaData.rateFilter = {
-          'code':selectedRate.code,
-          'id':selectedRate.id,
-          'name':selectedRate.name
-        };
-      }
-      else {
-        infinitiApeironData.metaData.rateFilter = 'default';
-      }
-      infinitiApeironData.metaData.starRating = propertyData.rating || '';
-
-      var sessionCookie = sessionDataService.getCookie();
-
-      var customerObject = {};
-
-      if (userObject && userObject.id) {
-        var userCountry = getUserCountry(countries, userObject.localeCode);
-        var userTitle = getUserTitle(titles, userObject.title);
-
-        customerObject = {
-          'firstName': userObject.firstName,
-          'lastName': userObject.lastName,
-          'title': userTitle ? userTitle.name : null,
-          'email': userObject.email,
-          'telephone': userObject.tel1,
-          'address1': userObject.address1,
-          'address2': userObject.address2,
-          'address3': userObject.address3,
-          'town': userObject.city,
-          'state': userObject.state,
-          'postcode': userObject.zip,
-          'country': userCountry ? userCountry.code : null,
-          'gender': userObject.gender || '',
-          'isCorporateCustomer': stateParams.corpCode && stateParams.corpCode !== '' ? true : false,
-          'isLoyaltyMember': Settings.authType === 'infiniti',
-          'uuid': sessionCookie.sessionData.sessionId
-        };
-      }
-
-      customerObject.infinitiId = user.getTrackingId() !== null ? user.getTrackingId().toString() : null;
-      customerObject.id = user.getCustomerId() !== null ? user.getCustomerId().toString() : null;
-
-      infinitiApeironData.customer = customerObject;
-
-      var results = [];
-      _.each(products, function(product) {
-
-        var productPolicies = [];
-        _.each(product.policies, function(policy) {
-          var policyObj = {
-            'type':policy.type,
-            'value':policy.value
-          };
-          productPolicies.push(policyObj);
-        });
-
-        var nights = [];
-        _.each(product.price.breakdowns, function(breakdown) {
-          var night = {
-            'date':$window.moment(breakdown.date).toISOString(),
-            'totalRevenue': breakdown.totalBaseAfterPricingRules,
-            'totalPrice': breakdown.totalAfterTaxAfterPricingRules,
-            'totalTax': breakdown.totalTax + breakdown.totalFees,
-          };
-          nights.push(night);
-        });
-
-        var localeData = propertyData.locale;
-        var localeArray = localeData ? propertyData.locale.split('-') : null;
-        if(localeArray && localeArray.length > 1)
-        {
-          localeData = localeArray[1].trim();
-        }
-
-        var result = {
-          'id': product.productPropertyRoomTypeId,
-          'transaction': {
-            'id': null
-          },
-          'code': room.code,
-          'quantity': 1,
-          'discountAmount': 0,
-          'discountPercent': 0,
-          'totalRevenue': product.price.totalBaseAfterPricingRules,
-          'totalPrice': product.price.totalAfterTaxAfterPricingRules,
-          'totalTax': product.price.taxDetails.totalTax + product.price.totalAdditionalFees,
-          'dateFrom': $window.moment(fromDate).toISOString(),
-          'dateTo': $window.moment(toDate).toISOString(),
-          'isPreorder': false,
-          'metaData': {
-            'adults': stateParams.adults,
-            'children': stateParams.children,
-            'rate': product.code,
-            'starRating': propertyData.rating,
-            'groupCode': stateParams.groupCode ? stateParams.groupCode : null,
-            'promoCode': stateParams.promoCode ? stateParams.promoCode : null,
-            'corpCode': stateParams.corpCode ? stateParams.corpCode : null,
-            'policies': productPolicies,
-            'region': {
-              'code': propertyData.regionCode,
-              'name': localeData
-            },
-            'location': {
-              'code': propertyData.locationCode,
-              'name': propertyData.city
-            },
-            'province': {
-              'code': localeData,
-              'name': localeData
-            },
-            'property': {
-              'code': propertyData.code,
-              'name': propertyData.nameShort
-            },
-            'nights': nights
-          },
-          'product': {
-            'id': product.code,
-            'name': product.name,
-            'category': room.name,
-            'sku': product.productPropertyRoomTypeId,
-            'price': product.price.totalAfterTaxAfterPricingRules,
-            'priceBeforeTax': product.price.totalBaseAfterPricingRules,
-            'tax': '',
-            'revenue': ''
-          }
-        };
-        results.push(result);
-      });
-
-      // FIXME: ... why assign the variable 3 times?
-      var discountCode = stateParams.promoCode ? stateParams.promoCode : null;
-      discountCode = stateParams.groupCode ? stateParams.groupCode : null;
-      discountCode = stateParams.corpCode ? stateParams.corpCode : null;
-
-      infinitiApeironData.transaction = {
-        'transactionType': 'search',
-        'id': 'search',
-        'uuid': sessionCookie.sessionData.sessionId,
-        'totalRevenue': null,
-        'totalPrice': null,
-        'totalTax': null,
-        'shipping': 'NONE', //This must be a string to pass infiniti purchase event validation
-        'shippingDuration': null,
-        'shippingOption': 'NONE', //This must be a string to pass infiniti purchase event validation
-        'shippingIsSplit': null,
-        'currencyCode': Settings.UI.currencies.default,
-        'totalItems': 1,
-        'discountAmount': null,
-        'discountPercent': null,
-        'discountCode': discountCode,
-        'discountCampaign': null,
-        'discountType': ['flat'], //look into this
-        'isGift': false,
-        'source': 'Online',
-        'subsource': '',
-        'paymentType': null
-      };
-
-      infinitiApeironData.items = results;
-
-      return infinitiApeironData;
-    }
-
     function getUserTitle(titles, titleCode) {
       var userTitle = _.find(titles, function(title) {
         return title.id === titleCode;
@@ -680,16 +488,8 @@ angular.module('mobiusApp.services.infinitiApeironService', []).service('infinit
       return userTitle;
     }
 
-    function getUserCountry(countries, countryCode) {
-      var userCountry = _.find(countries, function(country) {
-        return country.code === countryCode;
-      });
-      return userCountry;
-    }
-
     return {
       trackPurchase: trackPurchase,
-      trackSearch: trackSearch,
       trackSearchParams: trackSearchParams,
       trackResults: trackResults,
       trackRates: trackRates,

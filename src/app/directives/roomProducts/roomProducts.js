@@ -162,7 +162,6 @@ angular.module('mobiusApp.directives.room.products', [])
 
               //Mobius tracking
               mobiusTrackingService.trackSearch(bookingParams, chainData, propertyData, scope.products, scope.room, selectedRate);
-              infinitiApeironService.trackSearch(chainData, propertyData, $stateParams, scope.currentOrder, scope.products, scope.room, selectedRate);
             });
           });
 
