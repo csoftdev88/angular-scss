@@ -309,7 +309,12 @@ angular.module('mobius.controllers.hotel.details', [
       };
 
       // Preview content
-      $scope.previewImages = contentService.getLightBoxContent(details.images, 300, 150, 'fill');
+      if ($scope.previewImages && $scope.previewImages.length > 0) {
+        $scope.previewImages = contentService.getLightBoxContent($scope.previewImages, 300, 150, 'fill');
+      }
+      else {
+        $scope.previewImages = contentService.getLightBoxContent(details.images, 300, 150, 'fill');
+      }
     }
 
     //Scroll to rooms straight away if user comes from booking bar
