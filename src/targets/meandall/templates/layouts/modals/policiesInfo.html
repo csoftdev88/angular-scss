@@ -2,24 +2,18 @@
            and modal-policies modifier should be moved up to the dialog
            element just like it is on some of other modals -->
 <div class="ui-info modal-policies">
-  <header>
-    <h1 ng-bind-html="'_policies_modal_title_' | mainHeaderStyle"></h1>
-    <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
-  </header>
-
   <main>
-      <accordion close-others="true" ng-class="{'single': data.length === 1}">
-        <accordion-group is-open="$first" ng-repeat="product in data track by $index">
-          <accordion-heading ng-hide="data.length === 1">
-            <div ng-bind-html="product.name"></div>
-          </accordion-heading>
-          <ul>
-            <li ng-repeat="policy in product.policies" ng-if="policy.type !== 'commission'">
-              <h3>{{getPolicyTitle(policy.type)}}:</h3>
-              <p ng-bind-html="sanitize(policy.description)"></p>
-            </li>
-          </ul>
-        </accordion-group>
-      </accordion>
+    <div ng-repeat="product in data track by $index">
+      <ul>
+        <header>
+          <h1 ng-bind-html="'_policies_modal_title_' | mainHeaderStyle"></h1>
+          <button-close role="button" aria-label="Close" ng-click="cancel()"></button-close>
+        </header>
+        <li ng-repeat="policy in product.policies" ng-if="policy.type !== 'commission'">
+          <h3>{{getPolicyTitle(policy.type)}}:</h3>
+          <p ng-bind-html="sanitize(policy.description)"></p>
+        </li>
+      </ul>
+    </div>
   </main>
 </div>

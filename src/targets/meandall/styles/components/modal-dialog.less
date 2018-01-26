@@ -77,41 +77,64 @@ ul.policies-list {
   }
 }
 
-dialog .ui-info.modal-policies main ul {
-  display: flex;
-  flex-direction: column;
+dialog .ui-info.modal-policies main {
+  padding: 0px;
 
-  // Cancellation
-  li:nth-child(1) {
-    order: 0;
-  }
-  // Check-in/out
-  li:nth-child(2) {
-    order: 3;
-  }
-  //Extra Guest
-  li:nth-child(3) {
-    display: none;
-  }
-  // Family
-  li:nth-child(4) {
-    order: 4;
-  }
-  // Guarantee
-  li:nth-child(5) {
-    order: 1;
-  }
-  // No Show
-  li:nth-child(6) {
-    order: 2;
-  }
-  // Pet
-  li:nth-child(7) {
-    display: none;
-  }
-  // Tax
-  li:nth-child(8) {
-    display: none;
+  ul {
+    header {
+      display: flex;
+      padding: 15px;
+      h1 {
+        flex: 1;
+      }
+      button-close {
+        position: relative;
+        flex: 1;
+        top: 0;
+        right: 0;
+
+        &::before {
+          float: right;
+        }
+      }
+    }
+
+    display: flex;
+    flex-direction: column;
+    padding: 0px 40px;
+
+    // Cancellation
+    li:nth-child(2) {
+      order: 0;
+    }
+    // Check-in/out
+    li:nth-child(3) {
+      order: 3;
+    }
+    //Extra Guest
+    li:nth-child(4) {
+      display: none;
+    }
+    // Family
+    li:nth-child(5) {
+      order: 4;
+    }
+    // Guarantee
+    li:nth-child(6) {
+      order: 1;
+    }
+    // No Show
+    li:nth-child(7) {
+      order: 2;
+    }
+    // Pet
+    li:nth-child(8) {
+      display: none;
+    }
+    // Tax
+    li:nth-child(9) {
+      display: none;
+    }
   }
 }
 

@@ -839,27 +839,9 @@ angular.module('mobiusApp.config', [])
     'currencies': {
       'default': 'EUR',
 
-      'GBP': {
-        'code': 'GBP',
-        'symbol': '£',
-        'format': '{{symbol}} {{amount}}'
-      },
-
-      'USD': {
-        'code': 'USD',
-        'symbol': '$',
-        'format': '{{symbol}} {{amount}}'
-      },
-
       'EUR': {
         'code': 'EUR',
         'symbol': '€',
-        'format': '{{symbol}} {{amount}}'
-      },
-
-      'CHF': {
-        'code': 'CHF',
-        'symbol': 'SFr',
         'format': '{{symbol}} {{amount}}'
       }
     },

@@ -434,7 +434,7 @@
     "reset_password_page_title": "Reset your password",
     "reset_password_page_sub_title": "Please enter a new password below:",
     "reset_password_button": "Save password",
-    "reset_password_error_code_ten": "We apologise but the app has experienced an error. Please try again.",
+    "reset_password_error_code_ten": "We apologise but we have experienced an error. Please try again.",
     "reset_password_error_code_eleven": "We apologise, but it seems that your code is invalid. Please check and try again.",
     "reset_password_error_code_twelve": "We apologise, but the link to reset your password has expired. Please request a new one.",
     "reset_password_error_code_thirteen": "This link has already been used to reset your password. Please request a new one.",

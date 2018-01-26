@@ -3,7 +3,7 @@
   <span class="facilities-title" ng-bind-html="'_amenities_title_' | mainHeaderStyle"></span>
   <div class="facilities-list-container">
     <div class="facilities-list-container-row">
-      <div class="facilities-list-container-row-item" ng-repeat="amenity in filteredAmenities | filter:{slug: '!valet-parking'}"
+      <div class="facilities-list-container-row-item" ng-repeat="amenity in filteredAmenities | filter:{slug: '!subwoofer'} | filter:{slug: '!valet-parking'}"
       ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = details.chainCode">
         <div class="facilities-list-container-row-item-icon">
           <slug-img slug="amenity" type="hotel" width="31"></slug-img>

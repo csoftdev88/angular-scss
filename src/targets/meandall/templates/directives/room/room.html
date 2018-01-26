@@ -41,7 +41,7 @@
     <h2 ng-bind-html="'_room_amenities_title_' | mainHeaderStyle"></h2>
     <input ng-if="roomDetails && config.restrictAmenities" type="checkbox" class="amenities-reveal-state" id="hotel-amenities" />
     <amenities-list ng-if="property" ng-class="{'restricted-amenities': config.restrictAmenities}">
-      <amenity-item ng-repeat="amenity in filteredAmenities" ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = property.chainCode">
+      <amenity-item ng-repeat="amenity in filteredAmenities | filter:{slug: '!subwoofer'} | filter:{slug: '!valet-parking'}" ng-class="{'amenity-highlight': amenity.highlight}" ng-init="amenity.chainCode = property.chainCode">
         <slug-img slug="amenity" type="room" width="15"></slug-img>
         <span class="amenity-caption">{{amenity.name}}</span>
       </amenity-item>

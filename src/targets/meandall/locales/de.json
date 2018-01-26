@@ -437,7 +437,7 @@
     "reset_password_page_title": "Ihr Passwort zurücksetzen",
     "reset_password_page_sub_title": "Bitte geben Sie unten ein neues Passwort ein:",
     "reset_password_button": "Passwort speichern",
-    "reset_password_error_code_ten": "Es tut uns leid, aber es ist ein Fehler in der App aufgetreten. Bitte erneut versuchen.",
+    "reset_password_error_code_ten": "Es tut uns leid, aber es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
     "reset_password_error_code_eleven": "Es tut uns Leid, aber Ihr Code ist ungültig. Bitte überprüfen Sie ihn und versuchen Sie es erneut.",
     "reset_password_error_code_twelve": "Leider ist der Link zum Zurücksetzen Ihres Passworts abgelaufen. Bitte fordern Sie einen neuen an.",
     "reset_password_error_code_thirteen": "Der Link wurde bereits zum Zurücksetzen Ihres Passworts verwendet. Bitte fordern Sie einen neuen an.",

@@ -12,16 +12,10 @@
             <span class="sub-title" ng-if="config.displayRoomSubtitle && roomOverview.subTitle">{{roomOverview.subTitle}}</span>
             <div class="description" ng-bind-html="isMobile ? roomOverview.roomHighlight : roomOverview.shortDescription | trustAsHtml"></div>
           </div>
-          <div ng-if="roomOverview.amenities.length" class="room-amenities">
-            <h2 ng-bind-html="'_room_amenities_title_' | mainHeaderStyle"></h2>
-            <amenities-list>
-              <amenity-item ng-repeat="amenity in roomOverview.amenities" ng-init="amenity.chainCode = property.chainCode">
-                <slug-img slug="amenity" type="room" width="15"></slug-img>
-                <span class="amenity-caption">{{amenity.name}}</span>
-              </amenity-item>
-            </amenities-list>
+          <div class="right-content">
+            <div class="description" ng-bind-html="roomOverview.description | trustAsHtml"></div>
+            <div class="clear"></div>
           </div>
-          <div class="clear"></div>
           <a ng-href="{{roomOverview.propertyLink}}" class="back-to-hotel">< _back_</a>
         </div>
       </div>

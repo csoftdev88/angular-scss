@@ -83,13 +83,7 @@
                   <!-- Do we know the payment method? -->
                   <!-- <th>Room Charges: {{reservation.paymentMethod}}</th> -->
                   <th>_room_charges_: </th>
-                  <td>{{getPrice() | i18nCurrency: currencyCode}}</td>
-                </tr>
-
-                <!-- Additional taxes -->
-                <tr ng-if="getTax() > 0">
-                  <th class="tax">_taxes_:</th>
-                  <td class="tax">{{getTax() | i18nCurrency: currencyCode}}</td>
+                  <td>{{getPriceAfterTax() | i18nCurrency: currencyCode}}</td>
                 </tr>
 
                 <!-- Discount -->

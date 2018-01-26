@@ -22,10 +22,8 @@ section-image {
     background-attachment: initial;
   }
   .description {
-    display: none;
-    padding: 35px 12px;
+    padding: 25px 0px;
     background: @c-black;
-    position: absolute;
     bottom: 35px;
     box-sizing:border-box;
     h1 {
@@ -48,11 +46,6 @@ section-image {
       bottom: 35px;
       padding: 30px 15px;
     }
-    .grid-wrapper {
-      .viewport-mobile & {
-        padding: 0;
-      }
-    }
     //Styling for back link
     .back-to-hotel {
       display: block;
@@ -73,10 +66,23 @@ section-image {
         width: 100%;
       }
     }
-    .description {
-      display: block;
-      padding: 0;
-      position: static;
+    .right-content {
+      width: 40%;
+      float: right;
+      .viewport-mobile & {
+        float: none;
+        width: 100%;
+      }
+
+      .description {
+        display: block;
+        padding: 0;
+        position: static;
+
+        ul {
+          list-style: disc;
+        }
+      }
     }
     .room-amenities {
       float: left;
