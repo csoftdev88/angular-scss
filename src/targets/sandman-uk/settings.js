@@ -299,6 +299,7 @@ angular.module('mobiusApp.config', [])
     'headers': {
       // Auth header is set by a static server. See: config/environment/index.js
       'Mobius-tenantId': '1',
+      'Mobius-chainId': '3',
       'Mobius-channelId': [{
         'name': 'mobileWeb',
         'channelID': 23,
@@ -430,16 +431,16 @@ angular.module('mobiusApp.config', [])
     },
     // Menu settings - showing/hidding menu items
     'menu': {
-      'showHotels': false,
+      'showHotels': true,
       'hotelMenuContent': {
-        'service': 'locationService',
-        'method': 'getRegions',
-        'detailState': 'regions',
-        'listState': 'regions',
-        'paramName': 'regionSlug'
+        'service': 'propertyService',
+        'method': 'getAll',
+        'detailState': 'hotel',
+        'listState': 'hotels',
+        'paramName': 'propertySlug'
       },
-      'showRegionsMegaMenu': true,
-      'showHotDeals': true,
+      'showRegionsMegaMenu': false,
+      'showHotDeals': false,
       'showMeetingsBanquets': true,
       'showOffers': true,
       'showAbout': true,
@@ -453,13 +454,8 @@ angular.module('mobiusApp.config', [])
       // Details: PT #102456878
       'hasSecondLevelDropdown': false,
       'isLogoutInDropdown': true,
-      'standalone': true,
-      'externalRegionLinks':[
-        {
-          'title': 'United Kingdom',
-          'url': 'http://www.sandmansignature.co.uk/'
-        }
-      ]
+      'standalone': false,
+      'externalRegionLinks':[]
     },
     // Social links
     'displaySocialLinks': true,
@@ -872,14 +868,14 @@ angular.module('mobiusApp.config', [])
       'datePickerHasTitle': false,
       'datePickerCounterIncludeDates': true,
       'datePickerCloseOnDatesSelected': false,
-      'defaultRegion':'BC',
+      // 'defaultRegion':'UK',
       'checkAvailabilityOnChange': false,
       'checkOfferAvailabilityOnChange': false,
       'displayPropertiesMegamenu': true,
       'displaySelectAllHotelsAction':false,
       'hasMultiroomTab': false,
       'hasRatesSelection': true,
-      'timezone':'America/Vancouver',
+      'timezone':'Europe/London',
       //searchOffset stops user from searching availability past a certain date (today + searchOffset.days)
       'searchOffset' :{
         'enable': true,
@@ -889,8 +885,8 @@ angular.module('mobiusApp.config', [])
       // than this value and server returns no products
       'maxAdultsForSingleRoomBooking': 3,
       'includeAllPropertyOption': true,
-      'includeRegions': false,
-      'includeLocations': true,
+      'includeRegions': true,
+      'includeLocations': false,
       'includeRegionsOnMobile': false,
       'includeLocationsOnMobile': false,
       'adults': {
