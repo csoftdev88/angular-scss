@@ -445,7 +445,7 @@ angular.module('mobiusApp.config', [])
       'showOffers': true,
       'showAbout': true,
       'showNews': false,
-      'showContact': false,
+      'showContact': true,
       'offerlimitedToChainWide': true,
       'offersKeepProperty': false,
       'offerSpecificToSelectedProperty': false,
@@ -454,7 +454,7 @@ angular.module('mobiusApp.config', [])
       // Details: PT #102456878
       'hasSecondLevelDropdown': false,
       'isLogoutInDropdown': true,
-      'standalone': false,
+      'standalone': true,
       'externalRegionLinks':[]
     },
     // Social links
