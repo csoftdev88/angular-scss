@@ -10,7 +10,7 @@
 
 // GENERIC STYLES
 .main-nav {
-  height: 98px;
+  height: 124px;
   width: 100%;
   padding: 0 20px;
   box-sizing: border-box;
@@ -27,8 +27,14 @@
   ul {
     li[currency-list],
     li[language-list] {
-      line-height: 98px;
+      line-height: 38px;
       padding: 0 10px;
+      height: 38px;
+      margin-top: 30px;
+
+      &:hover {
+        background-color: #F4F4F4;
+      }
 
       > div > a:after {
         color: #AD8044;
@@ -373,11 +379,16 @@
 
       li[currency-list],
       li[language-list] {
-        line-height: 98px;
+        line-height: 38px;
         padding: 0 10px;
+        height: 38px;
+        margin-top: 30px;
+
         a{
           color: @c-dark-grey;
-          font-size: 10px;
+          font-size: 14px;
+          font-weight: normal;
+          line-height: 22px;
           &:hover,
           &:after{
             color: @c-dark-grey;
@@ -465,6 +476,7 @@
       }
       .desktop-logo {
         width: 100%;
+        max-width: 142px;
       }
       .viewport-tablet &{
         max-width: 50%;
@@ -509,8 +521,8 @@ Sub-nav
     .chain-sand &{
       background: @c-primary-sand;
     }
-    height: 30px;
-    line-height: 30px;
+    height: 40px;
+    line-height: 40px;
     > nav{
       text-align: center;
       > ul{
@@ -531,6 +543,7 @@ Sub-nav
         li{
           display: inline-block;
           float: none;
+          font-weight: 200;
           a{
             color: #fff;
             font-size: 13px;

@@ -1,7 +1,7 @@
 @media only screen and @tablet-portrait-min {
   .dropdown-menu {
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
-    top: 30px;
+    top: 40px;
     li[currency-list] &,
     li[currency-list] & {
       top: 80px;
@@ -23,13 +23,23 @@
         color: #fff;
       }
       li {
-        a span {
-          line-height: 20px;
-          font-size:12px;
-        }
+
         a {
-        font-size: 12px !important;
-      }
+          height: 22px;
+          color: #FFFFFF;
+          font-family: "Open Sans";
+          font-size: 14px !important;
+          font-weight: 200;
+          line-height: 22px;
+          text-transform: capitalize !important;
+
+          span {
+            line-height: 20px;
+            font-size:12px;
+            margin-top: 0;
+          }
+        }
+
         .dropdown {
           padding:0;
           a {
@@ -40,20 +50,22 @@
     }
     li{
       border-top: 1px solid #343434 !important;
-      padding: 15px 0 0 0 !important;
-      margin: 15px;
+      padding: 9px 15px !important;
+      margin: 0;
+
+      &:hover {
+        background-color: #272727;
+      }
+
       .chain-sign &, .chain-sand & {
         border-top:1px solid rgba(255, 255, 255, 0.2)!important;
       }
       &:first-child {
-        padding-top:0 !important;
-        border-top:0px none !important;
       }
       a{
-        text-transform:initial !important;
+        text-transform:capitalize !important;
         font-size: 15px !important;
         line-height:22px;
-        font-weight: 700;
         span {
           font-weight:300;
         }
