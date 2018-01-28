@@ -31,6 +31,14 @@ booking-widget {
     line-height: 26px;
   }
 
+  .chosen-container {
+    .chosen-drop {
+      bottom: 115%;
+    }
+  }
+
+
+
   @keyframes input-prefilled {
     0%   { box-shadow: 0px 0px 0px 2px @c-secondary }
     50%   { box-shadow: 0px 0px 50px 10px @c-secondary }
@@ -55,9 +63,14 @@ booking-widget-add-room form-element {
   .chosen-single:before,
   &:before {
     color: @c-grey;
+    content: '';
   }
 
-  &.hotel .chosen-single:before   { content: @fa-var-building; }
+  &.hotel .chosen-single div b {
+    background: none;
+  }
+
+  &.hotel:before   { content: none; }
 }
 
 booking-widget-search form-element.code{

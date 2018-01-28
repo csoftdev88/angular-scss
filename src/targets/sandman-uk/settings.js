@@ -871,7 +871,7 @@ angular.module('mobiusApp.config', [])
       // 'defaultRegion':'UK',
       'checkAvailabilityOnChange': false,
       'checkOfferAvailabilityOnChange': false,
-      'displayPropertiesMegamenu': true,
+      'displayPropertiesMegamenu': false,
       'displaySelectAllHotelsAction':false,
       'hasMultiroomTab': false,
       'hasRatesSelection': true,

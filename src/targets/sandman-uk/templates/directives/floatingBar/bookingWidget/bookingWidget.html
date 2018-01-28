@@ -4,14 +4,14 @@
   <!-- FIND YOUR HOTEL -->
   <form-element class="hotel" ng-show="hasPropertySelection && !singleProperty && (!settings.displayPropertiesMegamenu || isMobile())">
     <select name="regionHotels" required chosen
-            disable-search="false"
+            disable-search="true"
             placeholder-text-single="_region_hotel_"
             ng-model="regionPropertySelected"
             chosen-options-class="{ 'location': type === 'location', 'property': type === 'property' }"
-            ng-options="option.name for option in propertyRegionList"
+            ng-options="option.name for option in propertyRegionList | filter: { name: '!' + '_find_your_hotel_' } "
             ng-change="propertyRegionChanged(); checkAvailability()">
     </select>
-    <form-label>_find_your_hotel_</form-label>
+    <!-- <form-label>_find_your_hotel_</form-label> -->
   </form-element>
 
   <form-element class="hotel" ng-show="hasPropertySelection && !singleProperty && (settings.displayPropertiesMegamenu && !isMobile())">
