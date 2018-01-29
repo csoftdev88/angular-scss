@@ -5,10 +5,9 @@ offers-list,
 rewards-list {
   offer-item,
   reward-item {
-    border-radius: 0;
-    height: 426px;
-    border: 1px solid @c-light-grey;
-    box-shadow: none;
+    height: 470px;
+    width: 300px;
+
     // if it's clickable
     &[ng-click] {
       cursor: pointer;
@@ -34,26 +33,36 @@ rewards-list {
     //- Image
     img {
       height: 200px;
-      max-height: 200px;
+      max-height: 184px;
       min-height: 0;
-      margin-bottom: 10px;
     }
     //- Content - Title + Description
     section {
       max-height: 150px;
       h2 {
         margin-bottom: 10px;
+        height: 50px;
+        color: #313131;
+        font-size: 22px;
+        font-family: Georgia;
+        line-height: 25px;
+        text-align: center;
+        text-shadow: 0 1px 1px 0 rgba(0,0,0,0.4);
+        font-weight: normal !important;
+        text-transform: none;
       }
       div {
-        font-size: 12px;
+        color: #838383;
+        font-size: 14px;
+        line-height: 19px;
+        text-align: center;
+        text-shadow: 0 1px 1px 0 rgba(0,0,0,0.4);
       }
     }
     //- Title
     h2,
     h3 {
       color: @c-dark-grey;
-      font-size: 20px;
-      text-transform: uppercase;
       font-weight: 700 !important;
       .chain-sand & {
         color: @c-dark-grey;
@@ -83,19 +92,27 @@ rewards-list {
       line-height: 17px;
     }
     //- Read More
+
+    .background {
+      height: 45px;
+      width: 260px;
+      border-radius: 3px;
+      background-color: #3EB1C2;
+      box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2);
+    }
+
     .read-more {
       background: @c-secondary;
-      border-radius: 8px;
       color: #fff;
       font-weight: 700;
-      font-size: 14px;
-      text-transform: uppercase;
-      line-height: 38px;
-      height: 38px;
+      font-size: 15px;
+      line-height: 45px;
       text-shadow: none;
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+      height: 45px;
+      width: 260px;
+      border-radius: 3px;
+      box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2);
       bottom: 23px;
-      width: 145px;
       left: 50%;
       transform: translate(-50%, 0);
       &:hover {
@@ -111,7 +128,8 @@ rewards-list {
     }
     //- Advert Offer
     &.advert {
-      height: 426px;
+      height: 470px;
+      width: 300px;
       position: relative;
     }
   }
