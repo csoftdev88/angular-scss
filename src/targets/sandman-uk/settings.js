@@ -696,12 +696,12 @@ angular.module('mobiusApp.config', [])
       {
         'type': 'sort',
         'enable': true,
-        'displayInSidebar': true,
+        'displayInSidebar': false,
         'accordion': false
       },
       {
         'type': 'tripAdvisor',
-        'enable': true,
+        'enable': false,
         'minTaRating': 2,
         'maxTaRating': 5,
         'accordion': false
@@ -1014,7 +1014,9 @@ angular.module('mobiusApp.config', [])
     // States layout
     'layout': {
       'home': [
-        'about-hotel'
+        'hotels',
+        'about-hotel',
+        'offers',
       ],
       'hotels': [
         'hotels'
@@ -1059,8 +1061,8 @@ angular.module('mobiusApp.config', [])
         'showRegionDescription': false,
         'showLocationDescription': true,
         'displayHotelRegionName': true,
-        'displayMap': true,
-        'displayHotelsCount': true,
+        'displayMap': false,
+        'displayHotelsCount': false,
         'defaultViewMode': 'list',
         'displayCompare': true,
         'bookingStatistics':{
@@ -1100,7 +1102,7 @@ angular.module('mobiusApp.config', [])
         'displayPointsWithUsername': true
       },
       'breadcrumbsBar':{
-        'displayBreadcrumbs': true,
+        'displayBreadcrumbs': false,
         'displayPropertyTitle': true,
         'displayStaticContent': false,
         'propertyHotDealsShowTitle': true
